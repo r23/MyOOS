@@ -29,10 +29,9 @@ if (!$oEvent->installed_plugin('reviews')) {
     oos_redirect(oos_href_link($aContents['home']));
 }
 
-if (isset($_GET['products_id'])) {
-    if (!isset($nProductsID)) {
-        $nProductsID = oos_get_product_id($_GET['products_id']);
-    }
+if (!isset($nProductsID)) {
+	$products_id = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
+	$nProductsID = oos_get_product_id($products_id);
 } else {
     oos_redirect(oos_href_link($aContents['reviews']));
 }

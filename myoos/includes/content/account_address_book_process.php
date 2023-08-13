@@ -80,35 +80,27 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['actio
     }
 
     if (ACCOUNT_GENDER == 'true') {
-        if (isset($_POST['gender'])) {
-            $gender = oos_db_prepare_input($_POST['gender']);
-        } else {
-            $gender = false;
-        }
+        $gender = filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING);
     }
-    $firstname = oos_db_prepare_input($_POST['firstname']);
-    $lastname = oos_db_prepare_input($_POST['lastname']);
+	$firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
+	$lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
     if (ACCOUNT_COMPANY == 'true') {
-        $company = oos_db_prepare_input($_POST['company']);
+		$company = filter_input(INPUT_POST, 'company', FILTER_SANITIZE_STRING);
     }
     if (ACCOUNT_OWNER == 'true') {
-        $owner = oos_db_prepare_input($_POST['owner']);
+		$owner = filter_input(INPUT_POST, 'owner', FILTER_SANITIZE_STRING);
     }
     if (ACCOUNT_VAT_ID == 'true') {
-        $vat_id = oos_db_prepare_input($_POST['vat_id']);
+		$vat_id = filter_input(INPUT_POST, 'vat_id', FILTER_SANITIZE_STRING);
     }
-    $street_address = oos_db_prepare_input($_POST['street_address']);
-    $postcode = oos_db_prepare_input($_POST['postcode']);
-    $city = oos_db_prepare_input($_POST['city']);
+    $street_address = filter_input(INPUT_POST, 'street_address', FILTER_SANITIZE_STRING);
+    $postcode = filter_input(INPUT_POST, 'postcode', FILTER_SANITIZE_STRING);
+    $city = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_STRING);	
     if (ACCOUNT_STATE == 'true') {
-        $state = oos_db_prepare_input($_POST['state']);
-        if (isset($_POST['zone_id'])) {
-            $zone_id = oos_db_prepare_input($_POST['zone_id']);
-        } else {
-            $zone_id = false;
-        }
+		$state = filter_input(INPUT_POST, 'state', FILTER_SANITIZE_STRING);
+		$zone_id = filter_input(INPUT_POST, 'zone_id', FILTER_SANITIZE_STRING);
     }
-    $country = oos_db_prepare_input($_POST['country']);
+	$country = filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING);
 
     $firstname = oos_remove_shouting($firstname, true);
     $lastname = oos_remove_shouting_name($lastname, true);

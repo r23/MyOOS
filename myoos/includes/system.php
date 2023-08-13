@@ -55,9 +55,8 @@ $sManufacturersCacheID = $sTheme . '|block|manufacturers|' . $sLanguage . '|' . 
 $sManufacturersInfoCacheID = $sTheme . '|block|manufacturer_info|' . $sLanguage . '|' . $nManufacturersID;
 
 if (isset($_GET['products_id'])) {
-    if (!isset($nProductsID)) {
-        $nProductsID = oos_get_product_id($_GET['products_id']);
-    }
+	$products_id = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
+	$nProductsID = oos_get_product_id($products_id);
     $sManufacturersInfoCacheID = $sTheme . '|block|manufacturer_info|' . $sLanguage . '|' . intval($nProductsID);
     $sProductsInfoCacheID = $sTheme . '|products_info|' . $sLanguage . '|' . intval($nProductsID);
     $sXsellProductsCacheID = $sTheme . '|block|products|' . $sLanguage . '|' . intval($nProductsID);

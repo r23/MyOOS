@@ -561,7 +561,7 @@ case 'wishlist_add_product':
         }
 
         if ($oMessage->size('danger') == 0) {
-            $nPage = (isset($_POST['page']) ? intval($_POST['page']) : 1);
+			$nPage = filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT) ?: 1;
             oos_redirect(oos_href_link($aContents['account_wishlist'], 'page=' . $nPage));
         } else {
             oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $sProductsId));

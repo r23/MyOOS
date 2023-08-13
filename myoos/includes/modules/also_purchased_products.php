@@ -29,7 +29,8 @@ $aPurchased = [];
 
 if (isset($_GET['products_id']) && is_numeric(MAX_DISPLAY_ALSO_PURCHASED)) {
     if (!isset($nProductsID)) {
-        $nProductsID = oos_get_product_id($_GET['products_id']);
+		$products_id = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
+		$nProductsID = oos_get_product_id($products_id);
     }
 
     $orders_productstable = $oostable['orders_products'];

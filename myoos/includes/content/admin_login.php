@@ -100,9 +100,9 @@ if (isset($_SESSION['customer_id'])) {
 if (isset($_POST['action']) && ($_POST['action'] == 'login_process')
     && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
 ) {
-    $email_address = oos_db_prepare_input($_POST['email_address']);
-    $keya = oos_db_prepare_input($_POST['keya']);
-    $keyb = oos_db_prepare_input($_POST['keyb']);
+    $email_address = filter_input(INPUT_POST, 'email_address', FILTER_VALIDATE_EMAIL);
+	$keya = filter_input(INPUT_POST, 'keya', FILTER_SANITIZE_STRING);
+	$keyb = filter_input(INPUT_POST, 'keyb', FILTER_SANITIZE_STRING);
 
     if (empty($email_address) || !is_string($email_address)) {
         oos_redirect(oos_href_link($aContents['403']));
@@ -229,8 +229,8 @@ $smarty->assign(
 
 
 if (isset($_GET['action']) && ($_GET['action'] == 'login_admin')) {
-    $email_address = oos_db_prepare_input($_POST['email_address']);
-    $verif_key = oos_db_prepare_input($_POST['verif_key']);
+    $email_address = filter_input(INPUT_POST, 'email_address', FILTER_VALIDATE_EMAIL);
+	$verif_key = filter_input(INPUT_POST, 'verif_key', FILTER_SANITIZE_STRING);
 
     if (empty($email_address) || !is_string($email_address)) {
         oos_redirect(oos_href_link($aContents['403']));

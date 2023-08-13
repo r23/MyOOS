@@ -90,7 +90,8 @@ class order_total
                     $GLOBALS[$class]->output = [];
                     $GLOBALS[$class]->shopping_cart_process();
 
-                    for ($i=0, $n=sizeof($GLOBALS[$class]->output); $i<$n; $i++) {
+                    $size = count($GLOBALS[$class]->output);
+                    for ($i=0, $n=$size; $i<$n; $i++) {
                         if (oos_is_not_null($GLOBALS[$class]->output[$i]['title']) && oos_is_not_null($GLOBALS[$class]->output[$i]['text'])) {
                             $order_total_array[] = ['code' => $GLOBALS[$class]->code,
                                                         'title' => $GLOBALS[$class]->output[$i]['title'],
@@ -229,8 +230,9 @@ class order_total
                 $class = substr($value, 0, strrpos($value, '.'));
                 if (($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class)) {
                     $post_var = 'c' . $GLOBALS[$class]->code;
+                    $post_var = filter_var($post_var, FILTER_SANITIZE_STRING);
                     if ($_POST[$post_var]) {
-                        $_SESSION[$post_var] = oos_var_prep_for_os($_POST[$post_var]);
+                        $_SESSION[$post_var] = filter_input(INPUT_POST, $post_var, FILTER_SANITIZE_STRING);
                     }
                     $GLOBALS[$class]->collect_posts();
                 }
@@ -254,8 +256,9 @@ class order_total
                 $class = substr($value, 0, strrpos($value, '.'));
                 if (($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class)) {
                     $post_var = 'c' . $GLOBALS[$class]->code;
+                    $post_var = filter_var($post_var, FILTER_SANITIZE_STRING);
                     if ($_POST[$post_var]) {
-                        $_SESSION[$post_var] = oos_var_prep_for_os($_POST[$post_var]);
+                        $_SESSION[$post_var] = filter_input(INPUT_POST, $post_var, FILTER_SANITIZE_STRING);
                     }
                     $GLOBALS[$class]->shopping_cart_collect_posts();
                 }
