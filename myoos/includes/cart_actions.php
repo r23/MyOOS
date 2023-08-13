@@ -26,9 +26,9 @@
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 if (isset($_GET['action'])) {
-    $action = oos_var_prep_for_os($_GET['action']);
+	$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 } elseif (isset($_POST['action'])) {
-    $action = oos_var_prep_for_os($_POST['action']);
+	$action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
 }
 
 

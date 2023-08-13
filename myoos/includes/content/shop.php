@@ -243,8 +243,8 @@ if ($category_depth == 'nested') {
 
     $nManufacturersID = (isset($_GET['manufacturers_id']) ? intval($_GET['manufacturers_id']) : 0);
     $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
-    $nFilterID = (isset($_GET['filter_id']) ? intval($_GET['filter_id']) : 0);
-    $sSort = (isset($_GET['sort']) ? oos_var_prep_for_os($_GET['sort']) : '');
+	$nFilterID = filter_input(INPUT_GET, 'filter_id', FILTER_VALIDATE_INT) ?: 0;
+	$sSort = filter_input(INPUT_GET, 'sort', FILTER_SANITIZE_STRING); 
 
     $sGroup = trim((string) $aUser['text']);
     $sContentCacheID = $sTheme . '|shop|products|' . intval($nCurrentCategoryID) . '|' . $sCategory . '|' . $nManufacturersID . '|' . $nPage . '|' . $nFilterID . '|' . $sGroup . '|' . $sLanguage;

@@ -314,14 +314,14 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['actio
 }
 
 if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
-    $entry_id = oos_db_prepare_input($_GET['edit']);
+	$entry_id = filter_input(INPUT_GET, 'edit', FILTER_VALIDATE_INT);
     $address_booktable = $oostable['address_book'];
     $address_sql = "SELECT entry_gender, entry_company, entry_owner, entry_vat_id, entry_vat_id_status,
 						entry_firstname, entry_lastname, entry_street_address, entry_postcode, entry_city,
 						entry_state, entry_zone_id, entry_country_id				   
 					FROM $address_booktable
 					WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'
-					AND address_book_id = '" . intval($_GET['edit']) . "'";
+					AND address_book_id = '" . intval($entry_id) . "'";
     $entry_result = $dbconn->Execute($address_sql);
 
     if (!$entry_result->RecordCount()) {
@@ -332,9 +332,8 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
 
     $entry = $entry_result->fields;
 } elseif (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
-    $entry_id = oos_db_prepare_input($_GET['delete']);
-
-    if ($delete == $_SESSION['customer_default_address_id']) {
+	$entry_id = filter_input(INPUT_GET, 'delete', FILTER_VALIDATE_INT);
+    if ($entry_id == $_SESSION['customer_default_address_id']) {
         $oMessage->add_session('warning', $aLang['warning_primary_address_deletion']);
 
         oos_redirect(oos_href_link($aContents['account_address_book']));
@@ -360,9 +359,8 @@ if (!isset($_GET['delete']) && !isset($_GET['edit'])) {
         oos_redirect(oos_href_link($aContents['account_address_book']));
     }
 }
-if (isset($_GET['entry_id']) && is_numeric($_GET['entry_id'])) {
-    $entry_id = oos_db_prepare_input($_GET['entry_id']);
-}
+
+$entry_id = filter_input(INPUT_GET, 'entry_id', FILTER_VALIDATE_INT);
 $back_link = oos_href_link($aContents['account_address_book']);
 
 // links breadcrumb
@@ -370,9 +368,11 @@ $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'])
 $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_address_book']));
 
 if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
-    $oBreadcrumb->add($aLang['navbar_title_modify_entry'], oos_href_link($aContents['account_address_book_process'], 'edit=' . intval($_GET['edit'])));
+	$entry_id = filter_input(INPUT_GET, 'entry_id', FILTER_VALIDATE_INT);
+    $oBreadcrumb->add($aLang['navbar_title_modify_entry'], oos_href_link($aContents['account_address_book_process'], 'edit=' . intval($entry_id)));
 } elseif (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
-    $oBreadcrumb->add($aLang['navbar_title_delete_entry'], oos_href_link($aContents['account_address_book_process'], 'delete=' . intval($_GET['delete'])));
+	$delete = filter_input(INPUT_GET, 'delete', FILTER_VALIDATE_INT);
+    $oBreadcrumb->add($aLang['navbar_title_delete_entry'], oos_href_link($aContents['account_address_book_process'], 'delete=' . intval($delete)));
 } else {
     $oBreadcrumb->add($aLang['navbar_title_add_entry'], oos_href_link($aContents['account_address_book_process']));
 }

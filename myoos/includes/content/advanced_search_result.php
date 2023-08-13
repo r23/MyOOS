@@ -29,31 +29,39 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_search.php';
 require 'includes/languages/' . $sLanguage . '/search_advanced_result.php';
 
 $get_parameters = '';
-$keywords = isset($_GET['keywords']) && !empty($_GET['keywords']) ? stripslashes(trim(urldecode($_GET['keywords']))) : false;
+$keywords = filter_input(INPUT_GET, 'keywords', FILTER_SANITIZE_STRING);
 $get_parameters .= '&keywords=' . $keywords;
 
-$search_in_description = isset($_GET['search_in_description']) && is_numeric($_GET['search_in_description']) ? (int)$_GET['search_in_description'] : 0;
+
+$search_in_description = filter_input(INPUT_GET, 'search_in_description', FILTER_VALIDATE_INT) ?: 0; 
 $get_parameters .= '&search_in_description=' . $search_in_description;
 
-$categories_id = isset($_GET['categories_id']) && is_numeric($_GET['categories_id']) ? (int)$_GET['categories_id'] : false;
+
+$categories_id = filter_input(INPUT_GET, 'categories_id', FILTER_VALIDATE_INT);
 $get_parameters .= '&categories_id=' . $categories_id;
 
-$inc_subcat = isset($_GET['inc_subcat']) && is_numeric($_GET['inc_subcat']) ? (int)$_GET['inc_subcat'] : 0;
+
+$inc_subcat = filter_input(INPUT_GET, 'inc_subcat', FILTER_VALIDATE_INT) ?: 0; 
 $get_parameters .= '&inc_subcat=' . $inc_subcat;
 
-$manufacturers_id  = isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id']) ? (int)$_GET['manufacturers_id'] : false;
+
+$manufacturers_id = filter_input(INPUT_GET, 'manufacturers_id', FILTER_VALIDATE_INT);
 $get_parameters .= '&manufacturers_id=' . $manufacturers_id;
 
-$pfrom = isset($_GET['pfrom']) && !empty($_GET['pfrom']) ? stripslashes($_GET['pfrom']) : false;
+
+$pfrom = filter_input(INPUT_GET, 'pfrom', FILTER_SANITIZE_STRING);
 $get_parameters .= '&pfrom=' . $pfrom;
 
-$pto = isset($_GET['pto']) && !empty($_GET['pto']) ? stripslashes($_GET['pto']) : false;
+
+$pto = filter_input(INPUT_GET, 'pto', FILTER_SANITIZE_STRING);
 $get_parameters .= '&pto=' . $pto;
 
-$dfrom = isset($_GET['dfrom']) && !empty($_GET['dfrom']) ? stripslashes($_GET['dfrom']) : false;
+
+$dfrom = filter_input(INPUT_GET, 'dfrom', FILTER_SANITIZE_STRING);
 $get_parameters .= '&dfrom=' . $dfrom;
 
-$dto = isset($_GET['dto']) && !empty($_GET['dto']) ? stripslashes($_GET['dto']) : false;
+
+$dto = filter_input(INPUT_GET, 'dto', FILTER_SANITIZE_STRING);
 $get_parameters .= '&dto=' . $dto;
 
 

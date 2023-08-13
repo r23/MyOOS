@@ -52,14 +52,16 @@ if (!isset($_GET['order_id'])) {
 }
 
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
+$order_id = filter_input(INPUT_GET, 'order_id', FILTER_VALIDATE_INT);
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_history_info.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 
+
 $orderstable = $oostable['orders'];
 $sql = "SELECT customers_id
           FROM $orderstable
-          WHERE orders_id = '" . intval($_GET['order_id']) . "'";
+          WHERE orders_id = '" . intval($order_id) . "'";
 $customer_number = $dbconn->GetOne($sql);
 
 if ($customer_number != $_SESSION['customer_id']) {
@@ -69,10 +71,10 @@ if ($customer_number != $_SESSION['customer_id']) {
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account']));
 $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_history'], 'page=' . $nPage));
-$oBreadcrumb->add($aLang['navbar_title_3'], oos_href_link($aContents['account_history_info'], 'order_id=' . intval($_GET['order_id'])));
+$oBreadcrumb->add($aLang['navbar_title_3'], oos_href_link($aContents['account_history_info'], 'order_id=' . intval($order_id )));
 
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
-$oOrder = new order($_GET['order_id']);
+$oOrder = new order($order_id);
 
 $aTemplate['page'] = $sTheme . '/page/account_history_info.html';
 
@@ -108,7 +110,7 @@ $orders_status_historytable = $oostable['orders_status_history'];
 $sql = "SELECT os.orders_status_name, osh.date_added, osh.comments
           FROM $orders_statustable os,
                $orders_status_historytable osh
-          WHERE osh.orders_id = '" . intval($_GET['order_id']) . "'
+          WHERE osh.orders_id = '" . intval($order_id) . "'
             AND osh.orders_status_id = os.orders_status_id
             AND os.orders_languages_id = '" . intval($nLanguageID) . "'
           ORDER BY osh.date_added";
