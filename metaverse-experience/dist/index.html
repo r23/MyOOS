@@ -10,14 +10,13 @@
 					  
 			<a-assets>
 			  <img id="skyTexture" src="texture/kloofendal_43d_clear_puresky.jpg">
-			  <a-asset-item id="floor" src="model/floor.glb"></a-asset-item>
+
 			</a-assets>
 			<a-sky src="#skyTexture"></a-sky>			
 		  
 			<a-entity gltf-model="model/hall.glb" scale="1 1 1" position="-5 0 -10" rotation="0 -45 0"></a-entity>
 		  
-			<a-entity gltf-model="#floor" position="0 0 0" rotation="0 -45 0"></a-entity>
-		  
+	  
 		
 			<!-- camera rig -->
 			<a-entity id="cameraRig" movement-controls kinematic-body>
