@@ -30,7 +30,7 @@ $aTemplate['page'] = $sTheme . '/page/information.html';
 $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-$nInformationsID = isset($_GET['information_id']) ? $_GET['information_id']+0 : 1;
+$nInformationsID = filter_input(INPUT_GET, 'information_id', FILTER_VALIDATE_INT) ?: 1;
 $sGroup = trim((string) $aUser['text']);
 $nContentCacheID = $sTheme . '|info|' . $sGroup . '|information|' . $nInformationsID . '|' . $sLanguage;
 

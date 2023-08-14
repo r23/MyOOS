@@ -29,7 +29,7 @@ switch ($_GET['action']) {
 
 case 'url':
     if (isset($_GET['goto']) && oos_is_not_null($_GET['goto'])) {
-        $sgoto = oos_prepare_input($_GET['goto']);
+        $sgoto = filter_input(INPUT_GET, 'goto', FILTER_SANITIZE_STRING);
 
         if (empty($sgoto) || !is_string($sgoto)) {
             oos_redirect(oos_href_link($aContents['403']));
@@ -48,7 +48,7 @@ case 'url':
 
 case 'manufacturer':
     if (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
-        $manufacturers_id = intval($_GET['manufacturers_id']);
+        $manufacturers_id = filter_input(INPUT_GET, 'manufacturers_id', FILTER_VALIDATE_INT);
 
         $manufacturers_infotable = $oostable['manufacturers_info'];
         $sql = "SELECT manufacturers_url

@@ -49,7 +49,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_red
 $bError = true;
 // check for a voucher number in the url
 if ((isset($_GET['gv_no']) && !empty($_GET['gv_no']))) {
-    $gv_no = oos_db_prepare_input($_GET['gv_no']);
+    $gv_no = filter_input(INPUT_GET, 'gv_no', FILTER_SANITIZE_STRING);
 
     if (empty($gv_no) || !is_string($gv_no)) {
         oos_redirect(oos_href_link($aContents['403']));

@@ -285,12 +285,10 @@ case 'buy_now':
             $oMessage->add_session('danger', $aLang['error_product_information_used_goods']);
         } else {
             if (isset($_GET['cart_quantity']) && is_numeric($_GET['cart_quantity'])) {
-                $cart_quantity = oos_prepare_input($_GET['cart_quantity']);
+                $cart_quantity = filter_input(INPUT_GET, 'cart_quantity', FILTER_VALIDATE_INT) ?: 1;
             } elseif (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
-                $cart_quantity = oos_prepare_input($_POST['cart_quantity']);
-            } else {
-                $cart_quantity = 1;
-            }
+                $cart_quantity = filter_input(INPUT_POST, 'cart_quantity', FILTER_VALIDATE_INT) ?: 1;
+            } 
 
             $cart_qty = $_SESSION['cart']->get_quantity($sProductsId);
             $news_qty = $cart_qty + $cart_quantity;

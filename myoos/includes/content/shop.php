@@ -241,7 +241,7 @@ if ($category_depth == 'nested') {
     $og_image = isset($category['categories_image']) ? OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'category/large/' . $category['categories_image'] : '';
 
 
-    $nManufacturersID = (isset($_GET['manufacturers_id']) ? intval($_GET['manufacturers_id']) : 0);
+    $nManufacturersID = filter_input(INPUT_GET, 'manufacturers_id', FILTER_VALIDATE_INT);
     $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 	$nFilterID = filter_input(INPUT_GET, 'filter_id', FILTER_VALIDATE_INT) ?: 0;
 	$sSort = filter_input(INPUT_GET, 'sort', FILTER_SANITIZE_STRING); 
@@ -536,7 +536,7 @@ if ($category_depth == 'nested') {
         if ($filterlist_result->RecordCount() > 1) {
             $product_filter_select .= '<form><div class="justify-content-center">' . $aLang['text_show'] . '<select size="1" onChange="if(options[selectedIndex].value) window.location.href=(options[selectedIndex].value)">';
             if (isset($_GET['manufacturers_id']) && !empty($_GET['manufacturers_id'])) {
-                $manufacturers_id = intval($_GET['manufacturers_id']);
+                $manufacturers_id = filter_input(INPUT_GET, 'manufacturers_id', FILTER_VALIDATE_INT);
                 $arguments = 'manufacturers_id=' . intval($manufacturers_id);
             } else {
                 $arguments = 'category=' . $sCategory;

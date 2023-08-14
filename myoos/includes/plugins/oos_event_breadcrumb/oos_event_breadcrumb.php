@@ -91,7 +91,7 @@ class oos_event_breadcrumb
                 }
             }
         } elseif (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
-            $manufacturers_id = intval($_GET['manufacturers_id']);
+            $manufacturers_id = filter_input(INPUT_GET, 'manufacturers_id', FILTER_VALIDATE_INT);
             $manufacturerstable = $oostable['manufacturers'];
             $manufacturers_sql = "SELECT manufacturers_name
                               FROM $manufacturerstable
