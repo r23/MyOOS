@@ -252,8 +252,8 @@ case 'cart_delete':
     }
     if (isset($_SESSION['cart']) && ($_SESSION['cart']->count_contents() > 0)) {
         if (isset($_GET['products_id']) && is_string($_GET['products_id'])) {
-			$sProductsId  = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
-            $_SESSION['cart']->remove($sProductsId));
+            $sProductsId  = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
+            $_SESSION['cart']->remove($sProductsId);
         }
     }
     oos_redirect(oos_href_link($aContents['shopping_cart']));
