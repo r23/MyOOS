@@ -27,7 +27,7 @@ $aTemplate['page'] = $sTheme . '/page/help.html';
 $text_coupon_help = $aLang['text_coupon_help_header'];
 
 if (isset($_GET['cID'])) {
-    $cid = intval($_GET['cID']);
+    $cid = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
 
     $couponstable = $oostable['coupons'];
     $sql = "SELECT coupon_amount, coupon_type, coupon_amount, coupon_minimum_order,

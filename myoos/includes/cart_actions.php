@@ -252,7 +252,8 @@ case 'cart_delete':
     }
     if (isset($_SESSION['cart']) && ($_SESSION['cart']->count_contents() > 0)) {
         if (isset($_GET['products_id']) && is_string($_GET['products_id'])) {
-            $_SESSION['cart']->remove(oos_var_prep_for_os($_GET['products_id']));
+			$sProductsId  = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
+            $_SESSION['cart']->remove($sProductsId));
         }
     }
     oos_redirect(oos_href_link($aContents['shopping_cart']));
@@ -270,7 +271,7 @@ case 'buy_now':
     }
 
     if (isset($_GET['products_id']) || isset($_POST['products_id'])) {
-        $sProductsId  = oos_prepare_input($_GET['products_id']) ?? oos_prepare_input($_POST['products_id']);
+        $sProductsId  = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'products_id', FILTER_SANITIZE_STRING);
 
         if (empty($sProductsId) || !is_string($sProductsId)) {
             oos_redirect(oos_href_link($aContents['403']));
@@ -329,7 +330,7 @@ case 'buy_slave':
     }
 
     if (isset($_GET['slave_id']) || isset($_POST['slave_id'])) {
-        $slave_id  = oos_prepare_input($_GET['slave_id']) ?? oos_prepare_input($_POST['slave_id']);
+        $slave_id  = filter_input(INPUT_GET, 'slave_id', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'slave_id', FILTER_SANITIZE_STRING);
 
         if (empty($slave_id) || !is_string($slave_id)) {
             oos_redirect(oos_href_link($aContents['403']));
@@ -369,11 +370,11 @@ case 'buy_slave':
 case 'notify':
     if (isset($_SESSION['customer_id'])) {
         if (isset($_GET['products_id'])) {
-            $notify = oos_var_prep_for_os($_GET['products_id']);
+            $notify = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
         } elseif (isset($_GET['notify'])) {
-            $notify = oos_var_prep_for_os($_GET['notify']);
+            $notify = filter_input(INPUT_GET, 'notify', FILTER_SANITIZE_STRING);
         } elseif (isset($_POST['notify'])) {
-            $notify = oos_var_prep_for_os($_POST['notify']);
+            $notify = filter_input(INPUT_POST, 'notify', FILTER_SANITIZE_STRING);
         } else {
             oos_redirect(oos_href_link($sContent, oos_get_all_get_parameters(array('action', 'notify'))));
         }
@@ -418,9 +419,8 @@ case 'notify_remove':
 
     $products_notificationstable = $oostable['products_notifications'];
     if (isset($_SESSION['customer_id']) && isset($_GET['products_id'])) {
-        if (!isset($nProductsID)) {
-            $nProductsID = oos_get_product_id($_GET['products_id']);
-        }
+		$sProductsId  = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
+        $nProductsID = oos_get_product_id($sProductsId);
 
         $check_sql = "SELECT COUNT(*) AS total
                       FROM $products_notificationstable
@@ -444,17 +444,17 @@ case 'notify_remove':
 
 case 'remove_wishlist':
     if (isset($_SESSION['customer_id']) && isset($_GET['pid'])) {
+		$pid  = filter_input(INPUT_GET, 'pid', FILTER_SANITIZE_STRING);
         $customers_wishlisttable = $oostable['customers_wishlist'];
-        $dbconn->Execute("DELETE FROM $customers_wishlisttable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($_GET['pid']) . "'");
+        $dbconn->Execute("DELETE FROM $customers_wishlisttable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($pid) . "'");
 
         $customers_wishlist_attributestable = $oostable['customers_wishlist_attributes'];
-        $dbconn->Execute("DELETE FROM $customers_wishlist_attributestable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($_GET['pid']) . "'");
+        $dbconn->Execute("DELETE FROM $customers_wishlist_attributestable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($pid) . "'");
     }
     break;
 
 case 'add_wishlist':
     if (isset($_GET['products_id'])) {
-        $sProductsId  = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
 		$sProductsId  = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
         $wishlist_products_id = oos_get_product_id($sProductsId);
         $attributes = oos_get_attributes($sProductsId);
@@ -525,14 +525,10 @@ case 'wishlist_add_product':
     }
 
 
-    if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
-        $cart_quantity = oos_prepare_input($_POST['cart_quantity']);
-    } else {
-        $cart_quantity = 1;
-    }
+	$cart_quantity = filter_input(INPUT_POST, 'cart_quantity', FILTER_VALIDATE_INT) ?: 1;
 
     if (isset($_POST['products_id'])) {
-        $sProductsId  = oos_prepare_input($_POST['products_id']);
+		$sProductsId  = filter_input(INPUT_POST, 'products_id', FILTER_SANITIZE_STRING);
 
         if (empty($sProductsId) || !is_string($sProductsId)) {
             oos_redirect(oos_href_link($aContents['403']));

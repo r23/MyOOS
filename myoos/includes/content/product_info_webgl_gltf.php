@@ -25,9 +25,7 @@
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 if (isset($_GET['models_id'])) {
-    if (!isset($nModelsID)) {
-        $nModelsID = intval($_GET['models_id']);
-    }
+    $nModelsID = filter_input(INPUT_GET, 'models_id', FILTER_VALIDATE_INT);
 } else {
     oos_redirect(oos_href_link($aContents['home']));
 }

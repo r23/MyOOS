@@ -33,6 +33,8 @@ if (!isset($_GET['reviews_id'])) {
     oos_redirect(oos_href_link($aContents['reviews']));
 }
 
+$reviews_id = filter_input(INPUT_GET, 'reviews_id', FILTER_VALIDATE_INT);
+
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews_product_info.php';
 
 $reviewstable = $oostable['reviews'];
@@ -46,7 +48,7 @@ $sql = "SELECT rd.reviews_headline, rd.reviews_text, r.reviews_rating, r.reviews
                $reviews_descriptiontable rd,
                $productstable p,
                $products_descriptiontable pd
-          WHERE r.reviews_id = '" . intval($_GET['reviews_id']) . "'
+          WHERE r.reviews_id = '" . intval($reviews_id) . "'
             AND r.reviews_id = rd.reviews_id
             AND rd.reviews_languages_id = '" . intval($nLanguageID) . "'
             AND r.products_id = p.products_id

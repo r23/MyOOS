@@ -18,9 +18,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 
 
 if (isset($_GET['panorama_id'])) {
-    if (!isset($nPanoramaID)) {
-        $nPanoramaID = intval($_GET['panorama_id']);
-    }
+    $nPanoramaID = filter_input(INPUT_GET, 'panorama_id', FILTER_VALIDATE_INT);
 } else {
     oos_redirect(oos_href_link($aContents['home']));
 }

@@ -85,7 +85,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
 }
 
 
-$startD = (!isset($_GET['startD']) || !is_numeric($_GET['startD'])) ? 2 : intval($_GET['startD']);
+$startD = filter_input(INPUT_GET, 'startD', FILTER_VALIDATE_INT) ?: 2;
 $last_show_date = 0;
 
 $startDate_1 = mktime(0, 0, 0, date("m"), date("d")-30, date("Y"));
@@ -117,7 +117,7 @@ default:
 }
 
 $endDate = mktime(0, 0, 0, date("m"), date("d") + 1, date("Y"));
-$get_products_id = oos_var_prep_for_os($_GET['products_id']);
+$get_products_id = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
 
 
 // check start and end Date

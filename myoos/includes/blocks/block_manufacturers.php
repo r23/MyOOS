@@ -91,7 +91,8 @@ if ($nManufacturersRecordCount < 1) {
     );
 
     if (isset($_GET['manufacturers_id'])) {
-        $smarty->assign('select_manufacturers', intval($_GET['manufacturers_id']));
+		$manufacturers_id = filter_input(INPUT_GET, 'manufacturers_id', FILTER_VALIDATE_INT);
+        $smarty->assign('select_manufacturers', $manufacturers_id));
     }
 }
 
