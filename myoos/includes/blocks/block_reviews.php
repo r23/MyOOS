@@ -49,7 +49,8 @@ if ($sContent != $aContents['product_reviews_write']) {
                         AND pd.products_languages_id = '" . intval($nLanguageID) . "'";
     if (isset($_GET['products_id'])) {
         if (!isset($nProductsID)) {
-            $nProductsID = oos_get_product_id($_GET['products_id']);
+			$sProductsId  = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
+			$nProductsID = oos_get_product_id($sProductsId);
         }
         $random_select .= " AND p.products_id = '" . intval($nProductsID) . "'";
     }

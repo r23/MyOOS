@@ -54,7 +54,8 @@ if (($action == 'send_email_to_user') && ($_POST['customers_email_address']) && 
       break;
 */
     default:
-      $customers_email_address = oos_db_prepare_input($_POST['customers_email_address']);
+		$customers_email_address = filter_input(INPUT_POST, 'customers_email_address', FILTER_VALIDATE_EMAIL);
+
 
       $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address
                                   FROM " . $oostable['customers'] . "

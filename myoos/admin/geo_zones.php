@@ -50,9 +50,8 @@ function oosGetGeoZoneName($geo_zone_id)
     return $geo_zone_name;
 }
 
-
-$nsPage = (!isset($_GET['spage']) || !is_numeric($_GET['spage'])) ? 1 : intval($_GET['spage']);
-$nzPage = (!isset($_GET['zpage']) || !is_numeric($_GET['zpage'])) ? 1 : intval($_GET['zpage']);
+$nsPage = filter_input(INPUT_GET, 'spage', FILTER_VALIDATE_INT) ?: 1;
+$nzPage = filter_input(INPUT_GET, 'zpage', FILTER_VALIDATE_INT) ?: 1;
 
 $saction = (isset($_GET['saction']) ? $_GET['saction'] : '');
 

@@ -454,7 +454,8 @@ case 'remove_wishlist':
 
 case 'add_wishlist':
     if (isset($_GET['products_id'])) {
-        $sProductsId  = oos_prepare_input($_GET['products_id']);
+        $sProductsId  = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
+		$sProductsId  = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
         $wishlist_products_id = oos_get_product_id($sProductsId);
         $attributes = oos_get_attributes($sProductsId);
 

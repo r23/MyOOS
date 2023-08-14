@@ -559,10 +559,8 @@ $sCanonical = oos_href_link($aContents['create_account'], '', false, true);
 
 $snapshot = count($_SESSION['navigation']->snapshot);
 
+$email_address = filter_input(INPUT_GET, 'email_address', FILTER_VALIDATE_EMAIL);
 
-if (isset($_GET['email_address'])) {
-    $email_address = oos_db_prepare_input($_GET['email_address']);
-}
 $account['entry_country_id'] = STORE_COUNTRY;
 
 
