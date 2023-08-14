@@ -2,21 +2,18 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=no,maximum-scale=1">
 		<title>Web-Based Virtual Experiences in the Metaverse</title>
 		<script src="main.js"></script>
 	</head>
     <body>
-		<a-scene vr-mode-ui="enabled: true"> <!-- creates a UI element for the VR mode -->
-					  
+		<a-scene vr-mode-ui="enabled: true"> <!-- creates a UI element for the VR mode -->				  
 			<a-assets>
-			  <img id="skyTexture" src="texture/kloofendal_43d_clear_puresky.jpg">
-
+				<img id="skyTexture" src="texture/kloofendal_43d_clear_puresky.jpg">
+				<a-asset-item id="navmesh" src="model/hall-navmesh.glb"></a-asset-item>
+				<a-asset-item id="hall" src="model/hall.glb"></a-asset-item>
 			</a-assets>
 			<a-sky src="#skyTexture"></a-sky>			
-		  
-			<a-entity gltf-model="model/hall.glb" scale="1 1 1" position="-5 0 -10" rotation="0 -45 0"></a-entity>
-		  
-	  
 		
 			<!-- camera rig -->
 			<a-entity id="cameraRig" movement-controls kinematic-body>
@@ -30,7 +27,21 @@
 				<!-- hand controls -->
 				<a-entity id="left-hand" oculus-touch-controls="hand: left" blink-controls></a-entity>
 				<a-entity id="right-hand" oculus-touch-controls="hand: right"></a-entity>
+			</a-entity>
+			
+			<!-- Nav mesh. -->
+			<a-entity nav-mesh
+      		          normal-material
+      		          visible="false"
+      		          position="0 0 20"
+      		          gltf-model="#navmesh"></a-entity>
+
+			<!-- Scene. -->
+			<a-entity position="0 0 20"
+          		      scale="1 1 1"
+         	          gltf-model="#hall">
 			</a-entity>			
+
         </a-scene>			
 			
     </body>
