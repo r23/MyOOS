@@ -91,6 +91,8 @@ function oos_unlink_temp_dir($dir)
     closedir($h1);
 }
 
+$order = filter_input(INPUT_GET, 'order', FILTER_VALIDATE_INT);
+$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
 // Check that order_id, customer_id and filename match
    $sql = "SELECT date_format(o.date_purchased, '%Y-%m-%d') AS date_purchased_day, 
@@ -100,10 +102,10 @@ function oos_unlink_temp_dir($dir)
                 " . $oostable['orders_products'] . " op, 
                 " . $oostable['orders_products_download'] . " opd 
            WHERE o.customers_id = '" . intval($_SESSION['customer_id']) . "' 
-             AND o.orders_id = '" . intval($_GET['order']) . "' 
+             AND o.orders_id = '" . intval($order) . "' 
              AND o.orders_id = op.orders_id 
              AND op.orders_products_id = opd.orders_products_id 
-             AND opd.orders_products_download_id = '" . intval($_GET['id']) . "' 
+             AND opd.orders_products_download_id = '" . intval($id) . "' 
              AND opd.orders_products_filename != ''";
   $downloads_result = $dbconn->Execute($sql);
 if (!$downloads_result->RecordCount()) {

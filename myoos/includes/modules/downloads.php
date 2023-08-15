@@ -36,7 +36,7 @@ if (oos_var_prep_for_os($sContent) != $aContents['account_history_info']) {
     $orders = $orders_result->fields;
     $last_order = $orders['orders_id'];
 } else {
-    $last_order = oos_var_prep_for_os($_GET['order_id']);
+    $last_order = filter_input(INPUT_GET, 'order_id', FILTER_SANITIZE_STRING);
 }
 
 // Now get all downloadable products in that order

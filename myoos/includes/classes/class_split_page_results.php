@@ -51,16 +51,16 @@ class splitPageResults
         $this->page_name = $page_holder;
 
         if (isset($_GET[$page_holder])) {
-            $page = $_GET[$page_holder];
+            $page = filter_input(INPUT_GET, $page_holder, FILTER_VALIDATE_INT);
         } elseif (isset($_POST[$page_holder])) {
-            $page = $_POST[$page_holder];
-        } else {
-            $page = 1;
-        }
+            $$page = filter_input(INPUT_POST, $page_holder, FILTER_VALIDATE_INT);
+        } 
 
-        if (empty($page) || !is_numeric($page) || $page < 0) {
+        if ($page === null || $page === false) {
             $page = 1;
         }
+        
+
         $this->current_page_number = $page;
 
         $this->number_of_rows_per_page = $max_rows;

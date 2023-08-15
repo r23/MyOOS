@@ -197,7 +197,7 @@ if ((!isset($_SESSION['currency']) || isset($_GET['currency'])) && $bNecessary =
             $session->start();
         }
 
-        $sCurrency = oos_var_prep_for_os($_GET['currency']);
+        $sCurrency = filter_input(INPUT_GET, 'currency', FILTER_SANITIZE_STRING);
     }
 
     if (isset($_SESSION)) {
@@ -214,7 +214,7 @@ $sContent = $_GET['content'] ?? $_POST['content'] ?? $aContents['home'];
 if (empty($sContent) || !is_string($sContent)) {
     $sContent = $aContents['home'];
 }
-$sContent = oos_var_prep_for_os($sContent);
+$sContent = filter_var($sContent, FILTER_SANITIZE_STRING);
 
 
 if ($session->hasStarted() === true) {

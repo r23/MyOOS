@@ -46,17 +46,14 @@ $sCategoriesCacheID    = $sTheme . '|block|categories|' . $sLanguage . '|' . $sC
 $sModulesCacheID    = $sTheme . '|modules|' . $sLanguage . '|' . $sCurrency;
 
 
-if (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
-    $nManufacturersID = intval($_GET['manufacturers_id']);
-} else {
-    $nManufacturersID = 0;
-}
+$nManufacturersID = filter_input(INPUT_GET, 'manufacturers_id', FILTER_VALIDATE_INT) ?: 0; 
+
 $sManufacturersCacheID = $sTheme . '|block|manufacturers|' . $sLanguage . '|' . $nManufacturersID;
 $sManufacturersInfoCacheID = $sTheme . '|block|manufacturer_info|' . $sLanguage . '|' . $nManufacturersID;
 
 if (isset($_GET['products_id'])) {
-	$products_id = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
-	$nProductsID = oos_get_product_id($products_id);
+	$sProductsId = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
+	$nProductsID = oos_get_product_id($sProductsId);
     $sManufacturersInfoCacheID = $sTheme . '|block|manufacturer_info|' . $sLanguage . '|' . intval($nProductsID);
     $sProductsInfoCacheID = $sTheme . '|products_info|' . $sLanguage . '|' . intval($nProductsID);
     $sXsellProductsCacheID = $sTheme . '|block|products|' . $sLanguage . '|' . intval($nProductsID);
