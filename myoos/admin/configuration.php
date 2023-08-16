@@ -22,7 +22,7 @@ define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
 require 'includes/functions/function_modules.php';
-$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+$action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 $cID = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT) ?: 0; 
 
 if (!empty($action)) {

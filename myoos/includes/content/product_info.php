@@ -35,7 +35,7 @@ use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
 use Endroid\QrCode\Writer\PngWriter;
 
 if (!isset($nProductsID)) {
-	$products_id = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
+	$products_id = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
 	$nProductsID = oos_get_product_id($products_id);
 } else {
     oos_redirect(oos_href_link($aContents['home']));

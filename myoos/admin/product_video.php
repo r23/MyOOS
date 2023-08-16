@@ -26,7 +26,7 @@ require 'includes/main.php';
 
 require 'includes/functions/function_categories.php';
 
-$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+$action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
 $pID = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT) ?: 0;
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;

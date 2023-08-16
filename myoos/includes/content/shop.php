@@ -244,7 +244,7 @@ if ($category_depth == 'nested') {
     $nManufacturersID = filter_input(INPUT_GET, 'manufacturers_id', FILTER_VALIDATE_INT);
     $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 	$nFilterID = filter_input(INPUT_GET, 'filter_id', FILTER_VALIDATE_INT) ?: 0;
-	$sSort = filter_input(INPUT_GET, 'sort', FILTER_SANITIZE_STRING); 
+	$sSort = filter_string_polyfill(filter_input(INPUT_GET, 'sort')); 
 
     $sGroup = trim((string) $aUser['text']);
     $sContentCacheID = $sTheme . '|shop|products|' . intval($nCurrentCategoryID) . '|' . $sCategory . '|' . $nManufacturersID . '|' . $nPage . '|' . $nFilterID . '|' . $sGroup . '|' . $sLanguage;

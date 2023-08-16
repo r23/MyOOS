@@ -25,7 +25,7 @@ require 'includes/main.php';
 $current_boxes = OOS_ABSOLUTE_PATH . 'admin/includes/boxes/';
 
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
-$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+$action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
 if (!empty($action)) {
       switch ($action) {

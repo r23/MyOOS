@@ -101,8 +101,8 @@ if (isset($_POST['action']) && ($_POST['action'] == 'login_process')
     && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
 ) {
     $email_address = filter_input(INPUT_POST, 'email_address', FILTER_VALIDATE_EMAIL);
-	$keya = filter_input(INPUT_POST, 'keya', FILTER_SANITIZE_STRING);
-	$keyb = filter_input(INPUT_POST, 'keyb', FILTER_SANITIZE_STRING);
+	$keya = filter_string_polyfill(filter_input(INPUT_POST, 'keya');
+	$keyb = filter_string_polyfill(filter_input(INPUT_POST, 'keyb');
 
     if (empty($email_address) || !is_string($email_address)) {
         oos_redirect(oos_href_link($aContents['403']));
@@ -230,7 +230,7 @@ $smarty->assign(
 
 if (isset($_GET['action']) && ($_GET['action'] == 'login_admin')) {
     $email_address = filter_input(INPUT_POST, 'email_address', FILTER_VALIDATE_EMAIL);
-	$verif_key = filter_input(INPUT_POST, 'verif_key', FILTER_SANITIZE_STRING);
+	$verif_key = filter_string_polyfill(filter_input(INPUT_POST, 'verif_key');
 
     if (empty($email_address) || !is_string($email_address)) {
         oos_redirect(oos_href_link($aContents['403']));

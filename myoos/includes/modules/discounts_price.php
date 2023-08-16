@@ -26,7 +26,7 @@
   defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 if (!isset($nProductsID)) {
-	$products_id = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
+	$products_id = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
 	$nProductsID = oos_get_product_id($products_id);
 }
   $the_special = oos_get_products_special_price($nProductsID);

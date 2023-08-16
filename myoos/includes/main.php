@@ -197,7 +197,7 @@ if ((!isset($_SESSION['currency']) || isset($_GET['currency'])) && $bNecessary =
             $session->start();
         }
 
-        $sCurrency = filter_input(INPUT_GET, 'currency', FILTER_SANITIZE_STRING);
+        $sCurrency = filter_string_polyfill(filter_input(INPUT_GET, 'currency'));
     }
 
     if (isset($_SESSION)) {

@@ -29,7 +29,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_search.php';
 require 'includes/languages/' . $sLanguage . '/search_advanced_result.php';
 
 $get_parameters = '';
-$keywords = filter_input(INPUT_GET, 'keywords', FILTER_SANITIZE_STRING);
+$keywords = filter_string_polyfill(filter_input(INPUT_GET, 'keywords'));
 $get_parameters .= '&keywords=' . $keywords;
 
 
@@ -49,19 +49,23 @@ $manufacturers_id = filter_input(INPUT_GET, 'manufacturers_id', FILTER_VALIDATE_
 $get_parameters .= '&manufacturers_id=' . $manufacturers_id;
 
 
-$pfrom = filter_input(INPUT_GET, 'pfrom', FILTER_SANITIZE_STRING);
+$pfrom = filter_string_polyfill(filter_input(INPUT_GET, 'pfrom'));
+$pfrom = str_replace(',', '.', $pfrom);
+$pfrom = floatval($pfrom);
 $get_parameters .= '&pfrom=' . $pfrom;
 
 
-$pto = filter_input(INPUT_GET, 'pto', FILTER_SANITIZE_STRING);
+$pto = filter_string_polyfill(filter_input(INPUT_GET, 'pto'));
+$pto = str_replace(',', '.', $pto);
+$pto = floatval($pto);
 $get_parameters .= '&pto=' . $pto;
 
 
-$dfrom = filter_input(INPUT_GET, 'dfrom', FILTER_SANITIZE_STRING);
+$dfrom = filter_string_polyfill(filter_input(INPUT_GET, 'dfrom'));
 $get_parameters .= '&dfrom=' . $dfrom;
 
 
-$dto = filter_input(INPUT_GET, 'dto', FILTER_SANITIZE_STRING);
+$dto = filter_string_polyfill(filter_input(INPUT_GET, 'dto'));
 $get_parameters .= '&dto=' . $dto;
 
 
@@ -307,8 +311,8 @@ if (isset($dto) && oos_is_not_null($dto) && ($dto != DOB_FORMAT_STRING)) {
 
 $rate = $oCurrencies->get_value($sCurrency);
 if ($rate) {
-    $pfrom = oos_var_prep_for_os($_GET['pfrom'] / $rate);
-    $pto = oos_var_prep_for_os($_GET['pto'] / $rate);
+    $pfrom = $pfrom / $rate;
+    $pto = $pto / $rate;
 }
 
 if ($aUser['price_with_tax'] == 1) {

@@ -24,7 +24,7 @@
   $current_boxes = OOS_ABSOLUTE_PATH . 'admin/includes/boxes/';
   $current_files = OOS_ABSOLUTE_PATH . OOS_ADMIN;
 
-  $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+  $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
 if (!empty($action)) {
     switch ($action) {

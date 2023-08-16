@@ -26,9 +26,9 @@
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 if (isset($_GET['action'])) {
-	$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+	$action = filter_string_polyfill(filter_input(INPUT_GET, 'action'));
 } elseif (isset($_POST['action'])) {
-	$action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
+	$action = filter_string_polyfill(filter_input(INPUT_POST, 'action'));
 }
 
 
@@ -252,7 +252,7 @@ case 'cart_delete':
     }
     if (isset($_SESSION['cart']) && ($_SESSION['cart']->count_contents() > 0)) {
         if (isset($_GET['products_id']) && is_string($_GET['products_id'])) {
-            $sProductsId  = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
+            $sProductsId = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
             $_SESSION['cart']->remove($sProductsId);
         }
     }
@@ -271,7 +271,7 @@ case 'buy_now':
     }
 
     if (isset($_GET['products_id']) || isset($_POST['products_id'])) {
-        $sProductsId  = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'products_id', FILTER_SANITIZE_STRING);
+        $sProductsId  = filter_string_polyfill(filter_input(INPUT_GET, 'products_id')) ?? filter_string_polyfill(filter_input(INPUT_POST, 'products_id'));
 
         if (empty($sProductsId) || !is_string($sProductsId)) {
             oos_redirect(oos_href_link($aContents['403']));
@@ -328,7 +328,7 @@ case 'buy_slave':
     }
 
     if (isset($_GET['slave_id']) || isset($_POST['slave_id'])) {
-        $slave_id  = filter_input(INPUT_GET, 'slave_id', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'slave_id', FILTER_SANITIZE_STRING);
+        $slave_id  = filter_string_polyfill(filter_input(INPUT_GET, 'slave_id')) ?? filter_string_polyfill(filter_input(INPUT_POST, 'slave_id'));
 
         if (empty($slave_id) || !is_string($slave_id)) {
             oos_redirect(oos_href_link($aContents['403']));
@@ -368,11 +368,11 @@ case 'buy_slave':
 case 'notify':
     if (isset($_SESSION['customer_id'])) {
         if (isset($_GET['products_id'])) {
-            $notify = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
+            $notify = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
         } elseif (isset($_GET['notify'])) {
-            $notify = filter_input(INPUT_GET, 'notify', FILTER_SANITIZE_STRING);
+            $notify = filter_string_polyfill(filter_input(INPUT_GET, 'notify'));
         } elseif (isset($_POST['notify'])) {
-            $notify = filter_input(INPUT_POST, 'notify', FILTER_SANITIZE_STRING);
+            $notify = filter_string_polyfill(filter_input(INPUT_POST, 'notify'));
         } else {
             oos_redirect(oos_href_link($sContent, oos_get_all_get_parameters(array('action', 'notify'))));
         }
@@ -417,7 +417,7 @@ case 'notify_remove':
 
     $products_notificationstable = $oostable['products_notifications'];
     if (isset($_SESSION['customer_id']) && isset($_GET['products_id'])) {
-		$sProductsId  = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
+		$sProductsId = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
         $nProductsID = oos_get_product_id($sProductsId);
 
         $check_sql = "SELECT COUNT(*) AS total
@@ -442,7 +442,7 @@ case 'notify_remove':
 
 case 'remove_wishlist':
     if (isset($_SESSION['customer_id']) && isset($_GET['pid'])) {
-		$pid  = filter_input(INPUT_GET, 'pid', FILTER_SANITIZE_STRING);
+		$pid  = filter_string_polyfill(filter_input(INPUT_GET, 'pid'));
         $customers_wishlisttable = $oostable['customers_wishlist'];
         $dbconn->Execute("DELETE FROM $customers_wishlisttable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($pid) . "'");
 
@@ -453,7 +453,7 @@ case 'remove_wishlist':
 
 case 'add_wishlist':
     if (isset($_GET['products_id'])) {
-		$sProductsId  = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
+		$sProductsId = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
         $wishlist_products_id = oos_get_product_id($sProductsId);
         $attributes = oos_get_attributes($sProductsId);
 
@@ -526,7 +526,7 @@ case 'wishlist_add_product':
 	$cart_quantity = filter_input(INPUT_POST, 'cart_quantity', FILTER_VALIDATE_INT) ?: 1;
 
     if (isset($_POST['products_id'])) {
-		$sProductsId  = filter_input(INPUT_POST, 'products_id', FILTER_SANITIZE_STRING);
+		$sProductsId = filter_string_polyfill(filter_input(INPUT_POST, 'products_id'));
 
         if (empty($sProductsId) || !is_string($sProductsId)) {
             oos_redirect(oos_href_link($aContents['403']));

@@ -33,7 +33,7 @@ $currencies = new currencies();
 $customers_statuses_array = oos_get_customers_statuses();
 
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
-$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+$action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
 if (!empty($action)) {
     switch ($action) {
@@ -721,11 +721,11 @@ function check_form() {
 <?php
     $search = '';
       if (isset($_GET['search']) && oos_is_not_null($_GET['search'])) {
-          $keywords = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_STRING);
+		  $keywords = filter_string_polyfill(filter_input(INPUT_GET, 'search'));
           $search = "WHERE c.customers_lastname like '%" . $keywords . "%' or c.customers_firstname like '%" . oos_db_input($keywords) . "%' or c.customers_email_address like '%" . oos_db_input($keywords) . "'";
       }
       if (isset($_GET['status'])) {
-          $status = filter_input(INPUT_GET, 'status', FILTER_SANITIZE_STRING);
+		  $status = filter_string_polyfill(filter_input(INPUT_GET, 'status'));
           $search ="WHERE c.customers_status = '". oos_db_input($status) . "'";
       }
 

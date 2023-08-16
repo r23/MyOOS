@@ -52,7 +52,7 @@ $sManufacturersCacheID = $sTheme . '|block|manufacturers|' . $sLanguage . '|' . 
 $sManufacturersInfoCacheID = $sTheme . '|block|manufacturer_info|' . $sLanguage . '|' . $nManufacturersID;
 
 if (isset($_GET['products_id'])) {
-	$sProductsId = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
+	$sProductsId = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
 	$nProductsID = oos_get_product_id($sProductsId);
     $sManufacturersInfoCacheID = $sTheme . '|block|manufacturer_info|' . $sLanguage . '|' . intval($nProductsID);
     $sProductsInfoCacheID = $sTheme . '|products_info|' . $sLanguage . '|' . intval($nProductsID);

@@ -230,9 +230,9 @@ class order_total
                 $class = substr($value, 0, strrpos($value, '.'));
                 if (($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class)) {
                     $post_var = 'c' . $GLOBALS[$class]->code;
-                    $post_var = filter_var($post_var, FILTER_SANITIZE_STRING);
+                    $post_var = filter_string_polyfill($post_var);
                     if ($_POST[$post_var]) {
-                        $_SESSION[$post_var] = filter_input(INPUT_POST, $post_var, FILTER_SANITIZE_STRING);
+                        $_SESSION[$post_var] = filter_string_polyfill(filter_input(INPUT_POST, $post_var));
                     }
                     $GLOBALS[$class]->collect_posts();
                 }
@@ -258,7 +258,7 @@ class order_total
                     $post_var = 'c' . $GLOBALS[$class]->code;
                     $post_var = filter_var($post_var, FILTER_SANITIZE_STRING);
                     if ($_POST[$post_var]) {
-                        $_SESSION[$post_var] = filter_input(INPUT_POST, $post_var, FILTER_SANITIZE_STRING);
+                        $_SESSION[$post_var] = filter_string_polyfill(filter_input(INPUT_POST, $post_var));
                     }
                     $GLOBALS[$class]->shopping_cart_collect_posts();
                 }

@@ -34,8 +34,8 @@ if (isset($_GET['selected_box'])) {
 }
 
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
-$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
-$oldaction = filter_input(INPUT_GET, 'oldaction', FILTER_SANITIZE_STRING);
+$action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
+$oldaction = filter_string_polyfill(filter_input(INPUT_GET, 'oldaction'));
 
 if (($action == 'send_email_to_user') && ($_POST['customers_email_address']) && (!$_POST['back_x'])) {
     switch ($_POST['customers_email_address']) {

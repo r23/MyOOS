@@ -50,7 +50,7 @@ require 'includes/classes/class_currencies.php';
 $currencies = new currencies();
 
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
-$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+$action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 $sID = filter_input(INPUT_GET, 'sID', FILTER_VALIDATE_INT);
 $pID = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT);
 

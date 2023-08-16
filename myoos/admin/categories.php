@@ -28,12 +28,14 @@ require 'includes/classes/class_upload.php';
 
 $currencies = new currencies();
 
-$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
-$cPath = filter_input(INPUT_GET, 'cPath', FILTER_SANITIZE_STRING) ?: $current_category_id; 
+$action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
+$cPath = filter_string_polyfill(filter_input(INPUT_GET, 'cPath')) ?: $current_category_id;
+
 $cID = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT) ?: 0; 
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 
-$sSearch = (isset($_GET['search']) ? oos_prepare_input($_GET['search']) : '');
+$sSearch = filter_string_polyfill(filter_input(INPUT_GET, 'search'));
+
 
 if (!empty($action)) {
     switch ($action) {

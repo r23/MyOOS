@@ -61,9 +61,9 @@ class oos_event_category_path
         include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_category_tree.php';
 
         if (isset($_GET['category'])) {
-            $sCategory = filter_input(INPUT_GET, 'category', FILTER_SANITIZE_STRING);
+            $sCategory = filter_string_polyfill(filter_input(INPUT_GET, 'category'));
         } elseif (isset($_GET['products_id']) && !isset($_GET['manufacturers_id'])) {
-            $sProductsId = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
+            $sProductsId = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
             $sCategory = oos_get_product_path($sProductsId);
         } else {
             $sCategory = '';

@@ -360,7 +360,7 @@ class paypal_api
             // Get the payment Object by passing paymentId
             // payment id was previously stored in session in
             // CreatePaymentUsingPayPal.php
-            $paymentId = filter_input(INPUT_GET, 'paymentId', FILTER_SANITIZE_STRING); 
+            $paymentId = filter_string_polyfill(filter_input(INPUT_GET, 'paymentId')); 
             $payment = Payment::get($paymentId, $apiContext);
 
             // ### Payment Execute
@@ -369,7 +369,7 @@ class paypal_api
             // The payer_id is added to the request query parameters
             // when the user is redirected from paypal back to your site
             $execution = new PaymentExecution();
-			$PayerID = filter_input(INPUT_GET, 'PayerID', FILTER_SANITIZE_STRING);
+			$PayerID = filter_string_polyfill(filter_input(INPUT_GET, 'PayerID'));
             $execution->setPayerId($PayerID);
 
             // Add the above transaction object inside our Execution object.

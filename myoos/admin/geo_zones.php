@@ -53,7 +53,7 @@ function oosGetGeoZoneName($geo_zone_id)
 $nsPage = filter_input(INPUT_GET, 'spage', FILTER_VALIDATE_INT) ?: 1;
 $nzPage = filter_input(INPUT_GET, 'zpage', FILTER_VALIDATE_INT) ?: 1;
 
-$saction = (isset($_GET['saction']) ? $_GET['saction'] : '');
+$saction = filter_string_polyfill(filter_input(INPUT_GET, 'saction')) ?: 'default';
 
 if (!empty($saction)) {
     switch ($saction) {
@@ -92,8 +92,7 @@ if (!empty($saction)) {
     }
 }
 
-
-$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+$action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
 if (!empty($action)) {
     switch ($action) {

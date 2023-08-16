@@ -117,7 +117,7 @@ default:
 }
 
 $endDate = mktime(0, 0, 0, date("m"), date("d") + 1, date("Y"));
-$get_products_id = filter_input(INPUT_GET, 'products_id', FILTER_SANITIZE_STRING);
+$get_products_id = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
 
 
 // check start and end Date

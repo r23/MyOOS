@@ -29,7 +29,7 @@ switch ($_GET['action']) {
 
 case 'url':
     if (isset($_GET['goto']) && oos_is_not_null($_GET['goto'])) {
-        $sgoto = filter_input(INPUT_GET, 'goto', FILTER_SANITIZE_STRING);
+        $sgoto = filter_string_polyfill(filter_input(INPUT_GET, 'goto'));
 
         if (empty($sgoto) || !is_string($sgoto)) {
             oos_redirect(oos_href_link($aContents['403']));

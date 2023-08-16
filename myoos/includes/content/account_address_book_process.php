@@ -80,27 +80,27 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['actio
     }
 
     if (ACCOUNT_GENDER == 'true') {
-        $gender = filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING);
+        $gender = filter_string_polyfill(filter_input(INPUT_POST, 'gender'));
     }
-	$firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
-	$lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
+	$firstname = filter_string_polyfill(filter_input(INPUT_POST, 'firstname'));
+	$lastname = filter_string_polyfill(filter_input(INPUT_POST, 'lastname'));
     if (ACCOUNT_COMPANY == 'true') {
-		$company = filter_input(INPUT_POST, 'company', FILTER_SANITIZE_STRING);
+        $company = filter_string_polyfill(filter_input(INPUT_POST, 'company'));
     }
     if (ACCOUNT_OWNER == 'true') {
-		$owner = filter_input(INPUT_POST, 'owner', FILTER_SANITIZE_STRING);
+        $owner = filter_string_polyfill(filter_input(INPUT_POST, 'owner'));
     }
     if (ACCOUNT_VAT_ID == 'true') {
-		$vat_id = filter_input(INPUT_POST, 'vat_id', FILTER_SANITIZE_STRING);
+        $vat_id = filter_string_polyfill(filter_input(INPUT_POST, 'vat_id'));
     }
-    $street_address = filter_input(INPUT_POST, 'street_address', FILTER_SANITIZE_STRING);
-    $postcode = filter_input(INPUT_POST, 'postcode', FILTER_SANITIZE_STRING);
-    $city = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_STRING);	
+    $street_address = filter_string_polyfill(filter_input(INPUT_POST, 'street_address'));
+    $postcode = filter_string_polyfill(filter_input(INPUT_POST, 'postcode'));
+    $city = filter_string_polyfill(filter_input(INPUT_POST, 'city'));	
     if (ACCOUNT_STATE == 'true') {
-		$state = filter_input(INPUT_POST, 'state', FILTER_SANITIZE_STRING);
-		$zone_id = filter_input(INPUT_POST, 'zone_id', FILTER_SANITIZE_STRING);
+        $state = filter_string_polyfill(filter_input(INPUT_POST, 'state'));
+        $zone_id = filter_string_polyfill(filter_input(INPUT_POST, 'zone_id'));
     }
-	$country = filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING);
+    $country = filter_string_polyfill(filter_input(INPUT_POST, 'country'));
 
     $firstname = oos_remove_shouting($firstname, true);
     $lastname = oos_remove_shouting_name($lastname, true);

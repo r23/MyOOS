@@ -18,19 +18,38 @@
    ----------------------------------------------------------------------
  */
 
-/**
- * global
- *
- * @package   global
- * @copyright (C) 2022 by the MyOOS Development Team.
- * @license   GPL <http://www.gnu.org/licenses/gpl.html>
- * @link      https://www.oos-shop.de
- */
 
 /**
  * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+
+
+/**
+ * Filter a string value by removing null bytes and HTML tags and encoding quotes and 
+ * special characters.
+ *
+ * This function mimics the behavior of the deprecated FILTER_SANITIZE_STRING filter, 
+ * which was used to sanitize strings by removing HTML tags and encoding quotes and 
+ * certain special characters. This filter was unclear in its purpose and behavior 
+ * and was therefore deprecated as of PHP 8.1.0. It is recommended to use 
+ * htmlspecialchars () instead.
+ *
+ * @param mixed $string The value to be filtered. If it is not a string, null is returned.
+ * @return mixed The filtered value as a string, or null if the input is not a string.
+ * @see https://www.php.net/manual/en/filter.filters.sanitize.php
+ * @see https://www.php.net/manual/en/function.htmlspecialchars.php
+ */
+function filter_string_polyfill (mixed $string): mixed {
+	// Check if the input is a valid string value
+	if (!is_string($string)) {
+		// If not, return null
+		return null;
+	}
+	// Otherwise, perform the filtering as usual
+	$str = preg_replace ('/\\x00|< [^>]*>?/', '', $string);
+	return str_replace(["'", '"'], ['&#39;', '&#34;'], $str);
+}
 
 
 /**

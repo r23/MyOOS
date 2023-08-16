@@ -56,20 +56,20 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
     && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
 ) {
     if (ACCOUNT_GENDER == 'true') {
-		$gender = filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING);
+		$gender = filter_string_polyfill(filter_input(INPUT_POST, 'gender'));
     }
-	$firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
-	$lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
+    $firstname = filter_string_polyfill(filter_input(INPUT_POST, 'firstname'));
+    $lastname = filter_string_polyfill(filter_input(INPUT_POST, 'lastname'));
     if (ACCOUNT_DOB == 'true') {
-		$dob = filter_input(INPUT_POST, 'dob', FILTER_SANITIZE_STRING);
+        $dob = filter_string_polyfill(filter_input(INPUT_POST, 'dob'));
     }
-	$email_address = filter_input(INPUT_POST, 'email_address', FILTER_VALIDATE_EMAIL);
+    $email_address = filter_input(INPUT_POST, 'email_address', FILTER_VALIDATE_EMAIL);
     if (ACCOUNT_TELEPHONE  == 'true') {
-		$telephone = filter_input(INPUT_POST, 'telephone', FILTER_SANITIZE_STRING);
+        $telephone = filter_string_polyfill(filter_input(INPUT_POST, 'telephone'));
     }
-	$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-	$confirmation = filter_input(INPUT_POST, 'confirmation', FILTER_SANITIZE_STRING);
-	$newsletter = filter_input(INPUT_POST, 'newsletter', FILTER_SANITIZE_STRING);
+    $password = filter_string_polyfill(filter_input(INPUT_POST, 'password'));
+    $confirmation = filter_string_polyfill(filter_input(INPUT_POST, 'confirmation'));
+    $newsletter = filter_string_polyfill(filter_input(INPUT_POST, 'newsletter'));
 
     $firstname = oos_remove_shouting($firstname, true);
     $lastname = oos_remove_shouting_name($lastname, true);

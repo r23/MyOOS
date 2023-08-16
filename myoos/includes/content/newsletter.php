@@ -34,9 +34,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/newsle
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 
 if (isset($_GET['subscribe']) && ($_GET['subscribe'] == 'confirm')) {
-    $sU = filter_input(INPUT_GET, 'u', FILTER_SANITIZE_STRING);
-    $sID = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
-    $sE = filter_input(INPUT_GET, 'e', FILTER_SANITIZE_STRING);
+    $sU = filter_string_polyfill(filter_input(INPUT_GET, 'u'));
+    $sID = filter_string_polyfill(filter_input(INPUT_GET, 'id'));
+    $sE = filter_string_polyfill(filter_input(INPUT_GET, 'e'));
 
     if (empty($sU) || !is_string($sU)) {
         oos_redirect(oos_href_link($aContents['403']));
