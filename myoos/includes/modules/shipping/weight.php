@@ -24,22 +24,19 @@
 #[AllowDynamicProperties]
 class weight
 {
-    public $code;
+    public $code = 'weight';
     public $title;
     public $description;
-    public $icon;
+    public $icon = '';
     public $enabled = false;
 
     // class constructor
     public function __construct()
     {
         global $oOrder, $aLang;
-
-        $this->code = 'weight';
         $this->title = $aLang['module_shipping_weight_text_title'];
         $this->description = $aLang['module_shipping_weight_text_description'];
         $this->sort_order = (defined('MODULE_SHIPPING_WEIGHT_SORT_ORDER') ? MODULE_SHIPPING_WEIGHT_SORT_ORDER : null);
-        $this->icon = '';
         $this->enabled = (defined('MODULE_SHIPPING_WEIGHT_STATUS') && (MODULE_SHIPPING_WEIGHT_STATUS == 'true') ? true : false);
 
         if (($this->enabled == true) && ((defined('MODULE_SHIPPING_WEIGHT_ZONE') && (int)MODULE_SHIPPING_WEIGHT_ZONE > 0))) {

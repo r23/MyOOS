@@ -24,22 +24,19 @@
 #[AllowDynamicProperties]
 class flat
 {
-    public $code;
+    public $code = 'flat';
     public $title;
     public $description;
-    public $icon;
+    public $icon = '';
     public $enabled = false;
 
     // class constructor
     public function __construct()
     {
         global $oOrder, $aLang;
-
-        $this->code = 'flat';
         $this->title = $aLang['module_shipping_flat_text_title'];
         $this->description = $aLang['module_shipping_flat_text_description'];
         $this->sort_order = (defined('MODULE_SHIPPING_FLAT_SORT_ORDER') ? MODULE_SHIPPING_FLAT_SORT_ORDER : null);
-        $this->icon = '';
         $this->enabled = (defined('MODULE_SHIPPING_FLAT_STATUS') && (MODULE_SHIPPING_FLAT_STATUS == 'true') ? true : false);
 
         if (($this->enabled == true) && isset($oOrder->delivery['country']['id']) && ((int)MODULE_SHIPPING_FLAT_ZONE > 0)) {

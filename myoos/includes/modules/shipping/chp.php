@@ -46,7 +46,7 @@
 #[AllowDynamicProperties]
 class chp
 {
-    public $code;
+    public $code = 'chp';
     public $title;
     public $description;
     public $icon;
@@ -58,8 +58,6 @@ class chp
     public function __construct()
     {
         global $oOrder, $aLang;
-
-        $this->code = 'chp';
         $this->title = $aLang['module_shipping_chp_text_title'];
         $this->description = $aLang['module_shipping_chp_text_description'];
         $this->sort_order = (defined('MODULE_SHIPPING_CHP_SORT_ORDER') ? MODULE_SHIPPING_CHP_SORT_ORDER : null);

@@ -27,12 +27,10 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 
 class currencies
 {
-    public $currencies;
+    public $currencies = [];
 
     public function __construct()
     {
-        $this->currencies = [];
-
         // Get database information
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();

@@ -24,22 +24,19 @@
 #[AllowDynamicProperties]
 class table
 {
-    public $code;
+    public $code = 'table';
     public $title;
     public $description;
-    public $icon;
+    public $icon = '';
     public $enabled = false;
 
     // class constructor
     public function __construct()
     {
         global $oOrder, $aLang;
-
-        $this->code = 'table';
         $this->title = $aLang['module_shipping_table_text_title'];
         $this->description = $aLang['module_shipping_table_text_description'];
         $this->sort_order = (defined('MODULE_SHIPPING_TABLE_SORT_ORDER') ? MODULE_SHIPPING_TABLE_SORT_ORDER : null);
-        $this->icon = '';
         $this->enabled = (defined('MODULE_SHIPPING_TABLE_STATUS') && (MODULE_SHIPPING_TABLE_STATUS == 'true') ? true : false);
 
 

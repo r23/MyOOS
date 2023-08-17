@@ -106,7 +106,7 @@
 #[AllowDynamicProperties]
 class zones
 {
-    public $code;
+    public $code = 'zones';
     public $title;
     public $description;
     public $num_zones;
@@ -116,8 +116,6 @@ class zones
     public function __construct()
     {
         global $oOrder, $aLang;
-
-        $this->code = 'zones';
         $this->title = $aLang['module_shipping_zones_text_title'];
         $this->description = $aLang['module_shipping_zones_text_description'];
         $this->sort_order = (defined('MODULE_SHIPPING_ZONES_SORT_ORDER') ? MODULE_SHIPPING_ZONES_SORT_ORDER : null);

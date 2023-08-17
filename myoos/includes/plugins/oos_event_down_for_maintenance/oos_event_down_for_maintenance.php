@@ -26,14 +26,19 @@
 
 class oos_event_down_for_maintenance
 {
-    public $name;
-    public $description;
-    public $uninstallable;
+    public $name = PLUGIN_EVENT_DOWN_FOR_MAINTENANCE_NAME;
+    public $description = PLUGIN_EVENT_DOWN_FOR_MAINTENANCE_DESC;
+    public $uninstallable = true;
     public $depends;
     public $preceeds;
-    public $author;
-    public $version;
-    public $requirements;
+    public $author = 'MyOOS Development Team';
+    public $version = '1.0';
+    public $requirements = array(
+                         'oos'         => '1.5.0',
+                         'smarty'      => '2.6.9',
+                         'adodb'       => '4.62',
+                         'php'         => '5.9.0'
+    );
 
 
     /**
@@ -41,17 +46,6 @@ class oos_event_down_for_maintenance
      */
     public function __construct()
     {
-        $this->name          = PLUGIN_EVENT_DOWN_FOR_MAINTENANCE_NAME;
-        $this->description   = PLUGIN_EVENT_DOWN_FOR_MAINTENANCE_DESC;
-        $this->uninstallable = true;
-        $this->author        = 'MyOOS Development Team';
-        $this->version       = '1.0';
-        $this->requirements  = array(
-                             'oos'         => '1.5.0',
-                             'smarty'      => '2.6.9',
-                             'adodb'       => '4.62',
-                             'php'         => '5.9.0'
-        );
     }
 
     public static function create_plugin_instance()

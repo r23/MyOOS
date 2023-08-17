@@ -25,7 +25,7 @@
 class ot_gv
 {
     public $title;
-    public $output;
+    public $output = [];
     public $enabled = false;
 
     public function __construct()
@@ -45,8 +45,6 @@ class ot_gv
         $this->tax_class = null; // todo remove
         $this->credit_class = true;
         $this->checkbox = $this->user_prompt . '<input type="checkbox" onClick="submitFunction()" name="' . 'c' . $this->code . '">';
-
-        $this->output = [];
     }
 
     public function process()

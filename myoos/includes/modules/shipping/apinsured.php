@@ -46,7 +46,7 @@
 #[AllowDynamicProperties]
 class apinsured
 {
-    public $code;
+    public $code = 'apinsured';
     public $title;
     public $description;
     public $icon;
@@ -57,8 +57,6 @@ class apinsured
     public function __construct()
     {
         global $oOrder, $aLang;
-
-        $this->code = 'apinsured';
         $this->title = $aLang['module_shipping_ap_insured_text_title'];
         $this->description = $aLang['module_shipping_ap_insured_text_description'];
         $this->sort_order = (defined('MODULE_SHIPPING_AP_INSURED_SORT_ORDER') ? MODULE_SHIPPING_AP_INSURED_SORT_ORDER : null);

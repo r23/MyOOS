@@ -31,7 +31,7 @@
 class ot_cmembers
 {
     public $title;
-    public $output;
+    public $output = [];
     public $enabled = false;
 
     public function __construct()
@@ -47,8 +47,6 @@ class ot_cmembers
         $this->include_tax = (defined('MODULE_CMEMBERS_INC_TAX') ? MODULE_CMEMBERS_INC_TAX : null);
         $this->calculate_tax = (defined('MODULE_CMEMBERS_CALC_TAX') ? MODULE_CMEMBERS_CALC_TAX : null);
         $this->percentage = (defined('MODULE_CMEMBERS_OT_DISCOUNT') ? MODULE_CMEMBERS_OT_DISCOUNT : null);
-
-        $this->output = [];
     }
 
     public function process()

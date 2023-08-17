@@ -25,7 +25,7 @@
 class ot_tax
 {
     public $title;
-    public $output;
+    public $output = [];
     public $enabled = false;
 
     public function __construct()
@@ -37,8 +37,6 @@ class ot_tax
         $this->description = $aLang['module_order_total_tax_description'];
         $this->enabled = (defined('MODULE_ORDER_TOTAL_TAX_STATUS') && (MODULE_ORDER_TOTAL_TAX_STATUS == 'true') ? true : false);
         $this->sort_order = (defined('MODULE_ORDER_TOTAL_TAX_SORT_ORDER') ? MODULE_ORDER_TOTAL_TAX_SORT_ORDER : null);
-
-        $this->output = [];
     }
 
     public function process()

@@ -25,7 +25,7 @@
 #[AllowDynamicProperties]
 class eubanktransfer
 {
-    public $code;
+    public $code = 'eubanktransfer';
     public $title;
     public $description;
     public $enabled;
@@ -34,8 +34,6 @@ class eubanktransfer
     public function __construct()
     {
         global $oOrder, $aLang;
-
-        $this->code = 'eubanktransfer';
         $this->title = $aLang['module_payment_eu_banktransfer_text_title'];
         $this->description = $aLang['module_payment_eu_banktransfer_text_description'];
         $this->enabled = (defined('MODULE_PAYMENT_EU_BANKTRANSFER_STATUS') && (MODULE_PAYMENT_EU_BANKTRANSFER_STATUS == 'true') ? true : false);

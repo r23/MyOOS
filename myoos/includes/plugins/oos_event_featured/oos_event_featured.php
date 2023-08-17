@@ -27,14 +27,19 @@
 
 class oos_event_featured
 {
-    public $name;
-    public $description;
-    public $uninstallable;
+    public $name = PLUGIN_EVENT_FEATURED_NAME;
+    public $description = PLUGIN_EVENT_FEATURED_DESC;
+    public $uninstallable = true;
     public $depends;
     public $preceeds;
-    public $author;
-    public $version;
-    public $requirements;
+    public $author = 'MyOOS Development Team';
+    public $version = '2.0';
+    public $requirements = array(
+                         'oos'         => '1.7.0',
+                         'smarty'      => '2.6.9',
+                         'adodb'       => '4.62',
+                         'php'         => '5.9.0'
+    );
 
 
     /**
@@ -42,17 +47,6 @@ class oos_event_featured
      */
     public function __construct()
     {
-        $this->name          = PLUGIN_EVENT_FEATURED_NAME;
-        $this->description   = PLUGIN_EVENT_FEATURED_DESC;
-        $this->uninstallable = true;
-        $this->author        = 'MyOOS Development Team';
-        $this->version       = '2.0';
-        $this->requirements  = array(
-                             'oos'         => '1.7.0',
-                             'smarty'      => '2.6.9',
-                             'adodb'       => '4.62',
-                             'php'         => '5.9.0'
-        );
     }
 
     public static function create_plugin_instance()

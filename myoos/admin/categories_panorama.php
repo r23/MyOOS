@@ -716,12 +716,12 @@ require 'includes/header.php';
                         <div class="text-right mt-3 mb-5">
             <?php echo oos_preview_button(BUTTON_PREVIEW, 'scene'); ?>    
                         </div>
-                        
+
                         <div class="row mb-3 pb-3 bb">
                             <div class="col-lg-2">        
                                     <?php echo TEXT_PANORAMA_PREVIEW; ?>
                             </div>
-                            
+
                             <div class="col-lg-10">
 
                                 <div id="panorama"></div>
@@ -757,8 +757,8 @@ pannellum.viewer('panorama', {
 
                             </div>
                         </div>
-    
-            <?php
+
+<?php
         } else {
             ?>
                         <div class="text-right mt-3 mb-5">

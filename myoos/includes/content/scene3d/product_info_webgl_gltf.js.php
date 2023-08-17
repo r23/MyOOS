@@ -78,7 +78,7 @@
 				const dracoLoader = new DRACOLoader();
 				dracoLoader.setDecoderPath( 'js/libs/draco/gltf/' );
 				loader.setDRACOLoader( dracoLoader );
-				
+
                 loader.load( '<?php echo $model_info['models_webgl_gltf']; ?>', function ( gltf ) {
 
 					let model = gltf.scene;
@@ -116,7 +116,7 @@
        window.addEventListener( 'resize', onWindowResize );
 
 	}
-	
+
 
     function onWindowResize() {
 

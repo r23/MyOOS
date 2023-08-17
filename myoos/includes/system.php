@@ -255,7 +255,7 @@ while ($products_unit = $products_unit_result->fields) {
     // Move that ADOdb pointer!
     $products_unit_result->MoveNext();
 }		
-	
+
 
 // PAngV
 $sPAngV = $aLang['text_tax_incl'];

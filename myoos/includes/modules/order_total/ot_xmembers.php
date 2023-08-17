@@ -31,7 +31,7 @@
 class ot_xmembers
 {
     public $title;
-    public $output;
+    public $output = [];
     public $enabled = false;
 
     public function __construct()
@@ -48,8 +48,6 @@ class ot_xmembers
         $this->percentage = isset($aUser['ot_discount']) ? $aUser['ot_discount'] : 1;
         $this->minimum = isset($aUser['ot_minimum']) ? $aUser['ot_minimum'] : 0;
         $this->calculate_tax = (defined('MODULE_XMEMBERS_CALC_TAX') ? MODULE_XMEMBERS_CALC_TAX : null);
-
-        $this->output = [];
     }
 
     public function process()

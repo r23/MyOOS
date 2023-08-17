@@ -28,13 +28,11 @@
 
 class currencies
 {
-    public $currencies;
+    public $currencies = [];
 
     // class constructor
     public function __construct()
     {
-        $this->currencies = [];
-
         // Get database information
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();

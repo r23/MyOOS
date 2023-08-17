@@ -69,7 +69,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'submit')
             $gender = filter_string_polyfill(filter_input(INPUT_POST, 'gender'));
         }
         $firstname = filter_string_polyfill(filter_input(INPUT_POST, 'firstname'));
-	$lastname = filter_string_polyfill(filter_input(INPUT_POST, 'lastname'));
+		$lastname = filter_string_polyfill(filter_input(INPUT_POST, 'lastname'));
         if (ACCOUNT_COMPANY == 'true') {
             $company = filter_string_polyfill(filter_input(INPUT_POST, 'company'));
         }
@@ -79,15 +79,15 @@ if (isset($_POST['action']) && ($_POST['action'] == 'submit')
         if (ACCOUNT_VAT_ID == 'true') {
             $vat_id = filter_string_polyfill(filter_input(INPUT_POST, 'vat_id'));
         }
-            $street_address = filter_string_polyfill(filter_input(INPUT_POST, 'street_address'));
-            $postcode = filter_string_polyfill(filter_input(INPUT_POST, 'postcode'));
-            $city = filter_string_polyfill(filter_input(INPUT_POST, 'city'));
-		
+		$street_address = filter_string_polyfill(filter_input(INPUT_POST, 'street_address'));
+		$postcode = filter_string_polyfill(filter_input(INPUT_POST, 'postcode'));
+		$city = filter_string_polyfill(filter_input(INPUT_POST, 'city'));
+
         if (ACCOUNT_STATE == 'true') {
             $state = filter_string_polyfill(filter_input(INPUT_POST, 'state'));
             $zone_id = filter_input(INPUT_POST, 'zone_id', FILTER_VALIDATE_INT);
         }
-	$country = filter_string_polyfill(filter_input(INPUT_POST, 'country'));
+		$country = filter_string_polyfill(filter_input(INPUT_POST, 'country'));
 
         $firstname = oos_remove_shouting($firstname, true);
         $lastname = oos_remove_shouting_name($lastname, true);

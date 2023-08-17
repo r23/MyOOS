@@ -26,22 +26,16 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 
 class order
 {
-    public $info;
-    public $totals;
-    public $products;
-    public $customer;
-    public $delivery;
+    public $info = [];
+    public $totals = [];
+    public $products = [];
+    public $customer = [];
+    public $delivery = [];
 	public $billing;
     public $content_type;
 
     public function __construct($order_id = '')
     {
-        $this->info = [];
-        $this->totals = [];
-        $this->products = [];
-        $this->customer = [];
-        $this->delivery = [];
-
         if (oos_is_not_null($order_id)) {
             $this->query($order_id);
         } else {

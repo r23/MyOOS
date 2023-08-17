@@ -46,7 +46,7 @@
 #[AllowDynamicProperties]
 class cash
 {
-    public $code;
+    public $code = 'cash';
     public $title;
     public $description;
     public $enabled;
@@ -55,8 +55,6 @@ class cash
     public function __construct()
     {
         global $oOrder, $aLang;
-
-        $this->code = 'cash';
         $this->title = isset($aLang['module_payment_cash_text_title']) ? $aLang['module_payment_cash_text_title'] : '';
         $this->description = isset($aLang['module_payment_cash_text_description']) ? $aLang['module_payment_cash_text_description'] : '';
 

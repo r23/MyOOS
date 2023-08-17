@@ -24,7 +24,7 @@
 #[AllowDynamicProperties]
 class invoice
 {
-    public $code;
+    public $code = 'invoice';
     public $title;
     public $description;
     public $enabled = false;
@@ -33,8 +33,6 @@ class invoice
     public function __construct()
     {
         global $aLang, $oOrder;
-
-        $this->code = 'invoice';
         $this->title = $aLang['module_payment_invoice_text_title'];
         $this->description = $aLang['module_payment_invoice_text_description'];
         $this->enabled = (defined('MODULE_PAYMENT_INVOICE_STATUS') && (MODULE_PAYMENT_INVOICE_STATUS == 'true') ? true : false);

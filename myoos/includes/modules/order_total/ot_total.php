@@ -25,7 +25,7 @@
 class ot_total
 {
     public $title;
-    public $output;
+    public $output = [];
     public $enabled = false;
 
     public function __construct()
@@ -37,8 +37,6 @@ class ot_total
         $this->description = $aLang['module_order_total_total_description'];
         $this->enabled = (defined('MODULE_ORDER_TOTAL_TOTAL_STATUS') && (MODULE_ORDER_TOTAL_TOTAL_STATUS == 'true') ? true : false);
         $this->sort_order = (defined('MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER') ? MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER : null);
-
-        $this->output = [];
     }
 
     public function process()

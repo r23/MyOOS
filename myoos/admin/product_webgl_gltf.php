@@ -490,7 +490,7 @@ if ($action == 'edit_3d') {
             } ?>
 
 
-                        
+
                        <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_AUTHOR; ?></label>
@@ -575,8 +575,8 @@ if ($action == 'edit_3d') {
                                     </div>
                                 </div>
                            </div>
-                           
-                           
+
+
                             <div class="form-group row mt-5">
                                 <label class="col-sm col-form-label"></label>
                                 <div class="col-sm">
@@ -605,7 +605,7 @@ if ($action == 'edit_3d') {
                                         </label>
                                     </div>
                                 </div>
-							
+
                             </div>                       
                         </fieldset>                             
                 </div>

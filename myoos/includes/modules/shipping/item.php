@@ -24,22 +24,19 @@
 #[AllowDynamicProperties]
 class item
 {
-    public $code;
+    public $code = 'item';
     public $title;
     public $description;
-    public $icon;
+    public $icon = '';
     public $enabled = false;
 
     // class constructor
     public function __construct()
     {
         global $oOrder, $aLang;
-
-        $this->code = 'item';
         $this->title = $aLang['module_shipping_item_text_title'];
         $this->description = $aLang['module_shipping_item_text_description'];
         $this->sort_order = (defined('MODULE_SHIPPING_ITEM_SORT_ORDER') ? MODULE_SHIPPING_ITEM_SORT_ORDER : null);
-        $this->icon = '';
         $this->enabled = (defined('MODULE_SHIPPING_ITEM_STATUS') && (MODULE_SHIPPING_ITEM_STATUS == 'true') ? true : false);
 
         if (($this->enabled == true) && isset($oOrder->delivery['country']['id']) && ((int)MODULE_SHIPPING_ITEM_ZONE > 0)) {

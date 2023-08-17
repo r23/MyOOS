@@ -197,7 +197,7 @@ if ($srExp < 2) {
         </div>
         <!-- END Sidebar (left) //-->
     </aside>
-    
+
     <!-- Main section //-->
     <section>
         <!-- Page content //-->
@@ -224,7 +224,7 @@ if ($srExp < 2) {
                 </div>
             </div>
             <!-- END Breadcrumbs //-->
-            
+
             <div class="wrapper wrapper-content">
                 <div class="row">
                     <div class="col-lg-12">    
@@ -446,7 +446,7 @@ if ($srExp < 2) {
         <table class="table w-100">
               <tr>
                 <td valign="top">
-                
+
                 <table class="table table-striped table-hover w-100">
                     <thead class="thead-dark">
                         <tr>
@@ -457,7 +457,7 @@ if ($srExp < 2) {
                             <th class="text-right"><?php echo TABLE_HEADING_SHIPPING; ?></th>
                         </tr>    
                     </thead>
-    <?php
+<?php
 } // end of if $srExp < 2 csv export
 $sum = 0;
 while ($sr->actDate < $sr->endDate) {

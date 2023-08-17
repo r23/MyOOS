@@ -46,7 +46,7 @@
 #[AllowDynamicProperties]
 class fedexeu
 {
-    public $code;
+    public $code = 'fedexeu';
     public $title;
     public $description;
     public $icon;
@@ -58,8 +58,6 @@ class fedexeu
     public function __construct()
     {
         global $oOrder, $aLang;
-
-        $this->code = 'fedexeu';
         $this->title = $aLang['module_shipping_fedexeu_text_title'];
         $this->description = $aLang['module_shipping_fedexeu_text_description'];
         $this->sort_order = (defined('MODULE_SHIPPING_FEDEXEU_SORT_ORDER') ? MODULE_SHIPPING_FEDEXEU_SORT_ORDER : null);

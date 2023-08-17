@@ -48,7 +48,7 @@ if (defined('IS_ADMIN_FLAG')) {
 #[AllowDynamicProperties]
 class paypal_api
 {
-    public $code;
+    public $code = 'paypal_api';
     public $title;
     public $description;
     public $form_action_url;
@@ -58,8 +58,6 @@ class paypal_api
     public function __construct()
     {
         global $oOrder, $aLang;
-
-        $this->code = 'paypal_api';
         $this->title = $aLang['module_payment_paypal_api_text_title'];
         $this->description = $aLang['module_payment_paypal_api_text_description'];
         $this->enabled = (defined('MODULE_PAYMENT_PAYPAL_API_STATUS') && (MODULE_PAYMENT_PAYPAL_API_STATUS == 'true') ? true : false);

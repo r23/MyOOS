@@ -25,8 +25,8 @@
 class ot_coupon
 {
     public $title;
-    public $coupon_code;
-    public $output;
+    public $coupon_code = '';
+    public $output = [];
     public $enabled = false;
 
     public function __construct()
@@ -43,9 +43,6 @@ class ot_coupon
         $this->include_shipping = (defined('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING') ? MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING : null);
         $this->tax_class = null; // todo remove
         $this->credit_class = true;
-        $this->coupon_code = '';
-
-        $this->output = [];
     }
 
     public function process()

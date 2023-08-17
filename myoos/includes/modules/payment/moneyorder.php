@@ -24,7 +24,7 @@
 #[AllowDynamicProperties]
 class moneyorder
 {
-    public $code;
+    public $code = 'moneyorder';
     public $title;
     public $description;
     public $enabled = false;
@@ -33,8 +33,6 @@ class moneyorder
     public function __construct()
     {
         global $oOrder, $aLang;
-
-        $this->code = 'moneyorder';
         $this->title = $aLang['module_payment_moneyorder_text_title'];
         $this->description = $aLang['module_payment_moneyorder_text_description'];
         $this->enabled = (defined('MODULE_PAYMENT_MONEYORDER_STATUS') && (MODULE_PAYMENT_MONEYORDER_STATUS == 'true') ? true : false);

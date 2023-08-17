@@ -24,7 +24,7 @@
 #[AllowDynamicProperties]
 class cod
 {
-    public $code;
+    public $code = 'cod';
     public $title;
     public $description;
     public $enabled;
@@ -33,8 +33,6 @@ class cod
     public function __construct()
     {
         global $oOrder, $aLang;
-
-        $this->code = 'cod';
         $this->title = isset($aLang['module_payment_cod_text_title']) ? $aLang['module_payment_cod_text_title'] : '';
         $this->description = isset($aLang['module_payment_cod_text_description']) ? $aLang['module_payment_cod_text_description'] : '';
         $this->enabled = (defined('MODULE_PAYMENT_COD_STATUS') && (MODULE_PAYMENT_COD_STATUS == 'true') ? true : false);

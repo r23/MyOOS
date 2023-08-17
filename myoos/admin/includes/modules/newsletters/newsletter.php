@@ -31,13 +31,12 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 
 class newsletter
 {
-    public $show_choose_audience;
+    public $show_choose_audience = false;
     public $title;
     public $content;
 
     public function __construct($title, $content)
     {
-        $this->show_choose_audience = false;
         $this->title = $title;
         $this->content = $content;
     }

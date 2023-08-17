@@ -42,7 +42,7 @@
 class ot_cod_fee
 {
     public $title;
-    public $output;
+    public $output = [];
     public $enabled = false;
 
     public function __construct()
@@ -54,8 +54,6 @@ class ot_cod_fee
         $this->description = $aLang['module_order_total_cod_description'];
         $this->enabled = (defined('MODULE_ORDER_TOTAL_COD_STATUS') && (MODULE_ORDER_TOTAL_COD_STATUS == 'true') ? true : false);
         $this->sort_order = (defined('MODULE_ORDER_TOTAL_COD_SORT_ORDER') ? MODULE_ORDER_TOTAL_COD_SORT_ORDER : null);
-
-        $this->output = [];
     }
 
     public function process()

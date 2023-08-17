@@ -24,7 +24,7 @@
 #[AllowDynamicProperties]
 class dp
 {
-    public $code;
+    public $code = 'dp';
     public $title;
     public $description;
     public $icon;
@@ -35,8 +35,6 @@ class dp
     public function __construct()
     {
         global $oOrder, $aLang;
-
-        $this->code = 'dp';
         $this->title = $aLang['module_shipping_dp_text_title'];
         $this->description = $aLang['module_shipping_dp_text_description'];
         $this->sort_order = (defined('MODULE_SHIPPING_DP_SORT_ORDER') ? MODULE_SHIPPING_DP_SORT_ORDER : null);

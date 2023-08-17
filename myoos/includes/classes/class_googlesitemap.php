@@ -47,14 +47,14 @@ class GoogleSitemap
      *
      * @var string
      */
-    public $filename;
+    public $filename = "sitemap";
 
     /**
      * $savepath is the path where the feeds will be saved - store root
      *
      * @var string
      */
-    public $savepath;
+    public $savepath = OOS_ABSOLUTE_PATH;
 
     /**
      * $base_url is the URL for the catalog
@@ -68,7 +68,7 @@ class GoogleSitemap
      *
      * @var array
      */
-    public $debug;
+    public $debug = [];
 
 
     /**
@@ -76,10 +76,7 @@ class GoogleSitemap
      */
     public function __construct()
     {
-        $this->filename = "sitemap";
-        $this->savepath = OOS_ABSOLUTE_PATH;
         $this->base_url = OOS_HTTPS_SERVER . OOS_SHOP;
-        $this->debug = [];
     }
 
 
