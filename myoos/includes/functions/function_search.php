@@ -56,13 +56,13 @@ function oos_get_subcategories(&$aSubcategories, $nParentId = 0)
 }
 
 
- /**
-  * Parse search string into indivual objects
-  *
-  * @param  $search_str
-  * @return boolean
-  */
-function oos_parse_search_string($sSearch = '', &$objects)
+/**
+ * Parse search string into indivual objects
+ *
+ * @param string $search_str
+ * @return array|bool
+ */
+function &oos_parse_search_string(string $sSearch = ''): array|bool
 {
     $sSearch = trim((string) strtolower($sSearch));
 
@@ -84,7 +84,7 @@ function oos_parse_search_string($sSearch = '', &$objects)
 
         $post_objects = [];
 
-        while (substr($pieces[$k], -1) == ')') {
+        while (str_ends_with($pieces[$k], ')')) {
             $post_objects[] = ')';
             if (strlen($pieces[$k] ?? '') > 1) {
                 $pieces[$k] = substr($pieces[$k], 0, -1);
@@ -93,9 +93,8 @@ function oos_parse_search_string($sSearch = '', &$objects)
             }
         }
 
-        // Check individual words
-
-        if ((substr($pieces[$k], -1) != '"') && (substr($pieces[$k], 0, 1) != '"')) {
+        // Check individual words	
+        if (!str_contains($pieces[$k], '"')) {
             $objects[] = trim((string) $pieces[$k]);
 
             for ($j=0; $j<count($post_objects); $j++) {
@@ -219,7 +218,7 @@ function oos_parse_search_string($sSearch = '', &$objects)
     }
 
     if (($operator_count < $keyword_count) && ($balance == 0)) {
-        return true;
+        return $objects;
     } else {
         return false;
     }

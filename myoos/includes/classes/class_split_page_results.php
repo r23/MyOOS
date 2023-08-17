@@ -85,7 +85,6 @@ class splitPageResults
 
         $dbconn =& oosDBGetConn();
         $sql = "SELECT COUNT(" . oos_db_input($count_key) . ") AS total " . substr($this->sql_query, $pos_from, ($pos_to - $pos_from));
-		// echo $sql;		
         $count = $dbconn->Execute($sql);
 
         $this->number_of_rows = $count->fields['total'];
