@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'cd7c02d4cf925dc31aabbe65eadea64bcf5c9dc0',
+        'reference' => '37d76aee975364e8649e31bca1e5a681f9f041a8',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -202,7 +202,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'cd7c02d4cf925dc31aabbe65eadea64bcf5c9dc0',
+            'reference' => '37d76aee975364e8649e31bca1e5a681f9f041a8',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -324,6 +324,15 @@
             'install_path' => __DIR__ . '/../phpseclib/phpseclib',
             'aliases' => array(),
             'dev_requirement' => false,
+        ),
+        'phpstan/phpstan' => array(
+            'pretty_version' => '1.10.29',
+            'version' => '1.10.29.0',
+            'reference' => 'ee5d8f2d3977fb09e55603eee6fb53bdd76ee9c1',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpstan/phpstan',
+            'aliases' => array(),
+            'dev_requirement' => true,
         ),
         'pragmarx/google2fa' => array(
             'pretty_version' => 'v8.0.1',
@@ -456,6 +465,15 @@
             'provided' => array(
                 0 => '1.0|2.0',
             ),
+        ),
+        'rector/rector' => array(
+            'pretty_version' => '0.18.0',
+            'version' => '0.18.0.0',
+            'reference' => '758ada29b5c80d933f906735d3026520390a2a1d',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../rector/rector',
+            'aliases' => array(),
+            'dev_requirement' => true,
         ),
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',

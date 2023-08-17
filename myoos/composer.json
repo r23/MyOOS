@@ -60,6 +60,7 @@
 		"api-platform/core": "^2.7"
     },
 	"require-dev": {
-		"roave/security-advisories": "dev-latest"
+		"roave/security-advisories": "dev-latest",
+		"rector/rector": "^0.18.0"
 	}
 }
