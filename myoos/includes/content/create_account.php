@@ -56,50 +56,43 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
     && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
 ) {
     if (ACCOUNT_GENDER == 'true') {
-        if (isset($_POST['gender'])) {
-            $gender = oos_db_prepare_input($_POST['gender']);
-        } else {
-            $gender = false;
-        }
+        $gender = filter_string_polyfill(filter_input(INPUT_POST, 'gender'));
     }
-    $firstname = oos_db_prepare_input($_POST['firstname']);
-    $lastname = oos_db_prepare_input($_POST['lastname']);
+	$firstname = filter_string_polyfill(filter_input(INPUT_POST, 'firstname'));
+	$lastname = filter_string_polyfill(filter_input(INPUT_POST, 'lastname'));
+	
     if (ACCOUNT_DOB == 'true') {
-        $dob = oos_db_prepare_input($_POST['dob']);
+		$dob = filter_string_polyfill(filter_input(INPUT_POST, 'dob'));
     }
-    $email_address = oos_db_prepare_input($_POST['email_address']);
+	$email_address = filter_input(INPUT_POST, 'email_address', FILTER_VALIDATE_EMAIL);
     if (ACCOUNT_COMPANY == 'true') {
-        $company = oos_db_prepare_input($_POST['company']);
+		$company = filter_string_polyfill(filter_input(INPUT_POST, 'company'));
     }
     if (ACCOUNT_OWNER == 'true') {
-        $owner = oos_db_prepare_input($_POST['owner']);
+		$owner = filter_string_polyfill(filter_input(INPUT_POST, 'owner'));
     }
     if (ACCOUNT_VAT_ID == 'true') {
-        $vat_id = oos_db_prepare_input($_POST['vat_id']);
+		$vat_id = filter_string_polyfill(filter_input(INPUT_POST, 'vat_id'));
     }
+	$vat_id = filter_string_polyfill(filter_input(INPUT_POST, 'vat_id'));
+	$vat_id = filter_string_polyfill(filter_input(INPUT_POST, 'vat_id'));
+	$vat_id = filter_string_polyfill(filter_input(INPUT_POST, 'vat_id'));
     $street_address = oos_db_prepare_input($_POST['street_address']);
     $postcode = oos_db_prepare_input($_POST['postcode']);
     $city = oos_db_prepare_input($_POST['city']);
     if (ACCOUNT_STATE == 'true') {
-        $state = oos_db_prepare_input($_POST['state']);
-        if (isset($_POST['zone_id'])) {
-            $zone_id = oos_db_prepare_input($_POST['zone_id']);
-        } else {
-            $zone_id = false;
-        }
+        $state = filter_string_polyfill(filter_input(INPUT_POST, 'state'));
+        $zone_id = filter_input(INPUT_POST, 'zone_id', FILTER_VALIDATE_INT);
     }
-    $country = oos_db_prepare_input($_POST['country']);
+	$country = filter_string_polyfill(filter_input(INPUT_POST, 'country'));
     if (ACCOUNT_TELEPHONE  == 'true') {
-        $telephone = oos_db_prepare_input($_POST['telephone']);
+		$telephone = filter_string_polyfill(filter_input(INPUT_POST, 'telephone'));
     }
-    $password = oos_db_prepare_input($_POST['password']);
-    $confirmation = oos_db_prepare_input($_POST['confirmation']);
-    if (isset($_POST['newsletter'])) {
-        $newsletter = oos_db_prepare_input($_POST['newsletter']);
-    }
-    if (isset($_POST['agree'])) {
-        $agree = oos_db_prepare_input($_POST['agree']);
-    }
+	$password = filter_string_polyfill(filter_input(INPUT_POST, 'password'));
+	$confirmation = filter_string_polyfill(filter_input(INPUT_POST, 'confirmation'));	
+	$newsletter = filter_string_polyfill(filter_input(INPUT_POST, 'newsletter'));
+	$agree = filter_string_polyfill(filter_input(INPUT_POST, 'agree'));
+
 
 
     $firstname = oos_remove_shouting($firstname, true);

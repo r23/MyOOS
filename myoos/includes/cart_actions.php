@@ -183,13 +183,13 @@ case 'add_product':
             }
         } else {
             if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
-                $nProductsID = intval($_POST['products_id']);
+				$nProductsID = filter_input(INPUT_POST, 'products_id', FILTER_VALIDATE_INT);
 
                 if ((oos_is_the_product_b_ware($nProductsID)) && (!isset($_POST['used_goods']))) {
                     // check if is chopped
                     $oMessage->add_session('danger', $aLang['error_product_information_used_goods']);
                 } else {
-                    $cart_quantity = oos_prepare_input($_POST['cart_quantity']);
+					$cart_quantity = filter_input(INPUT_POST, 'cart_quantity', FILTER_VALIDATE_INT);
 
                     $cart_qty = $_SESSION['cart']->get_quantity(oos_get_uprid($nProductsID, $real_ids));
                     $news_qty = $cart_qty + $cart_quantity;

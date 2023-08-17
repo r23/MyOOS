@@ -250,8 +250,9 @@ class ot_gv
         $aContents = oos_get_content();
 
         if (isset($_POST['gv_redeem_code'])) {
+            $gv_redeem_code = filter_string_polyfill(filter_input(INPUT_POST, 'gv_redeem_code'));
             $couponstable = $oostable['coupons'];
-            $gv_query = $dbconn->Execute("SELECT coupon_id, coupon_type, coupon_amount FROM $couponstable WHERE coupon_code = '" . oos_db_input($_POST['gv_redeem_code']) . "'");
+            $gv_query = $dbconn->Execute("SELECT coupon_id, coupon_type, coupon_amount FROM $couponstable WHERE coupon_code = '" . oos_db_input($gv_redeem_code) . "'");
             $gv_result = $gv_query->fields;
             if ($gv_query->RecordCount() != 0) {
                 $coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
@@ -349,8 +350,9 @@ class ot_gv
         $aContents = oos_get_content();
 
         if (isset($_POST['gv_redeem_code'])) {
+            $gv_redeem_code = filter_string_polyfill(filter_input(INPUT_POST, 'gv_redeem_code'));
             $couponstable = $oostable['coupons'];
-            $gv_query = $dbconn->Execute("SELECT coupon_id, coupon_type, coupon_amount FROM $couponstable WHERE coupon_type = 'G' AND coupon_code = '" . oos_db_input($_POST['gv_redeem_code']) . "'");
+            $gv_query = $dbconn->Execute("SELECT coupon_id, coupon_type, coupon_amount FROM $couponstable WHERE coupon_type = 'G' AND coupon_code = '" . oos_db_input($gv_redeem_code) . "'");
             $gv_result = $gv_query->fields;
             if ($gv_query->RecordCount() != 0) {
                 $coupon_redeem_tracktable = $oostable['coupon_redeem_track'];

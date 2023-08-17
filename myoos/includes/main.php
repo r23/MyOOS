@@ -167,7 +167,8 @@ if (!isset($_SESSION['language']) || isset($_GET['language']) && $bNecessary == 
             $session->start();
         }
 
-        $oLang->set_language($_GET['language']);
+		$language = filter_string_polyfill(filter_input(INPUT_GET, 'language'));
+        $oLang->set_language($language);
     } else {
         $oLang->get_browser_language();
     }
@@ -214,7 +215,7 @@ $sContent = $_GET['content'] ?? $_POST['content'] ?? $aContents['home'];
 if (empty($sContent) || !is_string($sContent)) {
     $sContent = $aContents['home'];
 }
-$sContent = filter_var($sContent, FILTER_SANITIZE_STRING);
+$sContent = oos_var_prep_for_os($sContent);
 
 
 if ($session->hasStarted() === true) {

@@ -55,8 +55,8 @@ if (!empty($action)) {
         if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             oos_set_slider_status($_GET['id'], $_GET['flag']);
         }
-
-        oos_redirect_admin(oos_href_link_admin($aContents['categories_slider'], 'sID=' . intval($_GET['id']) . '&page=' . $nPage));
+	$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        oos_redirect_admin(oos_href_link_admin($aContents['categories_slider'], 'sID=' . intval($id) . '&page=' . $nPage));
         break;
 
     case 'insert':

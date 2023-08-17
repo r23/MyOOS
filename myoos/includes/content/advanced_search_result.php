@@ -68,6 +68,7 @@ $get_parameters .= '&dfrom=' . $dfrom;
 $dto = filter_string_polyfill(filter_input(INPUT_GET, 'dto'));
 $get_parameters .= '&dto=' . $dto;
 
+$sort = filter_string_polyfill(filter_input(INPUT_GET, 'sort'));
 
 $errorno = 0;
 
@@ -338,14 +339,14 @@ if (($aUser['price_with_tax'] == 1) && ((isset($_GET['pfrom']) && oos_is_not_nul
 if ((!isset($_GET['sort'])) || (!preg_match('/[1-8][ad]/', $_GET['sort'])) || (substr($_GET['sort'], 0, 1) > count($column_list))) {
     for ($col=0, $n=count($column_list); $col<$n; $col++) {
         if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
-            $_GET['sort'] = $col+1 . 'a';
+            $sort = $col+1 . 'a';
             $order_str = ' ORDER BY pd.products_name';
             break;
         }
     }
 } else {
-    $sort_col = substr($_GET['sort'], 0, 1);
-    $sort_order = substr($_GET['sort'], 1);
+    $sort_col = substr($sort, 0, 1);
+    $sort_order = substr($sort, 1);
     $order_str = ' ORDER BY ';
 
     switch ($column_list[$sort_col-1]) {

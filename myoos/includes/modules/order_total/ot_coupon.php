@@ -135,7 +135,7 @@ class ot_coupon
         $aContents = oos_get_content();
 
         if (isset($_POST['gv_redeem_code'])) {
-            $gv_redeem_code = oos_prepare_input($_POST['gv_redeem_code']);
+            $gv_redeem_code = filter_string_polyfill(filter_input(INPUT_POST, 'gv_redeem_code'));
 
             if (empty($gv_redeem_code) || !is_string($gv_redeem_code)) {
                 return;
@@ -192,8 +192,8 @@ class ot_coupon
                     $couponstable = $oostable['coupons'];
                     $gv_update = $dbconn->Execute(
                         "UPDATE $couponstable
-														SET coupon_active = 'N'
-														WHERE coupon_code = '" . oos_db_input($gv_redeem_code). "'"
+								SET coupon_active = 'N'
+								WHERE coupon_code = '" . oos_db_input($gv_redeem_code). "'"
                     );
                     $oMessage->add_session('danger', sprintf($aLang['error_invalid_uses_coupon'], $coupon_result['uses_per_coupon']));
                 }
@@ -247,8 +247,8 @@ class ot_coupon
         $aContents = oos_get_content();
 
         if (isset($_POST['gv_redeem_code'])) {
-            $gv_redeem_code = oos_prepare_input($_POST['gv_redeem_code']);
-
+            $gv_redeem_code = filter_string_polyfill(filter_input(INPUT_POST, 'gv_redeem_code'));
+			
             if (empty($gv_redeem_code) || !is_string($gv_redeem_code)) {
                 return;
             }

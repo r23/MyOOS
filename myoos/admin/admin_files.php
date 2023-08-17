@@ -39,7 +39,7 @@ if (!empty($action)) {
 
     case 'box_remove':
         // NOTE: ALSO DELETE FILES STORED IN REMOVED BOX //
-        $admin_boxes_id = oos_db_prepare_input($_GET['cID']);
+		$admin_boxes_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT) ?: 0; 
         $admin_filestable = $oostable['admin_files'];
         $query = "DELETE FROM " . $admin_filestable . " WHERE admin_files_id = '" . intval($admin_boxes_id) . "' or admin_files_to_boxes = '" . intval($admin_boxes_id) . "'";
         $dbconn->Execute($query);

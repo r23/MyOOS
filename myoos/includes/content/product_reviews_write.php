@@ -84,9 +84,9 @@ if (isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process')
     && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
     && ($valid_product == true)
 ) {
-    $review = oos_db_prepare_input($_POST['review']);
-    $rating = oos_db_prepare_input($_POST['rating']);
-    $headline = oos_db_prepare_input($_POST['headline']);
+    $review = filter_string_polyfill(filter_input(INPUT_POST, 'review'));
+    $rating = filter_string_polyfill(filter_input(INPUT_POST, 'rating'));
+    $headline = filter_string_polyfill(filter_input(INPUT_POST, 'headline'));
 
     $bError = false;
     if (strlen($review ?? '') < REVIEW_TEXT_MIN_LENGTH) {

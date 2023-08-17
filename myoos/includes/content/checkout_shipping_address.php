@@ -74,33 +74,26 @@ if (isset($_POST['action']) && ($_POST['action'] == 'submit')
         $bProcess = true;
 
         if (ACCOUNT_GENDER == 'true') {
-            if (isset($_POST['gender'])) {
-                $gender = oos_db_prepare_input($_POST['gender']);
-            } else {
-                $gender = false;
-            }
+			$gender = filter_string_polyfill(filter_input(INPUT_POST, 'gender'));
         }
-        $firstname = oos_db_prepare_input($_POST['firstname']);
-        $lastname = oos_db_prepare_input($_POST['lastname']);
+		$firstname = filter_string_polyfill(filter_input(INPUT_POST, 'firstname'));
+		$lastname = filter_string_polyfill(filter_input(INPUT_POST, 'lastname'));
         if (ACCOUNT_COMPANY == 'true') {
-            $company = oos_db_prepare_input($_POST['company']);
+			$company = filter_string_polyfill(filter_input(INPUT_POST, 'company'));
         }
         if (ACCOUNT_OWNER == 'true') {
-            $owner = oos_db_prepare_input($_POST['owner']);
+			$owner = filter_string_polyfill(filter_input(INPUT_POST, 'owner'));
         }
         if (ACCOUNT_VAT_ID == 'true') {
-            $vat_id = oos_db_prepare_input($_POST['vat_id']);
+			$vat_id = filter_string_polyfill(filter_input(INPUT_POST, 'vat_id'));
         }
-        $street_address = oos_db_prepare_input($_POST['street_address']);
-        $postcode = oos_db_prepare_input($_POST['postcode']);
-        $city = oos_db_prepare_input($_POST['city']);
+		$street_address = filter_string_polyfill(filter_input(INPUT_POST, 'street_address'));
+		$postcode = filter_string_polyfill(filter_input(INPUT_POST, 'postcode'));
+		$city = filter_string_polyfill(filter_input(INPUT_POST, 'city'));
+
         if (ACCOUNT_STATE == 'true') {
             $state = oos_db_prepare_input($_POST['state']);
-            if (isset($_POST['zone_id'])) {
-                $zone_id = oos_db_prepare_input($_POST['zone_id']);
-            } else {
-                $zone_id = false;
-            }
+			$zone_id = filter_input(INPUT_POST, 'zone_id', FILTER_VALIDATE_INT);
         }
         $country = oos_db_prepare_input($_POST['country']);
 
@@ -259,7 +252,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'submit')
             }
         }
 
-        $_SESSION['sendto'] = intval($_POST['address']);
+        $_SESSION['sendto'] = filter_input(INPUT_POST, 'address', FILTER_VALIDATE_INT);
 
         $address_booktable = $oostable['address_book'];
         $sql = "SELECT COUNT(*) AS total 

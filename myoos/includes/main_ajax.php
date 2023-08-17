@@ -133,7 +133,8 @@ if (!isset($_SESSION['language']) || isset($_GET['language'])) {
             $session->start();
         }
 
-        $oLang->set_language($_GET['language']);
+		$language = filter_string_polyfill(filter_input(INPUT_GET, 'language'));
+        $oLang->set_language($language);
     } else {
         $oLang->get_browser_language();
     }
@@ -164,7 +165,7 @@ if (!isset($_SESSION['currency']) || isset($_GET['currency'])) {
             $session->start();
         }
 
-        $sCurrency = oos_var_prep_for_os($_GET['currency']);
+		$sCurrency = filter_string_polyfill(filter_input(INPUT_GET, 'currency'));
     }
 
     if (isset($_SESSION)) {
