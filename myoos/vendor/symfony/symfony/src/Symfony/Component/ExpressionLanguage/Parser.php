@@ -27,8 +27,40 @@ class Parser
     public const OPERATOR_RIGHT = 2;
 
     private $stream;
-    private $unaryOperators;
-    private $binaryOperators;
+    private $unaryOperators = [
+        'not' => ['precedence' => 50],
+        '!' => ['precedence' => 50],
+        '-' => ['precedence' => 500],
+        '+' => ['precedence' => 500],
+    ];
+    private $binaryOperators = [
+        'or' => ['precedence' => 10, 'associativity' => self::OPERATOR_LEFT],
+        '||' => ['precedence' => 10, 'associativity' => self::OPERATOR_LEFT],
+        'and' => ['precedence' => 15, 'associativity' => self::OPERATOR_LEFT],
+        '&&' => ['precedence' => 15, 'associativity' => self::OPERATOR_LEFT],
+        '|' => ['precedence' => 16, 'associativity' => self::OPERATOR_LEFT],
+        '^' => ['precedence' => 17, 'associativity' => self::OPERATOR_LEFT],
+        '&' => ['precedence' => 18, 'associativity' => self::OPERATOR_LEFT],
+        '==' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
+        '===' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
+        '!=' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
+        '!==' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
+        '<' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
+        '>' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
+        '>=' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
+        '<=' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
+        'not in' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
+        'in' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
+        'matches' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
+        '..' => ['precedence' => 25, 'associativity' => self::OPERATOR_LEFT],
+        '+' => ['precedence' => 30, 'associativity' => self::OPERATOR_LEFT],
+        '-' => ['precedence' => 30, 'associativity' => self::OPERATOR_LEFT],
+        '~' => ['precedence' => 40, 'associativity' => self::OPERATOR_LEFT],
+        '*' => ['precedence' => 60, 'associativity' => self::OPERATOR_LEFT],
+        '/' => ['precedence' => 60, 'associativity' => self::OPERATOR_LEFT],
+        '%' => ['precedence' => 60, 'associativity' => self::OPERATOR_LEFT],
+        '**' => ['precedence' => 200, 'associativity' => self::OPERATOR_RIGHT],
+    ];
     private $functions;
     private $names;
     private $lint;
@@ -36,41 +68,6 @@ class Parser
     public function __construct(array $functions)
     {
         $this->functions = $functions;
-
-        $this->unaryOperators = [
-            'not' => ['precedence' => 50],
-            '!' => ['precedence' => 50],
-            '-' => ['precedence' => 500],
-            '+' => ['precedence' => 500],
-        ];
-        $this->binaryOperators = [
-            'or' => ['precedence' => 10, 'associativity' => self::OPERATOR_LEFT],
-            '||' => ['precedence' => 10, 'associativity' => self::OPERATOR_LEFT],
-            'and' => ['precedence' => 15, 'associativity' => self::OPERATOR_LEFT],
-            '&&' => ['precedence' => 15, 'associativity' => self::OPERATOR_LEFT],
-            '|' => ['precedence' => 16, 'associativity' => self::OPERATOR_LEFT],
-            '^' => ['precedence' => 17, 'associativity' => self::OPERATOR_LEFT],
-            '&' => ['precedence' => 18, 'associativity' => self::OPERATOR_LEFT],
-            '==' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
-            '===' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
-            '!=' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
-            '!==' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
-            '<' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
-            '>' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
-            '>=' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
-            '<=' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
-            'not in' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
-            'in' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
-            'matches' => ['precedence' => 20, 'associativity' => self::OPERATOR_LEFT],
-            '..' => ['precedence' => 25, 'associativity' => self::OPERATOR_LEFT],
-            '+' => ['precedence' => 30, 'associativity' => self::OPERATOR_LEFT],
-            '-' => ['precedence' => 30, 'associativity' => self::OPERATOR_LEFT],
-            '~' => ['precedence' => 40, 'associativity' => self::OPERATOR_LEFT],
-            '*' => ['precedence' => 60, 'associativity' => self::OPERATOR_LEFT],
-            '/' => ['precedence' => 60, 'associativity' => self::OPERATOR_LEFT],
-            '%' => ['precedence' => 60, 'associativity' => self::OPERATOR_LEFT],
-            '**' => ['precedence' => 200, 'associativity' => self::OPERATOR_RIGHT],
-        ];
     }
 
     /**

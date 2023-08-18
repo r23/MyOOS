@@ -19,7 +19,7 @@ class ConstExprParser
     /** @var bool */
     private $useIndexAttributes;
     /** @var bool */
-    private $parseDoctrineStrings;
+    private $parseDoctrineStrings = \false;
     /**
      * @param array{lines?: bool, indexes?: bool} $usedAttributes
      */
@@ -29,7 +29,6 @@ class ConstExprParser
         $this->quoteAwareConstExprString = $quoteAwareConstExprString;
         $this->useLinesAttributes = $usedAttributes['lines'] ?? \false;
         $this->useIndexAttributes = $usedAttributes['indexes'] ?? \false;
-        $this->parseDoctrineStrings = \false;
     }
     /**
      * @internal

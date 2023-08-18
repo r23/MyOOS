@@ -22,7 +22,7 @@ class Block extends AbstractFrameDecorator
      *
      * @var int
      */
-    protected $_cl;
+    protected $_cl = 0;
 
     /**
      * The block's line boxes
@@ -38,7 +38,7 @@ class Block extends AbstractFrameDecorator
      *
      * @var ListBullet[]
      */
-    protected $dangling_markers;
+    protected $dangling_markers = [];
 
     /**
      * Block constructor.
@@ -50,8 +50,6 @@ class Block extends AbstractFrameDecorator
         parent::__construct($frame, $dompdf);
 
         $this->_line_boxes = [new LineBox($this)];
-        $this->_cl = 0;
-        $this->dangling_markers = [];
     }
 
     function reset()

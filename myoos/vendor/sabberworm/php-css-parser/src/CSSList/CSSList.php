@@ -34,12 +34,12 @@ abstract class CSSList implements Renderable, Commentable
     /**
      * @var array<array-key, Comment>
      */
-    protected $aComments;
+    protected $aComments = [];
 
     /**
      * @var array<int, RuleSet|CSSList|Import|Charset>
      */
-    protected $aContents;
+    protected $aContents = [];
 
     /**
      * @var int
@@ -51,8 +51,6 @@ abstract class CSSList implements Renderable, Commentable
      */
     public function __construct($iLineNo = 0)
     {
-        $this->aComments = [];
-        $this->aContents = [];
         $this->iLineNo = $iLineNo;
     }
 

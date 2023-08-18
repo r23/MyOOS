@@ -36,7 +36,7 @@ class Status
     /** @var LoggerInterface|null */
     private $logger;
     /** @var bool */
-    private $modeOff;
+    private $modeOff = \false;
     /** @var float */
     private $time;
     /**
@@ -50,7 +50,6 @@ class Status
         $this->time = \is_numeric($start) ? \round((\microtime(\true) - $start) * 1000) : 0;
         $this->envAllowXdebug = $envAllowXdebug;
         $this->debug = $debug && \defined('STDERR');
-        $this->modeOff = \false;
     }
     /**
      * Activates status message output to a PSR3 logger

@@ -23,12 +23,11 @@ use Symfony\Component\Validator\Exception\ValidatorException;
 class ContainerConstraintValidatorFactory implements ConstraintValidatorFactoryInterface
 {
     private $container;
-    private $validators;
+    private $validators = [];
 
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
-        $this->validators = [];
     }
 
     /**

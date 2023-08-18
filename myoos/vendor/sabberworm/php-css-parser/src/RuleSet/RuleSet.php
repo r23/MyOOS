@@ -20,7 +20,7 @@ abstract class RuleSet implements Renderable, Commentable
     /**
      * @var array<string, Rule>
      */
-    private $aRules;
+    private $aRules = [];
 
     /**
      * @var int
@@ -30,16 +30,14 @@ abstract class RuleSet implements Renderable, Commentable
     /**
      * @var array<array-key, Comment>
      */
-    protected $aComments;
+    protected $aComments = [];
 
     /**
      * @param int $iLineNo
      */
     public function __construct($iLineNo = 0)
     {
-        $this->aRules = [];
         $this->iLineNo = $iLineNo;
-        $this->aComments = [];
     }
 
     /**

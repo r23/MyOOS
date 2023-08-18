@@ -26,17 +26,17 @@ class Rule implements Renderable, Commentable
     /**
      * @var RuleValueList|null
      */
-    private $mValue;
+    private $mValue = null;
 
     /**
      * @var bool
      */
-    private $bIsImportant;
+    private $bIsImportant = false;
 
     /**
      * @var array<int, int>
      */
-    private $aIeHack;
+    private $aIeHack = [];
 
     /**
      * @var int
@@ -51,7 +51,7 @@ class Rule implements Renderable, Commentable
     /**
      * @var array<array-key, Comment>
      */
-    protected $aComments;
+    protected $aComments = [];
 
     /**
      * @param string $sRule
@@ -61,12 +61,8 @@ class Rule implements Renderable, Commentable
     public function __construct($sRule, $iLineNo = 0, $iColNo = 0)
     {
         $this->sRule = $sRule;
-        $this->mValue = null;
-        $this->bIsImportant = false;
-        $this->aIeHack = [];
         $this->iLineNo = $iLineNo;
         $this->iColNo = $iColNo;
-        $this->aComments = [];
     }
 
     /**

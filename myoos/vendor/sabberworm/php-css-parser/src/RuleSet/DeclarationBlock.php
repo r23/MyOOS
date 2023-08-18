@@ -28,7 +28,7 @@ class DeclarationBlock extends RuleSet
     /**
      * @var array<int, Selector|string>
      */
-    private $aSelectors;
+    private $aSelectors = [];
 
     /**
      * @param int $iLineNo
@@ -36,7 +36,6 @@ class DeclarationBlock extends RuleSet
     public function __construct($iLineNo = 0)
     {
         parent::__construct($iLineNo);
-        $this->aSelectors = [];
     }
 
     /**

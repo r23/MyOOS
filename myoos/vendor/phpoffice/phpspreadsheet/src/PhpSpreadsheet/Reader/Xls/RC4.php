@@ -25,8 +25,6 @@ class RC4
         for ($this->i = 0; $this->i < 256; ++$this->i) {
             $this->s[$this->i] = $this->i;
         }
-
-        $this->j = 0;
         for ($this->i = 0; $this->i < 256; ++$this->i) {
             $this->j = ($this->j + $this->s[$this->i] + ord($key[$this->i % $len])) % 256;
             $t = $this->s[$this->i];

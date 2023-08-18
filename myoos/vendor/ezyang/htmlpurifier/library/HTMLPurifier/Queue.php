@@ -19,11 +19,10 @@
  */
 class HTMLPurifier_Queue {
     private $input;
-    private $output;
+    private $output = array();
 
     public function __construct($input = array()) {
         $this->input = $input;
-        $this->output = array();
     }
 
     /**

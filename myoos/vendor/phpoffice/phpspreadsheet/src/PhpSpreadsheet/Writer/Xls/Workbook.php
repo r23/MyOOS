@@ -61,7 +61,7 @@ class Workbook extends BIFFwriter
      *
      * @see calcSheetOffsets()
      */
-    private $biffSize; // @phpstan-ignore-line
+    private $biffSize = 0; // @phpstan-ignore-line
 
     /**
      * XF Writers.
@@ -75,14 +75,14 @@ class Workbook extends BIFFwriter
      *
      * @var array
      */
-    private $palette;
+    private $palette = [];
 
     /**
      * The codepage indicates the text encoding used for strings.
      *
      * @var int
      */
-    private $codepage;
+    private $codepage = 0x04B0;
 
     /**
      * The country code used for localization.
@@ -194,8 +194,6 @@ class Workbook extends BIFFwriter
         parent::__construct();
 
         $this->parser = $parser;
-        $this->biffSize = 0;
-        $this->palette = [];
         $this->countryCode = -1;
 
         $this->stringTotal = &$str_total;
@@ -205,8 +203,6 @@ class Workbook extends BIFFwriter
         $this->setPaletteXl97();
 
         $this->spreadsheet = $spreadsheet;
-
-        $this->codepage = 0x04B0;
 
         // Add empty sheets and Build color cache
         $countSheets = $spreadsheet->getSheetCount();

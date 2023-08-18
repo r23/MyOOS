@@ -73,28 +73,28 @@ class Worksheet extends BIFFwriter
      *
      * @var array
      */
-    private $columnInfo;
+    private $columnInfo = [];
 
     /**
      * The active pane for the worksheet.
      *
      * @var int
      */
-    private $activePane;
+    private $activePane = 3;
 
     /**
      * Whether to use outline.
      *
      * @var bool
      */
-    private $outlineOn;
+    private $outlineOn = true;
 
     /**
      * Auto outline styles.
      *
      * @var bool
      */
-    private $outlineStyle;
+    private $outlineStyle = false;
 
     /**
      * Whether to have outline summary below.
@@ -102,7 +102,7 @@ class Worksheet extends BIFFwriter
      *
      * @var bool
      */
-    private $outlineBelow; //* @phpstan-ignore-line
+    private $outlineBelow = true; //* @phpstan-ignore-line
 
     /**
      * Whether to have outline summary at the right.
@@ -110,7 +110,7 @@ class Worksheet extends BIFFwriter
      *
      * @var bool
      */
-    private $outlineRight; //* @phpstan-ignore-line
+    private $outlineRight = true; //* @phpstan-ignore-line
 
     /**
      * Reference to the total number of strings in the workbook.
@@ -187,7 +187,7 @@ class Worksheet extends BIFFwriter
      *
      * @var array
      */
-    public $fontHashIndex;
+    public $fontHashIndex = [];
 
     /**
      * @var bool
@@ -197,7 +197,7 @@ class Worksheet extends BIFFwriter
     /**
      * @var int
      */
-    private $printHeaders;
+    private $printHeaders = 0;
 
     /**
      * Constructor.
@@ -223,18 +223,6 @@ class Worksheet extends BIFFwriter
         $this->parser = $parser;
 
         $this->phpSheet = $phpSheet;
-
-        $this->columnInfo = [];
-        $this->activePane = 3;
-
-        $this->printHeaders = 0;
-
-        $this->outlineStyle = false;
-        $this->outlineBelow = true;
-        $this->outlineRight = true;
-        $this->outlineOn = true;
-
-        $this->fontHashIndex = [];
 
         // calculate values for DIMENSIONS record
         $minR = 1;

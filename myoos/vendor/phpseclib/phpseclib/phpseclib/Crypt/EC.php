@@ -86,7 +86,7 @@ abstract class EC extends AsymmetricKey
      *
      * @var string
      */
-    protected $shortFormat;
+    protected $shortFormat = 'ASN1';
 
     /**
      * Curve Name
@@ -256,7 +256,6 @@ abstract class EC extends AsymmetricKey
     protected function __construct()
     {
         $this->sigFormat = self::validatePlugin('Signature', 'ASN1');
-        $this->shortFormat = 'ASN1';
 
         parent::__construct();
     }

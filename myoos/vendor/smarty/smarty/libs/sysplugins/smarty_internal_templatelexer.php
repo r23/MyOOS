@@ -37,7 +37,7 @@ class Smarty_Internal_Templatelexer
      *
      * @var int
      */
-    public $counter;
+    public $counter = 0;
 
     /**
      * token number
@@ -233,7 +233,6 @@ class Smarty_Internal_Templatelexer
     {
         $this->data = $source;
         $this->dataLength = strlen($this->data);
-        $this->counter = 0;
         if (preg_match('/^\xEF\xBB\xBF/i', $this->data, $match)) {
             $this->counter += strlen($match[0]);
         }

@@ -29,7 +29,7 @@ class Import implements AtRule
     /**
      * @var array<array-key, Comment>
      */
-    protected $aComments;
+    protected $aComments = [];
 
     /**
      * @param URL $oLocation
@@ -41,7 +41,6 @@ class Import implements AtRule
         $this->oLocation = $oLocation;
         $this->sMediaQuery = $sMediaQuery;
         $this->iLineNo = $iLineNo;
-        $this->aComments = [];
     }
 
     /**

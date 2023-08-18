@@ -51,14 +51,14 @@ class BIFFwriter
      *
      * @var null|string
      */
-    public $_data;
+    public $_data = '';
 
     /**
      * The size of the data in bytes. Should be the same as strlen($this->_data).
      *
      * @var int
      */
-    public $_datasize;
+    public $_datasize = 0;
 
     /**
      * The maximum length for a BIFF record (excluding record header and length field). See addContinue().
@@ -74,8 +74,6 @@ class BIFFwriter
      */
     public function __construct()
     {
-        $this->_data = '';
-        $this->_datasize = 0;
     }
 
     /**

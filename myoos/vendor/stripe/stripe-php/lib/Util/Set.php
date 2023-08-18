@@ -7,11 +7,10 @@ use IteratorAggregate;
 
 class Set implements IteratorAggregate
 {
-    private $_elts;
+    private $_elts = [];
 
     public function __construct($members = [])
     {
-        $this->_elts = [];
         foreach ($members as $item) {
             $this->_elts[$item] = true;
         }

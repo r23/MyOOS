@@ -8,11 +8,10 @@ final class TransformationMatrix
     /**
      * @var float[]
      */
-    private $values;
+    private $values = [1, 0, 0, 1, 0, 0];
 
     public function __construct()
     {
-        $this->values = [1, 0, 0, 1, 0, 0];
     }
 
     public function multiply(self $other) : self

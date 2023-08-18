@@ -88,7 +88,7 @@ class Stylesheet
      *
      * @var Style[][]
      */
-    private $_styles;
+    private $_styles = [];
 
     /**
      * Base protocol of the document being parsed
@@ -126,7 +126,7 @@ class Stylesheet
      *
      * @var array
      */
-    private $_loaded_files;
+    private $_loaded_files = [];
 
     /**
      * Current stylesheet origin
@@ -167,8 +167,6 @@ class Stylesheet
     {
         $this->_dompdf = $dompdf;
         $this->setFontMetrics($dompdf->getFontMetrics());
-        $this->_styles = [];
-        $this->_loaded_files = [];
         $script = __FILE__;
         if (isset($_SERVER["SCRIPT_FILENAME"])) {
             $script = $_SERVER["SCRIPT_FILENAME"];

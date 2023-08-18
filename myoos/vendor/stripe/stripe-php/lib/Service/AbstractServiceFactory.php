@@ -18,7 +18,7 @@ abstract class AbstractServiceFactory
     private $client;
 
     /** @var array<string, AbstractService|AbstractServiceFactory> */
-    private $services;
+    private $services = [];
 
     /**
      * @param \Stripe\StripeClientInterface $client
@@ -26,7 +26,6 @@ abstract class AbstractServiceFactory
     public function __construct($client)
     {
         $this->client = $client;
-        $this->services = [];
     }
 
     /**

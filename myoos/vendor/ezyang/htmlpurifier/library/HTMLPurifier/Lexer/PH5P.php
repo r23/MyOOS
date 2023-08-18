@@ -72,10 +72,10 @@ class HTML5
     private $data;
     private $char;
     private $EOF;
-    private $state;
+    private $state = 'data';
     private $tree;
     private $token;
-    private $content_model;
+    private $content_model = self::PCDATA;
     private $escape = false;
     private $entities = array(
         'AElig;',
@@ -464,9 +464,6 @@ class HTML5
         $this->char = -1;
         $this->EOF = strlen($data);
         $this->tree = new HTML5TreeConstructer;
-        $this->content_model = self::PCDATA;
-
-        $this->state = 'data';
 
         while ($this->state !== null) {
             $this->{$this->state . 'State'}();
@@ -1578,8 +1575,8 @@ class HTML5TreeConstructer
 {
     public $stack = array();
 
-    private $phase;
-    private $mode;
+    private $phase = self::INIT_PHASE;
+    private $mode = self::BEFOR_HEAD;
     private $dom;
     private $foster_parent = null;
     private $a_formatting = array();
@@ -1699,8 +1696,6 @@ class HTML5TreeConstructer
 
     public function __construct()
     {
-        $this->phase = self::INIT_PHASE;
-        $this->mode = self::BEFOR_HEAD;
         $this->dom = new DOMDocument;
 
         $this->dom->encoding = 'UTF-8';

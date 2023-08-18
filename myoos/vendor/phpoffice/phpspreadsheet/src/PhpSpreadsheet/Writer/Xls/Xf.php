@@ -51,77 +51,77 @@ class Xf
      *
      * @var bool
      */
-    private $isStyleXf;
+    private $isStyleXf = false;
 
     /**
      * Index to the FONT record. Index 4 does not exist.
      *
      * @var int
      */
-    private $fontIndex;
+    private $fontIndex = 0;
 
     /**
      * An index (2 bytes) to a FORMAT record (number format).
      *
      * @var int
      */
-    private $numberFormatIndex;
+    private $numberFormatIndex = 0;
 
     /**
      * 1 bit, apparently not used.
      *
      * @var int
      */
-    private $textJustLast;
+    private $textJustLast = 0;
 
     /**
      * The cell's foreground color.
      *
      * @var int
      */
-    private $foregroundColor;
+    private $foregroundColor = 0x40;
 
     /**
      * The cell's background color.
      *
      * @var int
      */
-    private $backgroundColor;
+    private $backgroundColor = 0x41;
 
     /**
      * Color of the bottom border of the cell.
      *
      * @var int
      */
-    private $bottomBorderColor;
+    private $bottomBorderColor = 0x40;
 
     /**
      * Color of the top border of the cell.
      *
      * @var int
      */
-    private $topBorderColor;
+    private $topBorderColor = 0x40;
 
     /**
      * Color of the left border of the cell.
      *
      * @var int
      */
-    private $leftBorderColor;
+    private $leftBorderColor = 0x40;
 
     /**
      * Color of the right border of the cell.
      *
      * @var int
      */
-    private $rightBorderColor;
+    private $rightBorderColor = 0x40;
 
     //private $diag; // theoretically int, not yet implemented
 
     /**
      * @var int
      */
-    private $diagColor;
+    private $diagColor = 0x40;
 
     /**
      * @var Style
@@ -135,23 +135,6 @@ class Xf
      */
     public function __construct(Style $style)
     {
-        $this->isStyleXf = false;
-        $this->fontIndex = 0;
-
-        $this->numberFormatIndex = 0;
-
-        $this->textJustLast = 0;
-
-        $this->foregroundColor = 0x40;
-        $this->backgroundColor = 0x41;
-
-        //$this->diag = 0;
-
-        $this->bottomBorderColor = 0x40;
-        $this->topBorderColor = 0x40;
-        $this->leftBorderColor = 0x40;
-        $this->rightBorderColor = 0x40;
-        $this->diagColor = 0x40;
         $this->style = $style;
     }
 

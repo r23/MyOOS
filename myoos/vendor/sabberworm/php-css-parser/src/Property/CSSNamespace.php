@@ -28,7 +28,7 @@ class CSSNamespace implements AtRule
     /**
      * @var array<array-key, Comment>
      */
-    protected $aComments;
+    protected $aComments = [];
 
     /**
      * @param string $mUrl
@@ -40,7 +40,6 @@ class CSSNamespace implements AtRule
         $this->mUrl = $mUrl;
         $this->sPrefix = $sPrefix;
         $this->iLineNo = $iLineNo;
-        $this->aComments = [];
     }
 
     /**

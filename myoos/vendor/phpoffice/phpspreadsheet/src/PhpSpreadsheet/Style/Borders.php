@@ -52,7 +52,7 @@ class Borders extends Supervisor
      *
      * @var int
      */
-    protected $diagonalDirection;
+    protected $diagonalDirection = self::DIAGONAL_NONE;
 
     /**
      * All borders pseudo-border. Only applies to supervisor.
@@ -107,7 +107,6 @@ class Borders extends Supervisor
         $this->top = new Border($isSupervisor, $isConditional);
         $this->bottom = new Border($isSupervisor, $isConditional);
         $this->diagonal = new Border($isSupervisor, $isConditional);
-        $this->diagonalDirection = self::DIAGONAL_NONE;
 
         // Specially for supervisor
         if ($isSupervisor) {

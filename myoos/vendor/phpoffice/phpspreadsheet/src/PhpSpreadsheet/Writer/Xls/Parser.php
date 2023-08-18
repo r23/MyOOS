@@ -52,49 +52,49 @@ class Parser
      *
      * @var int
      */
-    public $currentCharacter;
+    public $currentCharacter = 0;
 
     /**
      * The token we are working on.
      *
      * @var string
      */
-    public $currentToken;
+    public $currentToken = '';
 
     /**
      * The formula to parse.
      *
      * @var string
      */
-    private $formula;
+    private $formula = '';
 
     /**
      * The character ahead of the current char.
      *
      * @var string
      */
-    public $lookAhead;
+    public $lookAhead = '';
 
     /**
      * The parse tree to be generated.
      *
      * @var array|string
      */
-    public $parseTree;
+    public $parseTree = '';
 
     /**
      * Array of external sheets.
      *
      * @var array
      */
-    private $externalSheets;
+    private $externalSheets = [];
 
     /**
      * Array of sheet references in the form of REF structures.
      *
      * @var array
      */
-    public $references;
+    public $references = [];
 
     /**
      * The Excel ptg indices.
@@ -478,14 +478,6 @@ class Parser
     public function __construct(Spreadsheet $spreadsheet)
     {
         $this->spreadsheet = $spreadsheet;
-
-        $this->currentCharacter = 0;
-        $this->currentToken = ''; // The token we are working on.
-        $this->formula = ''; // The formula to parse.
-        $this->lookAhead = ''; // The character ahead of the current char.
-        $this->parseTree = ''; // The parse tree to be generated.
-        $this->externalSheets = [];
-        $this->references = [];
     }
 
     /**

@@ -19,24 +19,20 @@ class Drawing extends BaseDrawing
      *
      * @var string
      */
-    private $path;
+    private $path = '';
 
     /**
      * Whether or not we are dealing with a URL.
      *
      * @var bool
      */
-    private $isUrl;
+    private $isUrl = false;
 
     /**
      * Create a new Drawing.
      */
     public function __construct()
     {
-        // Initialise values
-        $this->path = '';
-        $this->isUrl = false;
-
         // Initialize parent
         parent::__construct();
     }

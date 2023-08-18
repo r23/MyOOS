@@ -6,11 +6,10 @@
 class HTMLPurifier_AttrDef_CSS_FontFamily extends HTMLPurifier_AttrDef
 {
 
-    protected $mask = null;
+    protected $mask = '_- ';
 
     public function __construct()
     {
-        $this->mask = '_- ';
         for ($c = 'a'; $c <= 'z'; $c++) {
             $this->mask .= $c;
         }
