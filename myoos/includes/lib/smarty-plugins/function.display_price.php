@@ -49,7 +49,7 @@ function smarty_function_display_price($params, &$smarty)
 
 
     foreach ($params as $_key => $_val) {
-        $$_key = smarty_function_escape_special_chars($_val);
+        ${$_key} = smarty_function_escape_special_chars($_val);
     }
 
     $tax = oos_get_tax_rate($tax_class_id);

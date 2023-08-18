@@ -166,7 +166,7 @@ if (($action == 'new') || ($action == 'edit')) {
 
         $sInfo = new objectInfo($product);
     } else {
-        $sInfo = new objectInfo(array());
+        $sInfo = new objectInfo([]);
 
         $featured_array = [];
         $featuredtable = $oostable['featured'];
@@ -184,7 +184,7 @@ if (($action == 'new') || ($action == 'edit')) {
         <div class="card-header"><?php echo HEADING_TITLE; ?></div>
             <div class="card-body">
 
-                <form name="new_feature" <?php echo 'action="' . oos_href_link_admin($aContents['featured'], oos_get_all_get_params(array('action', 'info', 'fID')) . 'action=' . $form_action) . '"'; ?> method="post">
+                <form name="new_feature" <?php echo 'action="' . oos_href_link_admin($aContents['featured'], oos_get_all_get_params(['action', 'info', 'fID']) . 'action=' . $form_action) . '"'; ?> method="post">
     <?php
     if ($form_action == 'update') {
         echo oos_draw_hidden_field('featured_id', intval($fID));
@@ -212,7 +212,7 @@ if (($action == 'new') || ($action == 'edit')) {
                            <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_FEATURED_EXPIRES_DATE; ?></label>
                            <div class="col-xl-6 col-10">
                               <div class="input-group date" id="datetimepicker1">
-                                 <input class="form-control" type="text" name="expires_date" value="<?php echo(isset($sInfo->expires_date) ? $sInfo->expires_date : ''); ?>">
+                                 <input class="form-control" type="text" name="expires_date" value="<?php echo($sInfo->expires_date ?? ''); ?>">
 
                                  <span class="input-group-addon">
                                     <span class="fa fa-calendar"></span>
@@ -316,25 +316,25 @@ if (($action == 'new') || ($action == 'edit')) {
 
         switch ($action) {
     case 'delete':
-        $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_FEATURED . '</b>');
+        $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_FEATURED . '</b>'];
 
-        $contents = array('form' => oos_draw_form('id', 'featured', $aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=deleteconfirm', 'post', false));
-        $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
-        $contents[] = array('text' => '<br><b>' . $sInfo->products_name . '</b>');
-        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+        $contents = ['form' => oos_draw_form('id', 'featured', $aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=deleteconfirm', 'post', false)];
+        $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
+        $contents[] = ['text' => '<br><b>' . $sInfo->products_name . '</b>'];
+        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
         break;
 
     default:
         if (isset($sInfo) && is_object($sInfo)) {
-            $heading[] = array('text' => '<b>' . $sInfo->products_name . '</b>');
+            $heading[] = ['text' => '<b>' . $sInfo->products_name . '</b>'];
 
-            $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
-            $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($sInfo->featured_date_added));
-            $contents[] = array('text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($sInfo->featured_last_modified));
-            $contents[] = array('align' => 'center', 'text' => '<br>' . product_info_image($sInfo->products_image, $sInfo->products_name));
-            $contents[] = array('text' => '<br>' . TEXT_INFO_EXPIRES_DATE . ' <b>' . oos_date_short($sInfo->expires_date) . '</b>');
-            $contents[] = array('text' => '' . TEXT_INFO_STATUS_CHANGE . ' ' . oos_date_short($sInfo->date_status_change));
+            $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
+            $contents[] = ['text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($sInfo->featured_date_added)];
+            $contents[] = ['text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($sInfo->featured_last_modified)];
+            $contents[] = ['align' => 'center', 'text' => '<br>' . product_info_image($sInfo->products_image, $sInfo->products_name)];
+            $contents[] = ['text' => '<br>' . TEXT_INFO_EXPIRES_DATE . ' <b>' . oos_date_short($sInfo->expires_date) . '</b>'];
+            $contents[] = ['text' => '' . TEXT_INFO_STATUS_CHANGE . ' ' . oos_date_short($sInfo->date_status_change)];
         }
         break;
         }

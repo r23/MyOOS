@@ -159,7 +159,7 @@ function oos_cfg_select_option($select_array, $key_value, $key = '')
 {
     $string = '';
 
-    for ($i = 0, $n = count($select_array); $i < $n; $i++) {
+    for ($i = 0, $n = is_countable($select_array) ? count($select_array) : 0; $i < $n; $i++) {
         $name = ((oos_is_not_null($key)) ? 'configuration[' . $key . ']' : 'configuration_value');
 
         $string .= '<br><input class="' . $key . '" type="radio" name="' . $name . '" value="' . $select_array[$i] . '"';
@@ -223,7 +223,7 @@ function oos_cfg_pull_down_zone_classes($zone_class_id, $key = '')
 {
     $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
 
-    $zone_class_array = array(array('id' => '0', 'text' => TEXT_NONE));
+    $zone_class_array = [['id' => '0', 'text' => TEXT_NONE]];
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -235,8 +235,7 @@ function oos_cfg_pull_down_zone_classes($zone_class_id, $key = '')
     $result = $dbconn->Execute($query);
 
     while ($zone_class = $result->fields) {
-        $zone_class_array[] = array('id' => $zone_class['geo_zone_id'],
-                                  'text' => $zone_class['geo_zone_name']);
+        $zone_class_array[] = ['id' => $zone_class['geo_zone_id'], 'text' => $zone_class['geo_zone_name']];
 
         // Move that ADOdb pointer!
         $result->MoveNext();
@@ -257,7 +256,7 @@ function oos_cfg_pull_down_order_statuses($order_status_id, $key = '')
 {
     $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
 
-    $statuses_array = array(array('id' => '0', 'text' => TEXT_DEFAULT));
+    $statuses_array = [['id' => '0', 'text' => TEXT_DEFAULT]];
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -270,8 +269,7 @@ function oos_cfg_pull_down_order_statuses($order_status_id, $key = '')
     $result = $dbconn->Execute($query);
 
     while ($statuses = $result->fields) {
-        $statuses_array[] = array('id' => $statuses['orders_status_id'],
-                                'text' => $statuses['orders_status_name']);
+        $statuses_array[] = ['id' => $statuses['orders_status_id'], 'text' => $statuses['orders_status_name']];
 
         // Move that ADOdb pointer!
         $result->MoveNext();
@@ -292,7 +290,7 @@ function oos_cfg_pull_down_tax_classes($tax_class_id, $key = '')
 {
     $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
 
-    $tax_class_array = array(array('id' => '0', 'text' => TEXT_NONE));
+    $tax_class_array = [['id' => '0', 'text' => TEXT_NONE]];
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -304,8 +302,7 @@ function oos_cfg_pull_down_tax_classes($tax_class_id, $key = '')
     $result = $dbconn->Execute($query);
 
     while ($tax_class = $result->fields) {
-        $tax_class_array[] = array('id' => $tax_class['tax_class_id'],
-                                 'text' => $tax_class['tax_class_title']);
+        $tax_class_array[] = ['id' => $tax_class['tax_class_id'], 'text' => $tax_class['tax_class_title']];
 
         // Move that ADOdb pointer!
         $result->MoveNext();

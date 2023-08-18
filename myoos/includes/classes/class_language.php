@@ -52,10 +52,7 @@ class language
         }
 
         while ($languages = $languages_result->fields) {
-            $this->_languages[$languages['iso_639_2']] = array('id' => $languages['languages_id'],
-                                                                'name' => $languages['name'],
-                                                                'iso_639_2' => $languages['iso_639_2'],
-                                                                'iso_639_1' => $languages['iso_639_1']);
+            $this->_languages[$languages['iso_639_2']] = ['id' => $languages['languages_id'], 'name' => $languages['name'], 'iso_639_2' => $languages['iso_639_2'], 'iso_639_1' => $languages['iso_639_1']];
             // Move that ADOdb pointer!
             $languages_result->MoveNext();
         }
@@ -78,49 +75,16 @@ class language
 
             $customerstable = $oostable['customers'];
             $query = "UPDATE $customerstable SET customers_language =? WHERE customers_id =?";
-            $dbconn->Execute($query, array($sLanguage, (int)$_SESSION['customer_id']));
+            $dbconn->Execute($query, [$sLanguage, (int)$_SESSION['customer_id']]);
         }
     }
 
 
     public function get_browser_language()
     {
-        $http_accept_language = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+        $http_accept_language = explode(',', (string) $_SERVER['HTTP_ACCEPT_LANGUAGE']);
 
-        $browser_languages = array(
-         'af' => 'af|afrikaans',
-         'ar' => 'ar([-_][[:alpha:]]{2})?|arabic',
-         'az' => 'az|azerbaijani',
-         'bg' => 'bg|bulgarian',
-         'br' => 'pt[-_]br|brazilian portuguese',
-         'bs' => 'bs|bosnian',
-         'ca' => 'ca|catalan',
-         'cs' => 'cs|czech',
-         'da' => 'da|danish',
-         'deu' => 'de([-_][[:alpha:]]{2})?|german',
-         'el' => 'el|greek',
-         'eng' => 'en([-_][[:alpha:]]{2})?|english',
-         'spa' => 'es([-_][[:alpha:]]{2})?|spanish',
-         'et' => 'et|estonian',
-         'fi' => 'fi|finnish',
-         'fra' => 'fr([-_][[:alpha:]]{2})?|french',
-         'gl' => 'gl|galician',
-         'hu' => 'hu|hungarian',
-         'ita' => 'it|italian',
-         'ka' => 'ka|georgian',
-         'lt' => 'lt|lithuanian',
-         'nl' => 'nl([-_][[:alpha:]]{2})?|dutch',
-         'no' => 'no|norwegian',
-         'pol' => 'pl|polish',
-         'pt' => 'pt([-_][[:alpha:]]{2})?|portuguese',
-         'ro' => 'ro|romanian',
-         'rus' => 'ru|russian',
-         'sk' => 'sk|slovak',
-         'sr' => 'sr|serbian',
-         'sv' => 'sv|swedish',
-         'tr' => 'tr|turkish',
-         'uk' => 'uk|ukrainian',
-         'zh' => 'zh|chinese simplified');
+        $browser_languages = ['af' => 'af|afrikaans', 'ar' => 'ar([-_][[:alpha:]]{2})?|arabic', 'az' => 'az|azerbaijani', 'bg' => 'bg|bulgarian', 'br' => 'pt[-_]br|brazilian portuguese', 'bs' => 'bs|bosnian', 'ca' => 'ca|catalan', 'cs' => 'cs|czech', 'da' => 'da|danish', 'deu' => 'de([-_][[:alpha:]]{2})?|german', 'el' => 'el|greek', 'eng' => 'en([-_][[:alpha:]]{2})?|english', 'spa' => 'es([-_][[:alpha:]]{2})?|spanish', 'et' => 'et|estonian', 'fi' => 'fi|finnish', 'fra' => 'fr([-_][[:alpha:]]{2})?|french', 'gl' => 'gl|galician', 'hu' => 'hu|hungarian', 'ita' => 'it|italian', 'ka' => 'ka|georgian', 'lt' => 'lt|lithuanian', 'nl' => 'nl([-_][[:alpha:]]{2})?|dutch', 'no' => 'no|norwegian', 'pol' => 'pl|polish', 'pt' => 'pt([-_][[:alpha:]]{2})?|portuguese', 'ro' => 'ro|romanian', 'rus' => 'ru|russian', 'sk' => 'sk|slovak', 'sr' => 'sr|serbian', 'sv' => 'sv|swedish', 'tr' => 'tr|turkish', 'uk' => 'uk|ukrainian', 'zh' => 'zh|chinese simplified'];
 
         foreach ($http_accept_language as $browser_language) {
             foreach ($browser_languages as $key => $value) {

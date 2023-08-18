@@ -215,10 +215,10 @@ class PaymentDefinition extends PayPalModel
     public function addChargeModel($chargeModel)
     {
         if (!$this->getChargeModels()) {
-            return $this->setChargeModels(array($chargeModel));
+            return $this->setChargeModels([$chargeModel]);
         } else {
             return $this->setChargeModels(
-                array_merge($this->getChargeModels(), array($chargeModel))
+                array_merge($this->getChargeModels(), [$chargeModel])
             );
         }
     }
@@ -232,7 +232,7 @@ class PaymentDefinition extends PayPalModel
     public function removeChargeModel($chargeModel)
     {
         return $this->setChargeModels(
-            array_diff($this->getChargeModels(), array($chargeModel))
+            array_diff($this->getChargeModels(), [$chargeModel])
         );
     }
 

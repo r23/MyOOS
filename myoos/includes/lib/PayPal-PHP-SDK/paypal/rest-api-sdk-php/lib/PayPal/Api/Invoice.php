@@ -220,10 +220,10 @@ class Invoice extends PayPalResourceModel
     public function addBillingInfo($billingInfo)
     {
         if (!$this->getBillingInfo()) {
-            return $this->setBillingInfo(array($billingInfo));
+            return $this->setBillingInfo([$billingInfo]);
         } else {
             return $this->setBillingInfo(
-                array_merge($this->getBillingInfo(), array($billingInfo))
+                array_merge($this->getBillingInfo(), [$billingInfo])
             );
         }
     }
@@ -237,7 +237,7 @@ class Invoice extends PayPalResourceModel
     public function removeBillingInfo($billingInfo)
     {
         return $this->setBillingInfo(
-            array_diff($this->getBillingInfo(), array($billingInfo))
+            array_diff($this->getBillingInfo(), [$billingInfo])
         );
     }
 
@@ -273,10 +273,10 @@ class Invoice extends PayPalResourceModel
     public function addCcInfo($participant)
     {
         if (!$this->getCcInfo()) {
-            return $this->setCcInfo(array($participant));
+            return $this->setCcInfo([$participant]);
         } else {
             return $this->setCcInfo(
-                array_merge($this->getCcInfo(), array($participant))
+                array_merge($this->getCcInfo(), [$participant])
             );
         }
     }
@@ -290,7 +290,7 @@ class Invoice extends PayPalResourceModel
     public function removeCcInfo($participant)
     {
         return $this->setCcInfo(
-            array_diff($this->getCcInfo(), array($participant))
+            array_diff($this->getCcInfo(), [$participant])
         );
     }
 
@@ -349,10 +349,10 @@ class Invoice extends PayPalResourceModel
     public function addItem($invoiceItem)
     {
         if (!$this->getItems()) {
-            return $this->setItems(array($invoiceItem));
+            return $this->setItems([$invoiceItem]);
         } else {
             return $this->setItems(
-                array_merge($this->getItems(), array($invoiceItem))
+                array_merge($this->getItems(), [$invoiceItem])
             );
         }
     }
@@ -366,7 +366,7 @@ class Invoice extends PayPalResourceModel
     public function removeItem($invoiceItem)
     {
         return $this->setItems(
-            array_diff($this->getItems(), array($invoiceItem))
+            array_diff($this->getItems(), [$invoiceItem])
         );
     }
 
@@ -748,10 +748,10 @@ class Invoice extends PayPalResourceModel
     public function addPayment($paymentDetail)
     {
         if (!$this->getPayments()) {
-            return $this->setPayments(array($paymentDetail));
+            return $this->setPayments([$paymentDetail]);
         } else {
             return $this->setPayments(
-                array_merge($this->getPayments(), array($paymentDetail))
+                array_merge($this->getPayments(), [$paymentDetail])
             );
         }
     }
@@ -765,7 +765,7 @@ class Invoice extends PayPalResourceModel
     public function removePayment($paymentDetail)
     {
         return $this->setPayments(
-            array_diff($this->getPayments(), array($paymentDetail))
+            array_diff($this->getPayments(), [$paymentDetail])
         );
     }
 
@@ -801,10 +801,10 @@ class Invoice extends PayPalResourceModel
     public function addRefund($refundDetail)
     {
         if (!$this->getRefunds()) {
-            return $this->setRefunds(array($refundDetail));
+            return $this->setRefunds([$refundDetail]);
         } else {
             return $this->setRefunds(
-                array_merge($this->getRefunds(), array($refundDetail))
+                array_merge($this->getRefunds(), [$refundDetail])
             );
         }
     }
@@ -818,7 +818,7 @@ class Invoice extends PayPalResourceModel
     public function removeRefund($refundDetail)
     {
         return $this->setRefunds(
-            array_diff($this->getRefunds(), array($refundDetail))
+            array_diff($this->getRefunds(), [$refundDetail])
         );
     }
 
@@ -946,10 +946,10 @@ class Invoice extends PayPalResourceModel
     public function addAttachment($fileAttachment)
     {
         if (!$this->getAttachments()) {
-            return $this->setAttachments(array($fileAttachment));
+            return $this->setAttachments([$fileAttachment]);
         } else {
             return $this->setAttachments(
-                array_merge($this->getAttachments(), array($fileAttachment))
+                array_merge($this->getAttachments(), [$fileAttachment])
             );
         }
     }
@@ -963,7 +963,7 @@ class Invoice extends PayPalResourceModel
     public function removeAttachment($fileAttachment)
     {
         return $this->setAttachments(
-            array_diff($this->getAttachments(), array($fileAttachment))
+            array_diff($this->getAttachments(), [$fileAttachment])
         );
     }
 
@@ -1165,15 +1165,11 @@ class Invoice extends PayPalResourceModel
      * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
      * @return InvoiceSearchResponse
      */
-    public static function getAll($params = array(), $apiContext = null, $restCall = null)
+    public static function getAll($params = [], $apiContext = null, $restCall = null)
     {
         ArgumentValidator::validate($params, 'params');
 
-        $allowedParams = array(
-            'page' => 1,
-            'page_size' => 1,
-            'total_count_required' => 1
-        );
+        $allowedParams = ['page' => 1, 'page_size' => 1, 'total_count_required' => 1];
 
         $payLoad = "";
         $json = self::executeCall(
@@ -1289,16 +1285,12 @@ class Invoice extends PayPalResourceModel
      * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
      * @return Image
      */
-    public static function qrCode($invoiceId, $params = array(), $apiContext = null, $restCall = null)
+    public static function qrCode($invoiceId, $params = [], $apiContext = null, $restCall = null)
     {
         ArgumentValidator::validate($invoiceId, 'invoiceId');
         ArgumentValidator::validate($params, 'params');
 
-        $allowedParams = array(
-            'width' => 1,
-            'height' => 1,
-            'action' => 1
-        );
+        $allowedParams = ['width' => 1, 'height' => 1, 'action' => 1];
 
         $payLoad = "";
         $json = self::executeCall(

@@ -75,11 +75,7 @@ class item
     {
         global $oOrder, $aLang,  $total_count;
 
-        $this->quotes = array('id' => $this->code,
-                          'module' => $aLang['module_shipping_item_text_title'],
-                          'methods' => array(array('id' => $this->code,
-                                                   'title' => $aLang['module_shipping_item_text_way'],
-                                                   'cost' => (MODULE_SHIPPING_ITEM_COST * $total_count) + MODULE_SHIPPING_ITEM_HANDLING)));
+        $this->quotes = ['id' => $this->code, 'module' => $aLang['module_shipping_item_text_title'], 'methods' => [['id' => $this->code, 'title' => $aLang['module_shipping_item_text_way'], 'cost' => (MODULE_SHIPPING_ITEM_COST * $total_count) + MODULE_SHIPPING_ITEM_HANDLING]]];
 
 
         if (oos_is_not_null($this->icon)) {
@@ -131,6 +127,6 @@ class item
 
     public function keys()
     {
-        return array('MODULE_SHIPPING_ITEM_STATUS', 'MODULE_SHIPPING_ITEM_COST', 'MODULE_SHIPPING_ITEM_HANDLING', 'MODULE_SHIPPING_ITEM_ZONE', 'MODULE_SHIPPING_ITEM_SORT_ORDER');
+        return ['MODULE_SHIPPING_ITEM_STATUS', 'MODULE_SHIPPING_ITEM_COST', 'MODULE_SHIPPING_ITEM_HANDLING', 'MODULE_SHIPPING_ITEM_ZONE', 'MODULE_SHIPPING_ITEM_SORT_ORDER'];
     }
 }

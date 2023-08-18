@@ -61,7 +61,7 @@ if (isset($_SESSION)) {
 
                 if (isset($_POST['postcode'])) {
                     $postcode = oos_db_prepare_input($_POST['postcode']);
-                    $postcode = strtoupper($postcode);
+                    $postcode = strtoupper((string) $postcode);
                     /* todo: postcode
                     if (strlen($postcode ?? '') < ENTRY_POSTCODE_MIN_LENGTH) {
                         $oMessage->add('danger', $aLang['entry_post_code_error']);
@@ -113,7 +113,7 @@ if (isset($_SESSION)) {
             }
 
             $shipping = isset($_SESSION['shipping']['id']) ? oos_db_prepare_input($_SESSION['shipping']['id']) : DEFAULT_SHIPPING_METHOD . '_' . DEFAULT_SHIPPING_METHOD;
-            list($module, $method) = explode('_', $shipping);
+            [$module, $method] = explode('_', (string) $shipping);
 
             // load all enabled shipping modules
             include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
@@ -123,9 +123,7 @@ if (isset($_SESSION)) {
             $quote = $shipping_modules->quote($method, $module);
 
             if ((isset($quote[0]['methods'][0]['title'])) && (isset($quote[0]['methods'][0]['cost']))) {
-                $_SESSION['shipping'] = array('id' => $quote[0]['id'] . '_' . $quote[0]['methods'][0]['id'],
-                                            'title' => (($free_shipping == true) ? $quote[0]['methods'][0]['title'] : $quote[0]['module']),
-                                            'cost' => $quote[0]['methods'][0]['cost']);
+                $_SESSION['shipping'] = ['id' => $quote[0]['id'] . '_' . $quote[0]['methods'][0]['id'], 'title' => (($free_shipping == true) ? $quote[0]['methods'][0]['title'] : $quote[0]['module']), 'cost' => $quote[0]['methods'][0]['cost']];
             }
 
             // load all enabled order total modules
@@ -146,7 +144,7 @@ if (isset($_SESSION)) {
 
             // Minimum Order Value
             if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
-                $minimum_order_value = str_replace(',', '.', MINIMUM_ORDER_VALUE);
+                $minimum_order_value = str_replace(',', '.', (string) MINIMUM_ORDER_VALUE);
 
                 if ($subtotal < $minimum_order_value) {
                     $oMessage->add('danger', sprintf($aLang['warning_minimum_order_value'], $oCurrencies->format($minimum_order_value)));
@@ -158,7 +156,7 @@ if (isset($_SESSION)) {
              * Shopping Cart
             */
             $products = $_SESSION['cart']->get_products();
-            $n = count($products);
+            $n = is_countable($products) ? count($products) : 0;
             $nError = 0;
 
             for ($i=0, $n; $i<$n; $i++) {
@@ -258,22 +256,7 @@ if (!isset($option)) {
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-        'breadcrumb'    => $oBreadcrumb->trail(),
-        'heading_title' => $aLang['heading_title_cart'],
-        'robots'        => 'noindex,follow,noodp,noydir',
-        'cart_active'   => 1,
-        'canonical'     => $sCanonical,
-
-        'hidden_field'  => $hidden_field,
-        'products'      => $products,
-        'error'         => $nError,
-        'any_out_of_stock'    => $any_out_of_stock,
-        'order_total_output'  => $order_total_output,
-        'country'             => $country,
-        'city'                => $city,
-        'postcode'            => $postcode
-       )
+    ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title' => $aLang['heading_title_cart'], 'robots'        => 'noindex,follow,noodp,noydir', 'cart_active'   => 1, 'canonical'     => $sCanonical, 'hidden_field'  => $hidden_field, 'products'      => $products, 'error'         => $nError, 'any_out_of_stock'    => $any_out_of_stock, 'order_total_output'  => $order_total_output, 'country'             => $country, 'city'                => $city, 'postcode'            => $postcode]
 );
 
 // register the outputfilter

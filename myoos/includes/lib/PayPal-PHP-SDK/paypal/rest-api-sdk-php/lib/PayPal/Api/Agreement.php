@@ -247,10 +247,10 @@ class Agreement extends PayPalResourceModel
     public function addOverrideChargeModel($overrideChargeModel)
     {
         if (!$this->getOverrideChargeModels()) {
-            return $this->setOverrideChargeModels(array($overrideChargeModel));
+            return $this->setOverrideChargeModels([$overrideChargeModel]);
         } else {
             return $this->setOverrideChargeModels(
-                array_merge($this->getOverrideChargeModels(), array($overrideChargeModel))
+                array_merge($this->getOverrideChargeModels(), [$overrideChargeModel])
             );
         }
     }
@@ -264,7 +264,7 @@ class Agreement extends PayPalResourceModel
     public function removeOverrideChargeModel($overrideChargeModel)
     {
         return $this->setOverrideChargeModels(
-            array_diff($this->getOverrideChargeModels(), array($overrideChargeModel))
+            array_diff($this->getOverrideChargeModels(), [$overrideChargeModel])
         );
     }
 
@@ -620,15 +620,12 @@ class Agreement extends PayPalResourceModel
      * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
      * @return AgreementTransactions
      */
-    public static function searchTransactions($agreementId, $params = array(), $apiContext = null, $restCall = null)
+    public static function searchTransactions($agreementId, $params = [], $apiContext = null, $restCall = null)
     {
         ArgumentValidator::validate($agreementId, 'agreementId');
         ArgumentValidator::validate($params, 'params');
 
-        $allowedParams = array(
-            'start_date' => 1,
-            'end_date' => 1,
-        );
+        $allowedParams = ['start_date' => 1, 'end_date' => 1];
 
         $payLoad = "";
         $json = self::executeCall(

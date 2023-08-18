@@ -45,7 +45,7 @@ function smarty_function_oos_add_tax($params, &$smarty)
     include_once SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php';
 
     foreach ($params as $_key => $_val) {
-        $$_key = smarty_function_escape_special_chars($_val);
+        ${$_key} = smarty_function_escape_special_chars($_val);
     }
 
     if ($aUser['price_with_tax'] == 1) {

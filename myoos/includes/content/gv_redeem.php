@@ -129,13 +129,7 @@ $smarty->assign('text_information', sprintf($aLang['text_information'], oos_href
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-          'breadcrumb'        => $oBreadcrumb->trail(),
-          'heading_title'    => $aLang['heading_title'],
-          'robots'            => 'noindex,nofollow,noodp,noydir',
-
-          'text_gift_voucher'    => $sTextGiftVoucher
-      )
+    ['breadcrumb'        => $oBreadcrumb->trail(), 'heading_title'    => $aLang['heading_title'], 'robots'            => 'noindex,nofollow,noodp,noydir', 'text_gift_voucher'    => $sTextGiftVoucher]
 );
 
 

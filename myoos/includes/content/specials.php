@@ -105,22 +105,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
 
 
-        $aSpecials[] = array(
-                         'products_id'                => $specials['products_id'],
-                         'products_image'             => $specials['products_image'],
-                         'products_name'              => $specials['products_name'],
-                         'products_description'       => $specials['products_description'],
-                         'products_base_unit'         => $specials['products_base_unit'],
-                         'products_base_price'        => $specials['products_base_price'],
-                         'products_units'                => $specials['products_units_id'],
-                         'product_quantity'                => $specials['products_product_quantity'],
-                         'specials_product_special_price'    => $specials_special_price,
-                         'specials_base_product_price'        => $specials_base_product_price,
-                         'specials_cross_out_price'            => $specials_cross_out_price,
-                         'specials_product_price_list'        => $specials_price_list,
-                         'specials_until'                    => $specials_until,
-                         'base_product_special_price'        => $specials_base_product_special_price
-                     );
+        $aSpecials[] = ['products_id'                => $specials['products_id'], 'products_image'             => $specials['products_image'], 'products_name'              => $specials['products_name'], 'products_description'       => $specials['products_description'], 'products_base_unit'         => $specials['products_base_unit'], 'products_base_price'        => $specials['products_base_price'], 'products_units'                => $specials['products_units_id'], 'product_quantity'                => $specials['products_product_quantity'], 'specials_product_special_price'    => $specials_special_price, 'specials_base_product_price'        => $specials_base_product_price, 'specials_cross_out_price'            => $specials_cross_out_price, 'specials_product_price_list'        => $specials_price_list, 'specials_until'                    => $specials_until, 'base_product_special_price'        => $specials_base_product_special_price];
         $specials_result->MoveNext();
     }
 
@@ -129,19 +114,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     // assign Smarty variables;
     $smarty->assign(
-        array(
-            'breadcrumb'        => $oBreadcrumb->trail(),
-            'heading_title'        => $aLang['heading_title'],
-            'canonical'            => $sCanonical,
-
-            'page_split'        => $specials_split->display_count($aLang['text_display_number_of_specials']),
-            'display_links'        => $specials_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-            'numrows'             => $specials_split->number_of_rows,
-            'numpages'             => $specials_split->number_of_pages,
-
-            'page'                => $nPage,
-            'specials'            => $aSpecials
-        )
+        ['breadcrumb'        => $oBreadcrumb->trail(), 'heading_title'        => $aLang['heading_title'], 'canonical'            => $sCanonical, 'page_split'        => $specials_split->display_count($aLang['text_display_number_of_specials']), 'display_links'        => $specials_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(['page', 'info'])), 'numrows'             => $specials_split->number_of_rows, 'numpages'             => $specials_split->number_of_pages, 'page'                => $nPage, 'specials'            => $aSpecials]
     );
 }
 

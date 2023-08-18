@@ -26,7 +26,7 @@ require 'includes/functions/function_modules.php';
 
 $currencies = new currencies();
 
-$set = (isset($_GET['set']) ? $_GET['set'] : '');
+$set = ($_GET['set'] ?? '');
 
 switch ($set) {
     case 'shipping':
@@ -101,7 +101,7 @@ if (!empty($action)) {
         case 'remove':
 			$php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
             $file_extension = oos_db_prepare_input(substr($php_self, strrpos($php_self, '.')));
-            $class = oos_db_prepare_input(basename($_GET['module']));
+            $class = oos_db_prepare_input(basename((string) $_GET['module']));
 
             if (file_exists($module_directory . $class . $file_extension)) {
                 include OOS_ABSOLUTE_PATH . 'includes/languages/' . $_SESSION['language'] . '/modules/' . $module_type . '/' . $class . $file_extension;
@@ -217,23 +217,20 @@ require 'includes/header.php';
             }
 
             if ((!isset($_GET['module']) || (isset($_GET['module']) && ($_GET['module'] == $class))) && !isset($mInfo)) {
-                $module_info = array('code' => $module->code,
-                                    'title' => $module->title,
-                                    'description' => $module->description,
-                                    'status' => $module->check());
+                $module_info = ['code' => $module->code, 'title' => $module->title, 'description' => $module->description, 'status' => $module->check()];
 
                 $module_keys = $module->keys();
 
                 $keys_extra = [];
-                for ($j = 0, $k = count($module_keys); $j < $k; $j++) {
+                for ($j = 0, $k = is_countable($module_keys) ? count($module_keys) : 0; $j < $k; $j++) {
                     $key_value_result = $dbconn->Execute("SELECT configuration_value, use_function, set_function FROM " . $oostable['configuration'] . " WHERE configuration_key = '" . $module_keys[$j] . "'");
                     $key_value = $key_value_result->fields;
 
                     $keys_extra[$module_keys[$j]]['title'] = constant(strtoupper($module_keys[$j] . '_TITLE'));
-                    $keys_extra[$module_keys[$j]]['value'] = isset($key_value['configuration_value']) ? $key_value['configuration_value'] : '';
+                    $keys_extra[$module_keys[$j]]['value'] = $key_value['configuration_value'] ?? '';
                     $keys_extra[$module_keys[$j]]['description'] = constant(strtoupper($module_keys[$j] . '_DESC'));
-                    $keys_extra[$module_keys[$j]]['use_function'] = isset($key_value['use_function']) ? $key_value['use_function'] : '';
-                    $keys_extra[$module_keys[$j]]['set_function'] = isset($key_value['set_function']) ? $key_value['set_function'] : '';
+                    $keys_extra[$module_keys[$j]]['use_function'] = $key_value['use_function'] ?? '';
+                    $keys_extra[$module_keys[$j]]['set_function'] = $key_value['set_function'] ?? '';
                 }
 
                 $module_info['keys'] = $keys_extra;
@@ -312,22 +309,22 @@ switch ($action) {
             $keys .= '<br><br>';
         }
         $keys = substr($keys, 0, strrpos($keys, '<br><br>'));
-        $heading[] = array('text' => '<b>' . $mInfo->title . '</b>');
+        $heading[] = ['text' => '<b>' . $mInfo->title . '</b>'];
 
-        $contents = array('form' => oos_draw_form('id', 'modules', $aContents['modules'], 'set=' . $set . '&module=' . $_GET['module'] . '&action=save', 'post', false));
-        $contents[] = array('text' => $keys);
+        $contents = ['form' => oos_draw_form('id', 'modules', $aContents['modules'], 'set=' . $set . '&module=' . $_GET['module'] . '&action=save', 'post', false)];
+        $contents[] = ['text' => $keys];
 
         if ($set == 'shipping') {
             if (DEFAULT_SHIPPING_METHOD != $mInfo->code) {
-                $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT . oos_draw_hidden_field('code', $mInfo->code));
+                $contents[] = ['text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT . oos_draw_hidden_field('code', $mInfo->code)];
             }
         }
 
-        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $_GET['module']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $_GET['module']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
         break;
 
     default:
-        $heading[] = array('text' => '<b>' . $mInfo->title . '</b>');
+        $heading[] = ['text' => '<b>' . $mInfo->title . '</b>'];
 
         if ($mInfo->status == '1') {
             $keys = '';
@@ -336,8 +333,8 @@ switch ($action) {
                 $keys .= '<b>' . $value['title'] . '</b><br>';
                 if ($value['use_function']) {
                     $use_function = $value['use_function'];
-                    if (preg_match('/->/', $use_function)) {
-                        $class_method = explode('->', $use_function);
+                    if (preg_match('/->/', (string) $use_function)) {
+                        $class_method = explode('->', (string) $use_function);
                         if (!is_object(${$class_method[0]})) {
                             include 'includes/classes/class_'. $class_method[0] . '.php';
                             ${$class_method[0]} = new $class_method[0]();
@@ -353,11 +350,11 @@ switch ($action) {
             }
             $keys = substr($keys, 0, strrpos($keys, '<br><br>'));
 
-            $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $mInfo->code . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>');
-            $contents[] = array('text' => '<br>' . $mInfo->description);
-            $contents[] = array('text' => '<br>' . $keys);
+            $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $mInfo->code . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>'];
+            $contents[] = ['text' => '<br>' . $mInfo->description];
+            $contents[] = ['text' => '<br>' . $keys];
         } else {
-            $contents[] = array('text' => $mInfo->description);
+            $contents[] = ['text' => $mInfo->description];
         }
     break;
 }

@@ -81,23 +81,19 @@ class weight
     {
         global $oOrder, $aLang, $shipping_weight;
 
-        $weight_cost = preg_split("/[:,]/", MODULE_SHIPPING_WEIGHT_COST);
+        $weight_cost = preg_split("/[:,]/", (string) MODULE_SHIPPING_WEIGHT_COST);
 
-        if ($shipping_weight > $weight_cost[count($weight_cost)-2]) {
-            $shipping = ($shipping_weight-$weight_cost[count($weight_cost)-2])* MODULE_SHIPPING_WEIGHT_STEP +$weight_cost[count($weight_cost)-1];
+        if ($shipping_weight > $weight_cost[(is_countable($weight_cost) ? count($weight_cost) : 0)-2]) {
+            $shipping = ($shipping_weight-$weight_cost[(is_countable($weight_cost) ? count($weight_cost) : 0)-2])* MODULE_SHIPPING_WEIGHT_STEP +$weight_cost[(is_countable($weight_cost) ? count($weight_cost) : 0)-1];
         }
-        for ($i = 0; $i < count($weight_cost); $i+=2) {
+        for ($i = 0; $i < (is_countable($weight_cost) ? count($weight_cost) : 0); $i+=2) {
             if ($shipping_weight <= $weight_cost[$i]) {
                 $shipping = $weight_cost[$i+1];
                 break;
             }
         }
 
-        $this->quotes = array('id' => $this->code,
-                          'module' => $aLang['module_shipping_weight_text_title'],
-                          'methods' => array(array('id' => $this->code,
-                                                   'title' => $aLang['module_shipping_weight_text_way'],
-                                                   'cost' => $shipping + MODULE_SHIPPING_WEIGHT_HANDLING)));
+        $this->quotes = ['id' => $this->code, 'module' => $aLang['module_shipping_weight_text_title'], 'methods' => [['id' => $this->code, 'title' => $aLang['module_shipping_weight_text_way'], 'cost' => $shipping + MODULE_SHIPPING_WEIGHT_HANDLING]]];
 
 
         if (oos_is_not_null($this->icon)) {
@@ -152,6 +148,6 @@ class weight
 
     public function keys()
     {
-        return array('MODULE_SHIPPING_WEIGHT_STATUS', 'MODULE_SHIPPING_WEIGHT_HANDLING', 'MODULE_SHIPPING_WEIGHT_COST', 'MODULE_SHIPPING_WEIGHT_STEP', 'MODULE_SHIPPING_WEIGHT_ZONE', 'MODULE_SHIPPING_WEIGHT_SORT_ORDER', 'MODULE_SHIPPING_WEIGHT_MODE');
+        return ['MODULE_SHIPPING_WEIGHT_STATUS', 'MODULE_SHIPPING_WEIGHT_HANDLING', 'MODULE_SHIPPING_WEIGHT_COST', 'MODULE_SHIPPING_WEIGHT_STEP', 'MODULE_SHIPPING_WEIGHT_ZONE', 'MODULE_SHIPPING_WEIGHT_SORT_ORDER', 'MODULE_SHIPPING_WEIGHT_MODE'];
     }
 }

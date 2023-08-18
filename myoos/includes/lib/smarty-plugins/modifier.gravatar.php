@@ -22,9 +22,9 @@
  */
 function smarty_modifier_gravatar($email, $default=false, $size=false, $rating=false, $border=false)
 {
-    $gravurl = "<img src='http://www.gravatar.com/avatar.php?gravatar_id=".md5($email);
+    $gravurl = "<img src='http://www.gravatar.com/avatar.php?gravatar_id=".md5((string) $email);
     if ($default) {
-        $gravurl .= "&amp;default=".urlencode($default);
+        $gravurl .= "&amp;default=".urlencode((string) $default);
     }
     if ($size) {
         $gravurl .= "&amp;size=".$size;

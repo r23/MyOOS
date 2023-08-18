@@ -53,13 +53,13 @@ class messageStack
     public function add($message, $type = 'error')
     {
         if ($type == 'error') {
-            $this->errors[] = array('params' => 'alert-danger', 'text' => $message);
+            $this->errors[] = ['params' => 'alert-danger', 'text' => $message];
         } elseif ($type == 'warning') {
-            $this->errors[] = array('params' => 'alert-warning', 'text' => $message);
+            $this->errors[] = ['params' => 'alert-warning', 'text' => $message];
         } elseif ($type == 'success') {
-            $this->errors[] = array('params' => 'alert-success', 'text' =>  $message);
+            $this->errors[] = ['params' => 'alert-success', 'text' =>  $message];
         } else {
-            $this->errors[] = array('params' => 'alert-info', 'text' => $message);
+            $this->errors[] = ['params' => 'alert-info', 'text' => $message];
         }
 
         $this->size++;
@@ -71,7 +71,7 @@ class messageStack
             $_SESSION['messageToStack'] = [];
         }
 
-        $_SESSION['messageToStack'][] = array('text' => $message, 'type' => $type);
+        $_SESSION['messageToStack'][] = ['text' => $message, 'type' => $type];
     }
 
     public function reset()
@@ -86,7 +86,7 @@ class messageStack
 
         $aContents = $this->errors;
 
-        for ($i = 0, $n = count($aContents); $i < $n; $i++) {
+        for ($i = 0, $n = is_countable($aContents) ? count($aContents) : 0; $i < $n; $i++) {
             $sMessageBox .=    '<div class="alert';
             if (isset($aContents[$i]['params']) && oos_is_not_null($aContents[$i]['params'])) {
                 $sMessageBox .= ' ' . $aContents[$i]['params'];

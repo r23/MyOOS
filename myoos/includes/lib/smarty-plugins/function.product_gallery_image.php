@@ -46,7 +46,7 @@ function smarty_function_product_gallery_image($params, &$smarty)
         case 'dir':
         case 'alt':
             if (!is_array($_val)) {
-                $$_key = smarty_function_escape_special_chars($_val);
+                ${$_key} = smarty_function_escape_special_chars($_val);
             } else {
                 throw new SmartyException("small_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
             }
@@ -77,5 +77,5 @@ function smarty_function_product_gallery_image($params, &$smarty)
         }
     }
 
-    return '<img src="' . $src . '" alt="' . strip_tags($alt) . '" ' . $extra . '>';
+    return '<img src="' . $src . '" alt="' . strip_tags((string) $alt) . '" ' . $extra . '>';
 }

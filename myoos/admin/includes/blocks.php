@@ -79,7 +79,7 @@ if (oos_admin_check_boxes('administrator.php') == true) {
     include 'includes/boxes/administrator.php';
 }
 if (is_array($aBlocks)) {
-    $php_self = basename($_SERVER['PHP_SELF']);
+    $php_self = basename((string) $_SERVER['PHP_SELF']);
 
     echo '<nav class="sidebar" data-sidebar-anyclick-close="">' . "\n" .
         '	<!-- START sidebar nav //-->' . "\n" .

@@ -33,7 +33,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
   */
 function oos_block_select_option($select_array, $key_value)
 {
-    for ($i = 0, $n = count($select_array); $i < $n; $i++) {
+    for ($i = 0, $n = is_countable($select_array) ? count($select_array) : 0; $i < $n; $i++) {
         $name = 'block_side';
         $string .= '<br><input type="radio" name="' . $name . '" value="' . $select_array[$i] . '"';
         if ($key_value == $select_array[$i]) {
@@ -100,8 +100,7 @@ function oos_show_block_to_page($block_id = '', $language_id = '')
         $type_result = $dbconn->Execute($query);
 
         while ($type = $type_result->fields) {
-            $type_array[] = array('id' => $type['page_type_id'],
-                                'text' => $type['page_type_name']);
+            $type_array[] = ['id' => $type['page_type_id'], 'text' => $type['page_type_name']];
 
             // Move that ADOdb pointer!
             $type_result->MoveNext();

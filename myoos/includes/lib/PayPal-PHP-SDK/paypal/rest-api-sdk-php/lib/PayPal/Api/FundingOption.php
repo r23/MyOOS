@@ -75,10 +75,10 @@ class FundingOption extends PayPalModel
     public function addFundingSource($fundingSource)
     {
         if (!$this->getFundingSources()) {
-            return $this->setFundingSources(array($fundingSource));
+            return $this->setFundingSources([$fundingSource]);
         } else {
             return $this->setFundingSources(
-                array_merge($this->getFundingSources(), array($fundingSource))
+                array_merge($this->getFundingSources(), [$fundingSource])
             );
         }
     }
@@ -92,7 +92,7 @@ class FundingOption extends PayPalModel
     public function removeFundingSource($fundingSource)
     {
         return $this->setFundingSources(
-            array_diff($this->getFundingSources(), array($fundingSource))
+            array_diff($this->getFundingSources(), [$fundingSource])
         );
     }
 
@@ -197,10 +197,10 @@ class FundingOption extends PayPalModel
     public function addLink($links)
     {
         if (!$this->getLinks()) {
-            return $this->setLinks(array($links));
+            return $this->setLinks([$links]);
         } else {
             return $this->setLinks(
-                array_merge($this->getLinks(), array($links))
+                array_merge($this->getLinks(), [$links])
             );
         }
     }
@@ -214,7 +214,7 @@ class FundingOption extends PayPalModel
     public function removeLink($links)
     {
         return $this->setLinks(
-            array_diff($this->getLinks(), array($links))
+            array_diff($this->getLinks(), [$links])
         );
     }
 

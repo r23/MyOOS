@@ -83,18 +83,7 @@ if ($sContent != $aContents['specials']) {
         }
 
         $smarty->assign(
-            array(
-                'specials_random_product'                    => $specials_random_product,
-                'specials_random_product_special_price'      => $specials_random_product_special_price,
-                'specials_random_base_product_price'         => $specials_random_base_product_price,
-
-                'specials_random_cross_out_price'             => $specials_random_cross_out_price,
-                'specials_random_product_price_list'         => $specials_random_product_price_list,
-                'specials_random_until'                         => $specials_random_until,
-
-                'specials_random'          => $specials_random_product
-
-            )
+            ['specials_random_product'                    => $specials_random_product, 'specials_random_product_special_price'      => $specials_random_product_special_price, 'specials_random_base_product_price'         => $specials_random_base_product_price, 'specials_random_cross_out_price'             => $specials_random_cross_out_price, 'specials_random_product_price_list'         => $specials_random_product_price_list, 'specials_random_until'                         => $specials_random_until, 'specials_random'          => $specials_random_product]
         );
         $smarty->assign('block_heading_specials', $block_heading);
     }

@@ -36,7 +36,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'send')) {
     $subject = oos_db_prepare_input($_POST['subject']);
     $enquiry = oos_db_prepare_input($_POST['enquiry']);
 
-    $email_address = strtolower($email_address);
+    $email_address = strtolower((string) $email_address);
 
     if (is_email(trim((string) $email_address))) {
         if (empty($subject)) {
@@ -75,13 +75,7 @@ if (!isset($option)) {
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-            'breadcrumb'    => $oBreadcrumb->trail(),
-            'heading_title' => $aLang['heading_title'],
-            'canonical'        => $sCanonical,
-
-            'error' => $bError
-        )
+    ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title' => $aLang['heading_title'], 'canonical'        => $sCanonical, 'error' => $bError]
 );
 
 // register the outputfilter

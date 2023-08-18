@@ -88,12 +88,12 @@ function oos_date_short($raw_date)
         return false;
     }
 
-    $year = substr($raw_date, 0, 4);
-    $month = intval(substr($raw_date, 5, 2));
-    $day = intval(substr($raw_date, 8, 2));
-    $hour = intval(substr($raw_date, 11, 2));
-    $minute = intval(substr($raw_date, 14, 2));
-    $second = intval(substr($raw_date, 17, 2));
+    $year = substr((string) $raw_date, 0, 4);
+    $month = intval(substr((string) $raw_date, 5, 2));
+    $day = intval(substr((string) $raw_date, 8, 2));
+    $hour = intval(substr((string) $raw_date, 11, 2));
+    $minute = intval(substr((string) $raw_date, 14, 2));
+    $second = intval(substr((string) $raw_date, 17, 2));
 
     if (@date('Y', mktime($hour, $minute, $second, $month, $day, $year)) == $year) {
         return date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));
@@ -116,12 +116,12 @@ function oos_date_short_schema($raw_date)
         return false;
     }
 
-    $year = substr($raw_date, 0, 4);
-    $month = intval(substr($raw_date, 5, 2));
-    $day = intval(substr($raw_date, 8, 2));
-    $hour = intval(substr($raw_date, 11, 2));
-    $minute = intval(substr($raw_date, 14, 2));
-    $second = intval(substr($raw_date, 17, 2));
+    $year = substr((string) $raw_date, 0, 4);
+    $month = intval(substr((string) $raw_date, 5, 2));
+    $day = intval(substr((string) $raw_date, 8, 2));
+    $hour = intval(substr((string) $raw_date, 11, 2));
+    $minute = intval(substr((string) $raw_date, 14, 2));
+    $second = intval(substr((string) $raw_date, 17, 2));
 
     if (@date('Y', mktime($hour, $minute, $second, $month, $day, $year)) == $year) {
         return date('Y-m-d', mktime($hour, $minute, $second, $month, $day, $year));
@@ -139,8 +139,8 @@ function oos_date_short_schema($raw_date)
  */
 function oos_get_local_path($sPath)
 {
-    if (substr($sPath, -1) == '/') {
-        $sPath = substr($sPath, 0, -1);
+    if (str_ends_with((string) $sPath, '/')) {
+        $sPath = substr((string) $sPath, 0, -1);
     }
 
     return $sPath;
@@ -155,7 +155,7 @@ function oos_get_local_path($sPath)
  */
 function oos_get_product_id($uprid)
 {
-    $pieces = explode('{', $uprid);
+    $pieces = explode('{', (string) $uprid);
 
     if (is_numeric($pieces[0])) {
         return $pieces[0];
@@ -174,7 +174,7 @@ function oos_is_not_null($value)
             return false;
         }
     } else {
-		if (($value ?? '') != '' && (strtolower($value) != 'null') && (strlen(trim((string) $value)) > 0)) {
+		if (($value ?? '') != '' && (strtolower((string) $value) != 'null') && (strlen(trim((string) $value)) > 0)) {
             return true;
         } else {
             return false;
@@ -214,7 +214,7 @@ function oos_rand($min = null, $max = null)
     static $seeded;
 
     if (!isset($seeded)) {
-        mt_srand((float)microtime()*1000000);
+        mt_srand((float)microtime()*1_000_000);
         $seeded = true;
     }
 
@@ -222,10 +222,10 @@ function oos_rand($min = null, $max = null)
         if ($min >= $max) {
             return $min;
         } else {
-            return mt_rand($min, $max);
+            return random_int($min, $max);
         }
     } else {
-        return mt_rand();
+        return random_int(0, mt_getrandmax());
     }
 }
 

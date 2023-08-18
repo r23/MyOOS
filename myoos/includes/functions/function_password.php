@@ -35,7 +35,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
  */
 function oos_validate_password($password, $hash)
 {
-    if (password_verify($password . PEPPER, $hash)) {
+    if (password_verify($password . PEPPER, (string) $hash)) {
         return true;
     }
 

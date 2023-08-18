@@ -24,8 +24,8 @@
 
 function smarty_modifier_str_pad($string, $length, $pad_string=' ', $pad_type='left')
 {
-    $pads = array('left'=>0, 'right'=>1, 'both'=>2);
+    $pads = ['left'=>0, 'right'=>1, 'both'=>2];
     if (array_key_exists($pad_type, $pads)) {
-        return str_pad($string, $length, $pad_string, $pads[$pad_type]);
+        return str_pad((string) $string, $length, $pad_string, $pads[$pad_type]);
     }
 }

@@ -39,138 +39,142 @@ if (!empty($action)) {
 
             // Logo
             if ($cID == 2) {
-                $options = array(
-                    'image_versions' => array(
-                        // The empty image version key defines options for the original image.
-                        // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards.
-                        // Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
-                        '' => array(
-                            // Automatically rotate images based on EXIF meta data:
-                            'auto_orient' => true
-                        ),
-                        'medium' => array(
-                            // 'auto_orient' => TRUE,
-                            // 'crop' => TRUE,
-                            // 'jpeg_quality' => 82,
-                            // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                            // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                            'max_width' => 320, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                            'max_height' => 150 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-                        ),
-                        'checkout' => array(
-                            // 'auto_orient' => TRUE,
-                            // 'crop' => TRUE,
-                            // 'jpeg_quality' => 82,
-                            // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                            // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                            'max_width' => 190, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                            'max_height' => 60 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-                        ),
-                        'small' => array(
-                            // 'auto_orient' => TRUE,
-                            // 'crop' => TRUE,
-                            // 'jpeg_quality' => 82,
-                            // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                            // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                            'max_width' => 128, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                            'max_height' => 60 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-                        ),
-                    ),
-                );
+                $options = ['image_versions' => [
+                    // The empty image version key defines options for the original image.
+                    // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards.
+                    // Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
+                    '' => [
+                        // Automatically rotate images based on EXIF meta data:
+                        'auto_orient' => true,
+                    ],
+                    'medium' => [
+                        // 'auto_orient' => TRUE,
+                        // 'crop' => TRUE,
+                        // 'jpeg_quality' => 82,
+                        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                        'max_width' => 320,
+                        // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                        'max_height' => 150,
+                    ],
+                    'checkout' => [
+                        // 'auto_orient' => TRUE,
+                        // 'crop' => TRUE,
+                        // 'jpeg_quality' => 82,
+                        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                        'max_width' => 190,
+                        // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                        'max_height' => 60,
+                    ],
+                    'small' => [
+                        // 'auto_orient' => TRUE,
+                        // 'crop' => TRUE,
+                        // 'jpeg_quality' => 82,
+                        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                        'max_width' => 128,
+                        // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                        'max_height' => 60,
+                    ],
+                ]];
                 $dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'logo/';
             } elseif ($cID == 3) {
                 // Site Icons
-                $options = array(
-                    'image_versions' => array(
-                        // The empty image version key defines options for the original image.
-                        // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards.
-                        // Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
-                        '' => array(
-                            // Automatically rotate images based on EXIF meta data:
-                            'auto_orient' => true
-                        ),
-                        '180x180' => array(
-                            // 'auto_orient' => TRUE,
-                            // 'crop' => TRUE,
-                            // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                            // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                            'max_width' => 180, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                            'max_height' => 180 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-                        ),
-                        '144x144' => array(
-                            // 'auto_orient' => TRUE,
-                            // 'crop' => TRUE,
-                            // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                            // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                            'max_width' => 144, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                            'max_height' => 144 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-                        ),
-                        '114x114' => array(
-                            // 'auto_orient' => TRUE,
-                            // 'crop' => TRUE,
-                            // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                            // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                            'max_width' => 114, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                            'max_height' => 114 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-                        ),
-                        '72x72' => array(
-                            // 'auto_orient' => TRUE,
-                            // 'crop' => TRUE,
-                            // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                            // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                            'max_width' => 72, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                            'max_height' => 72 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-                        ),
-                        '96x96' => array(
-                            // 'auto_orient' => TRUE,
-                            // 'crop' => TRUE,
-                            // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                            // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                            'max_width' => 96, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                            'max_height' => 96 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-                        ),
-                        '32x32' => array(
-                            // 'auto_orient' => TRUE,
-                            // 'crop' => TRUE,
-                            // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                            // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                            'max_width' => 32, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                            'max_height' => 32 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-                        ),
-
-                    ),
-                );
+                $options = ['image_versions' => [
+                    // The empty image version key defines options for the original image.
+                    // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards.
+                    // Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
+                    '' => [
+                        // Automatically rotate images based on EXIF meta data:
+                        'auto_orient' => true,
+                    ],
+                    '180x180' => [
+                        // 'auto_orient' => TRUE,
+                        // 'crop' => TRUE,
+                        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                        'max_width' => 180,
+                        // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                        'max_height' => 180,
+                    ],
+                    '144x144' => [
+                        // 'auto_orient' => TRUE,
+                        // 'crop' => TRUE,
+                        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                        'max_width' => 144,
+                        // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                        'max_height' => 144,
+                    ],
+                    '114x114' => [
+                        // 'auto_orient' => TRUE,
+                        // 'crop' => TRUE,
+                        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                        'max_width' => 114,
+                        // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                        'max_height' => 114,
+                    ],
+                    '72x72' => [
+                        // 'auto_orient' => TRUE,
+                        // 'crop' => TRUE,
+                        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                        'max_width' => 72,
+                        // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                        'max_height' => 72,
+                    ],
+                    '96x96' => [
+                        // 'auto_orient' => TRUE,
+                        // 'crop' => TRUE,
+                        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                        'max_width' => 96,
+                        // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                        'max_height' => 96,
+                    ],
+                    '32x32' => [
+                        // 'auto_orient' => TRUE,
+                        // 'crop' => TRUE,
+                        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                        'max_width' => 32,
+                        // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                        'max_height' => 32,
+                    ],
+                ]];
                 $dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'ico/';
             } elseif ($cID == 4) {
                 // OpenGraph Thumbnail
-                $options = array(
-                    'image_versions' => array(
-                        // The empty image version key defines options for the original image.
-                        // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards.
-                        // Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
-                        '' => array(
-                            // Automatically rotate images based on EXIF meta data:
-                            'auto_orient' => true
-                        ),
-                        '1200x630' => array(
-                            // 'auto_orient' => TRUE,
-                            // 'crop' => TRUE,
-                            // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                            // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                            'max_width' => 1200, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                            'max_height' => 630 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-                        ),
-                        'medium' => array(
-                            // 'auto_orient' => TRUE,
-                            // 'crop' => TRUE,
-                            // 'jpeg_quality' => 82,
-                            // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                            // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                            'max_width' => 320, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                            'max_height' => 168 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-                        ),
-                    ),
-                );
+                $options = ['image_versions' => [
+                    // The empty image version key defines options for the original image.
+                    // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards.
+                    // Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
+                    '' => [
+                        // Automatically rotate images based on EXIF meta data:
+                        'auto_orient' => true,
+                    ],
+                    '1200x630' => [
+                        // 'auto_orient' => TRUE,
+                        // 'crop' => TRUE,
+                        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                        'max_width' => 1200,
+                        // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                        'max_height' => 630,
+                    ],
+                    'medium' => [
+                        // 'auto_orient' => TRUE,
+                        // 'crop' => TRUE,
+                        // 'jpeg_quality' => 82,
+                        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                        'max_width' => 320,
+                        // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                        'max_height' => 168,
+                    ],
+                ]];
                 $dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'og/';
             }
 
@@ -259,8 +263,8 @@ if (!empty($action)) {
   while ($configuration = $configuration_result->fields) {
       if (oos_is_not_null($configuration['use_function'])) {
           $use_function = $configuration['use_function'];
-          if (preg_match('/->/', $use_function)) {
-              $class_method = explode('->', $use_function);
+          if (preg_match('/->/', (string) $use_function)) {
+              $class_method = explode('->', (string) $use_function);
               if (!is_object(${$class_method[0]})) {
                   include 'includes/classes/class_'. $class_method[0] . '.php';
                   ${$class_method[0]} = new $class_method[0]();
@@ -275,7 +279,7 @@ if (!empty($action)) {
           $cfgValue = $configuration['configuration_value'];
       }
 
-      if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $configuration['configuration_id']))) && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {
+      if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $configuration['configuration_id']))) && !isset($cInfo) && (!str_starts_with((string) $action, 'new'))) {
           $cfg_extra_result = $dbconn->Execute("SELECT configuration_key, date_added, last_modified, use_function, set_function FROM " . $oostable['configuration'] . " WHERE configuration_id = '" . $configuration['configuration_id'] . "'");
           $cfg_extra = $cfg_extra_result->fields;
 
@@ -309,7 +313,7 @@ if (!empty($action)) {
 
   switch ($action) {
     case 'edit':
-      $heading[] = array('text' => '<b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b>');
+      $heading[] = ['text' => '<b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b>'];
 
         if ($cID == 2 || $cID == 3 || $cID == 4) {
             $value_field = oos_draw_file_field('site_image') . '<br>' . $cInfo->configuration_value;
@@ -331,27 +335,27 @@ if (!empty($action)) {
             }
         }
 
-      $contents = array('form' => oos_draw_form('id', 'configuration', $aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=save', 'post', false, 'enctype="multipart/form-data"'));
-      $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
-      $contents[] = array('text' => '<br><b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b><br>' . constant(strtoupper($cInfo->configuration_key . '_DESC')) . '<br>' . $value_field);
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents = ['form' => oos_draw_form('id', 'configuration', $aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=save', 'post', false, 'enctype="multipart/form-data"')];
+      $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
+      $contents[] = ['text' => '<br><b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b><br>' . constant(strtoupper($cInfo->configuration_key . '_DESC')) . '<br>' . $value_field];
+      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
       break;
 
    default:
       if (isset($cInfo) && is_object($cInfo)) {
-          $heading[] = array('text' => '<b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b>');
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>');
+          $heading[] = ['text' => '<b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b>'];
+          $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>'];
           if ($cID == 2) {
-              $contents[] = array('text' => '<br>' . oos_info_image('logo/medium/' . $cInfo->configuration_value, $cInfo->configuration_value));
+              $contents[] = ['text' => '<br>' . oos_info_image('logo/medium/' . $cInfo->configuration_value, $cInfo->configuration_value)];
           } elseif ($cID == 3) {
-              $contents[] = array('text' => '<br>' . oos_info_image('ico/180x180/' . $cInfo->configuration_value, $cInfo->configuration_value));
+              $contents[] = ['text' => '<br>' . oos_info_image('ico/180x180/' . $cInfo->configuration_value, $cInfo->configuration_value)];
           } elseif ($cID == 4) {
-              $contents[] = array('text' => '<br>' . oos_info_image('og/medium/' . $cInfo->configuration_value, $cInfo->configuration_value));
+              $contents[] = ['text' => '<br>' . oos_info_image('og/medium/' . $cInfo->configuration_value, $cInfo->configuration_value)];
           }
-          $contents[] = array('text' => '<br>' . constant(strtoupper($cInfo->configuration_key . '_DESC')));
-          $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($cInfo->date_added));
+          $contents[] = ['text' => '<br>' . constant(strtoupper($cInfo->configuration_key . '_DESC'))];
+          $contents[] = ['text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($cInfo->date_added)];
           if (oos_is_not_null($cInfo->last_modified)) {
-              $contents[] = array('text' => TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($cInfo->last_modified));
+              $contents[] = ['text' => TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($cInfo->last_modified)];
           }
       }
       break;

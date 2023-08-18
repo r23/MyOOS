@@ -58,9 +58,6 @@ if ($sContent != $aContents['product_reviews_write']) {
     $random_product = oos_random_select($random_select, MAX_RANDOM_SELECT_REVIEWS);
 
     $smarty->assign(
-        array(
-            'block_heading_reviews' => $block_heading,
-            'random_product' => $random_product
-        )
+        ['block_heading_reviews' => $block_heading, 'random_product' => $random_product]
     );
 }

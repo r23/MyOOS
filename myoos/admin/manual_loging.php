@@ -59,7 +59,7 @@ function RandomPassword($passwordLength)
     $newkey2 = "";
     for ($index = 1; $index <= $passwordLength; $index++) {
         // Pick random number between 1 and 62
-        $randomNumber = rand(1, 62);
+        $randomNumber = random_int(1, 62);
         // Select random character based on mapping.
         if ($randomNumber < 11) {
             $newkey2 .= Chr($randomNumber + 48 - 1);
@@ -207,20 +207,20 @@ if (empty($action)) {
 
   switch ($action) {
 case 'delete':
-    $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_OVERSTOCK . '</b>');
-    $contents = array('form' => oos_draw_form('id', 'palm_daily', $aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $sInfo->man_info_id . '&action=deleteconfirm', 'post', false));
-    $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
-    $contents[] = array('text' => '<br><b>' . $sInfo->contact_info_name . '</b>');
-    $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $sInfo->man_info_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+    $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_OVERSTOCK . '</b>'];
+    $contents = ['form' => oos_draw_form('id', 'palm_daily', $aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $sInfo->man_info_id . '&action=deleteconfirm', 'post', false)];
+    $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
+    $contents[] = ['text' => '<br><b>' . $sInfo->contact_info_name . '</b>'];
+    $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $sInfo->man_info_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
     break;
 default:
     if (isset($sInfo) && is_object($sInfo)) {
-        $heading[] = array('text' => '<b>' . $sInfo->man_name . '</b>');
-        $contents[] = array('align' => 'center', 'text' => '');
-        $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($sInfo->manual_date_added));
-        $contents[] = array('text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($sInfo->manual_last_modified));
-        $contents[] = array('text' => '' . TEXT_INFO_STATUS_CHANGE . ' ' . oos_date_short($sInfo->date_status_change));
+        $heading[] = ['text' => '<b>' . $sInfo->man_name . '</b>'];
+        $contents[] = ['align' => 'center', 'text' => ''];
+        $contents[] = ['text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($sInfo->manual_date_added)];
+        $contents[] = ['text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($sInfo->manual_last_modified)];
+        $contents[] = ['text' => '' . TEXT_INFO_STATUS_CHANGE . ' ' . oos_date_short($sInfo->date_status_change)];
     }
     break;
   }

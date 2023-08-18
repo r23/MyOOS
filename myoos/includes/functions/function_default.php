@@ -68,7 +68,7 @@ function oos_get_path($current_category_id = '', $parent_id = '', $gparent_id = 
             }
             $sCategoryNew .= '_' . $current_category_id;
 
-            if (substr($sCategoryNew, 0, 1) == '_') {
+            if (str_starts_with($sCategoryNew, '_')) {
                 $sCategoryNew = substr($sCategoryNew, 1);
             }
         }

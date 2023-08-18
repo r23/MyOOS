@@ -42,7 +42,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/review
  */
 function oosWordCount($sStr, $sNeedle = ' ')
 {
-    $aTemp = explode($sNeedle, $sStr);
+    $aTemp = explode($sNeedle, (string) $sStr);
 
     return count($aTemp);
 }
@@ -107,17 +107,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     $aReviews = [];
     while ($reviews = $reviews_result->fields) {
-        $aReviews[] = array('id' => $reviews['reviews_id'],
-                          'products_id' => $reviews['products_id'],
-                          'reviews_id' => $reviews['reviews_id'],
-                          'products_name' => $reviews['products_name'],
-                          'products_image' => $reviews['products_image'],
-                          'authors_name' => $reviews['customers_name'],
-                          'reviews_headline' => $reviews['reviews_headline'],
-                          'review' => htmlspecialchars(substr((string)$reviews['reviews_text'], 0, 250), ENT_QUOTES, 'UTF-8') . '..',
-                          'rating' => $reviews['reviews_rating'],
-                          'word_count' => oosWordCount($reviews['reviews_text'], ' '),
-                          'date_added' => $reviews['date_added']);
+        $aReviews[] = ['id' => $reviews['reviews_id'], 'products_id' => $reviews['products_id'], 'reviews_id' => $reviews['reviews_id'], 'products_name' => $reviews['products_name'], 'products_image' => $reviews['products_image'], 'authors_name' => $reviews['customers_name'], 'reviews_headline' => $reviews['reviews_headline'], 'review' => htmlspecialchars(substr((string)$reviews['reviews_text'], 0, 250), ENT_QUOTES, 'UTF-8') . '..', 'rating' => $reviews['reviews_rating'], 'word_count' => oosWordCount($reviews['reviews_text'], ' '), 'date_added' => $reviews['date_added']];
         $reviews_result->MoveNext();
     }
 
@@ -125,18 +115,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['reviews']));
 
     $smarty->assign(
-        array(
-            'breadcrumb'    => $oBreadcrumb->trail(),
-            'heading_title' => $aLang['heading_title'],
-            'canonical'        => $sCanonical,
-
-            'page_split'    => $reviews_split->display_count($aLang['text_display_number_of_reviews']),
-            'display_links' => $reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-            'numrows'         => $reviews_split->number_of_rows,
-            'numpages'         => $reviews_split->number_of_pages,
-            'page'            => $nPage,
-            'reviews'         => $aReviews
-        )
+        ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title' => $aLang['heading_title'], 'canonical'        => $sCanonical, 'page_split'    => $reviews_split->display_count($aLang['text_display_number_of_reviews']), 'display_links' => $reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(['page', 'info'])), 'numrows'         => $reviews_split->number_of_rows, 'numpages'         => $reviews_split->number_of_pages, 'page'            => $nPage, 'reviews'         => $aReviews]
     );
 }
 

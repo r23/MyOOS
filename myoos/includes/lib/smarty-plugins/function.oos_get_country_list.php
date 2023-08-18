@@ -58,7 +58,7 @@ function smarty_function_oos_get_country_list($params, &$smarty)
     $extra = null;
 
     foreach ($params as $_key => $_val) {
-        $$_key = smarty_function_escape_special_chars($_val);
+        ${$_key} = smarty_function_escape_special_chars($_val);
     }
 
     $countries = [];
@@ -86,10 +86,7 @@ function smarty_function_oos_get_country_list($params, &$smarty)
 
 
     $html_result .= smarty_function_html_options(
-        array('output'       => $countries_names,
-                                                       'values'       => $countries_values,
-                                                       'selected'     => $selected,
-                                                       'print_result' => false),
+        ['output'       => $countries_names, 'values'       => $countries_values, 'selected'     => $selected, 'print_result' => false],
         $smarty
     );
 

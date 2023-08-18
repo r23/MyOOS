@@ -42,13 +42,7 @@ class currencies
         $result = $dbconn->Execute($sql);
 
         while ($currency = $result->fields) {
-            $this->currencies[$currency['code']] = array('title' => $currency['title'],
-                                                        'symbol_left' => $currency['symbol_left'],
-                                                        'symbol_right' => $currency['symbol_right'],
-                                                        'decimal_point' => $currency['decimal_point'],
-                                                        'thousands_point' => $currency['thousands_point'],
-                                                        'decimal_places' => $currency['decimal_places'],
-                                                        'value' => $currency['value']);
+            $this->currencies[$currency['code']] = ['title' => $currency['title'], 'symbol_left' => $currency['symbol_left'], 'symbol_right' => $currency['symbol_right'], 'decimal_point' => $currency['decimal_point'], 'thousands_point' => $currency['thousands_point'], 'decimal_places' => $currency['decimal_places'], 'value' => $currency['value']];
             // Move that ADOdb pointer!
             $result->MoveNext();
         }
@@ -57,12 +51,12 @@ class currencies
     public function format($number, $calculate_currency_value = true, $currency_type = '', $currency_value = null, $with_symbol = true)
     {
         if (empty($currency_type) || ($this->exists($currency_type) == false)) {
-            $currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
+            $currency_type = ($_SESSION['currency'] ?? DEFAULT_CURRENCY);
         }
 
         $rate = 1;
         if ($calculate_currency_value == true) {
-            $rate = (isset($currency_value)) ? $currency_value : $this->currencies[$currency_type]['value'];
+            $rate = $currency_value ?? $this->currencies[$currency_type]['value'];
         }
 
         if ($with_symbol == true) {
@@ -75,7 +69,7 @@ class currencies
 
     public function calculate_price($products_price, $products_tax, $quantity = 1)
     {
-        $currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
+        $currency_type = ($_SESSION['currency'] ?? DEFAULT_CURRENCY);
         return oos_round(oos_add_tax($products_price, $products_tax), $this->currencies[$currency_type]['decimal_places']) * $quantity;
     }
 

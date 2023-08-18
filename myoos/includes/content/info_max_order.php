@@ -61,12 +61,7 @@ if (!isset($option)) {
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-            'breadcrumb'    => $oBreadcrumb->trail(),
-            'heading_title'    => $aLang['heading_title'],
-            'robots'        => 'noindex,nofollow,noodp,noydir',
-            'canonical'        => $sCanonical
-      )
+    ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title'    => $aLang['heading_title'], 'robots'        => 'noindex,nofollow,noodp,noydir', 'canonical'        => $sCanonical]
 );
 
 // register the outputfilter

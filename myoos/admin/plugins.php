@@ -24,7 +24,7 @@
 
   $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-  $installed = explode(';', MODULE_PLUGIN_EVENT_INSTALLED);
+  $installed = explode(';', (string) MODULE_PLUGIN_EVENT_INSTALLED);
 
   if (!empty($action)) {
       switch ($action) {
@@ -232,13 +232,7 @@
       $oPlugin = new $class();
 
       if ((!isset($_GET['plugin']) || (isset($_GET['plugin']) && ($_GET['plugin'] == $sInstance))) && !isset($pInfo)) {
-          $plugin_info = array('instance' => $sInstance,
-                           'name' => $oPlugin->name,
-                           'description' => $oPlugin->description,
-                           'status' => in_array($sInstance, $installed),
-                           'uninstallable' => $oPlugin->uninstallable,
-                           'preceeds' => $oPlugin->preceeds,
-                           'preceeds' => $oPlugin->preceeds);
+          $plugin_info = ['instance' => $sInstance, 'name' => $oPlugin->name, 'description' => $oPlugin->description, 'status' => in_array($sInstance, $installed), 'uninstallable' => $oPlugin->uninstallable, 'preceeds' => $oPlugin->preceeds, 'preceeds' => $oPlugin->preceeds];
 
           $plugin_keys = $oPlugin->config_item();
           $keys_extra = [];
@@ -250,10 +244,10 @@
                   $key_value = $key_value_result->fields;
 
                   $keys_extra[$key]['title'] = constant(strtoupper($key . '_TITLE'));
-                  $keys_extra[$key]['value'] = (isset($key_value['configuration_value']) ? $key_value['configuration_value'] : '');
+                  $keys_extra[$key]['value'] = ($key_value['configuration_value'] ?? '');
                   $keys_extra[$key]['description'] = constant(strtoupper($key . '_DESC'));
-                  $keys_extra[$key]['use_function'] = (isset($key_value['use_function']) ? $key_value['use_function'] : '');
-                  $keys_extra[$key]['set_function'] = (isset($key_value['set_function']) ? $key_value['set_function'] : '');
+                  $keys_extra[$key]['use_function'] = ($key_value['use_function'] ?? '');
+                  $keys_extra[$key]['set_function'] = ($key_value['set_function'] ?? '');
               }
           }
 
@@ -314,23 +308,23 @@
       }
       $keys = substr($keys, 0, strrpos($keys, '<br><br>'));
 
-      $heading[] = array('text' => '<b>' . $pInfo->name . '</b>');
+      $heading[] = ['text' => '<b>' . $pInfo->name . '</b>'];
 
-      $contents = array('form' => oos_draw_form('id', 'plugins', $aContents['plugins'], 'plugin=' . $_GET['plugin'] . '&action=save', 'post', false));
-      $contents[] = array('text' => $keys);
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $_GET['plugin']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents = ['form' => oos_draw_form('id', 'plugins', $aContents['plugins'], 'plugin=' . $_GET['plugin'] . '&action=save', 'post', false)];
+      $contents[] = ['text' => $keys];
+      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $_GET['plugin']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
       break;
 
 
     default:
 
       if (isset($pInfo) && is_object($pInfo)) {
-          $heading[] = array('text' => '<b>' . $pInfo->name . '</b>');
+          $heading[] = ['text' => '<b>' . $pInfo->name . '</b>'];
 
           $keys = '';
           if ($pInfo->uninstallable || (!empty($pInfo->keys) && sizeof($pInfo->keys > 0))) {
               if ($pInfo->status) {
-                  $contents[] = array('align' => 'center', 'text' => ($pInfo->uninstallable ? '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=remove') . '" role="button">' . IMAGE_PLUGINS_REMOVE . '</a>' : '') . ((sizeof($pInfo->keys) > 0) ? ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=edit') . '" role="button">' . BUTTON_EDIT . '</a>' : ''));
+                  $contents[] = ['align' => 'center', 'text' => ($pInfo->uninstallable ? '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=remove') . '" role="button">' . IMAGE_PLUGINS_REMOVE . '</a>' : '') . ((sizeof($pInfo->keys) > 0) ? ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=edit') . '" role="button">' . BUTTON_EDIT . '</a>' : '')];
 
                   if (isset($sInfo->config_item) && is_array($pInfo->config_item) && sizeof($pInfo->config_item) > 0) {
                       $keys = '<br>';
@@ -341,8 +335,8 @@
                           if ($value['use_function']) {
                               $use_function = $value['use_function'];
 
-                              if (preg_match('/->/', $use_function)) {
-                                  $class_method = explode('->', $use_function);
+                              if (preg_match('/->/', (string) $use_function)) {
+                                  $class_method = explode('->', (string) $use_function);
                                   if (!is_object(${$class_method[0]})) {
                                       include 'includes/classes/class_'. $class_method[0] . '.php';
                                       ${$class_method[0]} = new $class_method[0]();
@@ -359,11 +353,11 @@
                       $keys = substr($keys, 0, strrpos($keys, '<br><br>'));
                   }
               } else {
-                  $contents[] = array('align' => 'center', 'text' => '<a class="btn btn-sm btn-success mb-20" href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=install') . '" role="button">' . IMAGE_PLUGINS_INSTALL . '</a>');
+                  $contents[] = ['align' => 'center', 'text' => '<a class="btn btn-sm btn-success mb-20" href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=install') . '" role="button">' . IMAGE_PLUGINS_INSTALL . '</a>'];
               }
           }
 
-          $contents[] = array('text' => $pInfo->description);
+          $contents[] = ['text' => $pInfo->description];
 
           if (!empty($pInfo->preceeds)) {
               $preceeds_string = '<u>Preceeds</u><br>';
@@ -376,10 +370,10 @@
                   }
               }
 
-              $contents[] = array('text' => $preceeds_string);
+              $contents[] = ['text' => $preceeds_string];
           }
 
-          $contents[] = array('text' => $keys);
+          $contents[] = ['text' => $keys];
       }
       break;
   }

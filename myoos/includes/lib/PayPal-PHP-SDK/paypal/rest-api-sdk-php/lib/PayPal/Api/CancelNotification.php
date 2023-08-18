@@ -143,10 +143,10 @@ class CancelNotification extends PayPalModel
     public function addCcEmail($string)
     {
         if (!$this->getCcEmails()) {
-            return $this->setCcEmails(array($string));
+            return $this->setCcEmails([$string]);
         } else {
             return $this->setCcEmails(
-                array_merge($this->getCcEmails(), array($string))
+                array_merge($this->getCcEmails(), [$string])
             );
         }
     }
@@ -160,7 +160,7 @@ class CancelNotification extends PayPalModel
     public function removeCcEmail($string)
     {
         return $this->setCcEmails(
-            array_diff($this->getCcEmails(), array($string))
+            array_diff($this->getCcEmails(), [$string])
         );
     }
 

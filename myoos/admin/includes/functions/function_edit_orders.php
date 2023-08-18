@@ -140,7 +140,7 @@ function oos_field_exists($table, $field)
  */
 function oos_html_quotes($string)
 {
-    return str_replace("'", "&#39;", $string);
+    return str_replace("'", "&#39;", (string) $string);
 }
 
 /**
@@ -151,5 +151,5 @@ function oos_html_quotes($string)
  */
 function oos_html_unquote($string)
 {
-    return str_replace("&#39;", "'", $string);
+    return str_replace("&#39;", "'", (string) $string);
 }

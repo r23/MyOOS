@@ -23,11 +23,9 @@ class FuturePayment extends Payment
      */
     public function create($apiContext = null, $clientMetadataId = null, $restCall = null)
     {
-        $headers = array();
+        $headers = [];
         if ($clientMetadataId != null) {
-            $headers = array(
-                'PAYPAL-CLIENT-METADATA-ID' => $clientMetadataId
-            );
+            $headers = ['PAYPAL-CLIENT-METADATA-ID' => $clientMetadataId];
         }
         $payLoad = $this->toJSON();
         $json = self::executeCall(
@@ -51,7 +49,7 @@ class FuturePayment extends Payment
      */
     public static function getRefreshToken($authorizationCode, $apiContext = null)
     {
-        $apiContext = $apiContext ? $apiContext : new ApiContext(self::$credential);
+        $apiContext = $apiContext ?: new ApiContext(self::$credential);
         $credential = $apiContext->getCredential();
         return $credential->getRefreshToken($apiContext->getConfig(), $authorizationCode);
     }

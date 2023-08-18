@@ -27,9 +27,9 @@ $aLang['heading_title'] = 'My Account Information';
 $aLang['text_origin_login'] = '<strong>NOTE:</strong> If you already have an account with us, please login at the <a href="%s" class="alert-link"><u>login page</u></a>.';
 
 $aLang['email_subject'] = 'Welcome to ' . STORE_NAME;
-$aLang['email_greet_mr'] = 'Dear Mr. ' . stripslashes($lastname) . ',' . "\n\n";
-$aLang['email_greet_ms'] = 'Dear Ms. ' . stripslashes($lastname) . ',' . "\n\n";
-$aLang['email_greet_none'] = 'Dear ' . stripslashes($firstname) . ',' . "\n\n";
+$aLang['email_greet_mr'] = 'Dear Mr. ' . stripslashes((string) $lastname) . ',' . "\n\n";
+$aLang['email_greet_ms'] = 'Dear Ms. ' . stripslashes((string) $lastname) . ',' . "\n\n";
+$aLang['email_greet_none'] = 'Dear ' . stripslashes((string) $firstname) . ',' . "\n\n";
 $aLang['email_welcome'] = 'We welcome you to <strong>' . STORE_NAME . '</strong>.' . "\n\n";
 $aLang['email_text'] = 'You can now take part in the <strong>various services</strong> we have to offer you. Some of these services include:' . "\n\n" . '<li><strong>Permanent Cart</strong> - Any products added to your online cart remain there until you remove them, or check them out.' . "\n" . '<li><strong>Address Book</strong> - We can now deliver your products to another address other than yours! This is perfect to send birthday gifts direct to the birthday-person themselves.' . "\n" . '<li><strong>Order History</strong> - View your history of purchases that you have made with us.' . "\n" . '<li><strong>Products Reviews</strong> - Share your opinions on products with our other customers.' . "\n\n";
 $aLang['email_contact'] = 'For help with any of our online services, please email the store-owner: ' . STORE_OWNER_EMAIL_ADDRESS . '.' . "\n\n";

@@ -100,10 +100,10 @@ class Webhook extends PayPalResourceModel
     public function addEventType($webhookEventType)
     {
         if (!$this->getEventTypes()) {
-            return $this->setEventTypes(array($webhookEventType));
+            return $this->setEventTypes([$webhookEventType]);
         } else {
             return $this->setEventTypes(
-                array_merge($this->getEventTypes(), array($webhookEventType))
+                array_merge($this->getEventTypes(), [$webhookEventType])
             );
         }
     }
@@ -117,7 +117,7 @@ class Webhook extends PayPalResourceModel
     public function removeEventType($webhookEventType)
     {
         return $this->setEventTypes(
-            array_diff($this->getEventTypes(), array($webhookEventType))
+            array_diff($this->getEventTypes(), [$webhookEventType])
         );
     }
 
@@ -179,7 +179,7 @@ class Webhook extends PayPalResourceModel
      */
     public static function getAll($apiContext = null, $restCall = null)
     {
-        return self::getAllWithParams(array(), $apiContext, $restCall);
+        return self::getAllWithParams([], $apiContext, $restCall);
     }
 
     /**
@@ -190,13 +190,11 @@ class Webhook extends PayPalResourceModel
      * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
      * @return WebhookList
      */
-    public static function getAllWithParams($params = array(), $apiContext = null, $restCall = null)
+    public static function getAllWithParams($params = [], $apiContext = null, $restCall = null)
     {
         ArgumentValidator::validate($params, 'params');
         $payLoad = "";
-        $allowedParams = array(
-            'anchor_type' => 1,
-        );
+        $allowedParams = ['anchor_type' => 1];
         $json = self::executeCall(
             "/v1/notifications/webhooks?" . http_build_query(array_intersect_key($params, $allowedParams)),
             "GET",

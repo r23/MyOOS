@@ -46,7 +46,7 @@ class tableBlock
 
         $form_set = false;
 
-        for ($i = 0, $n = count($contents); $i < $n; $i++) {
+        for ($i = 0, $n = is_countable($contents) ? count($contents) : 0; $i < $n; $i++) {
             $sTableBox .= '  <tr';
             if (oos_is_not_null($this->table_row_parameters)) {
                 $sTableBox .= ' ' . $this->table_row_parameters;
@@ -88,7 +88,7 @@ class tableBlock
         }
 
 
-        for ($i = 0, $n = count($contents); $i < $n; $i++) {
+        for ($i = 0, $n = is_countable($contents) ? count($contents) : 0; $i < $n; $i++) {
             $sTableBox .= '  <tr';
             if (oos_is_not_null($this->table_row_parameters)) {
                 $sTableBox .= ' ' . $this->table_row_parameters;
@@ -99,7 +99,7 @@ class tableBlock
             $sTableBox .= '>' . "\n";
 
             if (isset($contents[$i][0]) && is_array($contents[$i][0])) {
-                for ($x = 0, $y = count($contents[$i]); $x < $y; $x++) {
+                for ($x = 0, $y = is_countable($contents[$i]) ? count($contents[$i]) : 0; $x < $y; $x++) {
                     if (isset($contents[$i][$x]['text']) && oos_is_not_null($contents[$i][$x]['text'])) {
                         $sTableBox .= '    <td';
                         if (isset($contents[$i][$x]['align']) && oos_is_not_null($contents[$i][$x]['align'])) {

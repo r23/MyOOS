@@ -57,5 +57,5 @@ if (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) {
             <button class="btn btn-primary" type="submit">' . $aLang['button_save_price_alert'] . '</button>
           </div>  
         </div>';
-    echo json_encode($contents);
+    echo json_encode($contents, JSON_THROW_ON_ERROR);
 }

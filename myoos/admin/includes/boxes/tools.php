@@ -29,21 +29,4 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 $php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
 $bActive = ($_SESSION['selected_box'] == 'tools') ? true : false;
 
-$aBlocks[] = array(
-    'heading' => BOX_HEADING_TOOLS,
-    'link' => oos_href_link_admin(basename($php_self), oos_get_all_get_params(array('selected_box')) . 'selected_box=tools'),
-    'icon' => 'fa fa-database',
-    'active' => $bActive,
-    'contents' => array(
-        array(
-            'code' => $aContents['mail'],
-            'title' => BOX_TOOLS_MAIL,
-            'link' => oos_admin_files_boxes('mail', 'selected_box=tools')
-        ),
-        array(
-            'code' => $aContents['newsletters'],
-            'title' => BOX_TOOLS_NEWSLETTER_MANAGER,
-            'link' => oos_admin_files_boxes('newsletters', 'selected_box=tools')
-        ),
-    ),
-);
+$aBlocks[] = ['heading' => BOX_HEADING_TOOLS, 'link' => oos_href_link_admin(basename($php_self), oos_get_all_get_params(['selected_box']) . 'selected_box=tools'), 'icon' => 'fa fa-database', 'active' => $bActive, 'contents' => [['code' => $aContents['mail'], 'title' => BOX_TOOLS_MAIL, 'link' => oos_admin_files_boxes('mail', 'selected_box=tools')], ['code' => $aContents['newsletters'], 'title' => BOX_TOOLS_NEWSLETTER_MANAGER, 'link' => oos_admin_files_boxes('newsletters', 'selected_box=tools')]]];

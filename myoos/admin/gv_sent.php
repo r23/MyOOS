@@ -106,9 +106,9 @@ while ($gv_list = $gv_result->fields) {
         $gInfo = new objectInfo($gv_list);
     }
     if (isset($gInfo) && is_object($gInfo) && ($gv_list['coupon_id'] == $gInfo->coupon_id)) {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin('gv_sent.php', oos_get_all_get_params(array('gid', 'action')) . 'gid=' . $gInfo->coupon_id . '&action=edit') . '\'">' . "\n";
+        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin('gv_sent.php', oos_get_all_get_params(['gid', 'action']) . 'gid=' . $gInfo->coupon_id . '&action=edit') . '\'">' . "\n";
     } else {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin('gv_sent.php', oos_get_all_get_params(array('gid', 'action')) . 'gid=' . $gv_list['coupon_id']) . '\'">' . "\n";
+        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin('gv_sent.php', oos_get_all_get_params(['gid', 'action']) . 'gid=' . $gv_list['coupon_id']) . '\'">' . "\n";
     } ?>
                 <td><?php echo $gv_list['sent_firstname'] . ' ' . $gv_list['sent_lastname']; ?></td>
                 <td class="text-center"><?php echo $currencies->format($gv_list['coupon_amount']); ?></td>
@@ -135,34 +135,34 @@ while ($gv_list = $gv_result->fields) {
               </tr>
             </table></td>
 <?php
-    $coupon_id = isset($gInfo->coupon_id) ? $gInfo->coupon_id : '';
-    $coupon_amount = isset($gInfo->coupon_amount) ? $gInfo->coupon_amount : 0;
-    $customer_id_sent = isset($gInfo->customer_id_sent) ? $gInfo->customer_id_sent : '';
-    $date_sent = isset($gInfo->date_sent) ? $gInfo->date_sent : '';
-    $coupon_code = isset($gInfo->coupon_code) ? $gInfo->coupon_code : '';
-    $emailed_to = isset($gInfo->emailed_to) ? $gInfo->emailed_to : '';
+    $coupon_id = $gInfo->coupon_id ?? '';
+    $coupon_amount = $gInfo->coupon_amount ?? 0;
+    $customer_id_sent = $gInfo->customer_id_sent ?? '';
+    $date_sent = $gInfo->date_sent ?? '';
+    $coupon_code = $gInfo->coupon_code ?? '';
+    $emailed_to = $gInfo->emailed_to ?? '';
 
  $heading = [];
   $contents = [];
 
-  $heading[] = array('text' => '[' . $coupon_id . '] ' . ' ' . $currencies->format($coupon_amount));
+  $heading[] = ['text' => '[' . $coupon_id . '] ' . ' ' . $currencies->format($coupon_amount)];
   $redeem_result = $dbconn->Execute("SELECT * FROM " . $oostable['coupon_redeem_track'] . " WHERE coupon_id = '" . intval($coupon_id) . "'");
   $redeemed = 'No';
 if ($redeem_result->RecordCount() > 0) {
     $redeemed = 'Yes';
 }
-  $contents[] = array('text' => TEXT_INFO_SENDERS_ID . ' ' . $customer_id_sent);
-  $contents[] = array('text' => TEXT_INFO_AMOUNT_SENT . ' ' . $currencies->format($coupon_amount));
-  $contents[] = array('text' => TEXT_INFO_DATE_SENT . ' ' . oos_date_short($date_sent));
-  $contents[] = array('text' => TEXT_INFO_VOUCHER_CODE . ' ' . $coupon_code);
-  $contents[] = array('text' => TEXT_INFO_EMAIL_ADDRESS . ' ' . $emailed_to);
+  $contents[] = ['text' => TEXT_INFO_SENDERS_ID . ' ' . $customer_id_sent];
+  $contents[] = ['text' => TEXT_INFO_AMOUNT_SENT . ' ' . $currencies->format($coupon_amount)];
+  $contents[] = ['text' => TEXT_INFO_DATE_SENT . ' ' . oos_date_short($date_sent)];
+  $contents[] = ['text' => TEXT_INFO_VOUCHER_CODE . ' ' . $coupon_code];
+  $contents[] = ['text' => TEXT_INFO_EMAIL_ADDRESS . ' ' . $emailed_to];
 if ($redeemed=='Yes') {
     $redeem = $redeem_result->fields;
-    $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_REDEEMED . ' ' . oos_date_short($redeem['redeem_date']));
-    $contents[] = array('text' => TEXT_INFO_IP_ADDRESS . ' ' . $redeem['redeem_ip']);
-    $contents[] = array('text' => TEXT_INFO_CUSTOMERS_ID . ' ' . $redeem['customer_id']);
+    $contents[] = ['text' => '<br>' . TEXT_INFO_DATE_REDEEMED . ' ' . oos_date_short($redeem['redeem_date'])];
+    $contents[] = ['text' => TEXT_INFO_IP_ADDRESS . ' ' . $redeem['redeem_ip']];
+    $contents[] = ['text' => TEXT_INFO_CUSTOMERS_ID . ' ' . $redeem['customer_id']];
 } else {
-    $contents[] = array('text' => '<br>' . TEXT_INFO_NOT_REDEEMED);
+    $contents[] = ['text' => '<br>' . TEXT_INFO_NOT_REDEEMED];
 }
 
 if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {

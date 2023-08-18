@@ -61,41 +61,37 @@ if (!empty($action)) {
         }
 
           $sql_data_array = [];
-          $sql_data_array = array('sort_order' => $sort_order);
+          $sql_data_array = ['sort_order' => $sort_order];
 
         if ($action == 'insert') {
             $insert_sql_data = [];
-            $insert_sql_data = array('date_added' => 'now()',
-                                    'status' => 1);
+            $insert_sql_data = ['date_added' => 'now()', 'status' => 1];
 
-            $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+            $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
             oos_db_perform($oostable['information'], $sql_data_array);
 
             $information_id = $dbconn->Insert_ID();
         } elseif ($action == 'save') {
-            $update_sql_data = array('last_modified' => 'now()');
+            $update_sql_data = ['last_modified' => 'now()'];
 
-            $sql_data_array = array_merge($sql_data_array, $update_sql_data);
+            $sql_data_array = [...$sql_data_array, ...$update_sql_data];
 
             oos_db_perform($oostable['information'], $sql_data_array, 'UPDATE', "information_id = '" . intval($information_id) . "'");
         }
 
           $aLanguages = oos_get_languages();
-          $nLanguages = count($aLanguages);
+          $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
 
         for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
             $language_id = $aLanguages[$i]['id'];
 
-            $sql_data_array = array('information_name' => oos_db_prepare_input($_POST['information_name'][$language_id]),
-                                    'information_heading_title' => oos_db_prepare_input($_POST['information_heading_title'][$language_id]),
-                                    'information_description' => oos_db_prepare_input($_POST['information_description'][$language_id]));
+            $sql_data_array = ['information_name' => oos_db_prepare_input($_POST['information_name'][$language_id]), 'information_heading_title' => oos_db_prepare_input($_POST['information_heading_title'][$language_id]), 'information_description' => oos_db_prepare_input($_POST['information_description'][$language_id])];
 
             if ($action == 'insert') {
-                $insert_sql_data = array('information_id' => $information_id,
-                                        'information_languages_id' => $language_id);
+                $insert_sql_data = ['information_id' => $information_id, 'information_languages_id' => $language_id];
 
-                $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+                $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
                 oos_db_perform($oostable['information_description'], $sql_data_array);
             } elseif ($action == 'save') {
@@ -145,14 +141,7 @@ if (!empty($action)) {
 <?php
 
 if ($action == 'new' || $action == 'edit') {
-    $parameters = array('information_id' => '',
-                        'information_name' => '',
-                        'information_heading_title' => '',
-                        'information_description' => '',
-                        'sort_order' => '',
-                        'date_added' => '',
-                        'status' => 1,
-                        'last_modified' => '');
+    $parameters = ['information_id' => '', 'information_name' => '', 'information_heading_title' => '', 'information_description' => '', 'sort_order' => '', 'date_added' => '', 'status' => 1, 'last_modified' => ''];
     $iInfo = new objectInfo($parameters);
 
     if (isset($_GET['iID']) && empty($_POST)) {
@@ -171,7 +160,7 @@ if ($action == 'new' || $action == 'edit') {
     }
 
     $aLanguages = oos_get_languages();
-    $nLanguages = count($aLanguages);
+    $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
 
     $form_action = (isset($_GET['iID'])) ? 'save' : 'insert';
     $text_new_or_edit = ($action=='new') ? TEXT_HEADING_NEW_INFORMATION : TEXT_HEADING_EDIT_INFORMATION; ?>
@@ -198,7 +187,7 @@ if ($action == 'new' || $action == 'edit') {
 
 
     <?php echo oos_draw_form('id', 'information', $aContents['information'], 'page=' . $nPage .  (!empty($iID) ? '&iID=' . intval($iID) : '') . '&action=' . $form_action, 'post', false, 'enctype="multipart/form-data"'); ?>
-    <?php echo oos_draw_hidden_field('date_added', (($iInfo->date_added) ? $iInfo->date_added : date('Y-m-d')));
+    <?php echo oos_draw_hidden_field('date_added', ($iInfo->date_added ?: date('Y-m-d')));
     echo oos_hide_session_id(); ?>
 
                <div role="tabpanel">
@@ -220,7 +209,7 @@ if ($action == 'new' || $action == 'edit') {
 
 
     <?php
-    for ($i=0; $i < count($aLanguages); $i++) {
+    for ($i=0; $i < (is_countable($aLanguages) ? count($aLanguages) : 0); $i++) {
         ?>
                     <fieldset>
                         <div class="form-group row">
@@ -231,13 +220,13 @@ if ($action == 'new' || $action == 'edit') {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
                             <div class="col-lg-9">
-                                <?php echo oos_draw_input_field('information_name[' . $aLanguages[$i]['id'] . ']', ((isset($information_name[$aLanguages[$i]['id']])) ? stripslashes($information_name[$aLanguages[$i]['id']]) : oos_get_informations_name($iInfo->information_id, $aLanguages[$i]['id'])), '', false, 'text', true, false); ?>
+                                <?php echo oos_draw_input_field('information_name[' . $aLanguages[$i]['id'] . ']', ((isset($information_name[$aLanguages[$i]['id']])) ? stripslashes((string) $information_name[$aLanguages[$i]['id']]) : oos_get_informations_name($iInfo->information_id, $aLanguages[$i]['id'])), '', false, 'text', true, false); ?>
                             </div>
                         </div>
                     </fieldset>
         <?php
     }
-    for ($i=0; $i < count($aLanguages); $i++) {
+    for ($i=0; $i < (is_countable($aLanguages) ? count($aLanguages) : 0); $i++) {
         ?>
                     <fieldset>
                         <div class="form-group row">
@@ -248,13 +237,13 @@ if ($action == 'new' || $action == 'edit') {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
                             <div class="col-lg-9">
-                                <?php echo oos_draw_input_field('information_heading_title[' . $aLanguages[$i]['id'] . ']', ((isset($information_heading_title[$aLanguages[$i]['id']])) ? stripslashes($information_heading_title[$aLanguages[$i]['id']]) : oos_get_informations_heading_title($iInfo->information_id, $aLanguages[$i]['id']))); ?>
+                                <?php echo oos_draw_input_field('information_heading_title[' . $aLanguages[$i]['id'] . ']', ((isset($information_heading_title[$aLanguages[$i]['id']])) ? stripslashes((string) $information_heading_title[$aLanguages[$i]['id']]) : oos_get_informations_heading_title($iInfo->information_id, $aLanguages[$i]['id']))); ?>
                             </div>
                         </div>
                     </fieldset>
         <?php
     }
-    for ($i=0; $i < count($aLanguages); $i++) {
+    for ($i=0; $i < (is_countable($aLanguages) ? count($aLanguages) : 0); $i++) {
         ?>
                     <fieldset>
                         <div class="form-group row">
@@ -265,7 +254,7 @@ if ($action == 'new' || $action == 'edit') {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
                             <div class="col-lg-9">
-                                <?php echo oos_draw_editor_field('information_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '55', ((isset($information_description[$aLanguages[$i]['id']])) ? stripslashes($information_description[$aLanguages[$i]['id']]) : oos_get_informations_description($iInfo->information_id, $aLanguages[$i]['id']))); ?>
+                                <?php echo oos_draw_editor_field('information_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '55', ((isset($information_description[$aLanguages[$i]['id']])) ? stripslashes((string) $information_description[$aLanguages[$i]['id']]) : oos_get_informations_description($iInfo->information_id, $aLanguages[$i]['id']))); ?>
                             </div>
                         </div>
                     </fieldset>
@@ -368,7 +357,7 @@ if ($action == 'new' || $action == 'edit') {
         $information_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $information_result_raw, $information_result_numrows);
         $information_result = $dbconn->Execute($information_result_raw);
         while ($information = $information_result->fields) {
-            if ((!isset($_GET['iID']) || (isset($_GET['iID']) && ($_GET['iID'] == $information['information_id']))) && !isset($iInfo) && (substr($action, 0, 3) != 'new')) {
+            if ((!isset($_GET['iID']) || (isset($_GET['iID']) && ($_GET['iID'] == $information['information_id']))) && !isset($iInfo) && (!str_starts_with((string) $action, 'new'))) {
                 $iInfo_array = array_merge($information);
                 $iInfo = new objectInfo($iInfo_array);
             }
@@ -422,26 +411,26 @@ if ($action == 'new' || $action == 'edit') {
 
     case 'delete':
         if ($iInfo->information_id > 6) {
-            $heading[] = array('text' => '<b>' . TEXT_HEADING_DELETE_INFORMATION . '</b>');
+            $heading[] = ['text' => '<b>' . TEXT_HEADING_DELETE_INFORMATION . '</b>'];
 
-            $contents = array('form' => oos_draw_form('id', 'information', $aContents['information'], 'page=' . $nPage . '&iID=' . $iInfo->information_id . '&action=deleteconfirm', 'post', false));
-            $contents[] = array('text' => TEXT_DELETE_INTRO);
-            $contents[] = array('text' => '<br><b>' . $iInfo->information_name . '</b>');
-            $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $iInfo->information_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+            $contents = ['form' => oos_draw_form('id', 'information', $aContents['information'], 'page=' . $nPage . '&iID=' . $iInfo->information_id . '&action=deleteconfirm', 'post', false)];
+            $contents[] = ['text' => TEXT_DELETE_INTRO];
+            $contents[] = ['text' => '<br><b>' . $iInfo->information_name . '</b>'];
+            $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $iInfo->information_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
         }
         break;
 
     default:
         if (isset($iInfo) && is_object($iInfo)) {
-            $heading[] = array('text' => '<b>' . $iInfo->information_name . '</b>');
+            $heading[] = ['text' => '<b>' . $iInfo->information_name . '</b>'];
             if ($iInfo->information_id > 5) {
-                $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $iInfo->information_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $iInfo->information_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
+                $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $iInfo->information_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $iInfo->information_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
             } else {
-                $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $iInfo->information_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>');
+                $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $iInfo->information_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>'];
             }
-            $contents[] = array('text' => '<br>' . TEXT_DATE_ADDED . ' ' . oos_date_short($iInfo->date_added));
+            $contents[] = ['text' => '<br>' . TEXT_DATE_ADDED . ' ' . oos_date_short($iInfo->date_added)];
             if (oos_is_not_null($iInfo->last_modified)) {
-                $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($iInfo->last_modified));
+                $contents[] = ['text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($iInfo->last_modified)];
             }
         }
         break;

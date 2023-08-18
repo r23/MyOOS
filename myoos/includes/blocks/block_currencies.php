@@ -33,13 +33,13 @@ if (isset($oCurrencies) && is_object($oCurrencies)) {
 
     $aCurrencies = [];
     foreach ($oCurrencies->currencies as $sKey => $value) {
-        $aCurrencies[] = array('id' => $sKey, 'text' => $value['title']);
+        $aCurrencies[] = ['id' => $sKey, 'text' => $value['title']];
     }
 
     if (count($aCurrencies) >= 2) {
         $currency_block = true;
 
-        $currency_get_parameters = oos_get_all_get_parameters(array('language', 'currency'));
+        $currency_get_parameters = oos_get_all_get_parameters(['language', 'currency']);
         $currency_all_get_parameters = oos_remove_trailing($currency_get_parameters);
 
         $smarty->assign('currencies_contents', $aCurrencies);

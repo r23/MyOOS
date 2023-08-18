@@ -51,38 +51,37 @@ if (!empty($action)) {
         }
         $manufacturers_name = oos_db_prepare_input($_POST['manufacturers_name']);
 
-        $sql_data_array = array('manufacturers_name' => $manufacturers_name);
+        $sql_data_array = ['manufacturers_name' => $manufacturers_name];
 
         if ($action == 'insert') {
-            $insert_sql_data = array('date_added' => 'now()');
+            $insert_sql_data = ['date_added' => 'now()'];
 
-            $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+            $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
             oos_db_perform($oostable['manufacturers'], $sql_data_array);
             $manufacturers_id = $dbconn->Insert_ID();
         } elseif ($action == 'save') {
-            $update_sql_data = array('last_modified' => 'now()');
+            $update_sql_data = ['last_modified' => 'now()'];
 
-            $sql_data_array = array_merge($sql_data_array, $update_sql_data);
+            $sql_data_array = [...$sql_data_array, ...$update_sql_data];
 
             oos_db_perform($oostable['manufacturers'], $sql_data_array, 'UPDATE', "manufacturers_id = '" . intval($manufacturers_id) . "'");
         }
 
 
         $aLanguages = oos_get_languages();
-        $nLanguages = count($aLanguages);
+        $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
 
         for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
             $manufacturers_url_array = oos_db_prepare_input($_POST['manufacturers_url']);
             $language_id = $aLanguages[$i]['id'];
 
-            $sql_data_array = array('manufacturers_url' => oos_db_prepare_input($manufacturers_url_array[$language_id]));
+            $sql_data_array = ['manufacturers_url' => oos_db_prepare_input($manufacturers_url_array[$language_id])];
 
             if ($action == 'insert') {
-                $insert_sql_data = array('manufacturers_id' => intval($manufacturers_id),
-                                    'manufacturers_languages_id' => intval($language_id));
+                $insert_sql_data = ['manufacturers_id' => intval($manufacturers_id), 'manufacturers_languages_id' => intval($language_id)];
 
-                $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+                $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
                 oos_db_perform($oostable['manufacturers_info'], $sql_data_array);
             } elseif ($action == 'save') {
@@ -90,36 +89,35 @@ if (!empty($action)) {
             }
         }
 
-        $options = array(
-            'image_versions' => array(
+        $options = ['image_versions' => [
             // The empty image version key defines options for the original image.
             // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards.
             // Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
-                '' => array(
-                    // Automatically rotate images based on EXIF meta data:
-                    'auto_orient' => true
-                ),
-                'medium' => array(
-                    // 'auto_orient' => TRUE,
-                    // 'crop' => TRUE,
-                    // 'jpeg_quality' => 82,
-                    // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                    // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                    'max_width' => 300, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                    'max_height' => 300 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-                ),
-                'small' => array(
-                    // 'auto_orient' => TRUE,
-                    // 'crop' => TRUE,
-                    // 'jpeg_quality' => 82,
-                    // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                    // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                    'max_width' => 150, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                    'max_height' => 150 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-                ),
-
-            ),
-        );
+            '' => [
+                // Automatically rotate images based on EXIF meta data:
+                'auto_orient' => true,
+            ],
+            'medium' => [
+                // 'auto_orient' => TRUE,
+                // 'crop' => TRUE,
+                // 'jpeg_quality' => 82,
+                // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                'max_width' => 300,
+                // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                'max_height' => 300,
+            ],
+            'small' => [
+                // 'auto_orient' => TRUE,
+                // 'crop' => TRUE,
+                // 'jpeg_quality' => 82,
+                // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                'max_width' => 150,
+                // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                'max_height' => 150,
+            ],
+        ]];
 
         $oManufacturersImage = new upload('manufacturers_image', $options);
 
@@ -253,7 +251,7 @@ if (!empty($action)) {
   $manufacturers_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $manufacturers_result_raw, $manufacturers_result_numrows);
   $manufacturers_result = $dbconn->Execute($manufacturers_result_raw);
 while ($manufacturers = $manufacturers_result->fields) {
-    if ((!isset($_GET['mID']) || (isset($_GET['mID']) && ($_GET['mID'] == $manufacturers['manufacturers_id']))) && !isset($mInfo) && (substr($action, 0, 3) != 'new')) {
+    if ((!isset($_GET['mID']) || (isset($_GET['mID']) && ($_GET['mID'] == $manufacturers['manufacturers_id']))) && !isset($mInfo) && (!str_starts_with((string) $action, 'new'))) {
         $manufacturer_products_result = $dbconn->Execute("SELECT COUNT(*) AS products_count FROM " . $oostable['products'] . " WHERE manufacturers_id = '" . $manufacturers['manufacturers_id'] . "'");
         $manufacturer_products = $manufacturer_products_result->fields;
 
@@ -290,7 +288,7 @@ while ($manufacturers = $manufacturers_result->fields) {
 if (empty($action)) {
     ?>
               <tr>
-                <td align="right" colspan="2" class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . (isset($mInfo->manufacturers_id) ? $mInfo->manufacturers_id : '') . '&action=new') . '">' . oos_button(BUTTON_INSERT) . '</a>'; ?></td>
+                <td align="right" colspan="2" class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . ($mInfo->manufacturers_id ?? '') . '&action=new') . '">' . oos_button(BUTTON_INSERT) . '</a>'; ?></td>
               </tr>
     <?php
 }
@@ -302,76 +300,76 @@ if (empty($action)) {
 
   switch ($action) {
 case 'new':
-    $heading[] = array('text' => '<b>' . TEXT_HEADING_NEW_MANUFACTURER . '</b>');
+    $heading[] = ['text' => '<b>' . TEXT_HEADING_NEW_MANUFACTURER . '</b>'];
 
-    $contents = array('form' => oos_draw_form('id', 'manufacturers', $aContents['manufacturers'], 'action=insert', 'post', false, 'enctype="multipart/form-data"'));
-    $contents[] = array('text' => TEXT_NEW_INTRO);
-    $contents[] = array('text' => '<br>' . TEXT_MANUFACTURERS_NAME . '<br>' . oos_draw_input_field('manufacturers_name'));
-    $contents[] = array('text' => '<br>' . TEXT_MANUFACTURERS_IMAGE . '<br>' . oos_draw_file_field('manufacturers_image'));
+    $contents = ['form' => oos_draw_form('id', 'manufacturers', $aContents['manufacturers'], 'action=insert', 'post', false, 'enctype="multipart/form-data"')];
+    $contents[] = ['text' => TEXT_NEW_INTRO];
+    $contents[] = ['text' => '<br>' . TEXT_MANUFACTURERS_NAME . '<br>' . oos_draw_input_field('manufacturers_name')];
+    $contents[] = ['text' => '<br>' . TEXT_MANUFACTURERS_IMAGE . '<br>' . oos_draw_file_field('manufacturers_image')];
 
 
 
     $aLanguages = oos_get_languages();
-    $nLanguages = count($aLanguages);
+    $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
 
     $manufacturer_inputs_string = '';
     for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
         $manufacturer_inputs_string .= '<br>' . oos_flag_icon($aLanguages[$i]) . '&nbsp;' . oos_draw_input_field('manufacturers_url[' . $aLanguages[$i]['id'] . ']');
     }
 
-    $contents[] = array('text' => '<br>' . TEXT_MANUFACTURERS_URL . $manufacturer_inputs_string);
-    $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $_GET['mID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+    $contents[] = ['text' => '<br>' . TEXT_MANUFACTURERS_URL . $manufacturer_inputs_string];
+    $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $_GET['mID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
     break;
 
 case 'edit':
-    $heading[] = array('text' => '<b>' . TEXT_HEADING_EDIT_MANUFACTURER . '</b>');
+    $heading[] = ['text' => '<b>' . TEXT_HEADING_EDIT_MANUFACTURER . '</b>'];
 
-    $contents = array('form' => oos_draw_form('id', 'manufacturers', $aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $mInfo->manufacturers_id . '&action=save', 'post', false, 'enctype="multipart/form-data"'));
-    $contents[] = array('text' => TEXT_EDIT_INTRO);
-    $contents[] = array('text' => '<br>' . TEXT_MANUFACTURERS_NAME . '<br>' . oos_draw_input_field('manufacturers_name', $mInfo->manufacturers_name));
+    $contents = ['form' => oos_draw_form('id', 'manufacturers', $aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $mInfo->manufacturers_id . '&action=save', 'post', false, 'enctype="multipart/form-data"')];
+    $contents[] = ['text' => TEXT_EDIT_INTRO];
+    $contents[] = ['text' => '<br>' . TEXT_MANUFACTURERS_NAME . '<br>' . oos_draw_input_field('manufacturers_name', $mInfo->manufacturers_name)];
 
-    $contents[] = array('text' => '<br>' . TEXT_MANUFACTURERS_IMAGE . '<br>' . oos_draw_file_field('manufacturers_image') . '<br>' . $mInfo->manufacturers_image);
+    $contents[] = ['text' => '<br>' . TEXT_MANUFACTURERS_IMAGE . '<br>' . oos_draw_file_field('manufacturers_image') . '<br>' . $mInfo->manufacturers_image];
 
     $aLanguages = oos_get_languages();
-    $nLanguages = count($aLanguages);
+    $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
 
     $manufacturer_inputs_string = '';
     for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
         $manufacturer_inputs_string .= '<br>' . oos_flag_icon($aLanguages[$i]) . '&nbsp;' . oos_draw_input_field('manufacturers_url[' . $aLanguages[$i]['id'] . ']', oos_get_manufacturer_url($mInfo->manufacturers_id, $aLanguages[$i]['id']));
     }
 
-        $contents[] = array('text' => '<br>' . TEXT_MANUFACTURERS_URL . $manufacturer_inputs_string);
-        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $mInfo->manufacturers_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+        $contents[] = ['text' => '<br>' . TEXT_MANUFACTURERS_URL . $manufacturer_inputs_string];
+        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $mInfo->manufacturers_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
     break;
 
 case 'delete':
-    $heading[] = array('text' => '<b>' . TEXT_HEADING_DELETE_MANUFACTURER . '</b>');
+    $heading[] = ['text' => '<b>' . TEXT_HEADING_DELETE_MANUFACTURER . '</b>'];
 
-    $contents = array('form' => oos_draw_form('id', 'manufacturers', $aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $mInfo->manufacturers_id . '&action=deleteconfirm', 'post', false));
-    $contents[] = array('text' => TEXT_DELETE_INTRO);
-    $contents[] = array('text' => '<br><b>' . $mInfo->manufacturers_name . '</b>');
-    $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('delete_image', '', true) . ' ' . TEXT_DELETE_IMAGE);
+    $contents = ['form' => oos_draw_form('id', 'manufacturers', $aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $mInfo->manufacturers_id . '&action=deleteconfirm', 'post', false)];
+    $contents[] = ['text' => TEXT_DELETE_INTRO];
+    $contents[] = ['text' => '<br><b>' . $mInfo->manufacturers_name . '</b>'];
+    $contents[] = ['text' => '<br>' . oos_draw_checkbox_field('delete_image', '', true) . ' ' . TEXT_DELETE_IMAGE];
 
     if ($mInfo->products_count > 0) {
-        $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('delete_products') . ' ' . TEXT_DELETE_PRODUCTS);
-        $contents[] = array('text' => '<br>' . sprintf(TEXT_DELETE_WARNING_PRODUCTS, $mInfo->products_count));
+        $contents[] = ['text' => '<br>' . oos_draw_checkbox_field('delete_products') . ' ' . TEXT_DELETE_PRODUCTS];
+        $contents[] = ['text' => '<br>' . sprintf(TEXT_DELETE_WARNING_PRODUCTS, $mInfo->products_count)];
     }
 
-        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $mInfo->manufacturers_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $mInfo->manufacturers_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
     break;
 
 default:
     if (isset($mInfo) && is_object($mInfo)) {
-        $heading[] = array('text' => '<b>' . $mInfo->manufacturers_name . '</b>');
+        $heading[] = ['text' => '<b>' . $mInfo->manufacturers_name . '</b>'];
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $mInfo->manufacturers_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $mInfo->manufacturers_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
-        $contents[] = array('text' => '<br>' . TEXT_DATE_ADDED . ' ' . oos_date_short($mInfo->date_added));
+        $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $mInfo->manufacturers_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $mInfo->manufacturers_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
+        $contents[] = ['text' => '<br>' . TEXT_DATE_ADDED . ' ' . oos_date_short($mInfo->date_added)];
         if (oos_is_not_null($mInfo->last_modified)) {
-            $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($mInfo->last_modified));
+            $contents[] = ['text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($mInfo->last_modified)];
         }
         $manufacturers_image = 'brands/medium/' . $mInfo->manufacturers_image;
-        $contents[] = array('text' => '<br>' . oos_info_image($manufacturers_image, $mInfo->manufacturers_name));
-        $contents[] = array('text' => '<br>' . TEXT_PRODUCTS . ' ' . $mInfo->products_count);
+        $contents[] = ['text' => '<br>' . oos_info_image($manufacturers_image, $mInfo->manufacturers_name)];
+        $contents[] = ['text' => '<br>' . TEXT_PRODUCTS . ' ' . $mInfo->products_count];
     }
     break;
   }

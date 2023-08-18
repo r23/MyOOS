@@ -62,7 +62,7 @@ if ($_SESSION['cart']->count_contents() < 1) {
 
 // Minimum Order Value
 if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
-    $minimum_order_value = str_replace(',', '.', MINIMUM_ORDER_VALUE);
+    $minimum_order_value = str_replace(',', '.', (string) MINIMUM_ORDER_VALUE);
     $subtotal = $_SESSION['cart']->info['subtotal'];
     if ($subtotal < $minimum_order_value) {
         oos_redirect(oos_href_link($aContents['shopping_cart']));
@@ -71,7 +71,7 @@ if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
 
 if (TAKE_BACK_OBLIGATION == 'true') {
     $products = $_SESSION['cart']->get_products();
-    $n = count($products);
+    $n = is_countable($products) ? count($products) : 0;
     for ($i=0, $n; $i<$n; $i++) {
         if (($products[$i]['old_electrical_equipment'] == 1) && ($products[$i]['return_free_of_charge'] == '')) {
             oos_redirect(oos_href_link($aContents['shopping_cart']));
@@ -97,7 +97,7 @@ if (isset($_SESSION['cart']->cartID) && isset($_SESSION['cartID'])) {
 if ((STOCK_CHECK == 'true') && (STOCK_ALLOW_CHECKOUT != 'true')) {
     $products = $_SESSION['cart']->get_products();
     $any_out_of_stock = 0;
-    for ($i=0, $n=count($products); $i<$n; $i++) {
+    for ($i=0, $n=is_countable($products) ? count($products) : 0; $i<$n; $i++) {
         if (oos_check_stock($products[$i]['id'], $products[$i]['quantity'])) {
             $any_out_of_stock = 1;
         }
@@ -168,19 +168,11 @@ if (!isset($option)) {
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-        'breadcrumb' => $oBreadcrumb->trail(),
-        'heading_title' => $aLang['heading_title'],
-        'robots'        => 'noindex,nofollow,noodp,noydir',
-        'checkout_active' => 1
-    )
+    ['breadcrumb' => $oBreadcrumb->trail(), 'heading_title' => $aLang['heading_title'], 'robots'        => 'noindex,nofollow,noodp,noydir', 'checkout_active' => 1]
 );
 
 $smarty->assign(
-    array(
-          'selection' => $selection,
-          'credit_selection' => $credit_selection
-      )
+    ['selection' => $selection, 'credit_selection' => $credit_selection]
 );
 
 // register the outputfilter

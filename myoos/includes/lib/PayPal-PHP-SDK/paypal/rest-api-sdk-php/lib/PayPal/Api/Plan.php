@@ -221,10 +221,10 @@ class Plan extends PayPalResourceModel
     public function addPaymentDefinition($paymentDefinition)
     {
         if (!$this->getPaymentDefinitions()) {
-            return $this->setPaymentDefinitions(array($paymentDefinition));
+            return $this->setPaymentDefinitions([$paymentDefinition]);
         } else {
             return $this->setPaymentDefinitions(
-                array_merge($this->getPaymentDefinitions(), array($paymentDefinition))
+                array_merge($this->getPaymentDefinitions(), [$paymentDefinition])
             );
         }
     }
@@ -238,7 +238,7 @@ class Plan extends PayPalResourceModel
     public function removePaymentDefinition($paymentDefinition)
     {
         return $this->setPaymentDefinitions(
-            array_diff($this->getPaymentDefinitions(), array($paymentDefinition))
+            array_diff($this->getPaymentDefinitions(), [$paymentDefinition])
         );
     }
 
@@ -274,10 +274,10 @@ class Plan extends PayPalResourceModel
     public function addTerm($terms)
     {
         if (!$this->getTerms()) {
-            return $this->setTerms(array($terms));
+            return $this->setTerms([$terms]);
         } else {
             return $this->setTerms(
-                array_merge($this->getTerms(), array($terms))
+                array_merge($this->getTerms(), [$terms])
             );
         }
     }
@@ -291,7 +291,7 @@ class Plan extends PayPalResourceModel
     public function removeTerm($terms)
     {
         return $this->setTerms(
-            array_diff($this->getTerms(), array($terms))
+            array_diff($this->getTerms(), [$terms])
         );
     }
 
@@ -423,12 +423,7 @@ class Plan extends PayPalResourceModel
     {
         ArgumentValidator::validate($params, 'params');
         $payLoad = "";
-        $allowedParams = array(
-            'page_size' => 1,
-            'status' => 1,
-            'page' => 1,
-            'total_required' => 1
-        );
+        $allowedParams = ['page_size' => 1, 'status' => 1, 'page' => 1, 'total_required' => 1];
         $json = self::executeCall(
             "/v1/payments/billing-plans/" . "?" . http_build_query(array_intersect_key($params, $allowedParams)),
             "GET",

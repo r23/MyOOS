@@ -112,10 +112,10 @@ if (isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process')
         $customer_info_result = $dbconn->Execute($sql);
         $customer_info = $customer_info_result->fields;
 
-        $firstname = ltrim($customer_info['customers_firstname']);
+        $firstname = ltrim((string) $customer_info['customers_firstname']);
         $firstname = substr($firstname, 0, 1);
 
-        $lastname = ltrim($customer_info['customers_lastname']);
+        $lastname = ltrim((string) $customer_info['customers_lastname']);
         $lastname = substr($lastname, 0, 1);
         $customers_name = $firstname . '. ' . $lastname . '. ';
 
@@ -202,10 +202,10 @@ $sql = "SELECT customers_firstname, customers_lastname
 $customer_info_result = $dbconn->Execute($sql);
 $customer_info = $customer_info_result->fields;
 
-$firstname = ltrim($customer_info['customers_firstname']);
+$firstname = ltrim((string) $customer_info['customers_firstname']);
 $firstname = substr($firstname, 0, 1);
 
-$lastname = ltrim($customer_info['customers_lastname']);
+$lastname = ltrim((string) $customer_info['customers_lastname']);
 $lastname = substr($lastname, 0, 1);
 $customers_name = $firstname . '. ' . $lastname . '. ';
 
@@ -222,15 +222,7 @@ if (!isset($option)) {
 }
 
 $smarty->assign(
-    array(
-        'breadcrumb'        => $oBreadcrumb->trail(),
-        'heading_title'        => $aLang['heading_title'],
-        'canonical'            => $sCanonical,
-
-        'valid_product'     => $valid_product,
-        'product_info'      => $product_info,
-        'customers_name'    => $customers_name
-    )
+    ['breadcrumb'        => $oBreadcrumb->trail(), 'heading_title'        => $aLang['heading_title'], 'canonical'            => $sCanonical, 'valid_product'     => $valid_product, 'product_info'      => $product_info, 'customers_name'    => $customers_name]
 );
 
 $smarty->assign('javascript', $smarty->fetch($aTemplate['javascript']));

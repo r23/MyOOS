@@ -45,8 +45,8 @@ class ot_xmembers
         $this->sort_order = (defined('MODULE_XMEMBERS_SORT_ORDER') ? MODULE_XMEMBERS_SORT_ORDER : null);
         $this->include_shipping = (defined('MODULE_XMEMBERS_INC_SHIPPING') ? MODULE_XMEMBERS_INC_SHIPPING : null);
         $this->include_tax = (defined('MODULE_XMEMBERS_INC_TAX') ? MODULE_XMEMBERS_INC_TAX : null);
-        $this->percentage = isset($aUser['ot_discount']) ? $aUser['ot_discount'] : 1;
-        $this->minimum = isset($aUser['ot_minimum']) ? $aUser['ot_minimum'] : 0;
+        $this->percentage = $aUser['ot_discount'] ?? 1;
+        $this->minimum = $aUser['ot_minimum'] ?? 0;
         $this->calculate_tax = (defined('MODULE_XMEMBERS_CALC_TAX') ? MODULE_XMEMBERS_CALC_TAX : null);
     }
 
@@ -57,10 +57,7 @@ class ot_xmembers
         $od_amount = $this->calculate_credit($this->get_order_total());
         if ($od_amount>0) {
             $this->deduction = $od_amount;
-            $this->output[] = array('title' => '<span class="otDiscount">- ' . $this->title . ' ('. number_format($aUser['ot_discount'], 2) .'%):</span>',
-                              'text' => '<strong><span class="otDiscount">' . $oCurrencies->format($od_amount) . '</span></strong>',
-                              'info' => '',
-                              'value' => $od_amount);
+            $this->output[] = ['title' => '<span class="otDiscount">- ' . $this->title . ' ('. number_format($aUser['ot_discount'], 2) .'%):</span>', 'text' => '<strong><span class="otDiscount">' . $oCurrencies->format($od_amount) . '</span></strong>', 'info' => '', 'value' => $od_amount];
             $oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
         }
     }
@@ -73,10 +70,7 @@ class ot_xmembers
         $od_amount = $this->calculate_credit($this->get_order_total());
         if ($od_amount>0) {
             $this->deduction = $od_amount;
-            $this->output[] = array('title' => '<span class="otDiscount">- ' . $this->title . ' ('. number_format($aUser['ot_discount'], 2) .'%):</span>',
-                              'text' => '<strong><span class="otDiscount">' . $oCurrencies->format($od_amount) . '</span></strong>',
-                              'info' => '',
-                              'value' => $od_amount);
+            $this->output[] = ['title' => '<span class="otDiscount">- ' . $this->title . ' ('. number_format($aUser['ot_discount'], 2) .'%):</span>', 'text' => '<strong><span class="otDiscount">' . $oCurrencies->format($od_amount) . '</span></strong>', 'info' => '', 'value' => $od_amount];
             $_SESSION['cart']->info['total'] = $_SESSION['cart']->info['total'] - $od_amount;
         }
     }
@@ -119,7 +113,7 @@ class ot_xmembers
         $order_total = $oOrder->info['total'];
         // Check if gift voucher is in cart and adjust total
         $products = $_SESSION['cart']->get_products();
-        for ($i=0; $i<count($products); $i++) {
+        for ($i=0; $i<(is_countable($products) ? count($products) : 0); $i++) {
             $t_prid = oos_get_product_id($products[$i]['id']);
 
             $productstable = $oostable['products'];
@@ -128,7 +122,7 @@ class ot_xmembers
                 WHERE products_id = '" . intval($t_prid) . "'";
             $gv_result = $dbconn->GetRow($query);
 
-            if (preg_match('/^GIFT/', addslashes($gv_result['products_model']))) {
+            if (preg_match('/^GIFT/', addslashes((string) $gv_result['products_model']))) {
                 $qty = $_SESSION['cart']->get_quantity($t_prid);
                 $products_tax = oos_get_tax_rate($gv_result['products_tax_class_id']);
                 if ($this->include_tax == 'false') {
@@ -160,7 +154,7 @@ class ot_xmembers
 
     public function keys()
     {
-        return array('MODULE_XMEMBERS_STATUS', 'MODULE_XMEMBERS_SORT_ORDER', 'MODULE_XMEMBERS_INC_SHIPPING', 'MODULE_XMEMBERS_INC_TAX', 'MODULE_XMEMBERS_CALC_TAX');
+        return ['MODULE_XMEMBERS_STATUS', 'MODULE_XMEMBERS_SORT_ORDER', 'MODULE_XMEMBERS_INC_SHIPPING', 'MODULE_XMEMBERS_INC_TAX', 'MODULE_XMEMBERS_CALC_TAX'];
     }
 
     public function install()

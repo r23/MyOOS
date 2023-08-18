@@ -48,7 +48,7 @@ function smarty_function_oos_address_format($params, &$smarty)
     $eoln = '<br />';
 
     foreach ($params as $_key => $_val) {
-        $$_key = smarty_function_escape_special_chars($_val);
+        ${$_key} = smarty_function_escape_special_chars($_val);
     }
 
     $dbconn =& oosDBGetConn();

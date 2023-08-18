@@ -35,15 +35,15 @@ if (isset($_GET['action'])) {
 
 if (DISPLAY_CART == 'true') {
     $goto_file = $aContents['shopping_cart'];
-    $parameters = array('action', 'category', 'products_id', 'pid');
+    $parameters = ['action', 'category', 'products_id', 'pid'];
 } else {
     $goto_file = $sContent;
     if ($action == 'buy_now') {
-        $parameters = array('action', 'pid', 'products_id', 'cart_quantity');
+        $parameters = ['action', 'pid', 'products_id', 'cart_quantity'];
     } elseif ($action == 'buy_slave') {
-        $parameters = array('action', 'pid', 'slave_id', 'cart_quantity');
+        $parameters = ['action', 'pid', 'slave_id', 'cart_quantity'];
     } else {
-        $parameters = array('action', 'pid', 'cart_quantity');
+        $parameters = ['action', 'pid', 'cart_quantity'];
     }
 }
 
@@ -62,9 +62,9 @@ case 'update_product':
 
 
     // customer wants to update the product quantity in their shopping cart
-    $n = count($_POST['products_id']);
+    $n = is_countable($_POST['products_id']) ? count($_POST['products_id']) : 0;
     for ($i=0, $n; $i<$n; $i++) {
-        if (in_array($_POST['products_id'][$i], (is_array($_POST['cart_delete']) ? $_POST['cart_delete'] : array())) or $_POST['cart_quantity'][$i] == 0) {
+        if (in_array($_POST['products_id'][$i], (is_array($_POST['cart_delete']) ? $_POST['cart_delete'] : [])) or $_POST['cart_quantity'][$i] == 0) {
             $_SESSION['cart']->remove($_POST['products_id'][$i]);
         } else {
             $products_order_min = oos_get_products_quantity_order_min($_POST['products_id'][$i]);
@@ -72,7 +72,7 @@ case 'update_product':
 
             if (($_POST['cart_quantity'][$i] >= $products_order_min)) {
                 if ($_POST['cart_quantity'][$i]%$products_order_units == 0) {
-                    $attributes = ($_POST['id'][$_POST['products_id'][$i]]) ? $_POST['id'][$_POST['products_id'][$i]] : '';
+                    $attributes = $_POST['id'][$_POST['products_id'][$i]] ?: '';
                     $free_redemption  = (isset($_POST['free_redemption'][$i])) && is_numeric($_POST['free_redemption'][$i]) ? intval($_POST['free_redemption'][$i]) : '';
                     $_SESSION['cart']->add_cart($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $attributes, $free_redemption, false, $_POST['to_wl_id'][$i]);
                 } else {
@@ -111,7 +111,7 @@ case 'add_product':
                     $products_options_file->set_destination(OOS_UPLOADS);
                     $files_uploadedtable = $oostable['files_uploaded'];
 
-                    if ($products_options_file->parse(TEXT_PREFIX . $_POST[UPLOAD_PREFIX . $i])) {
+                    if ($products_options_file->parse()) {
                         if (isset($_SESSION['customer_id'])) {
                             $dbconn->Execute("INSERT INTO " . $files_uploadedtable . " (sesskey, customers_id, files_uploaded_name) VALUES ('" . $session->getId() . "', '" . intval($_SESSION['customer_id']) . "', '" . oos_db_input($products_options_file->filename) .         "')");
                         } else {
@@ -232,7 +232,7 @@ case 'clear_cart':
     if (isset($_SESSION['cart']) && ($_SESSION['cart']->count_contents() > 0)) {
         $products = $_SESSION['cart']->get_products();
 
-        $n = count($products);
+        $n = is_countable($products) ? count($products) : 0;
         for ($i=0, $n; $i<$n; $i++) {
             $_SESSION['cart']->remove($products[$i]['id']);
         }
@@ -374,11 +374,11 @@ case 'notify':
         } elseif (isset($_POST['notify'])) {
             $notify = filter_string_polyfill(filter_input(INPUT_POST, 'notify'));
         } else {
-            oos_redirect(oos_href_link($sContent, oos_get_all_get_parameters(array('action', 'notify'))));
+            oos_redirect(oos_href_link($sContent, oos_get_all_get_parameters(['action', 'notify'])));
         }
 
         if (!is_array($notify)) {
-            $notify = array($notify);
+            $notify = [$notify];
         }
 
         $products_notificationstable = $oostable['products_notifications'];
@@ -398,7 +398,7 @@ case 'notify':
                 $dbconn->Execute($sql);
             }
         }
-        oos_redirect(oos_href_link($sContent, oos_get_all_get_parameters(array('action'))));
+        oos_redirect(oos_href_link($sContent, oos_get_all_get_parameters(['action'])));
     } else {
         // navigation history
         if (!isset($_SESSION['navigation'])) {
@@ -428,7 +428,7 @@ case 'notify_remove':
         if ($check->fields['total'] > 0) {
             $dbconn->Execute("DELETE FROM $products_notificationstable WHERE products_id = '" . intval($nProductsID) . "' AND customers_id = '" . intval($_SESSION['customer_id']) . "'");
         }
-        oos_redirect(oos_href_link($sContent, oos_get_all_get_parameters(array('action'))));
+        oos_redirect(oos_href_link($sContent, oos_get_all_get_parameters(['action'])));
     } else {
         // navigation history
         if (!isset($_SESSION['navigation'])) {

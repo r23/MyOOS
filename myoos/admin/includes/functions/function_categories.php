@@ -69,7 +69,7 @@ function oos_get_path($current_category_id = '')
                 }
             }
             $cPath_new .= '_' . $current_category_id;
-            if (substr($cPath_new, 0, 1) == '_') {
+            if (str_starts_with($cPath_new, '_')) {
                 $cPath_new = substr($cPath_new, 1);
             }
         }
@@ -89,7 +89,7 @@ function oos_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $
         $aCategoryTree = [];
     }
     if ((count($aCategoryTree) < 1) && ($exclude != '0')) {
-        $aCategoryTree[] = array('id' => '0', 'text' => TEXT_TOP);
+        $aCategoryTree[] = ['id' => '0', 'text' => TEXT_TOP];
     }
 
     // Get database information
@@ -105,7 +105,7 @@ function oos_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $
         $category_result = $dbconn->Execute($query);
 
         $category = $category_result->fields;
-        $aCategoryTree[] = array('id' => $parent_id, 'text' => $category['categories_name']);
+        $aCategoryTree[] = ['id' => $parent_id, 'text' => $category['categories_name']];
     }
 
     $categoriestable = $oostable['categories'];
@@ -122,7 +122,7 @@ function oos_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $
 
     while ($categories = $categories_result->fields) {
         if ($exclude != $categories['categories_id']) {
-            $aCategoryTree[] = array('id' => $categories['categories_id'], 'text' => $spacing . $categories['categories_name']);
+            $aCategoryTree[] = ['id' => $categories['categories_id'], 'text' => $spacing . $categories['categories_name']];
         }
 
         $aCategoryTree = oos_get_category_tree($categories['categories_id'], $spacing . '&nbsp;&nbsp;&nbsp;', $exclude, $aCategoryTree);
@@ -152,7 +152,7 @@ function oos_get_category_name($category_id, $language_id = '')
                 AND categories_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $categories_name = isset($result->fields['categories_name']) ? $result->fields['categories_name'] : '';
+    $categories_name = $result->fields['categories_name'] ?? '';
 
     return $categories_name;
 }
@@ -176,7 +176,7 @@ function oos_get_categories_page_title($category_id, $language_id = '')
                 AND categories_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $categories_page_title = isset($result->fields['categories_page_title']) ? $result->fields['categories_page_title'] : '';
+    $categories_page_title = $result->fields['categories_page_title'] ?? '';
 
     return $categories_page_title;
 }
@@ -199,7 +199,7 @@ function oos_get_products_description($product_id, $language_id = '')
                 AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $products_description = isset($result->fields['products_description']) ? $result->fields['products_description'] : '';
+    $products_description = $result->fields['products_description'] ?? '';
 
     return $products_description;
 }
@@ -222,7 +222,7 @@ function oos_get_products_short_description($product_id, $language_id = '')
                 AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $products_short_description = isset($result->fields['products_short_description']) ? $result->fields['products_short_description'] : '';
+    $products_short_description = $result->fields['products_short_description'] ?? '';
 
     return $products_short_description;
 }
@@ -247,7 +247,7 @@ function oos_get_products_essential_characteristicsn($product_id, $language_id =
                 AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $products_essential_characteristics = isset($result->fields['products_essential_characteristics']) ? $result->fields['products_essential_characteristics'] : '';
+    $products_essential_characteristics = $result->fields['products_essential_characteristics'] ?? '';
 
     return $products_essential_characteristics;
 }
@@ -271,7 +271,7 @@ function oos_get_products_description_meta($product_id, $language_id = '')
                 AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $products_description_meta = isset($result->fields['products_description_meta']) ? $result->fields['products_description_meta'] : '';
+    $products_description_meta = $result->fields['products_description_meta'] ?? '';
 
     return $products_description_meta;
 }
@@ -294,7 +294,7 @@ function oos_get_products_old_electrical_equipment_description($product_id, $lan
                 AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $products_old_electrical_equipment_description = isset($result->fields['products_old_electrical_equipment_description']) ? $result->fields['products_old_electrical_equipment_description'] : '';
+    $products_old_electrical_equipment_description = $result->fields['products_old_electrical_equipment_description'] ?? '';
 
     return $products_old_electrical_equipment_description;
 }
@@ -318,7 +318,7 @@ function oos_get_products_used_goods_description($product_id, $language_id = '')
                 AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $products_used_goods_description = isset($result->fields['products_used_goods_description']) ? $result->fields['products_used_goods_description'] : '';
+    $products_used_goods_description = $result->fields['products_used_goods_description'] ?? '';
 
     return $products_used_goods_description;
 }
@@ -344,7 +344,7 @@ function oos_get_products_facebook_title($product_id, $language_id)
                 AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $products_facebook_title = isset($result->fields['products_facebook_title']) ? $result->fields['products_facebook_title'] : '';
+    $products_facebook_title = $result->fields['products_facebook_title'] ?? '';
 
     return $products_facebook_title;
 }
@@ -366,7 +366,7 @@ function oos_get_products_facebook_description($product_id, $language_id = '')
                 AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $products_facebook_description = isset($result->fields['products_facebook_description']) ? $result->fields['products_facebook_description'] : '';
+    $products_facebook_description = $result->fields['products_facebook_description'] ?? '';
 
     return $products_facebook_description;
 }
@@ -388,7 +388,7 @@ function oos_get_products_twitter_title($product_id, $language_id = '')
                 AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $products_twitter_title = isset($result->fields['products_twitter_title']) ? $result->fields['products_twitter_title'] : '';
+    $products_twitter_title = $result->fields['products_twitter_title'] ?? '';
 
     return $products_twitter_title;
 }
@@ -410,7 +410,7 @@ function oos_get_products_twitter_description($product_id, $language_id = '')
                 AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $products_twitter_description = isset($result->fields['products_twitter_description']) ? $result->fields['products_twitter_description'] : '';
+    $products_twitter_description = $result->fields['products_twitter_description'] ?? '';
 
     return $products_twitter_description;
 }
@@ -438,7 +438,7 @@ function oos_get_categories_facebook_title($category_id, $language_id = '')
                 AND categories_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $categories_facebook_title = isset($result->fields['categories_facebook_title']) ? $result->fields['categories_facebook_title'] : '';
+    $categories_facebook_title = $result->fields['categories_facebook_title'] ?? '';
 
     return $categories_facebook_title;
 }
@@ -461,7 +461,7 @@ function oos_get_categories_facebook_description($category_id, $language_id = ''
                 AND categories_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $categories_facebook_description = isset($result->fields['categories_facebook_description']) ? $result->fields['categories_facebook_description'] : '';
+    $categories_facebook_description = $result->fields['categories_facebook_description'] ?? '';
 
     return $categories_facebook_description;
 }
@@ -484,7 +484,7 @@ function oos_get_categories_twitter_title($category_id, $language_id = '')
                 AND categories_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $categories_twitter_title = isset($result->fields['categories_twitter_title']) ? $result->fields['categories_twitter_title'] : '';
+    $categories_twitter_title = $result->fields['categories_twitter_title'] ?? '';
 
 
     return $categories_twitter_title;
@@ -508,7 +508,7 @@ function oos_get_categories_twitter_description($category_id, $language_id = '')
                 AND categories_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $categories_twitter_description = isset($result->fields['categories_twitter_description']) ? $result->fields['categories_twitter_description'] : '';
+    $categories_twitter_description = $result->fields['categories_twitter_description'] ?? '';
 
     return $categories_twitter_description;
 }
@@ -532,7 +532,7 @@ function oos_get_products_url($product_id, $language_id)
                 AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $products_url = isset($result->fields['products_url']) ? $result->fields['products_url'] : '';
+    $products_url = $result->fields['products_url'] ?? '';
 
     return $products_url;
 }
@@ -730,7 +730,7 @@ function oos_generate_category_path($id, $from = 'category', $categories_array =
 
         while ($categories = $categories_result->fields) {
             if ($categories['categories_id'] == '0') {
-                $categories_array[$index][] = array('id' => '0', 'text' => TEXT_TOP);
+                $categories_array[$index][] = ['id' => '0', 'text' => TEXT_TOP];
             } else {
                 $category_query = "SELECT cd.categories_name, c.parent_id
                              FROM $categoriestable c,
@@ -742,7 +742,7 @@ function oos_generate_category_path($id, $from = 'category', $categories_array =
 
                 $category = $category_result->fields;
 
-                $categories_array[$index][] = array('id' => $categories['categories_id'], 'text' => $category['categories_name']);
+                $categories_array[$index][] = ['id' => $categories['categories_id'], 'text' => $category['categories_name']];
                 if ((oos_is_not_null($category['parent_id'])) && ($category['parent_id'] != '0')) {
                     $categories_array = oos_generate_category_path($category['parent_id'], 'category', $categories_array, $index);
                 }
@@ -766,8 +766,8 @@ function oos_generate_category_path($id, $from = 'category', $categories_array =
         if (!is_array($category)) {
             $category = [];
         }
-        $category['categories_name'] = isset($category['categories_name']) ? $category['categories_name'] : '';
-        $categories_array[$index][] = array('id' => $id, 'text' => $category['categories_name']);
+        $category['categories_name'] ??= '';
+        $categories_array[$index][] = ['id' => $id, 'text' => $category['categories_name']];
         if ((isset($category['parent_id'])) && ($category['parent_id'] != '0')) {
             $categories_array = oos_generate_category_path($category['parent_id'], 'category', $categories_array, $index);
         }
@@ -781,8 +781,8 @@ function oos_output_generated_category_path($id, $from = 'category')
 {
     $calculated_category_path_string = '';
     $calculated_category_path = oos_generate_category_path($id, $from);
-    for ($i = 0, $n = count($calculated_category_path); $i < $n; $i++) {
-        for ($j = 0, $k = count($calculated_category_path[$i]); $j < $k; $j++) {
+    for ($i = 0, $n = is_countable($calculated_category_path) ? count($calculated_category_path) : 0; $i < $n; $i++) {
+        for ($j = 0, $k = is_countable($calculated_category_path[$i]) ? count($calculated_category_path[$i]) : 0; $j < $k; $j++) {
             $calculated_category_path_string .= $calculated_category_path[$i][$j]['text'] . '&nbsp;&gt;&nbsp;';
         }
         $calculated_category_path_string = substr($calculated_category_path_string, 0, -16) . '<br>';
@@ -937,7 +937,7 @@ function oos_get_category_heading_title($category_id, $language_id = '')
                 AND categories_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $categories_heading_title = isset($result->fields['categories_heading_title']) ? $result->fields['categories_heading_title'] : '';
+    $categories_heading_title = $result->fields['categories_heading_title'] ?? '';
 
     return $categories_heading_title;
 }
@@ -959,7 +959,7 @@ function oos_get_category_description($category_id, $language_id = '')
                 AND categories_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $categories_description = isset($result->fields['categories_description']) ? $result->fields['categories_description'] : '';
+    $categories_description = $result->fields['categories_description'] ?? '';
 
     return $categories_description;
 }
@@ -982,7 +982,7 @@ function oos_get_category_description_meta($category_id, $language_id = '')
                  AND categories_languages_id = '" . intval($language_id). "'";
     $result = $dbconn->Execute($query);
 
-    $categories_description_meta = isset($result->fields['categories_description_meta']) ? $result->fields['categories_description_meta'] : '';
+    $categories_description_meta = $result->fields['categories_description_meta'] ?? '';
 
     return $categories_description_meta;
 }
@@ -1173,7 +1173,7 @@ function oos_get_manufacturers_name($product_id)
                 AND mi.manufacturers_id = m.manufacturers_id";
     $result = $dbconn->Execute($query);
 
-    $manufacturers_name = isset($result->fields['manufacturers_name']) ? $result->fields['manufacturers_name'] : '';
+    $manufacturers_name = $result->fields['manufacturers_name'] ?? '';
 
     return $manufacturers_name;
 }
@@ -1227,7 +1227,7 @@ function oos_get_categories_name($who_am_i, $language_id = '')
     $result = $dbconn->Execute($query);
 
 
-    $categories_name = isset($result->fields['categories_name']) ? $result->fields['categories_name'] : '';
+    $categories_name = $result->fields['categories_name'] ?? '';
 
     return $categories_name;
 }
@@ -1257,7 +1257,7 @@ function oos_get_models_name($model_id, $language_id = '')
                 AND models_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $models_name = isset($result->fields['models_name']) ? $result->fields['models_name'] : '';
+    $models_name = $result->fields['models_name'] ?? '';
 
     return $models_name;
 }
@@ -1288,7 +1288,7 @@ function oos_get_models_title($model_id, $language_id = '')
                 AND models_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $models_title = isset($result->fields['models_title']) ? $result->fields['models_title'] : '';
+    $models_title = $result->fields['models_title'] ?? '';
 
 
     return $models_title;
@@ -1313,7 +1313,7 @@ function oos_get_models_description_meta($model_id, $language_id = '')
                 AND models_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $models_description_meta = isset($result->fields['models_description_meta']) ? $result->fields['models_description_meta'] : '';
+    $models_description_meta = $result->fields['models_description_meta'] ?? '';
 
     return $models_description_meta;
 }
@@ -1344,7 +1344,7 @@ function oos_get_panorama_name($panorama_id, $language_id = '')
                 AND panorama_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $panorama_name = isset($result->fields['panorama_name']) ? $result->fields['panorama_name'] : '';
+    $panorama_name = $result->fields['panorama_name'] ?? '';
 
     return $panorama_name;
 }
@@ -1375,7 +1375,7 @@ function oos_get_panorama_title($panorama_id, $language_id = '')
                 AND panorama_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $panorama_title = isset($result->fields['panorama_title']) ? $result->fields['panorama_title'] : '';
+    $panorama_title = $result->fields['panorama_title'] ?? '';
 
     return $panorama_title;
 }
@@ -1399,7 +1399,7 @@ function oos_get_panorama_description_meta($panorama_id, $language_id = '')
                 AND panorama_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $panorama_description_meta = isset($result->fields['panorama_description_meta']) ? $result->fields['panorama_description_meta'] : '';
+    $panorama_description_meta = $result->fields['panorama_description_meta'] ?? '';
 
     return $panorama_description_meta;
 }
@@ -1433,7 +1433,7 @@ function oos_get_model_viewer_title($model_viewer_id, $language_id = '')
                 AND model_viewer_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $model_viewer_title = isset($result->fields['model_viewer_title']) ? $result->fields['model_viewer_title'] : '';
+    $model_viewer_title = $result->fields['model_viewer_title'] ?? '';
 
     return $model_viewer_title;
 }
@@ -1456,7 +1456,7 @@ function oos_get_model_viewer_description($model_viewer_id, $language_id = '')
                 AND model_viewer_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $model_viewer_description = isset($result->fields['model_viewer_description']) ? $result->fields['model_viewer_description'] : '';
+    $model_viewer_description = $result->fields['model_viewer_description'] ?? '';
 
     return $model_viewer_description;
 }
@@ -1487,7 +1487,7 @@ function oos_get_hotspot_text($hotspot_id, $language_id = '')
                 AND hotspot_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $hotspot_text = isset($result->fields['hotspot_text']) ? $result->fields['hotspot_text'] : '';
+    $hotspot_text = $result->fields['hotspot_text'] ?? '';
 
     return $hotspot_text;
 }
@@ -1567,7 +1567,7 @@ function oos_get_video_title($video_id, $language_id = '')
                 AND video_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $video_title = isset($result->fields['video_title']) ? $result->fields['video_title'] : '';
+    $video_title = $result->fields['video_title'] ?? '';
 
     return $video_title;
 }
@@ -1597,7 +1597,7 @@ function oos_get_video_description($video_id, $language_id = '')
                 AND video_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $video_description = isset($result->fields['video_description']) ? $result->fields['video_description'] : '';
+    $video_description = $result->fields['video_description'] ?? '';
 
     return $video_description;
 }

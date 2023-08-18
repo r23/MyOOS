@@ -36,7 +36,7 @@ class order_total
         global $aLang;
 
         if (defined('MODULE_ORDER_TOTAL_INSTALLED') && oos_is_not_null(MODULE_ORDER_TOTAL_INSTALLED)) {
-            $this->modules = explode(';', MODULE_ORDER_TOTAL_INSTALLED);
+            $this->modules = explode(';', (string) MODULE_ORDER_TOTAL_INSTALLED);
 
             $sLanguage = isset($_SESSION['language']) ? oos_var_prep_for_os($_SESSION['language']) : DEFAULT_LANGUAGE;
 
@@ -57,7 +57,7 @@ class order_total
         if (is_array($this->modules)) {
             reset($this->modules);
             foreach ($this->modules as $value) {
-                $class = substr($value, 0, strrpos($value, '.'));
+                $class = substr((string) $value, 0, strrpos((string) $value, '.'));
                 if ($GLOBALS[$class]->enabled) {
                     $GLOBALS[$class]->output = [];
                     $GLOBALS[$class]->process();
@@ -85,7 +85,7 @@ class order_total
         if (is_array($this->modules)) {
             reset($this->modules);
             foreach ($this->modules as $value) {
-                $class = substr($value, 0, strrpos($value, '.'));
+                $class = substr((string) $value, 0, strrpos((string) $value, '.'));
                 if ($GLOBALS[$class]->enabled) {
                     $GLOBALS[$class]->output = [];
                     $GLOBALS[$class]->shopping_cart_process();
@@ -117,9 +117,9 @@ class order_total
         if (is_array($this->modules)) {
             reset($this->modules);
             foreach ($this->modules as $value) {
-                $class = substr($value, 0, strrpos($value, '.'));
+                $class = substr((string) $value, 0, strrpos((string) $value, '.'));
                 if ($GLOBALS[$class]->enabled) {
-                    $size = count($GLOBALS[$class]->output);
+                    $size = is_countable($GLOBALS[$class]->output) ? count($GLOBALS[$class]->output) : 0;
                     for ($i=0; $i<$size; $i++) {
                         if ($GLOBALS[$class]->output[$i]['text'] != '') {
                             $output_string .= '              <tr>' . "\n" .
@@ -168,7 +168,7 @@ class order_total
             $output_string = '';
             reset($this->modules);
             foreach ($this->modules as $value) {
-                $class = substr($value, 0, strrpos($value, '.'));
+                $class = substr((string) $value, 0, strrpos((string) $value, '.'));
                 if ($GLOBALS[$class]->enabled) {
                     if ($GLOBALS[$class]->credit_class) {
                         if ($selection_string =='') {
@@ -206,7 +206,7 @@ class order_total
         if (MODULE_ORDER_TOTAL_INSTALLED) {
             reset($this->modules);
             foreach ($this->modules as $value) {
-                $class = substr($value, 0, strrpos($value, '.'));
+                $class = substr((string) $value, 0, strrpos((string) $value, '.'));
                 if (($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class)) {
                     $GLOBALS[$class]->update_credit_account($i);
                 }
@@ -227,7 +227,7 @@ class order_total
         if (MODULE_ORDER_TOTAL_INSTALLED) {
             reset($this->modules);
             foreach ($this->modules as $value) {
-                $class = substr($value, 0, strrpos($value, '.'));
+                $class = substr((string) $value, 0, strrpos((string) $value, '.'));
                 if (($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class)) {
                     $post_var = 'c' . $GLOBALS[$class]->code;
                     $post_var = filter_string_polyfill($post_var);
@@ -253,7 +253,7 @@ class order_total
         if (MODULE_ORDER_TOTAL_INSTALLED) {
             reset($this->modules);
             foreach ($this->modules as $value) {
-                $class = substr($value, 0, strrpos($value, '.'));
+                $class = substr((string) $value, 0, strrpos((string) $value, '.'));
                 if (($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class)) {
                     $post_var = 'c' . $GLOBALS[$class]->code;
                     $post_var = filter_var($post_var, FILTER_SANITIZE_STRING);
@@ -283,7 +283,7 @@ class order_total
             reset($this->modules);
             $order_total = $oOrder->info['total'];
             foreach ($this->modules as $value) {
-                $class = substr($value, 0, strrpos($value, '.'));
+                $class = substr((string) $value, 0, strrpos((string) $value, '.'));
                 if (($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class)) {
                     $total_deductions += $GLOBALS[$class]->pre_confirmation_check($order_total);
                 }
@@ -305,7 +305,7 @@ class order_total
         if (MODULE_ORDER_TOTAL_INSTALLED) {
             reset($this->modules);
             foreach ($this->modules as $value) {
-                $class = substr($value, 0, strrpos($value, '.'));
+                $class = substr((string) $value, 0, strrpos((string) $value, '.'));
                 if (($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class)) {
                     $GLOBALS[$class]->apply_credit();
                 }
@@ -321,7 +321,7 @@ class order_total
         if (MODULE_ORDER_TOTAL_INSTALLED) {
             reset($this->modules);
             foreach ($this->modules as $value) {
-                $class = substr($value, 0, strrpos($value, '.'));
+                $class = substr((string) $value, 0, strrpos((string) $value, '.'));
                 if (($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class)) {
                     $post_var = 'c' . $GLOBALS[$class]->code;
                     $_SESSION[$post_var] = 'c' . $GLOBALS[$class]->code;

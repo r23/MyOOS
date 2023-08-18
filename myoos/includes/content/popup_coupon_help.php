@@ -81,7 +81,7 @@ if (isset($_GET['cID'])) {
     $coupon_get = $dbconn->Execute($sql);
     $get_result = $coupon_get->fields;
 
-    $cat_ids = explode("[,]", $get_result['restrict_to_categories']);
+    $cat_ids = explode("[,]", (string) $get_result['restrict_to_categories']);
     for ($i = 0; $i < count($cat_ids); $i++) {
         $categoriestable = $oostable['categories'];
         $categories_descriptiontable = $oostable['categories_description'];
@@ -111,7 +111,7 @@ if (isset($_GET['cID'])) {
     $coupon_get = $dbconn->Execute($sql);
     $get_result = $coupon_get->fields;
 
-    $pr_ids = explode("[,]", $get_result['restrict_to_products']);
+    $pr_ids = explode("[,]", (string) $get_result['restrict_to_products']);
     for ($i = 0; $i < count($pr_ids); $i++) {
         $productstable = $oostable['products'];
         $products_descriptiontable = $oostable['products_description'];
@@ -149,14 +149,7 @@ $oBreadcrumb->add($information['heading_coupon_help']);
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-            'breadcrumb'    => $oBreadcrumb->trail(),
-            'pagetitle'     => $information['heading_coupon_help'],
-            'heading_title' => $information['heading_coupon_help'],
-            'canonical'     => $sCanonical,
-
-            'help_text'       => $text_coupon_help
-        )
+    ['breadcrumb'    => $oBreadcrumb->trail(), 'pagetitle'     => $information['heading_coupon_help'], 'heading_title' => $information['heading_coupon_help'], 'canonical'     => $sCanonical, 'help_text'       => $text_coupon_help]
 );
 
 // register the outputfilter

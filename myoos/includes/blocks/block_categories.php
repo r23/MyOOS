@@ -97,7 +97,7 @@ function oos_show_category($nCounter)
 {
     global $nPrevID, $aFoo, $aCategories, $sCategory_new, $id, $parent_child, $nCurrentCategoryID;
 
-    $aCategory = array('counter' => $nCounter);
+    $aCategory = ['counter' => $nCounter];
 
     if ((isset($id)) && (in_array($nCounter, $id))) {
         $aCategory['isSelected'] = 1;
@@ -186,11 +186,7 @@ $query = "SELECT c.categories_id, cd.categories_name, c.parent_id, c.categories_
 $categories_result = $dbconn->Execute($query);
 while ($categories = $categories_result->fields) {
     $list_of_categories_ids[] = intval($categories['categories_id']);
-    $aFoo[$categories['categories_id']] = array('name' => $categories['categories_name'],
-                                                 'parent' => $categories['parent_id'],
-                                                 'level' => 0,
-                                                 'path' => $categories['categories_id'],
-                                                 'next_id' => false);
+    $aFoo[$categories['categories_id']] = ['name' => $categories['categories_name'], 'parent' => $categories['parent_id'], 'level' => 0, 'path' => $categories['categories_id'], 'next_id' => false];
 
     if (isset($prev_id)) {
         $aFoo[$prev_id]['next_id'] = $categories['categories_id'];
@@ -208,7 +204,7 @@ while ($categories = $categories_result->fields) {
 
 if (!empty($sCategory)) {
     $new_path = '';
-    $id = explode('_', $sCategory);
+    $id = explode('_', (string) $sCategory);
     reset($id);
     foreach ($id as $key => $value) {
         unset($prev_id);
@@ -230,11 +226,7 @@ if (!empty($sCategory)) {
             $new_path .= $value;
             while ($row = $categories_result->fields) {
                 $list_of_categories_ids[] = intval($row['categories_id']);
-                $aFoo[$row['categories_id']] = array('name' => $row['categories_name'],
-                                                'parent' => $row['parent_id'],
-                                                'level' => $key+1,
-                                                'path' => $new_path . '_' . $row['categories_id'],
-                                                'next_id' => false);
+                $aFoo[$row['categories_id']] = ['name' => $row['categories_name'], 'parent' => $row['parent_id'], 'level' => $key+1, 'path' => $new_path . '_' . $row['categories_id'], 'next_id' => false];
 
                 if (isset($prev_id)) {
                     $aFoo[$prev_id]['next_id'] = $row['categories_id'];
@@ -284,8 +276,5 @@ if (isset($first_element)) {
 
 
 $smarty->assign(
-    array(
-        'block_heading_categories' => $block_heading,
-        'categories' => $aCategories
-    )
+    ['block_heading_categories' => $block_heading, 'categories' => $aCategories]
 );

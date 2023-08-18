@@ -104,8 +104,7 @@ class eubanktransfer
 
     public function selection()
     {
-        return array('id' => $this->code,
-                   'module' => $this->title);
+        return ['id' => $this->code, 'module' => $this->title];
     }
 
     public function pre_confirmation_check()
@@ -116,7 +115,7 @@ class eubanktransfer
     public function confirmation()
     {
         global $aLang;
-        return array('title' => $aLang['module_payment_eu_banktransfer_text_description']);
+        return ['title' => $aLang['module_payment_eu_banktransfer_text_description']];
     }
 
     public function process_button()
@@ -180,6 +179,6 @@ class eubanktransfer
 
     public function keys()
     {
-        return array('MODULE_PAYMENT_EU_BANKTRANSFER_STATUS', 'MODULE_PAYMENT_EU_BANKTRANSFER_ORDER_STATUS_ID', 'MODULE_PAYMENT_EU_BANKTRANSFER_SORT_ORDER', 'MODULE_PAYMENT_EU_BANKTRANSFER_BANKNAME', 'MODULE_PAYMENT_EU_BANKTRANSFER_KONTONAME', 'MODULE_PAYMENT_EU_BANKTRANSFER_KONTONUM', 'MODULE_PAYMENT_EU_BANKTRANSFER_IBAN', 'MODULE_PAYMENT_EU_BANKTRANSFER_BIC');
+        return ['MODULE_PAYMENT_EU_BANKTRANSFER_STATUS', 'MODULE_PAYMENT_EU_BANKTRANSFER_ORDER_STATUS_ID', 'MODULE_PAYMENT_EU_BANKTRANSFER_SORT_ORDER', 'MODULE_PAYMENT_EU_BANKTRANSFER_BANKNAME', 'MODULE_PAYMENT_EU_BANKTRANSFER_KONTONAME', 'MODULE_PAYMENT_EU_BANKTRANSFER_KONTONUM', 'MODULE_PAYMENT_EU_BANKTRANSFER_IBAN', 'MODULE_PAYMENT_EU_BANKTRANSFER_BIC'];
     }
 }

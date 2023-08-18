@@ -22,7 +22,7 @@
  */
 
 $php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
-if (substr(basename($php_self), 0, 12) == 'admin_member') {
+if (str_starts_with(basename($php_self), 'admin_member')) {
 
 ?>
 

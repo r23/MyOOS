@@ -34,7 +34,7 @@ function smarty_function_categories_link($params, &$smarty)
 
     $result = [];
     $link_params = [];
-    $link_params = array('content' => $aContents['shop']);
+    $link_params = ['content' => $aContents['shop']];
 
     if (is_array($params)) {
         $result = array_merge($link_params, $params);

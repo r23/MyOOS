@@ -31,7 +31,6 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 #[AllowDynamicProperties]
 class sales_report
 {
-    public $mode;
     public $GLOBALStartDate;
     public $startDate;
     public $endDate;
@@ -42,12 +41,9 @@ class sales_report
     public $status;
     public $outlet;
 
-    public function __construct($mode, $startDate = 0, $endDate = 0, $sort = 0, $statusFilter = 0, $filter = 0)
+    public function __construct(public $mode, $startDate = 0, $endDate = 0, $sort = 0, $statusFilter = 0, $filter = 0)
     {
 
-        // startDate and endDate have to be a unix timestamp. Use mktime !
-        // if set then both have to be valid startDate and endDate
-        $this->mode = $mode;
         $this->tax_include = DISPLAY_PRICE_WITH_TAX;
 
         $this->statusFilter = $statusFilter;

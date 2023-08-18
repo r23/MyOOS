@@ -21,7 +21,7 @@ if (!defined('OOS_UPDATE_PATH')) {
 
 function walk($item1)
 {
-    $item1 = str_replace('	', '|', $item1);
+    $item1 = str_replace('	', '|', (string) $item1);
     $item1 = str_replace('"', '', $item1);
 
     $item1 = str_replace("\n", '', $item1);
@@ -126,9 +126,7 @@ function walk($item1)
 
         // https://www.php.net/manual/en/language.types.float.php#language.types.float.casting
         if (abs($old_products_price-$new_products_price) > $epsilon) {
-            $sql_price_array = array('products_id' => intval($products_id),
-                                    'products_price' => oos_db_input($products_net_price),
-                                    'date_added' => 'now()');
+            $sql_price_array = ['products_id' => intval($products_id), 'products_price' => oos_db_input($products_net_price), 'date_added' => 'now()'];
             oos_db_perform($oostable['products_price_history'], $sql_price_array);
         }
 

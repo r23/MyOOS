@@ -83,16 +83,11 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
 
         $customers_name = $check_customer['customers_firstname'] . '. ' . $check_customer['customers_lastname'];
 
-        switch ($check_customer['customers_gender']) {
-        case 'm':
-            $sGreet = sprintf($aLang['email_greet_mr'], $customers_name);
-            break;
-        case 'f':
-            $sGreet = sprintf($aLang['email_greet_ms'], $customers_name);
-            break;
-        default:
-            $sGreet = $aLang['email_greet_none'];
-        }
+        $sGreet = match ($check_customer['customers_gender']) {
+            'm' => sprintf($aLang['email_greet_mr'], $customers_name),
+            'f' => sprintf($aLang['email_greet_ms'], $customers_name),
+            default => $aLang['email_greet_none'],
+        };
 
         //smarty
         include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
@@ -102,17 +97,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
         $smarty->caching = false;
 
         $smarty->assign(
-            array(
-                'shop_name'       => STORE_NAME,
-                'shop_url'        => OOS_HTTPS_SERVER . OOS_SHOP,
-                'shop_logo'       => STORE_LOGO,
-                'services_url'    => PHPBB_URL,
-                'blog_url'        => BLOG_URL,
-                'imprint_url'     => oos_href_link($aContents['information'], 'information_id=1', false, true),
-                'login_url'       => oos_href_link($aContents['login'], '', false, true),
-                'greet'           => $sGreet,
-                'password'        => $newpass
-            )
+            ['shop_name'       => STORE_NAME, 'shop_url'        => OOS_HTTPS_SERVER . OOS_SHOP, 'shop_logo'       => STORE_LOGO, 'services_url'    => PHPBB_URL, 'blog_url'        => BLOG_URL, 'imprint_url'     => oos_href_link($aContents['information'], 'information_id=1', false, true), 'login_url'       => oos_href_link($aContents['login'], '', false, true), 'greet'           => $sGreet, 'password'        => $newpass]
         );
 
         // create mails
@@ -152,12 +137,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
 
     // assign Smarty variables;
     $smarty->assign(
-        array(
-            'breadcrumb'    => $oBreadcrumb->trail(),
-            'heading_title' => $aLang['heading_title'],
-            'robots'        => 'noindex,follow,noodp,noydir',
-            'canonical'        => $sCanonical
-        )
+        ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title' => $aLang['heading_title'], 'robots'        => 'noindex,follow,noodp,noydir', 'canonical'        => $sCanonical]
     );
 
 

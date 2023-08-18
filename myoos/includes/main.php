@@ -110,7 +110,7 @@ $bPersonalization = false;
 
 $consentCookieJson = filter_input(INPUT_COOKIE, 'myoos-cookie-consent', FILTER_DEFAULT);
 if ($consentCookieJson) {
-    $consentCookie = json_decode($consentCookieJson);
+    $consentCookie = json_decode($consentCookieJson, null, 512, JSON_THROW_ON_ERROR);
 
 	/*
 	// technically necessary cookies
@@ -190,7 +190,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . oos_var_prep_for_os($
 // currency
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_currencies.php';
 $oCurrencies = new currencies();
-$sCurrency = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
+$sCurrency = ($_SESSION['currency'] ?? DEFAULT_CURRENCY);
 if ((!isset($_SESSION['currency']) || isset($_GET['currency'])) && $bNecessary == true) {
     if (isset($_GET['currency']) && oos_currency_exits($_GET['currency'])) {
         // start the session
@@ -221,7 +221,7 @@ $sContent = oos_var_prep_for_os($sContent);
 if ($session->hasStarted() === true) {
 
     if (!(preg_match('/^[a-z0-9]{26}$/i', $session->getId()) || preg_match('/^[a-z0-9]{32}$/i', $session->getId()))) {
-        $session->regenerate(true);
+        $session->regenerate();
     }
 
     if (!isset($_SESSION['user'])) {

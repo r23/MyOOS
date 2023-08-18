@@ -142,7 +142,7 @@ class zones
 
         for ($i=1; $i<=$this->num_zones; $i++) {
             $countries_table = constant('MODULE_SHIPPING_ZONES_COUNTRIES_' . $i);
-            $country_zones = preg_split("/[,]/", $countries_table);
+            $country_zones = preg_split("/[,]/", (string) $countries_table);
             if (in_array($dest_country, $country_zones)) {
                 $dest_zone = $i;
                 break;
@@ -156,8 +156,8 @@ class zones
             $shipping = -1;
             $zones_cost = constant('MODULE_SHIPPING_ZONES_COST_' . $dest_zone);
 
-            $zones_table = preg_split("/[:,]/", $zones_cost);
-            $size = count($zones_table);
+            $zones_table = preg_split("/[:,]/", (string) $zones_cost);
+            $size = is_countable($zones_table) ? count($zones_table) : 0;
             for ($i=0; $i<$size; $i+=2) {
                 if ($shipping_weight <= $zones_table[$i]) {
                     $shipping = $zones_table[$i+1];
@@ -174,11 +174,7 @@ class zones
             }
         }
 
-        $this->quotes = array('id' => $this->code,
-                            'module' => $aLang['module_shipping_zones_text_title'],
-                            'methods' => array(array('id' => $this->code,
-                                                   'title' => $shipping_method,
-                                                   'cost' => $shipping_cost)));
+        $this->quotes = ['id' => $this->code, 'module' => $aLang['module_shipping_zones_text_title'], 'methods' => [['id' => $this->code, 'title' => $shipping_method, 'cost' => $shipping_cost]]];
 
         if (oos_is_not_null($this->icon)) {
             $this->quotes['icon'] = oos_image($this->icon, $this->title);
@@ -239,7 +235,7 @@ class zones
 
     public function keys()
     {
-        $keys = array('MODULE_SHIPPING_ZONES_STATUS', 'MODULE_SHIPPING_ZONES_SORT_ORDER');
+        $keys = ['MODULE_SHIPPING_ZONES_STATUS', 'MODULE_SHIPPING_ZONES_SORT_ORDER'];
 
         for ($i=1; $i<=$this->num_zones; $i++) {
             $keys[] = 'MODULE_SHIPPING_ZONES_COUNTRIES_' . $i;

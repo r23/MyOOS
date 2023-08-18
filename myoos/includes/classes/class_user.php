@@ -57,16 +57,7 @@ class oosUser
                     customers_status_languages_id = '" .  intval($nLanguageID) . "'";
         $customer_status = $dbconn->GetRow($sql);
 
-        $this->group = array('id' => $customer_status['customers_status_id'],
-                           'text' => $customer_status['customers_status_name'],
-                           'public' => $customer_status['customers_status_public'],
-                           'show_price' => $customer_status['customers_status_show_price'],
-                           'price_with_tax' => $customer_status['customers_status_show_price_tax'],
-                           'ot_discount_flag' => $customer_status['customers_status_ot_discount_flag'],
-                           'ot_discount' => $customer_status['customers_status_ot_discount'],
-                           'ot_minimum' => $customer_status['customers_status_ot_minimum'],
-                           'qty_discounts' => $customer_status['customers_status_qty_discounts'],
-                           'payment' => $customer_status['customers_status_payment']);
+        $this->group = ['id' => $customer_status['customers_status_id'], 'text' => $customer_status['customers_status_name'], 'public' => $customer_status['customers_status_public'], 'show_price' => $customer_status['customers_status_show_price'], 'price_with_tax' => $customer_status['customers_status_show_price_tax'], 'ot_discount_flag' => $customer_status['customers_status_ot_discount_flag'], 'ot_discount' => $customer_status['customers_status_ot_discount'], 'ot_minimum' => $customer_status['customers_status_ot_minimum'], 'qty_discounts' => $customer_status['customers_status_qty_discounts'], 'payment' => $customer_status['customers_status_payment']];
     }
 
     public function restore_group()
@@ -94,16 +85,7 @@ class oosUser
                      cs.customers_status_languages_id = '" .  intval($nLanguageID) . "'";
         $customer_status = $dbconn->GetRow($sql);
 
-        $this->group = array('id' => $customer_status['customers_status_id'],
-                           'text' => $customer_status['customers_status_name'],
-                           'public' => $customer_status['customers_status_public'],
-                           'show_price' => $customer_status['customers_status_show_price'],
-                           'price_with_tax' => $customer_status['customers_status_show_price_tax'],
-                           'ot_discount_flag' => $customer_status['customers_status_ot_discount_flag'],
-                           'ot_discount' => $customer_status['customers_status_ot_discount'],
-                           'ot_minimum' => $customer_status['customers_status_ot_minimum'],
-                           'qty_discounts' => $customer_status['customers_status_qty_discounts'],
-                           'payment' => $customer_status['customers_status_payment']);
+        $this->group = ['id' => $customer_status['customers_status_id'], 'text' => $customer_status['customers_status_name'], 'public' => $customer_status['customers_status_public'], 'show_price' => $customer_status['customers_status_show_price'], 'price_with_tax' => $customer_status['customers_status_show_price_tax'], 'ot_discount_flag' => $customer_status['customers_status_ot_discount_flag'], 'ot_discount' => $customer_status['customers_status_ot_discount'], 'ot_minimum' => $customer_status['customers_status_ot_minimum'], 'qty_discounts' => $customer_status['customers_status_qty_discounts'], 'payment' => $customer_status['customers_status_payment']];
         $this->groupID = $this->generate_group_id();
     }
 

@@ -292,7 +292,7 @@ while ($products_options_name = $products_options_name_result->fields) {
                                     " . $options_sort_by;
         $products_options_result = $dbconn->Execute($products_options_sql);
         while ($products_options = $products_options_result->fields) {
-            $products_options_array[] = array('id' => $products_options['products_options_values_id'], 'text' => $products_options['products_options_values_name']);
+            $products_options_array[] = ['id' => $products_options['products_options_values_id'], 'text' => $products_options['products_options_values_name']];
 
             if ($products_options['options_values_price'] > '0') {
                 if ($aUser['show_price'] == 1) {

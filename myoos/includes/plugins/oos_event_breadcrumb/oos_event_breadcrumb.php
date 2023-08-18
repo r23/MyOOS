@@ -33,12 +33,7 @@ class oos_event_breadcrumb
     public $preceeds;
     public $author = 'MyOOS Development Team';
     public $version = '2.0';
-    public $requirements = array(
-                         'oos'         => '1.7.0',
-                         'smarty'      => '2.6.9',
-                         'adodb'       => '4.62',
-                         'php'         => '5.9.0'
-    );
+    public $requirements = ['oos'         => '1.7.0', 'smarty'      => '2.6.9', 'adodb'       => '4.62', 'php'         => '5.9.0'];
 
 
     /**

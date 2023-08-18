@@ -384,10 +384,10 @@ class CartBase extends PayPalModel
     public function addExternalFunding($externalFunding)
     {
         if (!$this->getExternalFunding()) {
-            return $this->setExternalFunding(array($externalFunding));
+            return $this->setExternalFunding([$externalFunding]);
         } else {
             return $this->setExternalFunding(
-                array_merge($this->getExternalFunding(), array($externalFunding))
+                array_merge($this->getExternalFunding(), [$externalFunding])
             );
         }
     }
@@ -401,7 +401,7 @@ class CartBase extends PayPalModel
     public function removeExternalFunding($externalFunding)
     {
         return $this->setExternalFunding(
-            array_diff($this->getExternalFunding(), array($externalFunding))
+            array_diff($this->getExternalFunding(), [$externalFunding])
         );
     }
 

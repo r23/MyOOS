@@ -65,7 +65,7 @@ if (!empty($action)) {
                 if ($action == 'insert_video') {
                     $insert_sql_data = ['video_date_added' => 'now()'];
 
-                    $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+                    $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
                     oos_db_perform($oostable['products_video'], $sql_data_array);
                     $video_id = $dbconn->Insert_ID();
@@ -73,13 +73,13 @@ if (!empty($action)) {
                     $update_sql_data = ['video_last_modified' => 'now()'];
                     $video_id = intval($_POST['video_id'][$i]);
 
-                    $sql_data_array = array_merge($sql_data_array, $update_sql_data);
+                    $sql_data_array = [...$sql_data_array, ...$update_sql_data];
 
                     oos_db_perform($oostable['products_video'], $sql_data_array, 'UPDATE', 'video_id = \'' . intval($video_id) . '\'');
                 }
 
                 $aLanguages = oos_get_languages();
-                $nLanguages = count($aLanguages);
+                $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
 
                 for ($li = 0, $l = $nLanguages; $li < $l; $li++) {
                     $language_id = $aLanguages[$li]['id'];
@@ -91,7 +91,7 @@ if (!empty($action)) {
                         $insert_sql_data = ['video_id' => $video_id,
                                             'video_languages_id' => $language_id];
 
-                        $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+                        $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
                         oos_db_perform($oostable['products_video_description'], $sql_data_array);
                     } elseif ($action == 'update_video') {
@@ -272,7 +272,7 @@ if ($action == 'edit_video') {
     }
 
     $aLanguages = oos_get_languages();
-    $nLanguages = count($aLanguages);
+    $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
 
     $form_action = (isset($_GET['pID'])) ? 'update_video' : 'insert_video';
 
@@ -303,7 +303,7 @@ if ($action == 'edit_video') {
     <?php echo oos_draw_form('id', 'new_video', $aContents['product_video'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=' . $form_action, 'post', false, 'enctype="multipart/form-data"'); ?>
     <?php
 
-    $sFormid = md5(uniqid(rand(), true));
+    $sFormid = md5(uniqid(random_int(0, mt_getrandmax()), true));
     $_SESSION['formid'] = $sFormid;
     echo oos_draw_hidden_field('formid', $sFormid);
     echo oos_draw_hidden_field('products_id', $pInfo->products_id);
@@ -369,7 +369,7 @@ if ($action == 'edit_video') {
                 <?php
             }
 
-            $video_id = (isset($video['video_id'])) ? $video['video_id'] : '';
+            $video_id = $video['video_id'] ?? '';
 
             for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
                 ?>
@@ -383,7 +383,7 @@ if ($action == 'edit_video') {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
                               <div class="col-lg-9">
-                <?php echo oos_draw_input_field('video_title['. $nCounter . '][' . $aLanguages[$i]['id'] . ']', (isset($video_title[$aLanguages[$i]['id']]) ? stripslashes($video_title[$aLanguages[$i]['id']]) : oos_get_video_title($video_id, $aLanguages[$i]['id']))); ?>        
+                <?php echo oos_draw_input_field('video_title['. $nCounter . '][' . $aLanguages[$i]['id'] . ']', (isset($video_title[$aLanguages[$i]['id']]) ? stripslashes((string) $video_title[$aLanguages[$i]['id']]) : oos_get_video_title($video_id, $aLanguages[$i]['id']))); ?>        
                             
                               </div>
                            </div>
@@ -402,7 +402,7 @@ if ($action == 'edit_video') {
                 } ?>
                               <div class="col-lg-9">
                 <?php
-                echo oos_draw_textarea_field('video_description_'. $nCounter . '_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['video_description' .$aLanguages[$i]['id']]) ? stripslashes($_POST['video_description' .$aLanguages[$i]['id']]) : oos_get_video_description($video_id, $aLanguages[$i]['id']))); ?>
+                echo oos_draw_textarea_field('video_description_'. $nCounter . '_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['video_description' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['video_description' .$aLanguages[$i]['id']]) : oos_get_video_description($video_id, $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
                         </fieldset>

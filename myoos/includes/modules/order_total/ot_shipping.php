@@ -94,7 +94,7 @@ class ot_shipping
                 $subtotal = $subtotal - $tax;
             }
 
-            $sales_tax_rates = count($oOrder->info['net_total']);
+            $sales_tax_rates = is_countable($oOrder->info['net_total']) ? count($oOrder->info['net_total']) : 0;
 
             reset($oOrder->info['net_total']);
 
@@ -115,17 +115,11 @@ class ot_shipping
                         $info = '';
                     }
 
-                    $this->output[] = array('title' => $oOrder->info['shipping_method'] . $info,
-                                      'text' => $oCurrencies->format($shipping_cost, true, $currency_type, $currency_value),
-                                      'info' => '',
-                                      'value' => $shipping_cost);
+                    $this->output[] = ['title' => $oOrder->info['shipping_method'] . $info, 'text' => $oCurrencies->format($shipping_cost, true, $currency_type, $currency_value), 'info' => '', 'value' => $shipping_cost];
                 }
             }
         } else {
-            $this->output[] = array('title' => $oOrder->info['shipping_method'] . ':',
-                                  'text' => $oCurrencies->format($oOrder->info['shipping_cost'], true, $currency_type, $currency_value),
-                                  'info' => '',
-                                  'value' => $oOrder->info['shipping_cost']);
+            $this->output[] = ['title' => $oOrder->info['shipping_method'] . ':', 'text' => $oCurrencies->format($oOrder->info['shipping_cost'], true, $currency_type, $currency_value), 'info' => '', 'value' => $oOrder->info['shipping_cost']];
         }
     }
 
@@ -176,7 +170,7 @@ class ot_shipping
         }
 
 
-        $currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
+        $currency_type = ($_SESSION['currency'] ?? DEFAULT_CURRENCY);
         $currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
 
         if ($_SESSION['shipping']['cost'] > 0) {
@@ -189,7 +183,7 @@ class ot_shipping
                 $subtotal = $subtotal - $tax;
             }
 
-            $sales_tax_rates = count($_SESSION['cart']->info['net_total']);
+            $sales_tax_rates = is_countable($_SESSION['cart']->info['net_total']) ? count($_SESSION['cart']->info['net_total']) : 0;
             reset($_SESSION['cart']->info['net_total']);
 
             foreach ($_SESSION['cart']->info['net_total'] as $key => $value) {
@@ -208,22 +202,13 @@ class ot_shipping
                         $info = '';
                     }
 
-                    $this->output[] = array('title' => $_SESSION['shipping']['title'] . $info,
-                                      'text' => $oCurrencies->format($shipping_cost, true, $currency_type, $currency_value),
-                                      'info' => '',
-                                      'value' => $shipping_cost);
+                    $this->output[] = ['title' => $_SESSION['shipping']['title'] . $info, 'text' => $oCurrencies->format($shipping_cost, true, $currency_type, $currency_value), 'info' => '', 'value' => $shipping_cost];
                 }
             }
 
-            $this->output[] = array('title' => '',
-                                  'text' => '',
-                                  'info' => $this->info,
-                                  'value' => '');
+            $this->output[] = ['title' => '', 'text' => '', 'info' => $this->info, 'value' => ''];
         } else {
-            $this->output[] = array('title' => $_SESSION['shipping']['title'] . ':',
-                              'text' => $oCurrencies->format($_SESSION['shipping']['cost'], true, $currency, $currency_value),
-                              'info' => '',
-                              'value' => $_SESSION['shipping']['cost']);
+            $this->output[] = ['title' => $_SESSION['shipping']['title'] . ':', 'text' => $oCurrencies->format($_SESSION['shipping']['cost'], true, $currency, $currency_value), 'info' => '', 'value' => $_SESSION['shipping']['cost']];
         }
     }
 
@@ -239,7 +224,7 @@ class ot_shipping
 
     public function keys()
     {
-        return array('MODULE_ORDER_TOTAL_SHIPPING_STATUS', 'MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER', 'MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER', 'MODULE_ORDER_TOTAL_SHIPPING_DESTINATION');
+        return ['MODULE_ORDER_TOTAL_SHIPPING_STATUS', 'MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER', 'MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER', 'MODULE_ORDER_TOTAL_SHIPPING_DESTINATION'];
     }
 
     public function install()

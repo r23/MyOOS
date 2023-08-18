@@ -510,9 +510,9 @@ class OpenIdUserinfo extends PayPalResourceModel
      */
     public static function getUserinfo($params, $apiContext = null, $restCall = null)
     {
-        static $allowedParams = array('schema' => 1);
+        static $allowedParams = ['schema' => 1];
 
-        $params = is_array($params)  ? $params : array();
+        $params = is_array($params)  ? $params : [];
 
         if (!array_key_exists('schema', $params)) {
             $params['schema'] = 'openid';
@@ -524,10 +524,7 @@ class OpenIdUserinfo extends PayPalResourceModel
             $requestUrl,
             "GET",
             "",
-            array(
-                'Authorization' => "Bearer " . $params['access_token'],
-                'Content-Type' => 'x-www-form-urlencoded'
-            ),
+            ['Authorization' => "Bearer " . $params['access_token'], 'Content-Type' => 'x-www-form-urlencoded'],
             $apiContext,
             $restCall
         );

@@ -99,13 +99,7 @@ $smarty->assign('reviews_information', $reviews_information);
 
 
 $smarty->assign(
-    array(
-            'breadcrumb'    => $oBreadcrumb->trail(),
-            'heading_title'    => sprintf($aLang['heading_title'], $reviews['products_name']),
-            'canonical'        => $sCanonical,
-
-            'reviews'        => $reviews
-       )
+    ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title'    => sprintf($aLang['heading_title'], $reviews['products_name']), 'canonical'        => $sCanonical, 'reviews'        => $reviews]
 );
 
 // register the outputfilter

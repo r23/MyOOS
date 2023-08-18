@@ -29,21 +29,12 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 $php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
 $bActive = ($_SESSION['selected_box'] == 'configuration') ? true : false;
 
-$aBlocks[] = array(
-    'heading' => BOX_HEADING_CONFIGURATION,
-    'link' => oos_href_link_admin(basename($php_self ), oos_get_all_get_params(array('selected_box')) . 'selected_box=configuration'),
-    'icon' => 'fa fa-cogs',
-    'active' => $bActive
-);
+$aBlocks[] = ['heading' => BOX_HEADING_CONFIGURATION, 'link' => oos_href_link_admin(basename($php_self ), oos_get_all_get_params(['selected_box']) . 'selected_box=configuration'), 'icon' => 'fa fa-cogs', 'active' => $bActive];
 
 $configuration_groups_result = $dbconn->Execute("SELECT configuration_group_id AS cg_id FROM " . $oostable['configuration_group'] . " WHERE visible = '1' ORDER BY sort_order");
 
 while ($configuration_groups = $configuration_groups_result->fields) {
-    $aBlocks[sizeof($aBlocks)-1]['contents'][] = array(
-            'code' => $configuration_groups['cg_id'],
-            'title' => constant(strtoupper($configuration_groups['cg_id'] . '_TITLE')),
-            'link' => oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&amp;gID=' . $configuration_groups['cg_id'])
-        );
+    $aBlocks[sizeof($aBlocks)-1]['contents'][] = ['code' => $configuration_groups['cg_id'], 'title' => constant(strtoupper($configuration_groups['cg_id'] . '_TITLE')), 'link' => oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&amp;gID=' . $configuration_groups['cg_id'])];
 
     // Move that ADOdb pointer!
     $configuration_groups_result->MoveNext();

@@ -41,13 +41,13 @@ if (!isset($_SESSION['customer_id'])) {
     if (!isset($_SESSION['navigation'])) {
         $_SESSION['navigation'] = new navigationHistory();
     }
-    $_SESSION['navigation']->set_snapshot(array('content' =>$aContents['checkout_payment']));
+    $_SESSION['navigation']->set_snapshot(['content' =>$aContents['checkout_payment']]);
     oos_redirect(oos_href_link($aContents['login']));
 }
 
 // Minimum Order Value
 if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
-    $minimum_order_value = str_replace(',', '.', MINIMUM_ORDER_VALUE);
+    $minimum_order_value = str_replace(',', '.', (string) MINIMUM_ORDER_VALUE);
     $subtotal = $_SESSION['cart']->info['subtotal'];
     if ($subtotal < $minimum_order_value) {
         oos_redirect(oos_href_link($aContents['shopping_cart']));
@@ -56,7 +56,7 @@ if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
 
 if (TAKE_BACK_OBLIGATION == 'true') {
     $products = $_SESSION['cart']->get_products();
-    $n = count($products);
+    $n = is_countable($products) ? count($products) : 0;
     for ($i=0, $n; $i<$n; $i++) {
         if (($products[$i]['old_electrical_equipment'] == 1) && ($products[$i]['return_free_of_charge'] == '')) {
             oos_redirect(oos_href_link($aContents['shopping_cart']));
@@ -105,66 +105,18 @@ $order_total_modules = new order_total();
 
 $order_totals = $order_total_modules->process();
 
-$sql_data_array = array('customers_id' => $_SESSION['customer_id'],
-						'customers_firstname' => $oOrder->customer['firstname'],
-						'customers_lastname' =>  $oOrder->customer['lastname'],
-                          'customers_name' => $oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'],
-                          'customers_company' => $oOrder->customer['company'],
-                          'customers_street_address' => $oOrder->customer['street_address'],
-                          'customers_city' => $oOrder->customer['city'],
-                          'customers_postcode' => $oOrder->customer['postcode'],
-                          'customers_state' => $oOrder->customer['state'],
-                          'customers_country' => $oOrder->customer['country']['title'],
-                          'customers_telephone' => $oOrder->customer['telephone'],
-                          'customers_email_address' => $oOrder->customer['email_address'],
-                          'customers_address_format_id' => $oOrder->customer['format_id'],
-                          'delivery_firstname' => $oOrder->delivery['firstname'],
-						  'delivery_lastname' => $oOrder->delivery['lastname'],						  
-                          'delivery_name' => $oOrder->delivery['firstname'] . ' ' . $oOrder->delivery['lastname'],
-                          'delivery_company' => $oOrder->delivery['company'],
-                          'delivery_street_address' => $oOrder->delivery['street_address'],
-                          'delivery_city' => $oOrder->delivery['city'],
-                          'delivery_postcode' => $oOrder->delivery['postcode'],
-                          'delivery_state' => $oOrder->delivery['state'],
-                          'delivery_country' => $oOrder->delivery['country']['title'],
-                          'delivery_address_format_id' => $oOrder->delivery['format_id'],
-						  'billing_firstname' => $oOrder->billing['firstname'],
-						  'billing_lastname' => $oOrder->billing['lastname'],				  
-                          'billing_name' => $oOrder->billing['firstname'] . ' ' . $oOrder->billing['lastname'],
-                          'billing_company' => $oOrder->billing['company'],
-                          'billing_street_address' => $oOrder->billing['street_address'],
-                          'billing_city' => $oOrder->billing['city'],
-                          'billing_postcode' => $oOrder->billing['postcode'],
-                          'billing_state' => $oOrder->billing['state'],
-                          'billing_country' => $oOrder->billing['country']['title'],
-                          'billing_address_format_id' => $oOrder->billing['format_id'],
-                          'payment_method' => $oOrder->info['payment_method'],
-                          'date_purchased' => 'now()',
-                          'last_modified' => 'now()',
-                          'orders_status' => $oOrder->info['order_status'],
-                          'currency' => $oOrder->info['currency'],
-                          'currency_value' => $oOrder->info['currency_value'],
-                          'orders_language' => $_SESSION['language']);
+$sql_data_array = ['customers_id' => $_SESSION['customer_id'], 'customers_firstname' => $oOrder->customer['firstname'], 'customers_lastname' =>  $oOrder->customer['lastname'], 'customers_name' => $oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], 'customers_company' => $oOrder->customer['company'], 'customers_street_address' => $oOrder->customer['street_address'], 'customers_city' => $oOrder->customer['city'], 'customers_postcode' => $oOrder->customer['postcode'], 'customers_state' => $oOrder->customer['state'], 'customers_country' => $oOrder->customer['country']['title'], 'customers_telephone' => $oOrder->customer['telephone'], 'customers_email_address' => $oOrder->customer['email_address'], 'customers_address_format_id' => $oOrder->customer['format_id'], 'delivery_firstname' => $oOrder->delivery['firstname'], 'delivery_lastname' => $oOrder->delivery['lastname'], 'delivery_name' => $oOrder->delivery['firstname'] . ' ' . $oOrder->delivery['lastname'], 'delivery_company' => $oOrder->delivery['company'], 'delivery_street_address' => $oOrder->delivery['street_address'], 'delivery_city' => $oOrder->delivery['city'], 'delivery_postcode' => $oOrder->delivery['postcode'], 'delivery_state' => $oOrder->delivery['state'], 'delivery_country' => $oOrder->delivery['country']['title'], 'delivery_address_format_id' => $oOrder->delivery['format_id'], 'billing_firstname' => $oOrder->billing['firstname'], 'billing_lastname' => $oOrder->billing['lastname'], 'billing_name' => $oOrder->billing['firstname'] . ' ' . $oOrder->billing['lastname'], 'billing_company' => $oOrder->billing['company'], 'billing_street_address' => $oOrder->billing['street_address'], 'billing_city' => $oOrder->billing['city'], 'billing_postcode' => $oOrder->billing['postcode'], 'billing_state' => $oOrder->billing['state'], 'billing_country' => $oOrder->billing['country']['title'], 'billing_address_format_id' => $oOrder->billing['format_id'], 'payment_method' => $oOrder->info['payment_method'], 'date_purchased' => 'now()', 'last_modified' => 'now()', 'orders_status' => $oOrder->info['order_status'], 'currency' => $oOrder->info['currency'], 'currency_value' => $oOrder->info['currency_value'], 'orders_language' => $_SESSION['language']];
 
 oos_db_perform($oostable['orders'], $sql_data_array);
 $insert_id = $dbconn->Insert_ID();
 
-for ($i=0, $n=count($order_totals); $i<$n; $i++) {
-    $sql_data_array = array('orders_id' => $insert_id,
-                            'title' => $order_totals[$i]['title'],
-                            'text' => $order_totals[$i]['text'],
-                            'value' => $order_totals[$i]['value'],
-                            'class' => $order_totals[$i]['code'],
-                            'sort_order' => $order_totals[$i]['sort_order']);
+for ($i=0, $n=is_countable($order_totals) ? count($order_totals) : 0; $i<$n; $i++) {
+    $sql_data_array = ['orders_id' => $insert_id, 'title' => $order_totals[$i]['title'], 'text' => $order_totals[$i]['text'], 'value' => $order_totals[$i]['value'], 'class' => $order_totals[$i]['code'], 'sort_order' => $order_totals[$i]['sort_order']];
     oos_db_perform($oostable['orders_total'], $sql_data_array);
 }
 
 $customer_notification = ($oEvent->installed_plugin('mail')) ? '1' : '0';
-$sql_data_array = array('orders_id' => $insert_id,
-                          'orders_status_id' => $oOrder->info['order_status'],
-                          'date_added' => 'now()',
-                          'customer_notified' => $customer_notification,
-                          'comments' => $oOrder->info['comments']);
+$sql_data_array = ['orders_id' => $insert_id, 'orders_status_id' => $oOrder->info['order_status'], 'date_added' => 'now()', 'customer_notified' => $customer_notification, 'comments' => $oOrder->info['comments']];
 oos_db_perform($oostable['orders_status_history'], $sql_data_array);
 
 // initialized for the email confirmation
@@ -172,7 +124,7 @@ $products_ordered = '';
 $subtotal = 0;
 $total_tax = 0;
 
-for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
+for ($i=0, $n=is_countable($oOrder->products) ? count($oOrder->products) : 0; $i<$n; $i++) {
     // Stock Update - Joao Correia
     if (STOCK_LIMITED == 'true') {
         if (DOWNLOAD_ENABLED == 'true') {
@@ -232,18 +184,7 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
                   WHERE products_id = '" . intval(oos_get_product_id($oOrder->products[$i]['id'])) . "'"
     );
 
-    $sql_data_array = array('orders_id' => $insert_id,
-                            'products_id' => oos_get_product_id($oOrder->products[$i]['id']),
-                            'products_model' => $oOrder->products[$i]['model'],
-                            'products_ean' => $oOrder->products[$i]['ean'],
-                            'products_name' => $oOrder->products[$i]['name'],
-                            'products_image' => $oOrder->products[$i]['image'],
-                            'products_old_electrical_equipment' => $oOrder->products[$i]['old_electrical_equipment'],
-                            'products_free_redemption' => $oOrder->products[$i]['return_free_of_charge'],
-                            'products_price' => $oOrder->products[$i]['price'],
-                            'final_price' => $oOrder->products[$i]['final_price'],
-                            'products_tax' => $oOrder->products[$i]['tax'],
-                            'products_quantity' => $oOrder->products[$i]['qty']);
+    $sql_data_array = ['orders_id' => $insert_id, 'products_id' => oos_get_product_id($oOrder->products[$i]['id']), 'products_model' => $oOrder->products[$i]['model'], 'products_ean' => $oOrder->products[$i]['ean'], 'products_name' => $oOrder->products[$i]['name'], 'products_image' => $oOrder->products[$i]['image'], 'products_old_electrical_equipment' => $oOrder->products[$i]['old_electrical_equipment'], 'products_free_redemption' => $oOrder->products[$i]['return_free_of_charge'], 'products_price' => $oOrder->products[$i]['price'], 'final_price' => $oOrder->products[$i]['final_price'], 'products_tax' => $oOrder->products[$i]['tax'], 'products_quantity' => $oOrder->products[$i]['qty']];
 
     oos_db_perform($oostable['orders_products'], $sql_data_array);
     $order_products_id = $dbconn->Insert_ID();
@@ -269,11 +210,7 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
         $download_result = $dbconn->Execute($download_sql);
         if ($download_result->RecordCount()) {
             while ($download = $download_result->fields) {
-                $sql_data_array = array('orders_id' => $insert_id,
-                                  'orders_products_id' => $order_products_id,
-                                  'orders_products_filename' => $download['products_attributes_filename'],
-                                  'download_maxdays' => $download['products_attributes_maxdays'],
-                                  'download_count' => $download['products_attributes_maxcount']);
+                $sql_data_array = ['orders_id' => $insert_id, 'orders_products_id' => $order_products_id, 'orders_products_filename' => $download['products_attributes_filename'], 'download_maxdays' => $download['products_attributes_maxdays'], 'download_count' => $download['products_attributes_maxcount']];
                 // insert
                 oos_db_perform($oostable['orders_products_download'], $sql_data_array);
 
@@ -285,7 +222,7 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
 
     if (isset($oOrder->products[$i]['attributes'])) {
         $attributes_exist = '1';
-        for ($j=0, $n2=count($oOrder->products[$i]['attributes']); $j<$n2; $j++) {
+        for ($j=0, $n2=is_countable($oOrder->products[$i]['attributes']) ? count($oOrder->products[$i]['attributes']) : 0; $j<$n2; $j++) {
             $products_optionstable = $oostable['products_options'];
             $products_options_valuestable = $oostable['products_options_values'];
             $products_attributestable = $oostable['products_attributes'];
@@ -314,12 +251,7 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
             $attributes = $dbconn->Execute($sql);
 
             $attributes_values = $attributes->fields;
-            $sql_data_array = array('orders_id' => $insert_id,
-                                'orders_products_id' => $order_products_id,
-                                'products_options' => $attributes_values['products_options_name'],
-                                'products_options_values' => $oOrder->products[$i]['attributes'][$j]['value'],
-                                'options_values_price' => $attributes_values['options_values_price'],
-                                'price_prefix' => $attributes_values['price_prefix']);
+            $sql_data_array = ['orders_id' => $insert_id, 'orders_products_id' => $order_products_id, 'products_options' => $attributes_values['products_options_name'], 'products_options_values' => $oOrder->products[$i]['attributes'][$j]['value'], 'options_values_price' => $attributes_values['options_values_price'], 'price_prefix' => $attributes_values['price_prefix']];
             // insert
             oos_db_perform($oostable['orders_products_attributes'], $sql_data_array);
 
@@ -372,8 +304,8 @@ $email_order .= $aLang['email_text_products'] . "\n" .
                   $products_ordered .
                   $aLang['email_separator'] . "\n";
 
-for ($i=0, $n=count($order_totals); $i<$n; $i++) {
-    $email_order .= strip_tags($order_totals[$i]['title']) . ' ' . strip_tags($order_totals[$i]['text']) . "\n";
+for ($i=0, $n=is_countable($order_totals) ? count($order_totals) : 0; $i<$n; $i++) {
+    $email_order .= strip_tags((string) $order_totals[$i]['title']) . ' ' . strip_tags((string) $order_totals[$i]['text']) . "\n";
 }
 
 

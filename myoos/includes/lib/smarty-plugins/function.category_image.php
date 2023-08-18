@@ -48,7 +48,7 @@ function smarty_function_category_image($params, &$smarty)
         case 'alt':
         case 'class':
             if (!is_array($_val)) {
-                $$_key = smarty_function_escape_special_chars($_val);
+                ${$_key} = smarty_function_escape_special_chars($_val);
             } else {
                 throw new SmartyException("large_category_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
             }
@@ -79,5 +79,5 @@ function smarty_function_category_image($params, &$smarty)
         }
     }
 
-    return '<img class="img-fluid ' . $class . '" src="' . $image . '" alt="' . strip_tags($alt) . '" ' . $extra . '>';
+    return '<img class="img-fluid ' . $class . '" src="' . $image . '" alt="' . strip_tags((string) $alt) . '" ' . $extra . '>';
 }

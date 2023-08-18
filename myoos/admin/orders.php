@@ -94,8 +94,7 @@ $orders_status_array = [];
 $orders_statustable = $oostable['orders_status'];
 $orders_status_result = $dbconn->Execute("SELECT orders_status_id, orders_status_name FROM $orders_statustable WHERE orders_languages_id = '" . intval($_SESSION['language_id']) . "'");
 while ($orders_status = $orders_status_result->fields) {
-    $orders_statuses[] = array('id' => $orders_status['orders_status_id'],
-                               'text' => $orders_status['orders_status_name']);
+    $orders_statuses[] = ['id' => $orders_status['orders_status_id'], 'text' => $orders_status['orders_status_name']];
     $orders_status_array[$orders_status['orders_status_id']] = $orders_status['orders_status_name'];
 
     // Move that ADOdb pointer!
@@ -146,8 +145,7 @@ if (!empty($action)) {
                 $orders_statuses = [];
                 $orders_status_array = [];
                 while ($orders_status = $orders_status_result->fields) {
-                    $orders_statuses[] = array('id' => $orders_status['orders_status_id'],
-                                         'text' => $orders_status['orders_status_name']);
+                    $orders_statuses[] = ['id' => $orders_status['orders_status_id'], 'text' => $orders_status['orders_status_name']];
                     $orders_status_array[$orders_status['orders_status_id']] = $orders_status['orders_status_name'];
                     // Move that ADOdb pointer!
                     $orders_status_result->MoveNext();
@@ -182,7 +180,7 @@ if (!empty($action)) {
             $messageStack->add_session(WARNING_ORDER_NOT_UPDATED, 'warning');
         }
 
-        oos_redirect_admin(oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action')) . 'action=edit'));
+        oos_redirect_admin(oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['action']) . 'action=edit'));
         break;
 
       case 'update_serial':
@@ -197,7 +195,7 @@ if (!empty($action)) {
 		
         $messageStack->add_session(SUCCESS_ORDER_UPDATED, 'success');
 
-        oos_redirect_admin(oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action')) . 'action=edit&serial_updated=1'));
+        oos_redirect_admin(oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['action']) . 'action=edit&serial_updated=1'));
         break;
 
     case 'deleteconfirm':
@@ -205,7 +203,7 @@ if (!empty($action)) {
 
         oos_remove_order($oID, $_POST['restock']);
 
-        oos_redirect_admin(oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action'))));
+        oos_redirect_admin(oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action'])));
         break;
 
     }
@@ -281,8 +279,8 @@ require 'includes/header.php';
             <td class="pageHeading"></td>
             <td class="pageHeading" align="right"></td>
             <td class="pageHeading" align="right">
-            <?php echo '<a href="' . oos_href_link_admin($aContents['edit_orders'], oos_get_all_get_params(array('action'))) . '">' . oos_button(BUTTON_EDIT) . '</a> &nbsp; '; ?>
-            <?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?>
+            <?php echo '<a href="' . oos_href_link_admin($aContents['edit_orders'], oos_get_all_get_params(['action'])) . '">' . oos_button(BUTTON_EDIT) . '</a> &nbsp; '; ?>
+            <?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['action'])) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?>
             </td>
           </tr>
         </table></td>
@@ -368,13 +366,13 @@ require 'includes/header.php';
 						</tr>	
 					</thead>
 <?php
-    for ($i = 0, $n = count($order->products); $i < $n; $i++) {
+    for ($i = 0, $n = is_countable($order->products) ? count($order->products) : 0; $i < $n; $i++) {
         echo '          <tr class="dataTableRow">' . "\n" .
            '            <td valign="top" align="right">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
            '            <td valign="top">' . $order->products[$i]['name'];
 
-        if (isset($order->products[$i]['attributes']) && (count($order->products[$i]['attributes']) > 0)) {
-            for ($j = 0, $k = count($order->products[$i]['attributes']); $j < $k; $j++) {
+        if (isset($order->products[$i]['attributes']) && ((is_countable($order->products[$i]['attributes']) ? count($order->products[$i]['attributes']) : 0) > 0)) {
+            for ($j = 0, $k = is_countable($order->products[$i]['attributes']) ? count($order->products[$i]['attributes']) : 0; $j < $k; $j++) {
                 echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
                 if ($order->products[$i]['attributes'][$j]['price'] != '0') {
                     echo ' (' . $order->products[$i]['attributes'][$j]['prefix'] . $currencies->format($order->products[$i]['attributes'][$j]['price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . ')';
@@ -418,7 +416,7 @@ require 'includes/header.php';
           <tr>
             <td align="right" colspan="9"><table border="0" cellspacing="0" cellpadding="2">
 <?php
-    for ($i = 0, $n = count($order->totals); $i < $n; $i++) {
+    for ($i = 0, $n = is_countable($order->totals) ? count($order->totals) : 0; $i < $n; $i++) {
         echo '              <tr>' . "\n" .
            '                <td align="right" class="smallText">' . $order->totals[$i]['title'] . '</td>' . "\n" .
            '                <td align="right" class="smallText">' . $order->totals[$i]['text'] . '</td>' . "\n" .
@@ -453,7 +451,7 @@ require 'includes/header.php';
                   echo oos_image(OOS_IMAGES . 'icons/cross.gif', ICON_CROSS) . "</td>\n";
               }
               echo '            <td class="smallText">' . $orders_status_array[$orders_history['orders_status_id']] . '</td>' . "\n" .
-             '            <td class="smallText">' . nl2br(oos_output_string($orders_history['comments'])) . '&nbsp;</td>' . "\n" .
+             '            <td class="smallText">' . nl2br((string) oos_output_string($orders_history['comments'])) . '&nbsp;</td>' . "\n" .
              '          </tr>' . "\n";
               // Move that ADOdb pointer!
               $orders_history_result->MoveNext();
@@ -471,7 +469,7 @@ require 'includes/header.php';
       <tr>
         <td></td>
       </tr>
-      <tr><?php echo oos_draw_form('id', 'status', $aContents['orders'], oos_get_all_get_params(array('action')) . 'action=update_order', 'post', false); ?>
+      <tr><?php echo oos_draw_form('id', 'status', $aContents['orders'], oos_get_all_get_params(['action']) . 'action=update_order', 'post', false); ?>
         <td class="main"><?php echo oos_draw_textarea_field('comments', 'soft', '60', '5'); ?></td>
       </tr>
       <tr>
@@ -494,7 +492,7 @@ require 'includes/header.php';
         </table></td>
       </form></tr>
       <tr>
-        <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['invoice'], 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . oos_button(IMAGE_ORDERS_INVOICE) . '</a> <a href="' . oos_href_link_admin($aContents['packingslip'], 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . oos_button(IMAGE_ORDERS_PACKINGSLIP) . '</a> <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?></td>
+        <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['invoice'], 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . oos_button(IMAGE_ORDERS_INVOICE) . '</a> <a href="' . oos_href_link_admin($aContents['packingslip'], 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . oos_button(IMAGE_ORDERS_PACKINGSLIP) . '</a> <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['action'])) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?></td>
       </tr>
 	      </table>
 <?php
@@ -533,7 +531,7 @@ require 'includes/header.php';
 						<?php echo oos_draw_form('id', 'status', $aContents['orders'], '', 'get', false, 'class="form-inline"'); ?>
 							<div class="dataTables_filter">			
 								<label><?php echo HEADING_TITLE_STATUS; ?></label>
-								<?php echo oos_draw_pull_down_menu('status', array_merge(array(array('id' => '', 'text' => TEXT_ALL_ORDERS)), $orders_statuses), '', 'onChange="this.form.submit();"'); ?>
+								<?php echo oos_draw_pull_down_menu('status', [['id' => '', 'text' => TEXT_ALL_ORDERS], ...$orders_statuses], '', 'onChange="this.form.submit();"'); ?>
 							</div>							
 						</form>				
 					</div>
@@ -618,18 +616,18 @@ require 'includes/header.php';
           }
 
           if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id)) {
-              echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=edit') . '\'">' . "\n";
+              echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $oInfo->orders_id . '&action=edit') . '\'">' . "\n";
           } else {
-              echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '\'">' . "\n";
+              echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID']) . 'oID=' . $orders['orders_id']) . '\'">' . "\n";
           } ?>
-                <td><?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $orders['orders_id'] . '&action=edit') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . $orders['customers_name']; ?></td>
-                <td class="text-right"><?php echo strip_tags($orders['order_total']); ?></td>
+                <td><?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $orders['orders_id'] . '&action=edit') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . $orders['customers_name']; ?></td>
+                <td class="text-right"><?php echo strip_tags((string) $orders['order_total']); ?></td>
                 <td class="text-center"><?php echo oos_datetime_short($orders['date_purchased']); ?></td>
                 <td class="text-right"><?php echo $orders['orders_status_name']; ?></td>
                 <td class="text-right"><?php if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id)) {
               echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
           } else {
-              echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+              echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID']) . 'oID=' . $orders['orders_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
           } ?>&nbsp;</td>
               </tr>
 <?php
@@ -641,7 +639,7 @@ require 'includes/header.php';
                 <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="smallText" valign="top"><?php echo $orders_split->display_count($orders_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></td>
-                    <td class="smallText" align="right"><?php echo $orders_split->display_links($orders_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_params(array('page', 'oID', 'action'))); ?></td>
+                    <td class="smallText" align="right"><?php echo $orders_split->display_links($orders_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_params(['page', 'oID', 'action'])); ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -652,26 +650,26 @@ require 'includes/header.php';
 
       switch ($action) {
     case 'delete':
-      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_ORDER . '</b>');
+      $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_ORDER . '</b>'];
 
-      $contents = array('form' => oos_draw_form('id', 'orders', $aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=deleteconfirm', 'post', false));
-      $contents[] = array('text' => TEXT_INFO_DELETE_INTRO . '<br><br><b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>');
-      $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('restock') . ' ' . TEXT_INFO_RESTOCK_PRODUCT_QUANTITY);
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents = ['form' => oos_draw_form('id', 'orders', $aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $oInfo->orders_id . '&action=deleteconfirm', 'post', false)];
+      $contents[] = ['text' => TEXT_INFO_DELETE_INTRO . '<br><br><b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>'];
+      $contents[] = ['text' => '<br>' . oos_draw_checkbox_field('restock') . ' ' . TEXT_INFO_RESTOCK_PRODUCT_QUANTITY];
+      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $oInfo->orders_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
       break;
 
     default:
       if (isset($oInfo) && is_object($oInfo)) {
-          $heading[] = array('text' => '<b>[' . $oInfo->orders_id . ']&nbsp;&nbsp;' . oos_datetime_short($oInfo->date_purchased) . '</b>');
+          $heading[] = ['text' => '<b>[' . $oInfo->orders_id . ']&nbsp;&nbsp;' . oos_datetime_short($oInfo->date_purchased) . '</b>'];
 
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['invoice'], 'oID=' . $oInfo->orders_id) . '" TARGET="_blank">' . oos_button(IMAGE_ORDERS_INVOICE) . '</a> <a href="' . oos_href_link_admin($aContents['packingslip'], 'oID=' . $oInfo->orders_id) . '" TARGET="_blank">' . oos_button(IMAGE_ORDERS_PACKINGSLIP) . '</a>');
+          $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $oInfo->orders_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $oInfo->orders_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
+          $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['invoice'], 'oID=' . $oInfo->orders_id) . '" TARGET="_blank">' . oos_button(IMAGE_ORDERS_INVOICE) . '</a> <a href="' . oos_href_link_admin($aContents['packingslip'], 'oID=' . $oInfo->orders_id) . '" TARGET="_blank">' . oos_button(IMAGE_ORDERS_PACKINGSLIP) . '</a>'];
 
-          $contents[] = array('text' => '<br>' . TEXT_DATE_ORDER_CREATED . ' ' . oos_date_short($oInfo->date_purchased));
+          $contents[] = ['text' => '<br>' . TEXT_DATE_ORDER_CREATED . ' ' . oos_date_short($oInfo->date_purchased)];
           if (oos_is_not_null($oInfo->last_modified)) {
-              $contents[] = array('text' => TEXT_DATE_ORDER_LAST_MODIFIED . ' ' . oos_date_short($oInfo->last_modified));
+              $contents[] = ['text' => TEXT_DATE_ORDER_LAST_MODIFIED . ' ' . oos_date_short($oInfo->last_modified)];
           }
-          $contents[] = array('text' => '<br>' . TEXT_INFO_PAYMENT_METHOD . ' '  . $oInfo->payment_method);
+          $contents[] = ['text' => '<br>' . TEXT_INFO_PAYMENT_METHOD . ' '  . $oInfo->payment_method];
       }
       break;
   }

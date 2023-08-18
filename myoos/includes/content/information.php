@@ -73,15 +73,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     // assign Smarty variables;
     $smarty->assign(
-        array(
-            'breadcrumb'    => $oBreadcrumb->trail(),
-            'pagetitle'     => $information['information_heading_title'],
-            'heading_title' => $information['information_heading_title'],
-            'canonical'     => $sCanonical,
-
-            'informations'       => $information,
-            'get_params'         => 'information_id=' . intval($nInformationsID)
-        )
+        ['breadcrumb'    => $oBreadcrumb->trail(), 'pagetitle'     => $information['information_heading_title'], 'heading_title' => $information['information_heading_title'], 'canonical'     => $sCanonical, 'informations'       => $information, 'get_params'         => 'information_id=' . intval($nInformationsID)]
     );
 }
 

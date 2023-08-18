@@ -31,7 +31,7 @@ class breadcrumb
     /**
      * @var array    Array of individual (linked) html strings created from crumbs
      */
-    private $links = [];
+    private array $links = [];
 
 
     /**
@@ -55,7 +55,7 @@ class breadcrumb
      */
     public function add($title, $url = '', $icon = '')
     {
-        $this->links[] = array('title' => $title, 'url' => $url, 'icon' => $icon );
+        $this->links[] = ['title' => $title, 'url' => $url, 'icon' => $icon];
     }
 
 

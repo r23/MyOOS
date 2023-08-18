@@ -51,7 +51,7 @@ function smarty_function_product_image($params, &$smarty)
         case 'class':
         case 'id':
             if (!is_array($_val)) {
-                $$_key = smarty_function_escape_special_chars($_val);
+                ${$_key} = smarty_function_escape_special_chars($_val);
             } else {
                 throw new SmartyException("small_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
             }
@@ -91,7 +91,7 @@ function smarty_function_product_image($params, &$smarty)
     $image .= ' loading="' . $loading . '" class="img-fluid ' . $class . '" src="' . $src . '"';
 
     if (!empty($alt)) {
-        $image .= ' alt="' . strip_tags($alt) . '"';
+        $image .= ' alt="' . strip_tags((string) $alt) . '"';
     }
 
     $image .= $extra . '>';

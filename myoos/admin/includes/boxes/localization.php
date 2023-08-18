@@ -29,21 +29,4 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 $php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
 $bActive = ($_SESSION['selected_box'] == 'localization') ? true : false;
 
-$aBlocks[] = array(
-    'heading' => BOX_HEADING_LOCALIZATION,
-    'link' => oos_href_link_admin(basename($php_self), oos_get_all_get_params(array('selected_box')) . 'selected_box=localization'),
-    'icon' => 'fa fa-language',
-    'active' => $bActive,
-    'contents' => array(
-        array(
-            'code' => $aContents['currencies'],
-            'title' => BOX_LOCALIZATION_CURRENCIES,
-            'link' => oos_admin_files_boxes('currencies', 'selected_box=localization')
-        ),
-        array(
-            'code' => $aContents['languages'],
-            'title' => BOX_LOCALIZATION_LANGUAGES,
-            'link' => oos_admin_files_boxes('languages', 'selected_box=localization')
-        ),
-    ),
-);
+$aBlocks[] = ['heading' => BOX_HEADING_LOCALIZATION, 'link' => oos_href_link_admin(basename($php_self), oos_get_all_get_params(['selected_box']) . 'selected_box=localization'), 'icon' => 'fa fa-language', 'active' => $bActive, 'contents' => [['code' => $aContents['currencies'], 'title' => BOX_LOCALIZATION_CURRENCIES, 'link' => oos_admin_files_boxes('currencies', 'selected_box=localization')], ['code' => $aContents['languages'], 'title' => BOX_LOCALIZATION_LANGUAGES, 'link' => oos_admin_files_boxes('languages', 'selected_box=localization')]]];

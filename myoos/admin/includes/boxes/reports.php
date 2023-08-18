@@ -29,36 +29,4 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 $php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
 $bActive = ($_SESSION['selected_box'] == 'reports') ? true : false;
 
-$aBlocks[] = array(
-    'heading' => BOX_HEADING_REPORTS,
-    'link' => oos_href_link_admin(basename($php_self), oos_get_all_get_params(array('selected_box')) . 'selected_box=reports'),
-    'icon' => 'fas fa-chart-bar',
-    'active' => $bActive,
-    'contents' => array(
-        array(
-            'code' => $aContents['stats_products_purchased'],
-            'title' => BOX_REPORTS_PRODUCTS_PURCHASED,
-            'link' => oos_admin_files_boxes('stats_products_purchased', 'selected_box=reports')
-        ),
-        array(
-            'code' => $aContents['stats_products_viewed'],
-            'title' => BOX_REPORTS_PRODUCTS_VIEWED,
-            'link' =>  oos_admin_files_boxes('stats_products_viewed', 'selected_box=reports')
-        ),
-        array(
-            'code' => $aContents['stats_low_stock'],
-            'title' => BOX_REPORTS_STOCK_LEVEL,
-            'link' => oos_admin_files_boxes('stats_low_stock', 'selected_box=reports')
-        ),
-        array(
-            'code' => $aContents['stats_customers'],
-            'title' => BOX_REPORTS_ORDERS_TOTAL,
-            'link' => oos_admin_files_boxes('stats_customers', 'selected_box=reports')
-        ),
-        array(
-            'code' => $aContents['stats_sales_report2'],
-            'title' => BOX_REPORTS_SALES_REPORT2,
-            'link' => oos_admin_files_boxes('stats_sales_report2', 'selected_box=reports')
-        ),
-    ),
-);
+$aBlocks[] = ['heading' => BOX_HEADING_REPORTS, 'link' => oos_href_link_admin(basename($php_self), oos_get_all_get_params(['selected_box']) . 'selected_box=reports'), 'icon' => 'fas fa-chart-bar', 'active' => $bActive, 'contents' => [['code' => $aContents['stats_products_purchased'], 'title' => BOX_REPORTS_PRODUCTS_PURCHASED, 'link' => oos_admin_files_boxes('stats_products_purchased', 'selected_box=reports')], ['code' => $aContents['stats_products_viewed'], 'title' => BOX_REPORTS_PRODUCTS_VIEWED, 'link' =>  oos_admin_files_boxes('stats_products_viewed', 'selected_box=reports')], ['code' => $aContents['stats_low_stock'], 'title' => BOX_REPORTS_STOCK_LEVEL, 'link' => oos_admin_files_boxes('stats_low_stock', 'selected_box=reports')], ['code' => $aContents['stats_customers'], 'title' => BOX_REPORTS_ORDERS_TOTAL, 'link' => oos_admin_files_boxes('stats_customers', 'selected_box=reports')], ['code' => $aContents['stats_sales_report2'], 'title' => BOX_REPORTS_SALES_REPORT2, 'link' => oos_admin_files_boxes('stats_sales_report2', 'selected_box=reports')]]];

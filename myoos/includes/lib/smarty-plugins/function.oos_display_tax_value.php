@@ -45,17 +45,17 @@ function smarty_function_oos_display_tax_value($params, &$smarty)
     $padding = TAX_DECIMAL_PLACES;
 
     foreach ($params as $_key => $_val) {
-        $$_key = smarty_function_escape_special_chars($_val);
+        ${$_key} = smarty_function_escape_special_chars($_val);
     }
 
     if (strpos($value, '.')) {
         $loop = true;
         while ($loop) {
-            if (substr($value, -1) == '0') {
+            if (str_ends_with($value, '0')) {
                 $value = substr($value, 0, -1);
             } else {
                 $loop = false;
-                if (substr($value, -1) == '.') {
+                if (str_ends_with($value, '.')) {
                     $value = substr($value, 0, -1);
                 }
             }

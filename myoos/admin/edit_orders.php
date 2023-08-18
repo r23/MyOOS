@@ -60,15 +60,14 @@ $add_product_options = isset($_POST['add_product_options']) ? oos_db_prepare_inp
   $orders_status_array = [];
   $orders_status_result = $dbconn->Execute("SELECT orders_status_id, orders_status_name FROM " . $oostable['orders_status'] . " WHERE orders_languages_id = '" . intval($_SESSION['language_id']) . "'");
 while ($orders_status = $orders_status_result->fields) {
-    $orders_statuses[] = array('id' => $orders_status['orders_status_id'],
-                             'text' => $orders_status['orders_status_name']);
+    $orders_statuses[] = ['id' => $orders_status['orders_status_id'], 'text' => $orders_status['orders_status_name']];
     $orders_status_array[$orders_status['orders_status_id']] = $orders_status['orders_status_name'];
 
     // Move that ADOdb pointer!
     $orders_status_result->MoveNext();
 }
 
-  $action = (isset($_GET['action']) ? $_GET['action'] : 'edit');
+  $action = ($_GET['action'] ?? 'edit');
 //UPDATE_INVENTORY_QUANTITY_START#
 $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " . $oostable['orders_products'] . " WHERE orders_id = '" . intval($oID) . "'");
 
@@ -84,37 +83,37 @@ if (!empty($action)) {
 
         // Update Order Info
         $UpdateOrders = "update " . $oostable['orders'] . " set 
-      customers_name = '" . oos_db_input(stripslashes($update_customer_name)) . "',
-      customers_company = '" . oos_db_input(stripslashes($update_customer_company)) . "',
-      customers_street_address = '" . oos_db_input(stripslashes($update_customer_street_address)) . "',
-      customers_city = '" . oos_db_input(stripslashes($update_customer_city)) . "',
-      customers_state = '" . oos_db_input(stripslashes($update_customer_state)) . "',
+      customers_name = '" . oos_db_input(stripslashes((string) $update_customer_name)) . "',
+      customers_company = '" . oos_db_input(stripslashes((string) $update_customer_company)) . "',
+      customers_street_address = '" . oos_db_input(stripslashes((string) $update_customer_street_address)) . "',
+      customers_city = '" . oos_db_input(stripslashes((string) $update_customer_city)) . "',
+      customers_state = '" . oos_db_input(stripslashes((string) $update_customer_state)) . "',
       customers_postcode = '" . oos_db_input($update_customer_postcode) . "',
-      customers_country = '" . oos_db_input(stripslashes($update_customer_country)) . "',
+      customers_country = '" . oos_db_input(stripslashes((string) $update_customer_country)) . "',
       customers_telephone = '" . oos_db_input($update_customer_telephone) . "',
       customers_email_address = '" . oos_db_input($update_customer_email_address) . "',";
 
         if ($SeparateBillingFields) {
-            $UpdateOrders .= "billing_name = '" . oos_db_input(stripslashes($update_billing_name)) . "',
-      billing_company = '" . oos_db_input(stripslashes($update_billing_company)) . "',
-      billing_street_address = '" . oos_db_input(stripslashes($update_billing_street_address)) . "',
-      billing_city = '" . oos_db_input(stripslashes($update_billing_city)) . "',
-      billing_state = '" . oos_db_input(stripslashes($update_billing_state)) . "',
+            $UpdateOrders .= "billing_name = '" . oos_db_input(stripslashes((string) $update_billing_name)) . "',
+      billing_company = '" . oos_db_input(stripslashes((string) $update_billing_company)) . "',
+      billing_street_address = '" . oos_db_input(stripslashes((string) $update_billing_street_address)) . "',
+      billing_city = '" . oos_db_input(stripslashes((string) $update_billing_city)) . "',
+      billing_state = '" . oos_db_input(stripslashes((string) $update_billing_state)) . "',
       billing_postcode = '" . oos_db_input($update_billing_postcode) . "',
-      billing_country = '" . oos_db_input(stripslashes($update_billing_country)) . "',";
+      billing_country = '" . oos_db_input(stripslashes((string) $update_billing_country)) . "',";
         }
 
-        $UpdateOrders .= "delivery_name = '" . oos_db_input(stripslashes($update_delivery_name)) . "',
-      delivery_company = '" . oos_db_input(stripslashes($update_delivery_company)) . "',
-      delivery_street_address = '" . oos_db_input(stripslashes($update_delivery_street_address)) . "',
-      delivery_city = '" . oos_db_input(stripslashes($update_delivery_city)) . "',
-      delivery_state = '" . oos_db_input(stripslashes($update_delivery_state)) . "',
+        $UpdateOrders .= "delivery_name = '" . oos_db_input(stripslashes((string) $update_delivery_name)) . "',
+      delivery_company = '" . oos_db_input(stripslashes((string) $update_delivery_company)) . "',
+      delivery_street_address = '" . oos_db_input(stripslashes((string) $update_delivery_street_address)) . "',
+      delivery_city = '" . oos_db_input(stripslashes((string) $update_delivery_city)) . "',
+      delivery_state = '" . oos_db_input(stripslashes((string) $update_delivery_state)) . "',
       delivery_postcode = '" . oos_db_input($update_delivery_postcode) . "',
-      delivery_country = '" . oos_db_input(stripslashes($update_delivery_country)) . "',
+      delivery_country = '" . oos_db_input(stripslashes((string) $update_delivery_country)) . "',
       payment_method = '" . oos_db_input($update_info_payment_method) . "',";
 
 
-        if (substr($update_info_cc_number, 0, 8) != "(Last 4)") {
+        if (!str_starts_with((string) $update_info_cc_number, "(Last 4)")) {
             $UpdateOrders .= "cc_number = '$update_info_cc_number',";
         }
 
@@ -144,7 +143,7 @@ if (!empty($action)) {
                     $notify_comments = sprintf(EMAIL_TEXT_COMMENTS_UPDATE, $comments) . "\n\n";
                 }
                 $email = STORE_NAME . "\n" . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $oID . "\n" . EMAIL_TEXT_INVOICE_URL . ' ' . oos_catalog_link($aContents['catalog_account_history_info'], 'order_id=' . $oID) . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . oos_date_long($check_status['date_purchased']) . "\n\n" . $notify_comments . sprintf(EMAIL_TEXT_STATUS_UPDATE, $orders_status_array[$status]);
-                oos_mail($check_status['customers_name'], $check_status['customers_email_address'], EMAIL_TEXT_SUBJECT, nl2br($email_text), nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+                oos_mail($check_status['customers_name'], $check_status['customers_email_address'], EMAIL_TEXT_SUBJECT, nl2br((string) $email_text), nl2br((string) $email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
                 $customer_notified = '1';
             }
 
@@ -195,7 +194,7 @@ if (!empty($action)) {
             if ($products_details["qty"] > 0) {
                 $Query = "update " . $oostable['orders_products'] . " set
           products_model = '" . $products_details["model"] . "',
-          products_name = '" . str_replace("'", "&#39;", $products_details["name"]) . "',
+          products_name = '" . str_replace("'", "&#39;", (string) $products_details["name"]) . "',
           final_price = '" . $products_details["final_price"] . "',
           products_tax = '" . $products_details["tax"] . "',
           products_quantity = '" . $products_details["qty"] . "'
@@ -207,7 +206,7 @@ if (!empty($action)) {
                 $RunningTax += (($products_details["tax"]/100) * ($products_details["qty"] * $products_details["final_price"]));
 
                 // Update Any Attributes
-                if (isset($products_details[attributes])) {
+                if (isset($products_details[\ATTRIBUTES])) {
                     foreach ($products_details["attributes"] as $orders_products_attributes_id => $attributes_details) {
                         $Query = "update " . $oostable['orders_products_attributes'] . " set
               products_options = '" . $attributes_details["option"] . "',
@@ -258,7 +257,7 @@ if (!empty($action)) {
         foreach ($update_totals as $total_index => $total_details) {
             extract($total_details, EXTR_PREFIX_ALL, "ot");
 
-            if (trim(strtolower($ot_title)) == "tax" || trim(strtolower($ot_title)) == "tax:") {
+            if (trim(strtolower((string) $ot_title)) == "tax" || trim(strtolower((string) $ot_title)) == "tax:") {
                 if ($ot_class != "ot_tax" && $ot_tax_found == 0) {
                     // Inserting Tax
                     $ot_class = "ot_tax";
@@ -267,7 +266,7 @@ if (!empty($action)) {
                 }
             }
 
-            if (trim($ot_title) && trim($ot_value)) {
+            if (trim((string) $ot_title) && trim((string) $ot_value)) {
                 $sort_order++;
 
                 // Update ot_subtotal, ot_tax, and ot_total classes
@@ -328,7 +327,7 @@ if (!empty($action)) {
             $messageStack->add_session(SUCCESS_ORDER_UPDATED, 'success');
         }
 
-        oos_redirect_admin(oos_href_link_admin("edit_orders.php", oos_get_all_get_params(array('action')) . 'action=edit'));
+        oos_redirect_admin(oos_href_link_admin("edit_orders.php", oos_get_all_get_params(['action']) . 'action=edit'));
 
         break;
 
@@ -348,7 +347,7 @@ if (!empty($action)) {
                     $row = $result->fields;
                     extract($row, EXTR_PREFIX_ALL, "opt");
                     $AddedOptionsPrice += $opt_options_values_price;
-                    $option_value_details[$option_id][$option_value_id] = array("options_values_price" => $opt_options_values_price);
+                    $option_value_details[$option_id][$option_value_id] = ["options_values_price" => $opt_options_values_price];
                     $option_names[$option_id] = $opt_products_options_name;
                     $option_values_names[$option_value_id] = $opt_products_options_values_name;
                 }
@@ -370,7 +369,7 @@ if (!empty($action)) {
         orders_id = $oID,
         products_id = $add_product_products_id,
         products_model = '$p_products_model',
-        products_name = '" . str_replace("'", "&#39;", $p_products_name) . "',
+        products_name = '" . str_replace("'", "&#39;", (string) $p_products_name) . "',
         products_price = '$p_products_price',
         final_price = '" . ($p_products_price + $AddedOptionsPrice) . "',
         products_tax = '$ProductsTax',
@@ -398,7 +397,7 @@ if (!empty($action)) {
             $RunningSubTotal = 0;
             $RunningTax = 0;
 
-            for ($i=0; $i < count($order->products); $i++) {
+            for ($i=0; $i < (is_countable($order->products) ? count($order->products) : 0); $i++) {
                 $RunningSubTotal += ($order->products[$i]['qty'] * $order->products[$i]['final_price']);
                 $RunningTax += (($order->products[$i]['tax'] / 100) * ($order->products[$i]['qty'] * $order->products[$i]['final_price']));
             }
@@ -430,7 +429,7 @@ if (!empty($action)) {
         WHERE class='ot_total' and orders_id=$oID";
             $dbconn->Execute($Query);
 
-            oos_redirect_admin(oos_href_link_admin("edit_orders.php", oos_get_all_get_params(array('action')) . 'action=edit'));
+            oos_redirect_admin(oos_href_link_admin("edit_orders.php", oos_get_all_get_params(['action']) . 'action=edit'));
         }
         break;
     }
@@ -482,13 +481,13 @@ if (($action == 'edit') && ($order_exists == true)) {
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?> #<?php echo $oID; ?></td>
             <td class="pageHeading" align="right"></td>
-            <td class="pageHeading" align="right"><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?></td>
+            <td class="pageHeading" align="right"><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['action'])) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?></td>
           </tr>
         </table></td>
       </tr>
 
 <!-- Begin Addresses Block -->
-      <tr><?php echo oos_draw_form('id', 'edit_order', "edit_orders.php", oos_get_all_get_params(array('action','paycc')) . 'action=update_order', 'post', false); ?>
+      <tr><?php echo oos_draw_form('id', 'edit_order', "edit_orders.php", oos_get_all_get_params(['action', 'paycc']) . 'action=update_order', 'post', false); ?>
       <td>
       <table width="100%" border="0"><tr> <td><div align="center">
       <table width="548" border="0" align="center">
@@ -667,13 +666,7 @@ if (($action == 'edit') && ($order_exists == true)) {
     $order->products = [];
     $orders_products_result = $dbconn->Execute("select * from " . $oostable['orders_products'] . " WHERE orders_id = '" . intval($oID) . "'");
     while ($orders_products = $orders_products_result->fields) {
-        $order->products[$index] = array('qty' => $orders_products['products_quantity'],
-                                      'name' => str_replace("'", "&#39;", $orders_products['products_name']),
-                                      'model' => $orders_products['products_model'],
-                                      'tax' => $orders_products['products_tax'],
-                                      'price' => $orders_products['products_price'],
-                                      'final_price' => $orders_products['final_price'],
-                                      'orders_products_id' => $orders_products['orders_products_id']);
+        $order->products[$index] = ['qty' => $orders_products['products_quantity'], 'name' => str_replace("'", "&#39;", (string) $orders_products['products_name']), 'model' => $orders_products['products_model'], 'tax' => $orders_products['products_tax'], 'price' => $orders_products['products_price'], 'final_price' => $orders_products['final_price'], 'orders_products_id' => $orders_products['orders_products_id']];
 
         $subindex = 0;
         $attributes_result_string = "select * from " . $oostable['orders_products_attributes'] . " WHERE orders_id = '" . intval($oID) . "' and orders_products_id = '" . intval($orders_products['orders_products_id']) . "'";
@@ -681,11 +674,7 @@ if (($action == 'edit') && ($order_exists == true)) {
 
         if ($attributes_result->RecordCount()) {
             while ($attributes = $attributes_result->fields) {
-                $order->products[$index]['attributes'][$subindex] = array('option' => $attributes['products_options'],
-                                                             'value' => $attributes['products_options_values'],
-                                                             'prefix' => $attributes['price_prefix'],
-                                                             'price' => $attributes['options_values_price'],
-                                                             'orders_products_attributes_id' => $attributes['orders_products_attributes_id']);
+                $order->products[$index]['attributes'][$subindex] = ['option' => $attributes['products_options'], 'value' => $attributes['products_options_values'], 'prefix' => $attributes['price_prefix'], 'price' => $attributes['options_values_price'], 'orders_products_attributes_id' => $attributes['orders_products_attributes_id']];
                 $subindex++;
 
                 // Move that ADOdb pointer!
@@ -739,14 +728,14 @@ if (($action == 'edit') && ($order_exists == true)) {
     $totals_result = $dbconn->Execute("select * from " . $oostable['orders_total'] . " WHERE orders_id = '" . intval($oID) . "' order by sort_order");
     $order->totals = [];
     while ($totals = $totals_result->fields) {
-        $order->totals[] = array('title' => $totals['title'], 'text' => $totals['text'], 'class' => $totals['class'], 'value' => $totals['value'], 'orders_total_id' => $totals['orders_total_id']);
+        $order->totals[] = ['title' => $totals['title'], 'text' => $totals['text'], 'class' => $totals['class'], 'value' => $totals['value'], 'orders_total_id' => $totals['orders_total_id']];
         $totals_result->MoveNext();
     }
 
     $TotalsArray = [];
     for ($i=0; $i < count($order->totals); $i++) {
-        $TotalsArray[] = array("Name" => $order->totals[$i]['title'], "Price" => number_format($order->totals[$i]['value'], 2, '.', ''), "Class" => $order->totals[$i]['class'], "TotalID" => $order->totals[$i]['orders_total_id']);
-        $TotalsArray[] = array("Name" => "          ", "Price" => "", "Class" => "ot_custom", "TotalID" => "0");
+        $TotalsArray[] = ["Name" => $order->totals[$i]['title'], "Price" => number_format($order->totals[$i]['value'], 2, '.', ''), "Class" => $order->totals[$i]['class'], "TotalID" => $order->totals[$i]['orders_total_id']];
+        $TotalsArray[] = ["Name" => "          ", "Price" => "", "Class" => "ot_custom", "TotalID" => "0"];
     }
 
     array_pop($TotalsArray);
@@ -756,14 +745,14 @@ if (($action == 'edit') && ($order_exists == true)) {
             echo  '       <tr>' . "\n" .
             '   <td class="main" align="right"><b>' . $TotalDetails["Name"] . '</b></td>' .
             '   <td class="main"><b>' . $TotalDetails["Price"] .
-            "<input name='update_totals[$TotalIndex][title]' type='hidden' value='" . trim($TotalDetails["Name"]) . "' size='" . strlen($TotalDetails["Name"]) . "' >" .
+            "<input name='update_totals[$TotalIndex][title]' type='hidden' value='" . trim((string) $TotalDetails["Name"]) . "' size='" . strlen((string) $TotalDetails["Name"]) . "' >" .
             "<input name='update_totals[$TotalIndex][value]' type='hidden' value='" . $TotalDetails["Price"] . "' size='6' >" .
             "<input name='update_totals[$TotalIndex][class]' type='hidden' value='" . $TotalDetails["Class"] . "'>\n" .
             "<input type='hidden' name='update_totals[$TotalIndex][total_id]' value='" . $TotalDetails["TotalID"] . "'>" . '</b></td>' .
             '       </tr>' . "\n";
         } elseif ($TotalDetails["Class"] == "ot_tax") {
             echo  '       <tr>' . "\n" .
-            '   <td align="right" class="' . $TotalStyle . '">' . "<input name='update_totals[$TotalIndex][title]' size='" . strlen(trim($TotalDetails["Name"])) . "' value='" . trim($TotalDetails["Name"]) . "'>" . '</td>' . "\n" .
+            '   <td align="right" class="' . $TotalStyle . '">' . "<input name='update_totals[$TotalIndex][title]' size='" . strlen(trim((string) $TotalDetails["Name"])) . "' value='" . trim((string) $TotalDetails["Name"]) . "'>" . '</td>' . "\n" .
             '   <td class="main"><b>' . $TotalDetails["Price"] .
             "<input name='update_totals[$TotalIndex][value]' type='hidden' value='" . $TotalDetails["Price"] . "' size='6' >" .
             "<input name='update_totals[$TotalIndex][class]' type='hidden' value='" . $TotalDetails["Class"] . "'>\n" .
@@ -771,7 +760,7 @@ if (($action == 'edit') && ($order_exists == true)) {
             '       </tr>' . "\n";
         } else {
             echo  '       <tr>' . "\n" .
-            '   <td align="right" class="' . $TotalStyle . '">' . "<input name='update_totals[$TotalIndex][title]' size='" . strlen(trim($TotalDetails["Name"])) . "' value='" . trim($TotalDetails["Name"]) . "'>" . '</td>' . "\n" .
+            '   <td align="right" class="' . $TotalStyle . '">' . "<input name='update_totals[$TotalIndex][title]' size='" . strlen(trim((string) $TotalDetails["Name"])) . "' value='" . trim((string) $TotalDetails["Name"]) . "'>" . '</td>' . "\n" .
             '   <td align="right" class="' . $TotalStyle . '">' . "<input name='update_totals[$TotalIndex][value]' size='6' value='" . $TotalDetails["Price"] . "'>" .
             "<input type='hidden' name='update_totals[$TotalIndex][class]' value='" . $TotalDetails["Class"] . "'>" .
             "<input type='hidden' name='update_totals[$TotalIndex][total_id]' value='" . $TotalDetails["TotalID"] . "'>" .
@@ -818,7 +807,7 @@ if (($action == 'edit') && ($order_exists == true)) {
             echo '            <td class="smallText">' . $orders_status_array[$orders_history['orders_status_id']] . '</td>' . "\n";
 
             if ($CommentsWithStatus) {
-                echo '            <td class="smallText">' . nl2br(oos_db_output($orders_history['comments'])) . '&nbsp;</td>' . "\n";
+                echo '            <td class="smallText">' . nl2br((string) oos_db_output($orders_history['comments'])) . '&nbsp;</td>' . "\n";
             }
 
             echo '          </tr>' . "\n";
@@ -884,7 +873,7 @@ if ($action == "add_product") {
           <tr>
             <td class="pageHeading"><?php echo ADDING_TITLE; ?> #<?php echo $oID; ?></td>
             <td class="pageHeading" align="right"></td>
-            <td class="pageHeading" align="right"><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?></td>
+            <td class="pageHeading" align="right"><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['action'])) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?></td>
           </tr>
         </table></td>
       </tr>

@@ -28,15 +28,10 @@
 
 class product_notification
 {
-    public $show_choose_audience;
-    public $title;
-    public $content;
+    public $show_choose_audience = true;
 
-    public function product_notification($title, $content)
+    public function __construct(public $title, public $content)
     {
-        $this->show_choose_audience = true;
-        $this->title = $title;
-        $this->content = $content;
     }
 
     public function choose_audience()
@@ -51,8 +46,7 @@ class product_notification
         $products_array = [];
         $products_result = $dbconn->Execute("SELECT pd.products_id, pd.products_name FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd WHERE pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND pd.products_id = p.products_id AND p.products_status >= '1' ORDER BY pd.products_name");
         while ($products = $products_result->fields) {
-            $products_array[] = array('id' => $products['products_id'],
-                                'text' => $products['products_name']);
+            $products_array[] = ['id' => $products['products_id'], 'text' => $products['products_name']];
 
             // Move that ADOdb pointer!
             $products_result->MoveNext();
@@ -106,7 +100,7 @@ function selectAll(FormName, SelectBox) {
                                '  <tr>' . "\n" .
                                '    <td align="center" class="main"><b>' . TEXT_PRODUCTS . '</b><br>' . oos_draw_pull_down_menu('products', $products_array, '', 'size="20" style="width: 20em;" multiple') . '</td>' . "\n" .
                                '    <td align="center" class="main">&nbsp;<br><a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID'] . '&action=confirm&GLOBAL=true') . '"><input type="button" value="' . BUTTON_GLOBAL . '" style="width: 8em;"></a><br><br><br><input type="button" value="' . BUTTON_SELECT . '" style="width: 8em;" onClick="mover(\'remove\');"><br><br><input type="button" value="' . BUTTON_UNSELECT . '" style="width: 8em;" onClick="mover(\'add\');"><br><br><br><input type="submit" value="' . BUTTON_SUBMIT . '" style="width: 8em;"><br><br><a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '"><input type="button" value="' . BUTTON_CANCEL . '" style="width: 8em;"></a></td>' . "\n" .
-                               '    <td align="center" class="main"><b>' . TEXT_SELECTED_PRODUCTS . '</b><br>' . oos_draw_pull_down_menu('chosen[]', array(), '', 'size="20" style="width: 20em;" multiple') . '</td>' . "\n" .
+                               '    <td align="center" class="main"><b>' . TEXT_SELECTED_PRODUCTS . '</b><br>' . oos_draw_pull_down_menu('chosen[]', [], '', 'size="20" style="width: 20em;" multiple') . '</td>' . "\n" .
                                '  </tr>' . "\n" .
                                '</table></form>';
 
@@ -173,7 +167,7 @@ function selectAll(FormName, SelectBox) {
                       '    <td></td>' . "\n" .
                       '  </tr>' . "\n" .
                       '  <tr>' . "\n" .
-                      '    <td class="main"><tt>' . nl2br($this->content) . '</tt></td>' . "\n" .
+                      '    <td class="main"><tt>' . nl2br((string) $this->content) . '</tt></td>' . "\n" .
                       '  </tr>' . "\n" .
                       '  <tr>' . "\n" .
                       '    <td></td>' . "\n" .
@@ -184,13 +178,13 @@ function selectAll(FormName, SelectBox) {
             if ($_GET['GLOBAL'] == 'true') {
                 $confirm_string .= oos_draw_hidden_field('GLOBAL', 'true');
             } else {
-                for ($i = 0, $n = count($chosen); $i < $n; $i++) {
+                for ($i = 0, $n = is_countable($chosen) ? count($chosen) : 0; $i < $n; $i++) {
                     $confirm_string .= oos_draw_hidden_field('chosen[]', $chosen[$i]);
                 }
             }
             $confirm_string .= oos_button(IMAGE_SEND) . ' ';
         }
-        $confirm_string .= '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID'] . '&action=send') . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a></td>' . "\n" .
+        $confirm_string .= '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID'] . '&action=send') . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '">' . oos_button('cancel') . '</a></td>' . "\n" .
                        '  </tr>' . "\n" .
                        '</table>';
 
@@ -208,18 +202,14 @@ function selectAll(FormName, SelectBox) {
         if ($_POST['GLOBAL'] == 'true') {
             $products_result = $dbconn->Execute("SELECT distinct pn.customers_id, c.customers_firstname, c.customers_lastname, c.customers_email_address FROM " . $oostable['customers'] . " c, " . $oostable['products_notifications'] . " pn WHERE c.customers_id = pn.customers_id");
             while ($products = $products_result->fields) {
-                $audience[$products['customers_id']] = array('firstname' => $products['customers_firstname'],
-                                                     'lastname' => $products['customers_lastname'],
-                                                     'email_address' => $products['customers_email_address']);
+                $audience[$products['customers_id']] = ['firstname' => $products['customers_firstname'], 'lastname' => $products['customers_lastname'], 'email_address' => $products['customers_email_address']];
                 // Move that ADOdb pointer!
                 $products_result->MoveNext();
             }
 
             $customers_result = $dbconn->Execute("SELECT c.customers_id, c.customers_firstname, c.customers_lastname, c.customers_email_address FROM " . $oostable['customers'] . " c, " . $oostable['customers_info'] . " ci WHERE c.customers_id = ci.customers_info_id AND ci.GLOBAL_product_notifications = '1'");
             while ($customers = $customers_result->fields) {
-                $audience[$customers['customers_id']] = array('firstname' => $customers['customers_firstname'],
-                                                      'lastname' => $customers['customers_lastname'],
-                                                      'email_address' => $customers['customers_email_address']);
+                $audience[$customers['customers_id']] = ['firstname' => $customers['customers_firstname'], 'lastname' => $customers['customers_lastname'], 'email_address' => $customers['customers_email_address']];
                 // Move that ADOdb pointer!
                 $customers_result->MoveNext();
             }
@@ -230,18 +220,14 @@ function selectAll(FormName, SelectBox) {
 
             $products_result = $dbconn->Execute("SELECT distinct pn.customers_id, c.customers_firstname, c.customers_lastname, c.customers_email_address FROM " . $oostable['customers'] . " c, " . $oostable['products_notifications'] . " pn WHERE c.customers_id = pn.customers_id AND pn.products_id in (" . $ids . ")");
             while ($products = $products_result->fields) {
-                $audience[$products['customers_id']] = array('firstname' => $products['customers_firstname'],
-                                                     'lastname' => $products['customers_lastname'],
-                                                     'email_address' => $products['customers_email_address']);
+                $audience[$products['customers_id']] = ['firstname' => $products['customers_firstname'], 'lastname' => $products['customers_lastname'], 'email_address' => $products['customers_email_address']];
                 // Move that ADOdb pointer!
                 $products_result->MoveNext();
             }
 
             $customers_result = $dbconn->Execute("SELECT c.customers_id, c.customers_firstname, c.customers_lastname, c.customers_email_address FROM " . $oostable['customers'] . " c, " . $oostable['customers_info'] . " ci WHERE c.customers_id = ci.customers_info_id AND ci.GLOBAL_product_notifications = '1'");
             while ($customers = $customers_result->fields) {
-                $audience[$customers['customers_id']] = array('firstname' => $customers['customers_firstname'],
-                                                      'lastname' => $customers['customers_lastname'],
-                                                      'email_address' => $customers['customers_email_address']);
+                $audience[$customers['customers_id']] = ['firstname' => $customers['customers_firstname'], 'lastname' => $customers['customers_lastname'], 'email_address' => $customers['customers_email_address']];
                 // Move that ADOdb pointer!
                 $customers_result->MoveNext();
             }
@@ -251,7 +237,7 @@ function selectAll(FormName, SelectBox) {
 
         $send_mail->PluginDir = OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/';
 
-        $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : 'en');
+        $sLang = ($_SESSION['iso_639_1'] ?? 'en');
         $send_mail->SetLanguage($sLang, OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/language/');
 
         $send_mail->CharSet = CHARSET;

@@ -26,9 +26,8 @@
   $languages = oos_get_languages();
   $languages_array = [];
   $languages_selected = DEFAULT_LANGUAGE;
-for ($i = 0, $n = count($languages); $i < $n; $i++) {
-    $languages_array[] = array('id' => $languages[$i]['iso_639_2'],
-                             'text' => $languages[$i]['name']);
+for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
+    $languages_array[] = ['id' => $languages[$i]['iso_639_2'], 'text' => $languages[$i]['name']];
     if ($languages[$i]['iso_639_2'] == $_SESSION['language']) {
         $languages_selected = $languages[$i]['iso_639_2'];
     }

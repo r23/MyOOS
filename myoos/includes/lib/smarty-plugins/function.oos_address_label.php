@@ -49,7 +49,7 @@ function smarty_function_oos_address_label($params, &$smarty)
     $eoln = '<br>';
 
     foreach ($params as $_key => $_val) {
-        $$_key = smarty_function_escape_special_chars($_val);
+        ${$_key} = smarty_function_escape_special_chars($_val);
     }
 
     $dbconn =& oosDBGetConn();
@@ -62,9 +62,7 @@ function smarty_function_oos_address_label($params, &$smarty)
 
 
     return smarty_function_oos_address_format(
-        array('address_format_id' => $format_id,
-                                                    'address'   => $address,
-                                                    'html'      => $html),
+        ['address_format_id' => $format_id, 'address'   => $address, 'html'      => $html],
         $smarty
     );
 }

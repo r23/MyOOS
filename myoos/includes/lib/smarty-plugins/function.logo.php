@@ -43,7 +43,7 @@ function smarty_function_logo($params, &$smarty)
         switch ($_key) {
         case 'dir':
             if (!is_array($_val)) {
-                $$_key = smarty_function_escape_special_chars($_val);
+                ${$_key} = smarty_function_escape_special_chars($_val);
             } else {
                 throw new SmartyException("small_category_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
             }

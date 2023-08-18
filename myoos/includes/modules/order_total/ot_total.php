@@ -45,10 +45,7 @@ class ot_total
 
         $currency = $_SESSION['currency'];
         $info = sprintf($aLang['total_info'], $currency);
-        $this->output[] = array('title' => $this->title . ':',
-                              'text' => '<strong>' . $oCurrencies->format($oOrder->info['total'], true, $oOrder->info['currency'], $oOrder->info['currency_value']) . '</strong>',
-                              'info' => '<small>' . $info . '</small>',
-                              'value' => $oOrder->info['total']);
+        $this->output[] = ['title' => $this->title . ':', 'text' => '<strong>' . $oCurrencies->format($oOrder->info['total'], true, $oOrder->info['currency'], $oOrder->info['currency_value']) . '</strong>', 'info' => '<small>' . $info . '</small>', 'value' => $oOrder->info['total']];
     }
 
     public function shopping_cart_process()
@@ -59,10 +56,7 @@ class ot_total
         $currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
         $info = sprintf($aLang['total_info'], $currency);
 
-        $this->output[] = array('title' => $this->title . ':',
-                                'text' => '<strong>' . $oCurrencies->format($_SESSION['cart']->info['total'], true, $currency, $currency_value) . '</strong>',
-                                'info' => '<small>' . $info . '</small>',
-                                'value' => $_SESSION['cart']->info['total']);
+        $this->output[] = ['title' => $this->title . ':', 'text' => '<strong>' . $oCurrencies->format($_SESSION['cart']->info['total'], true, $currency, $currency_value) . '</strong>', 'info' => '<small>' . $info . '</small>', 'value' => $_SESSION['cart']->info['total']];
     }
 
 
@@ -78,7 +72,7 @@ class ot_total
 
     public function keys()
     {
-        return array('MODULE_ORDER_TOTAL_TOTAL_STATUS', 'MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER');
+        return ['MODULE_ORDER_TOTAL_TOTAL_STATUS', 'MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER'];
     }
 
     public function install()

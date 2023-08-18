@@ -85,24 +85,7 @@ if ($slider_result->RecordCount() >= 1) {
         $aCategoryPath = [];
         $aCategoryPath = oos_get_category_path($slider['products_id']);
 
-        $aSlider[] = array('products_id' => $slider['products_id'],
-                            'slider_image' => $slider['slider_image'],
-                            'products_name' => $slider['products_name'],
-                            'products_short_description' => $slider['products_short_description'],
-                            'products_path' => $aCategoryPath['path'],
-                            'categories_name' => $aCategoryPath['name'],
-                            'order_min' => $order_min,
-                            'order_max' => $order_max,
-                            'product_quantity' => $slider['products_product_quantity'],
-                            'products_base_price' => $slider['products_base_price'],
-                            'products_base_unit' => $slider['products_base_unit'],
-                            'products_units' => $slider['products_units_id'],
-                            'slider_until' => $slider_until,
-                            'slider_cross_out_price'    => $slider_cross_out_price,
-                            'slider_product_price_list' => $slider_price_list,
-                            'slider_product_price' => $slider_product_price,
-                            'slider_product_special_price' => $slider_product_special_price,
-                            'slider_base_product_price' => $slider_base_product_price);
+        $aSlider[] = ['products_id' => $slider['products_id'], 'slider_image' => $slider['slider_image'], 'products_name' => $slider['products_name'], 'products_short_description' => $slider['products_short_description'], 'products_path' => $aCategoryPath['path'], 'categories_name' => $aCategoryPath['name'], 'order_min' => $order_min, 'order_max' => $order_max, 'product_quantity' => $slider['products_product_quantity'], 'products_base_price' => $slider['products_base_price'], 'products_base_unit' => $slider['products_base_unit'], 'products_units' => $slider['products_units_id'], 'slider_until' => $slider_until, 'slider_cross_out_price'    => $slider_cross_out_price, 'slider_product_price_list' => $slider_price_list, 'slider_product_price' => $slider_product_price, 'slider_product_special_price' => $slider_product_special_price, 'slider_base_product_price' => $slider_base_product_price];
         // Move that ADOdb pointer!
         $slider_result->MoveNext();
     }

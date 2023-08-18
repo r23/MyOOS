@@ -29,36 +29,4 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 $php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
 $bActive = ($_SESSION['selected_box'] == 'customers') ? true : false;
 
-$aBlocks[] = array(
-    'heading' => BOX_HEADING_CUSTOMERS,
-    'link' => oos_href_link_admin(basename($php_self), oos_get_all_get_params(array('selected_box')) . 'selected_box=customers'),
-    'icon' => 'fas fa-users',
-    'active' => $bActive,
-    'contents' => array(
-        array(
-            'code' => $aContents['customers'],
-            'title' => BOX_CUSTOMERS_CUSTOMERS,
-            'link' => oos_admin_files_boxes('customers', 'selected_box=customers')
-        ),
-        array(
-            'code' => $aContents['orders'],
-            'title' => BOX_CUSTOMERS_ORDERS,
-            'link' => oos_admin_files_boxes('orders', 'selected_box=customers')
-        ),
-        array(
-            'code' => $aContents['customers_status'],
-            'title' => BOX_LOCALIZATION_CUSTOMERS_STATUS,
-            'link' => oos_admin_files_boxes('customers_status', 'selected_box=customers')
-        ),
-        array(
-            'code' => $aContents['orders_status'],
-            'title' => BOX_ORDERS_STATUS,
-            'link' => oos_admin_files_boxes('orders_status', 'selected_box=customers')
-        ),
-        array(
-            'code' => $aContents['manual_loging'],
-            'title' => BOX_ADMIN_LOGIN,
-            'link' => oos_admin_files_boxes('manual_loging', 'selected_box=customers')
-        ),
-    ),
-);
+$aBlocks[] = ['heading' => BOX_HEADING_CUSTOMERS, 'link' => oos_href_link_admin(basename($php_self), oos_get_all_get_params(['selected_box']) . 'selected_box=customers'), 'icon' => 'fas fa-users', 'active' => $bActive, 'contents' => [['code' => $aContents['customers'], 'title' => BOX_CUSTOMERS_CUSTOMERS, 'link' => oos_admin_files_boxes('customers', 'selected_box=customers')], ['code' => $aContents['orders'], 'title' => BOX_CUSTOMERS_ORDERS, 'link' => oos_admin_files_boxes('orders', 'selected_box=customers')], ['code' => $aContents['customers_status'], 'title' => BOX_LOCALIZATION_CUSTOMERS_STATUS, 'link' => oos_admin_files_boxes('customers_status', 'selected_box=customers')], ['code' => $aContents['orders_status'], 'title' => BOX_ORDERS_STATUS, 'link' => oos_admin_files_boxes('orders_status', 'selected_box=customers')], ['code' => $aContents['manual_loging'], 'title' => BOX_ADMIN_LOGIN, 'link' => oos_admin_files_boxes('manual_loging', 'selected_box=customers')]]];

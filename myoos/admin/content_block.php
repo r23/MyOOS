@@ -58,41 +58,34 @@ if (!empty($action)) {
         $block_status  = oos_db_prepare_input($_POST['block_status']);
         $block_login_flag  = oos_db_prepare_input($_POST['block_login_flag']);
 
-        $sql_data_array = array('block_side' => $block_side,
-                                'block_file' => $function,
-                                'block_cache' => $block_cache,
-                                'block_sort_order' => $sort_order,
-                                'block_status' => $block_status,
-                                'block_login_flag' => $block_login_flag);
+        $sql_data_array = ['block_side' => $block_side, 'block_file' => $function, 'block_cache' => $block_cache, 'block_sort_order' => $sort_order, 'block_status' => $block_status, 'block_login_flag' => $block_login_flag];
         if ($action == 'insert') {
-            $insert_sql_data = array('date_added' => 'now()',
-                                   'set_function' => 'oos_block_select_option(array(\'\', \'sidebar\'),');
+            $insert_sql_data = ['date_added' => 'now()', 'set_function' => 'oos_block_select_option(array(\'\', \'sidebar\'),'];
 
-            $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+            $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
             oos_db_perform($oostable['block'], $sql_data_array);
             $block_content_id = $dbconn->Insert_ID();
         } elseif ($action == 'save') {
-            $update_sql_data = array('last_modified' => 'now()');
+            $update_sql_data = ['last_modified' => 'now()'];
 
-            $sql_data_array = array_merge($sql_data_array, $update_sql_data);
+            $sql_data_array = [...$sql_data_array, ...$update_sql_data];
 
             oos_db_perform($oostable['block'], $sql_data_array, 'UPDATE', "block_id = '" . intval($block_content_id) . "'");
             $dbconn->Execute("DELETE FROM " . $oostable['block_to_page_type'] . " WHERE block_id = '" . intval($block_content_id) . "'");
         }
 
         $languages = oos_get_languages();
-        for ($i = 0, $n = count($languages); $i < $n; $i++) {
+        for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
             $block_content_name_array = oos_db_prepare_input($_POST['block_name']);
             $language_id = $languages[$i]['id'];
 
-            $sql_data_array = array('block_name' => oos_db_prepare_input($block_content_name_array[$language_id]));
+            $sql_data_array = ['block_name' => oos_db_prepare_input($block_content_name_array[$language_id])];
 
             if ($action == 'insert') {
-                $insert_sql_data = array('block_id' => $block_content_id,
-                                     'block_languages_id' => $language_id);
+                $insert_sql_data = ['block_id' => $block_content_id, 'block_languages_id' => $language_id];
 
-                $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+                $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
                 oos_db_perform($oostable['block_info'], $sql_data_array);
             } elseif ($action == 'save') {
@@ -202,7 +195,7 @@ if (!empty($action)) {
   $block_content_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $block_content_result_raw, $block_content_result_numrows);
   $block_content_result = $dbconn->Execute($block_content_result_raw);
   while ($block = $block_content_result->fields) {
-      if ((!isset($_GET['bID']) || (isset($_GET['bID']) && ($_GET['bID'] == $block['block_id']))) && !isset($bInfo) && (substr($action, 0, 3) != 'new')) {
+      if ((!isset($_GET['bID']) || (isset($_GET['bID']) && ($_GET['bID'] == $block['block_id']))) && !isset($bInfo) && (!str_starts_with((string) $action, 'new'))) {
           $bInfo = new objectInfo($block);
       } ?>
 			<tr>
@@ -258,46 +251,44 @@ if (!empty($action)) {
 
   $block_status_array = [];
   $block_login_flag_array = [];
-  $block_login_flag_array = array(array('id' => '0', 'text' => ENTRY_NO),
-                                  array('id' => '1', 'text' => ENTRY_YES));
-  $block_status_array = array(array('id' => '0', 'text' => ENTRY_NO),
-                              array('id' => '1', 'text' => ENTRY_YES));
+  $block_login_flag_array = [['id' => '0', 'text' => ENTRY_NO], ['id' => '1', 'text' => ENTRY_YES]];
+  $block_status_array = [['id' => '0', 'text' => ENTRY_NO], ['id' => '1', 'text' => ENTRY_YES]];
 
   switch ($action) {
     case 'new':
-      $heading[] = array('text' => '<b>' . TEXT_HEADING_NEW_BLOCK . '</b>');
+      $heading[] = ['text' => '<b>' . TEXT_HEADING_NEW_BLOCK . '</b>'];
 
-      $contents = array('form' => oos_draw_form('id', 'block', $aContents['content_block'], 'action=insert', 'post', false, 'enctype="multipart/form-data"'));
-      $contents[] = array('text' => TEXT_NEW_INTRO);
+      $contents = ['form' => oos_draw_form('id', 'block', $aContents['content_block'], 'action=insert', 'post', false, 'enctype="multipart/form-data"')];
+      $contents[] = ['text' => TEXT_NEW_INTRO];
 
       $block_inputs_string = '';
       $languages = oos_get_languages();
-      for ($i = 0, $n = count($languages); $i < $n; $i++) {
+      for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
           $block_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('block_name[' . $languages[$i]['id'] . ']');
       }
-      $contents[] = array('text' => '<br><b>' . TEXT_BLOCK_NAME . ':</b>' .$block_inputs_string);
-      $contents[] = array('text' => '<br><b>' . TEXT_BLOCK_FUNCTION . ':</b><br>' . oos_draw_input_field('function'));
-      $contents[] = array('text' => '<br><b>' . TEXT_BLOCK_CACHE . ':</b><br>' . oos_draw_input_field('block_cache'));
-      $contents[] = array('text' => '<br><b>' . TABLE_HEADING_COLUMN . ':</b><br>' . oos_block_select_option(array('', 'sidebar'), 'block_side'));
-      $contents[] = array('text' => '<br><b>'  . TABLE_HEADING_STATUS . ':</b> ' . oos_draw_pull_down_menu('block_status', $block_status_array));
-      $contents[] = array('text' => '<br><b>'  . TEXT_BLOCK_LOGIN . '</b> ' . oos_draw_pull_down_menu('block_login_flag', $block_login_flag_array));
-      $contents[] = array('text' => '<br><b>'  . TEXT_BLOCK_PAGE . '</b><br>' . oos_select_block_to_page());
+      $contents[] = ['text' => '<br><b>' . TEXT_BLOCK_NAME . ':</b>' .$block_inputs_string];
+      $contents[] = ['text' => '<br><b>' . TEXT_BLOCK_FUNCTION . ':</b><br>' . oos_draw_input_field('function')];
+      $contents[] = ['text' => '<br><b>' . TEXT_BLOCK_CACHE . ':</b><br>' . oos_draw_input_field('block_cache')];
+      $contents[] = ['text' => '<br><b>' . TABLE_HEADING_COLUMN . ':</b><br>' . oos_block_select_option(['', 'sidebar'], 'block_side')];
+      $contents[] = ['text' => '<br><b>'  . TABLE_HEADING_STATUS . ':</b> ' . oos_draw_pull_down_menu('block_status', $block_status_array)];
+      $contents[] = ['text' => '<br><b>'  . TEXT_BLOCK_LOGIN . '</b> ' . oos_draw_pull_down_menu('block_login_flag', $block_login_flag_array)];
+      $contents[] = ['text' => '<br><b>'  . TEXT_BLOCK_PAGE . '</b><br>' . oos_select_block_to_page()];
 
-      $contents[] = array('text' => '<br><b>' . TABLE_HEADING_SORT_ORDER . ':</b> ' . oos_draw_input_field('sort_order', '', 'size="2"'));
+      $contents[] = ['text' => '<br><b>' . TABLE_HEADING_SORT_ORDER . ':</b> ' . oos_draw_input_field('sort_order', '', 'size="2"')];
 
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $_GET['bID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $_GET['bID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
       break;
 
     case 'edit':
-      $heading[] = array('text' => '<b>' . TEXT_HEADING_EDIT_BLOCK . '</b>');
+      $heading[] = ['text' => '<b>' . TEXT_HEADING_EDIT_BLOCK . '</b>'];
 
-      $contents = array('form' => oos_draw_form('id', 'block', $aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id . '&action=save', 'post', false, 'enctype="multipart/form-data"'));
-      $contents[] = array('text' => TEXT_EDIT_INTRO);
+      $contents = ['form' => oos_draw_form('id', 'block', $aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id . '&action=save', 'post', false, 'enctype="multipart/form-data"')];
+      $contents[] = ['text' => TEXT_EDIT_INTRO];
 
       $block_inputs_string = '';
       $languages = oos_get_languages();
-      for ($i = 0, $n = count($languages); $i < $n; $i++) {
+      for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
           $block_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('block_name[' . $languages[$i]['id'] . ']', oos_get_block_name($bInfo->block_id, $languages[$i]['id']));
       }
 
@@ -314,41 +305,41 @@ if (!empty($action)) {
 	    
      # eval('$value_field = ' . $bInfo->set_function . '"' . htmlspecialchars((string)$bInfo->block_side, ENT_QUOTES, 'UTF-8') . '");');
 
-      $contents[] = array('text' => '<br>' . TEXT_BLOCK_NAME . $block_inputs_string);
-      $contents[] = array('text' => '<br><b>' . TEXT_BLOCK_FUNCTION . ':</b><br>' . oos_draw_input_field('function', $bInfo->block_file));
-      $contents[] = array('text' => '<br><b>' . TEXT_BLOCK_CACHE . ':</b><br>' . oos_draw_input_field('block_cache', $bInfo->block_cache));
-      $contents[] = array('text' => '<br><b>' . TABLE_HEADING_COLUMN . ':</b><br>' . $value_field);
-      $contents[] = array('text' => '<br><b>'  . TABLE_HEADING_STATUS . ':</b> ' . oos_draw_pull_down_menu('block_status', $block_status_array, $bInfo->block_status));
-      $contents[] = array('text' => '<br><b>'  . TEXT_BLOCK_LOGIN . ':</b> ' . oos_draw_pull_down_menu('block_login_flag', $block_login_flag_array, $bInfo->block_login_flag));
-      $contents[] = array('text' => '<br><b>'  . TEXT_BLOCK_PAGE . ':</b><br>' . oos_show_block_to_page($bInfo->block_id));
+      $contents[] = ['text' => '<br>' . TEXT_BLOCK_NAME . $block_inputs_string];
+      $contents[] = ['text' => '<br><b>' . TEXT_BLOCK_FUNCTION . ':</b><br>' . oos_draw_input_field('function', $bInfo->block_file)];
+      $contents[] = ['text' => '<br><b>' . TEXT_BLOCK_CACHE . ':</b><br>' . oos_draw_input_field('block_cache', $bInfo->block_cache)];
+      $contents[] = ['text' => '<br><b>' . TABLE_HEADING_COLUMN . ':</b><br>' . $value_field];
+      $contents[] = ['text' => '<br><b>'  . TABLE_HEADING_STATUS . ':</b> ' . oos_draw_pull_down_menu('block_status', $block_status_array, $bInfo->block_status)];
+      $contents[] = ['text' => '<br><b>'  . TEXT_BLOCK_LOGIN . ':</b> ' . oos_draw_pull_down_menu('block_login_flag', $block_login_flag_array, $bInfo->block_login_flag)];
+      $contents[] = ['text' => '<br><b>'  . TEXT_BLOCK_PAGE . ':</b><br>' . oos_show_block_to_page($bInfo->block_id)];
 
-      $contents[] = array('text' => '<br><b>' . TABLE_HEADING_SORT_ORDER . ':</b><br>' . oos_draw_input_field('sort_order', $bInfo->block_sort_order, 'size="2"'));
+      $contents[] = ['text' => '<br><b>' . TABLE_HEADING_SORT_ORDER . ':</b><br>' . oos_draw_input_field('sort_order', $bInfo->block_sort_order, 'size="2"')];
 
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
       break;
 
     case 'delete':
-      $heading[] = array('text' => '<b>' . TEXT_HEADING_DELETE_BLOCK . '</b>');
+      $heading[] = ['text' => '<b>' . TEXT_HEADING_DELETE_BLOCK . '</b>'];
 
-      $contents = array('form' => oos_draw_form('id', 'block', $aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id . '&action=deleteconfirm', 'post', false));
-      $contents[] = array('text' => TEXT_DELETE_INTRO);
-      $contents[] = array('text' => '<br><b>' . $bInfo->block_name . '</b>');
+      $contents = ['form' => oos_draw_form('id', 'block', $aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id . '&action=deleteconfirm', 'post', false)];
+      $contents[] = ['text' => TEXT_DELETE_INTRO];
+      $contents[] = ['text' => '<br><b>' . $bInfo->block_name . '</b>'];
 
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
       break;
 
     default:
       if (isset($bInfo) && is_object($bInfo)) {
-          $heading[] = array('text' => '<b>' . $bInfo->block_name . '</b>');
+          $heading[] = ['text' => '<b>' . $bInfo->block_name . '</b>'];
 
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
-          $contents[] = array('text' => '<br>' . TEXT_DATE_ADDED . ' ' . oos_date_short($bInfo->date_added));
+          $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
+          $contents[] = ['text' => '<br>' . TEXT_DATE_ADDED . ' ' . oos_date_short($bInfo->date_added)];
           if (oos_is_not_null($bInfo->last_modified)) {
-              $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($bInfo->last_modified));
+              $contents[] = ['text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($bInfo->last_modified)];
           }
-          $contents[] = array('align' => 'center', 'text' => '<br><table border="0" width="100%" cellspacing="0" cellpadding="0"><tr><td class="infoBoxContent" valign="top"><b>' . TEXT_BLOCK_FUNCTION . ':</b></td><td class="infoBoxContent">' . $bInfo->block_file . '</td></tr><tr><td colspan="2">&nbsp;</td></tr><tr><td class="infoBoxContent" valign="top"><b>' . TEXT_BLOCK_CACHE . ':</b></td><td class="infoBoxContent">' . $bInfo->block_cache . '</td></tr><tr><td colspan="2">&nbsp;</td></tr><tr><td class="infoBoxContent" valign="top"><b>' . TEXT_BLOCK_PAGE . ':</b></td><td class="infoBoxContent">' . oos_info_block_to_page($bInfo->block_id) . '</td></tr></table>');
+          $contents[] = ['align' => 'center', 'text' => '<br><table border="0" width="100%" cellspacing="0" cellpadding="0"><tr><td class="infoBoxContent" valign="top"><b>' . TEXT_BLOCK_FUNCTION . ':</b></td><td class="infoBoxContent">' . $bInfo->block_file . '</td></tr><tr><td colspan="2">&nbsp;</td></tr><tr><td class="infoBoxContent" valign="top"><b>' . TEXT_BLOCK_CACHE . ':</b></td><td class="infoBoxContent">' . $bInfo->block_cache . '</td></tr><tr><td colspan="2">&nbsp;</td></tr><tr><td class="infoBoxContent" valign="top"><b>' . TEXT_BLOCK_PAGE . ':</b></td><td class="infoBoxContent">' . oos_info_block_to_page($bInfo->block_id) . '</td></tr></table>'];
       }
       break;
   }

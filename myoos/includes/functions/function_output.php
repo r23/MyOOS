@@ -60,8 +60,8 @@ function oos_href_link($page = '', $parameters = '', $add_session_id = true, $se
 
     $separator = '&amp;';
 
-    while ((substr($link, -5) == '&amp;') || (substr($link, -1) == '?')) {
-        if (substr($link, -1) == '?') {
+    while ((str_ends_with($link, '&amp;')) || (str_ends_with($link, '?'))) {
+        if (str_ends_with($link, '?')) {
             $link = substr($link, 0, -1);
         } else {
             $link = substr($link, 0, -5);
@@ -127,8 +127,8 @@ function oos_get_data($page = '', $parameters = '', $add_session_id = true, $sea
 
     $separator = '&amp;';
 
-    while ((substr($link, -5) == '&amp;') || (substr($link, -1) == '?')) {
-        if (substr($link, -1) == '?') {
+    while ((str_ends_with($link, '&amp;')) || (str_ends_with($link, '?'))) {
+        if (str_ends_with($link, '?')) {
             $link = substr($link, 0, -1);
         } else {
             $link = substr($link, 0, -5);
@@ -370,7 +370,7 @@ function oos_draw_pull_down_menu($name, $values, $default = null, $parameters = 
     }
 
 
-    for ($i=0, $n=count($values); $i<$n; $i++) {
+    for ($i=0, $n=is_countable($values) ? count($values) : 0; $i<$n; $i++) {
         $field .= '<option value="' . oos_output_string($values[$i]['id']) . '"';
         if ($default == $values[$i]['id']) {
             $field .= ' selected';

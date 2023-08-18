@@ -47,7 +47,7 @@ function is_email($value)
     }
 
     //Reject line breaks in addresses; it's valid RFC5322, but not RFC5321
-    if (strpos($value, "\n") !== false or strpos($value, "\r") !== false) {
+    if (str_contains($value, "\n") or str_contains($value, "\r")) {
         return false;
     }
     return (bool)filter_var($value, FILTER_VALIDATE_EMAIL);

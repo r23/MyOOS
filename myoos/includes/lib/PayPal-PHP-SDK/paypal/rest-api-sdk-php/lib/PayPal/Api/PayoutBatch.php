@@ -72,10 +72,10 @@ class PayoutBatch extends PayPalModel
     public function addItem($payoutItemDetails)
     {
         if (!$this->getItems()) {
-            return $this->setItems(array($payoutItemDetails));
+            return $this->setItems([$payoutItemDetails]);
         } else {
             return $this->setItems(
-                array_merge($this->getItems(), array($payoutItemDetails))
+                array_merge($this->getItems(), [$payoutItemDetails])
             );
         }
     }
@@ -89,7 +89,7 @@ class PayoutBatch extends PayPalModel
     public function removeItem($payoutItemDetails)
     {
         return $this->setItems(
-            array_diff($this->getItems(), array($payoutItemDetails))
+            array_diff($this->getItems(), [$payoutItemDetails])
         );
     }
 

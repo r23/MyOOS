@@ -99,7 +99,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
     $lastname = oos_remove_shouting_name($lastname, true);
     $email_address = strtolower($email_address);
     $street_address = oos_remove_shouting($street_address);
-    $postcode = strtoupper($postcode);
+    $postcode = strtoupper((string) $postcode);
     $city = oos_remove_shouting($city);
 
 
@@ -124,7 +124,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
     if (ACCOUNT_DOB == 'true') {
         if ((strlen($dob ?? '') < ENTRY_DOB_MIN_LENGTH) || (!empty($dob)
             && (!is_numeric(oos_date_raw($dob))
-            || !checkdate(substr(oos_date_raw($dob), 4, 2), substr(oos_date_raw($dob), 6, 2), substr(oos_date_raw($dob), 0, 4))))
+            || !checkdate(substr((string) oos_date_raw($dob), 4, 2), substr((string) oos_date_raw($dob), 6, 2), substr((string) oos_date_raw($dob), 0, 4))))
         ) {
             $bError = true;
             $oMessage->add('danger', $aLang['entry_date_of_birth_error']);
@@ -245,28 +245,9 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
         $wishlist_link_id = oos_create_wishlist_code();
 
         if ($_SESSION['guest_account'] == 1) {
-            $sql_data_array = array('customers_firstname' => $firstname,
-                                    'customers_lastname' => $lastname,
-                                    'customers_email_address' => '',
-                                    'guest_email_address' => $email_address,
-                                    'customers_status' => $customers_status,
-                                    'customers_login' => $customers_login,
-                                    'customers_language' => $sLanguage,
-                                    'customers_max_order' => $customer_max_order,
-                                    'customers_password' => oos_encrypt_password($wishlist_link_id),
-                                    'customers_wishlist_link_id' => $wishlist_link_id,
-                                    'customers_default_address_id' => 1);
+            $sql_data_array = ['customers_firstname' => $firstname, 'customers_lastname' => $lastname, 'customers_email_address' => '', 'guest_email_address' => $email_address, 'customers_status' => $customers_status, 'customers_login' => $customers_login, 'customers_language' => $sLanguage, 'customers_max_order' => $customer_max_order, 'customers_password' => oos_encrypt_password($wishlist_link_id), 'customers_wishlist_link_id' => $wishlist_link_id, 'customers_default_address_id' => 1];
         } else {
-            $sql_data_array = array('customers_firstname' => $firstname,
-                                'customers_lastname' => $lastname,
-                                'customers_email_address' => $email_address,
-                                'customers_status' => $customers_status,
-                                'customers_login' => $customers_login,
-                                'customers_language' => $sLanguage,
-                                'customers_max_order' => $customer_max_order,
-                                'customers_password' => oos_encrypt_password($password),
-                                'customers_wishlist_link_id' => $wishlist_link_id,
-                                'customers_default_address_id' => 1);
+            $sql_data_array = ['customers_firstname' => $firstname, 'customers_lastname' => $lastname, 'customers_email_address' => $email_address, 'customers_status' => $customers_status, 'customers_login' => $customers_login, 'customers_language' => $sLanguage, 'customers_max_order' => $customer_max_order, 'customers_password' => oos_encrypt_password($password), 'customers_wishlist_link_id' => $wishlist_link_id, 'customers_default_address_id' => 1];
         }
 
         if (ACCOUNT_GENDER == 'true') {
@@ -283,13 +264,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
 
         $customer_id = $dbconn->Insert_ID();
 
-        $sql_data_array = array('customers_id' => $customer_id,
-                            'entry_firstname' => $firstname,
-                            'entry_lastname' => $lastname,
-                            'entry_street_address' => $street_address,
-                            'entry_postcode' => $postcode,
-                            'entry_city' => $city,
-                            'entry_country_id' => $country);
+        $sql_data_array = ['customers_id' => $customer_id, 'entry_firstname' => $firstname, 'entry_lastname' => $lastname, 'entry_street_address' => $street_address, 'entry_postcode' => $postcode, 'entry_city' => $city, 'entry_country_id' => $country];
 
         if (ACCOUNT_GENDER == 'true') {
             $sql_data_array['entry_gender'] = $gender;
@@ -521,7 +496,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
 
             oos_redirect(oos_href_link($aContents['checkout_shipping']));
         } else {
-            if (count($_SESSION['navigation']->snapshot) > 0) {
+            if ((is_countable($_SESSION['navigation']->snapshot) ? count($_SESSION['navigation']->snapshot) : 0) > 0) {
                 $origin_href = oos_href_link($_SESSION['navigation']->snapshot['content'], $_SESSION['navigation']->snapshot['get']);
                 $_SESSION['navigation']->clear_snapshot();
 
@@ -550,7 +525,7 @@ if (isset($_GET['guest'])) {
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['create_account']));
 $sCanonical = oos_href_link($aContents['create_account'], '', false, true);
 
-$snapshot = count($_SESSION['navigation']->snapshot);
+$snapshot = is_countable($_SESSION['navigation']->snapshot) ? count($_SESSION['navigation']->snapshot) : 0;
 
 $email_address = filter_input(INPUT_GET, 'email_address', FILTER_VALIDATE_EMAIL);
 
@@ -571,12 +546,7 @@ if (!isset($option)) {
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-        'breadcrumb'    => $oBreadcrumb->trail(),
-        'heading_title' => $aLang['heading_title'],
-        'robots'        => 'noindex,follow,noodp,noydir',
-        'canonical'        => $sCanonical
-    )
+    ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title' => $aLang['heading_title'], 'robots'        => 'noindex,follow,noodp,noydir', 'canonical'        => $sCanonical]
 );
 
 $smarty->assign('account', $account);

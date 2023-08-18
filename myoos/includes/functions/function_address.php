@@ -102,15 +102,15 @@ function oos_address_format($address_format_id, $address, $html, $boln, $eoln)
     $address_format_result = $dbconn->Execute("SELECT address_format AS format FROM $address_formattable WHERE address_format_id = '" . intval($address_format_id) . "'");
     $address_format = $address_format_result->fields;
 
-    $company = addslashes($address['company']);
-    $firstname = addslashes($address['firstname']);
-    $lastname = addslashes($address['lastname']);
-    $street = addslashes($address['street_address']);
-    $city = addslashes($address['city']);
-    $state = addslashes($address['state']);
+    $company = addslashes((string) $address['company']);
+    $firstname = addslashes((string) $address['firstname']);
+    $lastname = addslashes((string) $address['lastname']);
+    $street = addslashes((string) $address['street_address']);
+    $city = addslashes((string) $address['city']);
+    $state = addslashes((string) $address['state']);
     $country_id = $address['country_id'];
     $zone_id = $address['zone_id'];
-    $postcode = addslashes($address['postcode']);
+    $postcode = addslashes((string) $address['postcode']);
     $zip = $postcode;
     $country = oos_get_country_name($country_id);
     $state = oos_get_zone_code($country_id, $zone_id, $state);
@@ -138,10 +138,10 @@ function oos_address_format($address_format_id, $address, $html, $boln, $eoln)
     $statecomma = '';
     $streets = $street;
     if ($firstname == '') {
-        $firstname = addslashes($address['name']);
+        $firstname = addslashes((string) $address['name']);
     }
     if ($country == '') {
-        $country = addslashes($address['country']);
+        $country = addslashes((string) $address['country']);
     }
     if ($state != '') {
         $statecomma = $state . ', ';
@@ -149,7 +149,7 @@ function oos_address_format($address_format_id, $address, $html, $boln, $eoln)
 
     $fmt = $address_format['format'];
     eval("\$address = \"$fmt\";");
-    $address = stripslashes($address);
+    $address = stripslashes((string) $address);
 
     if ((ACCOUNT_COMPANY == 'true') && (oos_is_not_null($company))) {
         $address = $company . $cr . $address;

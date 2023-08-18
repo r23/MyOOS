@@ -20,16 +20,4 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 $php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
 $bActive = ($_SESSION['selected_box'] == 'plugins') ? true : false;
 
-$aBlocks[] = array(
-    'heading' => BOX_HEADING_PLUGINS,
-    'link' => oos_href_link_admin(basename($php_self), oos_get_all_get_params(array('selected_box')) . 'selected_box=plugins'),
-    'icon' => 'fa fa-plug',
-    'active' => $bActive,
-    'contents' => array(
-        array(
-            'code' => $aContents['plugins'],
-            'title' => BOX_PLUGINS_EVENT,
-            'link' => oos_href_link_admin($aContents['plugins'], 'selected_box=plugins')
-        ),
-    ),
-);
+$aBlocks[] = ['heading' => BOX_HEADING_PLUGINS, 'link' => oos_href_link_admin(basename($php_self), oos_get_all_get_params(['selected_box']) . 'selected_box=plugins'), 'icon' => 'fa fa-plug', 'active' => $bActive, 'contents' => [['code' => $aContents['plugins'], 'title' => BOX_PLUGINS_EVENT, 'link' => oos_href_link_admin($aContents['plugins'], 'selected_box=plugins')]]];

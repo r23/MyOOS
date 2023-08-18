@@ -72,7 +72,7 @@ if (!empty($action)) {
                 $specials_price = oos_db_prepare_input($_POST['specials_price']);
                 $expires_date = oos_db_prepare_input($_POST['expires_date']);
 
-                if (strlen($expires_date) < 6) {
+                if (strlen((string) $expires_date) < 6) {
                     $bError = true;
                     $messageStack->add_session(TEXT_EXPIRES_DATE_ERROR, 'error');
                 }
@@ -107,7 +107,7 @@ if (!empty($action)) {
                 }
                 */
 
-                if (substr($_POST['specials_price'], -1) == '%') {
+                if (str_ends_with((string) $_POST['specials_price'], '%')) {
                     $productstable = $oostable['products'];
                     $new_special_insert_result = $dbconn->Execute("SELECT products_id, products_price FROM $productstable WHERE products_id = '" . intval($products_id) . "'");
                     $new_special_insert = $new_special_insert_result->fields;
@@ -130,9 +130,7 @@ if (!empty($action)) {
                     $sID = $dbconn->Insert_ID();
 
                     // product price history
-                    $sql_price_array = array('products_id' => intval($products_id),
-                                            'products_price' => oos_db_input($specials_price),
-                                            'date_added' => 'now()');
+                    $sql_price_array = ['products_id' => intval($products_id), 'products_price' => oos_db_input($specials_price), 'date_added' => 'now()'];
                     oos_db_perform($oostable['products_price_history'], $sql_price_array);
 
                     oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage) . '&sID='. intval($sID)));
@@ -148,7 +146,7 @@ if (!empty($action)) {
             $specials_price = oos_db_prepare_input($_POST['specials_price']);
             $expires_date = oos_db_prepare_input($_POST['expires_date']);
 
-            if (substr($specials_price, -1) == '%') {
+            if (str_ends_with((string) $specials_price, '%')) {
                 $specials_price = ($products_price - (($specials_price / 100) * $products_price));
             }
 
@@ -159,9 +157,7 @@ if (!empty($action)) {
             $products_id = $dbconn->GetOne($query);
 
             // product price history
-            $sql_price_array = array('products_id' => intval($products_id),
-                                    'products_price' => oos_db_input($specials_price),
-                                    'date_added' => 'now()');
+            $sql_price_array = ['products_id' => intval($products_id), 'products_price' => oos_db_input($specials_price), 'date_added' => 'now()'];
             oos_db_perform($oostable['products_price_history'], $sql_price_array);
 
 
@@ -213,7 +209,7 @@ if (($action == 'new') || ($action == 'edit')) {
 
         $sInfo = new objectInfo($product);
     } else {
-        $sInfo = new objectInfo(array());
+        $sInfo = new objectInfo([]);
 
         $specials_array = [];
         $productstable = $oostable['products'];
@@ -300,11 +296,11 @@ if (($action == 'new') || ($action == 'edit')) {
 		<div class="card-header"><?php echo HEADING_TITLE; ?></div>
 			<div class="card-body">
 
-				<form name="new_special" <?php echo 'action="' . oos_href_link_admin($aContents['specials'], oos_get_all_get_params(array('action', 'info', 'sID')) . 'action=' . $form_action) . '"'; ?> method="post">
+				<form name="new_special" <?php echo 'action="' . oos_href_link_admin($aContents['specials'], oos_get_all_get_params(['action', 'info', 'sID']) . 'action=' . $form_action) . '"'; ?> method="post">
 <?php
     if ($form_action == 'update') {
         echo oos_draw_hidden_field('specials_id', intval($sID));
-        echo oos_draw_hidden_field('products_price', (isset($sInfo->products_price) ? $sInfo->products_price : ''));
+        echo oos_draw_hidden_field('products_price', ($sInfo->products_price ?? ''));
     }
 
     if (isset($sInfo->products_id)) {
@@ -409,7 +405,7 @@ function updateNet() {
                            <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_SPECIALS_EXPIRES_DATE; ?></label>
                            <div class="col-xl-6 col-10">
                               <div class="input-group date" id="datetimepicker1">
-                                 <input class="form-control" type="text" name="expires_date" value="<?php echo(isset($sInfo->expires_date) ? $sInfo->expires_date : ''); ?>">
+                                 <input class="form-control" type="text" name="expires_date" value="<?php echo($sInfo->expires_date ?? ''); ?>">
                                  <span class="input-group-addon">
                                     <span class="fa fa-calendar"></span>
                                  </span>
@@ -544,23 +540,23 @@ function updateNet() {
         $contents = [];
         switch ($action) {
     case 'delete':
-      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_SPECIALS . '</b>');
+      $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_SPECIALS . '</b>'];
 
-      $contents = array('form' => oos_draw_form('id', 'specials', $aContents['specials'], 'page=' . intval($nPage) . '&sID=' . $sInfo->specials_id . '&action=deleteconfirm', 'post', false));
-      $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
-      $contents[] = array('text' => '<br><b>' . $sInfo->products_name . '</b>');
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage) . '&sID=' . $sInfo->specials_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents = ['form' => oos_draw_form('id', 'specials', $aContents['specials'], 'page=' . intval($nPage) . '&sID=' . $sInfo->specials_id . '&action=deleteconfirm', 'post', false)];
+      $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
+      $contents[] = ['text' => '<br><b>' . $sInfo->products_name . '</b>'];
+      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage) . '&sID=' . $sInfo->specials_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
       break;
 
     default:
       if (isset($sInfo) && is_object($sInfo)) {
-          $heading[] = array('text' => '<b>' . $sInfo->products_name . '</b>');
+          $heading[] = ['text' => '<b>' . $sInfo->products_name . '</b>'];
 
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage) . '&sID=' . $sInfo->specials_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage) . '&sID=' . $sInfo->specials_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
-          $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($sInfo->specials_date_added));
-          $contents[] = array('text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($sInfo->specials_last_modified));
-          $contents[] = array('align' => 'center', 'text' => '<br>' . product_info_image($sInfo->products_image, $sInfo->products_name));
+          $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage) . '&sID=' . $sInfo->specials_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage) . '&sID=' . $sInfo->specials_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
+          $contents[] = ['text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($sInfo->specials_date_added)];
+          $contents[] = ['text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($sInfo->specials_last_modified)];
+          $contents[] = ['align' => 'center', 'text' => '<br>' . product_info_image($sInfo->products_image, $sInfo->products_name)];
 
 
           $tax_result = $dbconn->Execute("SELECT tax_rate FROM " . $oostable['tax_rates'] . " WHERE tax_class_id = '" . $sInfo->products_tax_class_id . "' ");
@@ -578,15 +574,15 @@ function updateNet() {
           $in_price = oos_round($in_price, TAX_DECIMAL_PLACES);
           $in_new_price = oos_round($in_new_price, TAX_DECIMAL_PLACES);
 
-          $contents[] = array('text' => '<br>' . TEXT_SPECIALS_CROSS_OUT_PRICE . ' ' . $currencies->format($in_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_price_netto));
-          $contents[] = array('text' => '' . TEXT_INFO_NEW_PRICE . ' ' . $currencies->format($in_new_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_new_price_netto) );
-          $contents[] = array('text' => '' . TEXT_INFO_PERCENTAGE . ' ' . number_format(100 - (($sInfo->specials_new_products_price / $sInfo->specials_cross_out_price) * 100)) . '%');
+          $contents[] = ['text' => '<br>' . TEXT_SPECIALS_CROSS_OUT_PRICE . ' ' . $currencies->format($in_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_price_netto)];
+          $contents[] = ['text' => '' . TEXT_INFO_NEW_PRICE . ' ' . $currencies->format($in_new_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_new_price_netto)];
+          $contents[] = ['text' => '' . TEXT_INFO_PERCENTAGE . ' ' . number_format(100 - (($sInfo->specials_new_products_price / $sInfo->specials_cross_out_price) * 100)) . '%'];
 
           if (date('Y-m-d') < $sInfo->expires_date) {
-              $contents[] = array('text' => '<br>' . TEXT_INFO_EXPIRES_DATE . ' <b>' . oos_date_short($sInfo->expires_date) . '</b>');
+              $contents[] = ['text' => '<br>' . TEXT_INFO_EXPIRES_DATE . ' <b>' . oos_date_short($sInfo->expires_date) . '</b>'];
           }
           if (oos_is_not_null($sInfo->date_status_change)) {
-              $contents[] = array('text' => '' . TEXT_INFO_STATUS_CHANGE . ' ' . oos_date_short($sInfo->date_status_change));
+              $contents[] = ['text' => '' . TEXT_INFO_STATUS_CHANGE . ' ' . oos_date_short($sInfo->date_status_change)];
           }
       }
       break;

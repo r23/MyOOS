@@ -58,7 +58,7 @@ function smarty_function_oos_radios($params, &$smarty)
         switch ($_key) {
         case 'name':
         case 'separator':
-            $$_key = (string)$_val;
+            ${$_key} = (string)$_val;
             break;
 
         case 'checked':
@@ -72,16 +72,16 @@ function smarty_function_oos_radios($params, &$smarty)
 
         case 'labels':
         case 'label_ids':
-            $$_key = (bool)$_val;
+            ${$_key} = (bool)$_val;
             break;
 
         case 'options':
-            $$_key = (array)$_val;
+            ${$_key} = (array)$_val;
             break;
 
         case 'values':
         case 'output':
-            $$_key = array_values((array)$_val);
+            ${$_key} = array_values((array)$_val);
             break;
 
         case 'radios':
@@ -114,7 +114,7 @@ function smarty_function_oos_radios($params, &$smarty)
         }
     } else {
         foreach ($values as $_i=>$_key) {
-            $_val = isset($output[$_i]) ? $output[$_i] : '';
+            $_val = $output[$_i] ?? '';
             $_html_result[] = oos_function_oos_radios_output($name, $_key, $_val, $selected, $extra, $separator, $labels, $label_ids);
         }
     }

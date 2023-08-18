@@ -38,7 +38,7 @@ class payment
         global $aUser, $aLang, $GLOBALS;
 
         if (defined('MODULE_PAYMENT_INSTALLED') && oos_is_not_null($aUser['payment'])) {
-            $this->modules = explode(';', $aUser['payment']);
+            $this->modules = explode(';', (string) $aUser['payment']);
 
             $include_modules = [];
 
@@ -122,7 +122,7 @@ class payment
 
             reset($this->modules);
             foreach ($this->modules as $value) {
-                $class = substr($value, 0, strrpos($value, '.'));
+                $class = substr((string) $value, 0, strrpos((string) $value, '.'));
                 if ($GLOBALS[$class]->enabled) {
                     $js .= $GLOBALS[$class]->javascript_validation();
                 }
@@ -153,7 +153,7 @@ class payment
 
         if (is_array($this->modules)) {
             foreach ($this->modules as $value) {
-                $class = basename($value, '.php');
+                $class = basename((string) $value, '.php');
                 if ($GLOBALS[$class]->enabled) {
                     $selection = $GLOBALS[$class]->selection();
                     if (is_array($selection)) {

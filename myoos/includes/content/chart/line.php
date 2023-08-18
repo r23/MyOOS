@@ -51,18 +51,18 @@ function chartLine($xAxisData, $seriesData, $title = '')
     $chart->toolbox->feature->dataView->readOnly = true;
     $chart->toolbox->feature->saveAsImage = [];
 
-    $sCurrency = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
+    $sCurrency = ($_SESSION['currency'] ?? DEFAULT_CURRENCY);
     $symbol_left = $oCurrencies->get_currencies_symbol_left($sCurrency);
     $symbol_right = $oCurrencies->get_currencies_symbol_right($sCurrency);
-    $yAxis->axisLabel = array(
+    $yAxis->axisLabel = [
         // this array value will automatic conversion to js callback function
         'formatter' => "
 			function (value)
 			{
 				return value + ' " . $symbol_left . $symbol_right . "'
 			}
-		"
-    );
+		",
+    ];
 
     $xAxis->type = 'category';
     $xAxis->boundaryGap = false;
@@ -94,27 +94,13 @@ $startDate_3 = mktime(0, 0, 0, date("m"), date("d")-183, date("Y"));
 $startDate_4 = mktime(0, 0, 0, date("m"), date("d")-365, date("Y"));
 
 
-switch ($startD) {
-case '1':
-    $startDate = $startDate_1;
-    break;
-
-case '2':
-    $startDate = $startDate_2;
-    break;
-
-case '3':
-    $startDate = $startDate_3;
-    break;
-
-case '4':
-    $startDate = $startDate_4;
-    break;
-
-default:
-    $startDate = $startDate_2;
-    break;
-}
+$startDate = match ($startD) {
+    '1' => $startDate_1,
+    '2' => $startDate_2,
+    '3' => $startDate_3,
+    '4' => $startDate_4,
+    default => $startDate_2,
+};
 
 $endDate = mktime(0, 0, 0, date("m"), date("d") + 1, date("Y"));
 $get_products_id = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
@@ -186,8 +172,8 @@ if ($price_history_result->RecordCount() >= 2) {
 
 
     // current price with date
-    $aDate = array_merge($aDate, [oos_date_short($today)]);
-    $aData = array_merge($aData, [$schema_product_price]);
+    $aDate = [...$aDate, oos_date_short($today)];
+    $aData = [...$aData, $schema_product_price];
 
 
     echo '<p class="text-end">';

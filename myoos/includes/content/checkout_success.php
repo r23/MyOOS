@@ -50,7 +50,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'notify_process')
         $notify = oos_db_prepare_input($_POST['notify']);
 
         if (!is_array($notify)) {
-            $notify = array($notify);
+            $notify = [$notify];
         }
 
         $products_notificationstable = $oostable['products_notifications'];
@@ -103,8 +103,7 @@ if ($global['global_product_notifications'] != '1') {
             ORDER BY products_name";
     $products_result = $dbconn->Execute($sql);
     while ($products = $products_result->fields) {
-        $products_array[] = array('id' => $products['products_id'],
-                              'text' => $products['products_name']);
+        $products_array[] = ['id' => $products['products_id'], 'text' => $products['products_name']];
         $products_result->MoveNext();
     }
 }
@@ -121,7 +120,7 @@ if ($global['global_product_notifications'] != '1') {
     $products_notify .= $aLang['text_notify_products'] . '<br /><p class="productsNotifications">';
 
     $products_displayed = [];
-    for ($i=0, $n=count($products_array); $i<$n; $i++) {
+    for ($i=0, $n=is_countable($products_array) ? count($products_array) : 0; $i<$n; $i++) {
         if (!in_array($products_array[$i]['id'], $products_displayed)) {
             $products_notify .= oos_draw_checkbox_field('notify[]', $products_array[$i]['id']) . ' ' . $products_array[$i]['text'] . '<br />';
             $products_displayed[] = $products_array[$i]['id'];
@@ -146,14 +145,7 @@ if (!isset($option)) {
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-        'breadcrumb'        => $oBreadcrumb->trail(),
-        'heading_title'        => $aLang['heading_title'],
-        'robots'            => 'noindex,nofollow,noodp,noydir',
-        'checkout_active'    => 1,
-        'gv_amount'            => $gv_amount,
-        'products_notify'    => $products_notify
-    )
+    ['breadcrumb'        => $oBreadcrumb->trail(), 'heading_title'        => $aLang['heading_title'], 'robots'            => 'noindex,nofollow,noodp,noydir', 'checkout_active'    => 1, 'gv_amount'            => $gv_amount, 'products_notify'    => $products_notify]
 );
 
 // register the outputfilter

@@ -306,10 +306,10 @@ class Sale extends PayPalResourceModel
     public function addPaymentHoldReason($string)
     {
         if (!$this->getPaymentHoldReasons()) {
-            return $this->setPaymentHoldReasons(array($string));
+            return $this->setPaymentHoldReasons([$string]);
         } else {
             return $this->setPaymentHoldReasons(
-                array_merge($this->getPaymentHoldReasons(), array($string))
+                array_merge($this->getPaymentHoldReasons(), [$string])
             );
         }
     }
@@ -323,7 +323,7 @@ class Sale extends PayPalResourceModel
     public function removePaymentHoldReason($string)
     {
         return $this->setPaymentHoldReasons(
-            array_diff($this->getPaymentHoldReasons(), array($string))
+            array_diff($this->getPaymentHoldReasons(), [$string])
         );
     }
 

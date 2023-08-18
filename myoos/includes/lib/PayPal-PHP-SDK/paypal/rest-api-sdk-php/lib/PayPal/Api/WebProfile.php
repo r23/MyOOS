@@ -218,11 +218,11 @@ class WebProfile extends PayPalResourceModel
     {
         ArgumentValidator::validate($this->getId(), "Id");
         ArgumentValidator::validate($patch, 'patch');
-        $payload = array();
+        $payload = [];
         foreach ($patch as $patchObject) {
             $payload[] = $patchObject->toArray();
         }
-        $payLoad = json_encode($payload);
+        $payLoad = json_encode($payload, JSON_THROW_ON_ERROR);
         self::executeCall(
             "/v1/payment-experience/web-profiles/{$this->getId()}",
             "PATCH",

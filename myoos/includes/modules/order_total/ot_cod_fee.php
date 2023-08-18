@@ -67,13 +67,13 @@ class ot_cod_fee
 
             //check if payment method is cod. If yes, check if cod is possible.
             if (isset($_SESSION['payment'])  && ($_SESSION['payment'] == 'cod')) {
-                $shipping_array = explode('_', $_SESSION['shipping']['id']);
+                $shipping_array = explode('_', (string) $_SESSION['shipping']['id']);
                 $shipping_code = strtoupper(array_shift($shipping_array));
                 $shipping_code = 'FEE_' . $shipping_code;
                 if (defined('MODULE_ORDER_TOTAL_COD_'. $shipping_code)) {
-                    $cod_zones = preg_split("/[:,]/", constant('MODULE_ORDER_TOTAL_COD_'. $shipping_code));
+                    $cod_zones = preg_split("/[:,]/", (string) constant('MODULE_ORDER_TOTAL_COD_'. $shipping_code));
 
-                    for ($i = 0; $i < count($cod_zones); $i++) {
+                    for ($i = 0; $i < (is_countable($cod_zones) ? count($cod_zones) : 0); $i++) {
                         if ($cod_zones[$i] == $order->delivery['country']['iso_code_2']) {
                             $cod_cost = $cod_zones[$i + 1];
                             $cod_country = true;
@@ -99,16 +99,10 @@ class ot_cod_fee
                     $oOrder->info['tax_groups']["$cod_tax_description"] += oos_calculate_tax($cod_cost, $cod_tax);
                     $oOrder->info['total'] += $cod_cost + oos_calculate_tax($cod_cost, $cod_tax);
 
-                    $this->output[] = array('title' => $this->title . ':',
-                                  'text' => $oCurrencies->format(oos_add_tax($cod_cost, $cod_tax), true, $oOrder->info['currency'], $oOrder->info['currency_value']),
-                                  'info' => '',
-                                  'value' => oos_add_tax($cod_cost, $cod_tax));
+                    $this->output[] = ['title' => $this->title . ':', 'text' => $oCurrencies->format(oos_add_tax($cod_cost, $cod_tax), true, $oOrder->info['currency'], $oOrder->info['currency_value']), 'info' => '', 'value' => oos_add_tax($cod_cost, $cod_tax)];
                 } else {
                     $oOrder->info['total'] += $cod_cost;
-                    $this->output[] = array('title' => $this->title . ':',
-                                      'text' => $oCurrencies->format($cod_cost, true, $oOrder->info['currency'], $oOrder->info['currency_value']),
-                                      'info' => '',
-                                      'value' => $cod_cost);
+                    $this->output[] = ['title' => $this->title . ':', 'text' => $oCurrencies->format($cod_cost, true, $oOrder->info['currency'], $oOrder->info['currency_value']), 'info' => '', 'value' => $cod_cost];
                 }
             } else {
                 //Following code should be improved if we can't get the shipping modules disabled, who don't allow COD
@@ -133,11 +127,11 @@ class ot_cod_fee
 
             //check if payment method is cod. If yes, check if cod is possible.
             if (isset($_SESSION['payment'])  && ($_SESSION['payment'] == 'cod')) {
-                $shipping_array = explode('_', $_SESSION['shipping']['id']);
+                $shipping_array = explode('_', (string) $_SESSION['shipping']['id']);
                 $shipping_code = strtoupper(array_shift($shipping_array));
                 $shipping_code = 'FEE_' . $shipping_code;
                 if (defined('MODULE_ORDER_TOTAL_COD_'. $shipping_code)) {
-                    $cod_zones = preg_split("/[:,]/", constant('MODULE_ORDER_TOTAL_COD_'. $shipping_code));
+                    $cod_zones = preg_split("/[:,]/", (string) constant('MODULE_ORDER_TOTAL_COD_'. $shipping_code));
 
                     if (!is_object($oOrder)) {
                         $dest_country = isset($_SESSION['delivery_zone']) ? oos_prepare_input($_SESSION['delivery_zone']) : STORE_ORIGIN_COUNTRY;
@@ -145,7 +139,7 @@ class ot_cod_fee
                         $dest_country = $oOrder->delivery['country']['iso_code_2'];
                     }
 
-                    for ($i = 0; $i < count($cod_zones); $i++) {
+                    for ($i = 0; $i < (is_countable($cod_zones) ? count($cod_zones) : 0); $i++) {
                         if ($cod_zones[$i] == $dest_country) {
                             $cod_cost = $cod_zones[$i + 1];
                             $cod_country = true;
@@ -175,16 +169,10 @@ class ot_cod_fee
                     $_SESSION['cart']->info['tax_groups']["$cod_tax_description"] += oos_calculate_tax($cod_cost, $cod_tax);
                     $_SESSION['cart']->info['total'] += $cod_cost + oos_calculate_tax($cod_cost, $cod_tax);
 
-                    $this->output[] = array('title' => $this->title . ':',
-                                          'text' => $oCurrencies->format(oos_add_tax($cod_cost, $cod_tax), true, $currency, $currency_value),
-                                          'info' => '',
-                                          'value' => oos_add_tax($cod_cost, $cod_tax));
+                    $this->output[] = ['title' => $this->title . ':', 'text' => $oCurrencies->format(oos_add_tax($cod_cost, $cod_tax), true, $currency, $currency_value), 'info' => '', 'value' => oos_add_tax($cod_cost, $cod_tax)];
                 } else {
                     $_SESSION['cart']->info['total'] += $cod_cost;
-                    $this->output[] = array('title' => $this->title . ':',
-                                          'text' => $oCurrencies->format($cod_cost, true, $currency, $currency_value),
-                                          'info' => '',
-                                          'value' => $cod_cost);
+                    $this->output[] = ['title' => $this->title . ':', 'text' => $oCurrencies->format($cod_cost, true, $currency, $currency_value), 'info' => '', 'value' => $cod_cost];
                 }
             } else {
                 //Following code should be improved if we can't get the shipping modules disabled, who don't allow COD
@@ -207,7 +195,7 @@ class ot_cod_fee
 
     public function keys()
     {
-        return array('MODULE_ORDER_TOTAL_COD_STATUS', 'MODULE_ORDER_TOTAL_COD_SORT_ORDER', 'MODULE_ORDER_TOTAL_COD_FEE_FLAT', 'MODULE_ORDER_TOTAL_COD_FEE_ITEM', 'MODULE_ORDER_TOTAL_COD_FEE_TABLE', 'MODULE_ORDER_TOTAL_COD_FEE_ZONES', 'MODULE_ORDER_TOTAL_COD_FEE_AP', 'MODULE_ORDER_TOTAL_COD_FEE_DP', 'MODULE_ORDER_TOTAL_COD_TAX_CLASS');
+        return ['MODULE_ORDER_TOTAL_COD_STATUS', 'MODULE_ORDER_TOTAL_COD_SORT_ORDER', 'MODULE_ORDER_TOTAL_COD_FEE_FLAT', 'MODULE_ORDER_TOTAL_COD_FEE_ITEM', 'MODULE_ORDER_TOTAL_COD_FEE_TABLE', 'MODULE_ORDER_TOTAL_COD_FEE_ZONES', 'MODULE_ORDER_TOTAL_COD_FEE_AP', 'MODULE_ORDER_TOTAL_COD_FEE_DP', 'MODULE_ORDER_TOTAL_COD_TAX_CLASS'];
     }
 
     public function install()

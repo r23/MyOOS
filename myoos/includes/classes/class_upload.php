@@ -37,7 +37,7 @@ class upload
     public $message_location;
 
 
-    public function __construct($file = '', $destination = '', $permissions = '644', $extensions = array('jpg', 'jpeg', 'gif', 'png', 'eps', 'cdr', 'ai', 'pdf', 'tif', 'tiff', 'bmp'))
+    public function __construct($file = '', $destination = '', $permissions = '644', $extensions = ['jpg', 'jpeg', 'gif', 'png', 'eps', 'cdr', 'ai', 'pdf', 'tif', 'tiff', 'bmp'])
     {
         $this->set_file($file);
         $this->set_destination($destination);
@@ -65,15 +65,12 @@ class upload
         $file = [];
 
         if (isset($_FILES[$this->file])) {
-            $file = array('name' => $_FILES[$this->file]['name'],
-                      'type' => $_FILES[$this->file]['type'],
-                      'size' => $_FILES[$this->file]['size'],
-                      'tmp_name' => $_FILES[$this->file]['tmp_name']);
+            $file = ['name' => $_FILES[$this->file]['name'], 'type' => $_FILES[$this->file]['type'], 'size' => $_FILES[$this->file]['size'], 'tmp_name' => $_FILES[$this->file]['tmp_name']];
         }
 
 
         if (isset($file['tmp_name']) && oos_is_not_null($file['tmp_name']) && ($file['tmp_name'] != 'none') && is_uploaded_file($file['tmp_name'])) {
-            if (oos_is_not_null($file['size']) and ($file['size'] > 2048000)) {
+            if (oos_is_not_null($file['size']) and ($file['size'] > 2_048_000)) {
                 if ($this->message_location == 'direct') {
                     $oMessage->add('upload', $aLang['error_file_too_big'], 'error');
                 } else {
@@ -83,7 +80,7 @@ class upload
             }
 
             if (sizeof($this->extensions) > 0) {
-                if (!in_array(strtolower(substr($file['name'], strrpos($file['name'], '.')+1)), $this->extensions)) {
+                if (!in_array(strtolower(substr((string) $file['name'], strrpos((string) $file['name'], '.')+1)), $this->extensions)) {
                     if ($this->message_location == 'direct') {
                         $oMessage->add('upload', $aLang['error_filetype_not_allowed'], 'error');
                     } else {
@@ -112,7 +109,7 @@ class upload
     {
         global $oMessage, $aLang;
 
-        if (substr($this->destination, -1) != '/') {
+        if (!str_ends_with((string) $this->destination, '/')) {
             $this->destination .= '/';
         }
 
@@ -145,7 +142,7 @@ class upload
 
     public function set_permissions($permissions)
     {
-        $this->permissions = octdec($permissions);
+        $this->permissions = octdec((string) $permissions);
     }
 
     public function set_filename($filename)
@@ -164,7 +161,7 @@ class upload
             if (is_array($extensions)) {
                 $this->extensions = $extensions;
             } else {
-                $this->extensions = array($extensions);
+                $this->extensions = [$extensions];
             }
         } else {
             $this->extensions = [];
@@ -198,14 +195,9 @@ class upload
 
     public function set_output_messages($location)
     {
-        switch ($location) {
-        case 'session':
-            $this->message_location = 'session';
-            break;
-        case 'direct':
-        default:
-            $this->message_location = 'direct';
-            break;
-        }
+        $this->message_location = match ($location) {
+            'session' => 'session',
+            default => 'direct',
+        };
     }
 }

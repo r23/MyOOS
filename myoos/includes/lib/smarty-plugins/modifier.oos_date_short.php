@@ -48,12 +48,12 @@ function smarty_modifier_oos_date_short($raw_date)
         return false;
     }
 
-    $year = substr($raw_date, 0, 4);
-    $month = (int)substr($raw_date, 5, 2);
-    $day = (int)substr($raw_date, 8, 2);
-    $hour = (int)substr($raw_date, 11, 2);
-    $minute = (int)substr($raw_date, 14, 2);
-    $second = (int)substr($raw_date, 17, 2);
+    $year = substr((string) $raw_date, 0, 4);
+    $month = (int)substr((string) $raw_date, 5, 2);
+    $day = (int)substr((string) $raw_date, 8, 2);
+    $hour = (int)substr((string) $raw_date, 11, 2);
+    $minute = (int)substr((string) $raw_date, 14, 2);
+    $second = (int)substr((string) $raw_date, 17, 2);
 
     if (@date('Y', mktime($hour, $minute, $second, $month, $day, $year)) == $year) {
         return date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));

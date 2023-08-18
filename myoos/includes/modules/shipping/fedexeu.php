@@ -94,8 +94,7 @@ class fedexeu
             }
         }
 
-        $this->types = array('PAK' => 'FedEx Pak',
-                         'BOX' => 'FedEx Box');
+        $this->types = ['PAK' => 'FedEx Pak', 'BOX' => 'FedEx Box'];
 
         // CUSTOMIZE THIS SETTING FOR THE NUMBER OF ZONES NEEDED
         $this->num_fedexeu = 8;
@@ -118,7 +117,7 @@ class fedexeu
 
         for ($j=1; $j<=$this->num_fedexeu; $j++) {
             $countries_table = constant('MODULE_SHIPPING_FEDEXEU_COUNTRIES_' . $j);
-            $country_zones = preg_split("/[,]/", $countries_table);
+            $country_zones = preg_split("/[,]/", (string) $countries_table);
             if (in_array($dest_country, $country_zones)) {
                 $dest_zone = $j;
                 break;
@@ -135,9 +134,9 @@ class fedexeu
             $methods = [];
 
             if ($fedexeu_cost_pak != '') {
-                $fedexeu_table_pak = preg_split("/[:,]/", $fedexeu_cost_pak);
+                $fedexeu_table_pak = preg_split("/[:,]/", (string) $fedexeu_cost_pak);
 
-                for ($i=0; $i<count($fedexeu_table_pak); $i+=2) {
+                for ($i=0; $i<(is_countable($fedexeu_table_pak) ? count($fedexeu_table_pak) : 0); $i+=2) {
                     if ($shipping_weight <= $fedexeu_table_pak[$i]) {
                         $shipping_pak = $fedexeu_table_pak[$i+1];
                         break;
@@ -152,22 +151,20 @@ class fedexeu
                 }
 
                 if ($shipping_pak != 0) {
-                    $methods[] = array('id' => 'PAK',
-                             'title' => 'FedEx Pak',
-                             'cost' => (MODULE_SHIPPING_FEDEXEU_HANDLING + $shipping_cost_1) * $shipping_num_boxes);
+                    $methods[] = ['id' => 'PAK', 'title' => 'FedEx Pak', 'cost' => (MODULE_SHIPPING_FEDEXEU_HANDLING + $shipping_cost_1) * $shipping_num_boxes];
                 }
             }
 
             if ($fedexeu_cost_box != '') {
-                $fedexeu_table_box = preg_split("/[:,]/", $fedexeu_cost_box);
+                $fedexeu_table_box = preg_split("/[:,]/", (string) $fedexeu_cost_box);
                 if (($shipping_weight > 10) and ($shipping_weight <= 20)) {
-                    $shipping_box = number_format((($shipping_weight - 10)* 2 + 0.5), 0) * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_' .$j) + $fedexeu_table_box[count($fedexeu_table_box)-1];
+                    $shipping_box = number_format((($shipping_weight - 10)* 2 + 0.5), 0) * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_' .$j) + $fedexeu_table_box[(is_countable($fedexeu_table_box) ? count($fedexeu_table_box) : 0)-1];
                 } elseif (($shipping_weight > 20) and ($shipping_weight <= 40)) {
-                    $shipping_box = number_format((($shipping_weight - 20)* 2 + 0.5), 0) * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_' .$j) + 20 * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_' .$j) + $fedexeu_table_box[count($fedexeu_table_box)-1];
+                    $shipping_box = number_format((($shipping_weight - 20)* 2 + 0.5), 0) * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_' .$j) + 20 * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_' .$j) + $fedexeu_table_box[(is_countable($fedexeu_table_box) ? count($fedexeu_table_box) : 0)-1];
                 } elseif (($shipping_weight > 40) and ($shipping_weight <= 70)) {
-                    $shipping_box = number_format((($shipping_weight - 40)* 2 + 0.5), 0) * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_' .$j) + 20 * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_' .$j) + 40 * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_' .$j) + $fedexeu_table_box[count($fedexeu_table_box)-1];
+                    $shipping_box = number_format((($shipping_weight - 40)* 2 + 0.5), 0) * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_' .$j) + 20 * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_' .$j) + 40 * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_' .$j) + $fedexeu_table_box[(is_countable($fedexeu_table_box) ? count($fedexeu_table_box) : 0)-1];
                 } else {
-                    for ($i=0; $i<count($fedexeu_table_box); $i+=2) {
+                    for ($i=0; $i<(is_countable($fedexeu_table_box) ? count($fedexeu_table_box) : 0); $i+=2) {
                         if ($shipping_weight <= $fedexeu_table_box[$i]) {
                             $shipping_box = $fedexeu_table_box[$i+1];
                             break;
@@ -183,15 +180,12 @@ class fedexeu
                 }
 
                 if ($shipping_box != 0) {
-                    $methods[] = array('id' => 'BOX',
-                             'title' => 'FedEx Box',
-                             'cost' => (MODULE_SHIPPING_FEDEXEU_HANDLING + $shipping_cost_2) * $shipping_num_boxes);
+                    $methods[] = ['id' => 'BOX', 'title' => 'FedEx Box', 'cost' => (MODULE_SHIPPING_FEDEXEU_HANDLING + $shipping_cost_2) * $shipping_num_boxes];
                 }
             }
         }
 
-        $this->quotes = array('id' => $this->code,
-                          'module' => $this->title . ' (' . $shipping_num_boxes . ' x ' . $shipping_weight . ' ' . $aLang['module_shipping_fedexeu_text_units'] .')');
+        $this->quotes = ['id' => $this->code, 'module' => $this->title . ' (' . $shipping_num_boxes . ' x ' . $shipping_weight . ' ' . $aLang['module_shipping_fedexeu_text_units'] .')'];
 
         $this->quotes['methods'] = $methods;
 
@@ -207,9 +201,7 @@ class fedexeu
             for ($i=0; $i<count($methods); $i++) {
                 if ($method == $methods[$i]['id']) {
                     $methodsc = [];
-                    $methodsc[] = array('id' => $methods[$i]['id'],
-                              'title' => $methods[$i]['title'],
-                              'cost' => $methods[$i]['cost']);
+                    $methodsc[] = ['id' => $methods[$i]['id'], 'title' => $methods[$i]['title'], 'cost' => $methods[$i]['cost']];
                     break;
                 }
             }
@@ -308,7 +300,7 @@ class fedexeu
 
     public function keys()
     {
-        $keys = array('MODULE_SHIPPING_FEDEXEU_STATUS', 'MODULE_SHIPPING_FEDEXEU_HANDLING', 'MODULE_SHIPPING_FEDEXEU_ZONE', 'MODULE_SHIPPING_FEDEXEU_SORT_ORDER');
+        $keys = ['MODULE_SHIPPING_FEDEXEU_STATUS', 'MODULE_SHIPPING_FEDEXEU_HANDLING', 'MODULE_SHIPPING_FEDEXEU_ZONE', 'MODULE_SHIPPING_FEDEXEU_SORT_ORDER'];
 
         for ($i = 1; $i <= $this->num_fedexeu; $i ++) {
             $keys[count($keys)] = 'MODULE_SHIPPING_FEDEXEU_COUNTRIES_' . $i;

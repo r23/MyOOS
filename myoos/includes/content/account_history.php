@@ -76,12 +76,7 @@ if ($history_result->RecordCount()) {
               FROM $orders_productstable
               WHERE orders_id = '" . intval($history['orders_id']) . "'";
         $products = $dbconn->Execute($sql);
-        $aHistory[] = array('orders_id' => $history['orders_id'],
-                          'orders_status_name' => $history['orders_status_name'],
-                          'date_purchased' => $history['date_purchased'],
-                          'delivery_name' =>  $history['delivery_name'],
-                          'products_total' => $products->fields['total'],
-                          'order_total' => strip_tags($history['order_total']));
+        $aHistory[] = ['orders_id' => $history['orders_id'], 'orders_status_name' => $history['orders_status_name'], 'date_purchased' => $history['date_purchased'], 'delivery_name' =>  $history['delivery_name'], 'products_total' => $products->fields['total'], 'order_total' => strip_tags((string) $history['order_total'])];
         // Move that ADOdb pointer!
         $history_result->MoveNext();
     }
@@ -104,20 +99,7 @@ if (!isset($option)) {
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-        'breadcrumb'        => $oBreadcrumb->trail(),
-        'heading_title'        => $aLang['heading_title'],
-        'robots'            => 'noindex,nofollow,noodp,noydir',
-
-        'account_active'    => 1,
-        'page_split'           => $history_split->display_count($aLang['text_display_number_of_orders']),
-        'display_links'     => $history_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-        'numrows'             => $history_split->number_of_rows,
-        'numpages'             => $history_split->number_of_pages,
-
-        'page'                => $nPage,
-        'history'             => $aHistory
-    )
+    ['breadcrumb'        => $oBreadcrumb->trail(), 'heading_title'        => $aLang['heading_title'], 'robots'            => 'noindex,nofollow,noodp,noydir', 'account_active'    => 1, 'page_split'           => $history_split->display_count($aLang['text_display_number_of_orders']), 'display_links'     => $history_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(['page', 'info'])), 'numrows'             => $history_split->number_of_rows, 'numpages'             => $history_split->number_of_pages, 'page'                => $nPage, 'history'             => $aHistory]
 );
 // register the outputfilter
 $smarty->loadFilter('output', 'trimwhitespace');

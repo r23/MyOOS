@@ -194,10 +194,10 @@ class Error extends PayPalModel
     public function addDetail($errorDetails)
     {
         if (!$this->getDetails()) {
-            return $this->setDetails(array($errorDetails));
+            return $this->setDetails([$errorDetails]);
         } else {
             return $this->setDetails(
-                array_merge($this->getDetails(), array($errorDetails))
+                array_merge($this->getDetails(), [$errorDetails])
             );
         }
     }
@@ -211,7 +211,7 @@ class Error extends PayPalModel
     public function removeDetail($errorDetails)
     {
         return $this->setDetails(
-            array_diff($this->getDetails(), array($errorDetails))
+            array_diff($this->getDetails(), [$errorDetails])
         );
     }
 
@@ -297,10 +297,10 @@ class Error extends PayPalModel
     public function addLink($links)
     {
         if (!$this->getLinks()) {
-            return $this->setLinks(array($links));
+            return $this->setLinks([$links]);
         } else {
             return $this->setLinks(
-                array_merge($this->getLinks(), array($links))
+                array_merge($this->getLinks(), [$links])
             );
         }
     }
@@ -314,7 +314,7 @@ class Error extends PayPalModel
     public function removeLink($links)
     {
         return $this->setLinks(
-            array_diff($this->getLinks(), array($links))
+            array_diff($this->getLinks(), [$links])
         );
     }
 }

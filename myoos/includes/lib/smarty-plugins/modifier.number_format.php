@@ -19,7 +19,7 @@
  */
 function smarty_modifier_number_format($number)
 {
-    if (($number < 10) && (substr($number, 0, 1) != '0')) {
+    if (($number < 10) && (!str_starts_with((string) $number, '0'))) {
         $number = '0' . $number;
     }
 

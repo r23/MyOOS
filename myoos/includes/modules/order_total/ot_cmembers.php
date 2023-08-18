@@ -56,10 +56,7 @@ class ot_cmembers
         $od_amount = $this->calculate_credit($this->get_order_total());
         if ($od_amount>0) {
             $this->deduction = $od_amount;
-            $this->output[] = array('title' => '<span class="otDiscount">- ' . $this->title . ' ('. number_format($this->percentage, 2) .'%):</span>',
-                              'text' => '<strong><span class="otDiscount">' . $oCurrencies->format($od_amount) . '</span></strong>',
-                              'info' => '',
-                              'value' => $od_amount);
+            $this->output[] = ['title' => '<span class="otDiscount">- ' . $this->title . ' ('. number_format($this->percentage, 2) .'%):</span>', 'text' => '<strong><span class="otDiscount">' . $oCurrencies->format($od_amount) . '</span></strong>', 'info' => '', 'value' => $od_amount];
             $oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
         }
     }
@@ -71,10 +68,7 @@ class ot_cmembers
         $od_amount = $this->calculate_credit($this->get_order_total());
         if ($od_amount>0) {
             $this->deduction = $od_amount;
-            $this->output[] = array('title' => '<span class="otDiscount">- ' . $this->title . ' ('. number_format($this->percentage, 2) .'%):</span>',
-                                  'text' => '<strong><span class="otDiscount">' . $oCurrencies->format($od_amount) . '</span></strong>',
-                                  'info' => '',
-                                  'value' => $od_amount);
+            $this->output[] = ['title' => '<span class="otDiscount">- ' . $this->title . ' ('. number_format($this->percentage, 2) .'%):</span>', 'text' => '<strong><span class="otDiscount">' . $oCurrencies->format($od_amount) . '</span></strong>', 'info' => '', 'value' => $od_amount];
             $_SESSION['cart']->info['total'] = $_SESSION['cart']->info['total'] - $od_amount;
         }
     }
@@ -112,7 +106,7 @@ class ot_cmembers
         $order_total = $oOrder->info['total'];
         // Check if gift voucher is in cart and adjust total
         $products = $_SESSION['cart']->get_products();
-        for ($i=0; $i<count($products); $i++) {
+        for ($i=0; $i<(is_countable($products) ? count($products) : 0); $i++) {
             $t_prid = oos_get_product_id($products[$i]['id']);
 
             // Get database information
@@ -126,7 +120,7 @@ class ot_cmembers
             $gv_result = $dbconn->GetRow($query);
 
 
-            if (preg_match('/^GIFT/', addslashes($gv_result['products_model']))) {
+            if (preg_match('/^GIFT/', addslashes((string) $gv_result['products_model']))) {
                 $qty = $_SESSION['cart']->get_quantity($t_prid);
                 $products_tax = oos_get_tax_rate($gv_result['products_tax_class_id']);
                 if ($this->include_tax =='false') {
@@ -158,7 +152,7 @@ class ot_cmembers
 
     public function keys()
     {
-        return array('MODULE_CMEMBERS_STATUS', 'MODULE_CMEMBERS_SORT_ORDER', 'MODULE_CMEMBERS_CART_COUNT', 'MODULE_CMEMBERS_OT_DISCOUNT', 'MODULE_CMEMBERS_INC_SHIPPING', 'MODULE_CMEMBERS_INC_TAX', 'MODULE_CMEMBERS_CALC_TAX');
+        return ['MODULE_CMEMBERS_STATUS', 'MODULE_CMEMBERS_SORT_ORDER', 'MODULE_CMEMBERS_CART_COUNT', 'MODULE_CMEMBERS_OT_DISCOUNT', 'MODULE_CMEMBERS_INC_SHIPPING', 'MODULE_CMEMBERS_INC_TAX', 'MODULE_CMEMBERS_CALC_TAX'];
     }
 
     public function install()

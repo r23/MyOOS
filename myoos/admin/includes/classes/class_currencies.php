@@ -42,13 +42,7 @@ class currencies
         $result = $dbconn->Execute($query);
 
         while ($currencies = $result->fields) {
-            $this->currencies[$currencies['code']] = array('title' => $currencies['title'],
-                                                     'symbol_left' => $currencies['symbol_left'],
-                                                     'symbol_right' => $currencies['symbol_right'],
-                                                     'decimal_point' => $currencies['decimal_point'],
-                                                     'thousands_point' => $currencies['thousands_point'],
-                                                     'decimal_places' => (int)$currencies['decimal_places'],
-                                                     'value' => $currencies['value']);
+            $this->currencies[$currencies['code']] = ['title' => $currencies['title'], 'symbol_left' => $currencies['symbol_left'], 'symbol_right' => $currencies['symbol_right'], 'decimal_point' => $currencies['decimal_point'], 'thousands_point' => $currencies['thousands_point'], 'decimal_places' => (int)$currencies['decimal_places'], 'value' => $currencies['value']];
             // Move that ADOdb pointer!
             $result->MoveNext();
         }

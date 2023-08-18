@@ -55,8 +55,8 @@ class cash
     public function __construct()
     {
         global $oOrder, $aLang;
-        $this->title = isset($aLang['module_payment_cash_text_title']) ? $aLang['module_payment_cash_text_title'] : '';
-        $this->description = isset($aLang['module_payment_cash_text_description']) ? $aLang['module_payment_cash_text_description'] : '';
+        $this->title = $aLang['module_payment_cash_text_title'] ?? '';
+        $this->description = $aLang['module_payment_cash_text_description'] ?? '';
 
         $this->enabled = (defined('MODULE_PAYMENT_CASH_STATUS') && (MODULE_PAYMENT_CASH_STATUS == 'true') ? true : false);
         $this->sort_order = (defined('MODULE_PAYMENT_CASH_SORT_ORDER') ? MODULE_PAYMENT_CASH_SORT_ORDER : null);
@@ -127,8 +127,7 @@ class cash
 
     public function selection()
     {
-        return array('id' => $this->code,
-                   'module' => $this->title);
+        return ['id' => $this->code, 'module' => $this->title];
     }
 
     public function pre_confirmation_check()
@@ -197,6 +196,6 @@ class cash
 
     public function keys()
     {
-        return array('MODULE_PAYMENT_CASH_STATUS', 'MODULE_PAYMENT_CASH_ZONE', 'MODULE_PAYMENT_CASH_ORDER_STATUS_ID', 'MODULE_PAYMENT_CASH_SORT_ORDER');
+        return ['MODULE_PAYMENT_CASH_STATUS', 'MODULE_PAYMENT_CASH_ZONE', 'MODULE_PAYMENT_CASH_ORDER_STATUS_ID', 'MODULE_PAYMENT_CASH_SORT_ORDER'];
     }
 }

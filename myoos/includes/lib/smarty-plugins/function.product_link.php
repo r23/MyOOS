@@ -34,7 +34,7 @@ function smarty_function_product_link($params, &$smarty)
 
     $result = [];
     $link_params = [];
-    $link_params = array('content' => $aContents['product_info']);
+    $link_params = ['content' => $aContents['product_info']];
 
     if (is_array($params)) {
         $result = array_merge($link_params, $params);

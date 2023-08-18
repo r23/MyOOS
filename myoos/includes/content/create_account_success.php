@@ -44,7 +44,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/create
 $oBreadcrumb->add($aLang['navbar_title_1']);
 $oBreadcrumb->add($aLang['navbar_title_2']);
 
-if (count($_SESSION['navigation']->snapshot) > 0) {
+if ((is_countable($_SESSION['navigation']->snapshot) ? count($_SESSION['navigation']->snapshot) : 0) > 0) {
     $origin_href = oos_href_link($_SESSION['navigation']->snapshot['content'], $_SESSION['navigation']->snapshot['get']);
     $_SESSION['navigation']->clear_snapshot();
 } else {
@@ -66,13 +66,7 @@ $smarty->assign('thank_you', sprintf($aLang['text_main'], oos_href_link($aConten
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-        'breadcrumb'    => $oBreadcrumb->trail(),
-        'heading_title' => $aLang['heading_title'],
-        'robots'        => 'noindex,follow,noodp,noydir',
-
-        'origin_href' => $origin_href
-      )
+    ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title' => $aLang['heading_title'], 'robots'        => 'noindex,follow,noodp,noydir', 'origin_href' => $origin_href]
 );
 
 

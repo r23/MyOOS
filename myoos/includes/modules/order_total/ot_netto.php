@@ -57,10 +57,7 @@ class ot_netto
         $netto = $oOrder->info['total']-$tax_total;
 
         // output net amount:
-        $this->output[] = array('title' => '(' . $this->title . ':',
-                      'text' => $oCurrencies->format($netto, true, $oOrder->info['currency'], $oOrder->info['currency_value']) . ')',
-                      'info' => '',
-                      'value' => $netto);
+        $this->output[] = ['title' => '(' . $this->title . ':', 'text' => $oCurrencies->format($netto, true, $oOrder->info['currency'], $oOrder->info['currency_value']) . ')', 'info' => '', 'value' => $netto];
     }
 
 
@@ -85,10 +82,7 @@ class ot_netto
         $currency = $_SESSION['currency'];
         $currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
 
-        $this->output[] = array('title' => '(' . $this->title . ':',
-                              'text' => $oCurrencies->format($netto, true, $currency, $currency_value) . ')',
-                              'info' => '',
-                              'value' => $netto);
+        $this->output[] = ['title' => '(' . $this->title . ':', 'text' => $oCurrencies->format($netto, true, $currency, $currency_value) . ')', 'info' => '', 'value' => $netto];
     }
 
 
@@ -103,7 +97,7 @@ class ot_netto
 
     public function keys()
     {
-        return array('MODULE_ORDER_TOTAL_NETTO_STATUS', 'MODULE_ORDER_TOTAL_NETTO_SORT_ORDER');
+        return ['MODULE_ORDER_TOTAL_NETTO_STATUS', 'MODULE_ORDER_TOTAL_NETTO_SORT_ORDER'];
     }
 
     public function install()

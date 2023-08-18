@@ -80,11 +80,7 @@ class nav_menu
         $this->data = [];
 
         while ($categories = $categories_result->fields) {
-            $this->data[$categories['parent_id']][$categories['categories_id']] = array('name' => $categories['categories_name'],
-                                                                                        'banner' => $categories['categories_banner'],
-                                                                                        'color' => $categories['color'],
-                                                                                        'menu_type' => $categories['menu_type'],
-                                                                                        'count' => 0);
+            $this->data[$categories['parent_id']][$categories['categories_id']] = ['name' => $categories['categories_name'], 'banner' => $categories['categories_banner'], 'color' => $categories['color'], 'menu_type' => $categories['menu_type'], 'count' => 0];
 
 
             // Move that ADOdb pointer!
@@ -298,7 +294,7 @@ class nav_menu
     public function setCategoryPath($cpath, $cpath_start_string = '', $cpath_end_string = '')
     {
         $this->follow_cpath = true;
-        $this->cpath_array = explode($this->breadcrumb_separator, $cpath);
+        $this->cpath_array = explode($this->breadcrumb_separator, (string) $cpath);
         $this->cpath_start_string = $cpath_start_string;
         $this->cpath_end_string = $cpath_end_string;
     }

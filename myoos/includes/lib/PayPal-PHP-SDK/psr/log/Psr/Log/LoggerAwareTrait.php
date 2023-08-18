@@ -17,7 +17,6 @@ trait LoggerAwareTrait
     /**
      * Sets a logger.
      *
-     * @param LoggerInterface $logger
      */
     public function setLogger(LoggerInterface $logger)
     {

@@ -55,7 +55,7 @@ function smarty_function_html_href_link($params, &$smarty)
 
         case 'content':
             if (!is_array($_val)) {
-                $$_key = smarty_function_escape_special_chars($_val);
+                ${$_key} = smarty_function_escape_special_chars($_val);
             } else {
                 throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
             }
@@ -65,7 +65,7 @@ function smarty_function_html_href_link($params, &$smarty)
         case 'addentry_id':
         case 'add_session_id':
         case 'search_engine_safe':
-            $$_key = (string)$_val;
+            ${$_key} = (string)$_val;
             break;
 
         case 'anchor':
@@ -106,8 +106,8 @@ function smarty_function_html_href_link($params, &$smarty)
 
     $separator = '&amp;';
 
-    while ((substr($link, -5) == '&amp;') || (substr($link, -1) == '?')) {
-        if (substr($link, -1) == '?') {
+    while ((str_ends_with($link, '&amp;')) || (str_ends_with($link, '?'))) {
+        if (str_ends_with($link, '?')) {
             $link = substr($link, 0, -1);
         } else {
             $link = substr($link, 0, -5);
@@ -135,7 +135,7 @@ function smarty_function_html_href_link($params, &$smarty)
 
 
     if (($search_engine_safe == 'true') &&  $oEvent->installed_plugin('sefu')) {
-        $link = str_replace(array('?', '&amp;', '='), '/', $link);
+        $link = str_replace(['?', '&amp;', '='], '/', $link);
 
         $separator = '?';
 

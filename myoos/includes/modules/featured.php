@@ -93,24 +93,7 @@ if ($featured_result->RecordCount() >= 1) {
         $aCategoryPath = [];
         $aCategoryPath = oos_get_category_path($featured['products_id']);
 
-        $aFeatured[] = array('products_id' => $featured['products_id'],
-                            'products_image' => $featured['products_image'],
-                            'products_name' => $featured['products_name'],
-                            'products_short_description' => $featured['products_short_description'],
-                            'products_path' => $aCategoryPath['path'],
-                            'categories_name' => $aCategoryPath['name'],
-                            'order_min' => $order_min,
-                            'order_max' => $order_max,
-                            'product_quantity' => $featured['products_product_quantity'],
-                            'products_base_price' => $featured['products_base_price'],
-                            'products_base_unit' => $featured['products_base_unit'],
-                            'products_units' => $featured['products_units_id'],
-                            'featured_until' => $featured_until,
-                            'featured_cross_out_price'    => $featured_cross_out_price,
-                            'featured_product_price_list' => $featured_price_list,
-                            'featured_product_price' => $featured_product_price,
-                            'featured_product_special_price' => $featured_product_special_price,
-                            'featured_base_product_price' => $featured_base_product_price);
+        $aFeatured[] = ['products_id' => $featured['products_id'], 'products_image' => $featured['products_image'], 'products_name' => $featured['products_name'], 'products_short_description' => $featured['products_short_description'], 'products_path' => $aCategoryPath['path'], 'categories_name' => $aCategoryPath['name'], 'order_min' => $order_min, 'order_max' => $order_max, 'product_quantity' => $featured['products_product_quantity'], 'products_base_price' => $featured['products_base_price'], 'products_base_unit' => $featured['products_base_unit'], 'products_units' => $featured['products_units_id'], 'featured_until' => $featured_until, 'featured_cross_out_price'    => $featured_cross_out_price, 'featured_product_price_list' => $featured_price_list, 'featured_product_price' => $featured_product_price, 'featured_product_special_price' => $featured_product_special_price, 'featured_base_product_price' => $featured_base_product_price];
         // Move that ADOdb pointer!
         $featured_result->MoveNext();
     }

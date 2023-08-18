@@ -48,12 +48,12 @@ function smarty_function_html_oos_image($params, &$smarty)
         switch ($_key) {
         case 'image':
         case 'basedir':
-            $$_key = $_val;
+            ${$_key} = $_val;
             break;
 
         case 'alt':
             if (!is_array($_val)) {
-                $$_key = smarty_function_escape_special_chars($_val);
+                ${$_key} = smarty_function_escape_special_chars($_val);
             } else {
                 throw new SmartyException("html_oos_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
             }

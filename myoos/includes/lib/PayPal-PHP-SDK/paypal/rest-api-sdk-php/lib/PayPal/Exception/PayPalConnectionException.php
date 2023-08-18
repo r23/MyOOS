@@ -10,13 +10,6 @@ namespace PayPal\Exception;
 class PayPalConnectionException extends \Exception
 {
     /**
-     * The url that was being connected to when the exception occured
-     *
-     * @var string
-     */
-    private $url;
-
-    /**
      * Any response data that was returned by the server
      *
      * @var string
@@ -30,10 +23,9 @@ class PayPalConnectionException extends \Exception
      * @param string    $message
      * @param int    $code
      */
-    public function __construct($url, $message, $code = 0)
+    public function __construct(private $url, $message, $code = 0)
     {
         parent::__construct($message, $code);
-        $this->url = $url;
     }
 
     /**

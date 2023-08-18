@@ -42,7 +42,7 @@ if (USE_CACHE == 'true') {
 if ($languages_result->RecordCount() >= 2) {
     $languages_block = true;
 
-    $lang_get_parameters = oos_get_all_get_parameters(array('language', 'currency'));
+    $lang_get_parameters = oos_get_all_get_parameters(['language', 'currency']);
     $lang_all_get_parameters = oos_remove_trailing($lang_get_parameters);
 
     $smarty->assign('languages_contents', $languages_result->GetArray());

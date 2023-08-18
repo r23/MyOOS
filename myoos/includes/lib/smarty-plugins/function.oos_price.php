@@ -49,7 +49,7 @@ function smarty_function_oos_price($params, &$smarty)
 
 
     foreach ($params as $_key => $_val) {
-        $$_key = smarty_function_escape_special_chars($_val);
+        ${$_key} = smarty_function_escape_special_chars($_val);
     }
 
     print $oCurrencies->display_price($price, $tax, $qty);

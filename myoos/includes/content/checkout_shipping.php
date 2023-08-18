@@ -54,7 +54,7 @@ if ($_SESSION['cart']->count_contents() < 1) {
 
 // Minimum Order Value
 if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
-    $minimum_order_value = str_replace(',', '.', MINIMUM_ORDER_VALUE);
+    $minimum_order_value = str_replace(',', '.', (string) MINIMUM_ORDER_VALUE);
     $subtotal = $_SESSION['cart']->info['subtotal'];
     if ($subtotal < $minimum_order_value) {
         oos_redirect(oos_href_link($aContents['shopping_cart']));
@@ -64,7 +64,7 @@ if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
 
 if (TAKE_BACK_OBLIGATION == 'true') {
     $products = $_SESSION['cart']->get_products();
-    $n = count($products);
+    $n = is_countable($products) ? count($products) : 0;
     for ($i=0, $n; $i<$n; $i++) {
         if (($products[$i]['old_electrical_equipment'] == 1) && ($products[$i]['return_free_of_charge'] == '')) {
             oos_redirect(oos_href_link($aContents['shopping_cart']));
@@ -178,11 +178,11 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
     $_SESSION['comments'] = isset($_SESSION['comments']) ? oos_db_prepare_input($_SESSION['comments']) : '';
 
     if ((oos_count_shipping_modules() > 0) || ($free_shipping == true)) {
-        if ((isset($_POST['shipping'])) && (strpos($_POST['shipping'], '_'))) {
+        if ((isset($_POST['shipping'])) && (strpos((string) $_POST['shipping'], '_'))) {
             $_SESSION['shipping'] = oos_db_prepare_input($_POST['shipping']);
 
-            list($module, $method) = explode('_', $_SESSION['shipping']);
-            if (is_object($$module) || ($_SESSION['shipping'] == 'free_free')) {
+            [$module, $method] = explode('_', (string) $_SESSION['shipping']);
+            if (is_object(${$module}) || ($_SESSION['shipping'] == 'free_free')) {
                 if ($_SESSION['shipping'] == 'free_free') {
                     $quote[0]['methods'][0]['title'] = $aLang['free_shipping_title'];
                     $quote[0]['methods'][0]['cost'] = '0';
@@ -197,9 +197,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
                         if (!empty($quote[0]['methods'][0]['title'])) {
                             $sWay = ' (' . $quote[0]['methods'][0]['title'] . ')';
                         }
-                        $_SESSION['shipping'] = array('id' => $quote[0]['id'] . '_' . $quote[0]['methods'][0]['id'],
-                                            'title' => (($free_shipping == true) ? $quote[0]['methods'][0]['title'] : $quote[0]['module'] . $sWay),
-                                            'cost' => $quote[0]['methods'][0]['cost']);
+                        $_SESSION['shipping'] = ['id' => $quote[0]['id'] . '_' . $quote[0]['methods'][0]['id'], 'title' => (($free_shipping == true) ? $quote[0]['methods'][0]['title'] : $quote[0]['module'] . $sWay), 'cost' => $quote[0]['methods'][0]['cost']];
 
                         oos_redirect(oos_href_link($aContents['checkout_payment']));
                     }
@@ -229,7 +227,7 @@ if (!isset($_SESSION['shipping']) || (!isset($_SESSION['shipping']['id']) || $_S
 */
 
 $shipping = isset($_SESSION['shipping']['id']) ? oos_db_prepare_input($_SESSION['shipping']['id']) : DEFAULT_SHIPPING_METHOD . '_' . DEFAULT_SHIPPING_METHOD;
-$module = substr($shipping, 0, strpos($shipping, '_'));
+$module = substr((string) $shipping, 0, strpos((string) $shipping, '_'));
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_shipping']));
@@ -250,20 +248,7 @@ if (!isset($option)) {
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-        'breadcrumb'        => $oBreadcrumb->trail(),
-        'heading_title'        => $aLang['heading_title'],
-        'robots'            => 'noindex,nofollow,noodp,noydir',
-        'checkout_active'    => 1,
-
-        'sess_method'        => $module,
-
-        'counts_shipping_modules' => oos_count_shipping_modules(),
-        'quotes'            => $quotes,
-
-        'free_shipping'        => $free_shipping,
-        'oos_free_shipping_description' => sprintf($aLang['free_shipping_description'], $oCurrencies->format(MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER))
-    )
+    ['breadcrumb'        => $oBreadcrumb->trail(), 'heading_title'        => $aLang['heading_title'], 'robots'            => 'noindex,nofollow,noodp,noydir', 'checkout_active'    => 1, 'sess_method'        => $module, 'counts_shipping_modules' => oos_count_shipping_modules(), 'quotes'            => $quotes, 'free_shipping'        => $free_shipping, 'oos_free_shipping_description' => sprintf($aLang['free_shipping_description'], $oCurrencies->format(MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER))]
 );
 
 // register the outputfilter

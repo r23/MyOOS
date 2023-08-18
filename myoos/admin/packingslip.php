@@ -113,13 +113,13 @@
                         </tr>    
                     </thead>
 <?php
-for ($i = 0, $n = count($order->products); $i < $n; $i++) {
+for ($i = 0, $n = is_countable($order->products) ? count($order->products) : 0; $i < $n; $i++) {
                     echo '      <tr class="dataTableRow">' . "\n" .
        '        <td class="dataTableContent" valign="top" align="right">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
        '        <td class="dataTableContent" valign="top">' . $order->products[$i]['name'];
 
-                    if (isset($order->products[$i]['attributes']) && (count($order->products[$i]['attributes']) > 0)) {
-                        for ($j = 0, $k = count($order->products[$i]['attributes']); $j < $k; $j++) {
+                    if (isset($order->products[$i]['attributes']) && ((is_countable($order->products[$i]['attributes']) ? count($order->products[$i]['attributes']) : 0) > 0)) {
+                        for ($j = 0, $k = is_countable($order->products[$i]['attributes']) ? count($order->products[$i]['attributes']) : 0; $j < $k; $j++) {
                             echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
                             echo '</i></small></nobr>';
                         }

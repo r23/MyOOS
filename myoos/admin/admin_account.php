@@ -62,11 +62,7 @@ if (!empty($action)) {
         if (in_array($_POST['admin_email_address'], $stored_email)) {
             oos_redirect_admin(oos_href_link_admin($aContents['admin_account'], 'action=edit_process&error=email'));
         } else {
-            $sql_data_array = array('admin_firstname' => oos_db_prepare_input($_POST['admin_firstname']),
-                                  'admin_lastname' => oos_db_prepare_input($_POST['admin_lastname']),
-                                  'admin_email_address' => oos_db_prepare_input($_POST['admin_email_address']),
-                                  'admin_password' => oos_encrypt_password(oos_db_prepare_input($_POST['admin_password'])),
-                                  'admin_modified' => 'now()');
+            $sql_data_array = ['admin_firstname' => oos_db_prepare_input($_POST['admin_firstname']), 'admin_lastname' => oos_db_prepare_input($_POST['admin_lastname']), 'admin_email_address' => oos_db_prepare_input($_POST['admin_email_address']), 'admin_password' => oos_encrypt_password(oos_db_prepare_input($_POST['admin_password'])), 'admin_modified' => 'now()'];
 
             oos_db_perform($oostable['admin'], $sql_data_array, 'UPDATE', 'admin_id = \'' . $admin_id . '\'');
 
@@ -235,31 +231,31 @@ if (!empty($action)) {
 
   switch ($action) {
     case 'edit_process':
-      $heading[] = array('text' => '<b>&nbsp;' . TEXT_INFO_HEADING_DEFAULT . '</b>');
+      $heading[] = ['text' => '<b>&nbsp;' . TEXT_INFO_HEADING_DEFAULT . '</b>'];
 
-      $contents[] = array('text' => TEXT_INFO_INTRO_EDIT_PROCESS . oos_draw_hidden_field('id_info', $myAccount['admin_id']));
+      $contents[] = ['text' => TEXT_INFO_INTRO_EDIT_PROCESS . oos_draw_hidden_field('id_info', $myAccount['admin_id'])];
       break;
 
     case 'check_account':
-      $heading[] = array('text' => '<b>&nbsp;' . TEXT_INFO_HEADING_CONFIRM_PASSWORD . '</b>');
+      $heading[] = ['text' => '<b>&nbsp;' . TEXT_INFO_HEADING_CONFIRM_PASSWORD . '</b>'];
 
-      $contents[] = array('text' => '&nbsp;' . TEXT_INFO_INTRO_CONFIRM_PASSWORD . oos_draw_hidden_field('id_info', $myAccount['admin_id']));
+      $contents[] = ['text' => '&nbsp;' . TEXT_INFO_INTRO_CONFIRM_PASSWORD . oos_draw_hidden_field('id_info', $myAccount['admin_id'])];
 
         if (isset($_GET['error'])) {
-            $contents[] = array('text' => '&nbsp;' . TEXT_INFO_INTRO_CONFIRM_PASSWORD_ERROR);
+            $contents[] = ['text' => '&nbsp;' . TEXT_INFO_INTRO_CONFIRM_PASSWORD_ERROR];
         }
-      $contents[] = array('align' => 'center', 'text' => oos_draw_password_field('password_confirmation'));
-      $contents[] = array('align' => 'center', 'text' => '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_account']) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a> ' . oos_submit_button(BUTTON_CONFIRM) . '<br>&nbsp');
+      $contents[] = ['align' => 'center', 'text' => oos_draw_password_field('password_confirmation')];
+      $contents[] = ['align' => 'center', 'text' => '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_account']) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a> ' . oos_submit_button(BUTTON_CONFIRM) . '<br>&nbsp'];
       break;
 
     default:
-      $heading[] = array('text' => '<b>&nbsp;' . TEXT_INFO_HEADING_DEFAULT . '</b>');
+      $heading[] = ['text' => '<b>&nbsp;' . TEXT_INFO_HEADING_DEFAULT . '</b>'];
 
-      $contents[] = array('text' => TEXT_INFO_INTRO_DEFAULT);
+      $contents[] = ['text' => TEXT_INFO_INTRO_DEFAULT];
       if ($myAccount['admin_email_address'] == 'none@none.com') {
-          $contents[] = array('text' => sprintf(TEXT_INFO_INTRO_DEFAULT_FIRST, $myAccount['admin_firstname']) . '<br>&nbsp');
+          $contents[] = ['text' => sprintf(TEXT_INFO_INTRO_DEFAULT_FIRST, $myAccount['admin_firstname']) . '<br>&nbsp'];
       } elseif (($myAccount['admin_modified'] == '0000-00-00 00:00:00') || ($myAccount['admin_logdate'] <= 1)) {
-          $contents[] = array('text' => sprintf(TEXT_INFO_INTRO_DEFAULT_FIRST_TIME, $myAccount['admin_firstname']) . '<br>&nbsp');
+          $contents[] = ['text' => sprintf(TEXT_INFO_INTRO_DEFAULT_FIRST_TIME, $myAccount['admin_firstname']) . '<br>&nbsp'];
       }
 
   }

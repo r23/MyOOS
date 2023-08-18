@@ -11,16 +11,13 @@ namespace PayPal\Security;
  */
 class Cipher
 {
-    private $secretKey;
-
     /**
      * Fixed IV Size
      */
-    const IV_SIZE = 16;
+    final public const IV_SIZE = 16;
 
-    public function __construct($secretKey)
+    public function __construct(private $secretKey)
     {
-        $this->secretKey = $secretKey;
     }
 
     /**
@@ -48,7 +45,7 @@ class Cipher
     public function decrypt($input)
     {
         // Decode the IV + data
-        $input = base64_decode($input);
+        $input = base64_decode((string) $input);
         // Remove the IV
         $iv = substr($input, 0, Cipher::IV_SIZE);
         // Return Decrypted Data

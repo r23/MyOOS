@@ -43,10 +43,7 @@ class ot_subtotal
     {
         global $oOrder, $oCurrencies;
 
-        $this->output[] = array('title' => $this->title . ':',
-                            'text' => $oCurrencies->format($oOrder->info['subtotal'], true, $oOrder->info['currency'], $oOrder->info['currency_value']),
-                            'info' => '',
-                            'value' => $oOrder->info['subtotal']);
+        $this->output[] = ['title' => $this->title . ':', 'text' => $oCurrencies->format($oOrder->info['subtotal'], true, $oOrder->info['currency'], $oOrder->info['currency_value']), 'info' => '', 'value' => $oOrder->info['subtotal']];
     }
 
 
@@ -57,10 +54,7 @@ class ot_subtotal
         $currency = $_SESSION['currency'];
         $currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
 
-        $this->output[] = array('title' => '<strong>' . $this->title . ':</strong>',
-                              'text' => $oCurrencies->format($_SESSION['cart']->info['subtotal'], true, $currency, $currency_value),
-                              'info' => '',
-                              'value' => $_SESSION['cart']->info['subtotal']);
+        $this->output[] = ['title' => '<strong>' . $this->title . ':</strong>', 'text' => $oCurrencies->format($_SESSION['cart']->info['subtotal'], true, $currency, $currency_value), 'info' => '', 'value' => $_SESSION['cart']->info['subtotal']];
     }
 
 
@@ -75,7 +69,7 @@ class ot_subtotal
 
     public function keys()
     {
-        return array('MODULE_ORDER_TOTAL_SUBTOTAL_STATUS', 'MODULE_ORDER_TOTAL_SUBTOTAL_SORT_ORDER');
+        return ['MODULE_ORDER_TOTAL_SUBTOTAL_STATUS', 'MODULE_ORDER_TOTAL_SUBTOTAL_SORT_ORDER'];
     }
 
     public function install()

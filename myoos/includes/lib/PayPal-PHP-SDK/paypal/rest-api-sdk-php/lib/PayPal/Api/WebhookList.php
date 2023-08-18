@@ -47,10 +47,10 @@ class WebhookList extends PayPalModel
     public function addWebhook($webhook)
     {
         if (!$this->getWebhooks()) {
-            return $this->setWebhooks(array($webhook));
+            return $this->setWebhooks([$webhook]);
         } else {
             return $this->setWebhooks(
-                array_merge($this->getWebhooks(), array($webhook))
+                array_merge($this->getWebhooks(), [$webhook])
             );
         }
     }
@@ -64,7 +64,7 @@ class WebhookList extends PayPalModel
     public function removeWebhook($webhook)
     {
         return $this->setWebhooks(
-            array_diff($this->getWebhooks(), array($webhook))
+            array_diff($this->getWebhooks(), [$webhook])
         );
     }
 

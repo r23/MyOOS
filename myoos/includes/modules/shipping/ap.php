@@ -113,7 +113,7 @@ class ap
 
         for ($i=1; $i<=$this->num_ap; $i++) {
             $countries_table = constant('MODULE_SHIPPING_AP_COUNTRIES_' . $i);
-            $country_zones = explode("[,]", $countries_table);
+            $country_zones = explode("[,]", (string) $countries_table);
             if (in_array($dest_country, $country_zones)) {
                 $dest_zone = $i;
                 break;
@@ -126,8 +126,8 @@ class ap
             $shipping = -1;
             $ap_cost = constant('MODULE_SHIPPING_AP_COST_' . $i);
 
-            $ap_table = preg_split("/[:,]/", $ap_cost);
-            for ($i=0; $i<count($ap_table); $i+=2) {
+            $ap_table = preg_split("/[:,]/", (string) $ap_cost);
+            for ($i=0; $i<(is_countable($ap_table) ? count($ap_table) : 0); $i+=2) {
                 if ($shipping_weight <= $ap_table[$i]) {
                     $shipping = $ap_table[$i+1];
                     $shipping_method = $aLang['module_shipping_ap_text_way'] . ' ' . $dest_country . ' : ' . $shipping_weight . ' ' . $aLang['module_shipping_ap_text_units'];
@@ -143,11 +143,7 @@ class ap
             }
         }
 
-        $this->quotes = array('id' => $this->code,
-                          'module' => $aLang['module_shipping_ap_text_title'],
-                          'methods' => array(array('id' => $this->code,
-                                                   'title' => $shipping_method . ' (' . $shipping_num_boxes . ' x ' . $shipping_weight . ' ' . $aLang['module_shipping_ap_text_units'] .')',
-                                                   'cost' => $shipping_cost * $shipping_num_boxes)));
+        $this->quotes = ['id' => $this->code, 'module' => $aLang['module_shipping_ap_text_title'], 'methods' => [['id' => $this->code, 'title' => $shipping_method . ' (' . $shipping_num_boxes . ' x ' . $shipping_weight . ' ' . $aLang['module_shipping_ap_text_units'] .')', 'cost' => $shipping_cost * $shipping_num_boxes]]];
 
         if (oos_is_not_null($this->icon)) {
             $this->quotes['icon'] = oos_image($this->icon, $this->title);
@@ -211,7 +207,7 @@ class ap
 
     public function keys()
     {
-        $keys = array('MODULE_SHIPPING_AP_STATUS', 'MODULE_SHIPPING_AP_HANDLING', 'MODULE_SHIPPING_AP_ZONE', 'MODULE_SHIPPING_AP_SORT_ORDER');
+        $keys = ['MODULE_SHIPPING_AP_STATUS', 'MODULE_SHIPPING_AP_HANDLING', 'MODULE_SHIPPING_AP_ZONE', 'MODULE_SHIPPING_AP_SORT_ORDER'];
 
         for ($i = 1; $i <= $this->num_ap; $i ++) {
             $keys[count($keys)] = 'MODULE_SHIPPING_AP_COUNTRIES_' . $i;

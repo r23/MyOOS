@@ -27,9 +27,9 @@ $aLang['heading_title'] = 'Informationen zu Ihrem Kundenkonto';
 $aLang['text_origin_login'] = '<strong>ACHTUNG:</strong> Wenn Sie bereits ein Konto besitzen, so melden Sie sich bitte <a href="%s" class="alert-link"><strong>hier</strong></a> an.';
 
 $aLang['email_subject'] = 'Willkommen zu ' . STORE_NAME;
-$aLang['email_greet_mr'] = 'Sehr geehrter Herr ' . stripslashes($lastname) . ',' . "\n\n";
-$aLang['email_greet_ms'] = 'Sehr geehrte Frau ' . stripslashes($lastname) . ',' . "\n\n";
-$aLang['email_greet_none'] = 'Sehr geehrte ' . stripslashes($firstname) . ',' . "\n\n";
+$aLang['email_greet_mr'] = 'Sehr geehrter Herr ' . stripslashes((string) $lastname) . ',' . "\n\n";
+$aLang['email_greet_ms'] = 'Sehr geehrte Frau ' . stripslashes((string) $lastname) . ',' . "\n\n";
+$aLang['email_greet_none'] = 'Sehr geehrte ' . stripslashes((string) $firstname) . ',' . "\n\n";
 $aLang['email_welcome'] = 'willkommen zu <strong>' . STORE_NAME . '</strong>.' . "\n\n";
 $aLang['email_text'] = 'Sie können jetzt unseren <strong>Online-Service</strong> nutzen. Der Service bietet unter anderem:' . "\n\n" . '<li><strong>Kundenwarenkorb</strong> - Jeder Artikel bleibt registriert bis Sie zur Kasse gehen, oder die Produkte aus dem Warenkorb entfernen.' . "\n" . '<li><strong>Adressbuch</strong> - Wir können jetzt die Produkte zu der von Ihnen ausgesuchten Adresse senden. Der perfekte Weg ein Geburtstagsgeschenk zu versenden.' . "\n" . '<li><strong>Vorherige Bestellungen</strong> - Sie können jederzeit Ihre vorherigen Bestellungen überprüfen.' . "\n" . '<li><strong>Meinungen über Produkte</strong> - Teilen Sie Ihre Meinung zu unseren Produkten mit anderen Kunden.' . "\n\n";
 $aLang['email_contact'] = 'Falls Sie Fragen zu unserem Kunden-Service haben, wenden Sie sich bitte an den Vertrieb: ' . STORE_OWNER_EMAIL_ADDRESS . '.' . "\n\n";

@@ -120,10 +120,10 @@ class InstallmentInfo extends PayPalModel
     public function addInstallmentOption($installmentOption)
     {
         if (!$this->getInstallmentOptions()) {
-            return $this->setInstallmentOptions(array($installmentOption));
+            return $this->setInstallmentOptions([$installmentOption]);
         } else {
             return $this->setInstallmentOptions(
-                array_merge($this->getInstallmentOptions(), array($installmentOption))
+                array_merge($this->getInstallmentOptions(), [$installmentOption])
             );
         }
     }
@@ -137,7 +137,7 @@ class InstallmentInfo extends PayPalModel
     public function removeInstallmentOption($installmentOption)
     {
         return $this->setInstallmentOptions(
-            array_diff($this->getInstallmentOptions(), array($installmentOption))
+            array_diff($this->getInstallmentOptions(), [$installmentOption])
         );
     }
 

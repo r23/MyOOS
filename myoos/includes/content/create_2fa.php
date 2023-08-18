@@ -73,7 +73,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
 
     $bError = false; // reset error flag
 
-    $code = str_replace(" ", "", $code);
+    $code = str_replace(" ", "", (string) $code);
 
     if (strlen($code ?? '') < 6) {
         $bError = true;
@@ -91,8 +91,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
 
     if ($bError == false) {
         $_SESSION['success_message'] = $aLang['entry_2fa_success'];
-        $sql_data_array = array('customers_2fa' => $sKey,
-                                'customers_2fa_active' => 1);
+        $sql_data_array = ['customers_2fa' => $sKey, 'customers_2fa_active' => 1];
         oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($_SESSION['customer_2fa_id']) . "'");
 
         oos_redirect(oos_href_link($aContents['login_process'], 'formid=' . $_SESSION['formid'] . '&action=process'));
@@ -159,16 +158,7 @@ if (!isset($option)) {
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-          'breadcrumb'        => $oBreadcrumb->trail(),
-          'heading_title'    => $aLang['navbar_title'],
-          'robots'            => 'noindex,follow,noodp,noydir',
-          'login_active'    => 1,
-
-          'canonical'        => $sCanonical,
-          'secretKey'        => $secretKey,
-          'qrcode'             => $dataUri
-      )
+    ['breadcrumb'        => $oBreadcrumb->trail(), 'heading_title'    => $aLang['navbar_title'], 'robots'            => 'noindex,follow,noodp,noydir', 'login_active'    => 1, 'canonical'        => $sCanonical, 'secretKey'        => $secretKey, 'qrcode'             => $dataUri]
 );
 
 // register the outputfilter

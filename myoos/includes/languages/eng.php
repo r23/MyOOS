@@ -56,9 +56,9 @@
 function oos_date_raw($date, $reverse = false)
 {
     if ($reverse) {
-        return substr($date, 3, 2) . substr($date, 0, 2) . substr($date, 6, 4);
+        return substr((string) $date, 3, 2) . substr((string) $date, 0, 2) . substr((string) $date, 6, 4);
     } else {
-        return substr($date, 6, 4) . substr($date, 0, 2) . substr($date, 3, 2);
+        return substr((string) $date, 6, 4) . substr((string) $date, 0, 2) . substr((string) $date, 3, 2);
     }
 }
 
@@ -416,8 +416,8 @@ $aLang = [
 'text_no_longer_available'    => 'No longer available',
 'text_replacement_product'    => 'There is a replacement product',
 
-'warning_install_directory_exists'  => 'Warning: Installation directory exists at: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install. Please remove this directory for security reasons.',
-'warning_config_file_writeable'     => 'Warning: I am able to write to the configuration file: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php. This is a potential security risk - please set the right user permissions on this file.',
+'warning_install_directory_exists'  => 'Warning: Installation directory exists at: ' . dirname((string) oos_server_get_var('SCRIPT_FILENAME')) . '/install. Please remove this directory for security reasons.',
+'warning_config_file_writeable'     => 'Warning: I am able to write to the configuration file: ' . dirname((string) oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php. This is a potential security risk - please set the right user permissions on this file.',
 'warning_download_directory_non_existent'  => 'Warning: The downloadable products directory does not exist: ' . OOS_DOWNLOAD_PATH . '. Downloadable products will not work until this directory is valid.',
 
 'info_login_for_wichlist'             => 'Would you like to save your articles permanently and use all the functions of the notepad? Then please log in and we will save your articles on your notepad in your customer account.',

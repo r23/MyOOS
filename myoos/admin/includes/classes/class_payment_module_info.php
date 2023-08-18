@@ -38,7 +38,7 @@ class paymentModuleInfo
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();
 
-        for ($i = 0, $n = count($pmInfo_array) - 1; $i < $n; $i++) {
+        for ($i = 0, $n = (is_countable($pmInfo_array) ? count($pmInfo_array) : 0) - 1; $i < $n; $i++) {
             $query = "SELECT configuration_value 
                   FROM " . $oostable['configuration'] . " 
                   WHERE configuration_key = '" . oos_db_input($pmInfo_array[$i]) . "'";

@@ -142,28 +142,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
         $products_short_description = $purifier->purify($products_new['products_short_description']);
 
-        $products_new_array[] = array(
-                                    'id' => $products_new['products_id'],
-                                    'name' => $products_new['products_name'],
-                                    'image' => $products_new['products_image'],
-                                    'products_short_description' => $products_short_description,
-                                    'new_product_price' => $new_product_price,
-                                    'new_product_price_list' => $new_product_price_list,
-                                    'new_product_units' => $products_new['products_units_id'],
-                                    'new_product_quantity' => $products_new['products_product_quantity'],
-                                    'order_min' => $order_min,
-                                    'order_max' => $order_max,
-                                    'new_product_special_price' => $new_product_special_price,
-                                    'new_product_discount_price' => $new_product_discount_price,
-                                    'new_base_product_price' => $new_base_product_price,
-                                    'listing_until' => $products_new_until,
-                                    'products_new_base_product_price' => $products_new_base_product_price,
-                                    'products_new_cross_out_price'    => $products_new_cross_out_price,
-                                    'products_base_price' => $products_new['products_base_price'],
-                                    'new_products_base_unit' => $products_new['products_base_unit'],
-                                    'date_added' => $products_new['products_date_added'],
-                                    'manufacturers_id' => $products_new['manufacturers_id'],
-                                    'manufacturer' => $products_new['manufacturers_name']);
+        $products_new_array[] = ['id' => $products_new['products_id'], 'name' => $products_new['products_name'], 'image' => $products_new['products_image'], 'products_short_description' => $products_short_description, 'new_product_price' => $new_product_price, 'new_product_price_list' => $new_product_price_list, 'new_product_units' => $products_new['products_units_id'], 'new_product_quantity' => $products_new['products_product_quantity'], 'order_min' => $order_min, 'order_max' => $order_max, 'new_product_special_price' => $new_product_special_price, 'new_product_discount_price' => $new_product_discount_price, 'new_base_product_price' => $new_base_product_price, 'listing_until' => $products_new_until, 'products_new_base_product_price' => $products_new_base_product_price, 'products_new_cross_out_price'    => $products_new_cross_out_price, 'products_base_price' => $products_new['products_base_price'], 'new_products_base_unit' => $products_new['products_base_unit'], 'date_added' => $products_new['products_date_added'], 'manufacturers_id' => $products_new['manufacturers_id'], 'manufacturer' => $products_new['manufacturers_name']];
         $products_new_result->MoveNext();
     }
 
@@ -173,20 +152,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     // assign Smarty variables;
     $smarty->assign(
-        array(
-           'breadcrumb'         => $oBreadcrumb->trail(),
-           'heading_title'      => $aLang['heading_title'],
-           'robots'             => 'noindex,follow,noodp,noydir',
-           'canonical'          => $sCanonical,
-
-           'page_split'         => $products_new_split->display_count($aLang['text_display_number_of_products_new']),
-           'display_links'      => $products_new_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-            'numrows'           => $products_new_split->number_of_rows,
-            'numpages'          => $products_new_split->number_of_pages,
-
-            'page'              => $nPage,
-           'products_new'       => $products_new_array
-        )
+        ['breadcrumb'         => $oBreadcrumb->trail(), 'heading_title'      => $aLang['heading_title'], 'robots'             => 'noindex,follow,noodp,noydir', 'canonical'          => $sCanonical, 'page_split'         => $products_new_split->display_count($aLang['text_display_number_of_products_new']), 'display_links'      => $products_new_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(['page', 'info'])), 'numrows'           => $products_new_split->number_of_rows, 'numpages'          => $products_new_split->number_of_pages, 'page'              => $nPage, 'products_new'       => $products_new_array]
     );
 }
 

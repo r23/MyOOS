@@ -86,8 +86,8 @@ class table
             $oOrder_total = $shipping_weight;
         }
 
-        $table_cost = preg_split("/[:,]/", MODULE_SHIPPING_TABLE_COST);
-        $size = count($table_cost);
+        $table_cost = preg_split("/[:,]/", (string) MODULE_SHIPPING_TABLE_COST);
+        $size = is_countable($table_cost) ? count($table_cost) : 0;
         for ($i=0, $n=$size; $i<$n; $i+=2) {
             if ($oOrder_total <= $table_cost[$i]) {
                 $shipping = $table_cost[$i+1];
@@ -99,11 +99,7 @@ class table
             $shipping = $shipping * $shipping_num_boxes;
         }
 
-        $this->quotes = array('id' => $this->code,
-                            'module' =>$aLang['module_shipping_table_text_title'],
-                            'methods' => array(array('id' => $this->code,
-                                                     'title' => $aLang['module_shipping_table_text_way'],
-                                                     'cost' => $shipping + MODULE_SHIPPING_TABLE_HANDLING)));
+        $this->quotes = ['id' => $this->code, 'module' =>$aLang['module_shipping_table_text_title'], 'methods' => [['id' => $this->code, 'title' => $aLang['module_shipping_table_text_way'], 'cost' => $shipping + MODULE_SHIPPING_TABLE_HANDLING]]];
 
 
         if (oos_is_not_null($this->icon)) {
@@ -153,6 +149,6 @@ class table
 
     public function keys()
     {
-        return array('MODULE_SHIPPING_TABLE_STATUS', 'MODULE_SHIPPING_TABLE_COST', 'MODULE_SHIPPING_TABLE_MODE', 'MODULE_SHIPPING_TABLE_HANDLING', 'MODULE_SHIPPING_TABLE_ZONE', 'MODULE_SHIPPING_TABLE_SORT_ORDER');
+        return ['MODULE_SHIPPING_TABLE_STATUS', 'MODULE_SHIPPING_TABLE_COST', 'MODULE_SHIPPING_TABLE_MODE', 'MODULE_SHIPPING_TABLE_HANDLING', 'MODULE_SHIPPING_TABLE_ZONE', 'MODULE_SHIPPING_TABLE_SORT_ORDER'];
     }
 }

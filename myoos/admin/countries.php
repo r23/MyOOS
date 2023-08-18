@@ -121,7 +121,7 @@ $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default'
   $countries_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $countries_result_raw, $countries_result_numrows);
   $countries_result = $dbconn->Execute($countries_result_raw);
   while ($countries = $countries_result->fields) {
-      if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $countries['countries_id']))) && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {
+      if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $countries['countries_id']))) && !isset($cInfo) && (!str_starts_with((string) $action, 'new'))) {
           $cInfo = new objectInfo($countries);
       }
 
@@ -169,50 +169,50 @@ $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default'
 
   switch ($action) {
     case 'new':
-      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_COUNTRY . '</b>');
+      $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_NEW_COUNTRY . '</b>'];
 
-      $contents = array('form' => oos_draw_form('id', 'countries', $aContents['countries'], 'page=' . $nPage . '&action=insert', 'post', false));
-      $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
-      $contents[] = array('text' => '<br>' . TEXT_INFO_COUNTRY_NAME . '<br>' . oos_draw_input_field('countries_name'));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_COUNTRY_CODE_2 . '<br>' . oos_draw_input_field('countries_iso_code_2'));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_COUNTRY_CODE_3 . '<br>' . oos_draw_input_field('countries_iso_code_3'));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_ADDRESS_FORMAT . '<br>' . oos_draw_input_field('address_format_id'));
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['countries'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents = ['form' => oos_draw_form('id', 'countries', $aContents['countries'], 'page=' . $nPage . '&action=insert', 'post', false)];
+      $contents[] = ['text' => TEXT_INFO_INSERT_INTRO];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_NAME . '<br>' . oos_draw_input_field('countries_name')];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_CODE_2 . '<br>' . oos_draw_input_field('countries_iso_code_2')];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_CODE_3 . '<br>' . oos_draw_input_field('countries_iso_code_3')];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_ADDRESS_FORMAT . '<br>' . oos_draw_input_field('address_format_id')];
+      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['countries'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
       break;
 
     case 'edit':
-      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_COUNTRY . '</b>');
+      $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_EDIT_COUNTRY . '</b>'];
 
-      $contents = array('form' => oos_draw_form('id', 'countries', $aContents['countries'], 'page=' . $nPage . '&cID=' . $cInfo->countries_id . '&action=save', 'post', false));
-      $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
-      $contents[] = array('text' => '<br>' . TEXT_INFO_COUNTRY_NAME . '<br>' . oos_draw_input_field('countries_name', $cInfo->countries_name));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_COUNTRY_CODE_2 . '<br>' . oos_draw_input_field('countries_iso_code_2', $cInfo->countries_iso_code_2));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_COUNTRY_CODE_3 . '<br>' . oos_draw_input_field('countries_iso_code_3', $cInfo->countries_iso_code_3));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_ADDRESS_FORMAT . '<br>' . oos_draw_input_field('address_format_id', $cInfo->address_format_id));
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['countries'], 'page=' . $nPage . '&cID=' . $cInfo->countries_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents = ['form' => oos_draw_form('id', 'countries', $aContents['countries'], 'page=' . $nPage . '&cID=' . $cInfo->countries_id . '&action=save', 'post', false)];
+      $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_NAME . '<br>' . oos_draw_input_field('countries_name', $cInfo->countries_name)];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_CODE_2 . '<br>' . oos_draw_input_field('countries_iso_code_2', $cInfo->countries_iso_code_2)];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_CODE_3 . '<br>' . oos_draw_input_field('countries_iso_code_3', $cInfo->countries_iso_code_3)];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_ADDRESS_FORMAT . '<br>' . oos_draw_input_field('address_format_id', $cInfo->address_format_id)];
+      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['countries'], 'page=' . $nPage . '&cID=' . $cInfo->countries_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
       break;
 
     case 'delete':
-      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_COUNTRY . '</b>');
+      $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_COUNTRY . '</b>'];
 
-      $contents = array('form' => oos_draw_form('id', 'countries', $aContents['countries'], 'page=' . $nPage . '&cID=' . $cInfo->countries_id . '&action=deleteconfirm', 'post', false));
-      $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
-      $contents[] = array('text' => '<br><b>' . $cInfo->countries_name . '</b>');
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['countries'], 'page=' . $nPage . '&cID=' . $cInfo->countries_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents = ['form' => oos_draw_form('id', 'countries', $aContents['countries'], 'page=' . $nPage . '&cID=' . $cInfo->countries_id . '&action=deleteconfirm', 'post', false)];
+      $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
+      $contents[] = ['text' => '<br><b>' . $cInfo->countries_name . '</b>'];
+      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['countries'], 'page=' . $nPage . '&cID=' . $cInfo->countries_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
       break;
 
     default:
       if (isset($cInfo) && is_object($cInfo)) {
-          $heading[] = array('text' => '<b>' . $cInfo->countries_name . '</b>');
+          $heading[] = ['text' => '<b>' . $cInfo->countries_name . '</b>'];
 
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['countries'], 'page=' . $nPage . '&cID=' . $cInfo->countries_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['countries'], 'page=' . $nPage . '&cID=' . $cInfo->countries_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
-          $contents[] = array('text' => '<br>' . TEXT_INFO_COUNTRY_NAME . '<br>' . $cInfo->countries_name);
-          $contents[] = array('text' => '<br>' . TEXT_INFO_COUNTRY_CODE_2 . ' ' . $cInfo->countries_iso_code_2);
-          $contents[] = array('text' => '<br>' . TEXT_INFO_COUNTRY_CODE_3 . ' ' . $cInfo->countries_iso_code_3);
-          $contents[] = array('text' => '<br>' . TEXT_INFO_ADDRESS_FORMAT . ' ' . $cInfo->address_format_id);
+          $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['countries'], 'page=' . $nPage . '&cID=' . $cInfo->countries_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['countries'], 'page=' . $nPage . '&cID=' . $cInfo->countries_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
+          $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_NAME . '<br>' . $cInfo->countries_name];
+          $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_CODE_2 . ' ' . $cInfo->countries_iso_code_2];
+          $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_CODE_3 . ' ' . $cInfo->countries_iso_code_3];
+          $contents[] = ['text' => '<br>' . TEXT_INFO_ADDRESS_FORMAT . ' ' . $cInfo->address_format_id];
       }
       break;
   }

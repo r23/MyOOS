@@ -179,8 +179,5 @@ $monthName = (new Carbon())->setMonth($m)->isoFormat('MMMM');
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-        'block_heading_new_products' => sprintf($aLang['table_heading_new_products'], $monthName),
-        'new_products_array' => $aNewProducts
-    )
+    ['block_heading_new_products' => sprintf($aLang['table_heading_new_products'], $monthName), 'new_products_array' => $aNewProducts]
 );

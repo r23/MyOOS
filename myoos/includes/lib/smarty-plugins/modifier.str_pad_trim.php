@@ -32,17 +32,17 @@ function smarty_modifier_str_pad_trim($string, $length, $pad_string=' ', $pad_ty
     if ($strlen == $length) {
         return $string;
     } // that was easy.
-    $pads = array('left'=>0, 'right'=>1, 'both'=>2);
+    $pads = ['left'=>0, 'right'=>1, 'both'=>2];
     if (!array_key_exists($pad_type, $pads)) {
         $pad_type = 'right';
     }
     if ($strlen < $string) {
-        return str_pad($string, $length, $pad_string, $pads[$pad_type]);
+        return str_pad((string) $string, $length, $pad_string, $pads[$pad_type]);
     } elseif ($pad_type == 'left') {
-        return substr($string, -$length);
+        return substr((string) $string, -$length);
     } elseif ($pad_type == 'right') {
-        return substr($string, 0, $length);
+        return substr((string) $string, 0, $length);
     } else {
-        return substr($string, intval(($strlen-$length)/2), $length);
+        return substr((string) $string, intval(($strlen-$length)/2), $length);
     }
 }

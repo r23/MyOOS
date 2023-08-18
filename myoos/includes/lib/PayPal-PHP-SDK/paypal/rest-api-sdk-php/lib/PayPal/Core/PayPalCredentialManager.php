@@ -17,16 +17,14 @@ class PayPalCredentialManager
     /**
      * Singleton Object
      *
-     * @var PayPalCredentialManager
      */
-    private static $instance;
+    private static ?\PayPal\Core\PayPalCredentialManager $instance = null;
 
     /**
      * Hashmap to contain credentials for accounts.
      *
-     * @var array
      */
-    private $credentialHashmap = array();
+    private array $credentialHashmap = [];
 
     /**
      * Contains the API username of the default account to use
@@ -47,7 +45,7 @@ class PayPalCredentialManager
         try {
             $this->initCredential($config);
         } catch (\Exception $e) {
-            $this->credentialHashmap = array();
+            $this->credentialHashmap = [];
             throw $e;
         }
     }
@@ -76,7 +74,7 @@ class PayPalCredentialManager
         $suffix = 1;
         $prefix = "acct";
 
-        $arr = array();
+        $arr = [];
         foreach ($config as $k => $v) {
             if (strstr($k, $prefix)) {
                 $arr[$k] = $v;
@@ -84,7 +82,7 @@ class PayPalCredentialManager
         }
         $credArr = $arr;
 
-        $arr = array();
+        $arr = [];
         foreach ($config as $key => $value) {
             $pos = strpos($key, '.');
             if (strstr($key, "acct")) {
@@ -118,7 +116,6 @@ class PayPalCredentialManager
     /**
      * Sets credential object for users
      *
-     * @param \PayPal\Auth\OAuthTokenCredential $credential
      * @param string|null   $userId  User Id associated with the account
      * @param bool $default If set, it would make it as a default credential for all requests
      *
@@ -150,7 +147,7 @@ class PayPalCredentialManager
         }
 
         if (empty($credObj)) {
-            throw new PayPalInvalidCredentialException("Credential not found for " .  ($userId ? $userId : " default user") .
+            throw new PayPalInvalidCredentialException("Credential not found for " .  ($userId ?: " default user") .
             ". Please make sure your configuration/APIContext has credential information");
         }
         return $credObj;

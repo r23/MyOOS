@@ -71,10 +71,10 @@ class InvoiceSearchResponse extends PayPalModel
     public function addInvoice($invoice)
     {
         if (!$this->getInvoices()) {
-            return $this->setInvoices(array($invoice));
+            return $this->setInvoices([$invoice]);
         } else {
             return $this->setInvoices(
-                array_merge($this->getInvoices(), array($invoice))
+                array_merge($this->getInvoices(), [$invoice])
             );
         }
     }
@@ -88,7 +88,7 @@ class InvoiceSearchResponse extends PayPalModel
     public function removeInvoice($invoice)
     {
         return $this->setInvoices(
-            array_diff($this->getInvoices(), array($invoice))
+            array_diff($this->getInvoices(), [$invoice])
         );
     }
 

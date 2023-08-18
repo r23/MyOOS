@@ -48,8 +48,8 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
    $coupon_get = $dbconn->Execute("SELECT restrict_to_categories FROM " . $oostable['coupons'] . " WHERE coupon_id='".$_GET['cid']."'");
    $get_result = $coupon_get->fields;
    echo "<tr><th>Category ID</th><th>Category Name</th></tr><tr>";
-   $cat_ids = preg_split("/[,]/", $get_result['restrict_to_categories']);
-for ($i = 0; $i < count($cat_ids); $i++) {
+   $cat_ids = preg_split("/[,]/", (string) $get_result['restrict_to_categories']);
+for ($i = 0; $i < (is_countable($cat_ids) ? count($cat_ids) : 0); $i++) {
     $sql = "SELECT 
                  c.categories_id, c.categories_status, cd.categories_name
              FROM

@@ -42,7 +42,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
  * Fix for PHP as CGI hosts that set SCRIPT_FILENAME to
  * something ending in php.cgi for all requests
  */
-if (strpos(php_sapi_name(), 'cgi') !== false) {
+if (str_contains(php_sapi_name(), 'cgi')) {
     //   $_SERVER['SCRIPT_FILENAME'] = $_SERVER['PATH_TRANSLATED'];
 }
 
@@ -50,7 +50,7 @@ if (strpos(php_sapi_name(), 'cgi') !== false) {
 /**
  * Fix for Dreamhost and other PHP as CGI hosts
  */
-if (strpos($_SERVER['SCRIPT_NAME'], 'php.cgi') !== false) {
+if (str_contains((string) $_SERVER['SCRIPT_NAME'], 'php.cgi')) {
     unset($_SERVER['PATH_INFO']);
 }
 
@@ -97,7 +97,7 @@ if (!function_exists('checkdnsrr')) {
     function checkdnsrr($host, $type)
     {
         if (!empty($host) && !empty($type)) {
-            @exec('nslookup -type=' . escapeshellarg($type) . ' ' . escapeshellarg($host), $output);
+            @exec('nslookup -type=' . escapeshellarg((string) $type) . ' ' . escapeshellarg((string) $host), $output);
 
             foreach ($output as $k => $line) {
                 if (preg_match('/^' . $host . '/i', $line)) {
@@ -190,17 +190,17 @@ if (!function_exists('http_response_code')) {
             case 505: $text = 'HTTP Version not supported';
                 break;
             default:
-                exit('Unknown http status code "' . htmlentities($code) . '"');
+                exit('Unknown http status code "' . htmlentities((string) $code) . '"');
                     break;
             }
 
-            $protocol = (isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0');
+            $protocol = ($_SERVER['SERVER_PROTOCOL'] ?? 'HTTP/1.0');
 
             header($protocol . ' ' . $code . ' ' . $text);
 
             $GLOBALS['http_response_code'] = $code;
         } else {
-            $code = (isset($GLOBALS['http_response_code']) ? $GLOBALS['http_response_code'] : 200);
+            $code = ($GLOBALS['http_response_code'] ?? 200);
         }
 
         return $code;

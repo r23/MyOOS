@@ -55,10 +55,10 @@ class Templates extends PayPalResourceModel
     public function addAddress($address)
     {
         if (!$this->getAddresses()) {
-            return $this->setAddresses(array($address));
+            return $this->setAddresses([$address]);
         } else {
             return $this->setAddresses(
-                array_merge($this->getAddresses(), array($address))
+                array_merge($this->getAddresses(), [$address])
             );
         }
     }
@@ -72,7 +72,7 @@ class Templates extends PayPalResourceModel
     public function removeAddress($address)
     {
         return $this->setAddresses(
-            array_diff($this->getAddresses(), array($address))
+            array_diff($this->getAddresses(), [$address])
         );
     }
 
@@ -108,10 +108,10 @@ class Templates extends PayPalResourceModel
     public function addEmail($string)
     {
         if (!$this->getEmails()) {
-            return $this->setEmails(array($string));
+            return $this->setEmails([$string]);
         } else {
             return $this->setEmails(
-                array_merge($this->getEmails(), array($string))
+                array_merge($this->getEmails(), [$string])
             );
         }
     }
@@ -125,7 +125,7 @@ class Templates extends PayPalResourceModel
     public function removeEmail($string)
     {
         return $this->setEmails(
-            array_diff($this->getEmails(), array($string))
+            array_diff($this->getEmails(), [$string])
         );
     }
 
@@ -161,10 +161,10 @@ class Templates extends PayPalResourceModel
     public function addPhone($phone)
     {
         if (!$this->getPhones()) {
-            return $this->setPhones(array($phone));
+            return $this->setPhones([$phone]);
         } else {
             return $this->setPhones(
-                array_merge($this->getPhones(), array($phone))
+                array_merge($this->getPhones(), [$phone])
             );
         }
     }
@@ -178,7 +178,7 @@ class Templates extends PayPalResourceModel
     public function removePhone($phone)
     {
         return $this->setPhones(
-            array_diff($this->getPhones(), array($phone))
+            array_diff($this->getPhones(), [$phone])
         );
     }
 
@@ -214,10 +214,10 @@ class Templates extends PayPalResourceModel
     public function addTemplate($template)
     {
         if (!$this->getTemplates()) {
-            return $this->setTemplates(array($template));
+            return $this->setTemplates([$template]);
         } else {
             return $this->setTemplates(
-                array_merge($this->getTemplates(), array($template))
+                array_merge($this->getTemplates(), [$template])
             );
         }
     }
@@ -231,7 +231,7 @@ class Templates extends PayPalResourceModel
     public function removeTemplate($template)
     {
         return $this->setTemplates(
-            array_diff($this->getTemplates(), array($template))
+            array_diff($this->getTemplates(), [$template])
         );
     }
 
@@ -270,13 +270,11 @@ class Templates extends PayPalResourceModel
      * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
      * @return Templates
      */
-    public static function getAll($params = array(), $apiContext = null, $restCall = null)
+    public static function getAll($params = [], $apiContext = null, $restCall = null)
     {
         ArgumentValidator::validate($params, 'params');
         $payLoad = "";
-        $allowedParams = array(
-          'fields' => 1,
-      );
+        $allowedParams = ['fields' => 1];
         $json = self::executeCall(
             "/v1/invoicing/templates/" . "?" . http_build_query(array_intersect_key($params, $allowedParams)),
             "GET",

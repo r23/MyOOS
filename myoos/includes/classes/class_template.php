@@ -31,7 +31,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
  */
 class myOOS_Smarty extends Smarty
 {
-    public function trigger_error($error_msg, $error_type = E_USER_WARNING)
+    public function trigger_error($error_msg, $error_type = E_USER_WARNING): never
     {
         throw new SmartyException($error_msg);
     }
@@ -48,7 +48,7 @@ class myOOS_Smarty extends Smarty
         $this->right_delimiter =  '}';
 
         $dir = OOS_TEMP_PATH;
-        if (substr($dir, -1) != "/") {
+        if (!str_ends_with((string) $dir, "/")) {
             $dir = $dir."/";
         }
 
@@ -59,10 +59,7 @@ class myOOS_Smarty extends Smarty
 
         // set multiple directories where plugins are stored
         $this->setPluginsDir(
-            array(
-            MYOOS_INCLUDE_PATH . '/vendor/smarty/smarty/libs/plugins',
-            MYOOS_INCLUDE_PATH . '/includes/lib/smarty-plugins'
-            )
+            [MYOOS_INCLUDE_PATH . '/vendor/smarty/smarty/libs/plugins', MYOOS_INCLUDE_PATH . '/includes/lib/smarty-plugins']
         );
 
 

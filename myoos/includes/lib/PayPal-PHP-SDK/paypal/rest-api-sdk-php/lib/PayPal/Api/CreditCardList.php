@@ -50,10 +50,10 @@ class CreditCardList extends PayPalResourceModel
     public function addItem($creditCard)
     {
         if (!$this->getItems()) {
-            return $this->setItems(array($creditCard));
+            return $this->setItems([$creditCard]);
         } else {
             return $this->setItems(
-                array_merge($this->getItems(), array($creditCard))
+                array_merge($this->getItems(), [$creditCard])
             );
         }
     }
@@ -67,7 +67,7 @@ class CreditCardList extends PayPalResourceModel
     public function removeItem($creditCard)
     {
         return $this->setItems(
-            array_diff($this->getItems(), array($creditCard))
+            array_diff($this->getItems(), [$creditCard])
         );
     }
 

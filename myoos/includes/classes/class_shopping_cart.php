@@ -257,8 +257,8 @@ class shoppingCart
                         foreach ($attributes as $option => $value) {
                             $attr_value = null;
                             $blank_value = false;
-                            if (strstr($option, TEXT_PREFIX)) {
-                                if (trim($value) == null) {
+                            if (strstr($option, (string) TEXT_PREFIX)) {
+                                if (trim((string) $value) == null) {
                                     $blank_value = true;
                                 } else {
                                     $option = substr($option, strlen(TEXT_PREFIX ?? ''));
@@ -336,13 +336,13 @@ class shoppingCart
                 foreach ($attributes as $option => $value) {
                     $attr_value = null;
                     $blank_value = false;
-                    if (strstr($option, TEXT_PREFIX)) {
-                        if (trim($value) == null) {
+                    if (strstr($option, (string) TEXT_PREFIX)) {
+                        if (trim((string) $value) == null) {
                             $blank_value = true;
                         } else {
                             $option = substr($option, strlen(TEXT_PREFIX ?? ''));
                             // $attr_value = htmlspecialchars(stripslashes((string)$value), ENT_QUOTES, 'UTF-8');
-                            $attr_value = stripslashes($value);
+                            $attr_value = stripslashes((string) $value);
                             $value = PRODUCTS_OPTIONS_VALUE_TEXT_ID;
                             $this->contents[$sProductsId]['attributes_values'][$option] = $attr_value;
                         }
@@ -503,7 +503,7 @@ class shoppingCart
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();
 
-        $currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
+        $currency_type = ($_SESSION['currency'] ?? DEFAULT_CURRENCY);
         $decimal_places = $oCurrencies->get_decimal_places($currency_type);
 
         reset($this->contents);
@@ -576,8 +576,8 @@ class shoppingCart
 
                 // tax
                 if ($aUser['price_with_tax'] == 1) {					
-                    $this->info['tax'] += $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
-                    $nPriceNet = oos_round(($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax))), $decimal_places);
+                    $this->info['tax'] += $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', (string) $products_tax) : "1." . str_replace('.', '', (string) $products_tax)));
+                    $nPriceNet = oos_round(($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', (string) $products_tax) : "1." . str_replace('.', '', (string) $products_tax))), $decimal_places);
                     if (isset($this->info['tax_groups']["$products_tax"])) {
                         $this->info['tax_groups']["$products_tax"] += $nPrice - $nPriceNet;
                         $this->info['net_total']["$products_tax"] += $nPriceNet;
@@ -811,10 +811,10 @@ class shoppingCart
                                 'base_product_price' => $cart_base_product_price,
                                 'products_product_quantity' => $products_product_quantity,
                                 'products_units_id' => $products['products_units_id'],
-                                'attributes' => (isset($this->contents[$products_id]['attributes']) ? $this->contents[$products_id]['attributes'] : ''),
-                                'attributes_values' => (isset($this->contents[$products_id]['attributes_values']) ? $this->contents[$products_id]['attributes_values'] : ''),
+                                'attributes' => ($this->contents[$products_id]['attributes'] ?? ''),
+                                'attributes_values' => ($this->contents[$products_id]['attributes_values'] ?? ''),
                                 'old_electrical_equipment' => $products['products_old_electrical_equipment'],
-                                'return_free_of_charge' => (isset($this->contents[$products_id]['return_free_of_charge']) ? $this->contents[$products_id]['return_free_of_charge'] : ''),
+                                'return_free_of_charge' => ($this->contents[$products_id]['return_free_of_charge'] ?? ''),
                                 'towlid' => $this->contents[$products_id]['towlid']];
             } else {
                 // product not found
@@ -990,7 +990,7 @@ class shoppingCart
 						WHERE products_id = '" . intval($products_id) . "'";
                 $gv_result  = $dbconn->GetRow($sql);
 
-                if (preg_match('/^GIFT/', $gv_result['products_model'])) {
+                if (preg_match('/^GIFT/', (string) $gv_result['products_model'])) {
                     $no_count = true;
                 }
 

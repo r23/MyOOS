@@ -51,7 +51,7 @@ if (file_exists('../includes/local/configure.php')) {
 }
 
 // redirect to the installation module if DB_SERVER is empty
-if (strlen(OOS_DB_TYPE) < 1) {
+if (strlen((string) OOS_DB_TYPE) < 1) {
     if (is_dir('../install')) {
         header('Location: ../install/step.php');
         exit;
@@ -146,7 +146,7 @@ $aLang = [];
 $sLanguage = oos_var_prep_for_os($_SESSION['language']);
 require 'includes/languages/' . $sLanguage . '.php';
 require 'includes/languages/' . $sLanguage . '/configuration_group.php';
-$current_page = oos_var_prep_for_os(basename($_SERVER['SCRIPT_NAME']));
+$current_page = oos_var_prep_for_os(basename((string) $_SERVER['SCRIPT_NAME']));
 if (file_exists('includes/languages/' . $sLanguage . '/' . $current_page)) {
     include 'includes/languages/' . $sLanguage . '/' . $current_page;
 }
@@ -173,8 +173,8 @@ require 'includes/classes/class_object_info.php';
 
 // calculate category path
 $cPath = isset($_GET['cPath']) ? oos_db_prepare_input($_GET['cPath']) : '';
-if (strlen($cPath) > 0) {
-    $aPath = explode('_', $cPath);
+if (strlen((string) $cPath) > 0) {
+    $aPath = explode('_', (string) $cPath);
     $current_category_id = $aPath[(count($aPath)-1)];
 } else {
     $current_category_id = 0;
@@ -198,8 +198,8 @@ if (!defined('DEFAULT_LANGUAGE')) {
     $messageStack->add(ERROR_NO_DEFAULT_LANGUAGE_DEFINED, 'error');
 }
 
-if (basename($_SERVER['SCRIPT_NAME']) != $aContents['login']
-    && basename($_SERVER['SCRIPT_NAME']) != $aContents['password_forgotten']
+if (basename((string) $_SERVER['SCRIPT_NAME']) != $aContents['login']
+    && basename((string) $_SERVER['SCRIPT_NAME']) != $aContents['password_forgotten']
 ) {
     oos_admin_check_login();
 

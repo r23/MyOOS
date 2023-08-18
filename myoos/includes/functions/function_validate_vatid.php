@@ -34,7 +34,7 @@
   */
 function load_data($url)
 {
-    $url = parse_url($url);
+    $url = parse_url((string) $url);
 
     if (!in_array($url['scheme'], ['','http'])) {
         return false;
@@ -97,7 +97,7 @@ function oos_validate_is_vatid($sVatno)
     $ViesOk = 'YES, VALID VAT NUMBER';
     $ViesEr = 'NO, INVALID VAT NUMBER';
 
-    $DataHTML = '#' . strtoupper($DataHTML);
+    $DataHTML = '#' . strtoupper((string) $DataHTML);
 
     return ((strPos($DataHTML, $ViesOk) > 0) ? true : false);
 }

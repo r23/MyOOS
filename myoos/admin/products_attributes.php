@@ -28,7 +28,7 @@ require 'includes/classes/class_upload.php';
 
 
 $aLanguages = oos_get_languages();
-$nLanguages = count($aLanguages);
+$nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
 
 
 $page_info = '';
@@ -51,62 +51,65 @@ if (oos_is_not_null($page_info)) {
     $page_info = substr($page_info, 0, -1);
 }
 
-$options = array(
-    'image_versions' => array(
-        // The empty image version key defines options for the original image.
-        // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards.
-        // Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
-        '' => array(
-            // Automatically rotate images based on EXIF meta data:
-            'auto_orient' => true
-        ),
-        'large' => array(
-                // 'auto_orient' => TRUE,
-                // 'crop' => TRUE,
-                // 'jpeg_quality' => 82,
-                // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                'max_width' => 1200, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                'max_height' => 1200, // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-        ),
-        'medium_large' => array(
-                // 'auto_orient' => TRUE,
-                // 'crop' => TRUE,
-                // 'jpeg_quality' => 82,
-                // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                'max_width' => 600, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                'max_height' => 600 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-        ),
-        'medium' => array(
-                // 'auto_orient' => TRUE,
-                // 'crop' => TRUE,
-                // 'jpeg_quality' => 82,
-                // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                'max_width' => 420, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                'max_height' => 455 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-        ),
-        'small' => array(
-                // 'auto_orient' => TRUE,
-                // 'crop' => TRUE,
-                // 'jpeg_quality' => 82,
-                // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                'max_width' => 150, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                'max_height' => 150 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-        ),
-        'min' => array(
-                // 'auto_orient' => TRUE,
-                // 'crop' => TRUE,
-                // 'jpeg_quality' => 82,
-                // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                'max_width' => 45, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                'max_height' => 45 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-        ),
-    ),
-);
+$options = ['image_versions' => [
+    // The empty image version key defines options for the original image.
+    // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards.
+    // Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
+    '' => [
+        // Automatically rotate images based on EXIF meta data:
+        'auto_orient' => true,
+    ],
+    'large' => [
+        // 'auto_orient' => TRUE,
+        // 'crop' => TRUE,
+        // 'jpeg_quality' => 82,
+        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+        'max_width' => 1200,
+        // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+        'max_height' => 1200,
+    ],
+    'medium_large' => [
+        // 'auto_orient' => TRUE,
+        // 'crop' => TRUE,
+        // 'jpeg_quality' => 82,
+        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+        'max_width' => 600,
+        // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+        'max_height' => 600,
+    ],
+    'medium' => [
+        // 'auto_orient' => TRUE,
+        // 'crop' => TRUE,
+        // 'jpeg_quality' => 82,
+        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+        'max_width' => 420,
+        // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+        'max_height' => 455,
+    ],
+    'small' => [
+        // 'auto_orient' => TRUE,
+        // 'crop' => TRUE,
+        // 'jpeg_quality' => 82,
+        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+        'max_width' => 150,
+        // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+        'max_height' => 150,
+    ],
+    'min' => [
+        // 'auto_orient' => TRUE,
+        // 'crop' => TRUE,
+        // 'jpeg_quality' => 82,
+        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+        'max_width' => 45,
+        // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+        'max_height' => 45,
+    ],
+]];
 
 
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
@@ -115,7 +118,7 @@ $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default'
 if (!empty($action)) {
     switch ($action) {
       case 'add_product_options':
-        for ($i = 0, $n = count($aLanguages); $i < $n; $i ++) {
+        for ($i = 0, $n = is_countable($aLanguages) ? count($aLanguages) : 0; $i < $n; $i ++) {
             $option_name =  oos_db_prepare_input($_POST['option_name']);
             $option_type = oos_db_prepare_input($_POST['option_type']);
 
@@ -134,7 +137,7 @@ if (!empty($action)) {
         break;
 
       case 'add_product_option_values':
-        for ($i = 0, $n = count($aLanguages); $i < $n; $i ++) {
+        for ($i = 0, $n = is_countable($aLanguages) ? count($aLanguages) : 0; $i < $n; $i ++) {
             $value_name = oos_db_prepare_input($_POST['value_name']);
 
             $products_options_valuestable = $oostable['products_options_values'];
@@ -178,7 +181,7 @@ if (!empty($action)) {
                 $options_values_image = '';
             }
 
-            $_POST['value_price'] = str_replace(',', '.', $_POST['value_price']);
+            $_POST['value_price'] = str_replace(',', '.', (string) $_POST['value_price']);
 
             // 0 = Download id
             $values_id = (isset($_POST['values_id'])) ? intval($_POST['values_id']) : 0;
@@ -238,8 +241,8 @@ if (!empty($action)) {
         $products_attributes_id = $dbconn->Insert_ID();
 
         if ((DOWNLOAD_ENABLED == 'true') && $_POST['products_attributes_filename'] != '') {
-            $products_attributes_maxdays  = (isset($_POST['products_attributes_maxdays'])) ? $_POST['products_attributes_maxdays'] : DOWNLOAD_MAX_DAYS;
-            $products_attributes_maxcount = (isset($_POST['products_attributes_maxcount'])) ? $_POST['products_attributes_maxcount'] : DOWNLOAD_MAX_COUNT;
+            $products_attributes_maxdays  = $_POST['products_attributes_maxdays'] ?? DOWNLOAD_MAX_DAYS;
+            $products_attributes_maxcount = $_POST['products_attributes_maxcount'] ?? DOWNLOAD_MAX_COUNT;
 
             $products_attributes_downloadtable = $oostable['products_attributes_download'];
             $dbconn->Execute("INSERT INTO $products_attributes_downloadtable 
@@ -256,7 +259,7 @@ if (!empty($action)) {
         break;
 
       case 'update_option_name':
-        for ($i = 0, $n = count($aLanguages); $i < $n; $i ++) {
+        for ($i = 0, $n = is_countable($aLanguages) ? count($aLanguages) : 0; $i < $n; $i ++) {
             $option_name = oos_db_prepare_input($_POST['option_name']);
             $option_type = oos_db_prepare_input($_POST['option_type']);
             $products_optionstable = $oostable['products_options'];
@@ -276,7 +279,7 @@ if (!empty($action)) {
         break;
 
       case 'update_value':
-        for ($i = 0, $n = count($aLanguages); $i < $n; $i ++) {
+        for ($i = 0, $n = is_countable($aLanguages) ? count($aLanguages) : 0; $i < $n; $i ++) {
             $value_name = oos_db_prepare_input($_POST['value_name']);
 
             $products_options_valuestable = $oostable['products_options_values'];
@@ -324,7 +327,7 @@ if (!empty($action)) {
             }
 
 
-        $_POST['value_price'] = str_replace(',', '.', $_POST['value_price']);
+        $_POST['value_price'] = str_replace(',', '.', (string) $_POST['value_price']);
 
 
 /*
@@ -380,8 +383,8 @@ if (!empty($action)) {
 
 
         if ((DOWNLOAD_ENABLED == 'true') && $_POST['products_attributes_filename'] != '') {
-            $products_attributes_maxdays  = (isset($_POST['products_attributes_maxdays'])) ? $_POST['products_attributes_maxdays'] : DOWNLOAD_MAX_DAYS;
-            $products_attributes_maxcount = (isset($_POST['products_attributes_maxcount'])) ? $_POST['products_attributes_maxcount'] : DOWNLOAD_MAX_COUNT;
+            $products_attributes_maxdays  = $_POST['products_attributes_maxdays'] ?? DOWNLOAD_MAX_DAYS;
+            $products_attributes_maxcount = $_POST['products_attributes_maxcount'] ?? DOWNLOAD_MAX_COUNT;
 
             $products_attributes_downloadtable = $oostable['products_attributes_download'];
             $download_result = $dbconn->Execute("SELECT products_attributes_filename FROM $products_attributes_downloadtable WHERE products_attributes_id = '" . intval($_POST['attribute_id']) . "'");
@@ -449,12 +452,11 @@ while ($products_options_type_array = $products_options_types_result->fields) {
 
 $products_units_array = [];
 $unit_of_measure = [];
-$products_units_array = array(array('id' => '0', 'text' => TEXT_NONE));
+$products_units_array = [['id' => '0', 'text' => TEXT_NONE]];
 $products_unitstable = $oostable['products_units'];
 $products_units_result = $dbconn->Execute("SELECT products_units_id, products_unit_name, unit_of_measure FROM $products_unitstable WHERE languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_unit_name");
 while ($products_units = $products_units_result->fields) {
-    $products_units_array[] = array('id' => $products_units['products_units_id'],
-                                      'text' => $products_units['products_unit_name']);
+    $products_units_array[] = ['id' => $products_units['products_units_id'], 'text' => $products_units['products_unit_name']];
     if ((!empty($products_units['unit_of_measure'])) && (!in_array($products_units['unit_of_measure'], $unit_of_measure))) {
         $unit_of_measure[] = $products_units['unit_of_measure'];
     }
@@ -658,7 +660,7 @@ function go_option() {
       if (($action == 'update_option') && ($_GET['option_id'] == $options_values['products_options_id'])) {
           echo '<form name="option" action="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_option_name') . '" method="post">';
           $inputs = '';
-          for ($i = 0, $n = count($aLanguages); $i < $n; $i ++) {
+          for ($i = 0, $n = is_countable($aLanguages) ? count($aLanguages) : 0; $i < $n; $i ++) {
               $option_name = $dbconn->Execute("SELECT products_options_name FROM " . $oostable['products_options'] . " WHERE products_options_id = '" . $options_values['products_options_id'] . "' AND  products_options_languages_id = '" . $aLanguages[$i]['id'] . "'");
               $option_name = $option_name->fields;
               if ($nLanguages > 1) {
@@ -700,7 +702,7 @@ function go_option() {
 <?php
       echo '<form name="options" action="' . oos_href_link_admin($aContents['products_attributes'], 'action=add_product_options&option_page=' . $option_page) . '" method="post"><input type="hidden" name="products_options_id" value="' . $next_id . '">';
         $inputs = '';
-        for ($i = 0, $n = count($aLanguages); $i < $n; $i ++) {
+        for ($i = 0, $n = is_countable($aLanguages) ? count($aLanguages) : 0; $i < $n; $i ++) {
             if ($nLanguages > 1) {
                 $inputs .= oos_flag_icon($aLanguages[$i]);
             }
@@ -866,7 +868,7 @@ function go_option() {
       if (($action == 'update_option_value') && ($_GET['value_id'] == $values_values['products_options_values_id'])) {
           echo '<form name="values" action="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_value') . '" method="post">';
           $inputs = '';
-          for ($i = 0, $n = count($aLanguages); $i < $n; $i ++) {
+          for ($i = 0, $n = is_countable($aLanguages) ? count($aLanguages) : 0; $i < $n; $i ++) {
               $products_options_valuestable = $oostable['products_options_values'];
               $value_name = $dbconn->Execute("SELECT products_options_values_name FROM $products_options_valuestable WHERE products_options_values_id = '" . $values_values['products_options_values_id'] . "' AND products_options_values_languages_id= '" . $aLanguages[$i]['id'] . "'");
               $value_name = $value_name->fields;
@@ -935,7 +937,7 @@ function go_option() {
         }
 
         $inputs = '';
-        for ($i = 0, $n = count($aLanguages); $i < $n; $i ++) {
+        for ($i = 0, $n = is_countable($aLanguages) ? count($aLanguages) : 0; $i < $n; $i ++) {
             if ($nLanguages > 1) {
                 $inputs .= oos_flag_icon($aLanguages[$i]);
             }
@@ -1159,9 +1161,9 @@ function calcBasePriceFactor() {
 <?php
         if (BASE_PRICE == 'true') {
             $options_values_base_price = (!isset($attributes_values['options_values_base_price'])) ? 1 : $attributes_values['options_values_base_price'];
-            $options_values_quantity = isset($attributes_values['options_values_quantity']) ? $attributes_values['options_values_quantity'] : '';
-            $options_values_base_quantity = isset($attributes_values['options_values_base_quantity']) ? $attributes_values['options_values_base_quantity'] : '';
-            $options_values_units_id = isset($attributes_values['options_values_units_id']) ? $attributes_values['options_values_units_id'] : ''; ?>
+            $options_values_quantity = $attributes_values['options_values_quantity'] ?? '';
+            $options_values_base_quantity = $attributes_values['options_values_base_quantity'] ?? '';
+            $options_values_units_id = $attributes_values['options_values_units_id'] ?? ''; ?>
 		<tr class="<?php echo(!($rows % 2) ? 'attributes-even' : 'attributes-odd'); ?>">
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>
@@ -1328,7 +1330,7 @@ function calcBasePriceFactor() {
             if (!is_array($attributes_values)) {
                 $attributes_values = [];
             }
-      $attributes_values['options_values_model'] = isset($attributes_values['options_values_model']) ? $attributes_values['options_values_model'] : '';
+      $attributes_values['options_values_model'] ??= '';
       echo oos_draw_input_field('options_values_model', $attributes_values['options_values_model']); ?></td>
             <td class="smallText">&nbsp;<select name="options_id">
 <?php
@@ -1356,7 +1358,7 @@ function calcBasePriceFactor() {
           $values->MoveNext();
       } ?>
             </select>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<input type="text" name="sort_order" value="<?php echo isset($attributes_values['options_sort_order']) ? $attributes_values['options_sort_order'] : ''; ?>" size="4">&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<input type="text" name="sort_order" value="<?php echo $attributes_values['options_sort_order'] ?? ''; ?>" size="4">&nbsp;</td>
 			<td class="smallText">&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" size="6">&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<input type="text" name="price_prefix" size="2" value="+">&nbsp;</td>
@@ -1365,7 +1367,7 @@ function calcBasePriceFactor() {
 <?php
     if (BASE_PRICE == 'true') {
         $options_values_base_price = (!isset($attributes_values['options_values_base_price'])) ? 1 : $attributes_values['options_values_base_price'];
-        $options_values_units_id = isset($attributes_values['options_values_units_id']) ? $attributes_values['options_values_units_id'] : ''; ?>
+        $options_values_units_id = $attributes_values['options_values_units_id'] ?? ''; ?>
 		<tr class="<?php echo(!($rows % 2) ? 'attributes-even' : 'attributes-odd'); ?>">
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>

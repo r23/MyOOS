@@ -34,14 +34,12 @@ if (isset($_GET['email_address'])) {
 
 if (empty($email_address) || !is_string($email_address)) {
     $bError = true;
-    $aInfoMessage[] = array('type' => 'danger',
-                'text' => $aLang['error_email_address']    );
+    $aInfoMessage[] = ['type' => 'danger', 'text' => $aLang['error_email_address']];
 }
 
 if (($bError === false) && (!is_email($email_address))) {
     $bError = true;
-    $aInfoMessage[] = array('type' => 'danger',
-                            'text' => $aLang['error_email_address']);
+    $aInfoMessage[] = ['type' => 'danger', 'text' => $aLang['error_email_address']];
 }
 
 if (isset($_POST['newsletter'])
@@ -57,13 +55,11 @@ if (isset($_POST['newsletter'])
 
     if ($check_recipients_result->RecordCount()) {
         $bError = true;
-        $aInfoMessage[] = array('type' => 'danger',
-                                'text' => $aLang['entry_email_address_error_exists']);
+        $aInfoMessage[] = ['type' => 'danger', 'text' => $aLang['entry_email_address_error_exists']];
     } else {
         oos_newsletter_subscribe_mail($email_address);
 
-        $aInfoMessage[] = array('type' => 'success',
-                                'text' => $aLang['newsletter_email_info']);
+        $aInfoMessage[] = ['type' => 'success', 'text' => $aLang['newsletter_email_info']];
     }
 }
 
@@ -102,7 +98,6 @@ if (isset($_GET['newsletter'])
         oos_redirect(oos_href_link($aContents['newsletter'], 'unsubscribe=success'));
     } else {
         $bError = true;
-        $aInfoMessage[] = array('type' => 'danger',
-                    'text' => $aLang['text_email_del_error']);
+        $aInfoMessage[] = ['type' => 'danger', 'text' => $aLang['text_email_del_error']];
     }
 }

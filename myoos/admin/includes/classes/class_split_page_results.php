@@ -33,7 +33,7 @@ class splitPageResults
         if ($max_rows_per_page == 0) {
             $max_rows_per_page = 20;
         }
-        $sql_query = preg_replace("/\n\r|\r\n|\n|\r/", " ", $sql_query);
+        $sql_query = preg_replace("/\n\r|\r\n|\n|\r/", " ", (string) $sql_query);
 
         if (empty($current_page_number)) {
             $current_page_number = 1;
@@ -79,7 +79,7 @@ class splitPageResults
     {
         global $session;
 
-        if (oos_is_not_null($parameters) && (substr($parameters, -1) != '&')) {
+        if (oos_is_not_null($parameters) && (!str_ends_with((string) $parameters, '&'))) {
             $parameters .= '&';
         }
 
@@ -93,7 +93,7 @@ class splitPageResults
 
         $pages_array = [];
         for ($i=1; $i<=$num_pages; $i++) {
-            $pages_array[] = array('id' => $i, 'text' => $i);
+            $pages_array[] = ['id' => $i, 'text' => $i];
         }
 
 		$php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
@@ -115,12 +115,12 @@ class splitPageResults
             }
 
             if ($parameters != '') {
-                if (substr($parameters, -1) == '&') {
-                    $parameters = substr($parameters, 0, -1);
+                if (str_ends_with((string) $parameters, '&')) {
+                    $parameters = substr((string) $parameters, 0, -1);
                 }
-                $pairs = explode('&', $parameters);
+                $pairs = explode('&', (string) $parameters);
                 foreach ($pairs as $pair) {
-                    list($key, $value) = explode('=', $pair);
+                    [$key, $value] = explode('=', $pair);
                     $display_links .= oos_draw_hidden_field(rawurldecode($key), rawurldecode($value));
                 }
             }

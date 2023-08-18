@@ -96,7 +96,7 @@ function oos_draw_option_type_pull_down_menu($name, $default = '')
 
     $values = [];
     foreach ($products_options_types_list as $id => $text) {
-        $values[] = array('id' => $id, 'text' => $text);
+        $values[] = ['id' => $id, 'text' => $text];
     }
     return oos_draw_pull_down_menu($name, $values, $default);
 }
@@ -111,7 +111,7 @@ function oos_options_type_name($opt_type)
 {
     global $products_options_types_list;
 
-    return isset($products_options_types_list[$opt_type]) ? $products_options_types_list[$opt_type] : 'Error ' . $opt_type;
+    return $products_options_types_list[$opt_type] ?? 'Error ' . $opt_type;
 }
 
 

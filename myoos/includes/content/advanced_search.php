@@ -36,7 +36,7 @@ function oos_get_manufacturers()
 
     $manufacturers_result = $dbconn->Execute("SELECT manufacturers_id, manufacturers_name FROM " . $oostable['manufacturers'] . " ORDER BY manufacturers_name");
     while ($manufacturers = $manufacturers_result->fields) {
-        $aManufacturers[] = array('id' => $manufacturers['manufacturers_id'], 'text' => $manufacturers['manufacturers_name']);
+        $aManufacturers[] = ['id' => $manufacturers['manufacturers_id'], 'text' => $manufacturers['manufacturers_name']];
         $manufacturers_result->MoveNext();
     }
     return $aManufacturers;
@@ -48,33 +48,33 @@ require 'includes/languages/' . $sLanguage . '/search_advanced.php';
 $error = '';
 if (isset($_GET['errorno'])) {
     if (($_GET['errorno'] & 1) == 1) {
-        $error .= str_replace('\n', '<br />', $aLang['js_at_least_one_input']);
+        $error .= str_replace('\n', '<br />', (string) $aLang['js_at_least_one_input']);
     }
     if (($_GET['errorno'] & 10) == 10) {
-        $error .= str_replace('\n', '<br />', $aLang['js_invalid_from_date']);
+        $error .= str_replace('\n', '<br />', (string) $aLang['js_invalid_from_date']);
     }
     if (($_GET['errorno'] & 100) == 100) {
-        $error .= str_replace('\n', '<br />', $aLang['js_invalid_to_date']);
+        $error .= str_replace('\n', '<br />', (string) $aLang['js_invalid_to_date']);
     }
     if (($_GET['errorno'] & 1000) == 1000) {
-        $error .= str_replace('\n', '<br />', $aLang['js_to_date_less_than_from_date']);
+        $error .= str_replace('\n', '<br />', (string) $aLang['js_to_date_less_than_from_date']);
     }
     if (($_GET['errorno'] & 10000) == 10000) {
-        $error .= str_replace('\n', '<br />', $aLang['js_price_from_must_be_num']);
+        $error .= str_replace('\n', '<br />', (string) $aLang['js_price_from_must_be_num']);
     }
     if (($_GET['errorno'] & 100000) == 100000) {
-        $error .= str_replace('\n', '<br />', $aLang['js_price_to_must_be_num']);
+        $error .= str_replace('\n', '<br />', (string) $aLang['js_price_to_must_be_num']);
     }
-    if (($_GET['errorno'] & 1000000) == 1000000) {
-        $error .= str_replace('\n', '<br />', $aLang['js_price_to_less_than_price_from']);
+    if (($_GET['errorno'] & 1_000_000) == 1_000_000) {
+        $error .= str_replace('\n', '<br />', (string) $aLang['js_price_to_less_than_price_from']);
     }
-    if (($_GET['errorno'] & 10000000) == 10000000) {
-        $error .= str_replace('\n', '<br />', $aLang['js_invalid_keywords']);
+    if (($_GET['errorno'] & 10_000_000) == 10_000_000) {
+        $error .= str_replace('\n', '<br />', (string) $aLang['js_invalid_keywords']);
     }
 }
 
-$aCategoriesID = oos_get_categories(array(array('id' => '', 'text' => $aLang['text_all_categories'])));
-$aManufacturersID = oos_get_manufacturers(array(array('id' => '', 'text' => $aLang['text_all_manufacturers'])));
+$aCategoriesID = oos_get_categories([['id' => '', 'text' => $aLang['text_all_categories']]]);
+$aManufacturersID = oos_get_manufacturers();
 
 
 /*
@@ -107,15 +107,7 @@ if (!isset($option)) {
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-        'breadcrumb'        => $oBreadcrumb->trail(),
-        'heading_title'         => $aLang['heading_title'],
-        'canonical'            => $sCanonical,
-
-        'error'                => $error,
-        'categoriesID'        => $aCategoriesID,
-        'manufacturersID'     => $aManufacturersID
-    )
+    ['breadcrumb'        => $oBreadcrumb->trail(), 'heading_title'         => $aLang['heading_title'], 'canonical'            => $sCanonical, 'error'                => $error, 'categoriesID'        => $aCategoriesID, 'manufacturersID'     => $aManufacturersID]
 );
 // register the outputfilter
 $smarty->loadFilter('output', 'trimwhitespace');

@@ -34,7 +34,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 
 // check if the 'install' directory exists, and warn of its existence
 if ((WARN_INSTALL_EXISTENCE == 'true') && ($_SERVER['HTTP_HOST'] != 'localhost')) {
-    if (file_exists(dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install')) {
+    if (file_exists(dirname((string) oos_server_get_var('SCRIPT_FILENAME')) . '/install')) {
         $aInfoMessage[] = ['type' => 'danger',
                             'text' => $aLang['warning_install_directory_exists']];
     }
@@ -42,8 +42,8 @@ if ((WARN_INSTALL_EXISTENCE == 'true') && ($_SERVER['HTTP_HOST'] != 'localhost')
 
 // check if the configure.php file is writeable
 if ((WARN_CONFIG_WRITEABLE == 'true') && ($_SERVER['HTTP_HOST'] != 'localhost')) {
-    if ((file_exists(dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php'))
-        && (is_writeable(dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php'))
+    if ((file_exists(dirname((string) oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php'))
+        && (is_writeable(dirname((string) oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php'))
     ) {
         $aInfoMessage[] = ['type' => 'danger',
                             'text' => $aLang['warning_config_file_writeable']];

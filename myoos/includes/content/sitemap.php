@@ -55,11 +55,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     // assign Smarty variables;
     $smarty->assign(
-        array(
-            'breadcrumb'    => $oBreadcrumb->trail(),
-            'heading_title' => $aLang['heading_title'],
-            'canonical'        => $sCanonical
-        )
+        ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title' => $aLang['heading_title'], 'canonical'        => $sCanonical]
     );
 
     $smarty->assign('sitemap', $oSitemap->buildTree());

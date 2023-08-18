@@ -106,7 +106,7 @@ if ($category_depth == 'nested') {
     }
 
     if (!$smarty->isCached($aTemplate['page'], $sContentCacheID)) {
-        if (isset($sCategory) && strpos('_', $sCategory)) {
+        if (isset($sCategory) && strpos('_', (string) $sCategory)) {
             // check to see if there are deeper categories within the current category
             $aCategoryLinks = array_reverse($aCategoryPath);
             $n = count($aCategoryLinks);
@@ -150,11 +150,7 @@ if ($category_depth == 'nested') {
         $aCategoriesBoxs = [];
         while ($categories = $categories_result->fields) {
             $sCategoryNew = oos_get_path($categories['categories_id'], $categories['parent_id'], $categories['gparent_id']);
-            $aCategoriesBoxs[] = array(
-                                    'image'    => $categories['categories_image'],
-                                    'name'    => $categories['categories_name'],
-                                    'path'    => $sCategoryNew
-                                    );
+            $aCategoriesBoxs[] = ['image'    => $categories['categories_image'], 'name'    => $categories['categories_name'], 'path'    => $sCategoryNew];
             // Move that ADOdb pointer!
             $categories_result->MoveNext();
         }
@@ -183,10 +179,7 @@ if ($category_depth == 'nested') {
 
 
         $smarty->assign(
-            array(
-                'category'      => $category,
-                'categories'     => $aCategoriesBoxs
-            )
+            ['category'      => $category, 'categories'     => $aCategoriesBoxs]
         );
     }
     $smarty->setCaching(false);
@@ -212,9 +205,7 @@ if ($category_depth == 'nested') {
     if ($category_slider->RecordCount()) {
         $aCategorySlider = [];
         while ($slider = $category_slider->fields) {
-            $aCategorySlider[] = array(
-                                    'image'    => $slider['categories_image']
-                                    );
+            $aCategorySlider[] = ['image'    => $slider['categories_image']];
             // Move that ADOdb pointer!
             $category_slider->MoveNext();
         }
@@ -261,27 +252,14 @@ if ($category_depth == 'nested') {
 
     // assign Smarty variables;
     $smarty->assign(
-        array(
-            'breadcrumb'    => $oBreadcrumb->trail(),
-            'heading_title' => $category['categories_name'],
-            'canonical'     => $sCanonical,
-            'page'            => $nPage
-        )
+        ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title' => $category['categories_name'], 'canonical'     => $sCanonical, 'page'            => $nPage]
     );
 
     if (!$smarty->isCached($aTemplate['page'], $sContentCacheID)) {
 
         // create column list
         $aDefineList = [];
-        $aDefineList = array('PRODUCT_LIST_MODEL' => 1,
-                           'PRODUCT_LIST_NAME' => 2,
-                           'PRODUCT_LIST_MANUFACTURER' => 3,
-                           'PRODUCT_LIST_PRICE' => 4,
-                           'PRODUCT_LIST_QUANTITY' => 5,
-                           'PRODUCT_LIST_WEIGHT' => 6,
-                           'PRODUCT_LIST_IMAGE' => 7,
-                           'PRODUCT_LIST_BUY_NOW' => 8,
-                           'PRODUCT_LIST_SORT_ORDER' => 9);
+        $aDefineList = ['PRODUCT_LIST_MODEL' => 1, 'PRODUCT_LIST_NAME' => 2, 'PRODUCT_LIST_MANUFACTURER' => 3, 'PRODUCT_LIST_PRICE' => 4, 'PRODUCT_LIST_QUANTITY' => 5, 'PRODUCT_LIST_WEIGHT' => 6, 'PRODUCT_LIST_IMAGE' => 7, 'PRODUCT_LIST_BUY_NOW' => 8, 'PRODUCT_LIST_SORT_ORDER' => 9];
         asort($aDefineList);
         $aColumnList = [];
 
@@ -480,7 +458,7 @@ if ($category_depth == 'nested') {
         }
 
 
-        if ((!isset($_GET['sort'])) || (!preg_match('/^[1-8][ad]$/', $_GET['sort'])) || (substr($_GET['sort'], 0, 1) > count($aColumnList))) {
+        if ((!isset($_GET['sort'])) || (!preg_match('/^[1-8][ad]$/', (string) $_GET['sort'])) || (substr((string) $_GET['sort'], 0, 1) > count($aColumnList))) {
             $n = count($aColumnList);
             for ($col = 0, $n; $col < $n; $col++) {
                 if ($aColumnList[$col] == 'PRODUCT_LIST_NAME') {
@@ -491,8 +469,8 @@ if ($category_depth == 'nested') {
                 }
             }
         } else {
-            $sort_col = substr($_GET['sort'], 0, 1);
-            $sort_order = substr($_GET['sort'], 1);
+            $sort_col = substr((string) $_GET['sort'], 0, 1);
+            $sort_order = substr((string) $_GET['sort'], 1);
 
             switch ($aColumnList[$sort_col-1]) {
             case 'PRODUCT_LIST_MODEL':
@@ -567,10 +545,7 @@ if ($category_depth == 'nested') {
 
         // assign Smarty variables;
         $smarty->assign(
-            array(
-                'product_filter_select' => $product_filter_select,
-                'category' => $category
-            )
+            ['product_filter_select' => $product_filter_select, 'category' => $category]
         );
 
         // Panorama

@@ -98,8 +98,7 @@ class invoice
 
     public function selection()
     {
-        return array('id' => $this->code,
-                   'module' => $this->title);
+        return ['id' => $this->code, 'module' => $this->title];
     }
 
     public function pre_confirmation_check()
@@ -168,6 +167,6 @@ class invoice
 
     public function keys()
     {
-        return array('MODULE_PAYMENT_INVOICE_STATUS', 'MODULE_PAYMENT_INVOICE_ZONE', 'MODULE_PAYMENT_INVOICE_ORDER_STATUS_ID', 'MODULE_PAYMENT_INVOICE_SORT_ORDER');
+        return ['MODULE_PAYMENT_INVOICE_STATUS', 'MODULE_PAYMENT_INVOICE_ZONE', 'MODULE_PAYMENT_INVOICE_ORDER_STATUS_ID', 'MODULE_PAYMENT_INVOICE_SORT_ORDER'];
     }
 }

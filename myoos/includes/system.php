@@ -111,36 +111,7 @@ $part = [
 
 
 $smarty->assign(
-    array(
-        'filename'        => $aContents,
-        'page_file'        => $sContent,
-
-        'theme_set'        => $sTheme,
-        'theme_image'    => 'themes/' . $sTheme . '/images',
-        'theme'            => 'themes/' . $sTheme,
-
-        'lang'                => $aLang,
-        'language'            => $sLanguage,
-        'language_id'        => $nLanguageID,
-        'content_language'    => $sLanguageCode,
-        'language_name'        => $sLanguageName,
-        'currency'            => $sCurrency,
-
-        'locale'            => $locale,
-        'pagetitle'            => $sPagetitle,
-        'facebook_title'    => $facebook_title,
-        'site_name'            => $site_name,
-        'twitter_title'        => $twitter_title,
-        'twitter_card'        => $twitter_card,
-        'meta_description'    => $sDescription,
-        'facebook_description'    => $facebook_description,
-        'twitter_description'    => $twitter_description,
-
-        'oos_css'            => $oos_css,
-        'oos_js'            => $oos_js,
-
-        'part'                => $part
-    )
+    ['filename'        => $aContents, 'page_file'        => $sContent, 'theme_set'        => $sTheme, 'theme_image'    => 'themes/' . $sTheme . '/images', 'theme'            => 'themes/' . $sTheme, 'lang'                => $aLang, 'language'            => $sLanguage, 'language_id'        => $nLanguageID, 'content_language'    => $sLanguageCode, 'language_name'        => $sLanguageName, 'currency'            => $sCurrency, 'locale'            => $locale, 'pagetitle'            => $sPagetitle, 'facebook_title'    => $facebook_title, 'site_name'            => $site_name, 'twitter_title'        => $twitter_title, 'twitter_card'        => $twitter_card, 'meta_description'    => $sDescription, 'facebook_description'    => $facebook_description, 'twitter_description'    => $twitter_description, 'oos_css'            => $oos_css, 'oos_js'            => $oos_js, 'part'                => $part]
 );
 
 
@@ -159,7 +130,7 @@ $wishlist_count_contents = 0;
 $aSystem = [];
 
 if (isset($_SESSION)) {
-    $sFormid = md5(uniqid(rand(), true));
+    $sFormid = md5(uniqid(random_int(0, mt_getrandmax()), true));
     $_SESSION['formid'] = $sFormid;
 
     if (empty($_SESSION['csrf_token'])) {
@@ -167,16 +138,11 @@ if (isset($_SESSION)) {
     }
 
 
-    $aSystem = array(
-        'sed'    => true,
-        'formid' => $sFormid,
-        'session_name' => $session->getName(),
-        'session_id' => $session->getId()
-    );
+    $aSystem = ['sed'    => true, 'formid' => $sFormid, 'session_name' => $session->getName(), 'session_id' => $session->getId()];
 
 
     if (is_object($_SESSION['cart'])) {
-        $smarty->registerObject("cart", $_SESSION['cart'], array('count_contents', 'get_products'));
+        $smarty->registerObject("cart", $_SESSION['cart'], ['count_contents', 'get_products']);
 
         $cart_count_contents = $_SESSION['cart']->count_contents();
         $cart_products = $_SESSION['cart']->get_products();
@@ -197,15 +163,7 @@ if (isset($_SESSION)) {
 }
 
 $smarty->assign(
-    array(
-        'mySystem'                  => $aSystem,
-        'myUser'                    => $aUser,
-        'cart_products'             => $cart_products,
-        'cart_show_subtotal'        => $cart_show_subtotal,
-        'cart_show_total'            => $cart_show_total,
-        'cart_count_contents'        => $cart_count_contents,
-        'wishlist_count_contents'    => $wishlist_count_contents
-    )
+    ['mySystem'                  => $aSystem, 'myUser'                    => $aUser, 'cart_products'             => $cart_products, 'cart_show_subtotal'        => $cart_show_subtotal, 'cart_show_total'            => $cart_show_total, 'cart_count_contents'        => $cart_count_contents, 'wishlist_count_contents'    => $wishlist_count_contents]
 );
 
 /* -----------shopping_cart.php--------------------------------------- */
@@ -235,7 +193,7 @@ if (isset($_SESSION)) {
 
 // Minimum Order Value
 if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
-    $minimum_order_value = str_replace(',', '.', MINIMUM_ORDER_VALUE);
+    $minimum_order_value = str_replace(',', '.', (string) MINIMUM_ORDER_VALUE);
     $sMinimumOrder = sprintf($aLang['text_info_minimum_order_value'], $oCurrencies->format($minimum_order_value));
     $smarty->assign('info_minimum_order_value', $sMinimumOrder);
 }
@@ -277,33 +235,14 @@ if ($aUser['show_price'] == 1) {
 $sPAngV .= sprintf($aLang['text_shipping'], oos_href_link($aContents['information'], 'information_id=5'));
 
 $smarty->assign(
-    array(
-        'pangv' => $sPAngV,
-        'tax_plus_shipping' => $tax_plus_shipping,
-        'products_units'=> $products_units,
-    )
+    ['pangv' => $sPAngV, 'tax_plus_shipping' => $tax_plus_shipping, 'products_units'=> $products_units]
 );
 
 
 // cookie-notice
 $hideEffect = isset($hideEffect) ? oos_prepare_input($hideEffect) : 'none';
 $aCookie = [];
-$aCookie = array(
-                'hideEffect'            => $hideEffect,
-                'onScroll'                => 'no',
-                'onScrollOffset'        => '100',
-                'cookieName'            => 'cookie_notice_accepted',
-                'cookieValue'            => 'true',
-                'cookieTime'            => '31536000',
-                'cookiePath'            => '',
-                'cookieDomain'            => '',
-                'redirection'            => '',
-                'cache'                    => '',
-                'refuse'                => 'no',
-                'revoke_cookies'        => '0',
-                'revoke_cookies_opt'    => 'automatic',
-                'secure'                => '0'
-        );
+$aCookie = ['hideEffect'            => $hideEffect, 'onScroll'                => 'no', 'onScrollOffset'        => '100', 'cookieName'            => 'cookie_notice_accepted', 'cookieValue'            => 'true', 'cookieTime'            => '31536000', 'cookiePath'            => '', 'cookieDomain'            => '', 'redirection'            => '', 'cache'                    => '', 'refuse'                => 'no', 'revoke_cookies'        => '0', 'revoke_cookies_opt'    => 'automatic', 'secure'                => '0'];
 $smarty->assign('cookiearray', $aCookie);
 
 /* remove $_COOKIE

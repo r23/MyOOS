@@ -217,13 +217,7 @@ if (!isset($option)) {
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-        'breadcrumb'    => $oBreadcrumb->trail(),
-        'heading_title' => $aLang['heading_title'],
-        'robots'        => 'noindex,nofollow,noodp,noydir',
-
-        'canonical'        => $sCanonical
-    )
+    ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title' => $aLang['heading_title'], 'robots'        => 'noindex,nofollow,noodp,noydir', 'canonical'        => $sCanonical]
 );
 
 
@@ -259,11 +253,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'login_admin')) {
     }
 
     $smarty->assign(
-        array('newkey2'             => $newkey2,
-              'email_address'       => $email_address,
-              'verif_key'           => $verif_key,
-              'login_result_values' => $login_result_values
-        )
+        ['newkey2'             => $newkey2, 'email_address'       => $email_address, 'verif_key'           => $verif_key, 'login_result_values' => $login_result_values]
     );
 }
 

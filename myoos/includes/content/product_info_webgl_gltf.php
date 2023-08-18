@@ -63,12 +63,7 @@ if (!$products_models_result->RecordCount()) {
 
 
     $smarty->assign(
-        array(
-            'breadcrumb'    => $oBreadcrumb->trail(),
-            'heading_title' => $aLang['text_model_not_found'],
-            'robots'        => 'noindex,follow,noodp,noydir',
-            'canonical'     => $sCanonical
-        )
+        ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title' => $aLang['text_model_not_found'], 'robots'        => 'noindex,follow,noodp,noydir', 'canonical'     => $sCanonical]
     );
 } else {
     $products_models_descriptiontable = $oostable['products_models_description'];
@@ -76,7 +71,7 @@ if (!$products_models_result->RecordCount()) {
         . " SET models_viewed = models_viewed+1"
         . " WHERE models_id = ?"
         . "   AND models_languages_id = ?";
-    $result = $dbconn->Execute($query, array((int)$nModelsID, (int)$nLanguageID));
+    $result = $dbconn->Execute($query, [(int)$nModelsID, (int)$nLanguageID]);
     $model_info = $products_models_result->fields;
 
     $name = oos_strip_suffix($model_info['models_webgl_gltf']);

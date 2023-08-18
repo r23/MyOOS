@@ -88,13 +88,12 @@ if (!empty($action)) {
             $products_units_id = oos_db_prepare_input($_GET['uID']);
 
             $languages = oos_get_languages();
-            for ($i = 0, $n = count($languages); $i < $n; $i++) {
+            for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
                 $products_unit_name_array = oos_db_prepare_input($_POST['products_unit_name']);
                 $unit_of_measure_array = oos_db_prepare_input($_POST['unit_of_measure']);
                 $language_id = $languages[$i]['id'];
 
-                $sql_data_array = array('products_unit_name' => oos_db_prepare_input($products_unit_name_array[$language_id]),
-                                        'unit_of_measure' => oos_db_prepare_input($unit_of_measure_array[$language_id]));
+                $sql_data_array = ['products_unit_name' => oos_db_prepare_input($products_unit_name_array[$language_id]), 'unit_of_measure' => oos_db_prepare_input($unit_of_measure_array[$language_id])];
 
                 if ($action == 'insert') {
                     if (oos_empty($products_units_id)) {
@@ -104,10 +103,9 @@ if (!empty($action)) {
                         $products_units_id = $next_id['products_units_id'] + 1;
                     }
 
-                    $insert_sql_data = array('products_units_id' => $products_units_id,
-                                        'languages_id' => $language_id);
+                    $insert_sql_data = ['products_units_id' => $products_units_id, 'languages_id' => $language_id];
 
-                    $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+                    $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
                     oos_db_perform($oostable['products_units'], $sql_data_array);
                 } elseif ($action == 'save') {
@@ -211,7 +209,7 @@ require 'includes/header.php';
   $products_units_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_units_result_raw, $products_units_result_numrows);
   $products_units_result = $dbconn->Execute($products_units_result_raw);
   while ($products_units = $products_units_result->fields) {
-      if ((!isset($_GET['uID']) || (isset($_GET['uID']) && ($_GET['uID'] == $products_units['products_units_id']))) && !isset($oInfo) && (substr($action, 0, 3) != 'new')) {
+      if ((!isset($_GET['uID']) || (isset($_GET['uID']) && ($_GET['uID'] == $products_units['products_units_id']))) && !isset($oInfo) && (!str_starts_with((string) $action, 'new'))) {
           $oInfo = new objectInfo($products_units);
       }
 
@@ -259,71 +257,71 @@ require 'includes/header.php';
 
   switch ($action) {
     case 'new':
-      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_PRODUCTS_UNITS . '</b>');
+      $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_NEW_PRODUCTS_UNITS . '</b>'];
 
-      $contents = array('form' => oos_draw_form('id', 'status', $aContents['products_units'], 'page=' . $nPage . '&action=insert', 'post', false));
-      $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
+      $contents = ['form' => oos_draw_form('id', 'status', $aContents['products_units'], 'page=' . $nPage . '&action=insert', 'post', false)];
+      $contents[] = ['text' => TEXT_INFO_INSERT_INTRO];
 
       $products_units_inputs_string = '';
       $unit_of_measure_inputs_string = '';
       $languages = oos_get_languages();
-      for ($i = 0, $n = count($languages); $i < $n; $i++) {
+      for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
           $products_units_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('products_unit_name[' . $languages[$i]['id'] . ']');
           $unit_of_measure_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('unit_of_measure[' . $languages[$i]['id'] . ']');
       }
 
-      $contents[] = array('text' => '<br>' . TEXT_INFO_PRODUCTS_UNITS_NAME . $products_units_inputs_string);
-      $contents[] = array('text' => '<br>' . TEXT_INFO_UNIT_OF_MEASURE . $unit_of_measure_inputs_string);
+      $contents[] = ['text' => '<br>' . TEXT_INFO_PRODUCTS_UNITS_NAME . $products_units_inputs_string];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_UNIT_OF_MEASURE . $unit_of_measure_inputs_string];
 
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
       break;
 
     case 'edit':
-      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_PRODUCTS_UNITS . '</b>');
+      $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_EDIT_PRODUCTS_UNITS . '</b>'];
 
-      $contents = array('form' => oos_draw_form('id', 'status', $aContents['products_units'], 'page=' . $nPage . '&uID=' . $oInfo->products_units_id  . '&action=save', 'post', false));
-      $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
+      $contents = ['form' => oos_draw_form('id', 'status', $aContents['products_units'], 'page=' . $nPage . '&uID=' . $oInfo->products_units_id  . '&action=save', 'post', false)];
+      $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
 
       $products_units_inputs_string = '';
       $unit_of_measure_inputs_string = '';
       $languages = oos_get_languages();
-      for ($i = 0, $n = count($languages); $i < $n; $i++) {
+      for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
           $products_units_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('products_unit_name[' . $languages[$i]['id'] . ']', oos_get_products_units_name($oInfo->products_units_id, $languages[$i]['id']));
           $unit_of_measure_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('unit_of_measure[' . $languages[$i]['id'] . ']', oos_get_unit_of_measure($oInfo->products_units_id, $languages[$i]['id']));
       }
 
-      $contents[] = array('text' => '<br>' . TEXT_INFO_PRODUCTS_UNITS_NAME . $products_units_inputs_string);
-      $contents[] = array('text' => '<br>' . TEXT_INFO_UNIT_OF_MEASURE . $unit_of_measure_inputs_string);
+      $contents[] = ['text' => '<br>' . TEXT_INFO_PRODUCTS_UNITS_NAME . $products_units_inputs_string];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_UNIT_OF_MEASURE . $unit_of_measure_inputs_string];
 
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $oInfo->products_units_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $oInfo->products_units_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
       break;
 
     case 'delete':
-      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_PRODUCTS_UNITS . '</b>');
+      $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_PRODUCTS_UNITS . '</b>'];
 
-      $contents = array('form' => oos_draw_form('id', 'status', $aContents['products_units'], 'page=' . $nPage . '&uID=' . $oInfo->products_units_id  . '&action=deleteconfirm', 'post', false));
-      $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
-      $contents[] = array('text' => '<br><b>' . $oInfo->products_unit_name . '</b>');
+      $contents = ['form' => oos_draw_form('id', 'status', $aContents['products_units'], 'page=' . $nPage . '&uID=' . $oInfo->products_units_id  . '&action=deleteconfirm', 'post', false)];
+      $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
+      $contents[] = ['text' => '<br><b>' . $oInfo->products_unit_name . '</b>'];
       if ($remove_status) {
-          $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $oInfo->products_units_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+          $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $oInfo->products_units_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
       }
 
       break;
 
     default:
      if (isset($oInfo) && is_object($oInfo)) {
-         $heading[] = array('text' => '<b>' . $oInfo->products_unit_name . '</b>');
+         $heading[] = ['text' => '<b>' . $oInfo->products_unit_name . '</b>'];
 
-         $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $oInfo->products_units_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $oInfo->products_units_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
+         $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $oInfo->products_units_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $oInfo->products_units_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
 
          $products_units_inputs_string = '';
          $languages = oos_get_languages();
-         for ($i = 0, $n = count($languages); $i < $n; $i++) {
+         for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
              $products_units_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_get_products_units_name($oInfo->products_units_id, $languages[$i]['id']);
          }
 
-         $contents[] = array('text' => $products_units_inputs_string);
+         $contents[] = ['text' => $products_units_inputs_string];
      }
       break;
   }

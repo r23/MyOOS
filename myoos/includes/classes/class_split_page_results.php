@@ -38,22 +38,20 @@ class splitPageResults
     public $current_page_number;
     public $number_of_pages;
     public $number_of_rows_per_page;
-    public $page_name;
 
     /**
      * Constructor
      */
-    public function __construct($query, $max_rows, $count_key = '*', $page_holder = 'page')
+    public function __construct($query, $max_rows, $count_key = '*', public $page_name = 'page')
     {
         $max_rows = ($max_rows == '' || $max_rows == 0) ? 20 : $max_rows;
 
-        $this->sql_query = preg_replace("/\n\r|\r\n|\n|\r/", " ", $query);
-        $this->page_name = $page_holder;
+        $this->sql_query = preg_replace("/\n\r|\r\n|\n|\r/", " ", (string) $query);
 
-        if (isset($_GET[$page_holder])) {
-            $page = filter_input(INPUT_GET, $page_holder, FILTER_VALIDATE_INT);
-        } elseif (isset($_POST[$page_holder])) {
-            $page = filter_input(INPUT_POST, $page_holder, FILTER_VALIDATE_INT);
+        if (isset($_GET[$page_name])) {
+            $page = filter_input(INPUT_GET, $page_name, FILTER_VALIDATE_INT);
+        } elseif (isset($_POST[$page_name])) {
+            $page = filter_input(INPUT_POST, $page_name, FILTER_VALIDATE_INT);
         } 
 
         if ($page === null || $page === false) {
@@ -130,7 +128,7 @@ class splitPageResults
 
         $display_link = '';
 
-        if (oos_is_not_null($parameters) && (substr($parameters, -5) != '&amp;')) {
+        if (oos_is_not_null($parameters) && (!str_ends_with((string) $parameters, '&amp;'))) {
             $parameters .= '&amp;';
         }
 

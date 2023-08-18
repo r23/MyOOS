@@ -39,12 +39,12 @@ if (!empty($action)) {
     switch ($action) {
         case 'insert_product':
         case 'update_product':
-            $_POST['products_price'] = str_replace(',', '.', $_POST['products_price']);
-            $_POST['products_price_list'] = str_replace(',', '.', $_POST['products_price_list']);
-            $_POST['products_discount1'] = str_replace(',', '.', $_POST['products_discount1']);
-            $_POST['products_discount2'] = str_replace(',', '.', $_POST['products_discount2']);
-            $_POST['products_discount3'] = str_replace(',', '.', $_POST['products_discount3']);
-            $_POST['products_discount4'] = str_replace(',', '.', $_POST['products_discount4']);
+            $_POST['products_price'] = str_replace(',', '.', (string) $_POST['products_price']);
+            $_POST['products_price_list'] = str_replace(',', '.', (string) $_POST['products_price_list']);
+            $_POST['products_discount1'] = str_replace(',', '.', (string) $_POST['products_discount1']);
+            $_POST['products_discount2'] = str_replace(',', '.', (string) $_POST['products_discount2']);
+            $_POST['products_discount3'] = str_replace(',', '.', (string) $_POST['products_discount3']);
+            $_POST['products_discount4'] = str_replace(',', '.', (string) $_POST['products_discount4']);
 
             if (isset($_FILES['files'])) {
                 foreach ($_FILES['files']['name'] as $key => $name) {
@@ -98,43 +98,12 @@ if (!empty($action)) {
 
             $products_date_available = (date('Y-m-d') < $products_date_available) ? $products_date_available : 'null';
 
-            $sql_data_array = array('products_quantity' => intval($nProductsQuantity),
-                                    'products_reorder_level' => intval($nProductsReorderLevel),
-                                    'products_model' => oos_db_prepare_input($_POST['products_model']),
-                                    'products_replacement_product_id' => intval($nProductsReplacementProductID),
-                                    'products_ean' => oos_db_prepare_input($_POST['products_ean']),
-                                    'products_price' => oos_db_prepare_input($_POST['products_price']),
-                                    'products_base_price' => $products_base_price,
-                                    'products_product_quantity' => $products_product_quantity,
-                                    'products_base_quantity' => $products_base_quantity,
-                                    'products_base_unit' => $products_base_unit,
-                                    'products_date_available' => $products_date_available,
-                                    'products_weight' => oos_db_prepare_input($_POST['products_weight']),
-                                    'products_status' => $nProductsStatus,
-                                    'products_setting' => oos_db_prepare_input($_POST['products_setting']),
-                                    'products_tax_class_id' => oos_db_prepare_input($_POST['products_tax_class_id']),
-                                    'products_units_id' => (isset($_POST['products_units_id']) ? intval($_POST['products_units_id']) : 0),
-                                    'products_old_electrical_equipment' => (isset($_POST['products_old_electrical_equipment']) ? 1 : 0),
-                                    'products_used_goods' => (isset($_POST['products_used_goods']) ? 1 : 0),
-                                    'manufacturers_id' => oos_db_prepare_input($_POST['manufacturers_id']),
-                                    'products_price_list' => oos_db_prepare_input($_POST['products_price_list']),
-                                    'products_quantity_order_min' => oos_db_prepare_input($_POST['products_quantity_order_min']),
-                                    'products_quantity_order_units' => oos_db_prepare_input($_POST['products_quantity_order_units']),
-                                    'products_quantity_order_max' => oos_db_prepare_input($_POST['products_quantity_order_max']),
-                                    'products_discount1' => oos_db_prepare_input($_POST['products_discount1']),
-                                    'products_discount1_qty' => oos_db_prepare_input($_POST['products_discount1_qty']),
-                                    'products_discount2' => oos_db_prepare_input($_POST['products_discount2']),
-                                    'products_discount2_qty' => oos_db_prepare_input($_POST['products_discount2_qty']),
-                                    'products_discount3' => oos_db_prepare_input($_POST['products_discount3']),
-                                    'products_discount3_qty' => oos_db_prepare_input($_POST['products_discount3_qty']),
-                                    'products_discount4' => oos_db_prepare_input($_POST['products_discount4']),
-                                    'products_discount4_qty' => oos_db_prepare_input($_POST['products_discount4_qty']),
-                                  );
+            $sql_data_array = ['products_quantity' => intval($nProductsQuantity), 'products_reorder_level' => intval($nProductsReorderLevel), 'products_model' => oos_db_prepare_input($_POST['products_model']), 'products_replacement_product_id' => intval($nProductsReplacementProductID), 'products_ean' => oos_db_prepare_input($_POST['products_ean']), 'products_price' => oos_db_prepare_input($_POST['products_price']), 'products_base_price' => $products_base_price, 'products_product_quantity' => $products_product_quantity, 'products_base_quantity' => $products_base_quantity, 'products_base_unit' => $products_base_unit, 'products_date_available' => $products_date_available, 'products_weight' => oos_db_prepare_input($_POST['products_weight']), 'products_status' => $nProductsStatus, 'products_setting' => oos_db_prepare_input($_POST['products_setting']), 'products_tax_class_id' => oos_db_prepare_input($_POST['products_tax_class_id']), 'products_units_id' => (isset($_POST['products_units_id']) ? intval($_POST['products_units_id']) : 0), 'products_old_electrical_equipment' => (isset($_POST['products_old_electrical_equipment']) ? 1 : 0), 'products_used_goods' => (isset($_POST['products_used_goods']) ? 1 : 0), 'manufacturers_id' => oos_db_prepare_input($_POST['manufacturers_id']), 'products_price_list' => oos_db_prepare_input($_POST['products_price_list']), 'products_quantity_order_min' => oos_db_prepare_input($_POST['products_quantity_order_min']), 'products_quantity_order_units' => oos_db_prepare_input($_POST['products_quantity_order_units']), 'products_quantity_order_max' => oos_db_prepare_input($_POST['products_quantity_order_max']), 'products_discount1' => oos_db_prepare_input($_POST['products_discount1']), 'products_discount1_qty' => oos_db_prepare_input($_POST['products_discount1_qty']), 'products_discount2' => oos_db_prepare_input($_POST['products_discount2']), 'products_discount2_qty' => oos_db_prepare_input($_POST['products_discount2_qty']), 'products_discount3' => oos_db_prepare_input($_POST['products_discount3']), 'products_discount3_qty' => oos_db_prepare_input($_POST['products_discount3_qty']), 'products_discount4' => oos_db_prepare_input($_POST['products_discount4']), 'products_discount4_qty' => oos_db_prepare_input($_POST['products_discount4_qty'])];
 
             if ($action == 'insert_product') {
-                $insert_sql_data = array('products_date_added' => 'now()');
+                $insert_sql_data = ['products_date_added' => 'now()'];
 
-                $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+                $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
                 oos_db_perform($oostable['products'], $sql_data_array);
                 $products_id = $dbconn->Insert_ID();
@@ -143,9 +112,7 @@ if (!empty($action)) {
                 $dbconn->Execute("INSERT INTO $products_to_categoriestable (products_id, categories_id) VALUES ('" . intval($products_id) . "', '" . intval($current_category_id) . "')");
 
                 // product price history
-                $sql_price_array = array('products_id' => $products_id,
-                                        'products_price' => oos_db_prepare_input($_POST['products_price']),
-                                        'date_added' => 'now()');
+                $sql_price_array = ['products_id' => $products_id, 'products_price' => oos_db_prepare_input($_POST['products_price']), 'date_added' => 'now()'];
                 oos_db_perform($oostable['products_price_history'], $sql_price_array);
             } elseif ($action == 'update_product') {
                 // product price history
@@ -162,23 +129,21 @@ if (!empty($action)) {
 
                 # https://www.php.net/manual/en/language.types.float.php#language.types.float.casting
                 if (abs($old_products_price-$new_products_price) > $epsilon) {
-                    $sql_price_array = array('products_id' => intval($products_id),
-                                            'products_price' => oos_db_prepare_input($_POST['products_price']),
-                                            'date_added' => 'now()');
+                    $sql_price_array = ['products_id' => intval($products_id), 'products_price' => oos_db_prepare_input($_POST['products_price']), 'date_added' => 'now()'];
                     oos_db_perform($oostable['products_price_history'], $sql_price_array);
                 }
 
 
-                $update_sql_data = array('products_last_modified' => 'now()');
+                $update_sql_data = ['products_last_modified' => 'now()'];
 
-                $sql_data_array = array_merge($sql_data_array, $update_sql_data);
+                $sql_data_array = [...$sql_data_array, ...$update_sql_data];
 
                 oos_db_perform($oostable['products'], $sql_data_array, 'UPDATE', 'products_id = \'' . intval($products_id) . '\'');
             }
 
 
             $aLanguages = oos_get_languages();
-            $nLanguages = count($aLanguages);
+            $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
 
             for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
                 $language_id = $aLanguages[$i]['id'];
@@ -189,7 +154,7 @@ if (!empty($action)) {
 
 
                 if (empty($products_description_meta)) {
-                    $products_description_meta =  substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '', $products_description)), 0, 250);
+                    $products_description_meta =  substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '', (string) $products_description)), 0, 250);
                 }
 
                 $products_facebook_title = oos_db_prepare_input($_POST['products_facebook_title'][$language_id]);
@@ -218,25 +183,12 @@ if (!empty($action)) {
 
 
 
-                $sql_data_array = array('products_name' => oos_db_prepare_input($_POST['products_name'][$language_id]),
-                                        'products_title' => oos_db_prepare_input($_POST['products_title'][$language_id]),
-                                        'products_description' => $products_description,
-                                        'products_short_description' => $products_short_description,
-                                        'products_essential_characteristics' => $products_essential_characteristics,
-                                        'products_old_electrical_equipment_description' => $products_old_electrical_equipment_description,
-                                        'products_used_goods_description' => $products_used_goods_description,
-                                        'products_description_meta' => $products_description_meta,
-                                        'products_facebook_title' => $products_facebook_title,
-                                        'products_facebook_description' => $products_facebook_description,
-                                        'products_twitter_title' => $products_twitter_title,
-                                        'products_twitter_description' => $products_twitter_description,
-                                        'products_url' => oos_db_prepare_input($_POST['products_url'][$language_id]));
+                $sql_data_array = ['products_name' => oos_db_prepare_input($_POST['products_name'][$language_id]), 'products_title' => oos_db_prepare_input($_POST['products_title'][$language_id]), 'products_description' => $products_description, 'products_short_description' => $products_short_description, 'products_essential_characteristics' => $products_essential_characteristics, 'products_old_electrical_equipment_description' => $products_old_electrical_equipment_description, 'products_used_goods_description' => $products_used_goods_description, 'products_description_meta' => $products_description_meta, 'products_facebook_title' => $products_facebook_title, 'products_facebook_description' => $products_facebook_description, 'products_twitter_title' => $products_twitter_title, 'products_twitter_description' => $products_twitter_description, 'products_url' => oos_db_prepare_input($_POST['products_url'][$language_id])];
 
                 if ($action == 'insert_product') {
-                    $insert_sql_data = array('products_id' => $products_id,
-                                      'products_languages_id' => $language_id);
+                    $insert_sql_data = ['products_id' => $products_id, 'products_languages_id' => $language_id];
 
-                    $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+                    $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
                     oos_db_perform($oostable['products_description'], $sql_data_array);
                 } elseif ($action == 'update_product') {
@@ -267,62 +219,65 @@ if (!empty($action)) {
             }
 
 
-            $options = array(
-                'image_versions' => array(
+            $options = ['image_versions' => [
                 // The empty image version key defines options for the original image.
                 // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards.
                 // Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
-                    '' => array(
-                        // Automatically rotate images based on EXIF meta data:
-                        'auto_orient' => true
-                    ),
-                    'large' => array(
-                        // 'auto_orient' => TRUE,
-                        // 'crop' => TRUE,
-                        // 'jpeg_quality' => 82,
-                        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                        'max_width' => 1200, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                        'max_height' => 1200, // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-                    ),
-                    'medium_large' => array(
-                        // 'auto_orient' => TRUE,
-                        // 'crop' => TRUE,
-                        // 'jpeg_quality' => 82,
-                        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                        'max_width' => 600, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                        'max_height' => 600 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-                    ),
-                    'medium' => array(
-                        // 'auto_orient' => TRUE,
-                        // 'crop' => TRUE,
-                        // 'jpeg_quality' => 82,
-                        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                        'max_width' => 420, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                        'max_height' => 455 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-                    ),
-                    'small' => array(
-                        // 'auto_orient' => TRUE,
-                        // 'crop' => TRUE,
-                        // 'jpeg_quality' => 82,
-                        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                        'max_width' => 150, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                        'max_height' => 150 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-                    ),
-                    'min' => array(
-                        // 'auto_orient' => TRUE,
-                        // 'crop' => TRUE,
-                        // 'jpeg_quality' => 82,
-                        // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                        // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                        'max_width' => 64, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                        'max_height' => 64 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-                    ),
-                ),
-            );
+                '' => [
+                    // Automatically rotate images based on EXIF meta data:
+                    'auto_orient' => true,
+                ],
+                'large' => [
+                    // 'auto_orient' => TRUE,
+                    // 'crop' => TRUE,
+                    // 'jpeg_quality' => 82,
+                    // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                    // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                    'max_width' => 1200,
+                    // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                    'max_height' => 1200,
+                ],
+                'medium_large' => [
+                    // 'auto_orient' => TRUE,
+                    // 'crop' => TRUE,
+                    // 'jpeg_quality' => 82,
+                    // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                    // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                    'max_width' => 600,
+                    // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                    'max_height' => 600,
+                ],
+                'medium' => [
+                    // 'auto_orient' => TRUE,
+                    // 'crop' => TRUE,
+                    // 'jpeg_quality' => 82,
+                    // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                    // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                    'max_width' => 420,
+                    // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                    'max_height' => 455,
+                ],
+                'small' => [
+                    // 'auto_orient' => TRUE,
+                    // 'crop' => TRUE,
+                    // 'jpeg_quality' => 82,
+                    // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                    // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                    'max_width' => 150,
+                    // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                    'max_height' => 150,
+                ],
+                'min' => [
+                    // 'auto_orient' => TRUE,
+                    // 'crop' => TRUE,
+                    // 'jpeg_quality' => 82,
+                    // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                    // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                    'max_width' => 64,
+                    // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                    'max_height' => 64,
+                ],
+            ]];
 
             $oProductImage = new upload('products_image', $options);
 
@@ -347,9 +302,7 @@ if (!empty($action)) {
                     $sort_order = 0 + $nImageCounter;
                     foreach ($oImage->response as $index => $value) {
                         $sort_order++;
-                        $sql_data_array = array('products_id' => intval($products_id),
-                                                'image_name' => oos_db_prepare_input($value),
-                                                'sort_order' => intval($sort_order));
+                        $sql_data_array = ['products_id' => intval($products_id), 'image_name' => oos_db_prepare_input($value), 'sort_order' => intval($sort_order)];
                         oos_db_perform($oostable['products_gallery'], $sql_data_array);
                     }
                 }
@@ -402,33 +355,7 @@ if ($action == 'new_product' || $action == 'edit_product') {
     defined('DEFAULT_TAX_CLASS_ID') or define('DEFAULT_TAX_CLASS_ID', '1');
 
 
-    $parameters = array('products_id' => '',
-                        'products_name' => '',
-                        'products_title' => '',
-                       'products_description' => '',
-                       'products_short_description' => '',
-                       'products_essential_characteristics' => '',
-                       'products_url' => '',
-                       'products_quantity' => '',
-                       'products_model' => '',
-                       'products_image' => '',
-                       'products_larger_images' => array(),
-                       'products_price' => 0.0,
-                       'products_base_price' => 1.0,
-                       'products_base_unit' => 0,
-                       'products_product_quantity' => 1.0,
-                       'products_base_quantity' => 1.0,
-                       'products_weight' => '',
-                       'products_date_added' => '',
-                       'products_last_modified' => '',
-                       'products_date_available' => '',
-                       'products_setting' => DEFAULT_SETTING_ID,
-                       'products_status' => DEFAULT_PRODUTS_STATUS_ID,
-                       'products_tax_class_id' => DEFAULT_TAX_CLASS_ID,
-                       'products_units_id' => 0,
-                       'products_old_electrical_equipment' => 0,
-                       'products_used_goods' => 0,
-                       'manufacturers_id' => '');
+    $parameters = ['products_id' => '', 'products_name' => '', 'products_title' => '', 'products_description' => '', 'products_short_description' => '', 'products_essential_characteristics' => '', 'products_url' => '', 'products_quantity' => '', 'products_model' => '', 'products_image' => '', 'products_larger_images' => [], 'products_price' => 0.0, 'products_base_price' => 1.0, 'products_base_unit' => 0, 'products_product_quantity' => 1.0, 'products_base_quantity' => 1.0, 'products_weight' => '', 'products_date_added' => '', 'products_last_modified' => '', 'products_date_available' => '', 'products_setting' => DEFAULT_SETTING_ID, 'products_status' => DEFAULT_PRODUTS_STATUS_ID, 'products_tax_class_id' => DEFAULT_TAX_CLASS_ID, 'products_units_id' => 0, 'products_old_electrical_equipment' => 0, 'products_used_goods' => 0, 'manufacturers_id' => ''];
 
     $pInfo = new objectInfo($parameters);
 
@@ -529,7 +456,7 @@ if ($action == 'new_product' || $action == 'edit_product') {
     }
 
     $aLanguages = oos_get_languages();
-    $nLanguages = count($aLanguages);
+    $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
 
     $form_action = (isset($_GET['pID'])) ? 'update_product' : 'insert_product';
 
@@ -546,10 +473,10 @@ if ($action == 'new_product' || $action == 'edit_product') {
 
     if (isset($_GET['origin'])) {
         $sOrigin = oos_db_prepare_input($_GET['origin']);
-        $pos_params = strpos($sOrigin, '?', 0);
+        $pos_params = strpos((string) $sOrigin, '?', 0);
         if ($pos_params != false) {
-            $back_url = substr($sOrigin, 0, $pos_params);
-            $back_url_params = substr($sOrigin, $pos_params + 1);
+            $back_url = substr((string) $sOrigin, 0, $pos_params);
+            $back_url_params = substr((string) $sOrigin, $pos_params + 1);
         } else {
             $back_url = $sOrigin;
             $back_url_params = '';
@@ -679,7 +606,7 @@ function calcBasePriceFactor() {
 	<!-- END Breadcrumbs //-->
 
 	<?php echo oos_draw_form('id', 'new_product', $aContents['products'], 'cPath=' . oos_prepare_input($cPath) . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=' . $form_action, 'post', false, 'enctype="multipart/form-data"'); ?>
-		<?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d')));
+		<?php echo oos_draw_hidden_field('products_date_added', ($pInfo->products_date_added ?: date('Y-m-d')));
     echo oos_hide_session_id(); ?>
                <div role="tabpanel">
                   <ul class="nav nav-tabs nav-justified" id="myTab">
@@ -728,7 +655,7 @@ function calcBasePriceFactor() {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
                               <div class="col-lg-9">
-								<?php echo oos_draw_input_field('products_name[' . $aLanguages[$i]['id'] . ']', (isset($products_name[$aLanguages[$i]['id']]) ? stripslashes($products_name[$aLanguages[$i]['id']]) : oos_get_products_name($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_input_field('products_name[' . $aLanguages[$i]['id'] . ']', (isset($products_name[$aLanguages[$i]['id']]) ? stripslashes((string) $products_name[$aLanguages[$i]['id']]) : oos_get_products_name($pInfo->products_id, $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
                         </fieldset>						
@@ -745,7 +672,7 @@ function calcBasePriceFactor() {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
                               <div class="col-lg-9">
-								<?php echo oos_draw_input_field('products_title[' . $aLanguages[$i]['id'] . ']', (isset($products_title[$aLanguages[$i]['id']]) ? stripslashes($products_title[$aLanguages[$i]['id']]) : oos_get_products_title($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_input_field('products_title[' . $aLanguages[$i]['id'] . ']', (isset($products_title[$aLanguages[$i]['id']]) ? stripslashes((string) $products_title[$aLanguages[$i]['id']]) : oos_get_products_title($pInfo->products_id, $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
                         </fieldset>						
@@ -787,7 +714,7 @@ function calcBasePriceFactor() {
         } ?>
                               <div class="col-lg-9">
 <?php
-       echo oos_draw_textarea_field('products_description_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['products_description_' .$aLanguages[$i]['id']]) ? stripslashes($_POST['products_description_' .$aLanguages[$i]['id']]) : oos_get_products_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+       echo oos_draw_textarea_field('products_description_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['products_description_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_description_' .$aLanguages[$i]['id']]) : oos_get_products_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -809,7 +736,7 @@ function calcBasePriceFactor() {
         } ?>
                               <div class="col-lg-9">
 <?php
-       echo oos_draw_textarea_field('products_short_description_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['products_short_description_' .$aLanguages[$i]['id']]) ? stripslashes($_POST['products_short_description_' .$aLanguages[$i]['id']]) : oos_get_products_short_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+       echo oos_draw_textarea_field('products_short_description_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['products_short_description_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_short_description_' .$aLanguages[$i]['id']]) : oos_get_products_short_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -831,7 +758,7 @@ function calcBasePriceFactor() {
         } ?>
                               <div class="col-lg-9">
 <?php
-       echo oos_draw_textarea_field('products_essential_characteristics_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['products_essential_characteristics_' .$aLanguages[$i]['id']]) ? stripslashes($_POST['products_essential_characteristics_' .$aLanguages[$i]['id']]) : oos_get_products_essential_characteristicsn($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+       echo oos_draw_textarea_field('products_essential_characteristics_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['products_essential_characteristics_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_essential_characteristics_' .$aLanguages[$i]['id']]) : oos_get_products_essential_characteristicsn($pInfo->products_id, $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -852,7 +779,7 @@ function calcBasePriceFactor() {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_textarea_field('products_description_meta_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['products_description_meta_' .$aLanguages[$i]['id']]) ? stripslashes($_POST['products_description_meta_' .$aLanguages[$i]['id']]) : oos_get_products_description_meta($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_textarea_field('products_description_meta_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['products_description_meta_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_description_meta_' .$aLanguages[$i]['id']]) : oos_get_products_description_meta($pInfo->products_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -871,7 +798,7 @@ function calcBasePriceFactor() {
 							  <?php if ($nLanguages > 1) {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
-                              <div class="col-lg-9"><?php echo oos_draw_input_field('products_url[' . $aLanguages[$i]['id'] . ']', (isset($products_url[$aLanguages[$i]['iso_639_2']]) ? stripslashes($products_url[$aLanguages[$i]['id']]) : oos_get_products_url($pInfo->products_id, $aLanguages[$i]['id']))); ?></div>
+                              <div class="col-lg-9"><?php echo oos_draw_input_field('products_url[' . $aLanguages[$i]['id'] . ']', (isset($products_url[$aLanguages[$i]['iso_639_2']]) ? stripslashes((string) $products_url[$aLanguages[$i]['id']]) : oos_get_products_url($pInfo->products_id, $aLanguages[$i]['id']))); ?></div>
                            </div>
                         </fieldset>
 <?php
@@ -904,7 +831,7 @@ function calcBasePriceFactor() {
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_LIST_PRICE; ?></label>
                               <div class="col-lg-10">
                                 <?php
-                                    $sPriceList = number_format(isset($pInfo->products_price_list) ? $pInfo->products_price_list : 0, 4, '.', '');
+                                    $sPriceList = number_format($pInfo->products_price_list ?? 0, 4, '.', '');
     echo oos_draw_input_field('products_price_list', $sPriceList, 'onkeyup="updateWithTax()"'); ?>
                               </div>
                            </div>
@@ -914,7 +841,7 @@ function calcBasePriceFactor() {
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_LIST_PRICE_WITH_TAX; ?></label>
                               <div class="col-lg-10">
                                 <?php
-                                    $sPriceList = number_format(isset($pInfo->products_price_list) ? $pInfo->products_price_list : 0, TAX_DECIMAL_PLACES, '.', '');
+                                    $sPriceList = number_format($pInfo->products_price_list ?? 0, TAX_DECIMAL_PLACES, '.', '');
     echo oos_draw_input_field('products_price_list_gross', $sPriceList, 'onkeyup="updateNet()"'); ?>
                               </div>
                            </div>
@@ -979,10 +906,10 @@ function calcBasePriceFactor() {
                               <div class="col-lg-10">
  <?php
 
-   $sDiscount1 = number_format(isset($pInfo->products_discount1) ? $pInfo->products_discount1 : 0, 4, '.', '');
-    $sDiscount2 = number_format(isset($pInfo->products_discount2) ? $pInfo->products_discount2 : 0, 4, '.', '');
-    $sDiscount3 = number_format(isset($pInfo->products_discount3) ? $pInfo->products_discount3 : 0, 4, '.', '');
-    $sDiscount4 = number_format(isset($pInfo->products_discount4) ? $pInfo->products_discount4 : 0, 4, '.', ''); ?>
+   $sDiscount1 = number_format($pInfo->products_discount1 ?? 0, 4, '.', '');
+    $sDiscount2 = number_format($pInfo->products_discount2 ?? 0, 4, '.', '');
+    $sDiscount3 = number_format($pInfo->products_discount3 ?? 0, 4, '.', '');
+    $sDiscount4 = number_format($pInfo->products_discount4 ?? 0, 4, '.', ''); ?>
  
 <table class="table table-striped">
   <thead class="thead-dark">
@@ -997,10 +924,10 @@ function calcBasePriceFactor() {
   <tbody>
     <tr>
       <th scope="row"><?php echo TEXT_DISCOUNTS_QTY; ?></th>
-      <td><?php echo oos_draw_input_field('products_discount1_qty', isset($pInfo->products_discount1_qty) ? $pInfo->products_discount1_qty : 0); ?></td>
-      <td><?php echo oos_draw_input_field('products_discount2_qty', isset($pInfo->products_discount2_qty) ? $pInfo->products_discount2_qty : 0); ?></td>
-      <td><?php echo oos_draw_input_field('products_discount3_qty', isset($pInfo->products_discount3_qty) ? $pInfo->products_discount3_qty : 0); ?></td>
-      <td><?php echo oos_draw_input_field('products_discount4_qty', isset($pInfo->products_discount4_qty) ? $pInfo->products_discount4_qty : 0); ?></td>
+      <td><?php echo oos_draw_input_field('products_discount1_qty', $pInfo->products_discount1_qty ?? 0); ?></td>
+      <td><?php echo oos_draw_input_field('products_discount2_qty', $pInfo->products_discount2_qty ?? 0); ?></td>
+      <td><?php echo oos_draw_input_field('products_discount3_qty', $pInfo->products_discount3_qty ?? 0); ?></td>
+      <td><?php echo oos_draw_input_field('products_discount4_qty', $pInfo->products_discount4_qty ?? 0); ?></td>
     </tr>
     <tr>
       <th scope="row"><?php echo TEXT_DISCOUNTS_PRICE; ?></th>
@@ -1031,7 +958,7 @@ updateWithTax();
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_MODEL; ?></label>
                               <div class="col-lg-10">
-								<?php echo oos_draw_input_field('products_model', isset($pInfo->products_model) ? $pInfo->products_model : ''); ?>
+								<?php echo oos_draw_input_field('products_model', $pInfo->products_model ?? ''); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -1039,7 +966,7 @@ updateWithTax();
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_EAN; ?></label>
                               <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_ean', isset($pInfo->products_ean) ? $pInfo->products_ean : ''); ?>
+                                 <?php echo oos_draw_input_field('products_ean', $pInfo->products_ean ?? ''); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -1047,7 +974,7 @@ updateWithTax();
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_QUANTITY; ?></label>
                               <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_quantity', isset($pInfo->products_quantity) ? $pInfo->products_quantity : ''); ?>
+                                 <?php echo oos_draw_input_field('products_quantity', $pInfo->products_quantity ?? ''); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -1055,7 +982,7 @@ updateWithTax();
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_MINIMUM_ORDER; ?></label>
                               <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_quantity_order_min', isset($pInfo->products_quantity_order_min) ? $pInfo->products_quantity_order_min : 1); ?>
+                                 <?php echo oos_draw_input_field('products_quantity_order_min', $pInfo->products_quantity_order_min ?? 1); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -1063,7 +990,7 @@ updateWithTax();
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_PACKAGING_UNIT; ?></label>
                               <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_quantity_order_units', isset($pInfo->products_quantity_order_units) ? $pInfo->products_quantity_order_units : 1); ?>
+                                 <?php echo oos_draw_input_field('products_quantity_order_units', $pInfo->products_quantity_order_units ?? 1); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -1071,7 +998,7 @@ updateWithTax();
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_MAXIMUM_ORDER; ?></label>
                               <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_quantity_order_max', isset($pInfo->products_quantity_order_max) ? $pInfo->products_quantity_order_max : 30); ?>
+                                 <?php echo oos_draw_input_field('products_quantity_order_max', $pInfo->products_quantity_order_max ?? 30); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -1082,7 +1009,7 @@ updateWithTax();
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_REORDER_LEVEL; ?></label>
                               <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_reorder_level', isset($pInfo->products_reorder_level) ? $pInfo->products_reorder_level : 5); ?>
+                                 <?php echo oos_draw_input_field('products_reorder_level', $pInfo->products_reorder_level ?? 5); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -1104,7 +1031,7 @@ updateWithTax();
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_REPLACEMENT_PRODUCT; ?></label>
                               <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_replacement_product_id', isset($pInfo->products_replacement_product_id) ? $pInfo->products_replacement_product_id : ''); ?>
+                                 <?php echo oos_draw_input_field('products_replacement_product_id', $pInfo->products_replacement_product_id ?? ''); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -1121,7 +1048,7 @@ updateWithTax();
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_OLD_ELECTRICAL_EQUIPMENT_OBLIGATIONS; ?></label>
-                              <div class="col-lg-10"><?php echo oos_draw_checkbox_field('products_old_electrical_equipment', '', (isset($pInfo->products_old_electrical_equipment) ? $pInfo->products_old_electrical_equipment : '0')); ?></div>
+                              <div class="col-lg-10"><?php echo oos_draw_checkbox_field('products_old_electrical_equipment', '', ($pInfo->products_old_electrical_equipment ?? '0')); ?></div>
                            </div>
                         </fieldset>
 
@@ -1138,7 +1065,7 @@ updateWithTax();
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_textarea_field('products_old_electrical_equipment_description_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['products_old_electrical_equipment_description_' .$aLanguages[$i]['id']]) ? stripslashes($_POST['products_old_electrical_equipment_description_' .$aLanguages[$i]['id']]) : oos_get_products_old_electrical_equipment_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_textarea_field('products_old_electrical_equipment_description_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['products_old_electrical_equipment_description_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_old_electrical_equipment_description_' .$aLanguages[$i]['id']]) : oos_get_products_old_electrical_equipment_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -1148,7 +1075,7 @@ updateWithTax();
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_OFFER_B_WARE_INFO; ?></label>
-                              <div class="col-lg-10"><?php echo oos_draw_checkbox_field('products_used_goods', '', (isset($pInfo->products_used_goods) ? $pInfo->products_used_goods : '0')); ?></div>
+                              <div class="col-lg-10"><?php echo oos_draw_checkbox_field('products_used_goods', '', ($pInfo->products_used_goods ?? '0')); ?></div>
                            </div>
                         </fieldset>
 
@@ -1164,7 +1091,7 @@ updateWithTax();
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_textarea_field('products_used_goods_description_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['products_used_goods_description_' .$aLanguages[$i]['id']]) ? stripslashes($_POST['products_used_goods_description_' .$aLanguages[$i]['id']]) : oos_get_products_used_goods_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_textarea_field('products_used_goods_description_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['products_used_goods_description_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_used_goods_description_' .$aLanguages[$i]['id']]) : oos_get_products_used_goods_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -1185,7 +1112,7 @@ updateWithTax();
 
 
 <?php
-        for ($i=0; $i < count($aLanguages); $i++) {
+        for ($i=0; $i < (is_countable($aLanguages) ? count($aLanguages) : 0); $i++) {
             ?>
 					<fieldset>
 						<div class="form-group row">
@@ -1202,7 +1129,7 @@ updateWithTax();
 					</fieldset>
 <?php
         }
-    for ($i=0; $i < count($aLanguages); $i++) {
+    for ($i=0; $i < (is_countable($aLanguages) ? count($aLanguages) : 0); $i++) {
         ?>
 					<fieldset>
 						<div class="form-group row">
@@ -1244,7 +1171,7 @@ updateWithTax();
 						</div>
 
 <?php
-        for ($i=0; $i < count($aLanguages); $i++) {
+        for ($i=0; $i < (is_countable($aLanguages) ? count($aLanguages) : 0); $i++) {
             ?>
 					<fieldset>
 						<div class="form-group row">
@@ -1261,7 +1188,7 @@ updateWithTax();
 					</fieldset>
 <?php
         }
-    for ($i=0; $i < count($aLanguages); $i++) {
+    for ($i=0; $i < (is_countable($aLanguages) ? count($aLanguages) : 0); $i++) {
         ?>
 					<fieldset>
 						<div class="form-group row">
@@ -1464,7 +1391,7 @@ updateWithTax();
         $products_image_name = $pInfo->products_image;
 
         $aLanguages = oos_get_languages();
-        $nLanguages = count($aLanguages);
+        $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
 
         for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
             $pInfo->products_name = oos_get_products_name($pInfo->products_id, $aLanguages[$i]['id']);
@@ -1644,10 +1571,10 @@ if ($q1 < $q0) {
 
     if (isset($_GET['origin'])) {
         $sOrigin = oos_prepare_input($_GET['origin']);
-        $pos_params = strpos($sOrigin, '?', 0);
+        $pos_params = strpos((string) $sOrigin, '?', 0);
         if ($pos_params != false) {
-            $back_url = substr($sOrigin, 0, $pos_params);
-            $back_url_params = substr($sOrigin, $pos_params + 1);
+            $back_url = substr((string) $sOrigin, 0, $pos_params);
+            $back_url_params = substr((string) $sOrigin, $pos_params + 1);
         } else {
             $back_url = $sOrigin;
             $back_url_params = '';

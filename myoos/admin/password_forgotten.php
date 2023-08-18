@@ -76,7 +76,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')
     }
 }
 
-$sFormid = md5(uniqid(rand(), true));
+$sFormid = md5(uniqid(random_int(0, mt_getrandmax()), true));
 $_SESSION['formid'] = $sFormid;
 
 require 'includes/languages/' . $sLanguage . '/' . $aContents['login'];

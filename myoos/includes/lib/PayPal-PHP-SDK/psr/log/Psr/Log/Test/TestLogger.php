@@ -101,16 +101,12 @@ class TestLogger extends AbstractLogger
 
     public function hasRecordThatContains($message, $level)
     {
-        return $this->hasRecordThatPasses(function ($rec) use ($message) {
-            return strpos($rec['message'], $message) !== false;
-        }, $level);
+        return $this->hasRecordThatPasses(fn($rec) => str_contains((string) $rec['message'], (string) $message), $level);
     }
 
     public function hasRecordThatMatches($regex, $level)
     {
-        return $this->hasRecordThatPasses(function ($rec) use ($regex) {
-            return preg_match($regex, $rec['message']) > 0;
-        }, $level);
+        return $this->hasRecordThatPasses(fn($rec) => preg_match($regex, (string) $rec['message']) > 0, $level);
     }
 
     public function hasRecordThatPasses(callable $predicate, $level)
@@ -128,7 +124,7 @@ class TestLogger extends AbstractLogger
 
     public function __call($method, $args)
     {
-        if (preg_match('/(.*)(Debug|Info|Notice|Warning|Error|Critical|Alert|Emergency)(.*)/', $method, $matches) > 0) {
+        if (preg_match('/(.*)(Debug|Info|Notice|Warning|Error|Critical|Alert|Emergency)(.*)/', (string) $method, $matches) > 0) {
             $genericMethod = $matches[1] . ('Records' !== $matches[3] ? 'Record' : '') . $matches[3];
             $level = strtolower($matches[2]);
             if (method_exists($this, $genericMethod)) {
@@ -136,7 +132,7 @@ class TestLogger extends AbstractLogger
                 return call_user_func_array([$this, $genericMethod], $args);
             }
         }
-        throw new \BadMethodCallException('Call to undefined method ' . get_class($this) . '::' . $method . '()');
+        throw new \BadMethodCallException('Call to undefined method ' . static::class . '::' . $method . '()');
     }
 
     public function reset()

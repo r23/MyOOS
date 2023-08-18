@@ -75,11 +75,7 @@ class flat
     {
         global $aLang, $oOrder;
 
-        $this->quotes = array('id' => $this->code,
-                          'module' => $aLang['module_shipping_flat_text_title'],
-                          'methods' => array(array('id' => $this->code,
-                                                   'title' => $aLang['module_shipping_flat_text_way'],
-                                                   'cost' => MODULE_SHIPPING_FLAT_COST)));
+        $this->quotes = ['id' => $this->code, 'module' => $aLang['module_shipping_flat_text_title'], 'methods' => [['id' => $this->code, 'title' => $aLang['module_shipping_flat_text_way'], 'cost' => MODULE_SHIPPING_FLAT_COST]]];
 
         if (oos_is_not_null($this->icon)) {
             $this->quotes['icon'] = oos_image($this->icon, $this->title);
@@ -124,6 +120,6 @@ class flat
 
     public function keys()
     {
-        return array('MODULE_SHIPPING_FLAT_STATUS', 'MODULE_SHIPPING_FLAT_COST', 'MODULE_SHIPPING_FLAT_ZONE', 'MODULE_SHIPPING_FLAT_SORT_ORDER');
+        return ['MODULE_SHIPPING_FLAT_STATUS', 'MODULE_SHIPPING_FLAT_COST', 'MODULE_SHIPPING_FLAT_ZONE', 'MODULE_SHIPPING_FLAT_SORT_ORDER'];
     }
 }

@@ -51,7 +51,7 @@ if (($action == 'send_email_to_user') && isset($_POST['customers_email_address']
 
 	$phpmailer = new PHPMailer\PHPMailer\PHPMailer();
 
-    $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : 'en');
+    $sLang = ($_SESSION['iso_639_1'] ?? 'en');
     $phpmailer->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/vendor/phpmailer/phpmailer/language/');
 
 
@@ -106,7 +106,7 @@ if (($action == 'send_email_to_user') && isset($_POST['customers_email_address']
         // Move that ADOdb pointer!
         $mail_result->MoveNext();
     }
-    oos_redirect_admin(oos_href_link_admin($aContents['mail'], 'mail_sent_to=' . urlencode($mail_sent_to)));
+    oos_redirect_admin(oos_href_link_admin($aContents['mail'], 'mail_sent_to=' . urlencode((string) $mail_sent_to)));
 }
 
 if (($action == 'preview') && !isset($_POST['customers_email_address'])) {
@@ -167,19 +167,11 @@ if (isset($_GET['mail_sent_to'])) {
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
 if (($action == 'preview') && isset($_POST['customers_email_address'])) {
-    switch ($_POST['customers_email_address']) {
-    case '***':
-        $mail_sent_to = TEXT_ALL_CUSTOMERS;
-        break;
-
-    case '**D':
-        $mail_sent_to = TEXT_NEWSLETTER_CUSTOMERS;
-        break;
-
-    default:
-        $mail_sent_to =  oos_db_prepare_input($_POST['customers_email_address']);
-        break;
-    } ?>
+    $mail_sent_to = match ($_POST['customers_email_address']) {
+        '***' => TEXT_ALL_CUSTOMERS,
+        '**D' => TEXT_NEWSLETTER_CUSTOMERS,
+        default => oos_db_prepare_input($_POST['customers_email_address']),
+    }; ?>
           <tr><?php echo oos_draw_form('id', 'mail', $aContents['mail'], 'action=send_email_to_user', 'post', true); ?>
             <td><table border="0" width="100%" cellpadding="0" cellspacing="2">
               <tr>
@@ -219,7 +211,7 @@ if (($action == 'preview') && isset($_POST['customers_email_address'])) {
     reset($_POST);
     foreach ($_POST as $key => $value) {
         if (!is_array($_POST[$key])) {
-            echo oos_draw_hidden_field($key, htmlspecialchars(stripslashes((string)$value)), ENT_QUOTES, 'UTF-8');
+            echo oos_draw_hidden_field($key, htmlspecialchars(stripslashes((string)$value)));
         }
     } ?>
                 <table border="0" width="100%" cellpadding="0" cellspacing="2">
@@ -241,13 +233,12 @@ if (($action == 'preview') && isset($_POST['customers_email_address'])) {
               </tr>
     <?php
     $customers = [];
-        $customers[] = array('id' => '', 'text' => TEXT_SELECT_CUSTOMER);
-        $customers[] = array('id' => '***', 'text' => TEXT_ALL_CUSTOMERS);
-        $customers[] = array('id' => '**D', 'text' => TEXT_NEWSLETTER_CUSTOMERS);
+        $customers[] = ['id' => '', 'text' => TEXT_SELECT_CUSTOMER];
+        $customers[] = ['id' => '***', 'text' => TEXT_ALL_CUSTOMERS];
+        $customers[] = ['id' => '**D', 'text' => TEXT_NEWSLETTER_CUSTOMERS];
         $mail_result = $dbconn->Execute("SELECT customers_email_address, customers_firstname, customers_lastname FROM " . $oostable['customers'] . " ORDER BY customers_lastname");
         while ($customers_values = $mail_result->fields) {
-            $customers[] = array('id' => $customers_values['customers_email_address'],
-                     'text' => $customers_values['customers_lastname'] . ', ' . $customers_values['customers_firstname'] . ' (' . $customers_values['customers_email_address'] . ')');
+            $customers[] = ['id' => $customers_values['customers_email_address'], 'text' => $customers_values['customers_lastname'] . ', ' . $customers_values['customers_firstname'] . ' (' . $customers_values['customers_email_address'] . ')'];
 
             // Move that ADOdb pointer!
             $mail_result->MoveNext();

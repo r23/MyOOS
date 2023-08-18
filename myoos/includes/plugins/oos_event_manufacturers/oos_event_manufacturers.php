@@ -34,12 +34,7 @@ class oos_event_manufacturers
     public $preceeds;
     public $author = 'MyOOS Development Team';
     public $version = '1.0';
-    public $requirements = array(
-                         'oos'         => '1.7.0',
-                         'smarty'      => '2.6.9',
-                         'adodb'       => '4.62',
-                         'php'         => '5.9.0'
-    );
+    public $requirements = ['oos'         => '1.7.0', 'smarty'      => '2.6.9', 'adodb'       => '4.62', 'php'         => '5.9.0'];
 
 
     /**
@@ -95,6 +90,6 @@ class oos_event_manufacturers
 
     public function config_item()
     {
-        return array('MAX_DISPLAY_MANUFACTURERS_IN_A_LIST', 'MAX_MANUFACTURERS_LIST', 'MAX_DISPLAY_MANUFACTURER_NAME_LEN');
+        return ['MAX_DISPLAY_MANUFACTURERS_IN_A_LIST', 'MAX_MANUFACTURERS_LIST', 'MAX_DISPLAY_MANUFACTURER_NAME_LEN'];
     }
 }

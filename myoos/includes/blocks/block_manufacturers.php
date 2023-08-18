@@ -50,13 +50,13 @@ if ($nManufacturersRecordCount < 1) {
     $manufacturers_list = [];
 
     while ($manufacturers = $manufacturers_result->fields) {
-        $manufacturers_name = ((strlen($manufacturers['manufacturers_name']) > MAX_DISPLAY_MANUFACTURER_NAME_LEN) ? substr($manufacturers['manufacturers_name'], 0, MAX_DISPLAY_MANUFACTURER_NAME_LEN) . '..' : $manufacturers['manufacturers_name']);
+        $manufacturers_name = ((strlen((string) $manufacturers['manufacturers_name']) > MAX_DISPLAY_MANUFACTURER_NAME_LEN) ? substr((string) $manufacturers['manufacturers_name'], 0, MAX_DISPLAY_MANUFACTURER_NAME_LEN) . '..' : $manufacturers['manufacturers_name']);
 
         if (isset($_GET['manufacturers_id']) && ($_GET['manufacturers_id'] == $manufacturers['manufacturers_id'])) {
             $manufacturers_name = '<strong>' . $manufacturers_name .'</strong>';
         }
 
-        $manufacturer_info = array('id' => $manufacturers['manufacturers_id'], 'name' => $manufacturers_name);
+        $manufacturer_info = ['id' => $manufacturers['manufacturers_id'], 'name' => $manufacturers_name];
         $manufacturers_list[] = $manufacturer_info;
 
         // Move that ADOdb pointer!
@@ -75,7 +75,7 @@ if ($nManufacturersRecordCount < 1) {
     }
 
     while ($manufacturers = $manufacturers_result->fields) {
-        $manufacturers_name = ((strlen($manufacturers['manufacturers_name']) > MAX_DISPLAY_MANUFACTURER_NAME_LEN) ? substr($manufacturers['manufacturers_name'], 0, MAX_DISPLAY_MANUFACTURER_NAME_LEN) . '..' : $manufacturers['manufacturers_name']);
+        $manufacturers_name = ((strlen((string) $manufacturers['manufacturers_name']) > MAX_DISPLAY_MANUFACTURER_NAME_LEN) ? substr((string) $manufacturers['manufacturers_name'], 0, MAX_DISPLAY_MANUFACTURER_NAME_LEN) . '..' : $manufacturers['manufacturers_name']);
         $manufacturers_values[] = $manufacturers['manufacturers_id'];
         $manufacturers_names[] = $manufacturers_name;
 
@@ -84,10 +84,7 @@ if ($nManufacturersRecordCount < 1) {
     }
 
     $smarty->assign(
-        array(
-            'manufacturers_values' => $manufacturers_values,
-            'manufacturers_names' => $manufacturers_names
-        )
+        ['manufacturers_values' => $manufacturers_values, 'manufacturers_names' => $manufacturers_names]
     );
 
     if (isset($_GET['manufacturers_id'])) {
@@ -97,9 +94,5 @@ if ($nManufacturersRecordCount < 1) {
 }
 
 $smarty->assign(
-    array(
-        'block_heading_manufacturers' => $block_heading,
-        'manufacturers_block' => $manufacturers_block,
-        'display_a_list' => $display_a_list
-    )
+    ['block_heading_manufacturers' => $block_heading, 'manufacturers_block' => $manufacturers_block, 'display_a_list' => $display_a_list]
 );

@@ -41,7 +41,7 @@ if (!empty($action)) {
             $rows++;
 
             $name = $products['products_name'];
-            $name = str_replace('|', ' ', $name);
+            $name = str_replace('|', ' ', (string) $name);
             $name = strip_tags($name);
 
             $price = $products['products_price'];
@@ -100,7 +100,7 @@ if (!empty($action)) {
 
       case 'download':
         $sFile = oos_db_prepare_input($_GET['file']);
-        $extension = substr($_GET['file'], -3);
+        $extension = substr((string) $_GET['file'], -3);
         if (($extension == 'zip') || ($extension == '.gz') || ($extension == 'cvs')) {
             if ($fp = fopen(OOS_EXPORT_PATH . $sFile, 'rb')) {
                 $buffer = fread($fp, filesize(OOS_EXPORT_PATH . $sFile));
@@ -115,7 +115,7 @@ if (!empty($action)) {
         }
         break;
       case 'deleteconfirm':
-        if (strstr($_GET['file'], '..')) {
+        if (strstr((string) $_GET['file'], '..')) {
             oos_redirect_admin(oos_href_link_admin($aContents['export_excel']));
         }
 
@@ -221,11 +221,11 @@ if ($dir_ok) {
             $file_array['date'] = date(PHP_DATE_TIME_FORMAT, filemtime(OOS_EXPORT_PATH . $entry));
             $file_array['size'] = number_format(filesize(OOS_EXPORT_PATH . $entry)) . ' bytes';
 
-            switch (substr($entry, -3)) {
-                case 'zip': $file_array['compression'] = 'ZIP'; break;
-                case '.gz': $file_array['compression'] = 'GZIP'; break;
-                default: $file_array['compression'] = TEXT_NO_EXTENSION; break;
-            }
+            $file_array['compression'] = match (substr($entry, -3)) {
+                'zip' => 'ZIP',
+                '.gz' => 'GZIP',
+                default => TEXT_NO_EXTENSION,
+            };
 
             $buInfo = new objectInfo($file_array);
         }
@@ -259,10 +259,10 @@ if ($dir_ok) {
 
   switch ($action) {
     case 'backup':
-      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_EXPORT . '</b>');
+      $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_NEW_EXPORT . '</b>'];
 
-      $contents = array('form' => oos_draw_form('id', 'backup', $aContents['export_excel'], 'action=make_file_now', 'post', false));
-      $contents[] = array('text' => TEXT_INFO_NEW_EXPORT);
+      $contents = ['form' => oos_draw_form('id', 'backup', $aContents['export_excel'], 'action=make_file_now', 'post', false)];
+      $contents[] = ['text' => TEXT_INFO_NEW_EXPORT];
 
     # todo
     #if (file_exists(LOCAL_EXE_ZIP)) {
@@ -270,33 +270,33 @@ if ($dir_ok) {
     #}
 
       if ($dir_ok == true) {
-          $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('download', 'yes') . ' ' . TEXT_INFO_DOWNLOAD_ONLY . '*<br><br>*' . TEXT_INFO_BEST_THROUGH_HTTPS);
+          $contents[] = ['text' => '<br>' . oos_draw_checkbox_field('download', 'yes') . ' ' . TEXT_INFO_DOWNLOAD_ONLY . '*<br><br>*' . TEXT_INFO_BEST_THROUGH_HTTPS];
       } else {
-          $contents[] = array('text' => '<br>' . oos_draw_radio_field('download', 'yes', true) . ' ' . TEXT_INFO_DOWNLOAD_ONLY . '*<br><br>*' . TEXT_INFO_BEST_THROUGH_HTTPS);
+          $contents[] = ['text' => '<br>' . oos_draw_radio_field('download', 'yes', true) . ' ' . TEXT_INFO_DOWNLOAD_ONLY . '*<br><br>*' . TEXT_INFO_BEST_THROUGH_HTTPS];
       }
 
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_EXPORT) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['export_excel']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_EXPORT) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['export_excel']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
       break;
 
     case 'delete':
-      $heading[] = array('text' => '<b>' . $buInfo->date . '</b>');
+      $heading[] = ['text' => '<b>' . $buInfo->date . '</b>'];
 
-      $contents = array('form' => oos_draw_form('id', 'delete', $aContents['export_excel'], 'file=' . $buInfo->file . '&action=deleteconfirm', 'post', false));
-      $contents[] = array('text' => TEXT_DELETE_INTRO);
-      $contents[] = array('text' => '<br><b>' . $buInfo->file . '</b>');
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['export_excel'], 'file=' . $buInfo->file) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents = ['form' => oos_draw_form('id', 'delete', $aContents['export_excel'], 'file=' . $buInfo->file . '&action=deleteconfirm', 'post', false)];
+      $contents[] = ['text' => TEXT_DELETE_INTRO];
+      $contents[] = ['text' => '<br><b>' . $buInfo->file . '</b>'];
+      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['export_excel'], 'file=' . $buInfo->file) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
       break;
 
     default:
       if (isset($buInfo) && is_object($buInfo)) {
-          $heading[] = array('text' => '<b>' . $buInfo->date . '</b>');
+          $heading[] = ['text' => '<b>' . $buInfo->date . '</b>'];
 
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['export_excel'], 'file=' . $buInfo->file . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
-          $contents[] = array('text' => '<br>' . TEXT_INFO_DATE . ' ' . $buInfo->date);
-          $contents[] = array('text' => TEXT_INFO_SIZE . ' ' . $buInfo->size);
-          $contents[] = array('text' => '<br>' . TEXT_INFO_COMPRESSION . ' ' . $buInfo->compression);
+          $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['export_excel'], 'file=' . $buInfo->file . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
+          $contents[] = ['text' => '<br>' . TEXT_INFO_DATE . ' ' . $buInfo->date];
+          $contents[] = ['text' => TEXT_INFO_SIZE . ' ' . $buInfo->size];
+          $contents[] = ['text' => '<br>' . TEXT_INFO_COMPRESSION . ' ' . $buInfo->compression];
       }
       break;
   }

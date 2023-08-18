@@ -52,9 +52,7 @@ function oos_set_specials_status($nSpecialsId, $status)
     $products_price = $dbconn->GetOne($product_query);
 
     // product price history
-    $sql_price_array = array('products_id' => intval($products_id),
-                            'products_price' => oos_db_input($products_price),
-                            'date_added' => 'now()');
+    $sql_price_array = ['products_id' => intval($products_id), 'products_price' => oos_db_input($products_price), 'date_added' => 'now()'];
     oos_db_perform($oostable['products_price_history'], $sql_price_array);
 
     $dbconn->Execute(

@@ -114,7 +114,7 @@ class apinsured
 
         for ($i=1; $i<=$this->num_ap_insured; $i++) {
             $countries_table = constant('MODULE_SHIPPING_AP_INSURED_COUNTRIES_' . $i);
-            $country_zones = preg_split("/[,]/", $countries_table);
+            $country_zones = preg_split("/[,]/", (string) $countries_table);
             if (in_array($dest_country, $country_zones)) {
                 $dest_zone = $i;
                 break;
@@ -127,8 +127,8 @@ class apinsured
             $shipping = -1;
             $ap_insured_cost = constant('MODULE_SHIPPING_AP_INSURED_COST_' . $i);
 
-            $ap_insured_table = preg_split("/[:,]/", $ap_insured_cost);
-            for ($i=0; $i<count($ap_insured_table); $i+=2) {
+            $ap_insured_table = preg_split("/[:,]/", (string) $ap_insured_cost);
+            for ($i=0; $i<(is_countable($ap_insured_table) ? count($ap_insured_table) : 0); $i+=2) {
                 if ($shipping_weight <= $ap_insured_table[$i]) {
                     $shipping = $ap_insured_table[$i+1];
                     $shipping_method = $aLang['module_shipping_ap_insured_text_way'] . ' ' . $dest_country . ' : ' . $shipping_weight . ' ' . $aLang['module_shipping_ap_insured_text_units'];
@@ -144,11 +144,7 @@ class apinsured
             }
         }
 
-        $this->quotes = array('id' => $this->code,
-                          'module' => $aLang['module_shipping_ap_insured_text_title'],
-                          'methods' => array(array('id' => $this->code,
-                                                   'title' => $shipping_method . ' (' . $shipping_num_boxes . ' x ' . $shipping_weight . ' ' . $aLang['module_shipping_ap_insured_text_units'] .')',
-                                                   'cost' => $shipping_cost * $shipping_num_boxes)));
+        $this->quotes = ['id' => $this->code, 'module' => $aLang['module_shipping_ap_insured_text_title'], 'methods' => [['id' => $this->code, 'title' => $shipping_method . ' (' . $shipping_num_boxes . ' x ' . $shipping_weight . ' ' . $aLang['module_shipping_ap_insured_text_units'] .')', 'cost' => $shipping_cost * $shipping_num_boxes]]];
 
         if (oos_is_not_null($this->icon)) {
             $this->quotes['icon'] = oos_image($this->icon, $this->title);
@@ -212,7 +208,7 @@ class apinsured
 
     public function keys()
     {
-        $keys = array('MODULE_SHIPPING_AP_INSURED_STATUS', 'MODULE_SHIPPING_AP_INSURED_HANDLING', 'MODULE_SHIPPING_AP_INSURED_ZONE', 'MODULE_SHIPPING_AP_INSURED_SORT_ORDER');
+        $keys = ['MODULE_SHIPPING_AP_INSURED_STATUS', 'MODULE_SHIPPING_AP_INSURED_HANDLING', 'MODULE_SHIPPING_AP_INSURED_ZONE', 'MODULE_SHIPPING_AP_INSURED_SORT_ORDER'];
 
         for ($i = 1; $i <= $this->num_ap_insured; $i ++) {
             $keys[count($keys)] = 'MODULE_SHIPPING_AP_INSURED_COUNTRIES_' . $i;

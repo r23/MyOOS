@@ -45,7 +45,7 @@ function oos_get_subcategories(&$aSubcategories, $nParentId = 0)
     $result = $dbconn->Execute($query);
 
     while ($subcategories = $result->fields) {
-        $aSubcategories[count($aSubcategories)] = $subcategories['categories_id'];
+        $aSubcategories[is_countable($aSubcategories) ? count($aSubcategories) : 0] = $subcategories['categories_id'];
         if ($subcategories['categories_id'] != $nParentId) {
             oos_get_subcategories($aSubcategories, $subcategories['categories_id']);
         }
@@ -72,8 +72,8 @@ function &oos_parse_search_string(string $sSearch = ''): array|bool
     $tmpstring = '';
     $flag = '';
 
-    for ($k=0; $k<count($pieces); $k++) {
-        while (substr($pieces[$k], 0, 1) == '(') {
+    for ($k=0; $k<(is_countable($pieces) ? count($pieces) : 0); $k++) {
+        while (str_starts_with($pieces[$k], '(')) {
             $objects[] = '(';
             if (strlen($pieces[$k] ?? '') > 1) {
                 $pieces[$k] = substr($pieces[$k], 1);
@@ -112,7 +112,7 @@ function &oos_parse_search_string(string $sSearch = ''): array|bool
             $tmpstring = trim((string) preg_match('/"/', ' ', $pieces[$k]));
 
             // Check for one possible exception to the rule. That there is a single quoted word.
-            if (substr($pieces[$k], -1) == '"') {
+            if (str_ends_with($pieces[$k], '"')) {
                 // Turn the flag off for future iterations
                 $flag = 'off';
 
@@ -136,8 +136,8 @@ function &oos_parse_search_string(string $sSearch = ''): array|bool
 
             // Keep reading until the end of the string as long as the $flag is on
 
-            while (($flag == 'on') && ($k < count($pieces))) {
-                while (substr($pieces[$k], -1) == ')') {
+            while (($flag == 'on') && ($k < (is_countable($pieces) ? count($pieces) : 0))) {
+                while (str_ends_with($pieces[$k], ')')) {
                     $post_objects[] = ')';
                     if (strlen($pieces[$k] ?? '') > 1) {
                         $pieces[$k] = substr($pieces[$k], 0, -1);
@@ -147,7 +147,7 @@ function &oos_parse_search_string(string $sSearch = ''): array|bool
                 }
 
                 // If the word doesn't end in double quotes, append it to the $tmpstring.
-                if (substr($pieces[$k], -1) != '"') {
+                if (!str_ends_with($pieces[$k], '"')) {
                     // Tack this word onto the current string entity
                     $tmpstring .= ' ' . $pieces[$k];
 
@@ -247,7 +247,7 @@ function oos_checkdate($date_to_check, $format_string, &$date_array)
 
     $size = count($separators);
     for ($i=0; $i<$size; $i++) {
-        $pos_separator = strpos($date_to_check, $separators[$i]);
+        $pos_separator = strpos((string) $date_to_check, $separators[$i]);
         if ($pos_separator != false) {
             $date_separator_idx = $i;
             break;
@@ -272,7 +272,7 @@ function oos_checkdate($date_to_check, $format_string, &$date_array)
             return false;
         }
 
-        $date_to_check_array = explode($separators[$date_separator_idx], $date_to_check);
+        $date_to_check_array = explode($separators[$date_separator_idx], (string) $date_to_check);
         if (count($date_to_check_array) != 3) {
             return false;
         }
@@ -293,7 +293,7 @@ function oos_checkdate($date_to_check, $format_string, &$date_array)
         if (strlen($format_string ?? '') == 8 || strlen($format_string ?? '') == 9) {
             $pos_month = strpos($format_string, 'mmm');
             if ($pos_month != false) {
-                $month = substr($date_to_check, $pos_month, 3);
+                $month = substr((string) $date_to_check, $pos_month, 3);
                 $size = count($month_abbr);
                 for ($i=0; $i<$size; $i++) {
                     if ($month == $month_abbr[$i]) {
@@ -302,14 +302,14 @@ function oos_checkdate($date_to_check, $format_string, &$date_array)
                     }
                 }
             } else {
-                $month = substr($date_to_check, strpos($format_string, 'mm'), 2);
+                $month = substr((string) $date_to_check, strpos($format_string, 'mm'), 2);
             }
         } else {
             return false;
         }
 
-        $day = substr($date_to_check, strpos($format_string, 'dd'), 2);
-        $year = substr($date_to_check, strpos($format_string, 'yyyy'), 4);
+        $day = substr((string) $date_to_check, strpos($format_string, 'dd'), 2);
+        $year = substr((string) $date_to_check, strpos($format_string, 'yyyy'), 4);
     }
 
     if (strlen($year ?? '') != 4) {

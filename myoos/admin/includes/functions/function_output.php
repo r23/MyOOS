@@ -50,7 +50,7 @@ function oos_href_link_admin($page = '', $parameters = '', $connection = 'SSL', 
     }
 
 
-    while ((substr($link, -1) == '&') || (substr($link, -1) == '?')) {
+    while ((str_ends_with($link, '&')) || (str_ends_with($link, '?'))) {
         $link = substr($link, 0, -1);
     }
 
@@ -84,7 +84,7 @@ function oos_catalog_link($page = '', $parameters = '')
     }
 
 
-    while ((substr($link, -1) == '&') || (substr($link, -1) == '?')) {
+    while ((str_ends_with($link, '&')) || (str_ends_with($link, '?'))) {
         $link = substr($link, 0, -1);
     }
 
@@ -540,7 +540,7 @@ function oos_draw_editor_field($name, $wrap, $width, $height, $text = '', $param
             $field .= htmlspecialchars(stripslashes($_POST[$name]), ENT_QUOTES, 'UTF-8');
         }
     } elseif (oos_is_not_null($text)) {
-        $field .= htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+        $field .= htmlspecialchars((string) $text, ENT_QUOTES, 'UTF-8');
     }
     $field .= '</textarea>';
 
@@ -640,7 +640,7 @@ function oos_draw_pull_down_menu($name, $values, $default = '', $params = '', $r
         }
     }
 
-    for ($i=0, $n=count($values); $i<$n; $i++) {
+    for ($i=0, $n=is_countable($values) ? count($values) : 0; $i<$n; $i++) {
         $field .= '<option value="' . $values[$i]['id'] . '"';
         if ($default == $values[$i]['id']) {
             $field .= ' selected="selected"';
@@ -684,7 +684,7 @@ function oos_draw_select_menu($name, $values, $default = '', $params = '', $requ
         }
     }
 
-    for ($i=0, $n=count($values); $i<$n; $i++) {
+    for ($i=0, $n=is_countable($values) ? count($values) : 0; $i<$n; $i++) {
         $field .= '<option value="' . $values[$i] . '"';
         if ($default == $values[$i]) {
             $field .= ' selected="selected"';
@@ -731,7 +731,7 @@ function oos_draw_extensions_menu($name, $values, $default = '', $params = '', $
         }
     }
 
-    for ($i=0, $n=count($values); $i<$n; $i++) {
+    for ($i=0, $n=is_countable($values) ? count($values) : 0; $i<$n; $i++) {
         $field .= '<option value="' . $values[$i] . '"';
         if ($default == $values[$i]) {
             $field .= ' selected="selected"';

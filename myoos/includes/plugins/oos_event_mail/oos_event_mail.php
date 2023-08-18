@@ -33,12 +33,7 @@ class oos_event_mail
     public $preceeds = 'session';
     public $author = 'MyOOS Development Team';
     public $version = '1.0';
-    public $requirements = array(
-                         'oos'         => '1.7.0',
-                         'smarty'      => '2.6.9',
-                         'adodb'       => '4.62',
-                         'php'         => '5.9.0'
-    );
+    public $requirements = ['oos'         => '1.7.0', 'smarty'      => '2.6.9', 'adodb'       => '4.62', 'php'         => '5.9.0'];
 
 
     /**
@@ -95,6 +90,6 @@ class oos_event_mail
 
     public function config_item()
     {
-        return array('SEND_EXTRA_ORDER_EMAILS_TO', 'EMAIL_TRANSPORT', 'EMAIL_LINEFEED', 'EMAIL_USE_HTML', 'ENTRY_EMAIL_ADDRESS_CHECK', 'OOS_SMTPAUTH', 'OOS_SMTPUSER', 'OOS_SMTPPASS', 'OOS_SMTPHOST', 'OOS_SMTPENCRYPTION', 'OOS_SMTPPORT', 'OOS_SENDMAIL');
+        return ['SEND_EXTRA_ORDER_EMAILS_TO', 'EMAIL_TRANSPORT', 'EMAIL_LINEFEED', 'EMAIL_USE_HTML', 'ENTRY_EMAIL_ADDRESS_CHECK', 'OOS_SMTPAUTH', 'OOS_SMTPUSER', 'OOS_SMTPPASS', 'OOS_SMTPHOST', 'OOS_SMTPENCRYPTION', 'OOS_SMTPPORT', 'OOS_SENDMAIL'];
     }
 }

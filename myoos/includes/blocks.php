@@ -74,10 +74,7 @@ foreach ($block_result as $block) {
         }
     }
     if (!empty($block_content)) {
-        $aContentBlock[] = array(
-                                'side' => $block_side,
-                                'block_content' => $block_content
-                            );
+        $aContentBlock[] = ['side' => $block_side, 'block_content' => $block_content];
     }
 }
 
@@ -87,7 +84,7 @@ for ($i = 0, $n; $i < $n; $i++) {
     switch ($aContentBlock[$i]['side']) {
 
     case 'sidebar':
-        $smarty->append('sidebar', array('content' => $aContentBlock[$i]['block_content']));
+        $smarty->append('sidebar', ['content' => $aContentBlock[$i]['block_content']]);
         break;
 
     default:

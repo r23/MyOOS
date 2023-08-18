@@ -37,5 +37,5 @@ define('MODULE_PAYMENT_MONEYORDER_ORDER_STATUS_ID_TITLE', 'Bestellstatus festleg
 define('MODULE_PAYMENT_MONEYORDER_ORDER_STATUS_ID_DESC', 'Bestellungen, welche mit diesem Modul gemacht werden, auf diesen Status setzen.');
 
 $aLang['module_payment_moneyorder_text_title'] = 'Vorkasse/Banküberweisung';
-$aLang['module_payment_moneyorder_text_description'] = 'Zahlbar an:&nbsp;' . (defined('MODULE_PAYMENT_MONEYORDER_PAYTO') ? nl2br(MODULE_PAYMENT_MONEYORDER_PAYTO) : '') . '<br />Kontoinhaber:<br />' . nl2br(STORE_OWNER) . '<br /><br />' . 'Die Ware wird ausgeliefert wenn der Betrag auf unserem Konto eingegangen ist.';
-$aLang['module_payment_moneyorder_text_email_footer'] = "Zahlbar an: ". (defined('MODULE_PAYMENT_MONEYORDER_PAYTO') ? nl2br(MODULE_PAYMENT_MONEYORDER_PAYTO) : '') . "\n\nKontoinhaber:\n" . STORE_OWNER . "\n\n" . 'Ihre Bestellung wird nach Geldeingang auf unser Konto an Sie versendet.';
+$aLang['module_payment_moneyorder_text_description'] = 'Zahlbar an:&nbsp;' . (defined('MODULE_PAYMENT_MONEYORDER_PAYTO') ? nl2br((string) MODULE_PAYMENT_MONEYORDER_PAYTO) : '') . '<br />Kontoinhaber:<br />' . nl2br((string) STORE_OWNER) . '<br /><br />' . 'Die Ware wird ausgeliefert wenn der Betrag auf unserem Konto eingegangen ist.';
+$aLang['module_payment_moneyorder_text_email_footer'] = "Zahlbar an: ". (defined('MODULE_PAYMENT_MONEYORDER_PAYTO') ? nl2br((string) MODULE_PAYMENT_MONEYORDER_PAYTO) : '') . "\n\nKontoinhaber:\n" . STORE_OWNER . "\n\n" . 'Ihre Bestellung wird nach Geldeingang auf unser Konto an Sie versendet.';

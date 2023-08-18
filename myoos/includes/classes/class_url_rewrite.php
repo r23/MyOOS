@@ -33,7 +33,7 @@ class url_rewrite
         unset($path);
         unset($url);
 
-        $uri = explode("index.php/", $param);
+        $uri = explode("index.php/", (string) $param);
 
         $path = $uri[1];
         $base = $uri[0];
@@ -43,7 +43,7 @@ class url_rewrite
         $aContents = oos_get_content();
 
         if ((in_array('category', $url_array)) || (in_array($aContents['product_info'], $url_array) && in_array($url_array))) {
-            $_filter = array('content', $aContents['shop'], $session->getName(), $session->getId());
+            $_filter = ['content', $aContents['shop'], $session->getName(), $session->getId()];
 
             $dbconn =& oosDBGetConn();
             $oostable =& oosDBGetTables();
@@ -110,13 +110,13 @@ class url_rewrite
             if ($pos === false) {
                 // $remove = array('-c-');
             } else {
-                $remove = array('-m-', '-c-');
+                $remove = ['-m-', '-c-'];
             }
             $path = str_replace($remove, '-', $path);
-            if (strpos($path, '//') !== false) {
+            if (str_contains($path, '//')) {
                 $path = str_replace('//', '/', $path);
             }
-            if (substr($path, -1) == '/') {
+            if (str_ends_with($path, '/')) {
                 $path = substr($path, 0, -1);
             }
 

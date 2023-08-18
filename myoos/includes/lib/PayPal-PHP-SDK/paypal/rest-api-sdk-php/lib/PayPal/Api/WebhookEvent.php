@@ -289,13 +289,7 @@ class WebhookEvent extends PayPalResourceModel
     {
         ArgumentValidator::validate($params, 'params');
         $payLoad = "";
-        $allowedParams = array(
-          'page_size' => 1,
-          'start_time' => 1,
-          'end_time' => 1,
-          'transaction_id' => 1,
-          'event_type' => 1,
-      );
+        $allowedParams = ['page_size' => 1, 'start_time' => 1, 'end_time' => 1, 'transaction_id' => 1, 'event_type' => 1];
         $json = self::executeCall(
             "/v1/notifications/webhooks-events" . "?" . http_build_query(array_intersect_key($params, $allowedParams)),
             "GET",

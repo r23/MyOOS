@@ -148,10 +148,10 @@ class Template extends PayPalResourceModel
     public function addSetting($templateSettings)
     {
         if (!$this->getSettings()) {
-            return $this->setSettings(array($templateSettings));
+            return $this->setSettings([$templateSettings]);
         } else {
             return $this->setSettings(
-                array_merge($this->getSettings(), array($templateSettings))
+                array_merge($this->getSettings(), [$templateSettings])
             );
         }
     }
@@ -165,7 +165,7 @@ class Template extends PayPalResourceModel
     public function removeSetting($templateSettings)
     {
         return $this->setSettings(
-            array_diff($this->getSettings(), array($templateSettings))
+            array_diff($this->getSettings(), [$templateSettings])
         );
     }
 

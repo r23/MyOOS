@@ -25,7 +25,7 @@
   */
 function oos_decode_special_chars($sStr)
 {
-    $sStr = str_replace('&gt;', '>', $sStr);
+    $sStr = str_replace('&gt;', '>', (string) $sStr);
     $sStr = str_replace('&lt;', '<', $sStr);
     $sStr = str_replace('&#039;', "'", $sStr);
     $sStr = str_replace('&quot;', "\"", $sStr);
@@ -129,7 +129,7 @@ function oos_make_filename($sStr)
 
                    'y'];
     // Replace international chars not detected by every locale
-    $sStr = str_replace($aFrom, $aTo, $sStr);
+    $sStr = str_replace($aFrom, $aTo, (string) $sStr);
 
     $special_chars = ["?",
                           "[",

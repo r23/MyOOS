@@ -56,8 +56,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
 
     if ($check_customer_result->RecordCount()) {
         $sKey = '';
-        $sql_data_array = array('customers_2fa' => $sKey,
-                                'customers_2fa_active' => 0);
+        $sql_data_array = ['customers_2fa' => $sKey, 'customers_2fa_active' => 0];
         oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($_SESSION['customer_id']) . "'");
 
 
@@ -69,15 +68,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
         $smarty->caching = false;
 
         $smarty->assign(
-            array(
-                'shop_name'        => STORE_NAME,
-                'shop_url'        => OOS_HTTPS_SERVER . OOS_SHOP,
-                'shop_logo'        => STORE_LOGO,
-                'services_url'    => PHPBB_URL,
-                'blog_url'        => BLOG_URL,
-                'imprint_url'    => oos_href_link($aContents['information'], 'information_id=1', false, true),
-                'login_url'        => oos_href_link($aContents['login'], '', false, true)
-            )
+            ['shop_name'        => STORE_NAME, 'shop_url'        => OOS_HTTPS_SERVER . OOS_SHOP, 'shop_logo'        => STORE_LOGO, 'services_url'    => PHPBB_URL, 'blog_url'        => BLOG_URL, 'imprint_url'    => oos_href_link($aContents['information'], 'information_id=1', false, true), 'login_url'        => oos_href_link($aContents['login'], '', false, true)]
         );
 
         // create mails
@@ -110,12 +101,7 @@ if (!isset($option)) {
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-        'breadcrumb'    => $oBreadcrumb->trail(),
-        'heading_title' => $aLang['heading_title'],
-        'robots'        => 'noindex,follow,noodp,noydir',
-        'canonical'        => $sCanonical
-    )
+    ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title' => $aLang['heading_title'], 'robots'        => 'noindex,follow,noodp,noydir', 'canonical'        => $sCanonical]
 );
 
 

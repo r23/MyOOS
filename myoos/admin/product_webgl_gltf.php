@@ -99,55 +99,36 @@ if (!empty($action)) {
                     }
                 }
 
-                $sql_data_array = array('products_id' => intval($products_id),
-                                        'models_author' => oos_db_prepare_input($_POST['models_author'][$i]),
-                                        'models_author_url' => oos_db_prepare_input($_POST['models_author_url'][$i]),
-                                        'models_camera_pos' => oos_db_prepare_input($_POST['models_camera_pos'][$i]),
-                                        'models_object_rotation' => oos_db_prepare_input($_POST['models_object_rotation'][$i]),
-                                        'models_object_scalar' => oos_db_prepare_input($models_object_scalar),
-                                        'models_hdr' => oos_db_prepare_input($_POST['models_hdr'][$i]),
-                                        'models_hdr_name' => oos_db_prepare_input($models_hdr_name),
-                                        'models_hdr_url' => oos_db_prepare_input($models_hdr_url),
-                                        'models_hdr_author' => oos_db_prepare_input($models_hdr_author),
-                                        'models_hdr_author_url' => oos_db_prepare_input($models_hdr_author_url),
-                                        'models_add_lights' => oos_db_prepare_input($_POST['models_add_lights'][$i]),
-                                        'models_add_ground' => oos_db_prepare_input($_POST['models_add_ground'][$i]),
-                                        'models_shadows' => oos_db_prepare_input($_POST['models_shadows'][$i]),
-                                        'models_add_env_map' => oos_db_prepare_input($_POST['models_add_env_map'][$i]),
-                                        'models_extensions' => oos_db_prepare_input($_POST['models_extensions'][$i])
-                                        );
+                $sql_data_array = ['products_id' => intval($products_id), 'models_author' => oos_db_prepare_input($_POST['models_author'][$i]), 'models_author_url' => oos_db_prepare_input($_POST['models_author_url'][$i]), 'models_camera_pos' => oos_db_prepare_input($_POST['models_camera_pos'][$i]), 'models_object_rotation' => oos_db_prepare_input($_POST['models_object_rotation'][$i]), 'models_object_scalar' => oos_db_prepare_input($models_object_scalar), 'models_hdr' => oos_db_prepare_input($_POST['models_hdr'][$i]), 'models_hdr_name' => oos_db_prepare_input($models_hdr_name), 'models_hdr_url' => oos_db_prepare_input($models_hdr_url), 'models_hdr_author' => oos_db_prepare_input($models_hdr_author), 'models_hdr_author_url' => oos_db_prepare_input($models_hdr_author_url), 'models_add_lights' => oos_db_prepare_input($_POST['models_add_lights'][$i]), 'models_add_ground' => oos_db_prepare_input($_POST['models_add_ground'][$i]), 'models_shadows' => oos_db_prepare_input($_POST['models_shadows'][$i]), 'models_add_env_map' => oos_db_prepare_input($_POST['models_add_env_map'][$i]), 'models_extensions' => oos_db_prepare_input($_POST['models_extensions'][$i])];
 
                 if ($action == 'insert_model') {
-                    $insert_sql_data = array('models_date_added' => 'now()');
+                    $insert_sql_data = ['models_date_added' => 'now()'];
 
-                    $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+                    $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
                     oos_db_perform($oostable['products_models'], $sql_data_array);
                     $models_id = $dbconn->Insert_ID();
                 } elseif ($action == 'update_model') {
-                    $update_sql_data = array('models_last_modified' => 'now()');
+                    $update_sql_data = ['models_last_modified' => 'now()'];
                     $models_id = intval($_POST['models_id'][$i]);
 
-                    $sql_data_array = array_merge($sql_data_array, $update_sql_data);
+                    $sql_data_array = [...$sql_data_array, ...$update_sql_data];
 
                     oos_db_perform($oostable['products_models'], $sql_data_array, 'UPDATE', 'models_id = \'' . intval($models_id) . '\'');
                 }
 
                 $aLanguages = oos_get_languages();
-                $nLanguages = count($aLanguages);
+                $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
 
                 for ($li = 0, $l = $nLanguages; $li < $l; $li++) {
                     $language_id = $aLanguages[$li]['id'];
 
-                    $sql_data_array = array('models_name' => oos_db_prepare_input($_POST['models_name'][$i][$language_id]),
-                                            'models_title' => oos_db_prepare_input($_POST['models_title'][$i][$language_id]),
-                                            'models_description_meta' => oos_db_prepare_input($_POST['models_description_meta_'. $i . '_'  . $aLanguages[$li]['id']]));
+                    $sql_data_array = ['models_name' => oos_db_prepare_input($_POST['models_name'][$i][$language_id]), 'models_title' => oos_db_prepare_input($_POST['models_title'][$i][$language_id]), 'models_description_meta' => oos_db_prepare_input($_POST['models_description_meta_'. $i . '_'  . $aLanguages[$li]['id']])];
 
                     if ($action == 'insert_model') {
-                        $insert_sql_data = array('models_id' => $models_id,
-                                                'models_languages_id' => $language_id);
+                        $insert_sql_data = ['models_id' => $models_id, 'models_languages_id' => $language_id];
 
-                        $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+                        $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
                         oos_db_perform($oostable['products_models_description'], $sql_data_array);
                     } elseif ($action == 'update_model') {
@@ -214,7 +195,7 @@ if (!empty($action)) {
                                     }
                                 }
 
-                                $sql_data_array = array('models_webgl_gltf' => oos_db_prepare_input($models_webgl_gltf));
+                                $sql_data_array = ['models_webgl_gltf' => oos_db_prepare_input($models_webgl_gltf)];
 
                                 oos_db_perform($oostable['products_models'], $sql_data_array, 'UPDATE', 'models_id = \'' . intval($models_id) . '\'');
                             } else {
@@ -261,10 +242,7 @@ require 'includes/header.php';
                     <div class="col-lg-12">
 <?php
 if ($action == 'edit_3d') {
-    $parameters = array('products_id' => '',
-                        'products_name' => '',
-                        'products_image' => '',
-                        'products_models' => array());
+    $parameters = ['products_id' => '', 'products_name' => '', 'products_image' => '', 'products_models' => []];
 
     $pInfo = new objectInfo($parameters);
 
@@ -299,35 +277,10 @@ if ($action == 'edit_3d') {
         );
 
         if (!$products_models_result->RecordCount()) {
-            $pInfo->products_models[] = array('products_id' => $product['products_id'],
-                                            'models_webgl_gltf' => '',
-                                            'models_author' => '',
-                                            'models_author_url' => 'https://',
-                                            'models_camera_pos' => '0.02, 0.01, 0.03',
-                                            'models_object_rotation' => 'Math.PI',
-                                            'models_object_scalar' => '150',
-                                            'models_add_lights' => 'false',
-                                            'models_add_ground' => 'false',
-                                            'models_shadows' => 'false',
-                                            'models_add_env_map' => 'true',
-                                            'models_extensions' => 'glTF',
-                                            'models_hdr' => 'venice_sunset_2k.hdr');
+            $pInfo->products_models[] = ['products_id' => $product['products_id'], 'models_webgl_gltf' => '', 'models_author' => '', 'models_author_url' => 'https://', 'models_camera_pos' => '0.02, 0.01, 0.03', 'models_object_rotation' => 'Math.PI', 'models_object_scalar' => '150', 'models_add_lights' => 'false', 'models_add_ground' => 'false', 'models_shadows' => 'false', 'models_add_env_map' => 'true', 'models_extensions' => 'glTF', 'models_hdr' => 'venice_sunset_2k.hdr'];
         } else {
             while ($products_models = $products_models_result->fields) {
-                $pInfo->products_models[] = array('models_id' => $products_models['models_id'],
-                                            'products_id' => $products_models['products_id'],
-                                            'models_webgl_gltf' => $products_models['models_webgl_gltf'],
-                                            'models_author' => $products_models['models_author'],
-                                            'models_author_url' => $products_models['models_author_url'],
-                                            'models_camera_pos' => $products_models['models_camera_pos'],
-                                            'models_object_scalar' => $products_models['models_object_scalar'],
-                                            'models_object_rotation' => $products_models['models_object_rotation'],
-                                            'models_add_lights' => $products_models['models_add_lights'],
-                                            'models_add_ground' => $products_models['models_add_ground'],
-                                            'models_shadows' => $products_models['models_shadows'],
-                                            'models_add_env_map' => $products_models['models_add_env_map'],
-                                            'models_extensions' => $products_models['models_extensions'],
-                                            'models_hdr' => $products_models['models_hdr']);
+                $pInfo->products_models[] = ['models_id' => $products_models['models_id'], 'products_id' => $products_models['products_id'], 'models_webgl_gltf' => $products_models['models_webgl_gltf'], 'models_author' => $products_models['models_author'], 'models_author_url' => $products_models['models_author_url'], 'models_camera_pos' => $products_models['models_camera_pos'], 'models_object_scalar' => $products_models['models_object_scalar'], 'models_object_rotation' => $products_models['models_object_rotation'], 'models_add_lights' => $products_models['models_add_lights'], 'models_add_ground' => $products_models['models_add_ground'], 'models_shadows' => $products_models['models_shadows'], 'models_add_env_map' => $products_models['models_add_env_map'], 'models_extensions' => $products_models['models_extensions'], 'models_hdr' => $products_models['models_hdr']];
                 // Move that ADOdb pointer!
                 $products_models_result->MoveNext();
             }
@@ -335,10 +288,10 @@ if ($action == 'edit_3d') {
     }
 
     $aExtensions = [];
-    $aExtensions = array('glTF', 'glTF-Embedded', 'glTF-pbrSpecularGlossiness', 'glTF-Binary', 'glTF-Draco');
+    $aExtensions = ['glTF', 'glTF-Embedded', 'glTF-pbrSpecularGlossiness', 'glTF-Binary', 'glTF-Draco'];
 
     $aLanguages = oos_get_languages();
-    $nLanguages = count($aLanguages);
+    $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
 
     $form_action = (isset($_GET['pID'])) ? 'update_model' : 'insert_model';
 
@@ -369,7 +322,7 @@ if ($action == 'edit_3d') {
     <?php echo oos_draw_form('id', 'new_product', $aContents['product_webgl_gltf'], 'cPath=' . oos_prepare_input($cPath) . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=' . $form_action, 'post', false, 'enctype="multipart/form-data"'); ?>
     <?php
 
-                $sFormid = md5(uniqid(rand(), true));
+                $sFormid = md5(uniqid(random_int(0, mt_getrandmax()), true));
     $_SESSION['formid'] = $sFormid;
     echo oos_draw_hidden_field('formid', $sFormid);
     echo oos_draw_hidden_field('products_id', $pInfo->products_id);
@@ -448,7 +401,7 @@ if ($action == 'edit_3d') {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
                               <div class="col-lg-9">
-                <?php echo oos_draw_input_field('models_name['. $nCounter . '][' . $aLanguages[$i]['id'] . ']', (isset($models_name[$aLanguages[$i]['id']]) ? stripslashes($models_name[$aLanguages[$i]['id']]) : oos_get_models_name($models_id, $aLanguages[$i]['id']))); ?>
+                <?php echo oos_draw_input_field('models_name['. $nCounter . '][' . $aLanguages[$i]['id'] . ']', (isset($models_name[$aLanguages[$i]['id']]) ? stripslashes((string) $models_name[$aLanguages[$i]['id']]) : oos_get_models_name($models_id, $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
                         </fieldset>                        
@@ -465,7 +418,7 @@ if ($action == 'edit_3d') {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
                               <div class="col-lg-9">
-                <?php echo oos_draw_input_field('models_title['. $nCounter . '][' . $aLanguages[$i]['id'] . ']', (isset($models_title[$aLanguages[$i]['id']]) ? stripslashes($models_title[$aLanguages[$i]['id']]) : oos_get_models_title($models_id, $aLanguages[$i]['id']))); ?>
+                <?php echo oos_draw_input_field('models_title['. $nCounter . '][' . $aLanguages[$i]['id'] . ']', (isset($models_title[$aLanguages[$i]['id']]) ? stripslashes((string) $models_title[$aLanguages[$i]['id']]) : oos_get_models_title($models_id, $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
                         </fieldset>                        
@@ -482,7 +435,7 @@ if ($action == 'edit_3d') {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
                             <div class="col-lg-9">
-                <?php echo oos_draw_textarea_field('models_description_meta_'. $nCounter . '_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['models_description_meta_'. $nCounter . '_' . $aLanguages[$i]['id']]) ? stripslashes($_POST['models_description_meta_'. $nCounter . '_' .$aLanguages[$i]['id']]) : oos_get_models_description_meta($models_id, $aLanguages[$i]['id']))); ?>
+                <?php echo oos_draw_textarea_field('models_description_meta_'. $nCounter . '_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['models_description_meta_'. $nCounter . '_' . $aLanguages[$i]['id']]) ? stripslashes((string) $_POST['models_description_meta_'. $nCounter . '_' .$aLanguages[$i]['id']]) : oos_get_models_description_meta($models_id, $aLanguages[$i]['id']))); ?>
                             </div>
                         </div>
                     </fieldset>
@@ -512,7 +465,7 @@ if ($action == 'edit_3d') {
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_CAMERA_POS; ?></label>
                               <div class="col-lg-10">
             <?php
-                    $models_camera_pos = (isset($models['models_camera_pos'])) ? $models['models_camera_pos'] : '0.02, 0.01, 0.03';
+                    $models_camera_pos = $models['models_camera_pos'] ?? '0.02, 0.01, 0.03';
             echo oos_draw_input_field('models_camera_pos['. $nCounter . ']', $models_camera_pos); ?>
                               </div>
                            </div>

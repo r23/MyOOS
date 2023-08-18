@@ -46,7 +46,7 @@ function smarty_function_small_manufacturers_image($params, &$smarty)
         case 'alt':
         case 'class':
             if (!is_array($_val)) {
-                $$_key = smarty_function_escape_special_chars($_val);
+                ${$_key} = smarty_function_escape_special_chars($_val);
             } else {
                 throw new SmartyException("small_category_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
             }

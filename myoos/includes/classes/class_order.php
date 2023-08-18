@@ -95,48 +95,17 @@ class order
                 AND orders_languages_id = '" .  intval($nLanguageID) . "'";
         $orders_status_name = $dbconn->GetOne($sql);
 
-        $this->info = array('currency' => $order['currency'],
-                          'currency_value' => $order['currency_value'],
-                          'payment_method' => $order['payment_method'],
-                          'date_purchased' => $order['date_purchased'],
-                          'orders_status' => $orders_status_name,
-                          'last_modified' => $order['last_modified'],
-                          'total' => strip_tags($order_total_text),
-                          'shipping_method' => ((substr($shipping_method_title, -1) == ':') ? substr(strip_tags($shipping_method_title), 0, -1) : strip_tags($shipping_method_title)));
+        $this->info = ['currency' => $order['currency'], 'currency_value' => $order['currency_value'], 'payment_method' => $order['payment_method'], 'date_purchased' => $order['date_purchased'], 'orders_status' => $orders_status_name, 'last_modified' => $order['last_modified'], 'total' => strip_tags((string) $order_total_text), 'shipping_method' => ((str_ends_with((string) $shipping_method_title, ':')) ? substr(strip_tags((string) $shipping_method_title), 0, -1) : strip_tags((string) $shipping_method_title))];
 
-        $this->customer = array('id' => $order['customers_id'],
-                              'name' => $order['customers_name'],
-                              'company' => $order['customers_company'],
-                              'street_address' => $order['customers_street_address'],
-                              'city' => $order['customers_city'],
-                              'postcode' => $order['customers_postcode'],
-                              'state' => $order['customers_state'],
-                              'country' => $order['customers_country'],
-                              'format_id' => $order['customers_address_format_id'],
-                              'telephone' => $order['customers_telephone'],
-                              'email_address' => $order['customers_email_address']);
+        $this->customer = ['id' => $order['customers_id'], 'name' => $order['customers_name'], 'company' => $order['customers_company'], 'street_address' => $order['customers_street_address'], 'city' => $order['customers_city'], 'postcode' => $order['customers_postcode'], 'state' => $order['customers_state'], 'country' => $order['customers_country'], 'format_id' => $order['customers_address_format_id'], 'telephone' => $order['customers_telephone'], 'email_address' => $order['customers_email_address']];
 
-        $this->delivery = array('name' => $order['delivery_name'],
-                              'company' => $order['delivery_company'],
-                              'street_address' => $order['delivery_street_address'],
-                              'city' => $order['delivery_city'],
-                              'postcode' => $order['delivery_postcode'],
-                              'state' => $order['delivery_state'],
-                              'country' => $order['delivery_country'],
-                              'format_id' => $order['delivery_address_format_id']);
+        $this->delivery = ['name' => $order['delivery_name'], 'company' => $order['delivery_company'], 'street_address' => $order['delivery_street_address'], 'city' => $order['delivery_city'], 'postcode' => $order['delivery_postcode'], 'state' => $order['delivery_state'], 'country' => $order['delivery_country'], 'format_id' => $order['delivery_address_format_id']];
 
         if (empty($this->delivery['name']) && empty($this->delivery['street_address'])) {
             $this->delivery = false;
         }
 
-        $this->billing = array('name' => $order['billing_name'],
-                             'company' => $order['billing_company'],
-                             'street_address' => $order['billing_street_address'],
-                             'city' => $order['billing_city'],
-                             'postcode' => $order['billing_postcode'],
-                             'state' => $order['billing_state'],
-                             'country' => $order['billing_country'],
-                             'format_id' => $order['billing_address_format_id']);
+        $this->billing = ['name' => $order['billing_name'], 'company' => $order['billing_company'], 'street_address' => $order['billing_street_address'], 'city' => $order['billing_city'], 'postcode' => $order['billing_postcode'], 'state' => $order['billing_state'], 'country' => $order['billing_country'], 'format_id' => $order['billing_address_format_id']];
 
         $index = 0;
 
@@ -149,20 +118,7 @@ class order
         $orders_products_result = $dbconn->Execute($sql);
         while ($orders_products = $orders_products_result->fields) {
             $products_setting = $this->get_products_setting($orders_products['products_id']);
-            $this->products[$index] = array('qty' => $orders_products['products_quantity'],
-                                        'id' => $orders_products['products_id'],
-                                        'orders_id' => intval($order_id),
-                                        'status' => $products_setting,
-                                        'name' => $orders_products['products_name'],
-                                        'image' => $orders_products['products_image'],
-                                        'model' => $orders_products['products_model'],
-                                        'ean' => $orders_products['products_ean'],
-                                        'serial_number' => $orders_products['products_serial_number'],
-                                        'old_electrical_equipment' => $orders_products['products_old_electrical_equipment'],
-                                        'return_free_of_charge' => $orders_products['products_free_redemption'],
-                                        'tax' => $orders_products['products_tax'],
-                                        'price' => $orders_products['products_price'],
-                                        'final_price' => $orders_products['final_price']);
+            $this->products[$index] = ['qty' => $orders_products['products_quantity'], 'id' => $orders_products['products_id'], 'orders_id' => intval($order_id), 'status' => $products_setting, 'name' => $orders_products['products_name'], 'image' => $orders_products['products_image'], 'model' => $orders_products['products_model'], 'ean' => $orders_products['products_ean'], 'serial_number' => $orders_products['products_serial_number'], 'old_electrical_equipment' => $orders_products['products_old_electrical_equipment'], 'return_free_of_charge' => $orders_products['products_free_redemption'], 'tax' => $orders_products['products_tax'], 'price' => $orders_products['products_price'], 'final_price' => $orders_products['final_price']];
 
             $subindex = 0;
             $orders_products_attributestable = $oostable['orders_products_attributes'];
@@ -173,10 +129,7 @@ class order
             $attributes_result = $dbconn->Execute($sql);
             if ($attributes_result->RecordCount()) {
                 while ($attributes = $attributes_result->fields) {
-                    $this->products[$index]['attributes'][$subindex] = array('option' => $attributes['products_options'],
-                                                                     'value' => $attributes['products_options_values'],
-                                                                     'prefix' => $attributes['price_prefix'],
-                                                                     'price' => $attributes['options_values_price']);
+                    $this->products[$index]['attributes'][$subindex] = ['option' => $attributes['products_options'], 'value' => $attributes['products_options_values'], 'prefix' => $attributes['price_prefix'], 'price' => $attributes['options_values_price']];
 
                     $subindex++;
 
@@ -262,24 +215,14 @@ class order
         if ($this->content_type == 'virtual') {
             $_SESSION['customer_country_id'] = $billing_address['entry_country_id'];
             $_SESSION['customer_zone_id'] = $billing_address['entry_zone_id'];				
-            $tax_address = array('entry_country_id' => $billing_address['entry_country_id'],
-                                'entry_zone_id' => $billing_address['entry_zone_id']);
+            $tax_address = ['entry_country_id' => $billing_address['entry_country_id'], 'entry_zone_id' => $billing_address['entry_zone_id']];
         } else {
     #        $_SESSION['customer_country_id'] = $shipping_address['entry_country_id'];
     #        $_SESSION['customer_zone_id'] = $shipping_address['entry_zone_id'];		
-            $tax_address = array('entry_country_id' => $shipping_address['entry_country_id'],
-                                'entry_zone_id' => $shipping_address['entry_zone_id']);
+            $tax_address = ['entry_country_id' => $shipping_address['entry_country_id'], 'entry_zone_id' => $shipping_address['entry_zone_id']];
         }
 
-        $this->info = array('order_status' => DEFAULT_ORDERS_STATUS_ID,
-                          'currency' => $_SESSION['currency'],
-                          'currency_value' => $oCurrencies->currencies[$_SESSION['currency']]['value'],
-                          'payment_method' => $GLOBALS[$class]->title,
-                          'shipping_method' => $_SESSION['shipping']['title'],
-                          'shipping_cost' => $_SESSION['shipping']['cost'],
-                          'comments' => (isset($_SESSION['comments']) ? $_SESSION['comments'] : ''),
-                          'shipping_class' =>  ((strpos($_SESSION['shipping']['id'], '_') > 0) ? substr(strrev(strchr(strrev($_SESSION['shipping']['id']), '_')), 0, -1) : $_SESSION['shipping']['id']),
-                          'payment_class' => $_SESSION['payment']);
+        $this->info = ['order_status' => DEFAULT_ORDERS_STATUS_ID, 'currency' => $_SESSION['currency'], 'currency_value' => $oCurrencies->currencies[$_SESSION['currency']]['value'], 'payment_method' => $GLOBALS[$class]->title, 'shipping_method' => $_SESSION['shipping']['title'], 'shipping_cost' => $_SESSION['shipping']['cost'], 'comments' => ($_SESSION['comments'] ?? ''), 'shipping_class' =>  ((strpos((string) $_SESSION['shipping']['id'], '_') > 0) ? substr(strrev(strchr(strrev((string) $_SESSION['shipping']['id']), '_')), 0, -1) : $_SESSION['shipping']['id']), 'payment_class' => $_SESSION['payment']];
 
         if (isset($GLOBALS['payment']) && is_object($GLOBALS['payment'])) {
             $this->info['payment_method'] = $GLOBALS['payment']->title;
@@ -295,66 +238,19 @@ class order
             $email_address = $customer_address['customers_email_address'];
         }
 
-        $this->customer = array('firstname' => $customer_address['customers_firstname'],
-                              'lastname' => $customer_address['customers_lastname'],
-                              'company' => $customer_address['entry_company'],
-                              'street_address' => $customer_address['entry_street_address'],
-                              'city' => $customer_address['entry_city'],
-                              'postcode' => $customer_address['entry_postcode'],
-                              'state' => ((oos_is_not_null($customer_address['entry_state'])) ? $customer_address['entry_state'] : $customer_address['zone_name']),
-                              'zone_id' => $customer_address['entry_zone_id'],
-                              'country' => array('id' => $customer_address['countries_id'], 'title' => $customer_address['countries_name'], 'iso_code_2' => $customer_address['countries_iso_code_2'], 'iso_code_3' => $customer_address['countries_iso_code_3']),
-                              'format_id' => $customer_address['address_format_id'],
-                              'telephone' => $customer_address['customers_telephone'],
-                              'email_address' => $email_address);
+        $this->customer = ['firstname' => $customer_address['customers_firstname'], 'lastname' => $customer_address['customers_lastname'], 'company' => $customer_address['entry_company'], 'street_address' => $customer_address['entry_street_address'], 'city' => $customer_address['entry_city'], 'postcode' => $customer_address['entry_postcode'], 'state' => ((oos_is_not_null($customer_address['entry_state'])) ? $customer_address['entry_state'] : $customer_address['zone_name']), 'zone_id' => $customer_address['entry_zone_id'], 'country' => ['id' => $customer_address['countries_id'], 'title' => $customer_address['countries_name'], 'iso_code_2' => $customer_address['countries_iso_code_2'], 'iso_code_3' => $customer_address['countries_iso_code_3']], 'format_id' => $customer_address['address_format_id'], 'telephone' => $customer_address['customers_telephone'], 'email_address' => $email_address];
 
         $_SESSION['delivery_country_id'] = $shipping_address['entry_country_id'];
 
-        $this->delivery = array('firstname' => $shipping_address['entry_firstname'],
-                              'lastname' => $shipping_address['entry_lastname'],
-                              'company' => $shipping_address['entry_company'],
-                              'street_address' => $shipping_address['entry_street_address'],
-                              'city' => $shipping_address['entry_city'],
-                              'postcode' => $shipping_address['entry_postcode'],
-                              'state' => ((oos_is_not_null($shipping_address['entry_state'])) ? $shipping_address['entry_state'] : $shipping_address['zone_name']),
-                              'zone_id' => $shipping_address['entry_zone_id'],
-                              'country' => array('id' => $shipping_address['countries_id'], 'title' => $shipping_address['countries_name'], 'iso_code_2' => $shipping_address['countries_iso_code_2'], 'iso_code_3' => $shipping_address['countries_iso_code_3']),
-                              'country_id' => $shipping_address['entry_country_id'],
-                              'format_id' => $shipping_address['address_format_id']);
+        $this->delivery = ['firstname' => $shipping_address['entry_firstname'], 'lastname' => $shipping_address['entry_lastname'], 'company' => $shipping_address['entry_company'], 'street_address' => $shipping_address['entry_street_address'], 'city' => $shipping_address['entry_city'], 'postcode' => $shipping_address['entry_postcode'], 'state' => ((oos_is_not_null($shipping_address['entry_state'])) ? $shipping_address['entry_state'] : $shipping_address['zone_name']), 'zone_id' => $shipping_address['entry_zone_id'], 'country' => ['id' => $shipping_address['countries_id'], 'title' => $shipping_address['countries_name'], 'iso_code_2' => $shipping_address['countries_iso_code_2'], 'iso_code_3' => $shipping_address['countries_iso_code_3']], 'country_id' => $shipping_address['entry_country_id'], 'format_id' => $shipping_address['address_format_id']];
 
 
-        $this->billing = array('firstname' => $billing_address['entry_firstname'],
-                             'lastname' => $billing_address['entry_lastname'],
-                             'company' => $billing_address['entry_company'],
-                             'street_address' => $billing_address['entry_street_address'],
-                             'city' => $billing_address['entry_city'],
-                             'postcode' => $billing_address['entry_postcode'],
-                             'state' => ((oos_is_not_null($billing_address['entry_state'])) ? $billing_address['entry_state'] : $billing_address['zone_name']),
-                             'country' => array('id' => $billing_address['countries_id'], 'title' => $billing_address['countries_name'], 'iso_code_2' => $billing_address['countries_iso_code_2'], 'iso_code_3' => $billing_address['countries_iso_code_3']),
-                             'country_id' => $billing_address['entry_country_id'],
-                             'format_id' => $billing_address['address_format_id']);
+        $this->billing = ['firstname' => $billing_address['entry_firstname'], 'lastname' => $billing_address['entry_lastname'], 'company' => $billing_address['entry_company'], 'street_address' => $billing_address['entry_street_address'], 'city' => $billing_address['entry_city'], 'postcode' => $billing_address['entry_postcode'], 'state' => ((oos_is_not_null($billing_address['entry_state'])) ? $billing_address['entry_state'] : $billing_address['zone_name']), 'country' => ['id' => $billing_address['countries_id'], 'title' => $billing_address['countries_name'], 'iso_code_2' => $billing_address['countries_iso_code_2'], 'iso_code_3' => $billing_address['countries_iso_code_3']], 'country_id' => $billing_address['entry_country_id'], 'format_id' => $billing_address['address_format_id']];
         $index = 0;
         $products = $_SESSION['cart']->get_products();
 
         for ($i=0, $n=sizeof($products); $i<$n; $i++) {
-            $this->products[$index] = array('qty' => $products[$i]['quantity'],
-                                        'name' => $products[$i]['name'],
-                                        'essential_characteristics' => $products[$i]['essential_characteristics'],
-                                        'image' => $products[$i]['image'],
-                                        'model' => $products[$i]['model'],
-                                        'ean' => $products[$i]['ean'],
-                                        'tax' => oos_get_tax_rate($products[$i]['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']),
-                                        'price' => $products[$i]['price'],
-                                        'final_price' => $products[$i]['price'] + $_SESSION['cart']->attributes_price($products[$i]['id']),
-                                        'weight' => $products[$i]['weight'],
-                                        'towlid' => $products[$i]['towlid'],
-                                        'products_base_price' => $products[$i]['products_base_price'],
-                                        'base_product_price' => $products[$i]['base_product_price'],
-                                        'products_units_id' => $products[$i]['products_units_id'],
-                                        'products_product_quantity' => $products[$i]['products_product_quantity'],
-                                        'old_electrical_equipment' => $products[$i]['old_electrical_equipment'],
-                                        'return_free_of_charge' => $products[$i]['return_free_of_charge'],
-                                        'id' => $products[$i]['id']);
+            $this->products[$index] = ['qty' => $products[$i]['quantity'], 'name' => $products[$i]['name'], 'essential_characteristics' => $products[$i]['essential_characteristics'], 'image' => $products[$i]['image'], 'model' => $products[$i]['model'], 'ean' => $products[$i]['ean'], 'tax' => oos_get_tax_rate($products[$i]['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']), 'price' => $products[$i]['price'], 'final_price' => $products[$i]['price'] + $_SESSION['cart']->attributes_price($products[$i]['id']), 'weight' => $products[$i]['weight'], 'towlid' => $products[$i]['towlid'], 'products_base_price' => $products[$i]['products_base_price'], 'base_product_price' => $products[$i]['base_product_price'], 'products_units_id' => $products[$i]['products_units_id'], 'products_product_quantity' => $products[$i]['products_product_quantity'], 'old_electrical_equipment' => $products[$i]['old_electrical_equipment'], 'return_free_of_charge' => $products[$i]['return_free_of_charge'], 'id' => $products[$i]['id']];
 
             if ($products[$i]['attributes']) {
                 $subindex = 0;
@@ -396,12 +292,7 @@ class order
                     } else {
                         $attr_value = $attributes['products_options_values_name'];
                     }
-                    $this->products[$index]['attributes'][$subindex] = array('option' => $attributes['products_options_name'],
-                                                                        'value' => $attr_value,
-                                                                        'option_id' => $option,
-                                                                        'value_id' => $value,
-                                                                        'prefix' => $attributes['price_prefix'],
-                                                                        'price' => $attributes['options_values_price']);
+                    $this->products[$index]['attributes'][$subindex] = ['option' => $attributes['products_options_name'], 'value' => $attr_value, 'option_id' => $option, 'value_id' => $value, 'prefix' => $attributes['price_prefix'], 'price' => $attributes['options_values_price']];
                     $subindex++;
                 }
             }
@@ -411,13 +302,13 @@ class order
 
             $this->info['total'] +=  $nPrice;
 
-            $currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
+            $currency_type = ($_SESSION['currency'] ?? DEFAULT_CURRENCY);
             $decimal_places = $oCurrencies->get_decimal_places($currency_type);
 
             $products_tax = $this->products[$index]['tax'];
             if ($aUser['price_with_tax'] == 1) {
-                $this->info['tax'] += $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
-                $nPriceNet = oos_round(($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax))), $decimal_places);
+                $this->info['tax'] += $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', (string) $products_tax) : "1." . str_replace('.', '', (string) $products_tax)));
+                $nPriceNet = oos_round(($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', (string) $products_tax) : "1." . str_replace('.', '', (string) $products_tax))), $decimal_places);
                 if (isset($this->info['tax_groups']["$products_tax"])) {
                     $this->info['tax_groups']["$products_tax"] += $nPrice - $nPriceNet;
                     $this->info['net_total']["$products_tax"] += $nPriceNet;

@@ -48,9 +48,9 @@
 function oos_date_raw($date, $reverse = false)
 {
     if ($reverse) {
-        return substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
+        return substr((string) $date, 0, 2) . substr((string) $date, 3, 2) . substr((string) $date, 6, 4);
     } else {
-        return substr($date, 6, 4) . substr($date, 3, 2) . substr($date, 0, 2);
+        return substr((string) $date, 6, 4) . substr((string) $date, 3, 2) . substr((string) $date, 0, 2);
     }
 }
 
@@ -390,8 +390,8 @@ $aLang = [
 'text_no_longer_available'    => 'Nicht mehr verfügbar',
 'text_replacement_product'    => 'Es gibt ein Ersatzprodukt',
 
-'warning_install_directory_exists'           => 'Warnung: Das Installationsverzeichnis ist noch vorhanden auf: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install. Bitte löschen Sie das Verzeichnis aus Gründen der Sicherheit!',
-'warning_config_file_writeable'              => 'Warnung: MyOOS [Shopsystem] kann in die Konfigurationsdatei schreiben: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php. Das stellt ein mögliches Sicherheitsrisiko dar - bitte korrigieren Sie die Benutzerberechtigungen zu dieser Datei!',
+'warning_install_directory_exists'           => 'Warnung: Das Installationsverzeichnis ist noch vorhanden auf: ' . dirname((string) oos_server_get_var('SCRIPT_FILENAME')) . '/install. Bitte löschen Sie das Verzeichnis aus Gründen der Sicherheit!',
+'warning_config_file_writeable'              => 'Warnung: MyOOS [Shopsystem] kann in die Konfigurationsdatei schreiben: ' . dirname((string) oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php. Das stellt ein mögliches Sicherheitsrisiko dar - bitte korrigieren Sie die Benutzerberechtigungen zu dieser Datei!',
 'warning_download_directory_non_existent'    => 'Warnung: Das Verzeichnis für den Artikel Download existiert nicht: ' . OOS_DOWNLOAD_PATH . '. Diese Funktion wird nicht funktionieren bis das Verzeichnis erstellt wurde!',
 
 'info_login_for_wichlist'             => 'Sie möchten Ihre Artikel dauerhaft speichern und alle Funktionen des Merkzettels nutzen? Dann melden Sie sich bitte an und wir speichern Ihre Artikel auf Ihrem Merkzettel im Kundenkonto.',

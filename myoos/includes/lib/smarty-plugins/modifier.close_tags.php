@@ -18,11 +18,11 @@
 function smarty_modifier_close_tags($string)
 {
     // match opened tags
-    if (preg_match_all('/<([a-z]+)[ >]/', $string, $start_tags)) {
+    if (preg_match_all('/<([a-z]+)[ >]/', (string) $string, $start_tags)) {
         $start_tags = $start_tags[1];
 
         // match closed tags
-        if (preg_match_all('/<\/([a-z]+)>/', $string, $end_tags)) {
+        if (preg_match_all('/<\/([a-z]+)>/', (string) $string, $end_tags)) {
             $complete_tags = [];
             $end_tags = $end_tags[1];
 

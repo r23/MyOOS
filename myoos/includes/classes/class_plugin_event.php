@@ -31,7 +31,7 @@ class plugin_event
 
     public function __construct()
     {
-        $this->aEventPlugins = explode(';', MODULE_PLUGIN_EVENT_INSTALLED);
+        $this->aEventPlugins = explode(';', (string) MODULE_PLUGIN_EVENT_INSTALLED);
     }
 
     public function getInstance()
@@ -94,7 +94,7 @@ class plugin_event
 
     public function get_intro($event)
     {
-        @call_user_func(array('oos_event_' . $event, 'intro'));
+        @call_user_func(['oos_event_' . $event, 'intro']);
     }
 
 

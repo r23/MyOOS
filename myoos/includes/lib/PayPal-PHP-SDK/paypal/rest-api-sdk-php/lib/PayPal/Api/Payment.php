@@ -199,10 +199,10 @@ class Payment extends PayPalResourceModel
     public function addTransaction($transaction)
     {
         if (!$this->getTransactions()) {
-            return $this->setTransactions(array($transaction));
+            return $this->setTransactions([$transaction]);
         } else {
             return $this->setTransactions(
-                array_merge($this->getTransactions(), array($transaction))
+                array_merge($this->getTransactions(), [$transaction])
             );
         }
     }
@@ -216,7 +216,7 @@ class Payment extends PayPalResourceModel
     public function removeTransaction($transaction)
     {
         return $this->setTransactions(
-            array_diff($this->getTransactions(), array($transaction))
+            array_diff($this->getTransactions(), [$transaction])
         );
     }
 
@@ -252,10 +252,10 @@ class Payment extends PayPalResourceModel
     public function addFailedTransaction($error)
     {
         if (!$this->getFailedTransactions()) {
-            return $this->setFailedTransactions(array($error));
+            return $this->setFailedTransactions([$error]);
         } else {
             return $this->setFailedTransactions(
-                array_merge($this->getFailedTransactions(), array($error))
+                array_merge($this->getFailedTransactions(), [$error])
             );
         }
     }
@@ -269,7 +269,7 @@ class Payment extends PayPalResourceModel
     public function removeFailedTransaction($error)
     {
         return $this->setFailedTransactions(
-            array_diff($this->getFailedTransactions(), array($error))
+            array_diff($this->getFailedTransactions(), [$error])
         );
     }
 
@@ -305,10 +305,10 @@ class Payment extends PayPalResourceModel
     public function addBillingAgreementToken($billingAgreementToken)
     {
         if (!$this->getBillingAgreementTokens()) {
-            return $this->setBillingAgreementTokens(array($billingAgreementToken));
+            return $this->setBillingAgreementTokens([$billingAgreementToken]);
         } else {
             return $this->setBillingAgreementTokens(
-                array_merge($this->getBillingAgreementTokens(), array($billingAgreementToken))
+                array_merge($this->getBillingAgreementTokens(), [$billingAgreementToken])
             );
         }
     }
@@ -322,7 +322,7 @@ class Payment extends PayPalResourceModel
     public function removeBillingAgreementToken($billingAgreementToken)
     {
         return $this->setBillingAgreementTokens(
-            array_diff($this->getBillingAgreementTokens(), array($billingAgreementToken))
+            array_diff($this->getBillingAgreementTokens(), [$billingAgreementToken])
         );
     }
 
@@ -665,16 +665,7 @@ class Payment extends PayPalResourceModel
     {
         ArgumentValidator::validate($params, 'params');
         $payLoad = "";
-        $allowedParams = array(
-                    'count' => 1,
-                    'start_id' => 1,
-                    'start_index' => 1,
-                    'start_time' => 1,
-                    'end_time' => 1,
-                    'payee_id' => 1,
-                    'sort_by' => 1,
-                    'sort_order' => 1,
-        );
+        $allowedParams = ['count' => 1, 'start_id' => 1, 'start_index' => 1, 'start_time' => 1, 'end_time' => 1, 'payee_id' => 1, 'sort_by' => 1, 'sort_order' => 1];
         $json = self::executeCall(
             "/v1/payments/payment?" . http_build_query(array_intersect_key($params, $allowedParams)),
             "GET",

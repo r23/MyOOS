@@ -33,8 +33,8 @@ class cod
     public function __construct()
     {
         global $oOrder, $aLang;
-        $this->title = isset($aLang['module_payment_cod_text_title']) ? $aLang['module_payment_cod_text_title'] : '';
-        $this->description = isset($aLang['module_payment_cod_text_description']) ? $aLang['module_payment_cod_text_description'] : '';
+        $this->title = $aLang['module_payment_cod_text_title'] ?? '';
+        $this->description = $aLang['module_payment_cod_text_description'] ?? '';
         $this->enabled = (defined('MODULE_PAYMENT_COD_STATUS') && (MODULE_PAYMENT_COD_STATUS == 'true') ? true : false);
 
         $this->sort_order = (defined('MODULE_PAYMENT_COD_SORT_ORDER') ? MODULE_PAYMENT_COD_SORT_ORDER : null);
@@ -97,8 +97,7 @@ class cod
 
     public function selection()
     {
-        return array('id' => $this->code,
-                   'module' => $this->title);
+        return ['id' => $this->code, 'module' => $this->title];
     }
 
     public function pre_confirmation_check()
@@ -168,6 +167,6 @@ class cod
 
     public function keys()
     {
-        return array('MODULE_PAYMENT_COD_STATUS', 'MODULE_PAYMENT_COD_ZONE', 'MODULE_PAYMENT_COD_ORDER_STATUS_ID', 'MODULE_PAYMENT_COD_SORT_ORDER');
+        return ['MODULE_PAYMENT_COD_STATUS', 'MODULE_PAYMENT_COD_ZONE', 'MODULE_PAYMENT_COD_ORDER_STATUS_ID', 'MODULE_PAYMENT_COD_SORT_ORDER'];
     }
 }

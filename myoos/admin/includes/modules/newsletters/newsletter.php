@@ -32,13 +32,9 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 class newsletter
 {
     public $show_choose_audience = false;
-    public $title;
-    public $content;
 
-    public function __construct($title, $content)
+    public function __construct(public $title, public $content)
     {
-        $this->title = $title;
-        $this->content = $content;
     }
 
     public function choose_audience()
@@ -73,7 +69,7 @@ class newsletter
                         '    <td></td>' . "\n" .
                         '  </tr>' . "\n" .
                         '  <tr>' . "\n" .
-                        '    <td class="main"><tt>' . nl2br($this->content) . '</tt></td>' . "\n" .
+                        '    <td class="main"><tt>' . nl2br((string) $this->content) . '</tt></td>' . "\n" .
                         '  </tr>' . "\n" .
                         '  <tr>' . "\n" .
                         '    <td></td>' . "\n" .

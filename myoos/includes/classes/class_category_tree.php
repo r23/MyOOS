@@ -79,7 +79,7 @@ class oosCategoryTree
         $this->data = [];
 
         while ($categories = $categories_result->fields) {
-            $this->data[$categories['parent_id']][$categories['categories_id']] = array('name' => $categories['categories_name'], 'count' => 0);
+            $this->data[$categories['parent_id']][$categories['categories_id']] = ['name' => $categories['categories_name'], 'count' => 0];
 
             // Move that ADOdb pointer!
             $categories_result->MoveNext();
@@ -96,7 +96,7 @@ class oosCategoryTree
             $this->data = [];
 
             for ($i=0, $n=count($data_array); $i<$n; $i++) {
-                $this->data[$data_array[$i]['parent_id']][$data_array[$i]['categories_id']] = array('name' => $data_array[$i]['categories_name'], 'count' => $data_array[$i]['categories_count']);
+                $this->data[$data_array[$i]['parent_id']][$data_array[$i]['categories_id']] = ['name' => $data_array[$i]['categories_name'], 'count' => $data_array[$i]['categories_count']];
             }
         }
     }
@@ -128,7 +128,7 @@ class oosCategoryTree
                     $result .= $this->root_start_string;
                 }
 
-                $result .= str_repeat($this->spacer_string, $this->spacer_multiplier * $level);
+                $result .= str_repeat((string) $this->spacer_string, $this->spacer_multiplier * $level);
 
                 $result .= $sLink;
 
@@ -189,8 +189,7 @@ class oosCategoryTree
                     $category_link = $category_id;
                 }
 
-                $result[] = array('id' => $category_link,
-                            'title' => str_repeat($this->spacer_string, $this->spacer_multiplier * $level) . $category['name']);
+                $result[] = ['id' => $category_link, 'title' => str_repeat((string) $this->spacer_string, $this->spacer_multiplier * $level) . $category['name']];
 
                 if (isset($this->data[$category_id]) && (($this->max_level == '0') || ($this->max_level > $level+1))) {
                     if ($this->follow_cpath === true) {
@@ -342,7 +341,7 @@ class oosCategoryTree
     public function setCategoryPath($cpath, $cpath_start_string = '', $cpath_end_string = '')
     {
         $this->follow_cpath = true;
-        $this->cpath_array = explode($this->breadcrumb_separator, $cpath);
+        $this->cpath_array = explode($this->breadcrumb_separator, (string) $cpath);
         $this->cpath_start_string = $cpath_start_string;
         $this->cpath_end_string = $cpath_end_string;
     }

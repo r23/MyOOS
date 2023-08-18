@@ -49,10 +49,10 @@ class BankAccountsList extends PayPalModel
     public function addBankAccount($bankAccount)
     {
         if (!$this->getBankAccounts()) {
-            return $this->setBankAccounts(array($bankAccount));
+            return $this->setBankAccounts([$bankAccount]);
         } else {
             return $this->setBankAccounts(
-                array_merge($this->getBankAccounts(), array($bankAccount))
+                array_merge($this->getBankAccounts(), [$bankAccount])
             );
         }
     }
@@ -66,7 +66,7 @@ class BankAccountsList extends PayPalModel
     public function removeBankAccount($bankAccount)
     {
         return $this->setBankAccounts(
-            array_diff($this->getBankAccounts(), array($bankAccount))
+            array_diff($this->getBankAccounts(), [$bankAccount])
         );
     }
 

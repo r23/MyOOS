@@ -29,7 +29,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 /**
  * Stop from parsing any further PHP code
  */
-function oos_exit()
+function oos_exit(): never
 {
     exit();
 }
@@ -43,17 +43,17 @@ function oos_exit()
  */
 function oos_redirect($sUrl)
 {
-    if ((strstr($sUrl, "\n") != false) || (strstr($sUrl, "\r") != false)) {
+    if ((str_contains((string) $sUrl, "\n")) || (str_contains((string) $sUrl, "\r"))) {
         $aContents = oos_get_content();
         oos_redirect(oos_href_link($aContents['home'], '', false, true));
     }
 
     // clean URL
-    if (strpos($sUrl, '&amp;') !== false) {
-        $sUrl = str_replace('&amp;', '&', $sUrl);
+    if (str_contains((string) $sUrl, '&amp;')) {
+        $sUrl = str_replace('&amp;', '&', (string) $sUrl);
     }
-    if (strpos($sUrl, '&&') !== false) {
-        $sUrl = str_replace('&&', '&', $sUrl);
+    if (str_contains((string) $sUrl, '&&')) {
+        $sUrl = str_replace('&&', '&', (string) $sUrl);
     }
 
     header('Location: ' . $sUrl);
@@ -137,7 +137,7 @@ function oos_sanitize_string($sStr)
 function oos_stripslashes(&$value)
 {
     if (!is_array($value)) {
-        $value = stripslashes($value);
+        $value = stripslashes((string) $value);
     } else {
         array_walk($value, 'oos_stripslashes');
     }
@@ -175,7 +175,7 @@ function oos_var_prep_for_os()
     $resarray = [];
     foreach (func_get_args() as $ourvar) {
         // Parse out bad things
-        $ourvar = preg_replace($search, $replace, $ourvar);
+        $ourvar = preg_replace($search, (string) $replace, (string) $ourvar);
 
         // Prepare var
         $ourvar = addslashes($ourvar);
@@ -259,8 +259,8 @@ function oos_create_wishlist_code($salt = "secret", $length = SECURITY_CODE_LENG
     $ccid .= md5(uniqid("", "salt"));
     $ccid .= md5(uniqid("", "salt"));
     $ccid .= md5(uniqid("", "salt"));
-    srand((float)microtime()*1000000); // seed the random number generator
-    $random_start = @rand(0, (128-$length));
+    mt_srand((float)microtime()*1_000_000); // seed the random number generator
+    $random_start = @random_int(0, (128-$length));
     $good_result = 0;
     while ($good_result == 0) {
         $id1 = substr($ccid, $random_start, $length);
@@ -551,7 +551,7 @@ function oos_get_all_get_parameters($aExclude = '')
         foreach ($urlValues as $sKey => $sValue) {
             if (!empty($sValue)) {
                 if (($sKey != $session->getName()) && (!in_array($sKey, $aParameters)) && (!in_array($sKey, $aExclude))) {
-                    $sUrl .= $sKey . '=' . rawurlencode($sValue) . '&amp;';
+                    $sUrl .= $sKey . '=' . rawurlencode((string) $sValue) . '&amp;';
                 }
             }
         }
@@ -583,7 +583,7 @@ function oos_get_all_post_parameters($aExclude = '')
         foreach ($_POST as $sKey => $sValue) {
             if ((!empty($sValue)) && (!is_array($sValue))) {
                 if (($sKey != $session->getName())  && (!in_array($sKey, $aParameters))  && (!in_array($sKey, $aExclude))) {
-                    $sUrl .= $sKey . '=' . rawurlencode($sValue) . '&amp;';
+                    $sUrl .= $sKey . '=' . rawurlencode((string) $sValue) . '&amp;';
                 }
             }
         }
@@ -840,8 +840,8 @@ function oos_calculate_tax($price, $tax)
  */
 function oos_round($number, $precision)
 {
-    if (strpos($number, '.') && (strlen(substr($number, strpos($number, '.')+1)) > $precision)) {
-        $number = substr($number, 0, strpos($number, '.') + 1 + $precision + 1);
+    if (strpos((string) $number, '.') && (strlen(substr((string) $number, strpos((string) $number, '.')+1)) > $precision)) {
+        $number = substr((string) $number, 0, strpos((string) $number, '.') + 1 + $precision + 1);
 
         if (substr($number, -1) >= 5) {
             if ($precision > 1) {
@@ -925,7 +925,7 @@ function oos_get_parent_categories(&$categories, $categories_id)
             return true;
         }
 
-        $categories[count($categories)] = $parent_categories['parent_id'];
+        $categories[is_countable($categories) ? count($categories) : 0] = $parent_categories['parent_id'];
         if ($parent_categories['parent_id'] != $categories_id) {
             oos_get_parent_categories($categories, $parent_categories['parent_id']);
         }
@@ -967,7 +967,7 @@ function oos_get_product_path($products_id)
 
         oos_get_parent_categories($categories, $cat_id_data['categories_id']);
 
-        $size = count($categories)-1;
+        $size = (is_countable($categories) ? count($categories) : 0)-1;
         for ($i = $size; $i >= 0; $i--) {
             if ($sCategory != '') {
                 $sCategory .= '_';
@@ -1012,7 +1012,7 @@ function oos_get_category_path($nProductsId)
     oos_get_parent_categories($categories_arr, $cat_id_data['categories_id']);
 
     $sCategory = '';
-    $size = count($categories_arr)-1;
+    $size = (is_countable($categories_arr) ? count($categories_arr) : 0)-1;
     for ($i = $size; $i >= 0; $i--) {
         if ($sCategory != '') {
             $sCategory .= '_';
@@ -1049,11 +1049,11 @@ function oos_get_category_path($nProductsId)
   */
 function oos_remove_trailing($sParameters)
 {
-    if (substr($sParameters, -5) == '&amp;') {
-        $sParameters = substr($sParameters, 0, -5);
+    if (str_ends_with((string) $sParameters, '&amp;')) {
+        $sParameters = substr((string) $sParameters, 0, -5);
     }
-    if (substr($sParameters, -1) == '&') {
-        $sParameters = substr($sParameters, 0, -1);
+    if (str_ends_with((string) $sParameters, '&')) {
+        $sParameters = substr((string) $sParameters, 0, -1);
     }
 
     return $sParameters;
@@ -1081,7 +1081,7 @@ function oos_get_uprid($prid, $parameters)
             foreach ($parameters as $option => $sValue) {
                 if (is_numeric($option) && is_numeric($sValue)) {
                     $attributes_ids .= '{' . intval($option) . '}' . intval($sValue);
-                } elseif (strstr($option, TEXT_PREFIX)) {
+                } elseif (strstr($option, (string) TEXT_PREFIX)) {
                     $text_option = substr($option, strlen(TEXT_PREFIX ?? ''));
                     $sLen = strlen($sValue ?? '');
                     $attributes_ids .= '{' . intval($text_option) . '}' . intval($sLen);
@@ -1099,12 +1099,12 @@ function oos_get_uprid($prid, $parameters)
         $uprid = oos_get_product_id($prid);
 
         if (is_numeric($uprid)) {
-            if (strpos($prid, '{') !== false) {
+            if (str_contains((string) $prid, '{')) {
                 $attributes_check = true;
                 $attributes_ids = '';
 
                 // strpos()+1 to remove up to and including the first { which would create an empty array element in explode()
-                $attributes = explode('{', substr($prid, strpos($prid, '{')+1));
+                $attributes = explode('{', substr((string) $prid, strpos((string) $prid, '{')+1));
 
                 for ($i=0, $n=count($attributes); $i<$n; $i++) {
                     $pair = explode('}', $attributes[$i]);
@@ -1143,12 +1143,12 @@ function oos_get_attributes($sProductsId)
     $uprid = oos_get_product_id($sProductsId);
 
     if (is_numeric($uprid)) {
-        if (strpos($sProductsId, '{') !== false) {
+        if (str_contains((string) $sProductsId, '{')) {
             $attributes_check = true;
             $attributes_ids = [];
 
             // strpos()+1 to remove up to and including the first { which would create an empty array element in explode()
-            $attributes = explode('{', substr($sProductsId, strpos($sProductsId, '{')+1));
+            $attributes = explode('{', substr((string) $sProductsId, strpos((string) $sProductsId, '{')+1));
 
             for ($i=0, $n=count($attributes); $i<$n; $i++) {
                 $pair = explode('}', $attributes[$i]);
@@ -1317,7 +1317,7 @@ function oos_count_modules($modules = '')
         return $nCount;
     }
 
-    $aModules = explode(';', $modules);
+    $aModules = explode(';', (string) $modules);
 
     for ($i=0, $n=count($aModules); $i<$n; $i++) {
         $class = substr($aModules[$i], 0, strrpos($aModules[$i], '.'));
@@ -1389,7 +1389,7 @@ function oos_output_string($sStr, $aTranslate = null)
 function oos_remove_tags($sStr)
 {
     $allowedTags = '<h1><strong><i><a><ul><li><pre><hr><br><blockquote><p>';
-    $source = strip_tags($sStr, $allowedTags);
+    $source = strip_tags((string) $sStr, $allowedTags);
 
     return $source;
 }
@@ -1465,7 +1465,7 @@ function oos_get_content()
 function oos_parse_category_path($sCategory)
 {
     // make sure the category IDs are integers
-    $aCategoryPath = array_map('oos_string_to_int', explode('_', $sCategory));
+    $aCategoryPath = array_map('oos_string_to_int', explode('_', (string) $sCategory));
 
     // make sure no duplicate category IDs exist which could lock the server in a loop
     $aTmp = [];
@@ -1512,7 +1512,7 @@ function locale($locale)
 
     // Convert locales like "es" to "es_ES", in case that works for the given locale (sometimes it does).
     if (2 === strlen($locale ?? '')) {
-        $locale = strtolower($locale) . '_' . strtoupper($locale);
+        $locale = strtolower((string) $locale) . '_' . strtoupper((string) $locale);
     }
 
     // These are the locales FB supports.
@@ -1661,7 +1661,7 @@ function locale($locale)
 
     // Check to see if the locale is a valid FB one, if not, use en_US as a fallback.
     if (! in_array($locale, $fb_valid_fb_locales, true)) {
-        $locale = strtolower(substr($locale, 0, 2)) . '_' . strtoupper(substr($locale, 0, 2));
+        $locale = strtolower(substr((string) $locale, 0, 2)) . '_' . strtoupper(substr((string) $locale, 0, 2));
         if (!in_array($locale, $fb_valid_fb_locales, true)) {
             $locale = 'en_US';
         }
@@ -1679,7 +1679,7 @@ function locale($locale)
   */
 function oos_get_extension($filename)
 {
-    $filename  = strtolower($filename);
+    $filename  = strtolower((string) $filename);
     $extension = explode("[/\\.]", $filename);
     $n = count($extension)-1;
     $extension = $extension[$n];
@@ -1735,7 +1735,7 @@ function oos_strip_all($sStr)
  */
 function oos_cut_number($number)
 {
-    $number = explode(".", $number, 2);
+    $number = explode(".", (string) $number, 2);
 
     if ($number[1] == '0000') {
         return $number[0];
@@ -1756,19 +1756,19 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
         return false;
     }
 
-    if (preg_match('~[\r\n]~', $to_name)) {
+    if (preg_match('~[\r\n]~', (string) $to_name)) {
         return false;
     }
-    if (preg_match('~[\r\n]~', $to_email_address)) {
+    if (preg_match('~[\r\n]~', (string) $to_email_address)) {
         return false;
     }
-    if (preg_match('~[\r\n]~', $email_subject)) {
+    if (preg_match('~[\r\n]~', (string) $email_subject)) {
         return false;
     }
-    if (preg_match('~[\r\n]~', $from_email_name)) {
+    if (preg_match('~[\r\n]~', (string) $from_email_name)) {
         return false;
     }
-    if (preg_match('~[\r\n]~', $from_email_address)) {
+    if (preg_match('~[\r\n]~', (string) $from_email_address)) {
         return false;
     }
 
@@ -1784,13 +1784,13 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
 
 
     if (!is_array($attachments)) {
-        $attachments = explode("\n", str_replace("\r\n", "\n", $attachments));
+        $attachments = explode("\n", str_replace("\r\n", "\n", (string) $attachments));
     }
 
 	$phpmailer = new PHPMailer\PHPMailer\PHPMailer();	
 
     // load the appropriate language version
-	$sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : DEFAULT_LANGUAGE_CODE);
+	$sLang = ($_SESSION['iso_639_1'] ?? DEFAULT_LANGUAGE_CODE);
     $phpmailer->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/vendor/phpmailer/phpmailer/language/');
 
     // Empty out the values that may be set.
@@ -1804,8 +1804,8 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
     $phpmailer->CharSet   = 'UTF-8';
     $phpmailer->Encoding  = 'base64';
 
-    $phpmailer->From = $from_email_address ? $from_email_address : STORE_OWNER_EMAIL_ADDRESS;
-    $phpmailer->FromName = $from_email_name ? $from_email_name : STORE_OWNER;
+    $phpmailer->From = $from_email_address ?: STORE_OWNER_EMAIL_ADDRESS;
+    $phpmailer->FromName = $from_email_name ?: STORE_OWNER;
 
     // Add smtp values if needed
     if (EMAIL_TRANSPORT == 'smtp') {
@@ -1845,7 +1845,7 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
 
 
     // Build the text version
-    $text = strip_tags($email_text);
+    $text = strip_tags((string) $email_text);
     if (EMAIL_USE_HTML == 'true') {
         $phpmailer->IsHTML(true);
         $phpmailer->Body = $email_html;

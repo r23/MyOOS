@@ -40,7 +40,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews_product.php';
 
 // lets retrieve all $_GET keys and values..
-$get_params = oos_get_all_get_parameters(array('reviews_id'));
+$get_params = oos_get_all_get_parameters(['reviews_id']);
 $get_params = oos_remove_trailing($get_params);
 
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
@@ -75,12 +75,7 @@ $reviews_result = $dbconn->Execute($reviews_split->sql_query);
 
 $aReviews = [];
 while ($reviews = $reviews_result->fields) {
-    $aReviews[] = array('rating' => $reviews['reviews_rating'],
-                        'id' => $reviews['reviews_id'],
-                        'reviews_text' => $reviews['reviews_text'],
-                        'customers_name' => $reviews['customers_name'],
-                        'date_added' => oos_date_short($reviews['date_added']),
-                        'read' => $reviews['reviews_read']);
+    $aReviews[] = ['rating' => $reviews['reviews_rating'], 'id' => $reviews['reviews_id'], 'reviews_text' => $reviews['reviews_text'], 'customers_name' => $reviews['customers_name'], 'date_added' => oos_date_short($reviews['date_added']), 'read' => $reviews['reviews_read']];
     $reviews_result->MoveNext();
 }
 
@@ -118,21 +113,7 @@ $smarty->assign('reviews_information', $reviews_information);
 
 
 $smarty->assign(
-    array(
-        'breadcrumb'    => $oBreadcrumb->trail(),
-        'heading_title' => sprintf($aLang['heading_title'], $product_info['products_name']),
-        'canonical'        => $sCanonical,
-
-
-        'page_split'        => $reviews_split->display_count($aLang['text_display_number_of_reviews']),
-        'display_links'        => $reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-        'numrows'             => $reviews_split->number_of_rows,
-        'numpages'             => $reviews_split->number_of_pages,
-
-
-        'reviews'         => $aReviews
-
-      )
+    ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title' => sprintf($aLang['heading_title'], $product_info['products_name']), 'canonical'        => $sCanonical, 'page_split'        => $reviews_split->display_count($aLang['text_display_number_of_reviews']), 'display_links'        => $reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(['page', 'info'])), 'numrows'             => $reviews_split->number_of_rows, 'numpages'             => $reviews_split->number_of_pages, 'reviews'         => $aReviews]
 );
 
 $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination']));

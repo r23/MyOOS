@@ -57,43 +57,36 @@ if (!empty($action)) {
             for ($i = 0, $n = $nModelCounter; $i < $n; $i++) {
                 $action = (!isset($_POST['model_viewer_id'][$i]) || !is_numeric($_POST['model_viewer_id'][$i])) ? 'insert_model' : 'update_model';
 
-                $sql_data_array = array('products_id' => intval($products_id),
-                                        'model_viewer_background_color' => oos_db_prepare_input($_POST['model_viewer_background_color'][$i]),
-                                        'model_viewer_scale' => oos_db_prepare_input($_POST['model_viewer_scale'][$i]),
-                                        'model_viewer_auto_rotate' => oos_db_prepare_input($_POST['model_viewer_auto_rotate'][$i]),
-                                        'model_viewer_hdr' => oos_db_prepare_input($_POST['model_viewer_hdr'][$i])
-                                        );
+                $sql_data_array = ['products_id' => intval($products_id), 'model_viewer_background_color' => oos_db_prepare_input($_POST['model_viewer_background_color'][$i]), 'model_viewer_scale' => oos_db_prepare_input($_POST['model_viewer_scale'][$i]), 'model_viewer_auto_rotate' => oos_db_prepare_input($_POST['model_viewer_auto_rotate'][$i]), 'model_viewer_hdr' => oos_db_prepare_input($_POST['model_viewer_hdr'][$i])];
 
                 if ($action == 'insert_model') {
-                    $insert_sql_data = array('model_viewer_date_added' => 'now()');
+                    $insert_sql_data = ['model_viewer_date_added' => 'now()'];
 
-                    $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+                    $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
                     oos_db_perform($oostable['products_model_viewer'], $sql_data_array);
                     $model_viewer_id = $dbconn->Insert_ID();
                 } elseif ($action == 'update_model') {
-                    $update_sql_data = array('model_viewer_last_modified' => 'now()');
+                    $update_sql_data = ['model_viewer_last_modified' => 'now()'];
                     $model_viewer_id = intval($_POST['model_viewer_id'][$i]);
 
-                    $sql_data_array = array_merge($sql_data_array, $update_sql_data);
+                    $sql_data_array = [...$sql_data_array, ...$update_sql_data];
 
                     oos_db_perform($oostable['products_model_viewer'], $sql_data_array, 'UPDATE', 'model_viewer_id = \'' . intval($model_viewer_id) . '\'');
                 }
 
                 $aLanguages = oos_get_languages();
-                $nLanguages = count($aLanguages);
+                $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
 
                 for ($li = 0, $l = $nLanguages; $li < $l; $li++) {
                     $language_id = $aLanguages[$li]['id'];
 
-                    $sql_data_array = array('model_viewer_title' => oos_db_prepare_input($_POST['model_viewer_title'][$i][$language_id]),
-                                            'model_viewer_description' => oos_db_prepare_input($_POST['model_viewer_description_'. $i . '_'  . $aLanguages[$li]['id']]));
+                    $sql_data_array = ['model_viewer_title' => oos_db_prepare_input($_POST['model_viewer_title'][$i][$language_id]), 'model_viewer_description' => oos_db_prepare_input($_POST['model_viewer_description_'. $i . '_'  . $aLanguages[$li]['id']])];
 
                     if ($action == 'insert_model') {
-                        $insert_sql_data = array('model_viewer_id' => $model_viewer_id,
-                                                'model_viewer_languages_id' => $language_id);
+                        $insert_sql_data = ['model_viewer_id' => $model_viewer_id, 'model_viewer_languages_id' => $language_id];
 
-                        $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+                        $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
                         oos_db_perform($oostable['products_model_viewer_description'], $sql_data_array);
                     } elseif ($action == 'update_model') {
@@ -141,7 +134,7 @@ if (!empty($action)) {
                                 $messageStack->add_session(ERROR_PROBLEM_WITH_GLB_FILE, 'error');
                             }
 
-                            $sql_data_array = array('model_viewer_glb' => oos_db_prepare_input($filename));
+                            $sql_data_array = ['model_viewer_glb' => oos_db_prepare_input($filename)];
 
                             oos_db_perform($oostable['products_model_viewer'], $sql_data_array, 'UPDATE', 'model_viewer_id = \'' . intval($model_viewer_id) . '\'');
                         } else {
@@ -171,7 +164,7 @@ if (!empty($action)) {
                                 $messageStack->add_session(ERROR_PROBLEM_WITH_USDZ_FILE, 'error');
                             }
 
-                            $sql_data_array = array('model_viewer_usdz' => oos_db_prepare_input($filename));
+                            $sql_data_array = ['model_viewer_usdz' => oos_db_prepare_input($filename)];
 
                             oos_db_perform($oostable['products_model_viewer'], $sql_data_array, 'UPDATE', 'model_viewer_id = \'' . intval($model_viewer_id) . '\'');
                         } else {
@@ -215,10 +208,7 @@ require 'includes/header.php';
                     <div class="col-lg-12">
 <?php
 if ($action == 'edit_3d') {
-    $parameters = array('products_id' => '',
-                        'products_name' => '',
-                        'products_image' => '',
-                        'products_models' => array());
+    $parameters = ['products_id' => '', 'products_name' => '', 'products_image' => '', 'products_models' => []];
 
     $pInfo = new objectInfo($parameters);
 
@@ -252,23 +242,10 @@ if ($action == 'edit_3d') {
         );
 
         if (!$products_models_result->RecordCount()) {
-            $pInfo->products_models[] = array('products_id' => $product['products_id'],
-                                            'model_viewer_glb' => '',
-                                            'model_viewer_usdz' => '',
-                                            'model_viewer_background_color' => '',
-                                            'model_viewer_scale' => 'auto',
-                                            'model_viewer_auto_rotate' => 'true',
-                                            'model_viewer_hdr' => 'venice_sunset_2k.hdr');
+            $pInfo->products_models[] = ['products_id' => $product['products_id'], 'model_viewer_glb' => '', 'model_viewer_usdz' => '', 'model_viewer_background_color' => '', 'model_viewer_scale' => 'auto', 'model_viewer_auto_rotate' => 'true', 'model_viewer_hdr' => 'venice_sunset_2k.hdr'];
         } else {
             while ($products_models = $products_models_result->fields) {
-                $pInfo->products_models[] = array('model_viewer_id' => $products_models['model_viewer_id'],
-                                            'products_id' => $products_models['products_id'],
-                                            'model_viewer_glb' => $products_models['model_viewer_glb'],
-                                            'model_viewer_usdz' => $products_models['model_viewer_usdz'],
-                                            'model_viewer_background_color' => $products_models['model_viewer_background_color'],
-                                            'model_viewer_scale' => $products_models['model_viewer_scale'],
-                                            'model_viewer_auto_rotate' => $products_models['model_viewer_auto_rotate'],
-                                            'model_viewer_hdr' => $products_models['model_viewer_hdr']);
+                $pInfo->products_models[] = ['model_viewer_id' => $products_models['model_viewer_id'], 'products_id' => $products_models['products_id'], 'model_viewer_glb' => $products_models['model_viewer_glb'], 'model_viewer_usdz' => $products_models['model_viewer_usdz'], 'model_viewer_background_color' => $products_models['model_viewer_background_color'], 'model_viewer_scale' => $products_models['model_viewer_scale'], 'model_viewer_auto_rotate' => $products_models['model_viewer_auto_rotate'], 'model_viewer_hdr' => $products_models['model_viewer_hdr']];
                 // Move that ADOdb pointer!
                 $products_models_result->MoveNext();
             }
@@ -276,7 +253,7 @@ if ($action == 'edit_3d') {
     }
 
     $aLanguages = oos_get_languages();
-    $nLanguages = count($aLanguages);
+    $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
 
     $form_action = (isset($_GET['pID'])) ? 'update_model' : 'insert_model';
 
@@ -307,7 +284,7 @@ if ($action == 'edit_3d') {
     <?php echo oos_draw_form('id', 'new_product', $aContents['product_model_viewer'], 'cPath=' . oos_prepare_input($cPath) . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=' . $form_action, 'post', false, 'enctype="multipart/form-data"'); ?>
     <?php
 
-                $sFormid = md5(uniqid(rand(), true));
+                $sFormid = md5(uniqid(random_int(0, mt_getrandmax()), true));
     $_SESSION['formid'] = $sFormid;
     echo oos_draw_hidden_field('formid', $sFormid);
     echo oos_draw_hidden_field('products_id', $pInfo->products_id);
@@ -383,7 +360,7 @@ if ($action == 'edit_3d') {
                 <?php
             }
 
-            $model_viewer_id = (isset($models['model_viewer_id'])) ? $models['model_viewer_id'] : '';
+            $model_viewer_id = $models['model_viewer_id'] ?? '';
 
             for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
                 ?>
@@ -397,7 +374,7 @@ if ($action == 'edit_3d') {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
                               <div class="col-lg-9">
-                <?php echo oos_draw_input_field('model_viewer_title['. $nCounter . '][' . $aLanguages[$i]['id'] . ']', (isset($model_viewer_title[$aLanguages[$i]['id']]) ? stripslashes($model_viewer_title[$aLanguages[$i]['id']]) : oos_get_model_viewer_title($model_viewer_id, $aLanguages[$i]['id']))); ?>        
+                <?php echo oos_draw_input_field('model_viewer_title['. $nCounter . '][' . $aLanguages[$i]['id'] . ']', (isset($model_viewer_title[$aLanguages[$i]['id']]) ? stripslashes((string) $model_viewer_title[$aLanguages[$i]['id']]) : oos_get_model_viewer_title($model_viewer_id, $aLanguages[$i]['id']))); ?>        
                             
                               </div>
                            </div>
@@ -416,7 +393,7 @@ if ($action == 'edit_3d') {
                 } ?>
                               <div class="col-lg-9">
                 <?php
-                echo oos_draw_textarea_field('model_viewer_description_'. $nCounter . '_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['model_viewer_description' .$aLanguages[$i]['id']]) ? stripslashes($_POST['model_viewer_description' .$aLanguages[$i]['id']]) : oos_get_model_viewer_description($model_viewer_id, $aLanguages[$i]['id']))); ?>
+                echo oos_draw_textarea_field('model_viewer_description_'. $nCounter . '_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['model_viewer_description' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['model_viewer_description' .$aLanguages[$i]['id']]) : oos_get_model_viewer_description($model_viewer_id, $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
                         </fieldset>

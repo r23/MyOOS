@@ -126,13 +126,13 @@ $order = new order($oID);
             </tr>    
         </thead>
 <?php
-for ($i = 0, $n = count($order->products); $i < $n; $i++) {
+for ($i = 0, $n = is_countable($order->products) ? count($order->products) : 0; $i < $n; $i++) {
                     echo '      <tr class="dataTableRow">' . "\n" .
        '        <td class="dataTableContent" valign="top" align="right">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
        '        <td class="dataTableContent" valign="top">' . $order->products[$i]['name'];
 
-                    if (isset($order->products[$i]['attributes']) && (count($order->products[$i]['attributes']) > 0)) {
-                        $k = count($order->products[$i]['attributes']);
+                    if (isset($order->products[$i]['attributes']) && ((is_countable($order->products[$i]['attributes']) ? count($order->products[$i]['attributes']) : 0) > 0)) {
+                        $k = is_countable($order->products[$i]['attributes']) ? count($order->products[$i]['attributes']) : 0;
                         for ($j = 0; $j < $k; $j++) {
                             echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
                             if ($order->products[$i]['attributes'][$j]['price'] != '0') {
@@ -162,7 +162,7 @@ for ($i = 0, $n = count($order->products); $i < $n; $i++) {
       <tr>
         <td align="right" colspan="9"><table border="0" cellspacing="0" cellpadding="2">
 <?php
-for ($i = 0, $n = count($order->totals); $i < $n; $i++) {
+for ($i = 0, $n = is_countable($order->totals) ? count($order->totals) : 0; $i < $n; $i++) {
     echo '          <tr>' . "\n" .
        '            <td align="right" class="smallText">' . $order->totals[$i]['title'] . '</td>' . "\n" .
        '            <td align="right" class="smallText">' . $order->totals[$i]['text'] . '</td>' . "\n" .

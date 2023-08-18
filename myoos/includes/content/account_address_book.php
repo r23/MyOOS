@@ -68,15 +68,7 @@ while ($address_book = $address_book_result->fields) {
         $state = oos_get_zone_code($country_id, $zone_id, $state);
     }
 
-    $aAddressBook[] = array('address_book_id'    => $address_book['address_book_id'],
-                            'company'             => $address_book['entry_company'],
-                            'firstname'         => $address_book['entry_firstname'],
-                            'lastname'             => $address_book['entry_lastname'],
-                            'street_address'    => $address_book['entry_street_address'],
-                            'postcode'            => $address_book['entry_postcode'],
-                            'city'                => $address_book['entry_city'],
-                            'country'            => $country,
-                            'state'                => $state);
+    $aAddressBook[] = ['address_book_id'    => $address_book['address_book_id'], 'company'             => $address_book['entry_company'], 'firstname'         => $address_book['entry_firstname'], 'lastname'             => $address_book['entry_lastname'], 'street_address'    => $address_book['entry_street_address'], 'postcode'            => $address_book['entry_postcode'], 'city'                => $address_book['entry_city'], 'country'            => $country, 'state'                => $state];
     $address_book_result->MoveNext();
 }
 
@@ -97,14 +89,7 @@ if (!isset($option)) {
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-        'breadcrumb'        => $oBreadcrumb->trail(),
-        'heading_title'        => $aLang['heading_title'],
-        'robots'            => 'noindex,nofollow,noodp,noydir',
-        'account_active'    => 1,
-
-        'address_book'         => $aAddressBook
-    )
+    ['breadcrumb'        => $oBreadcrumb->trail(), 'heading_title'        => $aLang['heading_title'], 'robots'            => 'noindex,nofollow,noodp,noydir', 'account_active'    => 1, 'address_book'         => $aAddressBook]
 );
 
 // register the outputfilter

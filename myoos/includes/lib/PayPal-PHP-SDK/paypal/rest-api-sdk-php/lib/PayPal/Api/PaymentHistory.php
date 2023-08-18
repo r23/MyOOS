@@ -49,10 +49,10 @@ class PaymentHistory extends PayPalModel
     public function addPayment($payment)
     {
         if (!$this->getPayments()) {
-            return $this->setPayments(array($payment));
+            return $this->setPayments([$payment]);
         } else {
             return $this->setPayments(
-                array_merge($this->getPayments(), array($payment))
+                array_merge($this->getPayments(), [$payment])
             );
         }
     }
@@ -66,7 +66,7 @@ class PaymentHistory extends PayPalModel
     public function removePayment($payment)
     {
         return $this->setPayments(
-            array_diff($this->getPayments(), array($payment))
+            array_diff($this->getPayments(), [$payment])
         );
     }
 

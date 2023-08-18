@@ -50,10 +50,10 @@ class PlanList extends PayPalModel
     public function addPlan($plan)
     {
         if (!$this->getPlans()) {
-            return $this->setPlans(array($plan));
+            return $this->setPlans([$plan]);
         } else {
             return $this->setPlans(
-                array_merge($this->getPlans(), array($plan))
+                array_merge($this->getPlans(), [$plan])
             );
         }
     }
@@ -67,7 +67,7 @@ class PlanList extends PayPalModel
     public function removePlan($plan)
     {
         return $this->setPlans(
-            array_diff($this->getPlans(), array($plan))
+            array_diff($this->getPlans(), [$plan])
         );
     }
 
@@ -149,10 +149,10 @@ class PlanList extends PayPalModel
     public function addLink($links)
     {
         if (!$this->getLinks()) {
-            return $this->setLinks(array($links));
+            return $this->setLinks([$links]);
         } else {
             return $this->setLinks(
-                array_merge($this->getLinks(), array($links))
+                array_merge($this->getLinks(), [$links])
             );
         }
     }
@@ -166,7 +166,7 @@ class PlanList extends PayPalModel
     public function removeLink($links)
     {
         return $this->setLinks(
-            array_diff($this->getLinks(), array($links))
+            array_diff($this->getLinks(), [$links])
         );
     }
 

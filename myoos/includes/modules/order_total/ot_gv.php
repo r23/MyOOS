@@ -65,10 +65,7 @@ class ot_gv
             $this->deduction = $od_amount;
             $oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
             if ($od_amount > 0) {
-                $this->output[] = array('title' => '<font color="#FF0000">' . $this->title . ':</font>',
-                                'text' => '<strong><font color="#FF0000"> - ' . $oCurrencies->format($od_amount) . '</font></strong>',
-                                'info' => '',
-                                'value' => $sod_amount);
+                $this->output[] = ['title' => '<font color="#FF0000">' . $this->title . ':</font>', 'text' => '<strong><font color="#FF0000"> - ' . $oCurrencies->format($od_amount) . '</font></strong>', 'info' => '', 'value' => $sod_amount];
             }
         }
     }
@@ -91,10 +88,7 @@ class ot_gv
             $this->deduction = $od_amount;
             $_SESSION['cart']->info['total'] = $_SESSION['cart']->info['total'] - $od_amount;
             if ($od_amount > 0) {
-                $this->output[] = array('title' => '<font color="#FF0000">' . $this->title . ':</font>',
-                                'text' => '<strong><font color="#FF0000"> - ' . $oCurrencies->format($od_amount) . '</font></strong>',
-                                'info' => '',
-                                'value' => $sod_amount);
+                $this->output[] = ['title' => '<font color="#FF0000">' . $this->title . ':</font>', 'text' => '<strong><font color="#FF0000"> - ' . $oCurrencies->format($od_amount) . '</font></strong>', 'info' => '', 'value' => $sod_amount];
             }
         }
     }
@@ -134,7 +128,7 @@ class ot_gv
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();
 
-        if (preg_match('/^GIFT/', addslashes($oOrder->products[$i]['model']))) {
+        if (preg_match('/^GIFT/', addslashes((string) $oOrder->products[$i]['model']))) {
             $gv_order_amount = ($oOrder->products[$i]['final_price'] * $oOrder->products[$i]['qty']);
             if ($this->credit_tax=='true') {
                 $gv_order_amount = $gv_order_amount * (100 + $oOrder->products[$i]['tax']) / 100;
@@ -548,7 +542,7 @@ class ot_gv
 
     public function keys()
     {
-        return array('MODULE_ORDER_TOTAL_GV_STATUS', 'MODULE_ORDER_TOTAL_GV_SORT_ORDER');
+        return ['MODULE_ORDER_TOTAL_GV_STATUS', 'MODULE_ORDER_TOTAL_GV_SORT_ORDER'];
     }
 
     public function install()

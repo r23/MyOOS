@@ -64,7 +64,7 @@ if (($action == 'send_email_to_user') && ($_POST['customers_email_address'] || $
 
 		$phpmailer = new PHPMailer\PHPMailer\PHPMailer();
 
-        $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : DEFAULT_LANGUAGE_CODE);
+        $sLang = ($_SESSION['iso_639_1'] ?? DEFAULT_LANGUAGE_CODE);
         $phpmailer->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/vendor/phpmailer/phpmailer/language/');
 
 
@@ -147,9 +147,7 @@ if (($action == 'send_email_to_user') && ($_POST['customers_email_address'] || $
             include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/Exception.php';
             $phpmailer = new PHPMailer\PHPMailer\PHPMailer(true);
 
-            $phpmailer::$validator = static function ($to_email_address) {
-                return (bool) is_email($to_email_address);
-            };
+            $phpmailer::$validator = static fn($to_email_address) => (bool) is_email($to_email_address);
         }
 
         // Empty out the values that may be set.
@@ -160,8 +158,8 @@ if (($action == 'send_email_to_user') && ($_POST['customers_email_address'] || $
 
         $phpmailer->IsMail();
 
-        $phpmailer->From = $from_mail ? $from_mail : STORE_OWNER_EMAIL_ADDRESS;
-        $phpmailer->FromName = $from_name ? $from_name : STORE_OWNER;
+        $phpmailer->From = $from_mail ?: STORE_OWNER_EMAIL_ADDRESS;
+        $phpmailer->FromName = $from_name ?: STORE_OWNER;
         $phpmailer->Mailer = EMAIL_TRANSPORT;
 
 		// Add smtp values if needed
@@ -213,7 +211,7 @@ if (($action == 'send_email_to_user') && ($_POST['customers_email_address'] || $
         $insert_result = $dbconn->Execute("INSERT INTO $coupon_email_tracktable (coupon_id, customer_id_sent, sent_firstname, emailed_to, date_sent) VALUES ('" . $insert_id ."', '0', 'Admin', '" . oos_db_input($_POST['email_to']) . "', now() )");
     }
 
-    oos_redirect_admin(oos_href_link_admin($aContents['gv_mail'], 'mail_sent_to=' . urlencode($mail_sent_to)));
+    oos_redirect_admin(oos_href_link_admin($aContents['gv_mail'], 'mail_sent_to=' . urlencode((string) $mail_sent_to)));
 }
 
 if (($action == 'preview') && (!$_POST['customers_email_address']) && (!$_POST['email_to'])) {
@@ -343,7 +341,7 @@ if (($action == 'preview') && ($_POST['customers_email_address'] || $_POST['emai
     } ?>
                 <table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
-                    <td><?php echo oos_submit_button('back', BUTTON_BACK, 'name="back"'); ?></td>
+                    <td><?php echo oos_submit_button('back'); ?></td>
                     <td class="text-right"><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['gv_mail']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>' . oos_submit_button(IMAGE_SEND_EMAIL); ?></td>
                   </tr>
                 </table></td>
@@ -360,15 +358,14 @@ if (($action == 'preview') && ($_POST['customers_email_address'] || $_POST['emai
               </tr>
     <?php
     $customers = [];
-        $customers[] = array('id' => '', 'text' => TEXT_SELECT_CUSTOMER);
-        $customers[] = array('id' => '***', 'text' => TEXT_ALL_CUSTOMERS);
-        $customers[] = array('id' => '**D', 'text' => TEXT_NEWSLETTER_CUSTOMERS);
+        $customers[] = ['id' => '', 'text' => TEXT_SELECT_CUSTOMER];
+        $customers[] = ['id' => '***', 'text' => TEXT_ALL_CUSTOMERS];
+        $customers[] = ['id' => '**D', 'text' => TEXT_NEWSLETTER_CUSTOMERS];
 
         $customerstable = $oostable['customers'];
         $mail_result = $dbconn->Execute("SELECT customers_email_address, customers_firstname, customers_lastname FROM $customerstable ORDER BY customers_lastname");
         while ($customers_values = $mail_result->fields) {
-            $customers[] = array('id' => $customers_values['customers_email_address'],
-                     'text' => $customers_values['customers_lastname'] . ', ' . $customers_values['customers_firstname'] . ' (' . $customers_values['customers_email_address'] . ')');
+            $customers[] = ['id' => $customers_values['customers_email_address'], 'text' => $customers_values['customers_lastname'] . ', ' . $customers_values['customers_firstname'] . ' (' . $customers_values['customers_email_address'] . ')'];
 
             // Move that ADOdb pointer!
             $mail_result->MoveNext();

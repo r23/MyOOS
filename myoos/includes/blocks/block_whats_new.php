@@ -94,18 +94,7 @@ if ($random_product = oos_random_select($query, MAX_RANDOM_SELECT_NEW)) {
         }
     }
     $smarty->assign(
-        array(
-            'whats_new_product_special_price'    => $whats_new_product_special_price,
-            'whats_new_product_discount_price'    => $whats_new_product_discount_price,
-            'whats_new_base_product_price'        => $whats_new_base_product_price,
-            'whats_new_product_price'            => $whats_new_product_price,
-            'whats_new_product_price_list'         => $whats_new_price_list,
-            'whats_new_cross_out_price'            => $whats_new_cross_out_price,
-            'whats_new_until'                    => $whats_new_until,
-
-            'random_product'          => $random_product,
-            'block_heading_whats_new' => $block_heading
-        )
+        ['whats_new_product_special_price'    => $whats_new_product_special_price, 'whats_new_product_discount_price'    => $whats_new_product_discount_price, 'whats_new_base_product_price'        => $whats_new_base_product_price, 'whats_new_product_price'            => $whats_new_product_price, 'whats_new_product_price_list'         => $whats_new_price_list, 'whats_new_cross_out_price'            => $whats_new_cross_out_price, 'whats_new_until'                    => $whats_new_until, 'random_product'          => $random_product, 'block_heading_whats_new' => $block_heading]
     );
 }
 

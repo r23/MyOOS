@@ -48,16 +48,16 @@ if (isset($_GET['subscribe']) && ($_GET['subscribe'] == 'confirm')) {
         oos_redirect(oos_href_link($aContents['403']));
     }
 
-    $sSha1 = sha1($sID);
+    $sSha1 = sha1((string) $sID);
     if ($sSha1 != $sU) {
         oos_redirect(oos_href_link($aContents['403']));
     }
 
-    $pos = strpos($sID, "f00d");
+    $pos = strpos((string) $sID, "f00d");
     if ($pos === false) {
         oos_redirect(oos_href_link($aContents['403']));
     } else {
-        $sID = substr($sID, 4, -4);
+        $sID = substr((string) $sID, 4, -4);
     }
 
     $newsletter_recipients = $oostable['newsletter_recipients'];
@@ -96,11 +96,7 @@ if (!isset($option)) {
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-        'breadcrumb'     => $oBreadcrumb->trail(),
-        'heading_title' => $aLang['navbar_title'],
-        'canonical'        => $sCanonical
-    )
+    ['breadcrumb'     => $oBreadcrumb->trail(), 'heading_title' => $aLang['navbar_title'], 'canonical'        => $sCanonical]
 );
 
 // register the outputfilter

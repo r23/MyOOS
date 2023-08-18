@@ -148,10 +148,10 @@ class Payer extends PayPalModel
     public function addFundingInstrument($fundingInstrument)
     {
         if (!$this->getFundingInstruments()) {
-            return $this->setFundingInstruments(array($fundingInstrument));
+            return $this->setFundingInstruments([$fundingInstrument]);
         } else {
             return $this->setFundingInstruments(
-                array_merge($this->getFundingInstruments(), array($fundingInstrument))
+                array_merge($this->getFundingInstruments(), [$fundingInstrument])
             );
         }
     }
@@ -165,7 +165,7 @@ class Payer extends PayPalModel
     public function removeFundingInstrument($fundingInstrument)
     {
         return $this->setFundingInstruments(
-            array_diff($this->getFundingInstruments(), array($fundingInstrument))
+            array_diff($this->getFundingInstruments(), [$fundingInstrument])
         );
     }
 

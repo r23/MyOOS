@@ -45,8 +45,8 @@ function oos_create_coupon_code($salt="secret", $length=SECURITY_CODE_LENGTH)
     $ccid .= md5(uniqid("", "salt"));
     $ccid .= md5(uniqid("", "salt"));
 
-    srand((float)microtime()*1000000); // seed the random number generator
-    $random_start = @rand(0, (128-$length));
+    mt_srand((float)microtime()*1_000_000); // seed the random number generator
+    $random_start = @random_int(0, (128-$length));
     $good_result = 0;
 
     // Get database information

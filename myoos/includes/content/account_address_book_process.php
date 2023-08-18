@@ -105,7 +105,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['actio
     $firstname = oos_remove_shouting($firstname, true);
     $lastname = oos_remove_shouting_name($lastname, true);
     $street_address = oos_remove_shouting($street_address);
-    $postcode = strtoupper($postcode);
+    $postcode = strtoupper((string) $postcode);
     $city = oos_remove_shouting($city);
 
 
@@ -190,12 +190,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['actio
 
 
     if ($bError == false) {
-        $sql_data_array = array('entry_firstname' => $firstname,
-                              'entry_lastname' => $lastname,
-                              'entry_street_address' => $street_address,
-                              'entry_postcode' => $postcode,
-                              'entry_city' => $city,
-                              'entry_country_id' => $country);
+        $sql_data_array = ['entry_firstname' => $firstname, 'entry_lastname' => $lastname, 'entry_street_address' => $street_address, 'entry_postcode' => $postcode, 'entry_city' => $city, 'entry_country_id' => $country];
 
         if (ACCOUNT_GENDER == 'true') {
             $sql_data_array['entry_gender'] = $gender;
@@ -245,9 +240,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['actio
                         $_SESSION['customers_vat_id_status'] = '0';
                     }
 
-                    $sql_data_array = array('customers_firstname' => $firstname,
-                                            'customers_lastname' => $lastname,
-                                            'customers_default_address_id' => intval($entry_id));
+                    $sql_data_array = ['customers_firstname' => $firstname, 'customers_lastname' => $lastname, 'customers_default_address_id' => intval($entry_id)];
 
                     if (ACCOUNT_GENDER == 'true') {
                         $sql_data_array['customers_gender'] = $gender;
@@ -284,8 +277,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['actio
                     $_SESSION['customers_vat_id_status'] = '0';
                 }
 
-                $sql_data_array = array('customers_firstname' => $firstname,
-                                        'customers_lastname' => $lastname);
+                $sql_data_array = ['customers_firstname' => $firstname, 'customers_lastname' => $lastname];
 
                 if (ACCOUNT_GENDER == 'true') {
                     $sql_data_array['customers_gender'] = $gender;
@@ -341,7 +333,7 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
         }
     }
 } else {
-    $entry = array('entry_country_id' => STORE_COUNTRY);
+    $entry = ['entry_country_id' => STORE_COUNTRY];
 }
 
 if (!isset($_GET['delete']) && !isset($_GET['edit'])) {
@@ -385,44 +377,21 @@ if (!isset($option)) {
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-        'breadcrumb' => $oBreadcrumb->trail(),
-
-        'back_link'      => $back_link,
-        'entry_id'       => $entry_id,
-        'process'        => $process
-
-    )
+    ['breadcrumb' => $oBreadcrumb->trail(), 'back_link'      => $back_link, 'entry_id'       => $entry_id, 'process'        => $process]
 );
 
 if (isset($_GET['action']) && $_GET['action'] == 'edit') {
     $smarty->assign(
-        array(
-            'heading_title' => $aLang['heading_title_modify_entry']
-        )
+        ['heading_title' => $aLang['heading_title_modify_entry']]
     );
 } else {
     $smarty->assign(
-        array(
-            'heading_title' => $aLang['heading_title_add_entry']
-        )
+        ['heading_title' => $aLang['heading_title_add_entry']]
     );
 }
 
 $smarty->assign(
-    array(
-        'robots'            => 'noindex,nofollow,noodp,noydir',
-        'account_active'    => 1,
-
-          'gender'         => $gender,
-          'firstname'      => $firstname,
-          'lastname'       => $lastname,
-          'company'        => $company,
-          'street_address' => $street_address,
-          'postcode'       => $postcode,
-          'city'           => $city,
-          'country'        => $country
-      )
+    ['robots'            => 'noindex,nofollow,noodp,noydir', 'account_active'    => 1, 'gender'         => $gender, 'firstname'      => $firstname, 'lastname'       => $lastname, 'company'        => $company, 'street_address' => $street_address, 'postcode'       => $postcode, 'city'           => $city, 'country'        => $country]
 );
 
 

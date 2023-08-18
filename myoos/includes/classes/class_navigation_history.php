@@ -53,16 +53,14 @@ class navigationHistory
         global $sContent;
 
         if (is_array($page)) {
-            $this->snapshot = array('content' => $page['content'],
-                                'get' => $page['get']);
+            $this->snapshot = ['content' => $page['content'], 'get' => $page['get']];
         } else {
             $get_all = '';
             if (isset($_GET)) {
                 $get_all = oos_get_all_get_parameters();
                 $get_all = oos_remove_trailing($get_all);
             }
-            $this->snapshot = array('content' => $sContent,
-                                'get' => $get_all);
+            $this->snapshot = ['content' => $sContent, 'get' => $get_all];
         }
     }
 
@@ -74,21 +72,20 @@ class navigationHistory
 
     public function set_path_as_snapshot($history = 0)
     {
-        $pos = (count($this->path)-1-$history);
-        $this->snapshot = array('content' => $this->path[$pos]['content'],
-                              'get' => $this->path[$pos]['get']);
+        $pos = ((is_countable($this->path) ? count($this->path) : 0)-1-$history);
+        $this->snapshot = ['content' => $this->path[$pos]['content'], 'get' => $this->path[$pos]['get']];
     }
 
 
     public function debug()
     {
-        for ($i=0, $n=count($this->path); $i<$n; $i++) {
+        for ($i=0, $n=is_countable($this->path) ? count($this->path) : 0; $i<$n; $i++) {
             echo $this->path[$i]['content'] . '&' . $this->path[$i]['get'] . '<br />';
             echo '<br />';
         }
 
         echo '<br /><br />';
-        if (count($this->snapshot) > 0) {
+        if ((is_countable($this->snapshot) ? count($this->snapshot) : 0) > 0) {
             echo $this->snapshot['content'] . '&' . $this->snapshot['get'] . '<br />';
         }
     }

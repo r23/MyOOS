@@ -94,10 +94,10 @@ class PaymentExecution extends PayPalModel
     public function addTransaction($transaction)
     {
         if (!$this->getTransactions()) {
-            return $this->setTransactions(array($transaction));
+            return $this->setTransactions([$transaction]);
         } else {
             return $this->setTransactions(
-                array_merge($this->getTransactions(), array($transaction))
+                array_merge($this->getTransactions(), [$transaction])
             );
         }
     }
@@ -111,7 +111,7 @@ class PaymentExecution extends PayPalModel
     public function removeTransaction($transaction)
     {
         return $this->setTransactions(
-            array_diff($this->getTransactions(), array($transaction))
+            array_diff($this->getTransactions(), [$transaction])
         );
     }
 

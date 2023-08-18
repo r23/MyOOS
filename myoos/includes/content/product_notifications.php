@@ -55,7 +55,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'update_notifications')
 ) {
     (array)$products = $_POST['products'];
     $aRemove = [];
-    for ($i=0, $n=count($products); $i<$n; $i++) {
+    for ($i=0, $n=is_countable($products) ? count($products) : 0; $i<$n; $i++) {
         if (is_numeric($products[$i])) {
             $aRemove[] = $products[$i];
         }
@@ -117,11 +117,7 @@ if (!isset($option)) {
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-          'breadcrumb'    => $oBreadcrumb->trail(),
-          'heading_title' => $aLang['heading_title'],
-          'robots'        => 'noindex,nofollow,noodp,noydir'
-      )
+    ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title' => $aLang['heading_title'], 'robots'        => 'noindex,nofollow,noodp,noydir']
 );
 
 $customers_infotable = $oostable['customers_info'];

@@ -46,7 +46,7 @@ function smarty_function_oos_get_zone_name($params, &$smarty)
     include_once SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php';
 
     foreach ($params as $_key => $_val) {
-        $$_key = smarty_function_escape_special_chars($_val);
+        ${$_key} = smarty_function_escape_special_chars($_val);
     }
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();

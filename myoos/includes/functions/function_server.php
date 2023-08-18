@@ -119,7 +119,7 @@ function oos_server_get_host()
 function oos_server_get_protocol()
 {
     $sProtocol = 'http';
-    if (strtolower(oos_server_has_var('HTTPS')) == 'on'
+    if (strtolower((string) oos_server_has_var('HTTPS')) == 'on'
         || oos_server_has_var('SSL_PROTOCOL')
     ) {
         $sProtocol = 'https';
@@ -153,13 +153,13 @@ function oos_server_get_base_uri()
         }
     }
 
-    $sPath = preg_replace('/[#\?].*/', '', $sPath);
+    $sPath = preg_replace('/[#\?].*/', '', (string) $sPath);
 
     $sPath = preg_replace('/\.php\/.*$/', '', $sPath);
-    if (substr($sPath, -1, 1) == '/') {
+    if (str_ends_with($sPath, '/')) {
         $sPath .= 'dummy';
     }
-    $sPath = dirname($sPath);
+    $sPath = dirname((string) $sPath);
 
     if (preg_match('!^[/\\\]*$!', $sPath)) {
         $sPath = '';
@@ -204,12 +204,12 @@ function oos_server_get_base_url()
   */
 function oos_server_get_top_level_domain($sUrl)
 {
-    if (strpos($sUrl, '://')) {
-        $sUrl = parse_url($sUrl);
+    if (strpos((string) $sUrl, '://')) {
+        $sUrl = parse_url((string) $sUrl);
         $sUrl = $sUrl['host'];
     }
 
-    $aDomain = explode('.', $sUrl);
+    $aDomain = explode('.', (string) $sUrl);
     $nDomainSize = count($aDomain);
 
     if ($nDomainSize > 1) {
@@ -295,11 +295,11 @@ function oos_convert_hr_to_bytes($value)
     $value = strtolower(trim((string) $value));
     $bytes = (int) $value;
 
-    if (false !== strpos($value, 'g')) {
+    if (str_contains($value, 'g')) {
         $bytes *= GB_IN_BYTES;
-    } elseif (false !== strpos($value, 'm')) {
+    } elseif (str_contains($value, 'm')) {
         $bytes *= MB_IN_BYTES;
-    } elseif (false !== strpos($value, 'k')) {
+    } elseif (str_contains($value, 'k')) {
         $bytes *= KB_IN_BYTES;
     }
 

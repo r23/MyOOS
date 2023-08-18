@@ -87,7 +87,7 @@ class oosProductsHistory
      */
     public function count_history()
     {
-        return count($this->products_history);
+        return is_countable($this->products_history) ? count($this->products_history) : 0;
     }
 
 

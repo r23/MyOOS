@@ -37,7 +37,7 @@ function oos_admin_check_login()
     if (!isset($_SESSION['login_id'])) {
         oos_redirect_admin(oos_href_link_admin($aContents['login'], ''));
     } else {
-        $filename = preg_split('/\?/', basename($_SERVER['SCRIPT_NAME']));
+        $filename = preg_split('/\?/', basename((string) $_SERVER['SCRIPT_NAME']));
         $filename = $filename[0];
         $page_key = array_search($filename, $aContents);
 
@@ -67,7 +67,7 @@ function oos_check_is_access_protected()
     $url = OOS_HTTPS_SERVER . OOS_SHOP . OOS_ADMIN;
     $headers = get_headers($url);
     if (is_array($headers) && count($headers) > 0) {
-        $rc = (preg_match('/\s+(?:401|403)\s+/', $headers[0])) ? 1 : 0;
+        $rc = (preg_match('/\s+(?:401|403)\s+/', (string) $headers[0])) ? 1 : 0;
     }
     return $rc;
 }
@@ -134,13 +134,13 @@ function oos_admin_files_boxes($filename, $parameters)
  */
 function oos_redirect_admin($url)
 {
-    if ((strstr($url, "\n") != false) || (strstr($url, "\r") != false)) {
+    if ((str_contains((string) $url, "\n")) || (str_contains((string) $url, "\r"))) {
         $aContents = oos_get_content();
         oos_redirect_admin(oos_href_link_admin($aContents['default'], '', false));
     }
 
-    if (strpos($url, '&amp;') !== false) {
-        $url = str_replace('&amp;', '&', $url);
+    if (str_contains((string) $url, '&amp;')) {
+        $url = str_replace('&amp;', '&', (string) $url);
     }
 
     header('Location: ' . $url);
@@ -163,8 +163,8 @@ function oos_customers_name($customers_id)
               WHERE customers_id = '" . intval($customers_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $firstname = isset($result->fields['customers_firstname']) ? $result->fields['customers_firstname'] : '';
-    $lastname = isset($result->fields['customers_lastname']) ? $result->fields['customers_lastname'] : '';
+    $firstname = $result->fields['customers_firstname'] ?? '';
+    $lastname = $result->fields['customers_lastname'] ?? '';
 
     $sName = $firstname . ' ' . $lastname;
 
@@ -210,20 +210,22 @@ function oos_get_all_get_params($exclude_array = '')
   */
 function oos_var_prep_for_os()
 {
-    static $search = array('!\.\./!si', // .. (directory traversal)
-                           '!^.*://!si', // .*:// (start of URL)
-                           '!/!si',     // Forward slash (directory traversal)
-                           '!\\\\!si'); // Backslash (directory traversal)
+    static $search = [
+        '!\.\./!si',
+        // .. (directory traversal)
+        '!^.*://!si',
+        // .*:// (start of URL)
+        '!/!si',
+        // Forward slash (directory traversal)
+        '!\\\\!si',
+    ]; // Backslash (directory traversal)
 
-    static $replace = array('',
-                            '',
-                            '_',
-                            '_');
+    static $replace = ['', '', '_', '_'];
 
     $resarray = [];
     foreach (func_get_args() as $ourvar) {
         // Parse out bad things
-        $ourlet = preg_replace($search, $replace, $ourvar);
+        $ourlet = preg_replace($search, (string) $replace, (string) $ourvar);
 
         // Prepare var
         $ourlet = oos_sanitize_string($ourvar);
@@ -282,8 +284,8 @@ function oos_break_string($string, $len, $break_char = '-')
 {
     $l = 0;
     $output = '';
-    for ($i = 0; $i < strlen($string); $i++) {
-        $char = substr($string, $i, 1);
+    for ($i = 0; $i < strlen((string) $string); $i++) {
+        $char = substr((string) $string, $i, 1);
         if ($char != ' ') {
             $l++;
         } else {
@@ -302,7 +304,7 @@ function oos_break_string($string, $len, $break_char = '-')
 
 function oos_browser_detect($component)
 {
-    return stristr($_SERVER['HTTP_USER_AGENT'], $component);
+    return stristr((string) $_SERVER['HTTP_USER_AGENT'], (string) $component);
 }
 
 /**
@@ -315,7 +317,7 @@ function oos_browser_detect($component)
 function oos_output_string($sStr, $aTranslate = null)
 {
     if (empty($aTranslate)) {
-        $aTranslate = array('"' => '&quot;');
+        $aTranslate = ['"' => '&quot;'];
     }
 
     return strtr(trim((string) $sStr), $aTranslate);
@@ -335,15 +337,15 @@ function oos_address_format($address_format_id, $address, $html, $boln, $eoln)
 
     $address_format = $result->fields;
 
-    $company = (isset($address['company'])) ? addslashes($address['company']) : '';
-    $firstname = (isset($address['firstname'])) ? addslashes($address['firstname']) : '';
-    $lastname = (isset($address['lastname'])) ? addslashes($address['lastname']) : '';
-    $street = (isset($address['street_address'])) ? addslashes($address['street_address']) : '';
-    $city = (isset($address['city'])) ? addslashes($address['city']) : '';
-    $state = (isset($address['state'])) ? addslashes($address['state']) : '';
-    $country_id = (isset($address['country_id'])) ? addslashes($address['country_id']) : '';
-    $zone_id = (isset($address['zone_id'])) ? addslashes($address['zone_id']) : '';
-    $postcode = (isset($address['postcode'])) ? addslashes($address['postcode']) : '';
+    $company = (isset($address['company'])) ? addslashes((string) $address['company']) : '';
+    $firstname = (isset($address['firstname'])) ? addslashes((string) $address['firstname']) : '';
+    $lastname = (isset($address['lastname'])) ? addslashes((string) $address['lastname']) : '';
+    $street = (isset($address['street_address'])) ? addslashes((string) $address['street_address']) : '';
+    $city = (isset($address['city'])) ? addslashes((string) $address['city']) : '';
+    $state = (isset($address['state'])) ? addslashes((string) $address['state']) : '';
+    $country_id = (isset($address['country_id'])) ? addslashes((string) $address['country_id']) : '';
+    $zone_id = (isset($address['zone_id'])) ? addslashes((string) $address['zone_id']) : '';
+    $postcode = (isset($address['postcode'])) ? addslashes((string) $address['postcode']) : '';
     $zip = $postcode;
     $country = oos_get_country_name($country_id);
     $state = oos_get_zone_code($country_id, $zone_id, $state);
@@ -371,10 +373,10 @@ function oos_address_format($address_format_id, $address, $html, $boln, $eoln)
     $statecomma = '';
     $streets = $street;
     if ($firstname == '') {
-        $firstname = addslashes($address['name']);
+        $firstname = addslashes((string) $address['name']);
     }
     if ($country == '') {
-        $country = addslashes($address['country']);
+        $country = addslashes((string) $address['country']);
     }
     if ($state != '') {
         $statecomma = $state . ', ';
@@ -382,7 +384,7 @@ function oos_address_format($address_format_id, $address, $html, $boln, $eoln)
 
     $fmt = $address_format['format'];
     eval("\$address = \"$fmt\";");
-    $address = stripslashes($address);
+    $address = stripslashes((string) $address);
 
     if ((ACCOUNT_COMPANY == 'true') && (oos_is_not_null($company))) {
         $address = $company . $cr . $address;
@@ -405,7 +407,7 @@ function oos_get_zone_code($country, $zone, $def_state)
               WHERE zone_country_id = '" . intval($country) . "'
                 AND zone_id = '" . intval($zone) . "'";
     $result = $dbconn->Execute($query);
-    $state_prov_code = isset($result->fields['zone_code']) ? $result->fields['zone_code'] : $def_state;
+    $state_prov_code = $result->fields['zone_code'] ?? $def_state;
 
     return $state_prov_code;
 }
@@ -424,7 +426,7 @@ function oos_get_country_name($country_id)
               WHERE countries_id = '" . $country_id . "'";
     $result = $dbconn->Execute($query);
 
-    $countries_name = isset($result->fields['countries_name']) ? $result->fields['countries_name'] : $country_id;
+    $countries_name = $result->fields['countries_name'] ?? $country_id;
     return $countries_name;
 }
 
@@ -432,7 +434,7 @@ function oos_get_country_name($country_id)
 function oos_get_uprid($prid, $params)
 {
     $uprid = $prid;
-    if ((is_array($params)) && (!strstr($prid, '{'))) {
+    if ((is_array($params)) && (!strstr((string) $prid, '{'))) {
         foreach ($params as $option => $value) {
             $uprid = $uprid . '{' . $option . '}' . $value;
         }
@@ -442,7 +444,7 @@ function oos_get_uprid($prid, $params)
 
 function oos_get_prid($uprid)
 {
-    $pieces = explode('{', $uprid);
+    $pieces = explode('{', (string) $uprid);
 
     return $pieces[0];
 }
@@ -465,12 +467,7 @@ function oos_get_languages()
     $result = $dbconn->Execute($query);
 
     while ($languages = $result->fields) {
-        $aLanguages[] = array('id' => $languages['languages_id'],
-                                    'name' => $languages['name'],
-                                    'iso_639_2' => $languages['iso_639_2'],
-                                    'iso_639_1' => $languages['iso_639_1'],
-                                    'iso_3166_1' => $languages['iso_3166_1']
-                                );
+        $aLanguages[] = ['id' => $languages['languages_id'], 'name' => $languages['name'], 'iso_639_2' => $languages['iso_639_2'], 'iso_639_1' => $languages['iso_639_1'], 'iso_3166_1' => $languages['iso_3166_1']];
 
         // Move that ADOdb pointer!
         $result->MoveNext();
@@ -503,7 +500,7 @@ function oos_get_products_name($product_id, $language_id = '')
                 AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $products_name = isset($result->fields['products_name']) ? $result->fields['products_name'] : '';
+    $products_name = $result->fields['products_name'] ?? '';
 
     return $products_name;
 }
@@ -533,7 +530,7 @@ function oos_get_products_title($product_id, $language_id = '')
                 AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $products_title = isset($result->fields['products_title']) ? $result->fields['products_title'] : '';
+    $products_title = $result->fields['products_title'] ?? '';
 
     return $products_title;
 }
@@ -544,8 +541,7 @@ function oos_get_countries($default = '')
 {
     $countries_array = [];
     if ($default) {
-        $countries_array[] = array('id' => '',
-                                 'text' => $default);
+        $countries_array[] = ['id' => '', 'text' => $default];
     }
 
     // Get database information
@@ -559,8 +555,7 @@ function oos_get_countries($default = '')
     $result = $dbconn->Execute($query);
 
     while ($countries = $result->fields) {
-        $countries_array[] = array('id' => $countries['countries_id'],
-                                 'text' => $countries['countries_name']);
+        $countries_array[] = ['id' => $countries['countries_id'], 'text' => $countries['countries_name']];
 
         // Move that ADOdb pointer!
         $result->MoveNext();
@@ -586,8 +581,7 @@ function oos_get_country_zones($country_id)
     $result = $dbconn->Execute($query);
 
     while ($zones = $result->fields) {
-        $zones_array[] = array('id' => $zones['zone_id'],
-                             'text' => $zones['zone_name']);
+        $zones_array[] = ['id' => $zones['zone_id'], 'text' => $zones['zone_name']];
 
         // Move that ADOdb pointer!
         $result->MoveNext();
@@ -609,15 +603,15 @@ function oos_prepare_country_zones_pull_down($country_id = '')
 
     $zones = oos_get_country_zones($country_id);
 
-    if (count($zones) > 0) {
-        $zones_select = array(array('id' => '', 'text' => PLEASE_SELECT));
+    if ((is_countable($zones) ? count($zones) : 0) > 0) {
+        $zones_select = [['id' => '', 'text' => PLEASE_SELECT]];
         $zones = array_merge($zones_select, $zones);
     } else {
-        $zones = array(array('id' => '', 'text' => TYPE_BELOW));
+        $zones = [['id' => '', 'text' => TYPE_BELOW]];
         // create dummy options for Netscape to preset the height of the drop-down
         if ((!oos_browser_detect('MSIE')) && (oos_browser_detect('Mozilla/4'))) {
             for ($i=0; $i<9; $i++) {
-                $zones[] = array('id' => '', 'text' => $pre);
+                $zones[] = ['id' => '', 'text' => $pre];
             }
         }
     }
@@ -629,10 +623,7 @@ function oos_prepare_country_zones_pull_down($country_id = '')
 function oos_get_uploaded_file($filename)
 {
     if (isset($_FILES[$filename])) {
-        $uploaded_file = array('name' => $_FILES[$filename]['name'],
-                             'type' => $_FILES[$filename]['type'],
-                             'size' => $_FILES[$filename]['size'],
-                             'tmp_name' => $_FILES[$filename]['tmp_name']);
+        $uploaded_file = ['name' => $_FILES[$filename]['name'], 'type' => $_FILES[$filename]['type'], 'size' => $_FILES[$filename]['size'], 'tmp_name' => $_FILES[$filename]['tmp_name']];
     }
 
     return $uploaded_file;
@@ -641,7 +632,7 @@ function oos_get_uploaded_file($filename)
 
 function oos_get_copy_uploaded_file($filename, $target)
 {
-    if (substr($target, -1) != '/') {
+    if (!str_ends_with((string) $target, '/')) {
         $target .= '/';
     }
 
@@ -836,18 +827,18 @@ function rmdir_recursive($dir)
 */
 function oos_tofloat($num)
 {
-    $dotPos = strrpos($num, '.');
-    $commaPos = strrpos($num, ',');
+    $dotPos = strrpos((string) $num, '.');
+    $commaPos = strrpos((string) $num, ',');
     $sep = (($dotPos > $commaPos) && $dotPos) ? $dotPos :
         ((($commaPos > $dotPos) && $commaPos) ? $commaPos : false);
 
     if (!$sep) {
-        return floatval(preg_replace("/[^0-9]/", "", $num));
+        return floatval(preg_replace("/[^0-9]/", "", (string) $num));
     }
 
     return floatval(
-        preg_replace("/[^0-9]/", "", substr($num, 0, $sep)) . '.' .
-        preg_replace("/[^0-9]/", "", substr($num, $sep+1, strlen($num)))
+        preg_replace("/[^0-9]/", "", substr((string) $num, 0, $sep)) . '.' .
+        preg_replace("/[^0-9]/", "", substr((string) $num, $sep+1, strlen((string) $num)))
     );
 }
 
@@ -857,8 +848,8 @@ function oos_tofloat($num)
  */
 function oos_round($number, $precision)
 {
-    if (strpos($number, '.') && (strlen(substr($number, strpos($number, '.')+1)) > $precision)) {
-        $number = substr($number, 0, strpos($number, '.') + 1 + $precision + 1);
+    if (strpos((string) $number, '.') && (strlen(substr((string) $number, strpos((string) $number, '.')+1)) > $precision)) {
+        $number = substr((string) $number, 0, strpos((string) $number, '.') + 1 + $precision + 1);
 
         if (substr($number, -1) >= 5) {
             if ($precision > 1) {
@@ -885,23 +876,23 @@ function oos_get_tax_rate_value($class_id)
 
 function oos_display_tax_value($value, $padding = TAX_DECIMAL_PLACES)
 {
-    if (strpos($value, '.')) {
+    if (strpos((string) $value, '.')) {
         $loop = true;
         while ($loop) {
-            if (substr($value, -1) == '0') {
-                $value = substr($value, 0, -1);
+            if (str_ends_with((string) $value, '0')) {
+                $value = substr((string) $value, 0, -1);
             } else {
                 $loop = false;
-                if (substr($value, -1) == '.') {
-                    $value = substr($value, 0, -1);
+                if (str_ends_with((string) $value, '.')) {
+                    $value = substr((string) $value, 0, -1);
                 }
             }
         }
     }
 
     if ($padding > 0) {
-        if ($decimal_pos = strpos($value, '.')) {
-            $decimals = strlen(substr($value, ($decimal_pos+1)));
+        if ($decimal_pos = strpos((string) $value, '.')) {
+            $decimals = strlen(substr((string) $value, ($decimal_pos+1)));
             for ($i=$decimals; $i<$padding; $i++) {
                 $value .= '0';
             }
@@ -998,7 +989,7 @@ function oos_call_function($function, $parameter, $object = '')
     if ($object == '') {
         return call_user_func($function, $parameter);
     } else {
-        return call_user_func(array($object, $function), $parameter);
+        return call_user_func([$object, $function], $parameter);
     }
 }
 
@@ -1009,17 +1000,17 @@ function oos_get_serialized_variable(&$serialization_data, $variable_name, $vari
 
     switch ($variable_type) {
     case 'string':
-        $start_position = strpos($serialization_data, $variable_name . '|s');
+        $start_position = strpos((string) $serialization_data, $variable_name . '|s');
 
-        $serialized_variable = substr($serialization_data, strpos($serialization_data, '|', $start_position) + 1, strpos($serialization_data, '|', $start_position) - 1);
+        $serialized_variable = substr((string) $serialization_data, strpos((string) $serialization_data, '|', $start_position) + 1, strpos((string) $serialization_data, '|', $start_position) - 1);
         break;
 
     case 'array':
     case 'object':
         if ($variable_type == 'array') {
-            $start_position = strpos($serialization_data, $variable_name . '|a');
+            $start_position = strpos((string) $serialization_data, $variable_name . '|a');
         } else {
-            $start_position = strpos($serialization_data, $variable_name . '|O');
+            $start_position = strpos((string) $serialization_data, $variable_name . '|O');
         }
 
         $tag = 0;
@@ -1034,7 +1025,7 @@ function oos_get_serialized_variable(&$serialization_data, $variable_name, $vari
             }
         }
 
-        $serialized_variable = substr($serialization_data, strpos($serialization_data, '|', $start_position) + 1, $i - strpos($serialization_data, '|', $start_position) - 1);
+        $serialized_variable = substr((string) $serialization_data, strpos((string) $serialization_data, '|', $start_position) + 1, $i - strpos((string) $serialization_data, '|', $start_position) - 1);
         break;
     }
 
@@ -1059,8 +1050,8 @@ function oos_prepare_input($sStr)
 
 function oos_sanitize_string($sStr)
 {
-    $aPatterns = array('/ +/','/[<>]/');
-    $aReplace = array(' ', '_');
+    $aPatterns = ['/ +/', '/[<>]/'];
+    $aReplace = [' ', '_'];
     return preg_replace($aPatterns, $aReplace, trim((string) $sStr));
 }
 
@@ -1091,14 +1082,14 @@ function oos_strip_suffix($filename)
 
 function oos_strtolower($sStr)
 {
-    $sStr = strtolower($sStr);
+    $sStr = strtolower((string) $sStr);
     // Strip non-alpha & non-numeric except ._-:
     return preg_replace("/[^[:alnum:]]/", "", $sStr);
 }
 
 function oos_strtoupper($sStr)
 {
-    $sStr = strtoupper($sStr);
+    $sStr = strtoupper((string) $sStr);
     // Strip non-alpha & non-numeric except ._-:
     return preg_replace("/[^[:alnum:]]/", "", $sStr);
 }
@@ -1125,13 +1116,14 @@ function oos_set_review_status($reviews_id, $status)
  */
 function parse_size($size)
 {
-    $suffixes = array(
-                    ''     => 1,
-                    'k'     => 1024,
-                    'm'     => 1048576, // 1024 * 1024
-                    'g'     => 1073741824, // 1024 * 1024 * 1024
-    );
-    if (preg_match('/([0-9]+)\s*(k|m|g)?(b?(ytes?)?)/i', $size, $match)) {
+    $suffixes = [
+        ''     => 1,
+        'k'     => 1024,
+        'm'     => 1_048_576,
+        // 1024 * 1024
+        'g'     => 1_073_741_824,
+    ];
+    if (preg_match('/([0-9]+)\s*(k|m|g)?(b?(ytes?)?)/i', (string) $size, $match)) {
         return $match[1] * $suffixes[strtolower($match[2])];
     }
 }
@@ -1159,7 +1151,7 @@ function is_zip($filename)
 function is_image($filename)
 {
     $ext = oos_get_suffix($filename);
-    $allowed_extensions = array('png', 'jpg', 'jpeg', 'gif', 'webp');
+    $allowed_extensions = ['png', 'jpg', 'jpeg', 'gif', 'webp'];
 
     return in_array($ext, $allowed_extensions);
 }
@@ -1169,31 +1161,31 @@ function is_image($filename)
 /**
  * Mail function (uses phpMailer)
  */
-function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $email_html, $from_email_name, $from_email_address, $attachments = array())
+function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $email_html, $from_email_name, $from_email_address, $attachments = [])
 {
     global $phpmailer;
 
-    if (preg_match('~[\r\n]~', $to_name)) {
+    if (preg_match('~[\r\n]~', (string) $to_name)) {
         return false;
     }
-    if (preg_match('~[\r\n]~', $to_email_address)) {
+    if (preg_match('~[\r\n]~', (string) $to_email_address)) {
         return false;
     }
-    if (preg_match('~[\r\n]~', $email_subject)) {
+    if (preg_match('~[\r\n]~', (string) $email_subject)) {
         return false;
     }
-    if (preg_match('~[\r\n]~', $from_email_name)) {
+    if (preg_match('~[\r\n]~', (string) $from_email_name)) {
         return false;
     }
-    if (preg_match('~[\r\n]~', $from_email_address)) {
+    if (preg_match('~[\r\n]~', (string) $from_email_address)) {
         return false;
     }
 
     if (!is_array($attachments)) {
-        $attachments = explode("\n", str_replace("\r\n", "\n", $attachments));
+        $attachments = explode("\n", str_replace("\r\n", "\n", (string) $attachments));
     }
 
-    $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : DEFAULT_LANGUAGE_CODE);
+    $sLang = ($_SESSION['iso_639_1'] ?? DEFAULT_LANGUAGE_CODE);
 
 	$phpmailer = new PHPMailer\PHPMailer\PHPMailer();
 
@@ -1211,8 +1203,8 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
     $phpmailer->CharSet   = 'UTF-8';
     $phpmailer->Encoding  = 'base64';
 
-    $phpmailer->From = $from_email_address ? $from_email_address : STORE_OWNER_EMAIL_ADDRESS;
-    $phpmailer->FromName = $from_email_name ? $from_email_name : STORE_OWNER;
+    $phpmailer->From = $from_email_address ?: STORE_OWNER_EMAIL_ADDRESS;
+    $phpmailer->FromName = $from_email_name ?: STORE_OWNER;
     $phpmailer->Mailer = EMAIL_TRANSPORT;
 
     // Add smtp values if needed
@@ -1253,7 +1245,7 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
 
 
     // Build the text version
-    $text = strip_tags($email_text);
+    $text = strip_tags((string) $email_text);
     if (EMAIL_USE_HTML == 'true') {
         $phpmailer->IsHTML(true);
         $phpmailer->Body = $email_html;

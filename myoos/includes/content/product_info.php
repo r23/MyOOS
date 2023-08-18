@@ -83,12 +83,7 @@ if (!$product_info_result->RecordCount()) {
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['products_new']));
 
     $smarty->assign(
-        array(
-            'breadcrumb'    => $oBreadcrumb->trail(),
-            'heading_title' => $aLang['text_product_not_found'],
-            'robots'        => 'noindex,follow,noodp,noydir',
-            'canonical'        => $sCanonical
-        )
+        ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title' => $aLang['text_product_not_found'], 'robots'        => 'noindex,follow,noodp,noydir', 'canonical'        => $sCanonical]
     );
 } else {
     $products_descriptiontable = $oostable['products_description'];
@@ -96,7 +91,7 @@ if (!$product_info_result->RecordCount()) {
         . " SET products_viewed = products_viewed+1"
         . " WHERE products_id = ?"
         . "   AND products_languages_id = ?";
-    $result = $dbconn->Execute($query, array((int)$nProductsID, (int)$nLanguageID));
+    $result = $dbconn->Execute($query, [(int)$nProductsID, (int)$nLanguageID]);
     $product_info = $product_info_result->fields;
 
     // Meta Tags
@@ -193,7 +188,7 @@ if (!$product_info_result->RecordCount()) {
 
     // Minimum Order Value
     if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
-        $minimum_order_value = str_replace(',', '.', MINIMUM_ORDER_VALUE);
+        $minimum_order_value = str_replace(',', '.', (string) MINIMUM_ORDER_VALUE);
 
         $calculate_price = $oCurrencies->calculate_price($calculate_price, oos_get_tax_rate($product_info['products_tax_class_id']));
 
@@ -236,13 +231,7 @@ if (!$product_info_result->RecordCount()) {
 
     // assign Smarty variables;
     $smarty->assign(
-        array(
-            'info_product_price'          => $info_product_price,
-            'schema_product_price'        => $schema_product_price,
-            'info_product_special_price'  => $info_product_special_price,
-            'info_base_product_price'     => $info_base_product_price,
-            'discounts_price'             => $discounts_price
-        )
+        ['info_product_price'          => $info_product_price, 'schema_product_price'        => $schema_product_price, 'info_product_special_price'  => $info_product_special_price, 'info_base_product_price'     => $info_base_product_price, 'discounts_price'             => $discounts_price]
     );
 
     if ($product_info['products_price_list'] < 0) {
@@ -304,9 +293,9 @@ if (!$product_info_result->RecordCount()) {
     $product_gallery_result = $dbconn->Execute($product_gallery_sql);
     if ($product_gallery_result->RecordCount()) {
         $aProductsImages = [];
-        $aProductsImages[] = array('image' => $product_info['products_image']);
+        $aProductsImages[] = ['image' => $product_info['products_image']];
         while ($product_gallery = $product_gallery_result->fields) {
-            $aProductsImages[] = array('image' => $product_gallery['image_name']);
+            $aProductsImages[] = ['image' => $product_gallery['image_name']];
 
             // Move that ADOdb pointer!
             $product_gallery_result->MoveNext();
@@ -328,9 +317,7 @@ if (!$product_info_result->RecordCount()) {
     if ($products_models_result->RecordCount()) {
         $aProductsModels = [];
         while ($products_models = $products_models_result->fields) {
-            $aProductsModels[] = array('models_id' => $products_models['models_id'],
-                                        'name' => $products_models['models_name'],
-                                        'products_id' => $products_models['products_id']);
+            $aProductsModels[] = ['models_id' => $products_models['models_id'], 'name' => $products_models['models_name'], 'products_id' => $products_models['products_id']];
             // Move that ADOdb pointer!
             $products_models_result->MoveNext();
         }
@@ -359,21 +346,12 @@ if (!$product_info_result->RecordCount()) {
                 . " SET model_viewer_viewed = model_viewer_viewed+1"
                 . " WHERE model_viewer_id = ?"
                 . "   AND model_viewer_languages_id = ?";
-            $result = $dbconn->Execute($query, array((int)$model_viewer['model_viewer_id'], (int)$nLanguageID));
+            $result = $dbconn->Execute($query, [(int)$model_viewer['model_viewer_id'], (int)$nLanguageID]);
 
             $name = oos_strip_suffix($model_viewer['model_viewer_glb']);
             $url_glb = $name . '/glTF-Binary/' . $model_viewer['model_viewer_glb'];
 
-            $aModelViewer[] = array('model_viewer_id' => $model_viewer['model_viewer_id'],
-                           'model_viewer_glb' => $model_viewer['model_viewer_glb'],
-                           'url_glb' => $url_glb,
-                           'model_viewer_usdz' => $model_viewer['model_viewer_usdz'],
-                           'model_viewer_background_color' => $model_viewer['model_viewer_background_color'],
-                           'model_viewer_scale' => $model_viewer['model_viewer_scale'],
-                           'model_viewer_auto_rotate' => $model_viewer['model_viewer_auto_rotate'],
-                           'model_viewer_hdr' => $model_viewer['model_viewer_hdr'],
-                           'model_viewer_title' => $model_viewer['model_viewer_title'],
-                           'model_viewer_description' => $model_viewer['model_viewer_description']);
+            $aModelViewer[] = ['model_viewer_id' => $model_viewer['model_viewer_id'], 'model_viewer_glb' => $model_viewer['model_viewer_glb'], 'url_glb' => $url_glb, 'model_viewer_usdz' => $model_viewer['model_viewer_usdz'], 'model_viewer_background_color' => $model_viewer['model_viewer_background_color'], 'model_viewer_scale' => $model_viewer['model_viewer_scale'], 'model_viewer_auto_rotate' => $model_viewer['model_viewer_auto_rotate'], 'model_viewer_hdr' => $model_viewer['model_viewer_hdr'], 'model_viewer_title' => $model_viewer['model_viewer_title'], 'model_viewer_description' => $model_viewer['model_viewer_description']];
 
             // Move that ADOdb pointer!
             $products_model_viewer_result->MoveNext();
@@ -400,11 +378,11 @@ if (!$product_info_result->RecordCount()) {
 
             if (!file_exists($cache_file)) {
                 $sUrl = $sCanonical;
-                if (strpos($sUrl, '&amp;') !== false) {
-                    $sUrl = str_replace('&amp;', '&', $sUrl);
+                if (str_contains((string) $sUrl, '&amp;')) {
+                    $sUrl = str_replace('&amp;', '&', (string) $sUrl);
                 }
-                if (strpos($sUrl, '&&') !== false) {
-                    $sUrl = str_replace('&&', '&', $sUrl);
+                if (str_contains((string) $sUrl, '&&')) {
+                    $sUrl = str_replace('&&', '&', (string) $sUrl);
                 }
 
                 // Create a basic QR code
@@ -457,7 +435,7 @@ if (!$product_info_result->RecordCount()) {
                 . " SET video_viewed = video_viewed+1"
                 . " WHERE video_id = ?"
                 . "   AND video_languages_id = ?";
-            $result = $dbconn->Execute($query, array((int)$video['video_id'], (int)$nLanguageID));
+            $result = $dbconn->Execute($query, [(int)$video['video_id'], (int)$nLanguageID]);
 
             $video_path = OOS_HTTPS_SERVER . OOS_SHOP . OOS_MEDIA . 'video/';
             $video_poster = OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'video/' . $video['video_poster'];
@@ -467,36 +445,21 @@ if (!$product_info_result->RecordCount()) {
             $video_webm = (!empty($video['video_webm'])) ? $video_path . $video['video_webm'] : '';
             $video_ogv = (!empty($video['video_ogv'])) ? $video_path . $video['video_ogv'] : '';
 
-            $aVideo[] = array('video_id' => $video['video_id'],
-                           'video_source' => $video_source,
-                           'video_mp4' => $video_mp4,
-                           'video_webm' => $video_webm,
-                           'video_ogv' => $video_ogv,
-                           'video_poster' => $video_poster,
-                           'video_preload' => $video['video_preload'],
-                           'video_title' => $video['video_title'],
-                           'video_description' => $video['video_description']);
+            $aVideo[] = ['video_id' => $video['video_id'], 'video_source' => $video_source, 'video_mp4' => $video_mp4, 'video_webm' => $video_webm, 'video_ogv' => $video_ogv, 'video_poster' => $video_poster, 'video_preload' => $video['video_preload'], 'video_title' => $video['video_title'], 'video_description' => $video['video_description']];
 
             // Move that ADOdb pointer!
             $products_video_result->MoveNext();
         }
 
         $smarty->assign(
-            array(
-            'video_array'        => $aVideo,
-            'oos_css'            => $oos_css,
-            'oos_js'            => $oos_js
-            )
+            ['video_array'        => $aVideo, 'oos_css'            => $oos_css, 'oos_js'            => $oos_js]
         );
     }
 
 
     // assign Smarty variables;
     $smarty->assign(
-        array(
-            'breadcrumb' => $oBreadcrumb->trail(),
-            'canonical'     => $sCanonical
-        )
+        ['breadcrumb' => $oBreadcrumb->trail(), 'canonical'     => $sCanonical]
     );
 
     $today = date("Y-m-d H:i:s");
@@ -526,7 +489,7 @@ if (!$product_info_result->RecordCount()) {
 
 
     if (!isset($block_get_parameters)) {
-        $block_get_parameters = oos_get_all_get_parameters(array('action'));
+        $block_get_parameters = oos_get_all_get_parameters(['action']);
         $block_get_parameters = oos_remove_trailing($block_get_parameters);
         $smarty->assign('get_params', $block_get_parameters);
     }
@@ -537,7 +500,7 @@ if (!$product_info_result->RecordCount()) {
     $smarty->assign('heading_title', $product_info['products_name']);
     $smarty->assign('options', $options);
 
-    $smarty->assign('redirect', oos_href_link($aContents['redirect'], 'action=url&amp;goto=' . urlencode($product_info['products_url']), false, false));
+    $smarty->assign('redirect', oos_href_link($aContents['redirect'], 'action=url&amp;goto=' . urlencode((string) $product_info['products_url']), false, false));
 
 
     $notifications_block = false;

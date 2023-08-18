@@ -36,14 +36,14 @@ class shipping
         global $aLang;
 
         if (defined('MODULE_SHIPPING_INSTALLED') && oos_is_not_null(MODULE_SHIPPING_INSTALLED)) {
-            $this->modules = explode(';', MODULE_SHIPPING_INSTALLED);
+            $this->modules = explode(';', (string) MODULE_SHIPPING_INSTALLED);
 
             $include_modules = [];
 
             if ((oos_is_not_null($module))) {
                 $this->selected_module = $module;
                 if (isset($module['id'])) {
-                    $class = substr($module['id'], 0, strpos($module['id'], '_'));
+                    $class = substr((string) $module['id'], 0, strpos((string) $module['id'], '_'));
                 } else {
                     $class = $module;
                 }
@@ -94,7 +94,7 @@ class shipping
             $include_quotes = [];
 
             foreach ($this->modules as $value) {
-                $class = basename($value, '.php');
+                $class = basename((string) $value, '.php');
                 if (oos_is_not_null($module)) {
                     if (($module == $class) && ($GLOBALS[$class]->enabled)) {
                         $include_quotes[] = $class;
@@ -122,10 +122,10 @@ class shipping
             $rates = [];
 
             foreach ($this->modules as $value) {
-                $class = basename($value, '.php');
+                $class = basename((string) $value, '.php');
                 if ($GLOBALS[$class]->enabled) {
                     $quotes = $GLOBALS[$class]->quotes;
-                    $size = count($quotes['methods']);
+                    $size = is_countable($quotes['methods']) ? count($quotes['methods']) : 0;
                     for ($i=0; $i<$size; $i++) {
                         if ($quotes['methods'][$i]['cost']) {
                             $rates[] = ['id' => $quotes['id'] . '_' . $quotes['methods'][$i]['id'],

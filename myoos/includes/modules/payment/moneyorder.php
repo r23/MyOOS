@@ -91,8 +91,7 @@ class moneyorder
 
     public function selection()
     {
-        return array('id' => $this->code,
-                   'module' => $this->title);
+        return ['id' => $this->code, 'module' => $this->title];
     }
 
     public function pre_confirmation_check()
@@ -103,7 +102,7 @@ class moneyorder
     public function confirmation()
     {
         global $aLang;
-        return array('title' => $aLang['module_payment_moneyorder_text_description']);
+        return ['title' => $aLang['module_payment_moneyorder_text_description']];
     }
 
     public function process_button()
@@ -163,6 +162,6 @@ class moneyorder
 
     public function keys()
     {
-        return array('MODULE_PAYMENT_MONEYORDER_STATUS', 'MODULE_PAYMENT_MONEYORDER_ZONE', 'MODULE_PAYMENT_MONEYORDER_ORDER_STATUS_ID', 'MODULE_PAYMENT_MONEYORDER_SORT_ORDER', 'MODULE_PAYMENT_MONEYORDER_PAYTO');
+        return ['MODULE_PAYMENT_MONEYORDER_STATUS', 'MODULE_PAYMENT_MONEYORDER_ZONE', 'MODULE_PAYMENT_MONEYORDER_ORDER_STATUS_ID', 'MODULE_PAYMENT_MONEYORDER_SORT_ORDER', 'MODULE_PAYMENT_MONEYORDER_PAYTO'];
     }
 }

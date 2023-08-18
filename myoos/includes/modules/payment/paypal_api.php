@@ -115,8 +115,7 @@ class paypal_api
 
     public function selection()
     {
-        return array('id' => $this->code,
-                   'module' => $this->title);
+        return ['id' => $this->code, 'module' => $this->title];
     }
 
     public function pre_confirmation_check()
@@ -207,7 +206,7 @@ class paypal_api
                 $response = $web_profile->create($apiContext);
                 $web_profile_id = $response->getId();
             }
-        } catch (PayPalConnectionException $exc) {
+        } catch (PayPalConnectionException) {
             /*
                         echo $exc->getData();
                         die($exc);
@@ -223,9 +222,9 @@ class paypal_api
         $payer->setPaymentMethod("paypal");
 
         $itemList = new ItemList();
-        $nOrder = count($oOrder->products);
+        $nOrder = is_countable($oOrder->products) ? count($oOrder->products) : 0;
         for ($i=0, $n=$nOrder; $i<$n; $i++) {
-            $name = html_entity_decode($oOrder->products[$i]['name'], ENT_NOQUOTES, 'UTF-8');
+            $name = html_entity_decode((string) $oOrder->products[$i]['name'], ENT_NOQUOTES, 'UTF-8');
             $sku = $oOrder->products[$i]['model'];
 
             if ($aUser['price_with_tax'] == 1) {
@@ -311,13 +310,13 @@ class paypal_api
             ->setExperienceProfileId($web_profile_id)
             ->setPayer($payer)
             ->setRedirectUrls($redirectUrls)
-            ->setTransactions(array($transaction));
+            ->setTransactions([$transaction]);
 
 
         try {
             $payment->create($apiContext);
             $this->form_action_url = $payment->getApprovalLink();
-        } catch (Exception $ex) {
+        } catch (Exception) {
 
             /*
             echo $ex->getCode();
@@ -433,7 +432,7 @@ class paypal_api
 
     public function keys()
     {
-        return array('MODULE_PAYMENT_PAYPAL_API_STATUS', 'MODULE_PAYMENT_PAYPAL_API_ID', 'MODULE_PAYMENT_PAYPAL_API_CLIENTID', 'MODULE_PAYMENT_PAYPAL_API_SECURE', 'MODULE_PAYMENT_PAYPAL_API_MODE', 'MODULE_PAYMENT_PAYPAL_API_ZONE', 'MODULE_PAYMENT_PAYPAL_API_ORDER_STATUS_ID', 'MODULE_PAYMENT_PAYPAL_API_SORT_ORDER');
+        return ['MODULE_PAYMENT_PAYPAL_API_STATUS', 'MODULE_PAYMENT_PAYPAL_API_ID', 'MODULE_PAYMENT_PAYPAL_API_CLIENTID', 'MODULE_PAYMENT_PAYPAL_API_SECURE', 'MODULE_PAYMENT_PAYPAL_API_MODE', 'MODULE_PAYMENT_PAYPAL_API_ZONE', 'MODULE_PAYMENT_PAYPAL_API_ORDER_STATUS_ID', 'MODULE_PAYMENT_PAYPAL_API_SORT_ORDER'];
     }
 }
 
@@ -477,17 +476,14 @@ function getApiContext($clientId, $clientSecret)
     // based configuration
 
     $apiContext->setConfig(
-        array(
+        [
             'mode' => MODULE_PAYMENT_PAYPAL_API_MODE,
             'log.LogEnabled' => true,
             'log.FileName' => OOS_TEMP_PATH . 'logs/PayPal.log',
-            'log.LogLevel' => 'INFO', // DEBUG, PLEASE USE `INFO` LEVEL FOR LOGGING IN LIVE ENVIRONMENTS
+            'log.LogLevel' => 'INFO',
+            // DEBUG, PLEASE USE `INFO` LEVEL FOR LOGGING IN LIVE ENVIRONMENTS
             'cache.enabled' => true,
-            //'cache.FileName' => '/PaypalCache' // for determining paypal cache directory
-            // 'http.CURLOPT_CONNECTTIMEOUT' => 30
-            // 'http.headers.PayPal-Partner-Attribution-Id' => '123123123'
-            //'log.AdapterFactory' => '\PayPal\Log\DefaultLogFactory' // Factory class implementing \PayPal\Log\PayPalLogFactory
-        )
+        ]
     );
 
     // Partner Attribution Id

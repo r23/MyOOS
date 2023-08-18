@@ -44,14 +44,7 @@ if (!empty($action)) {
             $decimal_places = oos_db_prepare_input($_POST['decimal_places']);
             $currency_value = oos_db_prepare_input($_POST['currency_value']);
 
-            $sql_data_array = array('title' => $title,
-                                'code' => $code,
-                                'symbol_left' => $symbol_left,
-                                'symbol_right' => $symbol_right,
-                                'decimal_point' => $decimal_point,
-                                'thousands_point' => $thousands_point,
-                                'decimal_places' => $decimal_places,
-                                'value' => $currency_value);
+            $sql_data_array = ['title' => $title, 'code' => $code, 'symbol_left' => $symbol_left, 'symbol_right' => $symbol_right, 'decimal_point' => $decimal_point, 'thousands_point' => $thousands_point, 'decimal_places' => $decimal_places, 'value' => $currency_value];
 
             if ($action == 'insert') {
                 oos_db_perform($oostable['currencies'], $sql_data_array);
@@ -82,7 +75,7 @@ if (!empty($action)) {
 
         case 'update':
             $xml = oos_load_xml(CURRENCY_SERVER);
-            $xml = json_decode(json_encode($xml), JSON_FORCE_OBJECT);
+            $xml = json_decode(json_encode($xml, JSON_THROW_ON_ERROR), JSON_FORCE_OBJECT, 512, JSON_THROW_ON_ERROR);
 
             $currency_result = $dbconn->Execute("SELECT currencies_id, code FROM " . $oostable['currencies']);
             while ($currency = $currency_result->fields) {
@@ -197,7 +190,7 @@ if (!empty($action)) {
   $currency_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $currency_result_raw, $currency_result_numrows);
   $currency_result = $dbconn->Execute($currency_result_raw);
   while ($currency = $currency_result->fields) {
-      if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $currency['currencies_id']))) && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {
+      if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $currency['currencies_id']))) && !isset($cInfo) && (!str_starts_with((string) $action, 'new'))) {
           $cInfo = new objectInfo($currency);
       }
 
@@ -252,67 +245,67 @@ if (!empty($action)) {
 
   switch ($action) {
     case 'new':
-      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_CURRENCY . '</b>');
+      $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_NEW_CURRENCY . '</b>'];
 
-      $contents = array('form' => oos_draw_form('id', 'currencies', $aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=insert', 'post', false));
-      $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
-      $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_TITLE . '<br>' . oos_draw_input_field('title'));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_CODE . '<br>' . oos_draw_input_field('code'));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_SYMBOL_LEFT . '<br>' . oos_draw_input_field('symbol_left'));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_SYMBOL_RIGHT . '<br>' . oos_draw_input_field('symbol_right'));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_DECIMAL_POINT . '<br>' . oos_draw_input_field('decimal_point'));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_THOUSANDS_POINT . '<br>' . oos_draw_input_field('thousands_point'));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_DECIMAL_PLACES . '<br>' . oos_draw_input_field('decimal_places'));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_VALUE . '<br>' . oos_draw_input_field('currency_value'));
-      $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_INFO_SET_AS_DEFAULT);
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $_GET['cID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents = ['form' => oos_draw_form('id', 'currencies', $aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=insert', 'post', false)];
+      $contents[] = ['text' => TEXT_INFO_INSERT_INTRO];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_TITLE . '<br>' . oos_draw_input_field('title')];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_CODE . '<br>' . oos_draw_input_field('code')];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_SYMBOL_LEFT . '<br>' . oos_draw_input_field('symbol_left')];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_SYMBOL_RIGHT . '<br>' . oos_draw_input_field('symbol_right')];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_DECIMAL_POINT . '<br>' . oos_draw_input_field('decimal_point')];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_THOUSANDS_POINT . '<br>' . oos_draw_input_field('thousands_point')];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_DECIMAL_PLACES . '<br>' . oos_draw_input_field('decimal_places')];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_VALUE . '<br>' . oos_draw_input_field('currency_value')];
+      $contents[] = ['text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_INFO_SET_AS_DEFAULT];
+      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $_GET['cID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
       break;
 
     case 'edit':
-      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_CURRENCY . '</b>');
+      $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_EDIT_CURRENCY . '</b>'];
 
-      $contents = array('form' => oos_draw_form('id', 'currencies', $aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=save', 'post', false));
-      $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
-      $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_TITLE . '<br>' . oos_draw_input_field('title', $cInfo->title));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_CODE . '<br>' . oos_draw_input_field('code', $cInfo->code));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_SYMBOL_LEFT . '<br>' . oos_draw_input_field('symbol_left', $cInfo->symbol_left));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_SYMBOL_RIGHT . '<br>' . oos_draw_input_field('symbol_right', $cInfo->symbol_right));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_DECIMAL_POINT . '<br>' . oos_draw_input_field('decimal_point', $cInfo->decimal_point));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_THOUSANDS_POINT . '<br>' . oos_draw_input_field('thousands_point', $cInfo->thousands_point));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_DECIMAL_PLACES . '<br>' . oos_draw_input_field('decimal_places', $cInfo->decimal_places));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_VALUE . '<br>' . oos_draw_input_field('currency_value', $cInfo->value));
+      $contents = ['form' => oos_draw_form('id', 'currencies', $aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=save', 'post', false)];
+      $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_TITLE . '<br>' . oos_draw_input_field('title', $cInfo->title)];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_CODE . '<br>' . oos_draw_input_field('code', $cInfo->code)];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_SYMBOL_LEFT . '<br>' . oos_draw_input_field('symbol_left', $cInfo->symbol_left)];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_SYMBOL_RIGHT . '<br>' . oos_draw_input_field('symbol_right', $cInfo->symbol_right)];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_DECIMAL_POINT . '<br>' . oos_draw_input_field('decimal_point', $cInfo->decimal_point)];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_THOUSANDS_POINT . '<br>' . oos_draw_input_field('thousands_point', $cInfo->thousands_point)];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_DECIMAL_PLACES . '<br>' . oos_draw_input_field('decimal_places', $cInfo->decimal_places)];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_VALUE . '<br>' . oos_draw_input_field('currency_value', $cInfo->value)];
       if (DEFAULT_CURRENCY != $cInfo->code) {
-          $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_INFO_SET_AS_DEFAULT);
+          $contents[] = ['text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_INFO_SET_AS_DEFAULT];
       }
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
       break;
 
     case 'delete':
-      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_CURRENCY . '</b>');
+      $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_CURRENCY . '</b>'];
 
-      $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
-      $contents[] = array('text' => '<br><b>' . $cInfo->title . '</b>');
-      $contents[] = array('align' => 'center', 'text' => '<br>' . (($remove_currency) ? '<a href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=deleteconfirm') . '">' . oos_button(BUTTON_DELETE) . '</a>' : '') . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
+      $contents[] = ['text' => '<br><b>' . $cInfo->title . '</b>'];
+      $contents[] = ['align' => 'center', 'text' => '<br>' . (($remove_currency) ? '<a href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=deleteconfirm') . '">' . oos_button(BUTTON_DELETE) . '</a>' : '') . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
       break;
 
     default:
       if (isset($cInfo) && is_object($cInfo)) {
-          $heading[] = array('text' => '<b>' . $cInfo->title . '</b>');
+          $heading[] = ['text' => '<b>' . $cInfo->title . '</b>'];
 
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
-          $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_TITLE . ' ' . $cInfo->title);
-          $contents[] = array('text' => TEXT_INFO_CURRENCY_CODE . ' ' . $cInfo->code);
-          $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_SYMBOL_LEFT . ' ' . $cInfo->symbol_left);
-          $contents[] = array('text' => TEXT_INFO_CURRENCY_SYMBOL_RIGHT . ' ' . $cInfo->symbol_right);
-          $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_DECIMAL_POINT . ' ' . $cInfo->decimal_point);
-          $contents[] = array('text' => TEXT_INFO_CURRENCY_THOUSANDS_POINT . ' ' . $cInfo->thousands_point);
-          $contents[] = array('text' => TEXT_INFO_CURRENCY_DECIMAL_PLACES . ' ' . $cInfo->decimal_places);
-          $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_LAST_UPDATED . ' ' . oos_date_short($cInfo->last_updated));
-          $contents[] = array('text' => TEXT_INFO_CURRENCY_VALUE . ' ' . number_format($cInfo->value, 8));
-          $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_EXAMPLE . '<br>' . $currencies->format('30', false, DEFAULT_CURRENCY) . ' = ' . $currencies->format('30', true, $cInfo->code));
+          $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
+          $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_TITLE . ' ' . $cInfo->title];
+          $contents[] = ['text' => TEXT_INFO_CURRENCY_CODE . ' ' . $cInfo->code];
+          $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_SYMBOL_LEFT . ' ' . $cInfo->symbol_left];
+          $contents[] = ['text' => TEXT_INFO_CURRENCY_SYMBOL_RIGHT . ' ' . $cInfo->symbol_right];
+          $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_DECIMAL_POINT . ' ' . $cInfo->decimal_point];
+          $contents[] = ['text' => TEXT_INFO_CURRENCY_THOUSANDS_POINT . ' ' . $cInfo->thousands_point];
+          $contents[] = ['text' => TEXT_INFO_CURRENCY_DECIMAL_PLACES . ' ' . $cInfo->decimal_places];
+          $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_LAST_UPDATED . ' ' . oos_date_short($cInfo->last_updated)];
+          $contents[] = ['text' => TEXT_INFO_CURRENCY_VALUE . ' ' . number_format($cInfo->value, 8)];
+          $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENCY_EXAMPLE . '<br>' . $currencies->format('30', false, DEFAULT_CURRENCY) . ' = ' . $currencies->format('30', true, $cInfo->code)];
       }
       break;
   }

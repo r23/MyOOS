@@ -50,10 +50,10 @@ class ItemList extends PayPalModel
     public function addItem($item)
     {
         if (!$this->getItems()) {
-            return $this->setItems(array($item));
+            return $this->setItems([$item]);
         } else {
             return $this->setItems(
-                array_merge($this->getItems(), array($item))
+                array_merge($this->getItems(), [$item])
             );
         }
     }
@@ -67,7 +67,7 @@ class ItemList extends PayPalModel
     public function removeItem($item)
     {
         return $this->setItems(
-            array_diff($this->getItems(), array($item))
+            array_diff($this->getItems(), [$item])
         );
     }
 

@@ -92,7 +92,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'submit')
         $firstname = oos_remove_shouting($firstname, true);
         $lastname = oos_remove_shouting_name($lastname, true);
         $street_address = oos_remove_shouting($street_address);
-        $postcode = strtoupper($postcode);
+        $postcode = strtoupper((string) $postcode);
         $city = oos_remove_shouting($city);
 
         if (ACCOUNT_GENDER == 'true') {
@@ -188,14 +188,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'submit')
                 $entry_id = 1;
             }
 
-            $sql_data_array = array('customers_id' => intval($_SESSION['customer_id']),
-                                    'address_book_id' => $entry_id,
-                                    'entry_firstname' => $firstname,
-                                    'entry_lastname' => $lastname,
-                                    'entry_street_address' => $street_address,
-                                    'entry_postcode' => $postcode,
-                                    'entry_city' => $city,
-                                    'entry_country_id' => $country);
+            $sql_data_array = ['customers_id' => intval($_SESSION['customer_id']), 'address_book_id' => $entry_id, 'entry_firstname' => $firstname, 'entry_lastname' => $lastname, 'entry_street_address' => $street_address, 'entry_postcode' => $postcode, 'entry_city' => $city, 'entry_country_id' => $country];
             if (ACCOUNT_GENDER == 'true') {
                 $sql_data_array['entry_gender'] = $gender;
             }
@@ -299,12 +292,7 @@ if ($bProcess == false) {
         $addresses_array = [];
         while ($addresses = $addresses_result->fields) {
             $format_id = oos_get_address_format_id($address['country_id']);
-            $addresses_array[] = array('format_id' => $format_id,
-                                        'radio_buttons' => $radio_buttons,
-                                        'firstname' => $addresses['firstname'],
-                                        'lastname' => $addresses['lastname'],
-                                        'address_book_id' => $addresses['address_book_id'],
-                                        'address' => oos_address_format($format_id, $addresses, true, ' ', ', '));
+            $addresses_array[] = ['format_id' => $format_id, 'radio_buttons' => $radio_buttons, 'firstname' => $addresses['firstname'], 'lastname' => $addresses['lastname'], 'address_book_id' => $addresses['address_book_id'], 'address' => oos_address_format($format_id, $addresses, true, ' ', ', ')];
             $radio_buttons++;
             $addresses_result->MoveNext();
         }
@@ -332,37 +320,7 @@ if (!isset($option)) {
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-        'breadcrumb' => $oBreadcrumb->trail(),
-        'heading_title' => $aLang['heading_title'],
-        'robots'        => 'noindex,nofollow,noodp,noydir',
-        'checkout_active' => 1,
-
-        'process' => $bProcess,
-        'addresses_count' => $addresses_count,
-
-        'gender' => $gender,
-        'firstname' => $firstname,
-        'lastname' => $lastname,
-        'company' => $company,
-        'owner' => $owner,
-        'vat_id' => $vat_id,
-        'street_address' => $street_address,
-        'postcode' => $postcode,
-        'city' => $city,
-        'country' => $country,
-        'store_country' => STORE_COUNTRY,
-
-        'gender_error' => $gender_error,
-        'firstname_error' => $firstname_error,
-        'lastname_error' => $lastname_error,
-        'street_address_error' => $street_address_error,
-        'post_code_error' => $post_code_error,
-        'city_error' => $city_error,
-        'state_error' => $state_error,
-        'state_has_zones' => $entry_state_has_zones,
-        'country_error' => $country_error
-    )
+    ['breadcrumb' => $oBreadcrumb->trail(), 'heading_title' => $aLang['heading_title'], 'robots'        => 'noindex,nofollow,noodp,noydir', 'checkout_active' => 1, 'process' => $bProcess, 'addresses_count' => $addresses_count, 'gender' => $gender, 'firstname' => $firstname, 'lastname' => $lastname, 'company' => $company, 'owner' => $owner, 'vat_id' => $vat_id, 'street_address' => $street_address, 'postcode' => $postcode, 'city' => $city, 'country' => $country, 'store_country' => STORE_COUNTRY, 'gender_error' => $gender_error, 'firstname_error' => $firstname_error, 'lastname_error' => $lastname_error, 'street_address_error' => $street_address_error, 'post_code_error' => $post_code_error, 'city_error' => $city_error, 'state_error' => $state_error, 'state_has_zones' => $entry_state_has_zones, 'country_error' => $country_error]
 );
 
 

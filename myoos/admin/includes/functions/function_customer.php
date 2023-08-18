@@ -84,11 +84,7 @@ function oos_get_customers_statuses()
 
     while ($customers_statuses = $result->fields) {
         $i = $customers_statuses['customers_status_id'];
-        $customers_statuses_array[$i] = array('id' => $customers_statuses['customers_status_id'],
-                                          'text' => $customers_statuses['customers_status_name'],
-                                          'cs_ot_discount_flag' => $customers_statuses['customers_status_ot_discount_flag'],
-                                          'cs_ot_discount' => $customers_statuses['customers_status_ot_discount'],
-                                          'cs_payment_unallowed' => $customers_statuses['customers_status_payment']);
+        $customers_statuses_array[$i] = ['id' => $customers_statuses['customers_status_id'], 'text' => $customers_statuses['customers_status_name'], 'cs_ot_discount_flag' => $customers_statuses['customers_status_ot_discount_flag'], 'cs_ot_discount' => $customers_statuses['customers_status_ot_discount'], 'cs_payment_unallowed' => $customers_statuses['customers_status_payment']];
         // Move that ADOdb pointer!
         $result->MoveNext();
     }
@@ -172,8 +168,8 @@ function oos_installed_payment($customers_payment = '')
     global $aLang;
 
     $install_payment = '';
-    $installed_payment = explode(';', MODULE_PAYMENT_INSTALLED);
-    $select_payment = explode(';', $customers_payment);
+    $installed_payment = explode(';', (string) MODULE_PAYMENT_INSTALLED);
+    $select_payment = explode(';', (string) $customers_payment);
     for ($i = 0, $n = count($installed_payment); $i < $n; $i++) {
         $file = $installed_payment[$i];
 
@@ -208,7 +204,7 @@ function oos_customers_payment($customers_payment = '')
 
     $payment_title = '';
     if (oos_is_not_null($customers_payment)) {
-        $select_payment = explode(';', $customers_payment);
+        $select_payment = explode(';', (string) $customers_payment);
         for ($i = 0, $n = count($select_payment); $i < $n; $i++) {
             $file = $select_payment[$i];
 

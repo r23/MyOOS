@@ -35,7 +35,7 @@ function oos_get_informations_name($informations_id, $language_id = '')
                 AND information_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $information_name = isset($result->fields['information_name']) ? $result->fields['information_name'] : '';
+    $information_name = $result->fields['information_name'] ?? '';
 
 
     return $information_name;
@@ -60,7 +60,7 @@ function oos_get_informations_description($informations_id, $language_id = '')
                 AND information_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $information_description = isset($result->fields['information_description']) ? $result->fields['information_description'] : '';
+    $information_description = $result->fields['information_description'] ?? '';
 
     return $information_description;
 }
@@ -83,7 +83,7 @@ function oos_get_informations_heading_title($informations_id, $language_id = '')
                 AND information_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $information_heading_title = isset($result->fields['information_heading_title']) ? $result->fields['information_heading_title'] : '';
+    $information_heading_title = $result->fields['information_heading_title'] ?? '';
 
     return  $information_heading_title;
 }

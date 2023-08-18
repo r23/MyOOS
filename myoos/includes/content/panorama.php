@@ -59,12 +59,7 @@ if (!$categories_panorama_result->RecordCount()) {
 
 
     $smarty->assign(
-        array(
-            'breadcrumb'    => $oBreadcrumb->trail(),
-            'heading_title' => $aLang['text_model_not_found'],
-            'robots'        => 'noindex,follow,noodp,noydir',
-            'canonical'        => $sCanonical
-        )
+        ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title' => $aLang['text_model_not_found'], 'robots'        => 'noindex,follow,noodp,noydir', 'canonical'        => $sCanonical]
     );
 } else {
     $categories_panorama_descriptiontable = $oostable['categories_panorama_description'];
@@ -72,7 +67,7 @@ if (!$categories_panorama_result->RecordCount()) {
         . " SET panorama_viewed = panorama_viewed+1"
         . " WHERE panorama_id = ?"
         . "   AND panorama_languages_id = ?";
-    $result = $dbconn->Execute($query, array((int)$nPanoramaID, (int)$nLanguageID));
+    $result = $dbconn->Execute($query, [(int)$nPanoramaID, (int)$nLanguageID]);
 
     $panorama_info = $categories_panorama_result->fields;
 

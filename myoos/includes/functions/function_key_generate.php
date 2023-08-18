@@ -36,7 +36,7 @@ function RandomPassword($passwordLength)
     $newkey2 = "";
     for ($index = 1; $index <= $passwordLength; $index++) {
         // Pick random number between 1 and 62
-        $randomNumber = rand(1, 62);
+        $randomNumber = random_int(1, 62);
         // Select random character based on mapping.
         if ($randomNumber < 11) {
             $newkey2 .= chr($randomNumber + 48 - 1);

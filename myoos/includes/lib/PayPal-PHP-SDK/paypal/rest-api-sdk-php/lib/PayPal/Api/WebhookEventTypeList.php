@@ -47,10 +47,10 @@ class WebhookEventTypeList extends PayPalModel
     public function addEventType($webhookEventType)
     {
         if (!$this->getEventTypes()) {
-            return $this->setEventTypes(array($webhookEventType));
+            return $this->setEventTypes([$webhookEventType]);
         } else {
             return $this->setEventTypes(
-                array_merge($this->getEventTypes(), array($webhookEventType))
+                array_merge($this->getEventTypes(), [$webhookEventType])
             );
         }
     }
@@ -64,7 +64,7 @@ class WebhookEventTypeList extends PayPalModel
     public function removeEventType($webhookEventType)
     {
         return $this->setEventTypes(
-            array_diff($this->getEventTypes(), array($webhookEventType))
+            array_diff($this->getEventTypes(), [$webhookEventType])
         );
     }
 

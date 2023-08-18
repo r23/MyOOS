@@ -50,13 +50,13 @@ $get_parameters .= '&manufacturers_id=' . $manufacturers_id;
 
 
 $pfrom = filter_string_polyfill(filter_input(INPUT_GET, 'pfrom'));
-$pfrom = str_replace(',', '.', $pfrom);
+$pfrom = str_replace(',', '.', (string) $pfrom);
 $pfrom = floatval($pfrom);
 $get_parameters .= '&pfrom=' . $pfrom;
 
 
 $pto = filter_string_polyfill(filter_input(INPUT_GET, 'pto'));
-$pto = str_replace(',', '.', $pto);
+$pto = str_replace(',', '.', (string) $pto);
 $pto = floatval($pto);
 $get_parameters .= '&pto=' . $pto;
 
@@ -88,7 +88,7 @@ if (strlen($dto_to_check ?? '') > 0) {
     }
 }
 
-if (strlen($dfrom_to_check ?? '') > 0 && !(($errorno & 10) == 10) && strlen($dto_to_check) > 0 && !(($errorno & 100) == 100)) {
+if (strlen($dfrom_to_check ?? '') > 0 && !(($errorno & 10) == 10) && strlen((string) $dto_to_check) > 0 && !(($errorno & 100) == 100)) {
     if (mktime(0, 0, 0, $dfrom_array[1], $dfrom_array[2], $dfrom_array[0]) > mktime(0, 0, 0, $dto_array[1], $dto_array[2], $dto_array[0])) {
         $errorno += 1000;
     }
@@ -110,14 +110,14 @@ if (strlen($pto ?? '') > 0) {
 
 if (strlen($pfrom ?? '') > 0 && !(($errorno & 10000) == 10000) && strlen($pto) > 0 && !(($errorno & 100000) == 100000)) {
     if ($pfrom_to_check > $pto_to_check) {
-        $errorno += 1000000;
+        $errorno += 1_000_000;
     }
 }
 
 $search_keywords = &oos_parse_search_string($keywords);
 
 if ($keywords && !$search_keywords) {
-  $errorno += 10000000;
+  $errorno += 10_000_000;
 }
 
 
@@ -130,15 +130,7 @@ $oBreadcrumb->add($aLang['navbar_title1'], oos_href_link($aContents['advanced_se
 $oBreadcrumb->add($aLang['navbar_title2']);
 
 // create column list
-$define_list = array('PRODUCT_LIST_MODEL' => '1',
-                         'PRODUCT_LIST_NAME' => '2',
-                         'PRODUCT_LIST_MANUFACTURER' => '3',
-                         'PRODUCT_LIST_UVP' => '4',
-                         'PRODUCT_LIST_PRICE' => '5',
-                         'PRODUCT_LIST_QUANTITY' => '6',
-                         'PRODUCT_LIST_WEIGHT' => '7',
-                         'PRODUCT_LIST_IMAGE' => '8',
-                         'PRODUCT_LIST_BUY_NOW' => '9');
+$define_list = ['PRODUCT_LIST_MODEL' => '1', 'PRODUCT_LIST_NAME' => '2', 'PRODUCT_LIST_MANUFACTURER' => '3', 'PRODUCT_LIST_UVP' => '4', 'PRODUCT_LIST_PRICE' => '5', 'PRODUCT_LIST_QUANTITY' => '6', 'PRODUCT_LIST_WEIGHT' => '7', 'PRODUCT_LIST_IMAGE' => '8', 'PRODUCT_LIST_BUY_NOW' => '9'];
 asort($define_list);
 
 $column_list = [];
@@ -163,31 +155,14 @@ for ($col=0, $n=count($column_list); $col<$n; $col++) {
         $select_column_list .= ', ';
     }
 
-    switch ($column_list[$col]) {
-    case 'PRODUCT_LIST_MODEL':
-        $select_column_list .= 'p.products_model';
-        break;
-
-    case 'PRODUCT_LIST_MANUFACTURER':
-        $select_column_list .= 'm.manufacturers_name';
-        break;
-
-    case 'PRODUCT_LIST_QUANTITY':
-        $select_column_list .= 'p.products_quantity';
-        break;
-
-    case 'PRODUCT_LIST_IMAGE':
-        $select_column_list .= 'p.products_image';
-        break;
-
-    case 'PRODUCT_LIST_WEIGHT':
-        $select_column_list .= 'p.products_weight';
-        break;
-
-    default:
-        $select_column_list .= "pd.products_name";
-        break;
-    }
+    match ($column_list[$col]) {
+        'PRODUCT_LIST_MODEL' => $select_column_list .= 'p.products_model',
+        'PRODUCT_LIST_MANUFACTURER' => $select_column_list .= 'm.manufacturers_name',
+        'PRODUCT_LIST_QUANTITY' => $select_column_list .= 'p.products_quantity',
+        'PRODUCT_LIST_IMAGE' => $select_column_list .= 'p.products_image',
+        'PRODUCT_LIST_WEIGHT' => $select_column_list .= 'p.products_weight',
+        default => $select_column_list .= "pd.products_name",
+    };
 }
 
 if (oos_is_not_null($select_column_list)) {
@@ -252,7 +227,7 @@ if (isset($categories_id) && is_numeric($categories_id)) {
                            p2c.products_id = p.products_id AND
                            p2c.products_id = pd.products_id AND
                            (p2c.categories_id = '" . intval($categories_id) . "'";
-        for ($i=0, $n=count($subcategories_array); $i<$n; $i++) {
+        for ($i=0, $n=is_countable($subcategories_array) ? count($subcategories_array) : 0; $i<$n; $i++) {
             $where_str .= " OR p2c.categories_id = '" . intval($subcategories_array[$i]) . "'";
         }
         $where_str .= ")";
@@ -271,9 +246,9 @@ if (isset($manufacturers_id) && is_numeric($manufacturers_id)) {
 
 
 
-if (isset($search_keywords) && (count($search_keywords) > 0)) {
+if (isset($search_keywords) && ((is_countable($search_keywords) ? count($search_keywords) : 0) > 0)) {
     $where_str .= " AND (";
-    for ($i=0, $n=count($search_keywords); $i<$n; $i++) {
+    for ($i=0, $n=is_countable($search_keywords) ? count($search_keywords) : 0; $i<$n; $i++) {
         switch ($search_keywords[$i]) {
         case '(':
         case ')':
@@ -335,7 +310,7 @@ if (($aUser['price_with_tax'] == 1) && ((isset($_GET['pfrom']) && oos_is_not_nul
     $where_str .= " GROUP BY p.products_id";
 }
 
-if ((!isset($_GET['sort'])) || (!preg_match('/[1-8][ad]/', $_GET['sort'])) || (substr($_GET['sort'], 0, 1) > count($column_list))) {
+if ((!isset($_GET['sort'])) || (!preg_match('/[1-8][ad]/', (string) $_GET['sort'])) || (substr((string) $_GET['sort'], 0, 1) > count($column_list))) {
     for ($col=0, $n=count($column_list); $col<$n; $col++) {
         if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
             $sort = $col+1 . 'a';
@@ -344,43 +319,20 @@ if ((!isset($_GET['sort'])) || (!preg_match('/[1-8][ad]/', $_GET['sort'])) || (s
         }
     }
 } else {
-    $sort_col = substr($sort, 0, 1);
-    $sort_order = substr($sort, 1);
+    $sort_col = substr((string) $sort, 0, 1);
+    $sort_order = substr((string) $sort, 1);
     $order_str = ' ORDER BY ';
 
-    switch ($column_list[$sort_col-1]) {
-    case 'PRODUCT_LIST_MODEL':
-        $order_str .= "p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
-        break;
-
-    case 'PRODUCT_LIST_NAME':
-        $order_str .= "pd.products_name " . ($sort_order == 'd' ? "desc" : "");
-        break;
-
-    case 'PRODUCT_LIST_MANUFACTURER':
-        $order_str .= "m.manufacturers_name " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
-        break;
-
-    case 'PRODUCT_LIST_QUANTITY':
-        $order_str .= "p.products_quantity " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
-        break;
-
-    case 'PRODUCT_LIST_IMAGE':
-        $order_str .= "pd.products_name";
-        break;
-
-    case 'PRODUCT_LIST_WEIGHT':
-        $order_str .= "p.products_weight " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
-        break;
-
-    case 'PRODUCT_LIST_PRICE':
-        $order_str .= "final_price " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
-        break;
-
-    default:
-        $order_str .= "pd.products_name";
-        break;
-    }
+    match ($column_list[$sort_col-1]) {
+        'PRODUCT_LIST_MODEL' => $order_str .= "p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name",
+        'PRODUCT_LIST_NAME' => $order_str .= "pd.products_name " . ($sort_order == 'd' ? "desc" : ""),
+        'PRODUCT_LIST_MANUFACTURER' => $order_str .= "m.manufacturers_name " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name",
+        'PRODUCT_LIST_QUANTITY' => $order_str .= "p.products_quantity " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name",
+        'PRODUCT_LIST_IMAGE' => $order_str .= "pd.products_name",
+        'PRODUCT_LIST_WEIGHT' => $order_str .= "p.products_weight " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name",
+        'PRODUCT_LIST_PRICE' => $order_str .= "final_price " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name",
+        default => $order_str .= "pd.products_name",
+    };
 }
 
 $listing_sql = $select_str . $from_str . $where_str . $order_str;
@@ -399,18 +351,12 @@ if (!isset($option)) {
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-            'breadcrumb'    => $oBreadcrumb->trail(),
-            'heading_title' => $aLang['heading_title'],
-            'robots'        => 'noindex,follow,noodp,noydir',
-
-            'text_no_products' => sprintf($aLang['text_no_products'], $keywords)
-    )
+    ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title' => $aLang['heading_title'], 'robots'        => 'noindex,follow,noodp,noydir', 'text_no_products' => sprintf($aLang['text_no_products'], $keywords)]
 );
 
 require_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
 
-$smarty->assign('oos_get_all_get_params', oos_get_all_get_parameters(array('sort', 'page')));
+$smarty->assign('oos_get_all_get_params', oos_get_all_get_parameters(['sort', 'page']));
 $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination']));
 
 // register the outputfilter

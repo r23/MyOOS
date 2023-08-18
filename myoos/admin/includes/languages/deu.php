@@ -57,9 +57,9 @@
 function oos_date_raw($date, $reverse = false)
 {
     if ($reverse) {
-        return substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
+        return substr((string) $date, 0, 2) . substr((string) $date, 3, 2) . substr((string) $date, 6, 4);
     } else {
-        return substr($date, 6, 4) . substr($date, 3, 2) . substr($date, 0, 2);
+        return substr((string) $date, 6, 4) . substr((string) $date, 3, 2) . substr((string) $date, 0, 2);
     }
 }
 

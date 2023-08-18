@@ -462,7 +462,7 @@ if ($srExp < 2) {
 $sum = 0;
 while ($sr->actDate < $sr->endDate) {
     $info = $sr->getNext();
-    $last = count($info) - 1;
+    $last = (is_countable($info) ? count($info) : 0) - 1;
     if ($srExp < 2) {
         ?>
                     <tr>
@@ -483,10 +483,10 @@ while ($sr->actDate < $sr->endDate) {
                       <td class="text-right"><?php echo oos_date_short(date("Y-m-d\ H:i:s", $sr->showDate)) . " - " . oos_date_short(date("Y-m-d\ H:i:s", $sr->showDateEnd)); ?></td>
             <?php
         } ?>
-                      <td class="text-right"><?php echo(isset($info[0]['order']) ? $info[0]['order'] : ''); ?></td>
-                      <td class="text-right"><?php echo(isset($info[$last - 1]['totitem']) ? $info[$last - 1]['totitem'] : ''); ?></td>
-                      <td class="text-right"><?php echo $currencies->format((isset($info[$last - 1]['totsum']) ? $info[$last - 1]['totsum'] : 0)); ?></td>
-                      <td class="text-right"><?php echo $currencies->format((isset($info[0]['shipping']) ? $info[0]['shipping'] : 0)); ?></td>
+                      <td class="text-right"><?php echo($info[0]['order'] ?? ''); ?></td>
+                      <td class="text-right"><?php echo($info[$last - 1]['totitem'] ?? ''); ?></td>
+                      <td class="text-right"><?php echo $currencies->format(($info[$last - 1]['totsum'] ?? 0)); ?></td>
+                      <td class="text-right"><?php echo $currencies->format(($info[0]['shipping'] ?? 0)); ?></td>
                     </tr>
         <?php
     } else {

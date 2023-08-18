@@ -16,33 +16,13 @@ class ApiContext
 {
 
     /**
-     * Unique request id to be used for this call
-     * The user can either generate one as per application
-     * needs or let the SDK generate one
-     *
-     * @var null|string $requestId
-     */
-    private $requestId;
-
-    /**
-     * This is a placeholder for holding credential for the request
-     * If the value is not set, it would get the value from @\PayPal\Core\PayPalCredentialManager
-     *
-     * @var \PayPal\Auth\OAuthTokenCredential
-     */
-    private $credential;
-
-
-    /**
      * Construct
      *
      * @param \PayPal\Auth\OAuthTokenCredential $credential
      * @param string|null                       $requestId
      */
-    public function __construct($credential = null, $requestId = null)
+    public function __construct(private $credential = null, private $requestId = null)
     {
-        $this->requestId = $requestId;
-        $this->credential = $credential;
     }
 
     /**
@@ -61,7 +41,7 @@ class ApiContext
     public function getRequestHeaders()
     {
         $result = PayPalConfigManager::getInstance()->get('http.headers');
-        $headers = array();
+        $headers = [];
         foreach ($result as $header => $value) {
             $headerName = ltrim($header, 'http.headers');
             $headers[$headerName] = $value;
@@ -72,10 +52,10 @@ class ApiContext
     public function addRequestHeader($name, $value)
     {
         // Determine if the name already has a 'http.headers' prefix. If not, add one.
-        if (!(substr($name, 0, strlen('http.headers')) === 'http.headers')) {
+        if (!(str_starts_with((string) $name, 'http.headers'))) {
             $name = 'http.headers.' . $name;
         }
-        PayPalConfigManager::getInstance()->addConfigs(array($name => $value));
+        PayPalConfigManager::getInstance()->addConfigs([$name => $value]);
     }
 
     /**
@@ -168,6 +148,6 @@ class ApiContext
             }
         }
 
-        return $addr . $pid . $_SERVER['REQUEST_TIME'] . mt_rand(0, 0xffff);
+        return $addr . $pid . $_SERVER['REQUEST_TIME'] . random_int(0, 0xffff);
     }
 }

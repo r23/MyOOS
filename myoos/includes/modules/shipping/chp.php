@@ -94,9 +94,7 @@ class chp
             }
         }
 
-        $this->types = array('ECO' => 'Economy',
-                         'PRI' => 'Priority',
-                         'URG' => 'Urgent');
+        $this->types = ['ECO' => 'Economy', 'PRI' => 'Priority', 'URG' => 'Urgent'];
 
         // CUSTOMIZE THIS SETTING FOR THE NUMBER OF ZONES NEEDED
         $this->num_chp = 7;
@@ -119,7 +117,7 @@ class chp
 
         for ($j=1; $j<=$this->num_chp; $j++) {
             $countries_table = constant('MODULE_SHIPPING_CHP_COUNTRIES_' . $j);
-            $country_zones = preg_split("/[:,]/", $countries_table);
+            $country_zones = preg_split("/[:,]/", (string) $countries_table);
             if (in_array($dest_country, $country_zones)) {
                 $dest_zone = $j;
                 break;
@@ -137,9 +135,9 @@ class chp
             $methods = [];
 
             if ($chp_cost_eco != '') {
-                $chp_table_eco = preg_split("/[:,]/", $chp_cost_eco);
+                $chp_table_eco = preg_split("/[:,]/", (string) $chp_cost_eco);
 
-                for ($i=0; $i<count($chp_table_eco); $i+=2) {
+                for ($i=0; $i<(is_countable($chp_table_eco) ? count($chp_table_eco) : 0); $i+=2) {
                     if ($shipping_weight <= $chp_table_eco[$i]) {
                         $shipping_eco = $chp_table_eco[$i+1];
                         break;
@@ -154,16 +152,14 @@ class chp
                 }
 
                 if ($shipping_eco != 0) {
-                    $methods[] = array('id' => 'ECO',
-                             'title' => 'Economy',
-                             'cost' => (MODULE_SHIPPING_CHP_HANDLING + $shipping_cost_1) * $shipping_num_boxes);
+                    $methods[] = ['id' => 'ECO', 'title' => 'Economy', 'cost' => (MODULE_SHIPPING_CHP_HANDLING + $shipping_cost_1) * $shipping_num_boxes];
                 }
             }
 
             if ($chp_cost_pri != '') {
-                $chp_table_pri = preg_split("/[:,]/", $chp_cost_pri);
+                $chp_table_pri = preg_split("/[:,]/", (string) $chp_cost_pri);
 
-                for ($i=0; $i<count($chp_table_pri); $i+=2) {
+                for ($i=0; $i<(is_countable($chp_table_pri) ? count($chp_table_pri) : 0); $i+=2) {
                     if ($shipping_weight <= $chp_table_pri[$i]) {
                         $shipping_pri = $chp_table_pri[$i+1];
                         break;
@@ -178,16 +174,14 @@ class chp
                 }
 
                 if ($shipping_pri != 0) {
-                    $methods[] = array('id' => 'PRI',
-                             'title' => 'Priority',
-                             'cost' => (MODULE_SHIPPING_CHP_HANDLING + $shipping_cost_2) * $shipping_num_boxes);
+                    $methods[] = ['id' => 'PRI', 'title' => 'Priority', 'cost' => (MODULE_SHIPPING_CHP_HANDLING + $shipping_cost_2) * $shipping_num_boxes];
                 }
             }
 
             if ($chp_cost_urg != '') {
-                $chp_table_urg = preg_split("/[:,]/", $chp_cost_urg);
+                $chp_table_urg = preg_split("/[:,]/", (string) $chp_cost_urg);
 
-                for ($i=0; $i<count($chp_table_urg); $i+=2) {
+                for ($i=0; $i<(is_countable($chp_table_urg) ? count($chp_table_urg) : 0); $i+=2) {
                     if ($shipping_weight <= $chp_table_urg[$i]) {
                         $shipping_urg = $chp_table_urg[$i+1];
                         break;
@@ -202,15 +196,12 @@ class chp
                 }
 
                 if ($shipping_urg != 0) {
-                    $methods[] = array('id' => 'URG',
-                             'title' => 'Urgent',
-                             'cost' => (MODULE_SHIPPING_CHP_HANDLING + $shipping_cost_3) * $shipping_num_boxes);
+                    $methods[] = ['id' => 'URG', 'title' => 'Urgent', 'cost' => (MODULE_SHIPPING_CHP_HANDLING + $shipping_cost_3) * $shipping_num_boxes];
                 }
             }
         }
 
-        $this->quotes = array('id' => $this->code,
-                          'module' => $this->title . ' (' . $shipping_num_boxes . ' x ' . $shipping_weight . ' ' . $aLang['module_shipping_chp_text_units'] .')');
+        $this->quotes = ['id' => $this->code, 'module' => $this->title . ' (' . $shipping_num_boxes . ' x ' . $shipping_weight . ' ' . $aLang['module_shipping_chp_text_units'] .')'];
         $this->quotes['methods'] = $methods;
 
 
@@ -226,9 +217,7 @@ class chp
             for ($i=0; $i<count($methods); $i++) {
                 if ($method == $methods[$i]['id']) {
                     $methodsc = [];
-                    $methodsc[] = array('id' => $methods[$i]['id'],
-                              'title' => $methods[$i]['title'],
-                              'cost' => $methods[$i]['cost']);
+                    $methodsc[] = ['id' => $methods[$i]['id'], 'title' => $methods[$i]['title'], 'cost' => $methods[$i]['cost']];
                     break;
                 }
             }
@@ -306,7 +295,7 @@ class chp
 
     public function keys()
     {
-        $keys = array('MODULE_SHIPPING_CHP_STATUS', 'MODULE_SHIPPING_CHP_HANDLING', 'MODULE_SHIPPING_CHP_ZONE', 'MODULE_SHIPPING_CHP_SORT_ORDER');
+        $keys = ['MODULE_SHIPPING_CHP_STATUS', 'MODULE_SHIPPING_CHP_HANDLING', 'MODULE_SHIPPING_CHP_ZONE', 'MODULE_SHIPPING_CHP_SORT_ORDER'];
 
         for ($i=1; $i <= $this->num_chp; $i++) {
             $keys[count($keys)] = 'MODULE_SHIPPING_CHP_COUNTRIES_' . $i;

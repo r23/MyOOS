@@ -55,7 +55,7 @@ if ($action == 'confirmrelease' && isset($_GET['gid'])) {
                 $send_mail = new PHPMailer\PHPMailer\PHPMailer(true);
             }
 
-            $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : DEFAULT_LANGUAGE_CODE);
+            $sLang = ($_SESSION['iso_639_1'] ?? DEFAULT_LANGUAGE_CODE);
             $send_mail->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/language/');
 
             $send_mail->IsMail();
@@ -188,9 +188,9 @@ while ($gv_list = $gv_result->fields) {
         $gInfo = new objectInfo($gv_list);
     }
     if (isset($gInfo) && is_object($gInfo) && ($gv_list['unique_id'] == $gInfo->unique_id)) {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['gv_queue'], oos_get_all_get_params(array('gid', 'action')) . 'gid=' . $gInfo->unique_id . '&action=edit') . '\'">' . "\n";
+        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['gv_queue'], oos_get_all_get_params(['gid', 'action']) . 'gid=' . $gInfo->unique_id . '&action=edit') . '\'">' . "\n";
     } else {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['gv_queue'], oos_get_all_get_params(array('gid', 'action')) . 'gid=' . $gv_list['unique_id']) . '\'">' . "\n";
+        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['gv_queue'], oos_get_all_get_params(['gid', 'action']) . 'gid=' . $gv_list['unique_id']) . '\'">' . "\n";
     } ?>
                 <td><?php echo $gv_list['customers_firstname'] . ' ' . $gv_list['customers_lastname']; ?></td>
                 <td class="text-center"><?php echo $gv_list['order_id']; ?></td>
@@ -217,23 +217,23 @@ while ($gv_list = $gv_result->fields) {
               </tr>
             </table></td>
 <?php
-    $unique_id = isset($gInfo->unique_id) ? $gInfo->unique_id : '';
-    $date_created = isset($gInfo->date_created) ? $gInfo->date_created : '';
-    $amount = isset($gInfo->amount) ? $gInfo->amount : 0;
+    $unique_id = $gInfo->unique_id ?? '';
+    $date_created = $gInfo->date_created ?? '';
+    $amount = $gInfo->amount ?? 0;
 
   $heading = [];
   $contents = [];
   switch ($action) {
 case 'release':
-    $heading[] = array('text' => '[' . $unique_id . '] ' . oos_datetime_short($date_created) . ' ' . $currencies->format($amount));
+    $heading[] = ['text' => '[' . $unique_id . '] ' . oos_datetime_short($date_created) . ' ' . $currencies->format($amount)];
 
-    $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'action=confirmrelease&gid=' . $unique_id) . '">'.oos_button(BUTTON_CONFIRM) . '</a> <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['gv_queue'], 'action=cancel&gid=' . $unique_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+    $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'action=confirmrelease&gid=' . $unique_id) . '">'.oos_button(BUTTON_CONFIRM) . '</a> <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['gv_queue'], 'action=cancel&gid=' . $unique_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
     break;
 
 default:
-    $heading[] = array('text' => '[' . $unique_id . '] ' . oos_datetime_short($date_created) . ' ' . $currencies->format($amount));
+    $heading[] = ['text' => '[' . $unique_id . '] ' . oos_datetime_short($date_created) . ' ' . $currencies->format($amount)];
 
-    $contents[] = array('align' => 'center','text' => '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'action=release&gid=' . $unique_id) . '">' . oos_button(IMAGE_RELEASE) . '</a>');
+    $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'action=release&gid=' . $unique_id) . '">' . oos_button(IMAGE_RELEASE) . '</a>'];
     break;
   }
 

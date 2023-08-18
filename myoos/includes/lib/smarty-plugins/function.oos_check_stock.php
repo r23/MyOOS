@@ -47,7 +47,7 @@ function smarty_function_oos_check_stock($params, &$smarty)
 
 
     foreach ($params as $_key => $_val) {
-        $$_key = smarty_function_escape_special_chars($_val);
+        ${$_key} = smarty_function_escape_special_chars($_val);
     }
 
     $stock_left = oos_get_products_stock($products_id) - $products_quantity;

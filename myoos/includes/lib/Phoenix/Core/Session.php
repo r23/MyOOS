@@ -25,25 +25,25 @@ class Phoenix_Session extends Session
      *
      * @var string
      */
-    public const MESSAGE_STATUS = 'status';
+    final public const MESSAGE_STATUS = 'status';
 
     /**
      * The message type for warning messages, to use with, for example, {@link hasMessages()}.
      *
      * @var string
      */
-    public const MESSAGE_WARNING = 'warning';
+    final public const MESSAGE_WARNING = 'warning';
 
     /**
      * The message type for error messages, to use with, for example, {@link hasMessages()}.
      *
      * @var string
      */
-    public const MESSAGE_ERROR = 'error';
+    final public const MESSAGE_ERROR = 'error';
 
     public function start()
     {
-        $user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+        $user_agent = strtolower((string) $_SERVER['HTTP_USER_AGENT']);
         $spider_flag = false;
         $spider_kill_sid = 'false';
 
@@ -69,7 +69,7 @@ class Phoenix_Session extends Session
 
         if (empty($path)) {
             $path = '/';
-        } elseif (substr($path, -1, 1) != '/') {
+        } elseif (!str_ends_with((string) $path, '/')) {
             $path .= '/';
         }
 
@@ -77,12 +77,12 @@ class Phoenix_Session extends Session
 
         $host = $current_domain;
 
-        if (($pos = strpos($host, ':')) !== false) {
-            $host = substr($host, 0, $pos);
+        if (($pos = strpos((string) $host, ':')) !== false) {
+            $host = substr((string) $host, 0, $pos);
         }
 
         // Currently set to 1 year
-        $lifetime = 31536000;
+        $lifetime = 31_536_000;
         $config['cookie_lifetime'] = $lifetime;
 
         // possible values: 'strict', 'lax' and null
@@ -137,7 +137,7 @@ class Phoenix_Session extends Session
      *
      * @return void
      */
-    public function addMessage($type, $value)
+    public function addMessage($type, mixed $value)
     {
         $this->getFlashBag()->add($type, $value);
     }
@@ -150,7 +150,7 @@ class Phoenix_Session extends Session
      *
      * @return mixed
      */
-    public function getMessages($type, $default = array())
+    public function getMessages($type, mixed $default = [])
     {
         return $this->getFlashBag()->get($type, $default);
     }

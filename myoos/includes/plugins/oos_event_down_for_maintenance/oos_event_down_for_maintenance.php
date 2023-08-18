@@ -33,12 +33,7 @@ class oos_event_down_for_maintenance
     public $preceeds;
     public $author = 'MyOOS Development Team';
     public $version = '1.0';
-    public $requirements = array(
-                         'oos'         => '1.5.0',
-                         'smarty'      => '2.6.9',
-                         'adodb'       => '4.62',
-                         'php'         => '5.9.0'
-    );
+    public $requirements = ['oos'         => '1.5.0', 'smarty'      => '2.6.9', 'adodb'       => '4.62', 'php'         => '5.9.0'];
 
 
     /**

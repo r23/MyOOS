@@ -101,11 +101,11 @@ class GoogleSitemap
             if ($gz = gzopen($filename, 'wb9')) {
                 gzwrite($gz, $data);
                 gzclose($gz);
-                $this->debug['SAVE_FILE_COMPRESS'][] = array('file' => $filename, 'status' => 'success', 'file_exists' => 'true');
+                $this->debug['SAVE_FILE_COMPRESS'][] = ['file' => $filename, 'status' => 'success', 'file_exists' => 'true'];
                 return true;
             } else {
                 $file_check = file_exists($filename) ? 'true' : 'false';
-                $this->debug['SAVE_FILE_COMPRESS'][] = array('file' => $filename, 'status' => 'failure', 'file_exists' => $file_check);
+                $this->debug['SAVE_FILE_COMPRESS'][] = ['file' => $filename, 'status' => 'failure', 'file_exists' => $file_check];
                 return false;
             }
             break;
@@ -115,11 +115,11 @@ class GoogleSitemap
             if ($fp = fopen($filename, 'w+')) {
                 fwrite($fp, $data);
                 fclose($fp);
-                $this->debug['SAVE_FILE_XML'][] = array('file' => $filename, 'status' => 'success', 'file_exists' => 'true');
+                $this->debug['SAVE_FILE_XML'][] = ['file' => $filename, 'status' => 'success', 'file_exists' => 'true'];
                 return true;
             } else {
                 $file_check = file_exists($filename) ? 'true' : 'false';
-                $this->debug['SAVE_FILE_XML'][] = array('file' => $filename, 'status' => 'failure', 'file_exists' => $file_check);
+                $this->debug['SAVE_FILE_XML'][] = ['file' => $filename, 'status' => 'failure', 'file_exists' => $file_check];
                 return false;
             }
             break;
@@ -242,10 +242,7 @@ class GoogleSitemap
                 $ratio = $top > 0 ? $result['products_ordered']/$top : 0;
                 $priority = $ratio < .1 ? .1 : number_format($ratio, 1, '.', '');
 
-                $container[] = array('loc' => htmlspecialchars((string)$location, ENT_QUOTES, 'UTF-8'),
-                                    'lastmod' => date("Y-m-d", strtotime($lastmod)),
-                                    'changefreq' => $changefreq,
-                                    'priority' => $priority);
+                $container[] = ['loc' => htmlspecialchars((string)$location, ENT_QUOTES, 'UTF-8'), 'lastmod' => date("Y-m-d", strtotime((string) $lastmod)), 'changefreq' => $changefreq, 'priority' => $priority];
                 if (sizeof($container) >= 50000) {
                     $type = $number == 0 ? 'products' : 'products' . $number;
                     $this->GenerateSitemap($container, $type);
@@ -296,10 +293,7 @@ class GoogleSitemap
                 $changefreq = GOOGLE_SITEMAP_CAT_CHANGE_FREQ;
                 $priority = .5;
 
-                $container[] = array('loc' => htmlspecialchars(utf8_encode((string)$location)),
-                                'lastmod' => date("Y-m-d", strtotime($lastmod)),
-                                'changefreq' => $changefreq,
-                                'priority' => $priority);
+                $container[] = ['loc' => htmlspecialchars(mb_convert_encoding((string)$location, 'UTF-8', 'ISO-8859-1')), 'lastmod' => date("Y-m-d", strtotime((string) $lastmod)), 'changefreq' => $changefreq, 'priority' => $priority];
                 if (sizeof($container) >= 50000) {
                     $type = $number == 0 ? 'categories' : 'categories' . $number;
                     $this->GenerateSitemap($container, $type);
@@ -328,9 +322,9 @@ class GoogleSitemap
      * @param  mixed $cID Could contain cPath or single category_id
      * @return string Full cPath string
      */
-    public function GetFullcPath($cID)
+    public function GetFullcPath(mixed $cID)
     {
-        if (preg_match('/_/', $cID)) {
+        if (preg_match('/_/', (string) $cID)) {
             return $cID;
         } else {
             $c = [];
@@ -349,7 +343,7 @@ class GoogleSitemap
      * @param mixed   $categories    Passed by reference
      * @param integer $categories_id
      */
-    public function GetParentCategories(&$categories, $categories_id)
+    public function GetParentCategories(mixed &$categories, $categories_id)
     {
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();

@@ -56,10 +56,7 @@ class ot_coupon
             if ($od_amount > 0) {
                 $this->calculate_tax_deduction_order($order_total, $od_amount);
                 $oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
-                $this->output[] = array('title' => '<span class="text-danger">' . $this->title . ' <strong>' . $this->coupon_code . '</strong>:</span>',
-                                        'text' => '<span class="text-danger"><strong>-' . $oCurrencies->format($od_amount) . '</strong></span>',
-                                        'info' => '',
-                                        'value' => $od_amount);
+                $this->output[] = ['title' => '<span class="text-danger">' . $this->title . ' <strong>' . $this->coupon_code . '</strong>:</span>', 'text' => '<span class="text-danger"><strong>-' . $oCurrencies->format($od_amount) . '</strong></span>', 'info' => '', 'value' => $od_amount];
             }
         }
     }
@@ -75,16 +72,13 @@ class ot_coupon
             $od_amount = $this->calculate_credit($total);
 
             if ($od_amount > 0) {
-                $currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
+                $currency_type = ($_SESSION['currency'] ?? DEFAULT_CURRENCY);
                 $currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
 
                 $this->calculate_tax_deduction($total, $od_amount);
                 $_SESSION['cart']->info['total'] = $_SESSION['cart']->info['total'] - $od_amount;
 
-                $this->output[] = array('title' => '<span class="text-danger">' . $this->title . ':</span>',
-                                'text' => '<span class="text-danger"><strong>-' .  $oCurrencies->format($od_amount, true, $currency_type, $currency_value) . '</strong></span>',
-                                'info' => '',
-                                'value' => $od_amount);
+                $this->output[] = ['title' => '<span class="text-danger">' . $this->title . ':</span>', 'text' => '<span class="text-danger"><strong>-' .  $oCurrencies->format($od_amount, true, $currency_type, $currency_value) . '</strong></span>', 'info' => '', 'value' => $od_amount];
             }
         }
     }
@@ -214,7 +208,7 @@ class ot_coupon
                 if ($coupon_result['coupon_minimum_order'] > $order_total) {
                     $missing = $coupon_result['coupon_minimum_order'] - $order_total;
 
-                    $currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
+                    $currency_type = ($_SESSION['currency'] ?? DEFAULT_CURRENCY);
                     $currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
 
                     $coupon_minimum_order =    $oCurrencies->format($coupon_result['coupon_minimum_order'], true, $currency, $currency_value);
@@ -324,7 +318,7 @@ class ot_coupon
                 if ($coupon_result['coupon_minimum_order'] > $total) {
                     $missing = $coupon_result['coupon_minimum_order'] - $total;
 
-                    $currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
+                    $currency_type = ($_SESSION['currency'] ?? DEFAULT_CURRENCY);
                     $currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
 
                     $coupon_minimum_order =    $oCurrencies->format($coupon_result['coupon_minimum_order'], true, $currency, $currency_value);
@@ -397,11 +391,11 @@ class ot_coupon
 
                     if ($coupon_result['restrict_to_products'] || $coupon_result['restrict_to_categories']) {
                         $products = $_SESSION['cart']->get_products();
-                        $n = count($products);
+                        $n = is_countable($products) ? count($products) : 0;
                         for ($i=0, $n; $i<$n; $i++) {
                             if ($coupon_result['restrict_to_products']) {
-                                $pr_ids = preg_split("/[,]/", $coupon_result['restrict_to_products']);
-                                for ($ii = 0; $ii < count($pr_ids); $ii++) {
+                                $pr_ids = preg_split("/[,]/", (string) $coupon_result['restrict_to_products']);
+                                for ($ii = 0; $ii < (is_countable($pr_ids) ? count($pr_ids) : 0); $ii++) {
                                     if ($pr_ids[$ii] == oos_get_product_id($products[$i]['id'])) {
                                         if ($coupon_result['coupon_type'] == 'P') {
                                             $pr_c = $products[$i]['final_price']*$products[$i]['quantity'];
@@ -412,14 +406,14 @@ class ot_coupon
                                     }
                                 }
                             } else {
-                                $cat_ids = preg_split("/[,]/", $coupon_result['restrict_to_categories']);
+                                $cat_ids = preg_split("/[,]/", (string) $coupon_result['restrict_to_categories']);
                                 $products = $_SESSION['cart']->get_products();
-                                $n = count($products);
+                                $n = is_countable($products) ? count($products) : 0;
                                 for ($i=0, $n; $i<$n; $i++) {
                                     $my_path = oos_get_product_path(oos_get_product_id($products[$i]['id']));
                                     $sub_cat_ids = preg_split("/[_]/", $my_path);
-                                    for ($iii = 0; $iii < count($sub_cat_ids); $iii++) {
-                                        for ($ii = 0; $ii < count($cat_ids); $ii++) {
+                                    for ($iii = 0; $iii < (is_countable($sub_cat_ids) ? count($sub_cat_ids) : 0); $iii++) {
+                                        for ($ii = 0; $ii < (is_countable($cat_ids) ? count($cat_ids) : 0); $ii++) {
                                             if ($sub_cat_ids[$iii] == $cat_ids[$ii]) {
                                                 if ($coupon_result['coupon_type'] == 'P') {
                                                     $pr_c = $products[$i]['final_price']*$products[$i]['qty'];
@@ -775,7 +769,7 @@ class ot_coupon
 
     public function keys()
     {
-        return array('MODULE_ORDER_TOTAL_COUPON_STATUS', 'MODULE_ORDER_TOTAL_COUPON_SORT_ORDER', 'MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING');
+        return ['MODULE_ORDER_TOTAL_COUPON_STATUS', 'MODULE_ORDER_TOTAL_COUPON_SORT_ORDER', 'MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING'];
     }
 
     public function install()

@@ -71,8 +71,7 @@ function oos_get_orders_status()
                           ORDER BY orders_status_id";
     $orders_status_result = $dbconn->Execute($orders_status_sql);
     while ($orders_status = $orders_status_result->fields) {
-        $orders_status_array[] = array('id' => $orders_status['orders_status_id'],
-                                   'text' => $orders_status['orders_status_name']);
+        $orders_status_array[] = ['id' => $orders_status['orders_status_id'], 'text' => $orders_status['orders_status_name']];
 
         // Move that ADOdb pointer!
         $orders_status_result->MoveNext();
@@ -91,10 +90,10 @@ if (!empty($action)) {
         $orders_status_id = oos_db_prepare_input($_GET['oID']);
 
         $languages = oos_get_languages();
-        for ($i = 0, $n = count($languages); $i < $n; $i++) {
+        for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
             $language_id = $languages[$i]['id'];
 
-            $sql_data_array = array('orders_status_name' => oos_db_prepare_input($_POST['orders_status_name'][$language_id]));
+            $sql_data_array = ['orders_status_name' => oos_db_prepare_input($_POST['orders_status_name'][$language_id])];
 
             if ($action == 'insert') {
                 if (!oos_is_not_null($orders_status_id)) {
@@ -103,10 +102,9 @@ if (!empty($action)) {
                     $orders_status_id = $next_id['orders_status_id'] + 1;
                 }
 
-                $insert_sql_data = array('orders_status_id' => $orders_status_id,
-                                     'orders_languages_id' => $language_id);
+                $insert_sql_data = ['orders_status_id' => $orders_status_id, 'orders_languages_id' => $language_id];
 
-                $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+                $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
                 oos_db_perform($oostable['orders_status'], $sql_data_array);
             } elseif ($action == 'save') {
@@ -228,7 +226,7 @@ if (!empty($action)) {
   $orders_status_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $orders_status_result_raw, $orders_status_result_numrows);
   $orders_status_result = $dbconn->Execute($orders_status_result_raw);
 while ($orders_status = $orders_status_result->fields) {
-    if ((!isset($_GET['oID']) || (isset($_GET['oID']) && ($_GET['oID'] == $orders_status['orders_status_id']))) && !isset($oInfo) && (substr($action, 0, 3) != 'new')) {
+    if ((!isset($_GET['oID']) || (isset($_GET['oID']) && ($_GET['oID'] == $orders_status['orders_status_id']))) && !isset($oInfo) && (!str_starts_with((string) $action, 'new'))) {
         $oInfo = new objectInfo($orders_status);
     }
 
@@ -279,68 +277,68 @@ if (empty($action)) {
 
   switch ($action) {
 case 'new':
-    $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_ORDERS_STATUS . '</b>');
+    $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_NEW_ORDERS_STATUS . '</b>'];
 
-    $contents = array('form' => oos_draw_form('id', 'status', $aContents['orders_status'], 'page=' . $nPage . '&action=insert', 'post', false));
-    $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
+    $contents = ['form' => oos_draw_form('id', 'status', $aContents['orders_status'], 'page=' . $nPage . '&action=insert', 'post', false)];
+    $contents[] = ['text' => TEXT_INFO_INSERT_INTRO];
 
     $orders_status_inputs_string = '';
     $languages = oos_get_languages();
-    for ($i = 0, $n = count($languages); $i < $n; $i++) {
+    for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
         $orders_status_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('orders_status_name[' . $languages[$i]['id'] . ']');
     }
 
-        $contents[] = array('text' => '<br>' . TEXT_INFO_ORDERS_STATUS_NAME . $orders_status_inputs_string);
-        $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
-        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders_status'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+        $contents[] = ['text' => '<br>' . TEXT_INFO_ORDERS_STATUS_NAME . $orders_status_inputs_string];
+        $contents[] = ['text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT];
+        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders_status'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
     break;
 
 case 'edit':
-    $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_ORDERS_STATUS . '</b>');
+    $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_EDIT_ORDERS_STATUS . '</b>'];
 
-    $contents = array('form' => oos_draw_form('id', 'status', $aContents['orders_status'], 'page=' . $nPage . '&oID=' . $oInfo->orders_status_id  . '&action=save', 'post', false));
-    $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
+    $contents = ['form' => oos_draw_form('id', 'status', $aContents['orders_status'], 'page=' . $nPage . '&oID=' . $oInfo->orders_status_id  . '&action=save', 'post', false)];
+    $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
 
     $orders_status_inputs_string = '';
     $languages = oos_get_languages();
-    for ($i = 0, $n = count($languages); $i < $n; $i++) {
+    for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
         $orders_status_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('orders_status_name[' . $languages[$i]['id'] . ']', oos_get_orders_status_name($oInfo->orders_status_id, $languages[$i]['id']));
     }
 
-        $contents[] = array('text' => '<br>' . TEXT_INFO_ORDERS_STATUS_NAME . $orders_status_inputs_string);
+        $contents[] = ['text' => '<br>' . TEXT_INFO_ORDERS_STATUS_NAME . $orders_status_inputs_string];
     if (DEFAULT_ORDERS_STATUS_ID != $oInfo->orders_status_id) {
-        $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
+        $contents[] = ['text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT];
     }
-        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders_status'], 'page=' . $nPage . '&oID=' . $oInfo->orders_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders_status'], 'page=' . $nPage . '&oID=' . $oInfo->orders_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
     break;
 
 case 'delete':
-    $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_ORDERS_STATUS . '</b>');
+    $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_ORDERS_STATUS . '</b>'];
 
-    $contents = array('form' => oos_draw_form('id', 'status', $aContents['orders_status'], 'page=' . $nPage . '&oID=' . $oInfo->orders_status_id  . '&action=deleteconfirm', 'post', false));
-    $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
-    $contents[] = array('text' => '<br><b>' . $oInfo->orders_status_name . '</b>');
+    $contents = ['form' => oos_draw_form('id', 'status', $aContents['orders_status'], 'page=' . $nPage . '&oID=' . $oInfo->orders_status_id  . '&action=deleteconfirm', 'post', false)];
+    $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
+    $contents[] = ['text' => '<br><b>' . $oInfo->orders_status_name . '</b>'];
     if ($remove_status) {
-        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders_status'], 'page=' . $nPage . '&oID=' . $oInfo->orders_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders_status'], 'page=' . $nPage . '&oID=' . $oInfo->orders_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
     }
 
     break;
 
 default:
     if (isset($oInfo) && is_object($oInfo)) {
-        $heading[] = array('text' => '<b>' . $oInfo->orders_status_name . '</b>');
+        $heading[] = ['text' => '<b>' . $oInfo->orders_status_name . '</b>'];
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['orders_status'], 'page=' . $nPage . '&oID=' . $oInfo->orders_status_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['orders_status'], 'page=' . $nPage . '&oID=' . $oInfo->orders_status_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
+        $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['orders_status'], 'page=' . $nPage . '&oID=' . $oInfo->orders_status_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['orders_status'], 'page=' . $nPage . '&oID=' . $oInfo->orders_status_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
 
         $orders_status_inputs_string = '';
         $languages = oos_get_languages();
-        for ($i = 0, $n = count($languages); $i < $n; $i++) {
+        for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
             $orders_status_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_get_orders_status_name($oInfo->orders_status_id, $languages[$i]['id']);
         }
 
-        $contents[] = array('text' => $orders_status_inputs_string);
+        $contents[] = ['text' => $orders_status_inputs_string];
     }
     break;
   }

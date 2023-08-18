@@ -75,11 +75,7 @@ class selfpickup
     {
         global $oOrder, $aLang,  $total_count;
 
-        $this->quotes = array('id' => $this->code,
-                          'module' => $aLang['module_shipping_selfpickup_text_title'],
-                          'methods' => array(array('id' => $this->code,
-                                                   'title' => $aLang['module_shipping_selfpickup_text_way'],
-                                                   'cost' => 0 )));
+        $this->quotes = ['id' => $this->code, 'module' => $aLang['module_shipping_selfpickup_text_title'], 'methods' => [['id' => $this->code, 'title' => $aLang['module_shipping_selfpickup_text_way'], 'cost' => 0]]];
 
 
 
@@ -129,6 +125,6 @@ class selfpickup
 
     public function keys()
     {
-        return array('MODULE_SHIPPING_SELFPICKUP_STATUS', 'MODULE_SHIPPING_SELFPICKUP_ZONE', 'MODULE_SHIPPING_SELFPICKUP_SORT_ORDER');
+        return ['MODULE_SHIPPING_SELFPICKUP_STATUS', 'MODULE_SHIPPING_SELFPICKUP_ZONE', 'MODULE_SHIPPING_SELFPICKUP_SORT_ORDER'];
     }
 }

@@ -66,7 +66,7 @@ if (isset($_SESSION)) {
             if ($cart_count_contents > 0) {
                 $products = $_SESSION['cart']->get_products();
 
-                $n = count($products);
+                $n = is_countable($products) ? count($products) : 0;
                 for ($i=0, $n; $i<$n; $i++) {
 
                     // Display marker if stock quantity insufficient
@@ -132,7 +132,7 @@ if (isset($_SESSION)) {
                 $aData['content'] .= '<div class="text-right"><button id="clear-cart" type="button" class="btn btn-link"><i class="fa fa-remove" aria-hidden="true"></i> ' . $aLang['text_clear_cart'] . '</button></div>' . "\n";
                 $aData['content'] .= '<div id="cart-item-refresh" class="cart-entries pt-3">' . "\n";
 
-                for ($i=0, $n=count($products); $i<$n; $i++) {
+                for ($i=0, $n=is_countable($products) ? count($products) : 0; $i<$n; $i++) {
                     $aData['content'] .= '<div class="media"><!-- cart item -->' . "\n";
                     $aData['content'] .= '  <div class="cart-entry-thumb mr-3"><a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $products[$i]['id']) . '">' . "\n";
                     $aData['content'] .= '    ' . oos_image($basedir . $products[$i]['image'], $products[$i]['name']) . "\n";
@@ -144,7 +144,7 @@ if (isset($_SESSION)) {
                     // Product options names
                     if (isset($products[$i]['attributes']) && is_array($products[$i]['attributes'])) {
                         reset($products[$i]['attributes']);
-                        while (list($option, $value) = each($products[$i]['attributes'])) {
+                        foreach ($products[$i]['attributes'] as $option => $value) {
                             $aData['content'] .= '<br /><small><i> - ' . $products[$i][$option]['products_options_name'] . ' ' . $products[$i][$option]['products_options_values_name'] . '</i></small>' . "\n";
                         }
                     }
@@ -212,4 +212,4 @@ if ($cart_count_contents == 0) {
 
 
 $aData['counter'] = $cart_count_contents;
-echo json_encode($aData);
+echo json_encode($aData, JSON_THROW_ON_ERROR);

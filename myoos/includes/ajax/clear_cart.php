@@ -28,7 +28,7 @@ if (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) {
     if (isset($_SESSION['cart']) && ($_SESSION['cart']->count_contents() > 0)) {
         $products = $_SESSION['cart']->get_products();
 
-        $n = count($products);
+        $n = is_countable($products) ? count($products) : 0;
         for ($i=0, $n; $i<$n; $i++) {
             $_SESSION['cart']->remove($products[$i]['id']);
         }
@@ -45,5 +45,5 @@ if (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) {
 					</div>
 					<a class="btn btn-primary fs-12 text-uppercase m-py-12 m-px-25" href="' . oos_href_link($aContents['home']) . '" role="button">' . $aLang['button_start_shopping'] . '</a>
 				</div>';
-    echo json_encode($contents);
+    echo json_encode($contents, JSON_THROW_ON_ERROR);
 }

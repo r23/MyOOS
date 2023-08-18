@@ -97,7 +97,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
     if (ACCOUNT_DOB == 'true') {
         if ((strlen($dob ?? '') < ENTRY_DOB_MIN_LENGTH) || (!empty($dob)
             && (!is_numeric(oos_date_raw($dob))
-            || !checkdate(substr(oos_date_raw($dob), 4, 2), substr(oos_date_raw($dob), 6, 2), substr(oos_date_raw($dob), 0, 4))))
+            || !checkdate(substr((string) oos_date_raw($dob), 4, 2), substr((string) oos_date_raw($dob), 6, 2), substr((string) oos_date_raw($dob), 0, 4))))
         ) {
             $bError = true;
             $oMessage->add('danger', $aLang['entry_date_of_birth_error']);
@@ -136,10 +136,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
     if ($bError == false) {
         $new_encrypted_password = oos_encrypt_password($password);
 
-        $sql_data_array = array('customers_firstname' => $firstname,
-                            'customers_lastname' => $lastname,
-                            'customers_email_address' => $email_address,
-                            'customers_password' => $new_encrypted_password);
+        $sql_data_array = ['customers_firstname' => $firstname, 'customers_lastname' => $lastname, 'customers_email_address' => $email_address, 'customers_password' => $new_encrypted_password];
 
         if (ACCOUNT_GENDER == 'true') {
             $sql_data_array['customers_gender'] = $gender;
@@ -153,8 +150,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
 
         oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($_SESSION['customer_id']) . "'");
 
-        $sql_data_array = array('entry_firstname' => $firstname,
-                                'entry_lastname' => $lastname);
+        $sql_data_array = ['entry_firstname' => $firstname, 'entry_lastname' => $lastname];
 
         if (ACCOUNT_GENDER == 'true') {
             $sql_data_array['entry_gender'] = $gender;
@@ -273,18 +269,7 @@ if (!isset($option)) {
 
 // assign Smarty variables;
 $smarty->assign(
-    array(
-        'breadcrumb'            => $oBreadcrumb->trail(),
-        'heading_title'            => $aLang['heading_title'],
-        'account_active'        => 1,
-        'robots'                => 'noindex,follow,noodp,noydir',
-
-        'account'              => $account,
-        'gender'               => $gender,
-        'oos_get_country_name' => $sCountryName,
-        'text_2fa_status'      => $text_2fa_status,
-        'newsletter'           => $newsletter
-    )
+    ['breadcrumb'            => $oBreadcrumb->trail(), 'heading_title'            => $aLang['heading_title'], 'account_active'        => 1, 'robots'                => 'noindex,follow,noodp,noydir', 'account'              => $account, 'gender'               => $gender, 'oos_get_country_name' => $sCountryName, 'text_2fa_status'      => $text_2fa_status, 'newsletter'           => $newsletter]
 );
 
 // register the outputfilter
