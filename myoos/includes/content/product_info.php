@@ -473,7 +473,7 @@ if (!$product_info_result->RecordCount()) {
         ob_end_clean();
 		$chart = true;
         $smarty->assign('chart', $chart);
-
+/*
 		$aPriceAlert = [];
 		$five = $calculate_price - ($calculate_price / 100) * 5;
 		$aPriceAlert['five'] = $oCurrencies->display_price($five, oos_get_tax_rate($product_info['products_tax_class_id']));
@@ -485,6 +485,7 @@ if (!$product_info_result->RecordCount()) {
 		$aPriceAlert['fifteen'] = $oCurrencies->display_price($fifteen, oos_get_tax_rate($product_info['products_tax_class_id']));
 
 		$smarty->assign('pricealert', $aPriceAlert);
+*/
     }
 
 
