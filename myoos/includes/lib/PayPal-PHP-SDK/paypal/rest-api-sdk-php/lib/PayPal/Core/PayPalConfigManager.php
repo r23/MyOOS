@@ -131,8 +131,8 @@ class PayPalConfigManager
             return array_unique($arr);
         } else {
             $iniPrefix = array_search($userId, $this->configs);
-            $pos = strpos($iniPrefix, '.');
-            $acct = substr($iniPrefix, 0, $pos);
+            $pos = strpos((string) $iniPrefix, '.');
+            $acct = substr((string) $iniPrefix, 0, $pos);
 
             return $acct;
         }

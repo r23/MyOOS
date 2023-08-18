@@ -220,7 +220,7 @@ if ($action == 'new' || $action == 'edit') {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
                             <div class="col-lg-9">
-                                <?php echo oos_draw_input_field('information_name[' . $aLanguages[$i]['id'] . ']', ((isset($information_name[$aLanguages[$i]['id']])) ? stripslashes((string) $information_name[$aLanguages[$i]['id']]) : oos_get_informations_name($iInfo->information_id, $aLanguages[$i]['id'])), '', false, 'text', true, false); ?>
+                                <?php echo oos_draw_input_field('information_name[' . $aLanguages[$i]['id'] . ']', ((isset($information_name[$aLanguages[$i]['id']])) ? stripslashes((string) $information_name[$aLanguages[$i]['id']]) : oos_get_informations_name($iInfo->information_id, $aLanguages[$i]['id'])), '', false, 'text'); ?>
                             </div>
                         </div>
                     </fieldset>
@@ -274,25 +274,25 @@ if ($action == 'new' || $action == 'edit') {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label">ID:</label>
-                              <div class="col-lg-10"><?php echo oos_draw_input_field('information_id', $iInfo->information_id, '', false, 'text', true, true, ''); ?></div>
+                              <div class="col-lg-10"><?php echo oos_draw_input_field('information_id', $iInfo->information_id, '', false, 'text'); ?></div>
                            </div>
                         </fieldset>
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_STATUS; ?></label>
-                              <div class="col-lg-10"><?php echo oos_draw_input_field('status', 1, '', false, 'text', true, true, ''); ?></div>
+                              <div class="col-lg-10"><?php echo oos_draw_input_field('status', 1, '', false, 'text'); ?></div>
                            </div>
                         </fieldset>
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_DATE_ADDED; ?></label>
-                              <div class="col-lg-10"><?php echo oos_draw_input_field('date_added', oos_date_short($iInfo->date_added), '', false, 'text', true, true, ''); ?></div>
+                              <div class="col-lg-10"><?php echo oos_draw_input_field('date_added', oos_date_short($iInfo->date_added), '', false, 'text'); ?></div>
                            </div>
                         </fieldset>
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_LAST_MODIFIED; ?></label>
-                              <div class="col-lg-10"><?php echo oos_draw_input_field('last_modified', oos_date_short($iInfo->last_modified), '', false, 'text', true, true, ''); ?></div>
+                              <div class="col-lg-10"><?php echo oos_draw_input_field('last_modified', oos_date_short($iInfo->last_modified), '', false, 'text'); ?></div>
                            </div>
                         </fieldset>                                        
                      </div>
@@ -371,9 +371,9 @@ if ($action == 'new' || $action == 'edit') {
                 <td>
         <?php
         if ($information['status'] == '1') {
-            echo '<a href="' . oos_href_link_admin($aContents['information'], 'action=setflag&flag=0&iID=' . $information['information_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+            echo '<a href="' . oos_href_link_admin($aContents['information'], 'action=setflag&flag=0&iID=' . $information['information_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10) . '</a>';
         } else {
-            echo '<a href="' . oos_href_link_admin($aContents['information'], 'action=setflag&flag=1&iID=' . $information['information_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+            echo '<a href="' . oos_href_link_admin($aContents['information'], 'action=setflag&flag=1&iID=' . $information['information_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10) . '</a>';
         } ?></td>
                 <td><?php echo $information['sort_order']; ?></td>
                 <td class="text-right"><?php if (isset($iInfo) && is_object($iInfo) && ($information['information_id'] == $iInfo->information_id)) {

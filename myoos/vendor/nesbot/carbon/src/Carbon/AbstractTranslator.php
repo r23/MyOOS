@@ -81,9 +81,11 @@ abstract class AbstractTranslator extends Translation\Translator
     public function __construct($locale, MessageFormatterInterface $formatter = null, $cacheDir = null, $debug = false)
     {
         parent::setLocale($locale);
+        $this->initializing = true;
         $this->directories = [__DIR__.'/Lang'];
         $this->addLoader('array', new ArrayLoader());
         parent::__construct($locale, new MessageFormatterMapper($formatter), $cacheDir, $debug);
+        $this->initializing = false;
     }
 
     /**

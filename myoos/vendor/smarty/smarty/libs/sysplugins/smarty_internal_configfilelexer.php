@@ -47,7 +47,7 @@ class Smarty_Internal_Configfilelexer
      *
      * @var int
      */
-    public $counter = 0;
+    public $counter;
 
     /**
      * token number
@@ -160,6 +160,7 @@ class Smarty_Internal_Configfilelexer
     {
         $this->data = $data . "\n"; //now all lines are \n-terminated
         $this->dataLength = strlen($data);
+        $this->counter = 0;
         if (preg_match('/^\xEF\xBB\xBF/', $this->data, $match)) {
             $this->counter += strlen($match[ 0 ]);
         }

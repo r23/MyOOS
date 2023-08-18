@@ -268,7 +268,7 @@ if (!function_exists('dosql')) {
         $dict = NewDataDictionary($db);
 
         // $dict->debug = 1;
-        $taboptarray = array('mysql' => 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;', 'REPLACE');
+        $taboptarray = ['mysql' => 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;', 'REPLACE'];
 
         $sqlarray = $dict->createTableSQL($table, $flds, $taboptarray);
         $dict->executeSqlArray($sqlarray);

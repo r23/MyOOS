@@ -11,10 +11,10 @@ class StripeObject implements \ArrayAccess, \Countable, \JsonSerializable
     protected $_opts;
 
     /** @var array */
-    protected $_originalValues = [];
+    protected $_originalValues;
 
     /** @var array */
-    protected $_values = [];
+    protected $_values;
 
     /** @var Util\Set */
     protected $_unsavedValues;
@@ -117,6 +117,8 @@ class StripeObject implements \ArrayAccess, \Countable, \JsonSerializable
     {
         list($id, $this->_retrieveOptions) = Util\Util::normalizeId($id);
         $this->_opts = Util\RequestOptions::parse($opts);
+        $this->_originalValues = [];
+        $this->_values = [];
         $this->_unsavedValues = new Util\Set();
         $this->_transientValues = new Util\Set();
         if (null !== $id) {

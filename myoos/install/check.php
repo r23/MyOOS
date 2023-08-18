@@ -51,13 +51,13 @@ function oosCheckPHP()
 {
     global $currentlang;
 
-    $oos_root     = dirname($_SERVER['PHP_SELF']) . '/';
+    $oos_root     = dirname((string) $_SERVER['PHP_SELF']) . '/';
     $oos_root     = str_replace('/install/', '/', $oos_root);
     $oos_core     = oos_httpCoreDir();
-    $oos_core     = str_replace('/install/', '/', $oos_core);
+    $oos_core     = str_replace('/install/', '/', (string) $oos_core);
     $old_htaccess = @file_get_contents($oos_core . '.htaccess');
     $fp           = @fopen($oos_core . '.htaccess', 'w');
-    $oos_host     = preg_replace('@^([^:]+):?.*$@', '\1', $_SERVER['HTTP_HOST']);
+    $oos_host     = preg_replace('@^([^:]+):?.*$@', '\1', (string) $_SERVER['HTTP_HOST']);
 
 
     echo '<font class="oos-title">' . PHP_CHECK_1 . '</font><br />';
@@ -221,7 +221,7 @@ function oosCheckPHP()
         //$check_php = false;
         ?>
     <font color="red" style="bold"><b>
-        <?php
+<?php
     }
     echo oosGetPHPSetting('session.auto_start'); ?>
   </b></font></td>

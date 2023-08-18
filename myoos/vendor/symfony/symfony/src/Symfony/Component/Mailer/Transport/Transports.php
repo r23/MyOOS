@@ -23,7 +23,7 @@ use Symfony\Component\Mime\RawMessage;
  */
 final class Transports implements TransportInterface
 {
-    private $transports = [];
+    private $transports;
     private $default;
 
     /**
@@ -31,6 +31,7 @@ final class Transports implements TransportInterface
      */
     public function __construct(iterable $transports)
     {
+        $this->transports = [];
         foreach ($transports as $name => $transport) {
             if (null === $this->default) {
                 $this->default = $transport;

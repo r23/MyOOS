@@ -373,7 +373,7 @@ if ($action == 'edit_3d') {
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_MODEL; ?></label>
                               <div class="col-lg-10">
-                <?php echo oos_draw_input_field('models_webgl_gltf['. $nCounter . ']', $models['models_webgl_gltf'], '', false, 'text', true, true); ?>
+                <?php echo oos_draw_input_field('models_webgl_gltf['. $nCounter . ']', $models['models_webgl_gltf'], '', false, 'text'); ?>
                 <?php echo oos_draw_hidden_field('models_webgl_gltf['. $nCounter . ']', $models['models_webgl_gltf']); ?>
                               </div>
                            </div>

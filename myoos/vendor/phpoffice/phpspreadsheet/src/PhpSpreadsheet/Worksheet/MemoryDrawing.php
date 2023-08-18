@@ -38,14 +38,14 @@ class MemoryDrawing extends BaseDrawing
      *
      * @var string
      */
-    private $renderingFunction = self::RENDERING_DEFAULT;
+    private $renderingFunction;
 
     /**
      * Mime type.
      *
      * @var string
      */
-    private $mimeType = self::MIMETYPE_DEFAULT;
+    private $mimeType;
 
     /**
      * Unique name.
@@ -55,14 +55,18 @@ class MemoryDrawing extends BaseDrawing
     private $uniqueName;
 
     /** @var null|resource */
-    private $alwaysNull = null;
+    private $alwaysNull;
 
     /**
      * Create a new MemoryDrawing.
      */
     public function __construct()
     {
+        // Initialise values
+        $this->renderingFunction = self::RENDERING_DEFAULT;
+        $this->mimeType = self::MIMETYPE_DEFAULT;
         $this->uniqueName = md5(mt_rand(0, 9999) . time() . mt_rand(0, 9999));
+        $this->alwaysNull = null;
 
         // Initialize parent
         parent::__construct();

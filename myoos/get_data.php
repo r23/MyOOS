@@ -40,7 +40,7 @@ use Symfony\Component\HttpFoundation\Request;
 $autoloader = include_once __DIR__ . '/vendor/autoload.php';
 $request = Request::createFromGlobals();
 
-define('MYOOS_INCLUDE_PATH', dirname(__FILE__)=='/' ? '' : dirname(__FILE__));
+define('MYOOS_INCLUDE_PATH', __DIR__=='/' ? '' : __DIR__);
 define('OOS_VALID_MOD', true);
 
 // Ajax request

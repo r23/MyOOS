@@ -42,7 +42,7 @@ abstract class JpGraphRendererBase implements IRenderer
 
     private $chart;
 
-    private $graph = null;
+    private $graph;
 
     private static $plotColour = 0;
 
@@ -54,6 +54,7 @@ abstract class JpGraphRendererBase implements IRenderer
     public function __construct(Chart $chart)
     {
         static::init();
+        $this->graph = null;
         $this->chart = $chart;
 
         self::$markSet = [

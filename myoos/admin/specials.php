@@ -420,7 +420,7 @@ function updateNet() {
                         <div class="form-group row mb-2">
                            <label class="col-md-2 col-form-label" for="input-id-1"><?php echo TEXT_SPECIALS_CROSS_OUT_PRICE; ?></label>
                            <div class="col-md-10">
-                              <?php echo oos_draw_input_field('cross_out_price', $cross_out_price, '', false, 'text', true, true); ?> 
+                              <?php echo oos_draw_input_field('cross_out_price', $cross_out_price, '', false, 'text'); ?> 
                            </div>
                         </div>
                      </fieldset>

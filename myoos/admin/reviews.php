@@ -137,7 +137,7 @@ $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default'
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="main" valign="top"><b><?php echo ENTRY_PRODUCT; ?></b> <?php echo $rInfo->products_name; ?><br><b><?php echo ENTRY_FROM; ?></b> <?php echo $rInfo->customers_name; ?><br><br><b><?php echo ENTRY_DATE; ?></b> <?php echo oos_date_short($rInfo->date_added); ?></td>
-            <td class="main" align="right" valign="top"><?php echo oos_image(OOS_HTTPS_SERVER . OOS_IMAGES . $rInfo->products_image, $rInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"'); ?></td>
+            <td class="main" align="right" valign="top"><?php echo oos_image(OOS_HTTPS_SERVER . OOS_IMAGES . $rInfo->products_image, $rInfo->products_name, SMALL_IMAGE_WIDTH); ?></td>
           </tr>
           <tr>
             <td class="main" colspan="2"><strong><?php echo TEXT_INFO_REVIEW_STATUS; ?></strong> <?php echo oos_draw_checkbox_field('reviews_status', '1', $in_status); ?></td>
@@ -198,7 +198,7 @@ $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default'
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="main" valign="top"><b><?php echo ENTRY_PRODUCT; ?></b> <?php echo $rInfo->products_name; ?><br><b><?php echo ENTRY_FROM; ?></b> <?php echo $rInfo->customers_name; ?><br><br><b><?php echo ENTRY_DATE; ?></b> <?php echo oos_date_short($rInfo->date_added); ?></td>
-            <td class="main" align="right" valign="top"><?php echo oos_image(OOS_HTTPS_SERVER . OOS_IMAGES . $rInfo->products_image, $rInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"'); ?></td>
+            <td class="main" align="right" valign="top"><?php echo oos_image(OOS_HTTPS_SERVER . OOS_IMAGES . $rInfo->products_image, $rInfo->products_name, SMALL_IMAGE_WIDTH); ?></td>
           </tr>
         </table>
       </tr>

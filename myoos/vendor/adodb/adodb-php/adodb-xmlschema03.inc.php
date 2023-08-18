@@ -1336,7 +1336,7 @@ class adoSchema {
 	 * @var array	Array containing SQL queries to generate all objects
 	 * @access private
 	 */
-	var $sqlArray = array();
+	var $sqlArray;
 
 	/**
 	 * @var object	ADOdb connection object
@@ -1384,7 +1384,7 @@ class adoSchema {
 	 * @var string Current schema version
 	 * @access private
 	 */
-	var $schemaVersion = XMLS_SCHEMA_VERSION;
+	var $schemaVersion;
 
 	/**
 	 * @var int	Success of last Schema execution
@@ -1422,6 +1422,8 @@ class adoSchema {
 		$this->db = $db;
 		$this->debug = $this->db->debug;
 		$this->dict = newDataDictionary( $this->db );
+		$this->sqlArray = array();
+		$this->schemaVersion = XMLS_SCHEMA_VERSION;
 		$this->executeInline( XMLS_EXECUTE_INLINE );
 		$this->continueOnError( XMLS_CONTINUE_ON_ERROR );
 		$this->existingData( XMLS_EXISTING_DATA );

@@ -13,13 +13,16 @@ class RichText implements IComparable
      *
      * @var ITextElement[]
      */
-    private $richTextElements = [];
+    private $richTextElements;
 
     /**
      * Create a new RichText instance.
      */
     public function __construct(?Cell $cell = null)
     {
+        // Initialise variables
+        $this->richTextElements = [];
+
         // Rich-Text string attached to cell?
         if ($cell !== null) {
             // Add cell text and style

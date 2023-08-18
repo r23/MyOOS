@@ -333,7 +333,7 @@ if ($action == 'edit_3d') {
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_GLB; ?></label>
                               <div class="col-lg-10">
-                <?php echo oos_draw_input_field('model_viewer_glb['. $nCounter . ']', $models['model_viewer_glb'], '', false, 'text', true, true); ?>
+                <?php echo oos_draw_input_field('model_viewer_glb['. $nCounter . ']', $models['model_viewer_glb'], '', false, 'text'); ?>
                 <?php echo oos_draw_hidden_field('model_viewer_glb['. $nCounter . ']', $models['model_viewer_glb']); ?>
                               </div>
                            </div>
@@ -343,7 +343,7 @@ if ($action == 'edit_3d') {
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_USDZ; ?></label>
                               <div class="col-lg-10">
-                <?php echo oos_draw_input_field('model_viewer_usdz['. $nCounter . ']', $models['model_viewer_usdz'], '', false, 'text', true, true); ?>
+                <?php echo oos_draw_input_field('model_viewer_usdz['. $nCounter . ']', $models['model_viewer_usdz'], '', false, 'text'); ?>
                 <?php echo oos_draw_hidden_field('model_viewer_usdz['. $nCounter . ']', $models['model_viewer_usdz']); ?>
                               </div>
                            </div>

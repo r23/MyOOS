@@ -19,18 +19,19 @@ namespace Symfony\Component\Config\Definition\Builder;
 class NodeBuilder implements NodeParentInterface
 {
     protected $parent;
-    protected $nodeMapping = [
-        'variable' => VariableNodeDefinition::class,
-        'scalar' => ScalarNodeDefinition::class,
-        'boolean' => BooleanNodeDefinition::class,
-        'integer' => IntegerNodeDefinition::class,
-        'float' => FloatNodeDefinition::class,
-        'array' => ArrayNodeDefinition::class,
-        'enum' => EnumNodeDefinition::class,
-    ];
+    protected $nodeMapping;
 
     public function __construct()
     {
+        $this->nodeMapping = [
+            'variable' => VariableNodeDefinition::class,
+            'scalar' => ScalarNodeDefinition::class,
+            'boolean' => BooleanNodeDefinition::class,
+            'integer' => IntegerNodeDefinition::class,
+            'float' => FloatNodeDefinition::class,
+            'array' => ArrayNodeDefinition::class,
+            'enum' => EnumNodeDefinition::class,
+        ];
     }
 
     /**

@@ -15,13 +15,14 @@ namespace ApiPlatform\Metadata;
 
 final class Operations implements \IteratorAggregate, \Countable
 {
-    private $operations = [];
+    private $operations;
 
     /**
      * @param array<string|int, Operation> $operations
      */
     public function __construct(array $operations = [])
     {
+        $this->operations = [];
         foreach ($operations as $operationName => $operation) {
             // When we use an int-indexed array in the constructor, compute priorities
             if (\is_int($operationName)) {

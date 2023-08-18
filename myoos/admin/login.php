@@ -109,7 +109,7 @@ if (isset($login) && $login == 'fail') {
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="mdi mdi-account"></i></span>
                             </div>
-                            <?php echo oos_draw_input_field('email_address', '', '', true, 'text', true, false, PLACEHOLDER_EMAIL_ADDRESS); ?>                            
+                            <?php echo oos_draw_input_field('email_address', '', '', true, 'text'); ?>                            
                         </div>
                     </div>
 
@@ -118,7 +118,7 @@ if (isset($login) && $login == 'fail') {
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="mdi mdi-radar"></i></span>
                             </div>
-                            <?php echo oos_draw_input_field('password', '', '', true, 'password', false, false, PLACEHOLDER_PASSWORD); ?>        
+                            <?php echo oos_draw_input_field('password', '', '', true, 'password'); ?>        
                         </div>
                     </div>
 

@@ -22,7 +22,7 @@ class Shadow implements IComparable
      *
      * @var bool
      */
-    private $visible = false;
+    private $visible;
 
     /**
      * Blur radius.
@@ -31,7 +31,7 @@ class Shadow implements IComparable
      *
      * @var int
      */
-    private $blurRadius = 6;
+    private $blurRadius;
 
     /**
      * Shadow distance.
@@ -40,21 +40,21 @@ class Shadow implements IComparable
      *
      * @var int
      */
-    private $distance = 2;
+    private $distance;
 
     /**
      * Shadow direction (in degrees).
      *
      * @var int
      */
-    private $direction = 0;
+    private $direction;
 
     /**
      * Shadow alignment.
      *
      * @var string
      */
-    private $alignment = self::SHADOW_BOTTOM_RIGHT;
+    private $alignment;
 
     /**
      * Color.
@@ -68,14 +68,21 @@ class Shadow implements IComparable
      *
      * @var int
      */
-    private $alpha = 50;
+    private $alpha;
 
     /**
      * Create a new Shadow.
      */
     public function __construct()
     {
+        // Initialise values
+        $this->visible = false;
+        $this->blurRadius = 6;
+        $this->distance = 2;
+        $this->direction = 0;
+        $this->alignment = self::SHADOW_BOTTOM_RIGHT;
         $this->color = new Color(Color::COLOR_BLACK);
+        $this->alpha = 50;
     }
 
     /**

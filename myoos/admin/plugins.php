@@ -267,12 +267,12 @@
 <?php
    if (in_array($sInstance, $installed)) {
        if ($oPlugin->uninstallable) {
-           echo '<a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $sInstance . '&action=remove') . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+           echo '<a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $sInstance . '&action=remove') . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10) . '</a>';
        } else {
-           echo oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10);
+           echo oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10);
        }
    } else {
-       echo '<a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $sInstance . '&action=install') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+       echo '<a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $sInstance . '&action=install') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10) . '</a>';
    } ?></td>
                 <td class="text-right"><?php if (isset($pInfo) && is_object($pInfo) && ($sInstance == $pInfo->instance)) {
        echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></button>';
@@ -302,7 +302,7 @@
           if ($value['set_function']) {
               eval('$keys .= ' . $value['set_function'] . "'" . $value['value'] . "', '" . $key . "');");
           } else {
-			$keys .= oos_draw_input_field('configuration[' . $key . ']', $value['value'], '', false, 'text', true, false, '', $key);
+			$keys .= oos_draw_input_field('configuration[' . $key . ']', $value['value'], '', false, 'text');
           }
           $keys .= '<br><br>';
       }

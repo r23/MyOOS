@@ -409,7 +409,7 @@ require 'includes/header.php';
 
             echo '            <td colspan="7" valign="top">' .
                           oos_draw_form('id', 'serial_form', $aContents['orders'], 'action=update_serial&oID=' . $oID . '&serial=' . $order->products[$i]['id'], 'post', false) .
-                          oos_draw_input_field('serial_number', $serial_number, '', false, 'text', true) . '&nbsp;&nbsp;' . oos_submit_button(BUTTON_UPDATE) . '</td>' . "\n" .
+                          oos_draw_input_field('serial_number', $serial_number, '', false, 'text') . '&nbsp;&nbsp;' . oos_submit_button(BUTTON_UPDATE) . '</td>' . "\n" .
              '          </tr>' . "\n";
         }
     } ?>

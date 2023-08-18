@@ -56,7 +56,7 @@ function modify_file($src, $reg_src, $reg_rep)
     $lines = 0; // Keep track of the number of lines changed
 
     foreach ($file_buff1 as $bline_num => $buffer) {
-        $new = preg_replace($reg_src, $reg_rep, $buffer);
+        $new = preg_replace($reg_src, (string) $reg_rep, $buffer);
         if ($new != $buffer) {
             $lines++;
         }
@@ -138,15 +138,15 @@ function oosUpdateConfigShop($db_prefs = false)
 
     add_src_rep("OOS_DB_TYPE", $dbtype);
     add_src_rep("OOS_DB_SERVER", $dbhost);
-    add_src_rep("OOS_DB_USERNAME", base64_encode($dbuname));
-    add_src_rep("OOS_DB_PASSWORD", base64_encode($dbpass));
+    add_src_rep("OOS_DB_USERNAME", base64_encode((string) $dbuname));
+    add_src_rep("OOS_DB_PASSWORD", base64_encode((string) $dbpass));
     add_src_rep("OOS_DB_DATABASE", $dbname);
     add_src_rep("OOS_DB_PREFIX", $prefix_table);
     add_src_rep("OOS_ENCODED", '1');
 
     $ret = modify_file("../includes/configure.php", $reg_src, $reg_rep);
 
-    if (preg_match("/Error/", $ret)) {
+    if (preg_match("/Error/", (string) $ret)) {
         show_error_shop_info();
     }
 }

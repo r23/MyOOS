@@ -11,7 +11,7 @@ class Font
      *
      * @var int
      */
-    private $colorIndex = 0x7FFF;
+    private $colorIndex;
 
     /**
      * Font.
@@ -25,6 +25,7 @@ class Font
      */
     public function __construct(\PhpOffice\PhpSpreadsheet\Style\Font $font)
     {
+        $this->colorIndex = 0x7FFF;
         $this->font = $font;
     }
 

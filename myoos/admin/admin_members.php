@@ -291,7 +291,7 @@ if (isset($_GET['gPath']) && ($_GET['gPath'])) {
             $checked = false;
         } ?>
               <tr>
-                <td width="23"><?php echo oos_draw_checkbox_field('groups_to_boxes[]', $group_boxes['admin_boxes_id'], $checked, '', 'id="groups_' . $group_boxes['admin_boxes_id'] . '" onClick="checkGroups(this)"'); ?></td>
+                <td width="23"><?php echo oos_draw_checkbox_field('groups_to_boxes[]', $group_boxes['admin_boxes_id'], $checked, ''); ?></td>
                 <td><b><?php echo ucwords(substr_replace((string) $group_boxes['admin_boxes_name'], '', -4)) . ' ' . oos_draw_hidden_field('checked_' . $group_boxes['admin_boxes_id'], $checkedBox) . oos_draw_hidden_field('unchecked_' . $group_boxes['admin_boxes_id'], $uncheckedBox); ?></b></td>
               </tr>
               <tr class="dataTableRow">
@@ -319,7 +319,7 @@ if (isset($_GET['gPath']) && ($_GET['gPath'])) {
                 $checked = false;
             } ?>
                     <tr>
-                      <td width="20"><?php echo oos_draw_checkbox_field('groups_to_boxes[]', $group_boxes_files['admin_files_id'], $checked, '', 'id="subgroups_' . $group_boxes['admin_boxes_id'] . '" onClick="checkSub(this)"'); ?></td>
+                      <td width="20"><?php echo oos_draw_checkbox_field('groups_to_boxes[]', $group_boxes_files['admin_files_id'], $checked, ''); ?></td>
                       <td><?php echo $group_boxes_files['admin_files_name'] . ' ' . oos_draw_hidden_field('checked_' . $group_boxes_files['admin_files_id'], $checkedBox) . oos_draw_hidden_field('unchecked_' . $group_boxes_files['admin_files_id'], $uncheckedBox); ?></td>
                     </tr>
             <?php

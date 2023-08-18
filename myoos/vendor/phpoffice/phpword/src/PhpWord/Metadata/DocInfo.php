@@ -35,7 +35,7 @@ class DocInfo
      *
      * @var string
      */
-    private $creator = '';
+    private $creator;
 
     /**
      * LastModifiedBy
@@ -63,49 +63,49 @@ class DocInfo
      *
      * @var string
      */
-    private $title = '';
+    private $title;
 
     /**
      * Description
      *
      * @var string
      */
-    private $description = '';
+    private $description;
 
     /**
      * Subject
      *
      * @var string
      */
-    private $subject = '';
+    private $subject;
 
     /**
      * Keywords
      *
      * @var string
      */
-    private $keywords = '';
+    private $keywords;
 
     /**
      * Category
      *
      * @var string
      */
-    private $category = '';
+    private $category;
 
     /**
      * Company
      *
      * @var string
      */
-    private $company = '';
+    private $company;
 
     /**
      * Manager
      *
      * @var string
      */
-    private $manager = '';
+    private $manager;
 
     /**
      * Custom Properties
@@ -119,9 +119,17 @@ class DocInfo
      */
     public function __construct()
     {
+        $this->creator = '';
         $this->lastModifiedBy = $this->creator;
         $this->created = time();
         $this->modified = time();
+        $this->title = '';
+        $this->subject = '';
+        $this->description = '';
+        $this->keywords = '';
+        $this->category = '';
+        $this->company = '';
+        $this->manager = '';
     }
 
     /**

@@ -128,7 +128,7 @@ function oos_image($src, $alt = '', $width = '', $height = '', $params = '')
 function product_info_image($image, $alt, $type = 'medium', $width = '', $height = '')
 {
     if (($image) && (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/' .  $type . '/' . $image))) {
-        $image = oos_image(OOS_SHOP_IMAGES . 'product/' .  $type . '/' . $image, $alt, $width, $height);
+        $image = oos_image(OOS_SHOP_IMAGES . 'product/' .  $type . '/' . $image, $alt, $width);
     } else {
         $image = TEXT_IMAGE_NONEXISTENT;
     }
@@ -140,7 +140,7 @@ function product_info_image($image, $alt, $type = 'medium', $width = '', $height
 function oos_info_image($image, $alt, $width = '', $height = '')
 {
     if (($image) && (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . $image))) {
-        $image = oos_image(OOS_SHOP_IMAGES . $image, $alt, $width, $height);
+        $image = oos_image(OOS_SHOP_IMAGES . $image, $alt, $width);
     } else {
         $image = TEXT_IMAGE_NONEXISTENT;
     }
@@ -154,7 +154,7 @@ function oos_info_image($image, $alt, $width = '', $height = '')
   */
 function oos_black_line()
 {
-    return oos_image(OOS_IMAGES . 'pixel_black.gif', '', '100%', '1');
+    return oos_image(OOS_IMAGES . 'pixel_black.gif', '', '100%');
 }
 
 
@@ -379,7 +379,7 @@ function oos_draw_input_field($name, $value = '', $parameters = '', $required = 
   */
 function oos_draw_password_field($name, $value = '', $parameters = 'maxlength="40"', $required = false)
 {
-    $field = oos_draw_input_field($name, $value, $parameters, $required, 'password', false);
+    $field = oos_draw_input_field($name, $value, $parameters, $required, 'password');
 
     return $field;
 }

@@ -964,7 +964,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
                             <div class="col-lg-9">
-                                <?php echo oos_draw_input_field('categories_name[' . $aLanguages[$i]['id'] . ']', (empty($cInfo->categories_id) ? '' : oos_get_category_name($cInfo->categories_id, $aLanguages[$i]['id'])), '', false, 'text', true, false, ''); ?>
+                                <?php echo oos_draw_input_field('categories_name[' . $aLanguages[$i]['id'] . ']', (empty($cInfo->categories_id) ? '' : oos_get_category_name($cInfo->categories_id, $aLanguages[$i]['id'])), '', false, 'text'); ?>
                             </div>
                         </div>
                     </fieldset>
@@ -981,7 +981,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
                             <div class="col-lg-9">
-                                <?php echo oos_draw_input_field('categories_page_title[' . $aLanguages[$i]['id'] . ']', (empty($cInfo->categories_id) ? '' : oos_get_categories_page_title($cInfo->categories_id, $aLanguages[$i]['id'])), '', false, 'text', true, false, ''); ?>
+                                <?php echo oos_draw_input_field('categories_page_title[' . $aLanguages[$i]['id'] . ']', (empty($cInfo->categories_id) ? '' : oos_get_categories_page_title($cInfo->categories_id, $aLanguages[$i]['id'])), '', false, 'text'); ?>
                             </div>
                         </div>
                     </fieldset>
@@ -998,7 +998,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
                             <div class="col-lg-9">
-                                <?php echo oos_draw_input_field('categories_heading_title[' . $aLanguages[$i]['id'] . ']', (empty($cInfo->categories_id) ? '' : oos_get_category_heading_title($cInfo->categories_id, $aLanguages[$i]['id'])), '', false, 'text', true, false, ''); ?>
+                                <?php echo oos_draw_input_field('categories_heading_title[' . $aLanguages[$i]['id'] . ']', (empty($cInfo->categories_id) ? '' : oos_get_category_heading_title($cInfo->categories_id, $aLanguages[$i]['id'])), '', false, 'text'); ?>
                             </div>
                         </div>
                     </fieldset>
@@ -1046,7 +1046,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label">ID:</label>
-                              <div class="col-lg-10"><?php echo oos_draw_input_field('categories_id', $cInfo->categories_id, '', false, 'text', true, true, ''); ?></div>
+                              <div class="col-lg-10"><?php echo oos_draw_input_field('categories_id', $cInfo->categories_id, '', false, 'text'); ?></div>
                            </div>
                         </fieldset>
                         <fieldset>
@@ -1631,7 +1631,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
         switch ($action) {
     case 'slave_products':
-        $heading[] = ['text' => '<b>' . oos_get_products_name($pInfo->products_id, $_SESSION['language_id']) . '</b>'];
+        $heading[] = ['text' => '<b>' . oos_get_products_name($pInfo->products_id) . '</b>'];
 
         $contents = ['form' => oos_draw_form('id', 'new_slave_product', $aContents['categories'], 'action=new_slave_product&cPath=' . oos_prepare_input($cPath) . '&pID=' . $pInfo->products_id, 'post', false, 'enctype="multipart/form-data"')];
         $contents[] = ['text' => '<br>' . TEXT_ADD_SLAVE_PRODUCT . '<br>' . oos_draw_input_field('slave_product_id', '', 'size="10"')];
@@ -1713,7 +1713,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENT_CATEGORIES . '<br><b>' . oos_output_generated_category_path($pInfo->products_id, 'product') . '</b>'];
         $contents[] = ['text' => '<br>' . TEXT_CATEGORIES . '<br>' . oos_draw_pull_down_menu('categories_id', oos_get_category_tree(), $current_category_id)];
         $contents[] = ['text' => '<br>' . TEXT_HOW_TO_COPY . '<br>' . oos_draw_radio_field('copy_as', 'link', true) . ' ' . TEXT_COPY_AS_LINK . '<br>' . oos_draw_radio_field('copy_as', 'duplicate') . ' ' . TEXT_COPY_AS_DUPLICATE];
-        $contents[] = ['text' => '<br>' . oos_image(OOS_IMAGES . 'pixel_black.gif', '', '100%', '3')];
+        $contents[] = ['text' => '<br>' . oos_image(OOS_IMAGES . 'pixel_black.gif', '', '100%')];
         $contents[] = ['text' => '<br>' . TEXT_COPY_ATTRIBUTES_ONLY];
         $contents[] = ['text' => '<br>' . TEXT_COPY_ATTRIBUTES . '<br>' . oos_draw_radio_field('copy_attributes', 'copy_attributes_yes', true) . ' ' . TEXT_COPY_ATTRIBUTES_YES . '<br>' . oos_draw_radio_field('copy_attributes', 'copy_attributes_no') . ' ' . TEXT_COPY_ATTRIBUTES_NO];
         $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_COPY) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $pInfo->products_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];

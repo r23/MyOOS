@@ -41,9 +41,9 @@
 function oos_httpCoreDir()
 {
     if (!empty($_SERVER['SCRIPT_FILENAME'])) {
-        return dirname($_SERVER['SCRIPT_FILENAME']) . '/';
+        return dirname((string) $_SERVER['SCRIPT_FILENAME']) . '/';
     }
-    return $_SERVER['DOCUMENT_ROOT'] . dirname($_SERVER['PHP_SELF']) . '/';
+    return $_SERVER['DOCUMENT_ROOT'] . dirname((string) $_SERVER['PHP_SELF']) . '/';
 }
 
 
@@ -77,7 +77,7 @@ function print_CHMcheck()
     echo '<font class="oos-title">' . DBINFO . ':&nbsp;</font><br />' . "\n" .
         '<font class="oos-normal">' . CHM_CHECK_1 . '</font><br /><br />' . "\n" .
         '<form action="step.php" method="post"><center>' . "\n";
-    print_FormEditabletext(0);
+    print_FormEditabletext();
     echo '<input type="hidden" name="currentlang" value="' . $currentlang .'">' . "\n" .
         '<input type="hidden" name="op" value="Submit"><br /><br />' . "\n" .
         '<input type="submit" value="' . BTN_SUBMIT . '"></center></form>' . "\n";
@@ -86,8 +86,8 @@ function print_CHMcheck()
 
 function writeable_oosConfigure()
 {
-    if (file_exists(oos_realpath(dirname(__FILE__) . '/../includes') . '/configure.php') && !is_writeable(oos_realpath(dirname(__FILE__) . '/../includes') . '/configure.php')) {
-        @chmod(oos_realpath(dirname(__FILE__) . '/../includes') . '/configure.php', 0777);
+    if (file_exists(oos_realpath(__DIR__ . '/../includes') . '/configure.php') && !is_writeable(oos_realpath(__DIR__ . '/../includes') . '/configure.php')) {
+        @chmod(oos_realpath(__DIR__ . '/../includes') . '/configure.php', 0777);
     }
 }
 
@@ -222,7 +222,7 @@ function print_FormHidden()
     reset($_POST);
     foreach ($_POST as $key => $value) {
         if ((!is_array($_POST[$key])) && ($key != 'op')) {
-            echo '<input type="hidden" name="'. $key . '" value="' . htmlspecialchars(stripslashes($value)) . '">' . "\n";
+            echo '<input type="hidden" name="'. $key . '" value="' . htmlspecialchars(stripslashes((string) $value)) . '">' . "\n";
         }
     }
 }
@@ -622,7 +622,7 @@ function print_Confirm()
         $shop_path = $_SERVER['PHP_SELF'];
     }
 
-    $shop_path = substr($shop_path, 0, strpos($shop_path, 'install'));
+    $shop_path = substr((string) $shop_path, 0, strpos((string) $shop_path, 'install'));
 
     $dir_fs_www_root = $_SERVER['DOCUMENT_ROOT']; // this replaced the foor loop
 
@@ -677,8 +677,8 @@ function print_Start()
 
 function print_ServerTmpHidden()
 {
-    echo '<input type="hidden" name="tmpsession" value="' . (isset($_POST['tmpsession']) ? $_POST['tmpsession'] : '') . '">' . "\n" .
-        '<input type="hidden" name="tmp_session_crypt" value="' . (isset($_POST['tmp_session_crypt']) ? $_POST['tmp_session_crypt'] : '') . '">' . "\n";
+    echo '<input type="hidden" name="tmpsession" value="' . ($_POST['tmpsession'] ?? '') . '">' . "\n" .
+        '<input type="hidden" name="tmp_session_crypt" value="' . ($_POST['tmp_session_crypt'] ?? '') . '">' . "\n";
 }
 
 
@@ -716,8 +716,8 @@ function print_ChangeInfo()
        ' </tr>' . "\n" .
        '</table>' . "\n" .
        '<br /><br />' . "\n" .
-       '<input type="hidden" name="host_conf" value="' . (isset($_POST['host_conf']) ? $_POST['host_conf'] : '') . '">' . "\n" .
-       '<input type="hidden" name="currentlang" value="' . (isset($_POST['currentlang']) ? $_POST['currentlang'] : '') . '">' . "\n" .
+       '<input type="hidden" name="host_conf" value="' . ($_POST['host_conf'] ?? '') . '">' . "\n" .
+       '<input type="hidden" name="currentlang" value="' . ($_POST['currentlang'] ?? '') . '">' . "\n" .
        '<input type="hidden" name="op" value="New_Install">' . "\n" .
        '<input type="submit" value="' . BTN_SUBMIT . '">' . "\n" .
        '</center></form></font>' . "\n";
@@ -758,7 +758,7 @@ function print_DBSubmit()
     echo '<font class="oos-title">' . DBINFO . ':&nbsp;</font><br />' . "\n" .
         '<font class="oos-normal">' . CHM_CHECK_1 . '</font><br /><br />' . "\n" .
         '<form action="step.php" method="post"><center>' . "\n";
-    print_FormEditabletext(0);
+    print_FormEditabletext();
     echo '<input type="hidden" name="host_conf" value="' . $_POST['host_conf'] . '">' . "\n" .
         '<input type="hidden" name="currentlang" value="' . $currentlang .'">' . "\n" .
         '<input type="hidden" name="op" value="New_Install"><br /><br />' . "\n" .

@@ -17,7 +17,7 @@ class Comment implements IComparable
      *
      * @var string
      */
-    private $author = 'Author';
+    private $author;
 
     /**
      * Rich text comment.
@@ -73,7 +73,7 @@ class Comment implements IComparable
      *
      * @var string
      */
-    private $alignment = Alignment::HORIZONTAL_GENERAL;
+    private $alignment;
 
     /**
      * Background image in comment.
@@ -87,8 +87,11 @@ class Comment implements IComparable
      */
     public function __construct()
     {
+        // Initialise variables
+        $this->author = 'Author';
         $this->text = new RichText();
         $this->fillColor = new Color('FFFFFFE1');
+        $this->alignment = Alignment::HORIZONTAL_GENERAL;
         $this->backgroundImage = new Drawing();
     }
 

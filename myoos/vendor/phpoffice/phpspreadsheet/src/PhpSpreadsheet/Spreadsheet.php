@@ -485,13 +485,20 @@ class Spreadsheet implements JsonSerializable
         $this->uniqueID = uniqid('', true);
         $this->calculationEngine = new Calculation($this);
         $this->theme = new Theme();
+
+        // Initialise worksheet collection and add one worksheet
+        $this->workSheetCollection = [];
         $this->workSheetCollection[] = new Worksheet($this);
+        $this->activeSheetIndex = 0;
 
         // Create document properties
         $this->properties = new Document\Properties();
 
         // Create document security
         $this->security = new Document\Security();
+
+        // Set defined names
+        $this->definedNames = [];
 
         // Create the cellXf supervisor
         $this->cellXfSupervisor = new Style(true);

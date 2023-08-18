@@ -27,7 +27,7 @@ final class OpenApi implements DocumentationInterface
     // public const VERSION = '3.1.0';
     public const VERSION = '3.0.0';
 
-    private $openapi = self::VERSION;
+    private $openapi;
     private $info;
     private $servers;
     private $paths;
@@ -40,6 +40,7 @@ final class OpenApi implements DocumentationInterface
 
     public function __construct(Info $info, array $servers, Paths $paths, Components $components = null, array $security = [], array $tags = [], $externalDocs = null, string $jsonSchemaDialect = null, \ArrayObject $webhooks = null)
     {
+        $this->openapi = self::VERSION;
         $this->info = $info;
         $this->servers = $servers;
         $this->paths = $paths;

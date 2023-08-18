@@ -21,13 +21,14 @@ use Symfony\Component\Notifier\Message\SentMessage;
  */
 final class Transports implements TransportInterface
 {
-    private $transports = [];
+    private $transports;
 
     /**
      * @param TransportInterface[] $transports
      */
     public function __construct(iterable $transports)
     {
+        $this->transports = [];
         foreach ($transports as $name => $transport) {
             $this->transports[$name] = $transport;
         }

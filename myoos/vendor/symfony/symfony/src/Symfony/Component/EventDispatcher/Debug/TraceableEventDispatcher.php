@@ -37,8 +37,8 @@ class TraceableEventDispatcher implements EventDispatcherInterface, ResetInterfa
      */
     private $callStack;
     private $dispatcher;
-    private $wrappedListeners = [];
-    private $orphanedEvents = [];
+    private $wrappedListeners;
+    private $orphanedEvents;
     private $requestStack;
     private $currentRequestHash = '';
 
@@ -47,6 +47,8 @@ class TraceableEventDispatcher implements EventDispatcherInterface, ResetInterfa
         $this->dispatcher = $dispatcher;
         $this->stopwatch = $stopwatch;
         $this->logger = $logger;
+        $this->wrappedListeners = [];
+        $this->orphanedEvents = [];
         $this->requestStack = $requestStack;
     }
 

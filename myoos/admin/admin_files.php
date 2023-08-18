@@ -241,15 +241,15 @@ if (isset($_GET['fID']) || isset($_GET['cPath'])) {
 
         if (isset($cInfo) && is_object($cInfo) && (isset($_GET['cID']) && ($_GET['cID'] == $boxes[$i]['admin_boxes_id']))) {
             if (str_starts_with((string) $boxes[$i]['admin_boxes_id'], 'b')) {
-                echo oos_image(OOS_IMAGES . 'icon_status_red.gif', STATUS_BOX_NOT_INSTALLED, 10, 10) . '&nbsp;<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id'] . '&box=' . $boxes[$i]['admin_boxes_name'] . '&action=box_store') . '">' . oos_image(OOS_IMAGES . 'icon_status_green_light.gif', STATUS_BOX_INSTALL, 10, 10) . '</a>';
+                echo oos_image(OOS_IMAGES . 'icon_status_red.gif', STATUS_BOX_NOT_INSTALLED, 10) . '&nbsp;<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id'] . '&box=' . $boxes[$i]['admin_boxes_name'] . '&action=box_store') . '">' . oos_image(OOS_IMAGES . 'icon_status_green_light.gif', STATUS_BOX_INSTALL, 10) . '</a>';
             } else {
-                echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $_GET['cID'] . '&action=box_remove') . '">' . oos_image(OOS_IMAGES . 'icon_status_red_light.gif', STATUS_BOX_REMOVE, 10, 10) . '</a>&nbsp;' . oos_image(OOS_IMAGES . 'icon_status_green.gif', STATUS_BOX_INSTALLED, 10, 10);
+                echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $_GET['cID'] . '&action=box_remove') . '">' . oos_image(OOS_IMAGES . 'icon_status_red_light.gif', STATUS_BOX_REMOVE, 10) . '</a>&nbsp;' . oos_image(OOS_IMAGES . 'icon_status_green.gif', STATUS_BOX_INSTALLED, 10);
             }
         } else {
             if (str_starts_with((string) $boxes[$i]['admin_boxes_id'], 'b')) {
-                echo oos_image(OOS_IMAGES . 'icon_status_red.gif', '', 10, 10) . '&nbsp;' . oos_image(OOS_IMAGES . 'icon_status_green_light.gif', '', 10, 10) . '</a>';
+                echo oos_image(OOS_IMAGES . 'icon_status_red.gif', '', 10) . '&nbsp;' . oos_image(OOS_IMAGES . 'icon_status_green_light.gif', '', 10) . '</a>';
             } else {
-                echo oos_image(OOS_IMAGES . 'icon_status_red_light.gif', '', 10, 10) . '</a>&nbsp;' . oos_image(OOS_IMAGES . 'icon_status_green.gif', '', 10, 10);
+                echo oos_image(OOS_IMAGES . 'icon_status_red_light.gif', '', 10) . '</a>&nbsp;' . oos_image(OOS_IMAGES . 'icon_status_green.gif', '', 10);
             }
         } ?>
                 </td>

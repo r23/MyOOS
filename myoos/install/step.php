@@ -97,7 +97,7 @@ $autoloader = include_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
 
 if (isset($_POST)) {
     foreach ($_POST as $k=>$v) {
-        $$k = oos_prepare_input($v);
+        ${$k} = oos_prepare_input($v);
     }
 }
 
@@ -110,8 +110,8 @@ if (isset($aupdate)) {
 }
 
 if (!empty($encoded)) {
-    $dbuname = base64_decode($dbuname);
-    $dbpass = base64_decode($dbpass);
+    $dbuname = base64_decode((string) $dbuname);
+    $dbpass = base64_decode((string) $dbpass);
 }
 
   installer_get_language();

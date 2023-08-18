@@ -1878,6 +1878,9 @@ class TCPDF {
 		// set file ID for trailer
 		$serformat = (is_array($format) ? json_encode($format) : $format);
 		$this->file_id = md5(TCPDF_STATIC::getRandomSeed('TCPDF'.$orientation.$unit.$serformat.$encoding));
+		$this->font_obj_ids = array();
+		$this->page_obj_id = array();
+		$this->form_obj_id = array();
 
 		// set pdf/a mode
 		if ($pdfa != false) {

@@ -150,7 +150,7 @@ if (isset($_SESSION['password_forgotten'])) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="mdi mdi-account"></i></span>
                             </div>
-                        <?php echo oos_draw_input_field('firstname', '', '', true, 'text', true, false, PLACEHOLDER_FIRST_NAME); ?>        
+                        <?php echo oos_draw_input_field('firstname', '', '', true, 'text'); ?>        
                         </div>
                     </div>
 
@@ -159,7 +159,7 @@ if (isset($_SESSION['password_forgotten'])) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="mdi mdi-email"></i></span>
                             </div>
-                        <?php echo oos_draw_input_field('email_address', '', '', true, 'text', true, false, PLACEHOLDER_EMAIL_ADDRESS); ?>                            
+                        <?php echo oos_draw_input_field('email_address', '', '', true, 'text'); ?>                            
                         </div>
                     </div>
 

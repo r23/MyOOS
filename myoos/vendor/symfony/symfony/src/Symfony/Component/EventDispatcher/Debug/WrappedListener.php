@@ -24,8 +24,8 @@ final class WrappedListener
     private $listener;
     private $optimizedListener;
     private $name;
-    private $called = false;
-    private $stoppedPropagation = false;
+    private $called;
+    private $stoppedPropagation;
     private $stopwatch;
     private $dispatcher;
     private $pretty;
@@ -39,6 +39,8 @@ final class WrappedListener
         $this->optimizedListener = $listener instanceof \Closure ? $listener : (\is_callable($listener) ? \Closure::fromCallable($listener) : null);
         $this->stopwatch = $stopwatch;
         $this->dispatcher = $dispatcher;
+        $this->called = false;
+        $this->stoppedPropagation = false;
 
         if (\is_array($listener)) {
             $this->name = \is_object($listener[0]) ? get_debug_type($listener[0]) : $listener[0];

@@ -29,7 +29,7 @@ class Table extends AbstractFrameReflower
      *
      * @var array
      */
-    protected $_state = null;
+    protected $_state;
 
     /**
      * Table constructor.
@@ -37,6 +37,7 @@ class Table extends AbstractFrameReflower
      */
     function __construct(TableFrameDecorator $frame)
     {
+        $this->_state = null;
         parent::__construct($frame);
     }
 

@@ -85,8 +85,8 @@ function oosDBInit()
 
     // Decode encoded DB parameters
     if (OOS_ENCODED == '1') {
-        $dbuname = base64_decode(OOS_DB_USERNAME);
-        $dbpass = base64_decode(OOS_DB_PASSWORD);
+        $dbuname = base64_decode((string) OOS_DB_USERNAME);
+        $dbpass = base64_decode((string) OOS_DB_PASSWORD);
     } else {
         $dbuname = OOS_DB_USERNAME;
         $dbpass = OOS_DB_PASSWORD;

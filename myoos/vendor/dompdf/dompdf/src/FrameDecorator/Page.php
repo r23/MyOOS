@@ -25,21 +25,21 @@ class Page extends AbstractFrameDecorator
      *
      * @var float
      */
-    protected $bottom_page_edge = null;
+    protected $bottom_page_edge;
 
     /**
      * Flag indicating page is full.
      *
      * @var bool
      */
-    protected $_page_full = false;
+    protected $_page_full;
 
     /**
      * Number of tables currently being reflowed
      *
      * @var int
      */
-    protected $_in_table = 0;
+    protected $_in_table;
 
     /**
      * The pdf renderer
@@ -66,6 +66,9 @@ class Page extends AbstractFrameDecorator
     function __construct(Frame $frame, Dompdf $dompdf)
     {
         parent::__construct($frame, $dompdf);
+        $this->_page_full = false;
+        $this->_in_table = 0;
+        $this->bottom_page_edge = null;
     }
 
     /**

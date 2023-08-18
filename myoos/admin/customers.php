@@ -772,14 +772,14 @@ function check_form() {
                 <td class="text-center">
 <?php
       if ($customers['customers_login'] == '1') {
-          echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&action=setflag&loginflag=0&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+          echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&action=setflag&loginflag=0&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10) . '</a>';
       } else {
-          echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&action=setflag&loginflag=1&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+          echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&action=setflag&loginflag=1&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10) . '</a>';
       } ?>
                 <td class="text-center">
 <?php
       if ($customers['customers_2fa_active'] == '1') {
-          echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&action=set2fa&2faflag=0&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+          echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&action=set2fa&2faflag=0&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10) . '</a>';
       } else {
           echo '&nbsp;';
       } ?>

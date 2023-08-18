@@ -21,7 +21,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-if (strstr($_ENV["OS"], "Win")) {
+if (strstr((string) $_ENV["OS"], "Win")) {
     @setlocale(LC_TIME, 'ge');
 } else {
     @setlocale(LC_TIME, 'de_DE');

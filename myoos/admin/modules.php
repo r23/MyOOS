@@ -259,9 +259,9 @@ require 'includes/header.php';
                 <td class="text-right">
 <?php
             if ($module->check() > 0) {
-                echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=remove') . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+                echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=remove') . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10) . '</a>';
             } else {
-                echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=install') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+                echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=install') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10) . '</a>';
             } ?></td>
                 <td class="text-right"><?php if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code)) {
                 echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';

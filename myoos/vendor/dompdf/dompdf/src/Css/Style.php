@@ -470,7 +470,7 @@ class Style
      *
      * @var array
      */
-    protected $_media_queries = [];
+    protected $_media_queries;
 
     /**
      * Properties set by an `!important` declaration.
@@ -581,7 +581,7 @@ class Style
      *
      * @var Style
      */
-    protected $parent_style = null;
+    protected $parent_style;
 
     /**
      * @var Frame|null
@@ -626,7 +626,9 @@ class Style
         $this->fontMetrics = $stylesheet->getFontMetrics();
 
         $this->_stylesheet = $stylesheet;
+        $this->_media_queries = [];
         $this->_origin = $origin;
+        $this->parent_style = null;
 
         if (!isset(self::$_defaults)) {
 

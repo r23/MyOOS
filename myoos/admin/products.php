@@ -655,7 +655,7 @@ function calcBasePriceFactor() {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
                               <div class="col-lg-9">
-								<?php echo oos_draw_input_field('products_name[' . $aLanguages[$i]['id'] . ']', (isset($products_name[$aLanguages[$i]['id']]) ? stripslashes((string) $products_name[$aLanguages[$i]['id']]) : oos_get_products_name($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_input_field('products_name[' . $aLanguages[$i]['id'] . ']', (isset($products_name[$aLanguages[$i]['id']]) ? stripslashes((string) $products_name[$aLanguages[$i]['id']]) : oos_get_products_name($pInfo->products_id))); ?>
                               </div>
                            </div>
                         </fieldset>						
@@ -1394,7 +1394,7 @@ updateWithTax();
         $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
 
         for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-            $pInfo->products_name = oos_get_products_name($pInfo->products_id, $aLanguages[$i]['id']);
+            $pInfo->products_name = oos_get_products_name($pInfo->products_id);
             $pInfo->products_description = oos_get_products_description($pInfo->products_id, $aLanguages[$i]['id']);
             $pInfo->products_description_meta = oos_get_products_description_meta($pInfo->products_id, $aLanguages[$i]['id']);
             $pInfo->products_url = oos_get_products_url($pInfo->products_id, $aLanguages[$i]['id']);
@@ -1536,7 +1536,7 @@ if ($q1 < $q0) {
       <tr>
         <td class="main">
 <?php
-    echo(($products_image_name) ? oos_image(OOS_SHOP_IMAGES . $products_image_name, $pInfo->products_name, '', '80', 'align="right" hspace="5" vspace="5"') : '');
+    echo(($products_image_name) ? oos_image(OOS_SHOP_IMAGES . $products_image_name, $pInfo->products_name, '') : '');
         echo $pInfo->products_description; ?></td>
       </tr>
 <?php

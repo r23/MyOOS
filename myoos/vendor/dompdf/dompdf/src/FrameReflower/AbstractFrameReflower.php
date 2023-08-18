@@ -36,14 +36,14 @@ abstract class AbstractFrameReflower
      *
      * @var array
      */
-    protected $_min_max_child_cache = null;
+    protected $_min_max_child_cache;
 
     /**
      * Cached min/max size
      *
      * @var array
      */
-    protected $_min_max_cache = null;
+    protected $_min_max_cache;
 
     /**
      * AbstractFrameReflower constructor.
@@ -52,6 +52,8 @@ abstract class AbstractFrameReflower
     function __construct(AbstractFrameDecorator $frame)
     {
         $this->_frame = $frame;
+        $this->_min_max_child_cache = null;
+        $this->_min_max_cache = null;
     }
 
     /**

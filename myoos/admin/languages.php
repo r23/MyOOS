@@ -799,9 +799,9 @@ while ($languages = $languages_result->fields) {
                 <td class="text-center">
     <?php
     if ($languages['status'] == '1') {
-        echo '<a href="' . oos_href_link_admin($aContents['languages'], 'action=setflag&flag=0&lID=' . $languages['languages_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+        echo '<a href="' . oos_href_link_admin($aContents['languages'], 'action=setflag&flag=0&lID=' . $languages['languages_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10) . '</a>';
     } else {
-        echo '<a href="' . oos_href_link_admin($aContents['languages'], 'action=setflag&flag=1&lID=' . $languages['languages_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+        echo '<a href="' . oos_href_link_admin($aContents['languages'], 'action=setflag&flag=1&lID=' . $languages['languages_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10) . '</a>';
     } ?></td>
 
                 <td class="text-right"><?php if (isset($lInfo) && is_object($lInfo) && ($languages['languages_id'] == $lInfo->languages_id)) {

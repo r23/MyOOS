@@ -352,7 +352,7 @@ if ($action == 'edit_video') {
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_VIDEO_FILE; ?></label>
                               <div class="col-lg-10">
-                <?php echo oos_draw_input_field('video_source['. $nCounter . ']', $video['video_source'], '', false, 'text', true, true); ?>
+                <?php echo oos_draw_input_field('video_source['. $nCounter . ']', $video['video_source'], '', false, 'text'); ?>
                 <?php echo oos_draw_hidden_field('video_source['. $nCounter . ']', $video['video_source']); ?>
                               </div>
                            </div>

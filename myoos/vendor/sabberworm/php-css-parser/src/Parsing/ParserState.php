@@ -30,7 +30,7 @@ class ParserState
     /**
      * @var int
      */
-    private $iCurrentPosition = 0;
+    private $iCurrentPosition;
 
     /**
      * @var string
@@ -55,6 +55,7 @@ class ParserState
     {
         $this->oParserSettings = $oParserSettings;
         $this->sText = $sText;
+        $this->iCurrentPosition = 0;
         $this->iLineNo = $iLineNo;
         $this->setCharset($this->oParserSettings->sDefaultCharset);
     }

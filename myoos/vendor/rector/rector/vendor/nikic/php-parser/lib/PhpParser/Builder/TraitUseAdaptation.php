@@ -13,7 +13,7 @@ class TraitUseAdaptation implements Builder
     const TYPE_ALIAS = 1;
     const TYPE_PRECEDENCE = 2;
     /** @var int Type of building adaptation */
-    protected $type = self::TYPE_UNDEFINED;
+    protected $type;
     protected $trait;
     protected $method;
     protected $modifier = null;
@@ -27,6 +27,7 @@ class TraitUseAdaptation implements Builder
      */
     public function __construct($trait, $method)
     {
+        $this->type = self::TYPE_UNDEFINED;
         $this->trait = \is_null($trait) ? null : BuilderHelpers::normalizeName($trait);
         $this->method = BuilderHelpers::normalizeIdentifier($method);
     }

@@ -28,7 +28,7 @@ class Charset implements AtRule
     /**
      * @var array<array-key, Comment>
      */
-    protected $aComments = [];
+    protected $aComments;
 
     /**
      * @param string $sCharset
@@ -38,6 +38,7 @@ class Charset implements AtRule
     {
         $this->sCharset = $sCharset;
         $this->iLineNo = $iLineNo;
+        $this->aComments = [];
     }
 
     /**
