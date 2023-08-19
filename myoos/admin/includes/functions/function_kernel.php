@@ -223,15 +223,17 @@ function oos_var_prep_for_os()
     static $replace = ['', '', '_', '_'];
 
     $resarray = [];
+	
+	// Pass through each argument that is passed to the function
     foreach (func_get_args() as $ourvar) {
-        // Parse out bad things
-        $ourlet = preg_replace($search, (string) $replace, (string) $ourvar);
+        // Remove the unwanted parts of the URL with preg_replace()
+        $ourlet = preg_replace($search, $replace, $ourvar);
 
-        // Prepare var
+        // Clean up the string further with oos_sanitize_string()
         $ourlet = oos_sanitize_string($ourvar);
 
 
-        // Add to array
+        // Add the cleaned string to the result array
         array_push($resarray, $ourvar);
     }
 
