@@ -26,12 +26,13 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(InlineConstructorDefaultToPropertyRector::class);
 
     // define sets of rules
-    // $rectorConfig->sets([
-    //        LevelSetList::UP_TO_PHP_82
-    // ]);
+    $rectorConfig->sets([
+            LevelSetList::UP_TO_PHP_82
+    ]);
 	
 	// exclude a directory from Rector
     $rectorConfig->skip([
+		__DIR__ . '/admin/includes/functions/function_norector.php', // exclude all files with php extension in the inc directory
         __DIR__ . '/vendor', // exclude the whole vendor directory
         __DIR__ . '/inc/adodb/*.php', // exclude all files with php extension in the inc directory
     ]);

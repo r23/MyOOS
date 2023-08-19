@@ -192,58 +192,7 @@ function oos_get_all_get_params($exclude_array = '')
     return $get_url;
 }
 
- /**
-  * ready operating system output
-  * <br>
-  * Gets a variable, cleaning it up such that any attempts
-  * to access files outside of the scope of the PostNuke
-  * system is not allowed
-  *
-  * @author    PostNuke Content Management System
-  * @copyright Copyright (C) 2001 by the Post-Nuke Development Team.
-  * @version   Revision: 2.0  - changed by Author: r23  on Date: 2004/01/12 06:02:08
-  * @access    private
-  * @param     let variable to prepare
-  * @param     ...
-  * @returns   string/array
-  * in, otherwise an array of prepared variables
-  */
-function oos_var_prep_for_os()
-{
-    static $search = [
-        '!\.\./!si',
-        // .. (directory traversal)
-        '!^.*://!si',
-        // .*:// (start of URL)
-        '!/!si',
-        // Forward slash (directory traversal)
-        '!\\\\!si',
-    ]; // Backslash (directory traversal)
 
-    static $replace = ['', '', '_', '_'];
-
-    $resarray = [];
-	
-	// Pass through each argument that is passed to the function
-    foreach (func_get_args() as $ourvar) {
-        // Remove the unwanted parts of the URL with preg_replace()
-        $ourlet = preg_replace($search, $replace, $ourvar);
-
-        // Clean up the string further with oos_sanitize_string()
-        $ourlet = oos_sanitize_string($ourvar);
-
-
-        // Add the cleaned string to the result array
-        array_push($resarray, $ourvar);
-    }
-
-    // Return vars
-    if (func_num_args() == 1) {
-        return $resarray[0];
-    } else {
-        return $resarray;
-    }
-}
 
 
 function oos_get_content()
