@@ -240,7 +240,7 @@ if ($session->hasStarted() === true) {
     }
 
     // verify the browser user agent
-    $http_user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? oos_var_prep_for_os($_SERVER['HTTP_USER_AGENT']) : '';
+    $http_user_agent = filter_string_polyfill(filter_input(INPUT_SERVER, 'HTTP_USER_AGENT'));
 
     if (!isset($_SESSION['session_user_agent'])) {
         $_SESSION['session_user_agent'] = $http_user_agent;

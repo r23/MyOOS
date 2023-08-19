@@ -237,23 +237,25 @@ function oos_server_get_remote()
 {
     if (isset($_SERVER)) {
         if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            $remote_addr = $_SERVER['HTTP_X_FORWARDED_FOR'];
         } elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
-            $ip = $_SERVER['HTTP_CLIENT_IP'];
+            $remote_addr = $_SERVER['HTTP_CLIENT_IP'];
         } else {
-            $ip = $_SERVER['REMOTE_ADDR'];
+            $remote_addr = $_SERVER['REMOTE_ADDR'];
         }
     } else {
         if (getenv('HTTP_X_FORWARDED_FOR')) {
-            $ip = getenv('HTTP_X_FORWARDED_FOR');
+            $remote_addr = getenv('HTTP_X_FORWARDED_FOR');
         } elseif (getenv('HTTP_CLIENT_IP')) {
-            $ip = getenv('HTTP_CLIENT_IP');
+            $remote_addr = getenv('HTTP_CLIENT_IP');
         } else {
-            $ip = getenv('REMOTE_ADDR');
+            $remote_addr = getenv('REMOTE_ADDR');
         }
     }
 
-    return $ip;
+	$remote_addr = filter_var($remote_addr, FILTER_VALIDATE_IP);
+
+    return $remote_addr;
 }
 
 /**

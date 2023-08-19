@@ -100,10 +100,10 @@ if (!empty($og_image)) {
 }
 
 $part = [
-            '@context'            => 'http://schema.org',
+            '@context'         => 'http://schema.org',
             'headline'         => $sPagetitle,
             'name'             => $sPagetitle,
-            'description'       => $sDescription,
+            'description'      => $sDescription,
             'url'              => $sCanonical,
             'mainEntityOfPage' => $sCanonical,
             'image'            => $og_image,
