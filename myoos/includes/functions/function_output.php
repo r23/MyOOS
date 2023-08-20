@@ -341,7 +341,7 @@ function oos_draw_hidden_field($name, $value = '', $parameters = '')
 /**
  * Output a form pull down menu
  *
- * @param $$name
+ * @param $name
  * @param $values
  * @param $default
  * @param $parameters

@@ -30,7 +30,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
  * encrpyted password
  *
  * @param  $password
- * @param  $sEncrypted
+ * @param  $hash
  * @return boolean
  */
 function oos_validate_password($password, $hash)
