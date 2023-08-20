@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import * as AFRAME from 'aframe';
 
+
 import 'aframe-extras/dist/aframe-extras.loaders.min.js'; 
 import 'aframe-blink-controls/dist/aframe-blink-controls.min.js'; 
 import 'aframe-physics-system/dist/aframe-physics-system.min.js';
