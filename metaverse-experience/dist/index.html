@@ -10,24 +10,25 @@
 		<a-scene vr-mode-ui="enabled: true"> <!-- creates a UI element for the VR mode -->				  
 			<a-assets>
 				<img id="skyTexture" src="texture/kloofendal_43d_clear_puresky.jpg">
-				<a-asset-item id="navmesh" src="model/hall-navmesh.glb"></a-asset-item>
+				<a-asset-item id="navmesh" src="model/hall-navmesh.glb" nav-mesh></a-asset-item>
 				<a-asset-item id="hall" src="model/hall.glb"></a-asset-item>
 			</a-assets>
 			<a-sky src="#skyTexture"></a-sky>			
 		
 			<!-- camera rig -->
-			<a-entity id="cameraRig" movement-controls kinematic-body>
+			<a-entity id="cameraRig"  movement-controls="constrainToNavMesh: true" position="0 0 5">
 				<!-- camera -->
 				<a-entity id="camera" camera 
-								position="0 1.6 0"
-								wasd-controls
-								look-controls="pointerLockEnabled: true">
-					<a-cursor></a-cursor>
+						  position="0 1.6 0"
+						  wasd-controls
+						  look-controls="pointerLockEnabled: true">
+				  <a-cursor nav-pointer
+							raycaster="objects: [nav-mesh]"></a-cursor>
 				</a-entity>
 				<!-- hand controls -->
 				<a-entity id="left-hand" oculus-touch-controls="hand: left" blink-controls></a-entity>
-				<a-entity id="right-hand" oculus-touch-controls="hand: right"></a-entity>
-			</a-entity>
+				<a-entity id="right-hand" oculus-touch-controls="hand: right" blink-controls></a-entity>
+  			</a-entity>
 			
 			<!-- Nav mesh. -->
 			<a-entity nav-mesh
@@ -40,8 +41,7 @@
 			<a-entity position="0 0 20"
           		      scale="1 1 1"
          	          gltf-model="#hall">
-			</a-entity>			
-
+			</a-entity>
         </a-scene>			
 			
     </body>
