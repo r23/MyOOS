@@ -145,55 +145,6 @@ function oos_stripslashes(&$value)
 
 
  /**
-  * ready operating system output
-  * <br />
-  * Gets a variable, cleaning it up such that any attempts
-  * to access files outside of the scope of the PostNuke
-  * system is not allowed
-  *
-  * @author    PostNuke Content Management System
-  * @copyright Copyright (C) 2001 by the Post-Nuke Development Team.
-  * @version   Revision: 2.0  - changed by Author: r23  on Date: 2004/01/12 06:02:08
-  * @access    private
-  * @param     var variable to prepare
-  * @param     ...
-  * @returns   string/array
-  * in, otherwise an array of prepared variables
-  */
-function oos_var_prep_for_os()
-{
-    static $search = ['!\.\./!si', // .. (directory traversal)
-                           '!^.*://!si', // .*:// (start of URL)
-                           '!/!si',     // Forward slash (directory traversal)
-                           '!\\\\!si']; // Backslash (directory traversal)
-
-    static $replace = ['',
-                       '',
-                       '_',
-                       '_'];
-
-    $resarray = [];
-    foreach (func_get_args() as $ourvar) {
-        // Parse out bad things
-        $ourvar = preg_replace($search, (string) $replace, (string) $ourvar);
-
-        // Prepare var
-        $ourvar = addslashes($ourvar);
-
-        // Add to array
-        array_push($resarray, $ourvar);
-    }
-
-    // Return vars
-    if (func_num_args() == 1) {
-        return $resarray[0];
-    } else {
-        return $resarray;
-    }
-}
-
-
- /**
   * Return Product's Name
   *
   * @param  $nProductID

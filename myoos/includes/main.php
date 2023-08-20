@@ -67,6 +67,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/tables.php';
 
 // define general functions used application-wide
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_global.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_norector.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_kernel.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_input.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_output.php';
