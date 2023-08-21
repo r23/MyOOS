@@ -162,11 +162,14 @@ function oos_db_input($sStr)
 {
     $sStr = (string)$sStr;
 
-    if (function_exists('mysqli::escape_string')) {
-        return (new mysqli())->escape_string($sStr);
-    }
+    // Get database information
+    $dbconn =& oosDBGetConn();
+ 
+    $qString = $dbconn->qStr($sStr);
+    $qString = trim($qString, '\"');
+    $qString = trim($qString, '\'');
 
-    return addslashes($sStr);
+    return $qString;
 }
 
 function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '')
@@ -194,7 +197,7 @@ function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '')
                 break;
 
             default:
-				$qString = $dbconn->qStr($value);
+		$qString = $dbconn->qStr($value);
                 $query .= $qString . ', ';
                 break;
             }
@@ -213,7 +216,7 @@ function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '')
                 break;
 
             default:
-				$qString = $dbconn->qStr($value);
+		$qString = $dbconn->qStr($value);
                 $query .= $columns . ' = ' . $qString . ', ';
                 break;
             }
