@@ -1506,12 +1506,6 @@ object-assign
 
 /**
  * @license
- * Copyright 2010-2023 Three.js Authors
- * SPDX-License-Identifier: MIT
- */
-
-/**
- * @license
  * cardboard-vr-display
  * Copyright (c) 2015-2017 Google
  * Licensed under the Apache License, Version 2.0 (the "License");

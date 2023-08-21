@@ -19,17 +19,18 @@
 			<a-entity id="cameraRig"  movement-controls="constrainToNavMesh: true" position="0 0 5">
 				<!-- camera -->
 				<a-entity id="camera" camera 
-						  position="0 1.6 0"
-						  wasd-controls
-						  look-controls="pointerLockEnabled: true">
-				  <a-cursor nav-pointer
-							raycaster="objects: [nav-mesh]"></a-cursor>
+							  position="0 1.6 0"
+							  wasd-controls
+							  look-controls="pointerLockEnabled: true">
+					<a-cursor nav-pointer
+							  raycaster="objects: [nav-mesh]"></a-cursor>
 				</a-entity>
 				<!-- hand controls -->
-				<a-entity id="left-hand" oculus-touch-controls="hand: left" blink-controls></a-entity>
-				<a-entity id="right-hand" oculus-touch-controls="hand: right" blink-controls></a-entity>
-  			</a-entity>
-			
+				<a-entity id="left-hand" oculus-touch-controls="hand: left" blink-controls="hitEntity: [nav-pointer]" nav-pointer></a-entity>
+				<a-entity id="right-hand" oculus-touch-controls="hand: right" blink-controls="hitEntity: [nav-pointer]" nav-pointer></a-entity>
+  			</a-entity>			
+
+
 			<!-- Nav mesh. -->
 			<a-entity nav-mesh
       		          normal-material
