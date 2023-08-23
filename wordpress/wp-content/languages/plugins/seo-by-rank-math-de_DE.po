@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-08-09 13:47:38+0000\n"
+"PO-Revision-Date: 2023-08-23 10:03:38+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,15 @@ msgstr ""
 "X-Generator: GlotPress/4.0.0-alpha.7\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO - Stable (latest release)\n"
+
+#. translators: %s: Allowed tags
+#: includes/settings/general/webmaster.php:94
+msgid "Enter your custom webmaster tags. Only %s tags are allowed."
+msgstr "Gebe deine benutzerdefinierten Webmaster-Tags ein. Es sind nur %s-Tags zulässig."
+
+#: includes/settings/general/webmaster.php:91
+msgid "Custom Webmaster Tags"
+msgstr "Benutzerdefinierte Webmaster-Tags"
 
 #: includes/modules/sitemap/settings/authors.php:53
 msgid "Selected roles will be excluded from the XML &amp; HTML sitemaps."
@@ -488,11 +497,11 @@ msgstr "Dieses Tool berechnet das SEO-Ergebniss für alle Beiträge/Seiten neu, 
 msgid "<strong>Min Size: 112Χ112px</strong>.<br /> A squared image is preferred by the search engines."
 msgstr "<strong>Mindestgröße: 112Χ112px</strong>.<br /> Ein quadratisches Bild wird von den Suchmaschinen bevorzugt."
 
-#: includes/module/class-manager.php:427
+#: includes/module/class-manager.php:428
 msgid "PRO options are enabled."
 msgstr "PRO-Optionen sind aktiviert."
 
-#: includes/module/class-manager.php:422
+#: includes/module/class-manager.php:423
 msgid "More powerful options are available in the PRO version."
 msgstr "Leistungsfähigere Optionen sind in der PRO-Version verfügbar."
 
@@ -995,33 +1004,33 @@ msgstr "IndexNow API"
 msgid "Directly notify search engines like Bing & Yandex using the %s when pages are added, updated and removed, or submit URLs manually."
 msgstr "Benachrichtige Suchmaschinen wie Bing und Yandex direkt mit dem %s, wenn Seiten hinzugefügt, aktualisiert und entfernt werden, oder melde URLs manuell an."
 
-#: includes/module/class-manager.php:535
+#: includes/module/class-manager.php:536
 msgid "Buy"
 msgstr "Kaufen"
 
-#: includes/module/class-manager.php:531
+#: includes/module/class-manager.php:532
 msgid "24/7 Support"
 msgstr "24/7 Support"
 
 #: includes/admin/class-pro-notice.php:218
 #: includes/admin/class-pro-notice.php:237
-#: includes/module/class-manager.php:530
+#: includes/module/class-manager.php:531
 msgid "Powerful Schema Generator"
 msgstr "Leistungsstarker Schema-Generator"
 
-#: includes/module/class-manager.php:529
+#: includes/module/class-manager.php:530
 msgid "Track 500 Keywords"
 msgstr "500 Schlüsselwörter verfolgen"
 
-#: includes/module/class-manager.php:528
+#: includes/module/class-manager.php:529
 msgid "Free 15 Content AI Credits"
 msgstr "15 kostenlose KI-Guthaben für Inhalte"
 
-#: includes/module/class-manager.php:527
+#: includes/module/class-manager.php:528
 msgid "Unlimited personal websites"
 msgstr "Unbegrenzte persönliche Websites"
 
-#: includes/module/class-manager.php:525
+#: includes/module/class-manager.php:526
 msgid "Take SEO to the Next Level!"
 msgstr "Bring SEO auf die nächste Stufe!"
 
@@ -1149,7 +1158,7 @@ msgstr "Leider können nur authentifizierte Benutzer das Schlüsselwort recherch
 msgid "Rank Math Content AI"
 msgstr "Rang Math Inhalts-KI"
 
-#: includes/module/class-manager.php:413
+#: includes/module/class-manager.php:414
 msgid "NEW!"
 msgstr "NEU!"
 
@@ -1996,7 +2005,7 @@ msgstr "Neueste Blog-Beiträge von Rank Math"
 msgid "Rank Math Overview"
 msgstr "Rank Math Übersicht"
 
-#: includes/frontend/class-head.php:385
+#: includes/frontend/class-head.php:400
 msgid "Search Engine Optimization by Rank Math PRO - https://rankmath.com/"
 msgstr "Suchmaschinen-Optimierung durch Rank Math PRO - https://rankmath.com/"
 
@@ -2133,7 +2142,7 @@ msgstr "Angemeldete Benutzer ausschließen"
 #: includes/admin/wizard/views/search-console-ui.php:278
 #: includes/admin/wizard/views/search-console-ui.php:303
 #: includes/admin/wizard/views/search-console-ui.php:378
-#: includes/module/class-manager.php:415
+#: includes/module/class-manager.php:416
 #: includes/modules/analytics/views/options.php:149
 msgid "PRO"
 msgstr "PRO"
@@ -4140,7 +4149,7 @@ msgstr "XML-Sitemap"
 msgid "or"
 msgstr "oder"
 
-#: includes/frontend/class-head.php:383
+#: includes/frontend/class-head.php:398
 msgid "Search Engine Optimization by Rank Math - https://rankmath.com/"
 msgstr "Suchmaschinen-Optimierung durch Rank Math PRO - https://rankmath.com/"
 
@@ -7399,7 +7408,7 @@ msgstr "Archiv für %s"
 msgid "Home"
 msgstr "Startseite"
 
-#: includes/frontend/class-head.php:391
+#: includes/frontend/class-head.php:406
 msgid "Rank Math WordPress SEO plugin"
 msgstr "Rank Math WordPress SEO Plugin"
 
@@ -8315,31 +8324,31 @@ msgstr "Wähle die Art, die dein Unternehmen am besten beschreibt. Wenn du keine
 msgid "Business Type"
 msgstr "Geschäftsart"
 
-#: includes/admin/wizard/class-your-site.php:348
+#: includes/admin/wizard/class-your-site.php:347
 msgid "Other Business Website"
 msgstr "Andere Firmen-Website"
 
-#: includes/admin/wizard/class-your-site.php:347
+#: includes/admin/wizard/class-your-site.php:346
 msgid "Other Personal Website"
 msgstr "Andere persönliche Website"
 
-#: includes/admin/wizard/class-your-site.php:346
+#: includes/admin/wizard/class-your-site.php:345
 msgid "Webshop"
 msgstr "Webshop"
 
-#: includes/admin/wizard/class-your-site.php:345
+#: includes/admin/wizard/class-your-site.php:344
 msgid "Small Business Site"
 msgstr "Webseite für kleine Unternehmen"
 
-#: includes/admin/wizard/class-your-site.php:344
+#: includes/admin/wizard/class-your-site.php:343
 msgid "Personal Portfolio"
 msgstr "Persönliches Portfolio"
 
-#: includes/admin/wizard/class-your-site.php:343
+#: includes/admin/wizard/class-your-site.php:342
 msgid "Community Blog/News Site"
 msgstr "Community-Blog/News-Website"
 
-#: includes/admin/wizard/class-your-site.php:342
+#: includes/admin/wizard/class-your-site.php:341
 msgid "Personal Blog"
 msgstr "Privater Blog"
 
