@@ -22,6 +22,7 @@ use RankMath\Helpers\Schema;
 use RankMath\Helpers\Analytics;
 use RankMath\Helpers\DB;
 use RankMath\Replace_Variables\Replacer;
+use MyThemeShop\Helpers\Param;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -141,8 +142,7 @@ class Helper {
 	 * @return string
 	 */
 	public static function get_current_page_url( $ignore_qs = false ) {
-		$link = '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-		$link = ( is_ssl() ? 'https' : 'http' ) . $link;
+		$link = ( is_ssl() ? 'https' : 'http' ) . '://' . Param::server( 'HTTP_HOST' ) . Param::server( 'REQUEST_URI' );
 
 		if ( $ignore_qs ) {
 			$link = explode( '?', $link );
