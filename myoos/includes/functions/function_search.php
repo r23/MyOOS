@@ -59,7 +59,6 @@ function oos_get_subcategories(&$aSubcategories, $nParentId = 0)
 /**
  * Parse search string into indivual objects
  *
- * @param string $sSearch
  * @return array|bool
  */
 function &oos_parse_search_string(string $sSearch = ''): array|bool

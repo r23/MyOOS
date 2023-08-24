@@ -166,7 +166,7 @@ function oos_db_input($sStr)
     $dbconn =& oosDBGetConn();
  
     $qString = $dbconn->qStr($sStr);
-    $qString = trim($qString, '\"');
+    $qString = trim((string) $qString, '\"');
     $qString = trim($qString, '\'');
 
     return $qString;
