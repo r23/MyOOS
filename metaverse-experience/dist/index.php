@@ -4,26 +4,24 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=no,maximum-scale=1">
     <title>Web-Based Virtual Experiences in the Metaverse</title>
-
-<script src="static/js/runtime-main.js"></script>
-<script src="static/js/572.js"></script>
-<script src="static/js/734.js"></script>
-<script src="static/js/203.js"></script>
-<script src="static/js/434.js"></script>
-<script src="static/js/454.js"></script>
-<script src="static/js/986.js"></script>
-<script src="static/js/58.js"></script>
-<script src="static/js/710.js"></script>
-<script src="static/js/223.js"></script>
-<script src="static/js/850.js"></script>
-<script src="static/js/848.js"></script>
-<script src="static/js/227.js"></script>
-<script src="static/js/569.js"></script>
-<script src="static/js/687.js"></script>
-<script src="static/js/406.js"></script>
-<script src="static/js/477.js"></script>
-<script src="static/js/main.js"></script>
-    <script src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
+	<script src="static/js/runtime-main.js"></script>
+	<script src="static/js/572.js"></script>
+	<script src="static/js/734.js"></script>
+	<script src="static/js/203.js"></script>
+	<script src="static/js/434.js"></script>
+	<script src="static/js/454.js"></script>
+	<script src="static/js/986.js"></script>
+	<script src="static/js/58.js"></script>
+	<script src="static/js/710.js"></script>
+	<script src="static/js/223.js"></script>
+	<script src="static/js/850.js"></script>
+	<script src="static/js/848.js"></script>
+	<script src="static/js/227.js"></script>
+	<script src="static/js/569.js"></script>
+	<script src="static/js/687.js"></script>
+	<script src="static/js/406.js"></script>
+	<script src="static/js/477.js"></script>
+	<script src="static/js/main.js"></script>
     <script>
 /**
  * Basic emissive effect.
@@ -75,11 +73,7 @@ AFRAME.registerComponent('not-mobile',  {
     </script>
   </head>
 <body>
-<?php
-# <a-scene vr-mode-ui="enabled: true"> <!-- creates a UI element for the VR mode -->		
-# <a-scene environment="preset: forest; lighting: point; lightPosition: -5 10 0;">
-?>
-	<a-scene environment="preset: forest; lighting: point; lightPosition: -5 10 0;">
+	<a-scene vr-mode-ui="enabled: true"> <!-- creates a UI element for the VR mode -->
 		<a-assets>
 			<img id="skyTexture" src="texture/kloofendal_43d_clear_puresky.jpg">
 			<a-asset-item id="navmesh" src="model/hall-navmesh.glb"></a-asset-item>
@@ -88,7 +82,11 @@ AFRAME.registerComponent('not-mobile',  {
 		</a-assets>
 	<a-sky src="#skyTexture"></a-sky>
 	
-	
+	 <!-- Erstellen Sie ein ambient light mit einer hellgrauen Farbe -->
+	<a-entity light="type: ambient; color: #CCC"></a-entity>  
+	<!-- Erstellen Sie ein point light mit einer weißen Farbe an der Position -5 10 0 -->
+    <a-entity light="type: point; color: #FFF; intensity: 0.8; distance: 20; decay: 2" position="-5 10 0"></a-entity> 
+	<!-- Fügen Sie Ihre anderen Entitäten hinzu -->
 
       <!-- Player. -->
       <a-entity id="rig"
