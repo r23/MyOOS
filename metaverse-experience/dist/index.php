@@ -1,28 +1,50 @@
+<?php
+/**
+   ----------------------------------------------------------------------
+
+   MyOOS [Shopsystem]
+   https://www.oos-shop.de
+
+   Copyright (c) 2003 - 2023  by the MyOOS Development Team.
+   ----------------------------------------------------------------------
+   Released under the GNU General Public License
+   ----------------------------------------------------------------------
+ */
+
+
+// Create a nonce RANDOM_VALUE
+$nonce = bin2hex(random_bytes(16));
+// Store the nonce RANDOM_VALUE in the session
+// $_SESSION['nonce'] = $nonce;
+// Send the CSP header with the nonce RANDOM_VALUE
+header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
+?>
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=no,maximum-scale=1">
     <title>Web-Based Virtual Experiences in the Metaverse</title>
-	<script src="static/js/runtime-main.js"></script>
-	<script src="static/js/572.js"></script>
-	<script src="static/js/734.js"></script>
-	<script src="static/js/203.js"></script>
-	<script src="static/js/434.js"></script>
-	<script src="static/js/454.js"></script>
-	<script src="static/js/986.js"></script>
-	<script src="static/js/58.js"></script>
-	<script src="static/js/710.js"></script>
-	<script src="static/js/223.js"></script>
-	<script src="static/js/850.js"></script>
-	<script src="static/js/848.js"></script>
-	<script src="static/js/227.js"></script>
-	<script src="static/js/569.js"></script>
-	<script src="static/js/687.js"></script>
-	<script src="static/js/406.js"></script>
-	<script src="static/js/477.js"></script>
-	<script src="static/js/main.js"></script>
-    <script>
+	<script nonce="<?php echo $nonce; ?>" src="static/js/runtime-main.js"></script>
+	<script nonce="<?php echo $nonce; ?>" src="static/js/572.js"></script>
+	<script nonce="<?php echo $nonce; ?>" src="static/js/734.js"></script>
+	<script nonce="<?php echo $nonce; ?>" src="static/js/203.js"></script>
+	<script nonce="<?php echo $nonce; ?>" src="static/js/434.js"></script>
+	<script nonce="<?php echo $nonce; ?>" src="static/js/454.js"></script>
+	<script nonce="<?php echo $nonce; ?>" src="static/js/986.js"></script>
+	<script nonce="<?php echo $nonce; ?>" src="static/js/58.js"></script>
+	<script nonce="<?php echo $nonce; ?>" src="static/js/710.js"></script>
+	<script nonce="<?php echo $nonce; ?>" src="static/js/223.js"></script>
+	<script nonce="<?php echo $nonce; ?>" src="static/js/850.js"></script>
+	<script nonce="<?php echo $nonce; ?>" src="static/js/848.js"></script>
+	<script nonce="<?php echo $nonce; ?>" src="static/js/227.js"></script>
+	<script nonce="<?php echo $nonce; ?>" src="static/js/569.js"></script>
+	<script nonce="<?php echo $nonce; ?>" src="static/js/687.js"></script>
+	<script nonce="<?php echo $nonce; ?>" src="static/js/406.js"></script>
+	<script nonce="<?php echo $nonce; ?>" src="static/js/477.js"></script>
+	<script nonce="<?php echo $nonce; ?>" src="static/js/main.js"></script>
+
+<script nonce="<?php echo $nonce; ?>">
 /**
  * Basic emissive effect.
  */
@@ -73,7 +95,7 @@ AFRAME.registerComponent('not-mobile',  {
     </script>
   </head>
 <body>
-	<a-scene vr-mode-ui="enabled: true"> <!-- creates a UI element for the VR mode -->
+	<a-scene nonce="<?php echo $nonce; ?>" embedded vr-mode-ui="enabled: false"> <!-- creates a UI element for the VR mode -->
 		<a-assets>
 			<img id="skyTexture" src="texture/kloofendal_43d_clear_puresky.jpg">
 			<a-asset-item id="navmesh" src="model/hall-navmesh.glb"></a-asset-item>
