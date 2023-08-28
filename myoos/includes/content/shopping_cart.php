@@ -259,6 +259,9 @@ $smarty->assign(
     ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title' => $aLang['heading_title_cart'], 'robots'        => 'noindex,follow,noodp,noydir', 'cart_active'   => 1, 'canonical'     => $sCanonical, 'hidden_field'  => $hidden_field, 'products'      => $products, 'error'         => $nError, 'any_out_of_stock'    => $any_out_of_stock, 'order_total_output'  => $order_total_output, 'country'             => $country, 'city'                => $city, 'postcode'            => $postcode]
 );
 
+// Send the CSP header with the nonce RANDOM_VALUE
+header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
+
 // register the outputfilter
 $smarty->loadFilter('output', 'trimwhitespace');
 

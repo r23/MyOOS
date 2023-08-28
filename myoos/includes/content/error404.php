@@ -46,6 +46,11 @@ $smarty->assign(
     ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title' => $aLang['heading_title'], 'robots'        => 'noindex,nofollow,noodp,noydir', 'canonical'     => $sCanonical]
 );
 
+// Send the CSP header with the nonce RANDOM_VALUE
+header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
+
+// register the outputfilter
+$smarty->loadFilter('output', 'trimwhitespace');
 
 // display the template
 $smarty->display($aTemplate['page']);

@@ -574,6 +574,10 @@ if ($category_depth == 'nested') {
     oos_redirect(oos_href_link($aContents['home']));
 }
 
+// Send the CSP header with the nonce RANDOM_VALUE
+header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
+
+
 // register the outputfilter
 $smarty->loadFilter('output', 'trimwhitespace');
 

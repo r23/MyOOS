@@ -115,6 +115,9 @@ if (DOWNLOAD_ENABLED == 'true') {
     $smarty->assign('download', $smarty->fetch($aTemplate['download']));
 }
 
+// Send the CSP header with the nonce RANDOM_VALUE
+header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
+
 // register the outputfilter
 $smarty->loadFilter('output', 'trimwhitespace');
 

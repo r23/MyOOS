@@ -226,21 +226,21 @@
 
 
 <!-- Core --> 
-<script src="{$theme}/js/vendor.min.js"></script>
+<script nonce="{$nonce}" src="{$theme}/js/vendor.min.js"></script>
 
 {$javascript}
 
 <!-- Plugins  -->
-<script src="js/plugins/viewport-checker/viewportchecker.min.js"></script> 
-<script src="js/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
-<script src="js/plugins/cookie_consent/bootstrap-cookie-consent-settings.js"></script> 
+<script nonce="{$nonce}" src="js/plugins/viewport-checker/viewportchecker.min.js"></script> 
+<script nonce="{$nonce}" src="js/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
+<script nonce="{$nonce}" src="js/plugins/cookie_consent/bootstrap-cookie-consent-settings.js"></script> 
 
-<script src="{$theme}/js/theme.min.js"></script>
-<script src="{$theme}/js/shop.app.js"></script>
+<script nonce="{$nonce}" src="{$theme}/js/theme.min.js"></script>
+<script nonce="{$nonce}" src="{$theme}/js/shop.app.js"></script>
 
 
+<script nonce="{$nonce}">
 {literal}
-<script>
 	$(document).ready(function() {
 		// RADIO OPTION
 		$('input[type=radio]').on('change', updateRadioOption);
@@ -341,8 +341,8 @@
 {/literal}
 
 {if $smarty.session.new_products_id_in_cart}
+<script nonce="{$nonce}">
 {literal}
-<script>
 	var myOffcanvas = document.getElementById('offcanvas-cart')
 
 	$( window ).on("load", function() {
@@ -352,17 +352,16 @@
 </script>
 {/literal}
 {/if}
+<script nonce="{$nonce}">
 {literal}
-<script>
 /* <![CDATA[ */
 var cnArgs = {/literal}{$cookiearray|@json_encode nofilter};{literal}
 /* ]]> */
 </script>
 {/literal}
 
-
+<script nonce="{$nonce}">
 {literal}
-<script>
     var cookieSettings = new BootstrapCookieConsentSettings({
         contentURL: "{/literal}{$smarty.const.OOS_COOKIE_CONSENT}{literal}",
         postSelectionCallback: function () {

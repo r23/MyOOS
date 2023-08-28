@@ -544,6 +544,9 @@ if (!$product_info_result->RecordCount()) {
     $smarty->setCaching(false);
 }
 
+// Send the CSP header with the nonce RANDOM_VALUE
+header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
+
 // register the outputfilter
 $smarty->loadFilter('output', 'trimwhitespace');
 

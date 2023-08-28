@@ -102,6 +102,10 @@ if (!$smarty->isCached($aTemplate['upcoming_products'], $sModulesCacheID)) {
 }
 $smarty->assign('upcoming_products', $smarty->fetch($aTemplate['upcoming_products'], $sModulesCacheID));
 
+
+// Send the CSP header with the nonce RANDOM_VALUE
+header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
+
 // register the outputfilter
 $smarty->loadFilter('output', 'trimwhitespace');
 

@@ -152,6 +152,9 @@ $smarty->assign(
     ['breadcrumb'    => $oBreadcrumb->trail(), 'pagetitle'     => $information['heading_coupon_help'], 'heading_title' => $information['heading_coupon_help'], 'canonical'     => $sCanonical, 'help_text'       => $text_coupon_help]
 );
 
+// Send the CSP header with the nonce RANDOM_VALUE
+header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
+
 // register the outputfilter
 $smarty->loadFilter('output', 'trimwhitespace');
 	

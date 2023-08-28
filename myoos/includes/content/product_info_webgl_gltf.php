@@ -77,12 +77,6 @@ if (!$products_models_result->RecordCount()) {
     $name = oos_strip_suffix($model_info['models_webgl_gltf']);
     $model_path = './media/models/gltf/' . $name . '/' . $model_info['models_extensions'] . '/';
 
-    ob_start();
-    include_once MYOOS_INCLUDE_PATH . '/includes/content/scene3d/product_info_webgl_gltf.js.php';
-    $webgl = ob_get_contents();
-    ob_end_clean();
-
-
     // Meta Tags
     $sPagetitle = $model_info['models_title'] . ' ' . OOS_META_TITLE;
     $sDescription = $model_info['models_description_meta'];
@@ -93,12 +87,20 @@ if (!$products_models_result->RecordCount()) {
 
     include_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 
+    ob_start();
+    include_once MYOOS_INCLUDE_PATH . '/includes/content/scene3d/product_info_webgl_gltf.js.php';
+    $webgl = ob_get_contents();
+    ob_end_clean();
+
     $smarty->assign('canonical', $sCanonical);
     $smarty->assign('webgl', $webgl);
     $smarty->assign('model', $model_info);
 
     $smarty->setCaching(false);
 }
+
+// Send the CSP header with the nonce RANDOM_VALUE
+header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
 
 // register the outputfilter
 $smarty->loadFilter('output', 'trimwhitespace');

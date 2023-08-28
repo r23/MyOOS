@@ -251,6 +251,9 @@ $smarty->assign(
     ['breadcrumb'        => $oBreadcrumb->trail(), 'heading_title'        => $aLang['heading_title'], 'robots'            => 'noindex,nofollow,noodp,noydir', 'checkout_active'    => 1, 'sess_method'        => $module, 'counts_shipping_modules' => oos_count_shipping_modules(), 'quotes'            => $quotes, 'free_shipping'        => $free_shipping, 'oos_free_shipping_description' => sprintf($aLang['free_shipping_description'], $oCurrencies->format(MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER))]
 );
 
+// Send the CSP header with the nonce RANDOM_VALUE
+header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
+
 // register the outputfilter
 $smarty->loadFilter('output', 'trimwhitespace');
 

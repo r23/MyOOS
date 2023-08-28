@@ -39,6 +39,11 @@ if ($debug == 1) {
 $smarty->assignByRef("oEvent", $oEvent);
 $smarty->assignByRef("oNavMenu", $oNavMenu);
 
+
+// Create a nonce RANDOM_VALUE
+$nonce = bin2hex(random_bytes(16));
+$smarty->assign('nonce', $nonce);
+
 // cache_id
 $sCacheID            = $sTheme . '|block|' . $sLanguage;
 $sSystemCacheID        = $sTheme . '|block|' . $sLanguage;
