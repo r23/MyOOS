@@ -205,8 +205,10 @@ if( $wpu->ID > 1 && is_email($wpu->user_email) ){
      if(empty($user)){
       $w3warn = '<h2 style="color:red">Error:</h2> '.$_POST['w3ins_wu_to_phpbb'].' <h2 style="color:red">do not exists into WordPress</h2>';
      } elseif( isset($user->user_email) && $user->ID > 1 ) {
+
        $phpBB_user_add = WP_w3all_phpbb::create_phpBB_user_res($user);
-       if($phpBB_user_add > 2){
+// $phpBB_user_add > 2 fail!
+       	if($phpBB_user_add > 2 OR defined("W3ALL_INSERTED_PHPBBUID") && W3ALL_INSERTED_PHPBBUID > 2){
         $w3warn = '<h2 style="color:green">Notice:</h2> '.$_POST['w3ins_wu_to_phpbb'].' <h2 style="color:green">transferred into phpBB</h2>';
        }  else {
          $w3warn = '<h2 style="color:red">Error:</h2> '.$_POST['w3ins_wu_to_phpbb'].' <h2 style="color:red">has not been transferred into phpBB. Already existent? (check if the email or username exists in phpBB)</h2>';

@@ -218,7 +218,7 @@ echo __('Choosing to hash passwords in phpBB mode, when/if the integration will 
 <form name="w3all_conf_pref" id="w3all-conf-pref" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">
 <h1 style="color:green">WP_w3all users transfer, check options and common tasks</h1>
 <hr />
-<strong><span style="color:#ff0000">NOTE: IT IS MANDATORY</span></strong> to transfer existent WordPress users into phpBB when integration start<br /><br />
+<strong><span style="color:#ff0000">NOTE: it is may mandatory</span></strong> to transfer existent WordPress users into phpBB when integration start<br /><br />
 <button id="w3ckoption" class="button">Users transfer, Check options and Common tasks</button>
 <br /><br />
 <div id="w3all_ck_page" style="padding:5px;margin:0 20px; 0 0">
@@ -230,7 +230,7 @@ jQuery( "#w3all_ck_page" ).toggle();
 });
 </script>
 <?php
-echo __('it depend on how Cms are configured to run as integrated (where you allow users to update email) and/or how the integration plugin is used<br />but normally all users must exists into both CMS with unique username/email pairs<br />Use the <i>WP w3all check -> List phpBB users with duplicated usernames or emails</i> task<br /><strong style="color:#FF0000">NOTE: IT IS MANDATORY</strong> as explained on the <a target="_blank" href="https://www.axew3.com/w3/wordpress-phpbb-integration-install/">Help Install Page</a><br /><strong style="color:#FF0000">to transfer existent WordPress users into phpBB when integration start</strong><br />
+echo __('it depend on how Cms are configured to run as integrated (where you allow users to update email) and/or how the integration plugin is used<br />but normally all users must exists into both CMS with unique username/email pairs<br />Use the <i>WP w3all check -> List phpBB users with duplicated usernames or emails</i> task<br /><strong style="color:#FF0000">NOTE: it is may mandatory</strong> as explained on the <a target="_blank" href="https://www.axew3.com/w3/wordpress-phpbb-integration-install/">Help Install Page</a><br /><strong style="color:#FF0000">to transfer existent WordPress users into phpBB when integration start</strong><br />
   While <strong>it is (may) not mandatory</strong> to transfer phpBB users into WordPress when integration start<br />Run check tasks before to start the integration or use it to check for user\'s problems time after time<br />These options are also visible into WordPress admin under Tools Menu', 'wp-w3all-phpbb-integration');
 
 /*if($w3all_conf_pref['w3all_transfer_phpbb_yn'] == 1){

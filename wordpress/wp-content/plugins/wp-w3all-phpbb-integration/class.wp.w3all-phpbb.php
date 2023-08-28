@@ -289,7 +289,7 @@ private static function verify_phpbb_credentials(){
    // A possible bruteforce done by a logged in user will fail because the function will setup the phpBB session only for the SAME logged in WP user
    // and DO NOT populate $phpbb_user_session: the code just below wrapped inside
    // if(isset($phpbb_user_session[0])){
-   // that could update user's email and pass when mismatching, will NEVER execute
+   // that could update user's email and pass when found mismatching, will NEVER execute
     if ( empty($phpbb_user_session) && $phpbb_u > 2 && is_user_logged_in() ) {
         self::phpBB_user_session_set($current_user);
         $noBFF = 1;
@@ -918,9 +918,6 @@ private static function phpBB_user_session_set($wp_user_data){
       // This way, setup for 1 year by the way
       $cookie_expire = time() + 31536000;
 
-     if (version_compare(phpversion(), '7.3.0', '>')) {
-    // php version isn't high enough
-    }
       $secure = is_ssl();
       if(empty($w3cookie_domain)){
         $w3cookie_domain = 'localhost';
@@ -1170,7 +1167,7 @@ private static function create_phpBB_user($wpu, $action = ''){
 
       // check that the user need to be added as activated or not into phpBB
 
-        if( current_user_can( 'manage_options' ) === true ){ // an admin adding user
+        if( current_user_can( 'manage_options' ) === true OR $action = 'add_u_phpbb_after_login' ){ // an admin adding user
           $phpbb_user_type = 0;
         } else {
           $phpbb_user_type = $w3all_phpbb_user_deactivated_yn;
@@ -1257,7 +1254,8 @@ private static function create_phpBB_user($wpu, $action = ''){
     }
  }
 
- if(isset($phpBBlid)){
+ if(intval($phpBBlid) > 2){
+ 	define("W3ALL_INSERTED_PHPBBUID", intval($phpBBlid));
   $w3all_oninsert_wp_user = 1; // or get email exist, because w3all_filter_pre_user_email() will fire after, wp update fire by the way
   return $phpBBlid;
  }

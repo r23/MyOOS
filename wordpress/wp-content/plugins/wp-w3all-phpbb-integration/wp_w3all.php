@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.7.2
+Version: 2.7.3
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -33,7 +33,7 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.7.2' );
+define( 'WPW3ALL_VERSION', '2.7.3' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '6.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -514,7 +514,7 @@ function wp_w3all_user_session_set( $logged_in_cookie, $expire, $expiration, $us
 // See step Bruteforce 'phpBB session keys Prevention check' for this, into class.wp.w3all-phpbb.php
 if(isset($_COOKIE["w3all_bruteblock"]) && $_COOKIE["w3all_bruteblock"] > 0){
   function w3all_bruteblock_login_message( $message ) {
-     return __('<strong>Notice: account Locked<br />Please login!</strong><br />Account logged out due to detected brute force attack against session or due to mismatching session<br /><strong>To fix the problem, please login now here!</strong>', 'wp-w3all-phpbb-integration');
+     return __('<strong>Notice: account Locked<br />Login to unlock your account</strong><br />Mismatching session<br /><strong>To fix the problem please login now here!</strong>', 'wp-w3all-phpbb-integration');
   }
   add_filter( 'login_message', 'w3all_bruteblock_login_message', 10, 1 );
   setcookie ("w3all_bruteblock", "", time() - 2592000, "/", "$w3cookie_domain");
@@ -1191,6 +1191,7 @@ return $post_std;
 function w3all_add_phpbb_user() {
 
   // work with the phpBB WordPress extension -> cURL
+  // add user into WP, do NOT setup a phpBB session for the just inserted WP user
 
   global $w3all_add_into_wp_u_capability,$phpbb_config,$w3all_oninsert_wp_user,$wpdb,$wp_w3all_forum_folder_wp;
      if( isset($_REQUEST["w3alladdphpbbuid"]) ){
