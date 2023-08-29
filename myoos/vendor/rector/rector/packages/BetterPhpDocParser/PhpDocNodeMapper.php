@@ -50,13 +50,9 @@ final class PhpDocNodeMapper
     public function transform(PhpDocNode $phpDocNode, BetterTokenIterator $betterTokenIterator) : void
     {
         $this->currentTokenIteratorProvider->setBetterTokenIterator($betterTokenIterator);
-        $parentPhpDocNodeTraverser = new PhpDocNodeTraverser();
-        $parentPhpDocNodeTraverser->addPhpDocNodeVisitor($this->parentConnectingPhpDocNodeVisitor);
-        $parentPhpDocNodeTraverser->traverse($phpDocNode);
-        $cloningPhpDocNodeTraverser = new PhpDocNodeTraverser();
-        $cloningPhpDocNodeTraverser->addPhpDocNodeVisitor($this->cloningPhpDocNodeVisitor);
-        $cloningPhpDocNodeTraverser->traverse($phpDocNode);
         $phpDocNodeTraverser = new PhpDocNodeTraverser();
+        $phpDocNodeTraverser->addPhpDocNodeVisitor($this->parentConnectingPhpDocNodeVisitor);
+        $phpDocNodeTraverser->addPhpDocNodeVisitor($this->cloningPhpDocNodeVisitor);
         foreach ($this->phpDocNodeVisitors as $phpDocNodeVisitor) {
             $phpDocNodeTraverser->addPhpDocNodeVisitor($phpDocNodeVisitor);
         }

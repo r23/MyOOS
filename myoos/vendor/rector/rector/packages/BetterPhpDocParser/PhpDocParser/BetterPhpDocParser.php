@@ -50,7 +50,7 @@ final class BetterPhpDocParser extends PhpDocParser
     /**
      * @param PhpDocNodeDecoratorInterface[] $phpDocNodeDecorators
      */
-    public function __construct(TypeParser $typeParser, ConstExprParser $constExprParser, CurrentNodeProvider $currentNodeProvider, TokenIteratorFactory $tokenIteratorFactory, iterable $phpDocNodeDecorators, PrivatesAccessor $privatesAccessor = null)
+    public function __construct(TypeParser $typeParser, ConstExprParser $constExprParser, CurrentNodeProvider $currentNodeProvider, TokenIteratorFactory $tokenIteratorFactory, array $phpDocNodeDecorators, PrivatesAccessor $privatesAccessor = null)
     {
         $privatesAccessor = $privatesAccessor ?? new PrivatesAccessor();
         $this->currentNodeProvider = $currentNodeProvider;
@@ -71,8 +71,7 @@ final class BetterPhpDocParser extends PhpDocParser
             // parseDoctrineAnnotations
             \false,
             // textBetweenTagsBelongsToDescription, default to false, exists since 1.23.0
-            // @todo: make it true to allow next doc line text as part of current docblock
-            \false
+            \true
         );
     }
     public function parse(TokenIterator $tokenIterator) : PhpDocNode
@@ -114,9 +113,13 @@ final class BetterPhpDocParser extends PhpDocParser
      */
     public function parseTagValue(TokenIterator $tokenIterator, string $tag) : PhpDocTagValueNode
     {
+        $isPrecededByHorizontalWhitespace = $tokenIterator->isPrecededByHorizontalWhitespace();
         $startPosition = $tokenIterator->currentPosition();
         $phpDocTagValueNode = parent::parseTagValue($tokenIterator, $tag);
         $endPosition = $tokenIterator->currentPosition();
+        if ($isPrecededByHorizontalWhitespace && \property_exists($phpDocTagValueNode, 'description')) {
+            $phpDocTagValueNode->description = \str_replace("\n", "\n * ", (string) $phpDocTagValueNode->description);
+        }
         $startAndEnd = new StartAndEnd($startPosition, $endPosition);
         $phpDocTagValueNode->setAttribute(PhpDocAttributeKey::START_AND_END, $startAndEnd);
         return $phpDocTagValueNode;

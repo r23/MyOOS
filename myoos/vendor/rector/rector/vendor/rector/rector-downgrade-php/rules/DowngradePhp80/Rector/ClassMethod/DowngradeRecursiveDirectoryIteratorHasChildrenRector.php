@@ -58,17 +58,17 @@ CODE_SAMPLE
     public function refactor(Node $node) : ?Node
     {
         foreach ($node->getMethods() as $classMethod) {
-            if (!$this->nodeNameResolver->isName($classMethod, 'hasChildren')) {
+            if (!isset($classMethod->params[0])) {
                 continue;
             }
-            if (!isset($classMethod->params[0])) {
+            if ($classMethod->params[0]->type === null) {
+                continue;
+            }
+            if (!$this->nodeNameResolver->isName($classMethod, 'hasChildren')) {
                 continue;
             }
             $ancestorClassNames = $this->familyRelationsAnalyzer->getClassLikeAncestorNames($node);
             if (!\in_array('RecursiveDirectoryIterator', $ancestorClassNames, \true)) {
-                continue;
-            }
-            if ($classMethod->params[0]->type === null) {
                 continue;
             }
             $classMethod->params[0]->type = null;

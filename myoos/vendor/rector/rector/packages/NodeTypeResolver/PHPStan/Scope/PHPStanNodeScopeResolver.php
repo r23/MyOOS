@@ -53,6 +53,7 @@ use PHPStan\Type\TypeCombinator;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\NodeAnalyzer\ClassAnalyzer;
 use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
+use Rector\Core\PHPStan\NodeVisitor\ExprScopeFromStmtNodeVisitor;
 use Rector\Core\PHPStan\NodeVisitor\WrappedNodeRestoringNodeVisitor;
 use Rector\Core\Util\Reflection\PrivatesAccessor;
 use Rector\NodeNameResolver\NodeNameResolver;
@@ -203,7 +204,12 @@ final class PHPStanNodeScopeResolver
                 $node->setAttribute(AttributeKey::SCOPE, $mutatingScope);
             }
         };
-        return $this->processNodesWithDependentFiles($stmts, $scope, $nodeCallback);
+        $this->nodeScopeResolver->processNodes($stmts, $scope, $nodeCallback);
+        $nodeTraverser = new NodeTraverser();
+        $nodeTraverser->addVisitor(new WrappedNodeRestoringNodeVisitor());
+        $nodeTraverser->addVisitor(new ExprScopeFromStmtNodeVisitor($scope));
+        $nodeTraverser->traverse($stmts);
+        return $stmts;
     }
     public function hasUnreachableStatementNode() : bool
     {
@@ -314,19 +320,6 @@ final class PHPStanNodeScopeResolver
             $ternary->if->setAttribute(AttributeKey::SCOPE, $mutatingScope);
         }
         $ternary->else->setAttribute(AttributeKey::SCOPE, $mutatingScope);
-    }
-    /**
-     * @param Stmt[] $stmts
-     * @param callable(Node $node, MutatingScope $scope): void $nodeCallback
-     * @return Stmt[]
-     */
-    private function processNodesWithDependentFiles(array $stmts, MutatingScope $mutatingScope, callable $nodeCallback) : array
-    {
-        $this->nodeScopeResolver->processNodes($stmts, $mutatingScope, $nodeCallback);
-        $nodeTraverser = new NodeTraverser();
-        $nodeTraverser->addVisitor(new WrappedNodeRestoringNodeVisitor());
-        $nodeTraverser->traverse($stmts);
-        return $stmts;
     }
     /**
      * @param \PhpParser\Node\Stmt\Class_|\PhpParser\Node\Stmt\Interface_|\PhpParser\Node\Stmt\Enum_ $classLike

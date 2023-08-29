@@ -15,11 +15,12 @@ use Rector\Core\Autoloading\BootstrapFilesIncluder;
 use Rector\Core\Configuration\ConfigurationFactory;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Configuration\Parameter\SimpleParameterProvider;
-use Rector\Core\Configuration\RenamedClassesDataCollector;
-use Rector\Core\Contract\Rector\PhpRectorInterface;
+use Rector\Core\Contract\DependencyInjection\ResetableInterface;
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\Util\Reflection\PrivatesAccessor;
 use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider;
 use Rector\Testing\Contract\RectorTestInterface;
 use Rector\Testing\Fixture\FixtureFileFinder;
@@ -65,17 +66,21 @@ abstract class AbstractRectorTestCase extends \Rector\Testing\PHPUnit\AbstractLa
         // boot once for config + test case to avoid booting again and again for every test fixture
         $cacheKey = \sha1($configFile . static::class);
         if (!isset(self::$cacheByRuleAndConfig[$cacheKey])) {
-            // reset class rename
-            $renamedClassesDataCollector = $rectorConfig->make(RenamedClassesDataCollector::class);
-            $renamedClassesDataCollector->reset();
+            // reset
+            /** @var RewindableGenerator<int, ResetableInterface> $resetables */
+            $resetables = $rectorConfig->tagged(ResetableInterface::class);
+            foreach ($resetables as $resetable) {
+                /** @var ResetableInterface $resetable */
+                $resetable->reset();
+            }
             $this->forgetRectorsRules();
+            $rectorConfig->resetRuleConfigurations();
             // this has to be always empty, so we can add new rules with their configuration
             $this->assertEmpty($rectorConfig->tagged(RectorInterface::class));
-            $this->assertEmpty($rectorConfig->tagged(PhpRectorInterface::class));
             $this->bootFromConfigFiles([$configFile]);
-            $phpRectorsGenerator = $rectorConfig->tagged(PhpRectorInterface::class);
-            if ($phpRectorsGenerator instanceof RewindableGenerator) {
-                $phpRectors = \iterator_to_array($phpRectorsGenerator->getIterator());
+            $rectorsGenerator = $rectorConfig->tagged(RectorInterface::class);
+            if ($rectorsGenerator instanceof RewindableGenerator) {
+                $phpRectors = \iterator_to_array($rectorsGenerator->getIterator());
             } else {
                 // no rules at all, e.g. in case of only post rector run
                 $phpRectors = [];
@@ -83,7 +88,6 @@ abstract class AbstractRectorTestCase extends \Rector\Testing\PHPUnit\AbstractLa
             $rectorNodeTraverser = $rectorConfig->make(RectorNodeTraverser::class);
             $rectorNodeTraverser->refreshPhpRectors($phpRectors);
             // store cache
-            self::$cacheByRuleAndConfig[$cacheKey] = \true;
             self::$cacheByRuleAndConfig[$cacheKey] = \true;
         }
         $this->applicationFileProcessor = $this->make(ApplicationFileProcessor::class);
@@ -134,6 +138,33 @@ abstract class AbstractRectorTestCase extends \Rector\Testing\PHPUnit\AbstractLa
         // write temp file
         FileSystem::write($inputFilePath, $inputFileContents);
         $this->doTestFileMatchesExpectedContent($inputFilePath, $expectedFileContents, $fixtureFilePath);
+    }
+    protected function forgetRectorsRules() : void
+    {
+        $rectorConfig = self::getContainer();
+        // 1. forget instance first, then remove tags
+        $rectors = $rectorConfig->tagged(RectorInterface::class);
+        foreach ($rectors as $rector) {
+            $rectorConfig->offsetUnset(\get_class($rector));
+        }
+        // 2. remove all tagged rules
+        $privatesAccessor = new PrivatesAccessor();
+        $privatesAccessor->propertyClosure($rectorConfig, 'tags', static function (array $tags) : array {
+            unset($tags[RectorInterface::class]);
+            return $tags;
+        });
+        // 3. remove after binding too, to avoid setting configuration over and over again
+        $privatesAccessor->propertyClosure($rectorConfig, 'afterResolvingCallbacks', static function (array $afterResolvingCallbacks) : array {
+            foreach (\array_keys($afterResolvingCallbacks) as $key) {
+                if ($key === AbstractRector::class) {
+                    continue;
+                }
+                if (\is_a($key, RectorInterface::class, \true)) {
+                    unset($afterResolvingCallbacks[$key]);
+                }
+            }
+            return $afterResolvingCallbacks;
+        });
     }
     private function includePreloadFilesAndScoperAutoload() : void
     {

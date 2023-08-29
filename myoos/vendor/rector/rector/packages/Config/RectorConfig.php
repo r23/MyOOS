@@ -9,9 +9,9 @@ use Rector\Core\Configuration\Option;
 use Rector\Core\Configuration\Parameter\SimpleParameterProvider;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Contract\Rector\NonPhpRectorInterface;
-use Rector\Core\Contract\Rector\PhpRectorInterface;
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Core\FileSystem\FilesystemTweaker;
 use Rector\Core\NodeAnalyzer\ScopeAnalyzer;
 use Rector\Core\Rector\AbstractScopeAwareRector;
 use Rector\Core\ValueObject\PhpVersion;
@@ -21,6 +21,10 @@ use RectorPrefix202308\Webmozart\Assert\Assert;
  */
 final class RectorConfig extends Container
 {
+    /**
+     * @var array<class-string<RectorInterface>, mixed[]>>
+     */
+    private $ruleConfigurations = [];
     /**
      * @param string[] $paths
      */
@@ -138,11 +142,19 @@ final class RectorConfig extends Container
         Assert::classExists($rectorClass);
         Assert::isAOf($rectorClass, RectorInterface::class);
         Assert::isAOf($rectorClass, ConfigurableRectorInterface::class);
+        // store configuration to cache
+        $this->ruleConfigurations[$rectorClass] = \array_merge($this->ruleConfigurations[$rectorClass] ?? [], $configuration);
+        $isBound = $this->bound($rectorClass);
+        // avoid double registration
+        if ($isBound) {
+            return;
+        }
         $this->singleton($rectorClass);
-        $this->afterResolving($rectorClass, static function (ConfigurableRectorInterface $configurableRector) use($configuration) : void {
-            $configurableRector->configure($configuration);
-        });
         $this->tagRectorService($rectorClass);
+        $this->afterResolving($rectorClass, function (ConfigurableRectorInterface $configurableRector) use($rectorClass) : void {
+            $ruleConfiguration = $this->ruleConfigurations[$rectorClass];
+            $configurableRector->configure($ruleConfiguration);
+        });
     }
     /**
      * @param class-string<RectorInterface> $rectorClass
@@ -163,12 +175,14 @@ final class RectorConfig extends Container
     }
     public function import(string $filePath) : void
     {
-        Assert::fileExists($filePath);
-        $self = $this;
-        $callable = (require $filePath);
-        Assert::isCallable($callable);
-        /** @var callable(Container $container): void $callable */
-        $callable($self);
+        $paths = [$filePath];
+        if (\strpos($filePath, '*') !== \false) {
+            $filesystemTweaker = new FilesystemTweaker();
+            $paths = $filesystemTweaker->resolveWithFnmatch($paths);
+        }
+        foreach ($paths as $path) {
+            $this->importFile($path);
+        }
     }
     /**
      * @param array<class-string<RectorInterface>> $rectorClasses
@@ -255,6 +269,19 @@ final class RectorConfig extends Container
     {
         \trigger_error('The services() method is deprecated. Use $rectorConfig->singleton(ServiceType::class) instead', \E_USER_ERROR);
     }
+    public function resetRuleConfigurations() : void
+    {
+        $this->ruleConfigurations = [];
+    }
+    private function importFile(string $filePath) : void
+    {
+        Assert::fileExists($filePath);
+        $self = $this;
+        $callable = (require $filePath);
+        Assert::isCallable($callable);
+        /** @var callable(Container $container): void $callable */
+        $callable($self);
+    }
     /**
      * @param mixed $skipRule
      */
@@ -278,15 +305,13 @@ final class RectorConfig extends Container
         return \array_unique($duplicates);
     }
     /**
-     * @param class-string<RectorInterface|PhpRectorInterface> $rectorClass
+     * @param class-string<RectorInterface> $rectorClass
      */
     private function tagRectorService(string $rectorClass) : void
     {
         $this->tag($rectorClass, RectorInterface::class);
-        if (\is_a($rectorClass, PhpRectorInterface::class, \true)) {
-            $this->tag($rectorClass, PhpRectorInterface::class);
-        } elseif (\is_a($rectorClass, NonPhpRectorInterface::class, \true)) {
-            \trigger_error(\sprintf('The "%s" interface of "%s" rule is deprecated. Rector will only PHP code, as designed to with AST. For another file format, use custom tooling.', NonPhpRectorInterface::class, $rectorClass));
+        if (\is_a($rectorClass, NonPhpRectorInterface::class, \true)) {
+            \trigger_error(\sprintf('The "%s" interface of "%s" rule is deprecated. Rector will process only PHP code, as designed to with AST. For another file format, use custom tooling.', NonPhpRectorInterface::class, $rectorClass));
             exit;
         }
     }
