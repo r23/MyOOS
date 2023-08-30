@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.3.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-08-20 15:19:10+0000\n"
+"PO-Revision-Date: 2023-08-29 17:25:37+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -36,6 +36,11 @@ msgstr "1"
 msgctxt "default GMT offset or timezone string"
 msgid "0"
 msgstr "Europe/Berlin"
+
+#. translators: %s: WordPress version.
+#: wp-admin/about.php:68
+msgid "https://wordpress.org/support/wordpress-version/version-%s/"
+msgstr "https://wordpress.org/support/wordpress-version/version-%s/"
 
 #: wp-admin/contribute.php:103 wp-admin/credits.php:63 wp-admin/credits.php:71
 msgid "https://make.wordpress.org/contribute/"
@@ -5244,7 +5249,7 @@ msgstr "Bearbeite dein Menü unten, oder <a href=\"%s\">erstelle ein neues Menü
 #. translators: Hidden accessibility text.
 #: wp-admin/nav-menus.php:865
 msgid "Fill in the Menu Name and click the Create Menu button to create your first menu."
-msgstr "Trag den Menü-Namen ein und klick auf die Schaltfläche „Menü erstellen“, um dein erstes Menü zu erstellen."
+msgstr "Trage den Menü-Namen ein und klicke auf den Button „Menü erstellen“, um dein erstes Menü zu erstellen."
 
 #: wp-admin/nav-menus.php:861
 msgid "Create your first menu below."
@@ -5895,7 +5900,7 @@ msgstr "Personenbezogene Daten werden nicht nur bei Interaktionen eines Benutzer
 #. translators: Privacy policy tutorial.
 #: wp-admin/includes/class-wp-privacy-policy-content.php:488
 msgid "In addition to listing what personal data you collect, you need to note why you collect it. These explanations must note either the legal basis for your data collection and retention or the active consent the user has given."
-msgstr "Zusätzlich zur der Auflistung der Art personenbezogener Daten, die du sammelst, musst du den Grund dafür darlegen. Diese Erklärungen müssen entweder die Rechtsgrundlage der Sammlung und Speicherung von Daten erwähnen oder die Einverständniserklärung, in die der Benutzer eingewilligt hat."
+msgstr "Zusätzlich zu der Auflistung der Art personenbezogener Daten, die du sammelst, musst du den Grund dafür darlegen. Diese Erklärungen müssen entweder die Rechtsgrundlage der Sammlung und Speicherung von Daten erwähnen oder die Einverständniserklärung, in die der Benutzer eingewilligt hat."
 
 #. translators: Privacy policy tutorial.
 #: wp-admin/includes/class-wp-privacy-policy-content.php:486
@@ -7308,7 +7313,7 @@ msgstr "Der Text-Modus ermöglicht es dir den Beitragstext mit HTML zu formatier
 
 #: wp-admin/edit-form-advanced.php:294
 msgid "Visual mode gives you an editor that is similar to a word processor. Click the Toolbar Toggle button to get a second row of controls."
-msgstr "Der visuelle Modus bietet dir einen Editor, der einem Textverarbeitungsprogramm ähnelt. Klicke auf die Schaltfläche &#8222;Werkzeugleiste umschalten&#8220;, um eine zweite Reihe von Formatierungsoptionen zu erhalten."
+msgstr "Der visuelle Modus bietet dir einen Editor, der einem Textverarbeitungsprogramm ähnelt. Klick auf den Button „Werkzeugleiste umschalten“, um eine zweite Reihe von Formatierungsoptionen zu erhalten."
 
 #: wp-admin/upload.php:117
 msgid "Error saving media file."
@@ -7486,7 +7491,7 @@ msgstr[1] "Bewertungen mit %1$d Sternen: %2$s. Wird in neuem Tab geöffnet."
 
 #: wp-admin/includes/plugin-install.php:748
 msgid "Read all reviews on WordPress.org or write your own!"
-msgstr "Lies alle Bewertungen auf WordPress.org oder schreib deine Eigene!"
+msgstr "Lies alle Bewertungen auf WordPress.org oder schreib deine eigene!"
 
 #: wp-admin/includes/plugin-install.php:747
 msgid "Reviews"
@@ -10381,7 +10386,7 @@ msgstr "Favoriten"
 
 #: wp-admin/theme-install.php:131
 msgid "To install the theme so you can preview it with your site&#8217;s content and customize its theme options, click the \"Install\" button at the top of the left-hand pane. The theme files will be downloaded to your website automatically. When this is complete, the theme is now available for activation, which you can do by clicking the \"Activate\" link, or by navigating to your Manage Themes screen and clicking the \"Live Preview\" link under any installed theme&#8217;s thumbnail image."
-msgstr "Um das Theme zu installieren, sodass du es mit dem Inhalt deiner Website in der Vorschau anschauen und die Theme-Optionen anpassen kannst, klicke bitte auf den Button „Installieren“ oben im linken Fensterbereich. Die Theme-Dateien werden dadurch automatisch auf deine Website heruntergeladen. Wenn dies abgeschlossen ist, steht das Theme zur Aktivierung bereit. Das machst du, indem du auf den Link „Aktivieren“ klickst oder indem du zum Bildschirm in dem die „Themes“ verwaltet werden, navigierst und auf den Link „Live-Vorschau“ unten, auf einem der Miniaturansichtsbilder eines installierten Themes klickst."
+msgstr "Um das Theme zu installieren und du somit den Inhalt deiner Website in einer Vorschau ansehen sowie die Optionen des Themes anpassen kannst, klicke bitte auf den Button „Installieren“ oben im linken Fensterbereich. Die Dateien des Themes werden dadurch automatisch auf deine Website heruntergeladen. Wenn dieser Vorgang abgeschlossen ist, kannst du das Theme aktivieren, indem du auf den Link „Aktivieren“ klickst oder indem du zum Bildschirm „Themes“, wo diese verwaltet werden, navigierst und dort auf den Link „Live-Vorschau“ unterhalb des Miniaturansichtsbildes eines installierten Themes klickst."
 
 #: wp-admin/includes/widgets.php:264
 msgctxt "widget"
@@ -12164,9 +12169,7 @@ msgstr "Denke daran, auf Aktualisieren zu klicken, um die eingegebenen oder geä
 
 #: wp-admin/edit-form-advanced.php:348
 msgid "Note that you crop the image by clicking on it (the Crop icon is already selected) and dragging the cropping frame to select the desired part. Then click Save to retain the cropping."
-msgstr ""
-"Du kannst ein Bild zuschneiden, indem du in das Bild klickst, die Maustaste gedrückt hälst und den erscheinenden Auswahlrahmen über das Bild ziehst. Der Auswahlrahmen kann auch nachträglich verschoben oder verändert werden. Klicke dann auf „Speichern“, um den Zuschnitt zu übernehmen. \n"
-"Beachte auch, dass die Zuschneide-Funktion bereits automatisch aktiviert ist, wenn du ein Bild zum Bearbeiten öffnest."
+msgstr "Hinweis: Du kannst das Bild zuschneiden, indem du darauf klickst, das Icon „Zuschneiden“ ist standardmäßig ausgewählt. Halte den Mauszeiger gedrückt und ziehe einen Rahmen über den gewünschten Bildausschnitt, diesen Auswahlrahmen kannst du anschließend noch verschieben oder verändern. Klick dann auf „Zuschnitt anwenden“ und auf „Bearbeitungen speichern“."
 
 #: wp-admin/edit-form-advanced.php:347
 msgid "For images only, you can click on Edit Image under the thumbnail to expand out an inline image editor with icons for cropping, rotating, or flipping the image as well as for undoing and redoing. The boxes on the right give you more options for scaling the image, for cropping it, and for cropping the thumbnail in a different way than you crop the original image. You can click on Help in those boxes to get more information."
