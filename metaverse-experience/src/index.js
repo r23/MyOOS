@@ -1,5 +1,6 @@
+import * as AFRAME from 'aframe';
 
-require('aframe');
+
 require('aframe-extras');
 require('aframe-physics-system');
 require('aframe-blink-controls');

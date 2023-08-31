@@ -17,7 +17,7 @@ $nonce = bin2hex(random_bytes(16));
 // Store the nonce RANDOM_VALUE in the session
 // $_SESSION['nonce'] = $nonce;
 // Send the CSP header with the nonce RANDOM_VALUE
-header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
+// header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
 ?>
 <html>
   <head>
