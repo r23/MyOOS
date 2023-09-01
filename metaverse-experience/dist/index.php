@@ -17,7 +17,7 @@ $nonce = bin2hex(random_bytes(16));
 // Store the nonce RANDOM_VALUE in the session
 // $_SESSION['nonce'] = $nonce;
 // Send the CSP header with the nonce RANDOM_VALUE
-// header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
+header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
 ?>
 <html>
   <head>
@@ -95,12 +95,16 @@ AFRAME.registerComponent('not-mobile',  {
     </script>
   </head>
 <body>
-	<a-scene nonce="<?php echo $nonce; ?>" embedded vr-mode-ui="enabled: false"> <!-- creates a UI element for the VR mode -->
+	<a-scene nonce="<?php echo $nonce; ?>" embedded="false" vr-mode-ui="enabled: true"> <!-- creates a UI element for the VR mode -->
 		<a-assets>
 			<img id="skyTexture" src="texture/kloofendal_43d_clear_puresky.jpg">
 			<a-asset-item id="navmesh" src="model/hall-navmesh.glb"></a-asset-item>
 			<a-asset-item id="hall" src="model/hall.glb"></a-asset-item>
+		<?php
+		/*
 			<a-asset-item id="gem" src="model/rupee.glb"></a-asset-item>
+		*/
+		?>
 		</a-assets>
 	<a-sky src="#skyTexture"></a-sky>
 	
@@ -117,11 +121,13 @@ AFRAME.registerComponent('not-mobile',  {
                 position="-7 0 21">
         <a-entity camera
                   position="0 1.6 0"
-                  look-controls="pointerLockEnabled: true">
+                  look-controls="pointerLockEnabled: true"
+				  rotation="0 -90 0"> 
           <a-cursor></a-cursor>
         </a-entity>
       </a-entity>
-
+<?php
+/*
       <!-- Teleport gems. -->
       <a-entity id="wall-gem"
                 checkpoint="offset: 0 -0.8 0;"
@@ -141,10 +147,10 @@ AFRAME.registerComponent('not-mobile',  {
                 levitate>
         <a-light not-mobile type="point" intensity="0.5" color="#33FF66" distance="2" position="0.5 -0.25 0"></a-light>
       </a-entity>
-
+*/
+?>
       <!-- Nav mesh. -->
       <a-entity nav-mesh
-                normal-material
                 visible="false"
                 position="0 0 20"
                 gltf-model="#navmesh"></a-entity>
