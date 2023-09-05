@@ -360,7 +360,7 @@ $smarty->assign('oos_get_all_get_params', oos_get_all_get_parameters(['sort', 'p
 $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination']));
 
 // Send the CSP header with the nonce RANDOM_VALUE
-header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
+header("Content-Security-Policy: script-src 'nonce-" . NONCE . "' 'unsafe-eval'");
 
 // register the outputfilter
 $smarty->loadFilter('output', 'trimwhitespace');

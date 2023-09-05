@@ -104,10 +104,10 @@ $smarty->assign('upcoming_products', $smarty->fetch($aTemplate['upcoming_product
 
 
 // Send the CSP header with the nonce RANDOM_VALUE
-header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
+header("Content-Security-Policy: script-src 'nonce-" . NONCE . "' 'unsafe-eval'");
 
 // register the outputfilter
-$smarty->loadFilter('output', 'trimwhitespace');
+#$smarty->loadFilter('output', 'trimwhitespace');
 
 // display the template
 $smarty->display($aTemplate['page']);

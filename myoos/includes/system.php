@@ -42,7 +42,8 @@ $smarty->assignByRef("oNavMenu", $oNavMenu);
 
 // Create a nonce RANDOM_VALUE
 $nonce = bin2hex(random_bytes(16));
-$smarty->assign('nonce', $nonce);
+define('NONCE', $nonce);
+
 
 // cache_id
 $sCacheID            = $sTheme . '|block|' . $sLanguage;

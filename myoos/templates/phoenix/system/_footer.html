@@ -226,20 +226,20 @@
 
 
 <!-- Core --> 
-<script nonce="{$nonce}" src="{$theme}/js/vendor.min.js"></script>
+<script nonce="{$smarty.const.NONCE}" src="{$theme}/js/vendor.min.js"></script>
 
 {$javascript}
 
 <!-- Plugins  -->
-<script nonce="{$nonce}" src="js/plugins/viewport-checker/viewportchecker.min.js"></script> 
-<script nonce="{$nonce}" src="js/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
-<script nonce="{$nonce}" src="js/plugins/cookie_consent/bootstrap-cookie-consent-settings.js"></script> 
+<script nonce="{$smarty.const.NONCE}" src="js/plugins/viewport-checker/viewportchecker.min.js"></script> 
+<script nonce="{$smarty.const.NONCE}" src="js/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
+<script nonce="{$smarty.const.NONCE}" src="js/plugins/cookie_consent/bootstrap-cookie-consent-settings.js"></script> 
 
-<script nonce="{$nonce}" src="{$theme}/js/theme.min.js"></script>
-<script nonce="{$nonce}" src="{$theme}/js/shop.app.js"></script>
+<script nonce="{$smarty.const.NONCE}" src="{$theme}/js/theme.min.js"></script>
+<script nonce="{$smarty.const.NONCE}" src="{$theme}/js/shop.app.js"></script>
 
 
-<script nonce="{$nonce}">
+<script nonce="{$smarty.const.NONCE}">
 {literal}
 	$(document).ready(function() {
 		// RADIO OPTION
@@ -284,9 +284,6 @@
 			}
 			});
 		});	
-
-
-
 
 
 		// clear_cart
@@ -337,11 +334,12 @@
 		});		
 		
 	})
-</script>
 {/literal}
+</script>
+
 
 {if $smarty.session.new_products_id_in_cart}
-<script nonce="{$nonce}">
+<script nonce="{$smarty.const.NONCE}">
 {literal}
 	var myOffcanvas = document.getElementById('offcanvas-cart')
 
@@ -349,18 +347,17 @@
 		var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
 		bsOffcanvas.show()
 	});
-</script>
 {/literal}
+</script>
 {/if}
-<script nonce="{$nonce}">
+<script nonce="{$smarty.const.NONCE}">
 {literal}
 /* <![CDATA[ */
 var cnArgs = {/literal}{$cookiearray|@json_encode nofilter};{literal}
 /* ]]> */
-</script>
 {/literal}
-
-<script nonce="{$nonce}">
+</script>
+<script nonce="{$smarty.const.NONCE}">
 {literal}
     var cookieSettings = new BootstrapCookieConsentSettings({
         contentURL: "{/literal}{$smarty.const.OOS_COOKIE_CONSENT}{literal}",
@@ -377,7 +374,8 @@ var cnArgs = {/literal}{$cookiearray|@json_encode nofilter};{literal}
         $("#settingsOutput").text(JSON.stringify(cookieSettings.getSettings()))
         $("#settingsAnalysisOutput").text(cookieSettings.getSettings("analyses"))
     })
-</script>
 {/literal}
+</script>
+
 </body>
 </html>

@@ -89,7 +89,7 @@ class Config
             return <<<HTML
 <div id="$id" $attribute></div>
 $js
-<script type="text/javascript">
+<script nonce="{NONCE}">
 	require.config({
 		paths: {
 			echarts: '{$dist}'

@@ -140,7 +140,7 @@ $sql = "SELECT pd.products_id, pd.products_name
 $smarty->assign('products_array', $dbconn->GetAll($sql));
 
 // Send the CSP header with the nonce RANDOM_VALUE
-header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
+header("Content-Security-Policy: script-src 'nonce-" . NONCE . "' 'unsafe-eval'");
 
 
 // register the outputfilter

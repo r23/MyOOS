@@ -556,7 +556,7 @@ $smarty->assign('snapshot', $snapshot);
 $smarty->assign('login_agree', sprintf($aLang['agree'], oos_href_link($aContents['information'], 'information_id=2'), oos_href_link($aContents['information'], 'information_id=4')));
 
 // Send the CSP header with the nonce RANDOM_VALUE
-header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
+header("Content-Security-Policy: script-src 'nonce-" . NONCE . "' 'unsafe-eval'");
 
 // register the outputfilter
 $smarty->loadFilter('output', 'trimwhitespace');

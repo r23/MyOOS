@@ -159,7 +159,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination'], $nContentCacheID));
 
 // Send the CSP header with the nonce RANDOM_VALUE
-header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
+header("Content-Security-Policy: script-src 'nonce-" . NONCE . "' 'unsafe-eval'");
 
 
 // register the outputfilter
