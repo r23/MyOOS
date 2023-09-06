@@ -157,13 +157,13 @@
 						<div class="form-group row">
 							<label class="col-lg-2 control-label text-lg-right col-form-label" for="password">{$lang.entry_password} <small class="text-default">*</small></label>
 							<div class="col-lg-10">
-									<input type="password" value="{$smarty.post.password|escape}" class="form-control" id="password" name="password" placeholder="{$lang.entry_password}" required>
+									<input type="password" value="{$smarty.post.password|escape}" class="form-control" id="password" name="password" placeholder="{$lang.entry_password}" required autocomplete="new-password">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label class="col-lg-2 control-label text-lg-right col-form-label" for="confirmation">{$lang.entry_password_confirmation} <small class="text-default">*</small></label>
 								<div class="col-lg-10">
-									<input type="password" value="{$smarty.post.confirmation|escape}" class="form-control" id="confirmation" name="confirmation" placeholder="{$lang.entry_password_confirmation}" required>
+									<input type="password" value="{$smarty.post.confirmation|escape}" class="form-control" id="confirmation" name="confirmation" placeholder="{$lang.entry_password_confirmation}" required autocomplete="new-password">
 								</div>
 							</div>
 							
