@@ -20,8 +20,9 @@
    The MIT License
    ----------------------------------------------------------------------
  */
+
+echo '<script nonce="' . NONCE . '">' . "\n";
 ?>
-<script>
 pannellum.viewer('panorama', {
     "type": "equirectangular",
     "panorama": "<?php echo OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'panoramas/' . oos_output_string($panorama_info['scene_image']); ?>",

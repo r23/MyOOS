@@ -103,7 +103,7 @@ class payment
 
         $js = '';
         if (is_array($this->modules)) {
-            $js = '<script>' . "\n" .
+            $js = '<script nonce="' . NONCE . '">' . "\n" .
               'public function check_form() {' . "\n" .
               '  let error = 0;' . "\n" .
               '  let error_message = "' . $aLang['js_error'] . '";' . "\n" .

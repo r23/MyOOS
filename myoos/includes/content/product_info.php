@@ -426,7 +426,7 @@ if (!$product_info_result->RecordCount()) {
 						AND vd.video_languages_id = '" . intval($nLanguageID) . "'";
     $products_video_result = $dbconn->Execute($products_video_sql);
     if ($products_video_result->RecordCount()) {
-        $oos_js .= '<script src="' . OOS_HTTPS_SERVER . OOS_SHOP . '/js/videojs/dist/video.min.js"></script>';
+        $oos_js .= '<script nonce="' . NONCE . '" src="' . OOS_HTTPS_SERVER . OOS_SHOP . '/js/videojs/dist/video.min.js"></script>';
         $oos_css .= '<link rel="stylesheet" href="' . OOS_HTTPS_SERVER . OOS_SHOP . '/js/videojs/dist/video-js.min.css">';
         $aVideo = [];
         while ($video = $products_video_result->fields) {

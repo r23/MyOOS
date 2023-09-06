@@ -23,9 +23,9 @@
 ?>
 <!-- Import maps polyfill -->
 <!-- Remove this when import maps will be widely supported -->
-<script async nonce="{$nonce}" src="<?php echo OOS_HTTPS_SERVER . OOS_SHOP . 'js/es-module-shims/dist/es-module-shims.js'; ?>"></script>
+<?php echo '<script async nonce="' . NONCE . '" src="'. OOS_HTTPS_SERVER . OOS_SHOP . 'js/es-module-shims/dist/es-module-shims.js'; ?>"></script>
 
-<script nonce="{$nonce}" type="importmap">
+<script nonce="<?php echo NONCE; ?>" type="importmap">
     {
         "imports": {
                 "three": "./js/three/three.module.js"
@@ -33,7 +33,7 @@
     }
 </script>
 
-<script nonce="{$nonce}" type="module">
+<script nonce="<?php echo NONCE; ?>" type="module">
 
     import * as THREE from 'three';
 
