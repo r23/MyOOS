@@ -9,12 +9,14 @@ use PhpParser\Node\Expr\AssignOp\Coalesce as AssignOpCoalesce;
 use PhpParser\Node\Expr\BinaryOp\Coalesce;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\NodeTraverser;
 use Rector\Core\Rector\AbstractRector;
@@ -133,11 +135,17 @@ CODE_SAMPLE
             $firstArg = $node->getArgs()[0];
             $nodeToCheck = $firstArg->value;
         }
+        if ($node instanceof Expression) {
+            $nodeToCheck = $node->expr;
+        }
         if ($node instanceof Coalesce) {
             $nodeToCheck = $node->left;
         }
         if ($node instanceof AssignOpCoalesce) {
             $nodeToCheck = $node->var;
+        }
+        if ($nodeToCheck instanceof MethodCall) {
+            return $nodeToCheck->var instanceof Variable && $this->isName($nodeToCheck->var, $paramName);
         }
         if ($nodeToCheck instanceof ArrayDimFetch) {
             return $nodeToCheck->var instanceof Variable && $this->isName($nodeToCheck->var, $paramName);

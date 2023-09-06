@@ -3,11 +3,10 @@
 declare (strict_types=1);
 namespace Rector\Testing\PHPUnit;
 
-use RectorPrefix202308\Illuminate\Container\RewindableGenerator;
+use RectorPrefix202309\Illuminate\Container\RewindableGenerator;
 use Iterator;
-use RectorPrefix202308\Nette\Utils\FileSystem;
-use RectorPrefix202308\Nette\Utils\Strings;
-use PHPStan\Analyser\NodeScopeResolver;
+use RectorPrefix202309\Nette\Utils\FileSystem;
+use RectorPrefix202309\Nette\Utils\Strings;
 use PHPUnit\Framework\ExpectationFailedException;
 use Rector\Core\Application\ApplicationFileProcessor;
 use Rector\Core\Autoloading\AdditionalAutoloader;
@@ -19,6 +18,7 @@ use Rector\Core\Contract\DependencyInjection\ResetableInterface;
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser;
+use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Util\Reflection\PrivatesAccessor;
 use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider;
@@ -44,6 +44,10 @@ abstract class AbstractRectorTestCase extends \Rector\Testing\PHPUnit\AbstractLa
      * @var array<string, true>
      */
     private static $cacheByRuleAndConfig = [];
+    /**
+     * @var \Rector\Core\Provider\CurrentFileProvider
+     */
+    private $currentFileProvider;
     /**
      * Restore default parameters
      */
@@ -98,6 +102,7 @@ abstract class AbstractRectorTestCase extends \Rector\Testing\PHPUnit\AbstractLa
         /** @var BootstrapFilesIncluder $bootstrapFilesIncluder */
         $bootstrapFilesIncluder = $this->make(BootstrapFilesIncluder::class);
         $bootstrapFilesIncluder->includeBootstrapFiles();
+        $this->currentFileProvider = $this->make(CurrentFileProvider::class);
     }
     protected function tearDown() : void
     {
@@ -184,12 +189,13 @@ abstract class AbstractRectorTestCase extends \Rector\Testing\PHPUnit\AbstractLa
     {
         SimpleParameterProvider::setParameter(Option::SOURCE, [$originalFilePath]);
         $changedContent = $this->processFilePath($originalFilePath);
+        $originalFileContent = $this->currentFileProvider->getFile()->getOriginalFileContent();
         $fixtureFilename = \basename($fixtureFilePath);
         $failureMessage = \sprintf('Failed on fixture file "%s"', $fixtureFilename);
         try {
             $this->assertSame($expectedFileContents, $changedContent, $failureMessage);
         } catch (ExpectationFailedException $exception) {
-            FixtureFileUpdater::updateFixtureContent($originalFilePath, $changedContent, $fixtureFilePath);
+            FixtureFileUpdater::updateFixtureContent($originalFileContent, $changedContent, $fixtureFilePath);
             // if not exact match, check the regex version (useful for generated hashes/uuids in the code)
             $this->assertStringMatchesFormat($expectedFileContents, $changedContent, $failureMessage);
         }
@@ -197,15 +203,11 @@ abstract class AbstractRectorTestCase extends \Rector\Testing\PHPUnit\AbstractLa
     private function processFilePath(string $filePath) : string
     {
         $this->dynamicSourceLocatorProvider->setFilePath($filePath);
-        // needed for PHPStan, because the analyzed file is just created in /temp - need for trait and similar deps
-        /** @var NodeScopeResolver $nodeScopeResolver */
-        $nodeScopeResolver = $this->make(NodeScopeResolver::class);
-        $nodeScopeResolver->setAnalysedFiles([$filePath]);
         /** @var ConfigurationFactory $configurationFactory */
         $configurationFactory = $this->make(ConfigurationFactory::class);
         $configuration = $configurationFactory->createForTests([$filePath]);
         $this->applicationFileProcessor->processFiles([$filePath], $configuration);
-        return FileSystem::read($filePath);
+        return $this->currentFileProvider->getFile()->getFileContent();
     }
     private function createInputFilePath(string $fixtureFilePath) : string
     {

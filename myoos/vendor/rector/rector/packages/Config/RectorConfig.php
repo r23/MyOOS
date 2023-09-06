@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Config;
 
-use RectorPrefix202308\Illuminate\Container\Container;
+use RectorPrefix202309\Illuminate\Container\Container;
 use Rector\Caching\Contract\ValueObject\Storage\CacheStorageInterface;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Configuration\Parameter\SimpleParameterProvider;
@@ -15,7 +15,7 @@ use Rector\Core\FileSystem\FilesystemTweaker;
 use Rector\Core\NodeAnalyzer\ScopeAnalyzer;
 use Rector\Core\Rector\AbstractScopeAwareRector;
 use Rector\Core\ValueObject\PhpVersion;
-use RectorPrefix202308\Webmozart\Assert\Assert;
+use RectorPrefix202309\Webmozart\Assert\Assert;
 /**
  * @api
  */
@@ -43,6 +43,8 @@ final class RectorConfig extends Container
             Assert::fileExists($set);
             $this->import($set);
         }
+        // for cache invalidation in case of sets change
+        SimpleParameterProvider::addParameter(Option::REGISTERED_RECTOR_SETS, $sets);
     }
     public function disableParallel() : void
     {
@@ -144,17 +146,14 @@ final class RectorConfig extends Container
         Assert::isAOf($rectorClass, ConfigurableRectorInterface::class);
         // store configuration to cache
         $this->ruleConfigurations[$rectorClass] = \array_merge($this->ruleConfigurations[$rectorClass] ?? [], $configuration);
-        $isBound = $this->bound($rectorClass);
-        // avoid double registration
-        if ($isBound) {
-            return;
-        }
         $this->singleton($rectorClass);
         $this->tagRectorService($rectorClass);
         $this->afterResolving($rectorClass, function (ConfigurableRectorInterface $configurableRector) use($rectorClass) : void {
             $ruleConfiguration = $this->ruleConfigurations[$rectorClass];
             $configurableRector->configure($ruleConfiguration);
         });
+        // for cache invalidation in case of sets change
+        SimpleParameterProvider::addParameter(Option::REGISTERED_RECTOR_RULES, $rectorClass);
     }
     /**
      * @param class-string<RectorInterface> $rectorClass
@@ -172,6 +171,8 @@ final class RectorConfig extends Container
                 return $scopeAwareRector;
             });
         }
+        // for cache invalidation in case of change
+        SimpleParameterProvider::addParameter(Option::REGISTERED_RECTOR_RULES, $rectorClass);
     }
     public function import(string $filePath) : void
     {

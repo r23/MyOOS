@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix202308\Nette\Utils;
+namespace RectorPrefix202309\Nette\Utils;
 
-use RectorPrefix202308\Nette;
+use RectorPrefix202309\Nette;
 /**
  * PHP type reflection.
  */
@@ -31,7 +31,7 @@ final class Type
         } elseif ($reflection instanceof \ReflectionMethod) {
             $type = $reflection->getReturnType() ?? (\PHP_VERSION_ID >= 80100 ? $reflection->getTentativeReturnType() : null);
         } else {
-            $type = $reflection instanceof \ReflectionFunctionAbstract ? $reflection->getReturnType() : $reflection->getType();
+            $type = $reflection instanceof \ReflectionFunctionAbstract ? $reflection->getReturnType() : (\method_exists($reflection, 'getType') ? $reflection->getType() : null);
         }
         return $type ? self::fromReflectionType($type, $reflection, \true) : null;
     }

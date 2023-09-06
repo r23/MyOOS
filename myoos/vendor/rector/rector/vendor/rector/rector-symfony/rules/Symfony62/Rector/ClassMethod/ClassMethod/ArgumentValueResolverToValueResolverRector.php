@@ -16,8 +16,8 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
-use RectorPrefix202308\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
-use RectorPrefix202308\Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
+use RectorPrefix202309\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+use RectorPrefix202309\Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -98,11 +98,11 @@ CODE_SAMPLE
         if (null === $classMethod->getStmts()) {
             return [$isIdentical, $supportFirstArg, $supportSecondArg];
         }
-        foreach ($classMethod->getStmts() as $statement) {
-            if (!$statement instanceof Return_) {
+        foreach ($classMethod->getStmts() as $stmt) {
+            if (!$stmt instanceof Return_) {
                 continue;
             }
-            $expression = $statement->expr;
+            $expression = $stmt->expr;
             if (!$expression instanceof BinaryOp) {
                 continue;
             }
