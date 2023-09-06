@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 6.3
 Requires at least: 5.6
 Requires PHP: 7.4
-Stable tag: 1.0.122
+Stable tag: 1.0.201
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -583,12 +583,12 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.122 [Aug 23, 2023] =
-- Added: New option in [Webmaster Tools](https://rankmath.com/kb/general-settings/#webmaster-tools) to add additional verification tags
-- Added: [New filter](https://rankmath.com/kb/filters-hooks-api-developer/#modify-link-counter-content) to modify the content passed to the [Link Counter](https://rankmath.com/kb/link-counter/)
-- Fixed: PHP Warning with WP CLI command `wp rankmath sitemap generate`
-- Fixed: Setup Wizard was not updating [Person/Organization Name](https://rankmath.com/kb/how-to-setup/#your-site)
-- Fixed: PHP warnings on the [Redirections](https://rankmath.com/kb/setting-up-redirections/) page in PHP 8.1, occurring when no Redirections are present on the site
+= 1.0.201 [Sept 06, 2023] =
+- [NEW!] [AI SEO Tools Inside WordPress Like Never Before - Content AI 2.0 is HERE!](https://rankmath.com/content-ai/)
+- Fixed: Reusable patterns in the Block editor could not be saved as unsynced
+- Fixed: `wplink` script was causing issues on the Media page on some setups
+- Fixed: Attachment posts were displaying a blank page when the [Redirect Orphan Attachments field](https://rankmath.com/kb/general-settings/#redirect-orphan-media) was empty
+- Fixed: Console warning related to the [Table of Contents block](https://rankmath.com/kb/table-of-contents-block/) in WordPress 6.3
 
 
 Full changelog can be found here - **[Rank Math changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**
