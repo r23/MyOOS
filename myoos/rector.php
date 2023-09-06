@@ -33,6 +33,7 @@ return static function (RectorConfig $rectorConfig): void {
 	// exclude a directory from Rector
 	$rectorConfig->skip([
 		__DIR__ . '/includes/functions/function_norector.php', // exclude all files with php extension in the inc directory
+		__DIR__ . '/temp', // exclude the whole temp directory
         __DIR__ . '/vendor', // exclude the whole vendor directory
         __DIR__ . '/inc/adodb/*.php', // exclude all files with php extension in the inc directory
     ]);
