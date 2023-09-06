@@ -43,7 +43,7 @@
 {if $smarty.session.csrf_token}
 <meta name="csrf-token" content="{$smarty.session.csrf_token}">
 {/if}
-{literal}<script type="application/ld+json">[{/literal}{$part|@json_encode nofilter}{literal}]</script>{/literal}
+<script nonce="{$smarty.const.NONCE}" type="application/ld+json">{literal}[{/literal}{$part|@json_encode nofilter}{literal}]</script>{/literal}
 
 <base href="{$oos_base}">
 

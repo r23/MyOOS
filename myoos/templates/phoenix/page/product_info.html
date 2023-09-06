@@ -339,8 +339,9 @@
 				<div class="col-12">
 
 				{foreach $model_viewer_array as $ar}
-{literal}				
-	<script type="application/ld+json">
+		
+	<script nonce="{$smarty.const.NONCE}" type="application/ld+json">
+{literal}	
 {
 "@context": "http://schema.org/",
 "@type": "3DModel",
@@ -348,8 +349,8 @@
 "name": "'{/literal}{$product_info.products_name}{literal} 3D Model",
 "encoding": [{"@type":"MediaObject","contentUrl":"{/literal}{$oos_base}media/models/gltf/{$ar.url_glb}{literal}","encodingFormat":"model/gltf+json"},{"@type":"MediaObject","contentUrl":"{/literal}{$oos_base}media/models/{$ar.model_viewer_usdz}{literal}","encodingFormat":"model/vnd.usdz+zip"}]
 }
+{/literal}
 </script>
-{/literal}	
 					
 						<div class="ratio ratio-4x3" style="background-color:{$ar.model_viewer_background_color|default:'#222'};">	
 							<model-viewer class="embed-responsive-item" src="./media/models/gltf/{$ar.url_glb}" ar ar-modes="webxr scene-viewer quick-look" camera-controls alt="{$ar.model_viewer_title}" ar-scale="{$ar.model_viewer_scale|default:'auto'}" {if ($ar.model_viewer_hdr ne 'none')} skybox-src="./media/textures/equirectangular/{$ar.model_viewer_hdr}" {/if} {if ($ar.model_viewer_auto_rotate eq 'true')} auto-rotate {/if} xr-environment></model-viewer>		
@@ -361,7 +362,7 @@
 					{/foreach}
 
 				<!-- Loads <model-viewer> only on modern browsers: -->
-				<script type="module" 
+				<script nonce="{$smarty.const.NONCE}" type="module" 
 					src="js/model-viewer/dist/model-viewer.min.js">
 				</script>
 		
