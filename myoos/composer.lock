@@ -1048,16 +1048,16 @@
         },
         {
             "name": "laminas/laminas-code",
-            "version": "4.11.0",
+            "version": "4.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-code.git",
-                "reference": "169123b3ede20a9193480c53de2a8194f8c073ec"
+                "reference": "36cbee228b427446419dd51944bdfb6bb8ddbcd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/169123b3ede20a9193480c53de2a8194f8c073ec",
-                "reference": "169123b3ede20a9193480c53de2a8194f8c073ec",
+                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/36cbee228b427446419dd51944bdfb6bb8ddbcd0",
+                "reference": "36cbee228b427446419dd51944bdfb6bb8ddbcd0",
                 "shasum": ""
             },
             "require": {
@@ -1107,7 +1107,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-05-14T12:05:38+00:00"
+            "time": "2023-09-06T14:56:25+00:00"
         },
         {
             "name": "laminas/laminas-escaper",
@@ -1484,16 +1484,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.69.0",
+            "version": "2.70.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "4308217830e4ca445583a37d1bf4aff4153fa81c"
+                "reference": "d3298b38ea8612e5f77d38d1a99438e42f70341d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/4308217830e4ca445583a37d1bf4aff4153fa81c",
-                "reference": "4308217830e4ca445583a37d1bf4aff4153fa81c",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/d3298b38ea8612e5f77d38d1a99438e42f70341d",
+                "reference": "d3298b38ea8612e5f77d38d1a99438e42f70341d",
                 "shasum": ""
             },
             "require": {
@@ -1586,7 +1586,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-03T09:00:52+00:00"
+            "time": "2023-09-07T16:43:50+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
@@ -4400,16 +4400,16 @@
         },
         {
             "name": "tecnickcom/tcpdf",
-            "version": "6.6.3",
+            "version": "6.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tecnickcom/TCPDF.git",
-                "reference": "96985b992f7464ecccf0d47e3c59073de06375e1"
+                "reference": "5fce932fcee4371865314ab7f6c0d85423c5c7ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/96985b992f7464ecccf0d47e3c59073de06375e1",
-                "reference": "96985b992f7464ecccf0d47e3c59073de06375e1",
+                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/5fce932fcee4371865314ab7f6c0d85423c5c7ce",
+                "reference": "5fce932fcee4371865314ab7f6c0d85423c5c7ce",
                 "shasum": ""
             },
             "require": {
@@ -4460,7 +4460,7 @@
             ],
             "support": {
                 "issues": "https://github.com/tecnickcom/TCPDF/issues",
-                "source": "https://github.com/tecnickcom/TCPDF/tree/6.6.3"
+                "source": "https://github.com/tecnickcom/TCPDF/tree/6.6.5"
             },
             "funding": [
                 {
@@ -4468,7 +4468,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-09-06T08:42:11+00:00"
+            "time": "2023-09-06T15:09:26+00:00"
         },
         {
             "name": "twig/twig",
