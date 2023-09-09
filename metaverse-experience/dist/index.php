@@ -25,6 +25,25 @@ header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=no,maximum-scale=1">
     <title>Web-Based Virtual Experiences in the Metaverse</title>
+	
+  <!-- Bootstrap Bootswatch theme CSS - other themes available here: https://bootswatch.com -->
+  <link rel="stylesheet" href="https://cdn.rawgit.com/thomaspark/bootswatch/gh-pages/slate/bootstrap.min.css" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="assets/css/font-awesome-4.7.0/css/font-awesome.min.css" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <!-- Bootstrap JS Dependencies -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <!-- A-Frame JS Dependencies -->
+  <script src="https://aframe.io/releases/0.6.0/aframe.min.js" integrity="sha384-UpNjbgSfNBAVnlYWlT1Gl7ujMboOsCVJx+3cVdmWM1WLHx6fm41gaIxAT2wEHt+d" crossorigin="anonymous"></script>
+  <script src="../../dist/aframe-preloader-component.min.js"></script>	
+	
+	
 	<script nonce="<?php echo $nonce; ?>" src="static/js/runtime-main.js"></script>
 	<script nonce="<?php echo $nonce; ?>" src="static/js/572.js"></script>
 	<script nonce="<?php echo $nonce; ?>" src="static/js/734.js"></script>
@@ -95,11 +114,39 @@ AFRAME.registerComponent('not-mobile',  {
     </script>
   </head>
 <body>
+
+<div id="preloader-modal" class="modal instructions-modal" tabindex="-1" role="dialog" style="display: none;">
+  <div class="modal-dialog modal-dialog__full" role="document">
+    <div class="modal-content vertical-align text-center">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="row">
+          <div class="col-xs-12">
+            <i class="preloader-modal__ok fa fa-check fa-5x text-success" aria-hidden="true"></i>
+            <i class="preloader-modal__spinner fa fa-cog fa-spin fa-5x fa-fw text-muted" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <span class="progress-label">Loading 0%</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <button type="button" class="btn btn-default clearfix" data-dismiss="modal">Start</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- slowLoad: true is only for demo purposes -->
+<a-scene preloader="autoInject: false; clickToClose: true; autoClose: true; target: #preloader-modal; bar: #preloader-modal .progress-bar; label: #preloader-modal .progress-label; labelText: Loading {0}%; slowLoad: true; doneLabelText: Press Start To Play!;">
 	<a-scene nonce="<?php echo $nonce; ?>" embedded="false" vr-mode-ui="enabled: true"> <!-- creates a UI element for the VR mode -->
 		<a-assets>
-			<img id="skyTexture" src="texture/kloofendal_43d_clear_puresky.jpg">
-			<a-asset-item id="navmesh" src="model/hall-navmesh.glb"></a-asset-item>
-			<a-asset-item id="hall" src="model/hall.glb"></a-asset-item>
+			<img id="skyTexture" src="texture/kloofendal_43d_clear_puresky.jpg" preload="auto">
+			<a-asset-item id="navmesh" src="model/hall-navmesh.glb" preload="auto"></a-asset-item>
+			<a-asset-item id="hall" src="model/hall.glb" preload="auto"></a-asset-item>
 		<?php
 		/*
 			<a-asset-item id="gem" src="model/rupee.glb"></a-asset-item>
