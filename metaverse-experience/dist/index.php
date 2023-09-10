@@ -35,8 +35,8 @@ header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
   <link rel="stylesheet" href="assets/css/style.css" />
 
   <!-- Bootstrap JS Dependencies -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  themes\metaverse\js\
+  <script nonce="<?php echo $nonce; ?>" src="themes/metaverse/js/vendor.min.js"></script>
 
   <!-- A-Frame JS Dependencies -->
   <script src="https://aframe.io/releases/0.6.0/aframe.min.js" integrity="sha384-UpNjbgSfNBAVnlYWlT1Gl7ujMboOsCVJx+3cVdmWM1WLHx6fm41gaIxAT2wEHt+d" crossorigin="anonymous"></script>
