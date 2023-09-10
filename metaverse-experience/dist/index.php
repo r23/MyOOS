@@ -11,7 +11,6 @@
    ----------------------------------------------------------------------
  */
 
-
 // Create a nonce RANDOM_VALUE
 $nonce = bin2hex(random_bytes(16));
 // Store the nonce RANDOM_VALUE in the session
@@ -27,7 +26,7 @@ header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
     <title>Web-Based Virtual Experiences in the Metaverse</title>
 	
   <!-- Bootstrap Bootswatch theme CSS - other themes available here: https://bootswatch.com -->
-  <link rel="stylesheet" href="https://cdn.rawgit.com/thomaspark/bootswatch/gh-pages/slate/bootstrap.min.css" />
+  <link rel="stylesheet" href="themes/metaverse/css/vr-commerce.min.css" />
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="assets/css/font-awesome-4.7.0/css/font-awesome.min.css" />
