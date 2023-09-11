@@ -16,7 +16,8 @@ $nonce = bin2hex(random_bytes(16));
 // Store the nonce RANDOM_VALUE in the session
 // $_SESSION['nonce'] = $nonce;
 // Send the CSP header with the nonce RANDOM_VALUE
-header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
+
+// header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
 ?>
 <html>
   <head>
@@ -25,92 +26,39 @@ header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=no,maximum-scale=1">
     <title>Web-Based Virtual Experiences in the Metaverse</title>
 	
-  <!-- Bootstrap Bootswatch theme CSS - other themes available here: https://bootswatch.com -->
-  <link rel="stylesheet" href="themes/metaverse/css/vr-commerce.min.css" />
+	<!-- Bootstrap Bootswatch theme CSS - other themes available here: https://bootswatch.com -->
+	<link rel="stylesheet" href="themes/metaverse/css/vr-commerce.min.css" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="assets/css/font-awesome-4.7.0/css/font-awesome.min.css" />
+  <?php
+  //   <link rel="stylesheet" href="assets/css/font-awesome-4.7.0/css/font-awesome.min.css" />
+  ?>
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="themes/metaverse/css/style.css" />
 
-  <!-- Bootstrap JS Dependencies -->
-  themes\metaverse\js\
-  <script nonce="<?php echo $nonce; ?>" src="themes/metaverse/js/vendor.min.js"></script>
+	<!-- Bootstrap JS Dependencies -->
+	<script nonce="<?php echo $nonce; ?>" src="themes/metaverse/js/vendor.min.js"></script>
 
-  <!-- A-Frame JS Dependencies -->
-  <script src="https://aframe.io/releases/0.6.0/aframe.min.js" integrity="sha384-UpNjbgSfNBAVnlYWlT1Gl7ujMboOsCVJx+3cVdmWM1WLHx6fm41gaIxAT2wEHt+d" crossorigin="anonymous"></script>
-  <script src="../../dist/aframe-preloader-component.min.js"></script>	
-	
-	
-	<script nonce="<?php echo $nonce; ?>" src="static/js/runtime-main.js"></script>
-	<script nonce="<?php echo $nonce; ?>" src="static/js/572.js"></script>
-	<script nonce="<?php echo $nonce; ?>" src="static/js/734.js"></script>
-	<script nonce="<?php echo $nonce; ?>" src="static/js/203.js"></script>
-	<script nonce="<?php echo $nonce; ?>" src="static/js/434.js"></script>
-	<script nonce="<?php echo $nonce; ?>" src="static/js/454.js"></script>
-	<script nonce="<?php echo $nonce; ?>" src="static/js/986.js"></script>
-	<script nonce="<?php echo $nonce; ?>" src="static/js/58.js"></script>
-	<script nonce="<?php echo $nonce; ?>" src="static/js/710.js"></script>
-	<script nonce="<?php echo $nonce; ?>" src="static/js/223.js"></script>
-	<script nonce="<?php echo $nonce; ?>" src="static/js/850.js"></script>
-	<script nonce="<?php echo $nonce; ?>" src="static/js/848.js"></script>
-	<script nonce="<?php echo $nonce; ?>" src="static/js/227.js"></script>
-	<script nonce="<?php echo $nonce; ?>" src="static/js/569.js"></script>
-	<script nonce="<?php echo $nonce; ?>" src="static/js/687.js"></script>
-	<script nonce="<?php echo $nonce; ?>" src="static/js/406.js"></script>
-	<script nonce="<?php echo $nonce; ?>" src="static/js/477.js"></script>
-	<script nonce="<?php echo $nonce; ?>" src="static/js/main.js"></script>
-
-<script nonce="<?php echo $nonce; ?>">
-/**
- * Basic emissive effect.
- */
-AFRAME.registerComponent('glow', {
-  schema: {
-    color: {default: '#ffffff', type: 'color'},
-    intensity: {default: 1.0}
-  },
-  init: function () {
-    this.el.addEventListener('object3dset', function () {
-      this.update();
-    }.bind(this));
-  },
-  update: function () {
-    var data = this.data;
-    this.el.object3D.traverse(function (node) {
-      if (node.isMesh) {
-        node.material.emissive.copy(new THREE.Color(data.color));
-        node.material.emissiveIntensity = data.intensity;
-      }
-    });
-  }
-});
-
-/**
- * Simple spin-and-levitate animation.
- */
-AFRAME.registerComponent('levitate', {
-  tick: function (t, dt) {
-    var mesh = this.el.getObject3D('mesh');
-    if (!mesh) return;
-    mesh.rotation.y += 0.1 * dt / 1000;
-    mesh.position.y = 0.25 * Math.sin(t / 1000);
-  }
-});
-
-/**
- * Removes current element if on a mobile device.
- */
-AFRAME.registerComponent('not-mobile',  {
-  init: function () {
-    var el = this.el;
-    if (el.sceneEl.isMobile) {
-      el.parentEl.remove(el);
-    }
-  }
-});
-    </script>
+	<!-- Virtual Experiences JS Dependencies -->
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/runtime-main.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/572.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/734.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/203.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/434.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/454.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/986.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/58.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/710.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/223.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/850.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/848.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/227.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/569.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/687.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/406.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/477.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/main.js"></script>
   </head>
 <body>
 
@@ -139,9 +87,10 @@ AFRAME.registerComponent('not-mobile',  {
   </div>
 </div>
 
-<!-- slowLoad: true is only for demo purposes -->
-<a-scene preloader="autoInject: false; clickToClose: true; autoClose: true; target: #preloader-modal; bar: #preloader-modal .progress-bar; label: #preloader-modal .progress-label; labelText: Loading {0}%; slowLoad: true; doneLabelText: Press Start To Play!;">
-	<a-scene nonce="<?php echo $nonce; ?>" embedded="false" vr-mode-ui="enabled: true"> <!-- creates a UI element for the VR mode -->
+	<!-- slowLoad: true is only for demo purposes -->
+	<a-scene nonce="<?php echo $nonce; ?>" embedded="false" vr-mode-ui="enabled: true" preloader="autoInject: false; clickToClose: true; autoClose: true; target: #preloader-modal; bar: #preloader-modal .progress-bar; label: #preloader-modal .progress-label; labelText: Loading {0}%; slowLoad: true; doneLabelText: Press Start To Play!;">
+
+		<!-- creates a UI element for the VR mode -->
 		<a-assets>
 			<img id="skyTexture" src="texture/kloofendal_43d_clear_puresky.jpg" preload="auto">
 			<a-asset-item id="navmesh" src="model/hall-navmesh.glb" preload="auto"></a-asset-item>
