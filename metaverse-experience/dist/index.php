@@ -37,6 +37,7 @@ $nonce = bin2hex(random_bytes(16));
   <!-- Custom CSS -->
   <link rel="stylesheet" href="themes/metaverse/css/style.css" />
 
+<link rel="stylesheet" href="themes/metaverse/css/preloader.css" />
 	<!-- Bootstrap JS Dependencies -->
 	<script nonce="<?php echo $nonce; ?>" src="themes/metaverse/js/vendor.min.js"></script>
 
@@ -59,6 +60,7 @@ $nonce = bin2hex(random_bytes(16));
    	<script nonce="<?php echo $nonce; ?>" src="static/js/406.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/477.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/main.js"></script>
+
   </head>
 <body>
 

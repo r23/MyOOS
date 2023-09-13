@@ -37,30 +37,6 @@ AFRAME.registerComponent('nav-pointer', {
 
 
 /**
- * Simple spin-and-levitate animation.
- */
-AFRAME.registerComponent('levitate', {
-  tick: function (t, dt) {
-    var mesh = this.el.getObject3D('mesh');
-    if (!mesh) return;
-    mesh.rotation.y += 0.1 * dt / 1000;
-    mesh.position.y = 0.25 * Math.sin(t / 1000);
-  }
-});
-
-/**
- * Removes current element if on a mobile device.
- */
-AFRAME.registerComponent('not-mobile',  {
-  init: function () {
-    var el = this.el;
-    if (el.sceneEl.isMobile) {
-      el.parentEl.remove(el);
-    }
-  }
-});
-
-/**
  * Basic emissive effect.
  */
 AFRAME.registerComponent('glow', {
