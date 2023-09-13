@@ -35,29 +35,6 @@ AFRAME.registerComponent('nav-pointer', {
     }
 });
 
-/**
- * Basic emissive effect.
- */
-AFRAME.registerComponent('glow', {
-  schema: {
-    color: {default: '#ffffff', type: 'color'},
-    intensity: {default: 1.0}
-  },
-  init: function () {
-    this.el.addEventListener('object3dset', function () {
-      this.update();
-    }.bind(this));
-  },
-  update: function () {
-    var data = this.data;
-    this.el.object3D.traverse(function (node) {
-      if (node.isMesh) {
-        node.material.emissive.copy(new THREE.Color(data.color));
-        node.material.emissiveIntensity = data.intensity;
-      }
-    });
-  }
-});
 
 /**
  * Simple spin-and-levitate animation.
@@ -81,7 +58,9 @@ AFRAME.registerComponent('not-mobile',  {
       el.parentEl.remove(el);
     }
   }
-});/**
+});
+
+/**
  * Basic emissive effect.
  */
 AFRAME.registerComponent('glow', {
