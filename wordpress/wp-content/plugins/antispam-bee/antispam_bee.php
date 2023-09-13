@@ -9,7 +9,7 @@
  * Domain Path: /lang
  * License:     GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- * Version:     2.11.3
+ * Version:     2.11.4
  *
  * @package Antispam Bee
  **/
@@ -1081,6 +1081,33 @@ class Antispam_Bee {
 		}
 	}
 
+	/**
+	 * Shows plugin update notice
+	 *
+	 * @since  2.11.4
+	 *
+	 * @param array $data An array of plugin metadata. See get_plugin_data()
+	 *                    and the {@see 'plugin_row_meta'} filter for the list
+	 *                    of possible values.
+	 *
+	 * @return void
+	 */
+	public static function upgrade_notice( $data ) {
+		if ( isset( $data['upgrade_notice'] ) ) {
+			printf(
+				'<div class="update-message">%s</div>',
+				wp_kses(
+					wpautop( $data['upgrade_notice '] ),
+					array(
+						'p'     => array(),
+						'a'     => array( 'href', 'title' ),
+						'strong' => array(),
+						'em' => array(),
+					)
+				)
+			);
+		}
+	}
 
 
 	/*
@@ -2422,38 +2449,27 @@ class Antispam_Bee {
 	 * Return real client IP
 	 *
 	 * @since   2.6.1
+	 * @since   2.11.4 Only use `REMOTE_ADDR` to get the IP, make it filterable with `pre_comment_user_ip`
 	 *
-	 * @return  mixed  $ip  Client IP
+	 * @hook    string  pre_comment_user_ip  The Client IP
+	 *
+	 * @return  string  $ip  Client IP
 	 */
 	public static function get_client_ip() {
+		/**
+		 * WordPress hook for allowing to modify the client IP used by Antispam Bee. Default value is the `REMOTE_ADDR`.
+		 *
+		 * @link https://developer.wordpress.org/reference/hooks/pre_comment_user_ip/
+		 *
+		 * @return string
+		 */
+		// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		// phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		// phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-		// Sanitization of $ip takes place further down.
-		$ip = '';
-
-		if ( isset( $_SERVER['HTTP_CLIENT_IP'] ) ) {
-			$ip = wp_unslash( $_SERVER['HTTP_CLIENT_IP'] );
-		} elseif ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
-			$ip = wp_unslash( $_SERVER['HTTP_X_FORWARDED_FOR'] );
-		} elseif ( isset( $_SERVER['HTTP_X_FORWARDED'] ) ) {
-			$ip = wp_unslash( $_SERVER['HTTP_X_FORWARDED'] );
-		} elseif ( isset( $_SERVER['HTTP_FORWARDED_FOR'] ) ) {
-			$ip = wp_unslash( $_SERVER['HTTP_FORWARDED_FOR'] );
-		} elseif ( isset( $_SERVER['HTTP_FORWARDED'] ) ) {
-			$ip = wp_unslash( $_SERVER['HTTP_FORWARDED'] );
-		}
-
-		$ip = self::_sanitize_ip( $ip );
-		if ( $ip ) {
-			return $ip;
-		}
-
-		if ( isset( $_SERVER['REMOTE_ADDR'] ) ) {
-			$ip = wp_unslash( $_SERVER['REMOTE_ADDR'] );
-			return self::_sanitize_ip( $ip );
-		}
-
-		return '';
-        // phpcs:enable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		return self::_sanitize_ip( (string) apply_filters( 'pre_comment_user_ip', wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) );
+		// phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		// phpcs:enable WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		// phpcs:enable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 	}
 
 	/**
@@ -2569,6 +2585,7 @@ class Antispam_Bee {
 		}
 
 		self::load_plugin_lang();
+		self::add_reasons_to_defaults();
 
 		$subject = sprintf(
 			'[%s] %s',
@@ -3033,5 +3050,14 @@ register_uninstall_hook(
 	array(
 		'Antispam_Bee',
 		'uninstall',
+	)
+);
+
+// Upgrade notice.
+add_action(
+	'in_plugin_update_message-' . __FILE__,
+	array(
+		'Antispam_Bee',
+		'upgrade_notice',
 	)
 );
