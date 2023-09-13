@@ -9,7 +9,9 @@ use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
+use Rector\Comments\NodeDocBlock\DocBlockUpdater;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
@@ -26,12 +28,18 @@ final class RemoveAnnotationRector extends AbstractRector implements Configurabl
      */
     private $phpDocTagRemover;
     /**
+     * @readonly
+     * @var \Rector\Comments\NodeDocBlock\DocBlockUpdater
+     */
+    private $docBlockUpdater;
+    /**
      * @var string[]
      */
     private $annotationsToRemove = [];
-    public function __construct(PhpDocTagRemover $phpDocTagRemover)
+    public function __construct(PhpDocTagRemover $phpDocTagRemover, DocBlockUpdater $docBlockUpdater)
     {
         $this->phpDocTagRemover = $phpDocTagRemover;
+        $this->docBlockUpdater = $docBlockUpdater;
     }
     public function getRuleDefinition() : RuleDefinition
     {
@@ -62,18 +70,27 @@ CODE_SAMPLE
      */
     public function refactor(Node $node) : ?Node
     {
-        if ($this->annotationsToRemove === []) {
+        Assert::notEmpty($this->annotationsToRemove);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNode($node);
+        if (!$phpDocInfo instanceof PhpDocInfo) {
             return null;
         }
-        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
+        $hasChanged = \false;
         foreach ($this->annotationsToRemove as $annotationToRemove) {
-            $this->phpDocTagRemover->removeByName($phpDocInfo, $annotationToRemove);
+            $namedHasChanged = $this->phpDocTagRemover->removeByName($phpDocInfo, $annotationToRemove);
+            if ($namedHasChanged) {
+                $hasChanged = \true;
+            }
             if (!\is_a($annotationToRemove, PhpDocTagValueNode::class, \true)) {
                 continue;
             }
-            $phpDocInfo->removeByType($annotationToRemove);
+            $typedHasChanged = $phpDocInfo->removeByType($annotationToRemove);
+            if ($typedHasChanged) {
+                $hasChanged = \true;
+            }
         }
-        if ($phpDocInfo->hasChanged()) {
+        if ($hasChanged) {
+            $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($node);
             return $node;
         }
         return null;

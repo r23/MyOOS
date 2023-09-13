@@ -5,6 +5,7 @@ namespace Rector\Symfony\Symfony43\Rector\StmtsAwareInterface;
 
 use PhpParser\Node;
 use PhpParser\Node\Arg;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;

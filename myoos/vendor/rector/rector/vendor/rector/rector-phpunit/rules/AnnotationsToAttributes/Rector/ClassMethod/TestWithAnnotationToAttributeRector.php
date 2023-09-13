@@ -5,14 +5,12 @@ namespace Rector\PHPUnit\AnnotationsToAttributes\Rector\ClassMethod;
 
 use RectorPrefix202309\Nette\Utils\Json;
 use PhpParser\Node;
-use PhpParser\Node\Attribute;
-use PhpParser\Node\AttributeGroup;
-use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
+use Rector\Comments\NodeDocBlock\DocBlockUpdater;
 use Rector\Core\Rector\AbstractRector;
 use Rector\PhpAttribute\NodeFactory\PhpAttributeGroupFactory;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
@@ -41,11 +39,17 @@ final class TestWithAnnotationToAttributeRector extends AbstractRector
      * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover
      */
     private $phpDocTagRemover;
-    public function __construct(TestsNodeAnalyzer $testsNodeAnalyzer, PhpAttributeGroupFactory $phpAttributeGroupFactory, PhpDocTagRemover $phpDocTagRemover)
+    /**
+     * @readonly
+     * @var \Rector\Comments\NodeDocBlock\DocBlockUpdater
+     */
+    private $docBlockUpdater;
+    public function __construct(TestsNodeAnalyzer $testsNodeAnalyzer, PhpAttributeGroupFactory $phpAttributeGroupFactory, PhpDocTagRemover $phpDocTagRemover, DocBlockUpdater $docBlockUpdater)
     {
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
         $this->phpAttributeGroupFactory = $phpAttributeGroupFactory;
         $this->phpDocTagRemover = $phpDocTagRemover;
+        $this->docBlockUpdater = $docBlockUpdater;
     }
     public function getRuleDefinition() : RuleDefinition
     {
@@ -118,6 +122,7 @@ CODE_SAMPLE
                 $attributeGroups[] = $this->phpAttributeGroupFactory->createFromClassWithItems('PHPUnit\\Framework\\Attributes\\TestWith', [$jsonArray]);
             }
         }
+        $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($node);
         $node->attrGroups = \array_merge($node->attrGroups, $attributeGroups);
         return $node;
     }

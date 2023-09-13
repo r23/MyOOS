@@ -14,17 +14,10 @@ use PHPStan\Analyser\Scope;
 use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\NodeAnalyzer\CallAnalyzer;
-use Rector\Core\Util\StringUtils;
 use Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
-use Rector\NodeNameResolver\Regex\RegexPatternDetector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class NodeNameResolver
 {
-    /**
-     * @readonly
-     * @var \Rector\NodeNameResolver\Regex\RegexPatternDetector
-     */
-    private $regexPatternDetector;
     /**
      * @readonly
      * @var \Rector\CodingStyle\Naming\ClassNaming
@@ -42,11 +35,8 @@ final class NodeNameResolver
     private $nodeNameResolvers = [];
     /**
      * Used to check if a string might contain a regex or fnmatch pattern
-     *
-     * @var string
-     * @see https://regex101.com/r/ImTV1W/1
      */
-    private const CONTAINS_WILDCARD_CHARS_REGEX = '/[\\*\\#\\~\\/]/';
+    private const REGEX_WILDCARD_CHARS = ['*', '#', '~', '/'];
     /**
      * @var array<string, NodeNameResolverInterface|null>
      */
@@ -54,9 +44,8 @@ final class NodeNameResolver
     /**
      * @param NodeNameResolverInterface[] $nodeNameResolvers
      */
-    public function __construct(RegexPatternDetector $regexPatternDetector, ClassNaming $classNaming, CallAnalyzer $callAnalyzer, iterable $nodeNameResolvers = [])
+    public function __construct(ClassNaming $classNaming, CallAnalyzer $callAnalyzer, iterable $nodeNameResolvers = [])
     {
-        $this->regexPatternDetector = $regexPatternDetector;
         $this->classNaming = $classNaming;
         $this->callAnalyzer = $callAnalyzer;
         $this->nodeNameResolvers = $nodeNameResolvers;
@@ -66,15 +55,19 @@ final class NodeNameResolver
      */
     public function isNames(Node $node, array $names) : bool
     {
+        $nodeName = $this->getName($node);
+        if ($nodeName === null) {
+            return \false;
+        }
         foreach ($names as $name) {
-            if ($this->isName($node, $name)) {
+            if ($this->isStringName($nodeName, $name)) {
                 return \true;
             }
         }
         return \false;
     }
     /**
-     * @param \PhpParser\Node|mixed[] $node
+     * @param Node|Node[] $node
      */
     public function isName($node, string $name) : bool
     {
@@ -94,6 +87,7 @@ final class NodeNameResolver
     }
     /**
      * @api
+     * @deprecated This method is unused and will be removed, go for isName() instead
      */
     public function isCaseSensitiveName(Node $node, string $name) : bool
     {
@@ -170,15 +164,6 @@ final class NodeNameResolver
         return $names;
     }
     /**
-     * Ends with ucname
-     * Starts with adjective, e.g. (Post $firstPost, Post $secondPost)
-     */
-    public function endsWith(string $currentName, string $expectedName) : bool
-    {
-        $suffixNamePattern = '#\\w+' . \ucfirst($expectedName) . '#';
-        return StringUtils::isMatch($currentName, $suffixNamePattern);
-    }
-    /**
      * @param string|\PhpParser\Node\Name|\PhpParser\Node\Identifier|\PhpParser\Node\Stmt\ClassLike $name
      */
     public function getShortName($name) : string
@@ -194,17 +179,15 @@ final class NodeNameResolver
         if ($desiredName === 'Object') {
             return $desiredName === $resolvedName;
         }
-        if (StringUtils::isMatch($desiredName, self::CONTAINS_WILDCARD_CHARS_REGEX)) {
-            // is probably regex pattern
-            if ($this->regexPatternDetector->isRegexPattern($desiredName)) {
-                return StringUtils::isMatch($resolvedName, $desiredName);
-            }
-            // is probably fnmatch
-            if (\strpos($desiredName, '*') !== \false) {
-                return \fnmatch($desiredName, $resolvedName, \FNM_NOESCAPE);
+        if (\strcasecmp($resolvedName, $desiredName) === 0) {
+            return \true;
+        }
+        foreach (self::REGEX_WILDCARD_CHARS as $char) {
+            if (\strpos($desiredName, $char) !== \false) {
+                throw new ShouldNotHappenException('Matching of regular expressions is no longer supported. Use $this->getName() and compare with e.g. str_ends_with() or str_starts_with() instead.');
             }
         }
-        return \strtolower($resolvedName) === \strtolower($desiredName);
+        return \false;
     }
     /**
      * @param \PhpParser\Node\Expr|\PhpParser\Node\Identifier $node

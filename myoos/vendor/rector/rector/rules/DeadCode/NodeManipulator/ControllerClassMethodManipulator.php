@@ -46,6 +46,10 @@ final class ControllerClassMethodManipulator
         if (!$class->extends instanceof Name) {
             return \false;
         }
-        return $this->nodeNameResolver->isName($class->extends, '#(Controller|Presenter)$#');
+        $parentClassName = $this->nodeNameResolver->getName($class->extends);
+        if (\substr_compare($parentClassName, 'Controller', -\strlen('Controller')) === 0) {
+            return \true;
+        }
+        return \substr_compare($parentClassName, 'Presenter', -\strlen('Presenter')) === 0;
     }
 }

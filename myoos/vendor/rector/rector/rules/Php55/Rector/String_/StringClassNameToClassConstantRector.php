@@ -150,6 +150,12 @@ CODE_SAMPLE
             return \true;
         }
         foreach ($this->classesToSkip as $classToSkip) {
+            if (\strpos($classToSkip, '*') !== \false) {
+                if (\fnmatch($classToSkip, $classLikeName, \FNM_NOESCAPE)) {
+                    return \true;
+                }
+                continue;
+            }
             if ($this->nodeNameResolver->isStringName($classLikeName, $classToSkip)) {
                 return \true;
             }

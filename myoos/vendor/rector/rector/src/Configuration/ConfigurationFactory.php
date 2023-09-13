@@ -8,6 +8,9 @@ use Rector\Core\Configuration\Parameter\SimpleParameterProvider;
 use Rector\Core\ValueObject\Configuration;
 use RectorPrefix202309\Symfony\Component\Console\Input\InputInterface;
 use RectorPrefix202309\Symfony\Component\Console\Style\SymfonyStyle;
+/**
+ * @see \Rector\Core\Tests\Configuration\ConfigurationFactoryTest
+ */
 final class ConfigurationFactory
 {
     /**
@@ -43,8 +46,9 @@ final class ConfigurationFactory
         $isParallel = SimpleParameterProvider::provideBoolParameter(\Rector\Core\Configuration\Option::PARALLEL);
         $parallelPort = (string) $input->getOption(\Rector\Core\Configuration\Option::PARALLEL_PORT);
         $parallelIdentifier = (string) $input->getOption(\Rector\Core\Configuration\Option::PARALLEL_IDENTIFIER);
+        $isDebug = (bool) $input->getOption(\Rector\Core\Configuration\Option::DEBUG);
         $memoryLimit = $this->resolveMemoryLimit($input);
-        return new Configuration($isDryRun, $showProgressBar, $shouldClearCache, $outputFormat, $fileExtensions, $paths, $showDiffs, $parallelPort, $parallelIdentifier, $isParallel, $memoryLimit);
+        return new Configuration($isDryRun, $showProgressBar, $shouldClearCache, $outputFormat, $fileExtensions, $paths, $showDiffs, $parallelPort, $parallelIdentifier, $isParallel, $memoryLimit, $isDebug);
     }
     private function shouldShowProgressBar(InputInterface $input, string $outputFormat) : bool
     {

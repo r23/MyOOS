@@ -6,6 +6,7 @@ namespace Rector\PHPUnit\NodeAnalyzer;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\TypeWithClassName;
 use Rector\Core\PhpParser\AstResolver;
@@ -45,6 +46,10 @@ final class AssertCallAnalyzer
      * @var int
      */
     private const MAX_NESTED_METHOD_CALL_LEVEL = 5;
+    /**
+     * @var string[]
+     */
+    private const ASSERT_METHOD_NAME_PREFIXES = ['expectNotToPerformAssertions', 'assert', 'expectException', 'setExpectedException', 'expectOutput', 'should'];
     /**
      * @var array<string, bool>
      */
@@ -156,16 +161,18 @@ final class AssertCallAnalyzer
      */
     private function isAssertMethodName($call) : bool
     {
-        return $this->nodeNameResolver->isNames($call->name, [
-            // phpunit
-            '*assert',
-            'assert*',
-            'expectException*',
-            'setExpectedException*',
-            'expectOutput*',
-            'should*',
-            'doTestFileInfo',
-            'expectNotToPerformAssertions',
-        ]);
+        if (!$call->name instanceof Identifier) {
+            return \false;
+        }
+        $callName = $this->nodeNameResolver->getName($call->name);
+        if (!\is_string($callName)) {
+            return \false;
+        }
+        foreach (self::ASSERT_METHOD_NAME_PREFIXES as $assertMethodNamePrefix) {
+            if (\strncmp($callName, $assertMethodNamePrefix, \strlen($assertMethodNamePrefix)) === 0) {
+                return \true;
+            }
+        }
+        return \false;
     }
 }

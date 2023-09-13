@@ -6,6 +6,7 @@ namespace Rector\Parallel\Application;
 use RectorPrefix202309\Clue\React\NDJson\Decoder;
 use RectorPrefix202309\Clue\React\NDJson\Encoder;
 use RectorPrefix202309\Nette\Utils\Random;
+use PHPStan\Collectors\CollectedData;
 use RectorPrefix202309\React\EventLoop\StreamSelectLoop;
 use RectorPrefix202309\React\Socket\ConnectionInterface;
 use RectorPrefix202309\React\Socket\TcpServer;
@@ -13,12 +14,12 @@ use Rector\Core\Configuration\Option;
 use Rector\Core\Configuration\Parameter\SimpleParameterProvider;
 use Rector\Core\Console\Command\ProcessCommand;
 use Rector\Core\ValueObject\Error\SystemError;
+use Rector\Core\ValueObject\ProcessResult;
 use Rector\Core\ValueObject\Reporting\FileDiff;
 use Rector\Parallel\Command\WorkerCommandLineFactory;
 use Rector\Parallel\ValueObject\Bridge;
 use RectorPrefix202309\Symfony\Component\Console\Command\Command;
 use RectorPrefix202309\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix202309\Symplify\EasyParallel\Contract\SerializableInterface;
 use RectorPrefix202309\Symplify\EasyParallel\Enum\Action;
 use RectorPrefix202309\Symplify\EasyParallel\Enum\Content;
 use RectorPrefix202309\Symplify\EasyParallel\Enum\ReactCommand;
@@ -45,6 +46,13 @@ final class ParallelFileProcessor
      */
     private const SYSTEM_ERROR_LIMIT = 50;
     /**
+     * The number of chunks a worker can process before getting killed.
+     * In contrast the jobSize defines the maximum size of a chunk, a worker process at a time.
+     *
+     * @var int
+     */
+    private const MAX_CHUNKS_PER_WORKER = 8;
+    /**
      * @var \Symplify\EasyParallel\ValueObject\ProcessPool|null
      */
     private $processPool = null;
@@ -54,16 +62,18 @@ final class ParallelFileProcessor
     }
     /**
      * @param callable(int $stepCount): void $postFileCallback Used for progress bar jump
-     * @return array{file_diffs: SerializableInterface[], system_errors: SerializableInterface[], system_errors_count: int}
      */
-    public function process(Schedule $schedule, string $mainScript, callable $postFileCallback, InputInterface $input) : array
+    public function process(Schedule $schedule, string $mainScript, callable $postFileCallback, InputInterface $input) : ProcessResult
     {
         $jobs = \array_reverse($schedule->getJobs());
         $streamSelectLoop = new StreamSelectLoop();
         // basic properties setup
         $numberOfProcesses = $schedule->getNumberOfProcesses();
         // initial counters
+        /** @var FileDiff[] $fileDiffs */
         $fileDiffs = [];
+        /** @var CollectedData[] $collectedDatas */
+        $collectedDatas = [];
         /** @var SystemError[] $systemErrors */
         $systemErrors = [];
         $tcpServer = new TcpServer('127.0.0.1:0', $streamSelectLoop);
@@ -83,8 +93,8 @@ final class ParallelFileProcessor
                     $this->processPool->quitProcess($processIdentifier);
                     return;
                 }
-                $job = \array_pop($jobs);
-                $parallelProcess->request([ReactCommand::ACTION => Action::MAIN, Content::FILES => $job]);
+                $jobsChunk = \array_pop($jobs);
+                $parallelProcess->request([ReactCommand::ACTION => Action::MAIN, Content::FILES => $jobsChunk]);
             });
         });
         /** @var string $serverAddress */
@@ -104,17 +114,15 @@ final class ParallelFileProcessor
             \sleep(1);
         };
         $timeoutInSeconds = SimpleParameterProvider::provideIntParameter(Option::PARALLEL_JOB_TIMEOUT_IN_SECONDS);
-        for ($i = 0; $i < $numberOfProcesses; ++$i) {
-            // nothing else to process, stop now
-            if ($jobs === []) {
-                break;
-            }
+        $fileChunksBudgetPerProcess = [];
+        $processSpawner = function () use(&$systemErrors, &$fileDiffs, &$jobs, $postFileCallback, &$systemErrorsCount, &$reachedInternalErrorsCountLimit, $mainScript, $input, $serverPort, $streamSelectLoop, $timeoutInSeconds, $handleErrorCallable, &$fileChunksBudgetPerProcess, &$processSpawner) : void {
             $processIdentifier = Random::generate();
             $workerCommandLine = $this->workerCommandLineFactory->create($mainScript, ProcessCommand::class, 'worker', $input, $processIdentifier, $serverPort);
+            $fileChunksBudgetPerProcess[$processIdentifier] = self::MAX_CHUNKS_PER_WORKER;
             $parallelProcess = new ParallelProcess($workerCommandLine, $streamSelectLoop, $timeoutInSeconds);
             $parallelProcess->start(
                 // 1. callable on data
-                function (array $json) use($parallelProcess, &$systemErrors, &$fileDiffs, &$jobs, $postFileCallback, &$systemErrorsCount, &$reachedInternalErrorsCountLimit, $processIdentifier) : void {
+                function (array $json) use($parallelProcess, &$systemErrors, &$fileDiffs, &$jobs, $postFileCallback, &$systemErrorsCount, &$collectedDatas, &$reachedInternalErrorsCountLimit, $processIdentifier, &$fileChunksBudgetPerProcess, &$processSpawner) : void {
                     // decode arrays to objects
                     foreach ($json[Bridge::SYSTEM_ERRORS] as $jsonError) {
                         if (\is_string($jsonError)) {
@@ -126,18 +134,28 @@ final class ParallelFileProcessor
                     foreach ($json[Bridge::FILE_DIFFS] as $jsonFileDiff) {
                         $fileDiffs[] = FileDiff::decode($jsonFileDiff);
                     }
+                    foreach ($json[Bridge::COLLECTED_DATA] as $jsonCollectedData) {
+                        $collectedDatas[] = CollectedData::decode($jsonCollectedData);
+                    }
                     $postFileCallback($json[Bridge::FILES_COUNT]);
                     $systemErrorsCount += $json[Bridge::SYSTEM_ERRORS_COUNT];
                     if ($systemErrorsCount >= self::SYSTEM_ERROR_LIMIT) {
                         $reachedInternalErrorsCountLimit = \true;
                         $this->processPool->quitAll();
                     }
+                    if ($fileChunksBudgetPerProcess[$processIdentifier] <= 0) {
+                        // kill the current worker, and spawn a fresh one to free memory
+                        $this->processPool->quitProcess($processIdentifier);
+                        $processSpawner();
+                        return;
+                    }
                     if ($jobs === []) {
                         $this->processPool->quitProcess($processIdentifier);
                         return;
                     }
-                    $job = \array_pop($jobs);
-                    $parallelProcess->request([ReactCommand::ACTION => Action::MAIN, Content::FILES => $job]);
+                    $jobsChunk = \array_pop($jobs);
+                    $parallelProcess->request([ReactCommand::ACTION => Action::MAIN, Content::FILES => $jobsChunk]);
+                    --$fileChunksBudgetPerProcess[$processIdentifier];
                 },
                 // 2. callable on error
                 $handleErrorCallable,
@@ -154,11 +172,18 @@ final class ParallelFileProcessor
                 }
             );
             $this->processPool->attachProcess($processIdentifier, $parallelProcess);
+        };
+        for ($i = 0; $i < $numberOfProcesses; ++$i) {
+            // nothing else to process, stop now
+            if ($jobs === []) {
+                break;
+            }
+            $processSpawner();
         }
         $streamSelectLoop->run();
         if ($reachedSystemErrorsCountLimit) {
             $systemErrors[] = new SystemError(\sprintf('Reached system errors count limit of %d, exiting...', self::SYSTEM_ERROR_LIMIT));
         }
-        return [Bridge::FILE_DIFFS => $fileDiffs, Bridge::SYSTEM_ERRORS => $systemErrors, Bridge::SYSTEM_ERRORS_COUNT => \count($systemErrors)];
+        return new ProcessResult($systemErrors, $fileDiffs, $collectedDatas);
     }
 }

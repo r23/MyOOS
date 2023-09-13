@@ -14,11 +14,8 @@ use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\ChangesReporting\ValueObject\RectorWithLineChange;
 use Rector\Core\Application\ChangedNodeScopeRefresher;
-use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\Logging\CurrentRectorProvider;
-use Rector\Core\Logging\RectorOutput;
 use Rector\Core\NodeDecorator\CreatedByRuleDecorator;
 use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
@@ -93,14 +90,6 @@ CODE_SAMPLE;
      */
     private $simpleCallableNodeTraverser;
     /**
-     * @var \Rector\Core\Logging\CurrentRectorProvider
-     */
-    private $currentRectorProvider;
-    /**
-     * @var \Rector\Core\Configuration\CurrentNodeProvider
-     */
-    private $currentNodeProvider;
-    /**
      * @var \Rector\Skipper\Skipper\Skipper
      */
     private $skipper;
@@ -117,14 +106,10 @@ CODE_SAMPLE;
      */
     private $createdByRuleDecorator;
     /**
-     * @var \Rector\Core\Logging\RectorOutput
-     */
-    private $rectorOutput;
-    /**
      * @var int|null
      */
     private $toBeRemovedNodeId;
-    public function autowire(NodeNameResolver $nodeNameResolver, NodeTypeResolver $nodeTypeResolver, SimpleCallableNodeTraverser $simpleCallableNodeTraverser, NodeFactory $nodeFactory, PhpDocInfoFactory $phpDocInfoFactory, StaticTypeMapper $staticTypeMapper, CurrentRectorProvider $currentRectorProvider, CurrentNodeProvider $currentNodeProvider, Skipper $skipper, ValueResolver $valueResolver, BetterNodeFinder $betterNodeFinder, NodeComparator $nodeComparator, CurrentFileProvider $currentFileProvider, CreatedByRuleDecorator $createdByRuleDecorator, ChangedNodeScopeRefresher $changedNodeScopeRefresher, RectorOutput $rectorOutput) : void
+    public function autowire(NodeNameResolver $nodeNameResolver, NodeTypeResolver $nodeTypeResolver, SimpleCallableNodeTraverser $simpleCallableNodeTraverser, NodeFactory $nodeFactory, PhpDocInfoFactory $phpDocInfoFactory, StaticTypeMapper $staticTypeMapper, Skipper $skipper, ValueResolver $valueResolver, BetterNodeFinder $betterNodeFinder, NodeComparator $nodeComparator, CurrentFileProvider $currentFileProvider, CreatedByRuleDecorator $createdByRuleDecorator, ChangedNodeScopeRefresher $changedNodeScopeRefresher) : void
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
@@ -132,8 +117,6 @@ CODE_SAMPLE;
         $this->nodeFactory = $nodeFactory;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->staticTypeMapper = $staticTypeMapper;
-        $this->currentRectorProvider = $currentRectorProvider;
-        $this->currentNodeProvider = $currentNodeProvider;
         $this->skipper = $skipper;
         $this->valueResolver = $valueResolver;
         $this->betterNodeFinder = $betterNodeFinder;
@@ -141,7 +124,6 @@ CODE_SAMPLE;
         $this->currentFileProvider = $currentFileProvider;
         $this->createdByRuleDecorator = $createdByRuleDecorator;
         $this->changedNodeScopeRefresher = $changedNodeScopeRefresher;
-        $this->rectorOutput = $rectorOutput;
     }
     /**
      * @return Node[]|null
@@ -168,23 +150,10 @@ CODE_SAMPLE;
         if ($this->skipper->shouldSkipCurrentNode($this, $filePath, static::class, $node)) {
             return null;
         }
-        $isDebug = $this->rectorOutput->isDebug();
-        $this->currentRectorProvider->changeCurrentRector($this);
-        // for PHP doc info factory and change notifier
-        $this->currentNodeProvider->setNode($node);
-        if ($isDebug) {
-            $this->rectorOutput->printCurrentFileAndRule($filePath, static::class);
-        }
         $this->changedNodeScopeRefresher->reIndexNodeAttributes($node);
-        if ($isDebug) {
-            $this->rectorOutput->startConsumptions();
-        }
         // ensure origNode pulled before refactor to avoid changed during refactor, ref https://3v4l.org/YMEGN
         $originalNode = $node->getAttribute(AttributeKey::ORIGINAL_NODE) ?? $node;
         $refactoredNode = $this->refactor($node);
-        if ($isDebug) {
-            $this->rectorOutput->printConsumptions();
-        }
         // @see NodeTraverser::* codes, e.g. removal of node of stopping the traversing
         if ($refactoredNode === NodeTraverser::REMOVE_NODE) {
             $this->toBeRemovedNodeId = \spl_object_id($originalNode);
@@ -258,7 +227,7 @@ CODE_SAMPLE;
         return $this->nodeTypeResolver->getType($node);
     }
     /**
-     * @param \PhpParser\Node|mixed[] $nodes
+     * @param Node|Node[] $nodes
      * @param callable(Node $node): (Node|null|int) $callable
      */
     protected function traverseNodesWithCallable($nodes, callable $callable) : void
@@ -298,7 +267,7 @@ CODE_SAMPLE;
         });
     }
     /**
-     * @param \PhpParser\Node|mixed[]|int $refactoredNode
+     * @param Node|Node[] $refactoredNode
      */
     private function postRefactorProcess(Node $originalNode, Node $node, $refactoredNode, string $filePath) : Node
     {
@@ -322,7 +291,7 @@ CODE_SAMPLE;
         return $refactoredNode;
     }
     /**
-     * @param mixed[]|\PhpParser\Node $node
+     * @param Node[]|Node $node
      */
     private function refreshScopeNodes($node, string $filePath, ?MutatingScope $mutatingScope) : void
     {

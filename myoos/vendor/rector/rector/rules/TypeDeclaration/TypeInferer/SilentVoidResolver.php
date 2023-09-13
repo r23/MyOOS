@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\TypeDeclaration\TypeInferer;
 
+use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrowFunction;
 use PhpParser\Node\Expr\Closure;
@@ -45,20 +46,13 @@ final class SilentVoidResolver
         if ($classReflection instanceof ClassReflection && $classReflection->isInterface()) {
             return \false;
         }
-        if ($this->hasNeverType($functionLike)) {
-            return \false;
-        }
         if ($this->betterNodeFinder->hasInstancesOfInFunctionLikeScoped($functionLike, Yield_::class)) {
             return \false;
         }
-        /** @var Return_[] $returns */
-        $returns = $this->betterNodeFinder->findInstancesOfInFunctionLikeScoped($functionLike, Return_::class);
-        foreach ($returns as $return) {
-            if ($return->expr instanceof Expr) {
-                return \false;
-            }
-        }
-        return \true;
+        $return = $this->betterNodeFinder->findFirstInFunctionLikeScoped($functionLike, static function (Node $node) : bool {
+            return $node instanceof Return_ && $node->expr instanceof Expr;
+        });
+        return !$return instanceof Return_;
     }
     public function hasSilentVoid(FunctionLike $functionLike) : bool
     {
@@ -124,14 +118,6 @@ final class SilentVoidResolver
             return $this->hasStmtsAlwaysReturn($catch->stmts);
         }
         return \true;
-    }
-    /**
-     * @see https://phpstan.org/writing-php-code/phpdoc-types#bottom-type
-     * @param \PhpParser\Node\Stmt\ClassMethod|\PhpParser\Node\Expr\Closure|\PhpParser\Node\Stmt\Function_ $functionLike
-     */
-    private function hasNeverType($functionLike) : bool
-    {
-        return $this->betterNodeFinder->hasInstancesOf($functionLike, [Throw_::class]);
     }
     private function resolveReturnCount(Switch_ $switch) : int
     {
