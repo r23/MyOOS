@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Videojs HTML5 Player
-Version: 1.1.9
+Version: 1.1.10
 Plugin URI: https://wphowto.net/videojs-html5-player-for-wordpress-757
 Author: naa986
 Author URI: https://wphowto.net/
@@ -17,7 +17,7 @@ if (!class_exists('VIDEOJS_HTML5_PLAYER')) {
 
     class VIDEOJS_HTML5_PLAYER {
 
-        var $plugin_version = '1.1.9';
+        var $plugin_version = '1.1.10';
         var $plugin_url;
         var $plugin_path;
         var $videojs_version = '7.14.3';
@@ -32,7 +32,6 @@ if (!class_exists('VIDEOJS_HTML5_PLAYER')) {
 
         function plugin_includes() {
             if (is_admin()) {
-                add_filter('plugin_action_links', array($this, 'plugin_action_links'), 10, 2);
                 include_once('addons/videojs-html5-player-addons.php');
             }
             add_action('plugins_loaded', array($this, 'plugins_loaded_handler'));
@@ -75,6 +74,9 @@ if (!class_exists('VIDEOJS_HTML5_PLAYER')) {
         
         function plugins_loaded_handler()
         {
+            if(is_admin() && current_user_can('manage_options')){
+                add_filter('plugin_action_links', array($this, 'plugin_action_links'), 10, 2);
+            }
             load_plugin_textdomain('videojs-html5-player', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/'); 
         }
 
