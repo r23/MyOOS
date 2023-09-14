@@ -20,7 +20,7 @@ class PayPalConnectionException extends \Exception
      * Default Constructor
      *
      * @param string $url
-     * @param string    $message
+     * @param string $message
      * @param int    $code
      */
     public function __construct(private $url, $message, $code = 0)

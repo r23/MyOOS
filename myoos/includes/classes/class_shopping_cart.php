@@ -575,7 +575,7 @@ class shoppingCart
                 $this->info['total'] +=  $nPrice;
 
                 // tax
-                if ($aUser['price_with_tax'] == 1) {					
+                if ($aUser['price_with_tax'] == 1) {                    
                     $this->info['tax'] += $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', (string) $products_tax) : "1." . str_replace('.', '', (string) $products_tax)));
                     $nPriceNet = oos_round(($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', (string) $products_tax) : "1." . str_replace('.', '', (string) $products_tax))), $decimal_places);
                     if (isset($this->info['tax_groups']["$products_tax"])) {
@@ -594,11 +594,11 @@ class shoppingCart
                         $this->info['tax_groups']["$products_tax"] = oos_round(($products_tax / 100) * $nPrice, $decimal_places);
                         $this->info['net_total']["$products_tax"] = $nPrice;
                     }
-                }			
+                }            
             }
         }
-	}
-		
+    }
+        
     public function products_price_actual($product_id, $actual_price, $products_qty)
     {
         $new_price = $actual_price;
@@ -904,14 +904,14 @@ class shoppingCart
 
                 if ($virtual_check['total'] > 0) {
                     switch ($this->content_type) {
-                        case 'physical':
-                            $this->content_type = 'mixed';
+                    case 'physical':
+                        $this->content_type = 'mixed';
 
-                            return $this->content_type;
+                        return $this->content_type;
                             break;
                     default:
                             $this->content_type = 'virtual';
-                            break;
+                        break;
                     }
                 } elseif ($this->show_weight() == 0) {
                     $productstable = $oostable['products'];
@@ -923,37 +923,37 @@ class shoppingCart
 
                     if ($virtual_check['products_weight'] == 0) {
                         switch ($this->content_type) {
-                            case 'physical':
-                                    $this->content_type = 'mixed';
+                        case 'physical':
+                                $this->content_type = 'mixed';
 
-                                    return $this->content_type;
+                            return $this->content_type;
                                     break;
-                            default:
-                                    $this->content_type = 'virtual_weight';
-                                    break;
-                            }
+                        default:
+                                $this->content_type = 'virtual_weight';
+                            break;
+                        }
                     } else {
                         switch ($this->content_type) {
-                            case 'virtual':
-                                    $this->content_type = 'mixed';
-
-                                    return $this->content_type;
-                                    break;
-                            default:
-                                    $this->content_type = 'physical';
-                                break;
-                            }
-                    }
-                } else {
-                    switch ($this->content_type) {
                         case 'virtual':
                                 $this->content_type = 'mixed';
 
-                                return $this->content_type;
+                            return $this->content_type;
+                                    break;
+                        default:
+                                $this->content_type = 'physical';
+                            break;
+                        }
+                    }
+                } else {
+                    switch ($this->content_type) {
+                    case 'virtual':
+                            $this->content_type = 'mixed';
+
+                        return $this->content_type;
                                 break;
                     default:
                             $this->content_type = 'physical';
-                            break;
+                        break;
                     }
                 }
             }

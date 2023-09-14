@@ -67,8 +67,8 @@ if (oos_is_not_null($select_column_list)) {
 }
 
 if (!isset($nProductsID)) {
-	$products_id = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
-	$nProductsID = oos_get_product_id($products_id);
+    $products_id = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
+    $nProductsID = oos_get_product_id($products_id);
 }
 
   $productstable = $oostable['products'];

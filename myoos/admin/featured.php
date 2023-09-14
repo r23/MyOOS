@@ -235,7 +235,7 @@ if (($action == 'new') || ($action == 'edit')) {
 
     <?php
 } else {
-        ?>
+    ?>
     <div class="table-responsive">
         <table class="table w-100">
           <tr>
@@ -254,20 +254,20 @@ if (($action == 'new') || ($action == 'edit')) {
     $featured_result_raw = "SELECT p.products_id, pd.products_name, s.featured_id, s.featured_date_added, s.featured_last_modified, s.expires_date, s.date_status_change, s.status FROM " . $oostable['products'] . " p, " . $oostable['featured'] . " s, " . $oostable['products_description'] . " pd WHERE p.products_id = pd.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND p.products_id = s.products_id ORDER BY pd.products_name";
         $featured_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $featured_result_raw, $featured_result_numrows);
         $featured_result = $dbconn->Execute($featured_result_raw);
-        while ($featured = $featured_result->fields) {
-            if ((!isset($_GET['fID']) || (isset($_GET['fID']) && ($_GET['fID'] == $featured['featured_id']))) && !isset($sInfo)) {
-                $productstable = $oostable['products'];
-                $products_result = $dbconn->Execute("SELECT products_image FROM " . $oostable['products'] . " WHERE products_id = '" . $featured['products_id'] . "'");
-                $products = $products_result->fields;
-                $sInfo_array = array_merge($featured, $products);
-                $sInfo = new objectInfo($sInfo_array);
-            }
+    while ($featured = $featured_result->fields) {
+        if ((!isset($_GET['fID']) || (isset($_GET['fID']) && ($_GET['fID'] == $featured['featured_id']))) && !isset($sInfo)) {
+            $productstable = $oostable['products'];
+            $products_result = $dbconn->Execute("SELECT products_image FROM " . $oostable['products'] . " WHERE products_id = '" . $featured['products_id'] . "'");
+            $products = $products_result->fields;
+            $sInfo_array = array_merge($featured, $products);
+            $sInfo = new objectInfo($sInfo_array);
+        }
 
-            if (isset($sInfo) && is_object($sInfo) && ($featured['featured_id'] == $sInfo->featured_id)) {
-                echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '\'">' . "\n";
-            } else {
-                echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id']) . '\'">' . "\n";
-            } ?>
+        if (isset($sInfo) && is_object($sInfo) && ($featured['featured_id'] == $sInfo->featured_id)) {
+            echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '\'">' . "\n";
+        } else {
+            echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id']) . '\'">' . "\n";
+        } ?>
                 <td><?php echo $featured['products_name']; ?></td>
                 <td  align="right">&nbsp;</td>
                 <td  align="right">
@@ -292,7 +292,7 @@ if (($action == 'new') || ($action == 'edit')) {
         <?php
         // Move that ADOdb pointer!
         $featured_result->MoveNext();
-        } ?>
+    } ?>
               <tr>
                 <td colspan="4"><table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
@@ -354,7 +354,7 @@ if (($action == 'new') || ($action == 'edit')) {
         </table>
     </div>
     <?php
-    }
+}
 ?>
 <!-- body_text_eof //-->
                 </div>

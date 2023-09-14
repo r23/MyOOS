@@ -91,7 +91,7 @@ class ShippingInfo extends PayPalModel
     /**
      *
      *
-     * @param \PayPal\Api\Phone $phone
+     * @param  \PayPal\Api\Phone $phone
      * @return $this
      */
     public function setPhone($phone)
@@ -113,7 +113,7 @@ class ShippingInfo extends PayPalModel
     /**
      * @deprecated Not used anymore
      *
-     * @param string $email
+     * @param  string $email
      * @return $this
      */
     public function setEmail($email)

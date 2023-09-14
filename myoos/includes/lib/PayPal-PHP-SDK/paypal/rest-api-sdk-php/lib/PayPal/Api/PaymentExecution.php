@@ -41,8 +41,9 @@ class PaymentExecution extends PayPalModel
 
     /**
      * Carrier account id for a carrier billing payment. For a carrier billing payment, payer_id is not applicable.
+     *
      * @deprecated Not publicly available
-     * @param string $carrier_account_id
+     * @param      string $carrier_account_id
      * 
      * @return $this
      */
@@ -54,8 +55,9 @@ class PaymentExecution extends PayPalModel
 
     /**
      * Carrier account id for a carrier billing payment. For a carrier billing payment, payer_id is not applicable.
+     *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getCarrierAccountId()
     {
@@ -88,7 +90,7 @@ class PaymentExecution extends PayPalModel
     /**
      * Append Transactions to the list.
      *
-     * @param \PayPal\Api\Transaction $transaction
+     * @param  \PayPal\Api\Transaction $transaction
      * @return $this
      */
     public function addTransaction($transaction)
@@ -105,7 +107,7 @@ class PaymentExecution extends PayPalModel
     /**
      * Remove Transactions from the list.
      *
-     * @param \PayPal\Api\Transaction $transaction
+     * @param  \PayPal\Api\Transaction $transaction
      * @return $this
      */
     public function removeTransaction($transaction)

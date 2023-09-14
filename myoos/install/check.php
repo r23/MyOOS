@@ -45,7 +45,8 @@
    Purpose of file: Provide checks for the installer.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 function oosCheckPHP()
 {
@@ -221,7 +222,7 @@ function oosCheckPHP()
         //$check_php = false;
         ?>
     <font color="red" style="bold"><b>
-<?php
+        <?php
     }
     echo oosGetPHPSetting('session.auto_start'); ?>
   </b></font></td>
@@ -249,7 +250,7 @@ function oosCheckPHP()
             HTACCESS_ERROR,
             '<font class="oos-error"><b>chmod go+rwx ' . $oos_core . '</b></font>'
         );
-    // $check_php = false;
+        // $check_php = false;
     } else {
         fwrite($fp, 'ErrorDocument 404 ' . $oos_root . 'index.php');
         fclose($fp);

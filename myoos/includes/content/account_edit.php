@@ -56,7 +56,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
     && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
 ) {
     if (ACCOUNT_GENDER == 'true') {
-		$gender = filter_string_polyfill(filter_input(INPUT_POST, 'gender'));
+        $gender = filter_string_polyfill(filter_input(INPUT_POST, 'gender'));
     }
     $firstname = filter_string_polyfill(filter_input(INPUT_POST, 'firstname'));
     $lastname = filter_string_polyfill(filter_input(INPUT_POST, 'lastname'));

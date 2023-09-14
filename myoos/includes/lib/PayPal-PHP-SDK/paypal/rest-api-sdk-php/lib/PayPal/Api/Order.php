@@ -70,6 +70,7 @@ class Order extends PayPalResourceModel
 
     /**
      * Identifier to the purchase unit associated with this object. Obsolete. Use one in cart_base.
+     *
      * @deprecated Use #getReferenceId instead
      *
      * @return string
@@ -212,7 +213,7 @@ class Order extends PayPalResourceModel
     }
 
     /**
-     * @deprecated  [DEPRECATED] Reason code for the transaction state being Pending. Obsolete. Retained for backward compatability. Use reason_code field above instead. 
+     * @deprecated [DEPRECATED] Reason code for the transaction state being Pending. Obsolete. Retained for backward compatability. Use reason_code field above instead. 
      *
      * @return string
      */
@@ -364,9 +365,9 @@ class Order extends PayPalResourceModel
     /**
      * Shows details for an order, by ID.
      *
-     * @param string $orderId
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  string         $orderId
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return Order
      */
     public static function get($orderId, $apiContext = null, $restCall = null)
@@ -389,9 +390,9 @@ class Order extends PayPalResourceModel
     /**
      * Captures a payment for an order, by ID. To use this call, the original payment call must specify an intent of `order`. In the JSON request body, include the payment amount and indicate whether this capture is the final capture for the authorization.
      *
-     * @param Capture $capture
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  Capture        $capture
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return Capture
      */
     public function capture($capture, $apiContext = null, $restCall = null)
@@ -415,8 +416,8 @@ class Order extends PayPalResourceModel
     /**
      * Voids, or cancels, an order, by ID. You cannot void an order if a payment has already been partially or fully captured.
      *
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return Order
      */
     public function void($apiContext = null, $restCall = null)
@@ -438,9 +439,9 @@ class Order extends PayPalResourceModel
     /**
      * Authorizes an order, by ID. Include an `amount` object in the JSON request body.
      *
-     * @param Authorization $authorization Authorization Object with Amount value to be authorized
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  Authorization  $authorization Authorization Object with Amount value to be authorized
+     * @param  ApiContext     $apiContext    is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall      is the Rest Call Service that is used to make rest calls
      * @return Authorization
      */
     public function authorize($authorization, $apiContext = null, $restCall = null)

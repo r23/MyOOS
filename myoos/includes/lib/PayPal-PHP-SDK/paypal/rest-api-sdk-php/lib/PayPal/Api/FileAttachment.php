@@ -43,7 +43,7 @@ class FileAttachment extends PayPalModel
     /**
      * URL of the attached file that can be downloaded.
      *
-     * @param string $url
+     * @param  string $url
      * @throws \InvalidArgumentException
      * @return $this
      */

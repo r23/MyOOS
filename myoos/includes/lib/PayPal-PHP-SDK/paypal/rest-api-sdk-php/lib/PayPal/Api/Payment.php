@@ -102,8 +102,9 @@ class Payment extends PayPalResourceModel
 
     /**
      * Information that the merchant knows about the payer.  This information is not definitive and only serves as a hint to the UI or any pre-processing logic.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\PotentialPayerInfo $potential_payer_info
+     * @param      \PayPal\Api\PotentialPayerInfo $potential_payer_info
      * 
      * @return $this
      */
@@ -115,8 +116,9 @@ class Payment extends PayPalResourceModel
 
     /**
      * Information that the merchant knows about the payer.  This information is not definitive and only serves as a hint to the UI or any pre-processing logic.
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\PotentialPayerInfo
+     * @return     \PayPal\Api\PotentialPayerInfo
      */
     public function getPotentialPayerInfo()
     {
@@ -125,6 +127,7 @@ class Payment extends PayPalResourceModel
 
     /**
      * Receiver of funds for this payment.
+     *
      * @param \PayPal\Api\Payee $payee
      * 
      * @return $this
@@ -137,6 +140,7 @@ class Payment extends PayPalResourceModel
 
     /**
      * Receiver of funds for this payment.
+     *
      * @return \PayPal\Api\Payee
      */
     public function getPayee()
@@ -146,8 +150,9 @@ class Payment extends PayPalResourceModel
 
     /**
      * ID of the cart to execute the payment.
+     *
      * @deprecated Not publicly available
-     * @param string $cart
+     * @param      string $cart
      * 
      * @return $this
      */
@@ -159,8 +164,9 @@ class Payment extends PayPalResourceModel
 
     /**
      * ID of the cart to execute the payment.
+     *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getCart()
     {
@@ -193,7 +199,7 @@ class Payment extends PayPalResourceModel
     /**
      * Append Transactions to the list.
      *
-     * @param \PayPal\Api\Transaction $transaction
+     * @param  \PayPal\Api\Transaction $transaction
      * @return $this
      */
     public function addTransaction($transaction)
@@ -210,7 +216,7 @@ class Payment extends PayPalResourceModel
     /**
      * Remove Transactions from the list.
      *
-     * @param \PayPal\Api\Transaction $transaction
+     * @param  \PayPal\Api\Transaction $transaction
      * @return $this
      */
     public function removeTransaction($transaction)
@@ -222,8 +228,9 @@ class Payment extends PayPalResourceModel
 
     /**
      * Applicable for advanced payments like multi seller payment (MSP) to support partial failures
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\Error[] $failed_transactions
+     * @param      \PayPal\Api\Error[] $failed_transactions
      * 
      * @return $this
      */
@@ -235,8 +242,9 @@ class Payment extends PayPalResourceModel
 
     /**
      * Applicable for advanced payments like multi seller payment (MSP) to support partial failures
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\Error[]
+     * @return     \PayPal\Api\Error[]
      */
     public function getFailedTransactions()
     {
@@ -245,9 +253,10 @@ class Payment extends PayPalResourceModel
 
     /**
      * Append FailedTransactions to the list.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\Error $error
-     * @return $this
+     * @param      \PayPal\Api\Error $error
+     * @return     $this
      */
     public function addFailedTransaction($error)
     {
@@ -262,9 +271,10 @@ class Payment extends PayPalResourceModel
 
     /**
      * Remove FailedTransactions from the list.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\Error $error
-     * @return $this
+     * @param      \PayPal\Api\Error $error
+     * @return     $this
      */
     public function removeFailedTransaction($error)
     {
@@ -275,8 +285,9 @@ class Payment extends PayPalResourceModel
 
     /**
      * Collection of PayPal generated billing agreement tokens.
+     *
      * @deprecated Not publicly available
-     * @param string[] $billing_agreement_tokens
+     * @param      string[] $billing_agreement_tokens
      * 
      * @return $this
      */
@@ -288,8 +299,9 @@ class Payment extends PayPalResourceModel
 
     /**
      * Collection of PayPal generated billing agreement tokens.
+     *
      * @deprecated Not publicly available
-     * @return string[]
+     * @return     string[]
      */
     public function getBillingAgreementTokens()
     {
@@ -298,9 +310,10 @@ class Payment extends PayPalResourceModel
 
     /**
      * Append BillingAgreementTokens to the list.
+     *
      * @deprecated Not publicly available
-     * @param string $billingAgreementToken
-     * @return $this
+     * @param      string $billingAgreementToken
+     * @return     $this
      */
     public function addBillingAgreementToken($billingAgreementToken)
     {
@@ -315,9 +328,10 @@ class Payment extends PayPalResourceModel
 
     /**
      * Remove BillingAgreementTokens from the list.
+     *
      * @deprecated Not publicly available
-     * @param string $billingAgreementToken
-     * @return $this
+     * @param      string $billingAgreementToken
+     * @return     $this
      */
     public function removeBillingAgreementToken($billingAgreementToken)
     {
@@ -328,8 +342,9 @@ class Payment extends PayPalResourceModel
 
     /**
      * Credit financing offered to payer on PayPal side. Returned in payment after payer opts-in
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\CreditFinancingOffered $credit_financing_offered
+     * @param      \PayPal\Api\CreditFinancingOffered $credit_financing_offered
      * 
      * @return $this
      */
@@ -341,8 +356,9 @@ class Payment extends PayPalResourceModel
 
     /**
      * Credit financing offered to payer on PayPal side. Returned in payment after payer opts-in
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\CreditFinancingOffered
+     * @return     \PayPal\Api\CreditFinancingOffered
      */
     public function getCreditFinancingOffered()
     {
@@ -351,8 +367,9 @@ class Payment extends PayPalResourceModel
 
     /**
      * Instructions for the payer to complete this payment.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\PaymentInstruction $payment_instruction
+     * @param      \PayPal\Api\PaymentInstruction $payment_instruction
      * 
      * @return $this
      */
@@ -364,8 +381,9 @@ class Payment extends PayPalResourceModel
 
     /**
      * Instructions for the payer to complete this payment.
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\PaymentInstruction
+     * @return     \PayPal\Api\PaymentInstruction
      */
     public function getPaymentInstruction()
     {
@@ -544,24 +562,24 @@ class Payment extends PayPalResourceModel
     {
         return $this->getLink(PayPalConstants::APPROVAL_URL);
     }
-	
-	/**
+    
+    /**
      * Get token from Approval Link
      *
      * @return null|string
      */
-	public function getToken()
-	{
-		$parameter_name = "token";
-		parse_str(parse_url($this->getApprovalLink(), PHP_URL_QUERY), $query);
-		return !isset($query[$parameter_name]) ? null : $query[$parameter_name];
-	}
-	
+    public function getToken()
+    {
+        $parameter_name = "token";
+        parse_str(parse_url($this->getApprovalLink(), PHP_URL_QUERY), $query);
+        return !isset($query[$parameter_name]) ? null : $query[$parameter_name];
+    }
+    
     /**
      * Creates and processes a payment. In the JSON request body, include a `payment` object with the intent, payer, and transactions. For PayPal payments, include redirect URLs in the `payment` object.
      *
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return Payment
      */
     public function create($apiContext = null, $restCall = null)
@@ -582,9 +600,9 @@ class Payment extends PayPalResourceModel
     /**
      * Shows details for a payment, by ID.
      *
-     * @param string $paymentId
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  string         $paymentId
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return Payment
      */
     public static function get($paymentId, $apiContext = null, $restCall = null)
@@ -607,9 +625,9 @@ class Payment extends PayPalResourceModel
     /**
      * Partially updates a payment, by ID. You can update the amount, shipping address, invoice ID, and custom data. You cannot use patch after execute has been called.
      *
-     * @param PatchRequest $patchRequest
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  PatchRequest   $patchRequest
+     * @param  ApiContext     $apiContext   is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall     is the Rest Call Service that is used to make rest calls
      * @return boolean
      */
     public function update($patchRequest, $apiContext = null, $restCall = null)
@@ -631,9 +649,9 @@ class Payment extends PayPalResourceModel
     /**
      * Executes, or completes, a PayPal payment that the payer has approved. You can optionally update selective payment information when you execute a payment.
      *
-     * @param PaymentExecution $paymentExecution
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  PaymentExecution $paymentExecution
+     * @param  ApiContext       $apiContext       is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall   $restCall         is the Rest Call Service that is used to make rest calls
      * @return Payment
      */
     public function execute($paymentExecution, $apiContext = null, $restCall = null)
@@ -656,9 +674,9 @@ class Payment extends PayPalResourceModel
     /**
      * List payments that were made to the merchant who issues the request. Payments can be in any state.
      *
-     * @param array $params
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  array          $params
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return PaymentHistory
      */
     public static function all($params, $apiContext = null, $restCall = null)

@@ -44,7 +44,7 @@ class CreditCardList extends PayPalResourceModel
     /**
      * Append Items to the list.
      *
-     * @param \PayPal\Api\CreditCard $creditCard
+     * @param  \PayPal\Api\CreditCard $creditCard
      * @return $this
      */
     public function addItem($creditCard)
@@ -61,7 +61,7 @@ class CreditCardList extends PayPalResourceModel
     /**
      * Remove Items from the list.
      *
-     * @param \PayPal\Api\CreditCard $creditCard
+     * @param  \PayPal\Api\CreditCard $creditCard
      * @return $this
      */
     public function removeItem($creditCard)

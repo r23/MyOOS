@@ -117,7 +117,7 @@ if (strlen($pfrom ?? '') > 0 && !(($errorno & 10000) == 10000) && strlen($pto) >
 $search_keywords = &oos_parse_search_string($keywords);
 
 if ($keywords && !$search_keywords) {
-  $errorno += 10_000_000;
+    $errorno += 10_000_000;
 }
 
 

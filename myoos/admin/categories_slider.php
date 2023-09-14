@@ -55,7 +55,7 @@ if (!empty($action)) {
         if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             oos_set_slider_status($_GET['id'], $_GET['flag']);
         }
-	$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
         oos_redirect_admin(oos_href_link_admin($aContents['categories_slider'], 'sID=' . intval($id) . '&page=' . $nPage));
         break;
 
@@ -223,7 +223,7 @@ if (($action == 'new') || ($action == 'edit')) {
     $form_action = 'insert';
     if (($action == 'edit') && isset($_GET['sID'])) {
         $form_action = 'update';
-		$sID = filter_input(INPUT_GET, 'sID', FILTER_VALIDATE_INT);
+        $sID = filter_input(INPUT_GET, 'sID', FILTER_VALIDATE_INT);
 
         $slidertable = $oostable['categories_slider'];
         $productstable = $oostable['products'];
@@ -242,7 +242,7 @@ if (($action == 'new') || ($action == 'edit')) {
 
         $sInfo = new objectInfo($product);
     } elseif (($action == 'new') && isset($_GET['pID'])) {
-		$pID = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT);
+        $pID = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT);
 
         $productstable = $oostable['products'];
         $products_descriptiontable = $oostable['products_description'];
@@ -374,7 +374,7 @@ if (($action == 'new') || ($action == 'edit')) {
 
     <?php
 } else {
-            ?>
+    ?>
     <div class="table-responsive">
         <table class="table w-100">
           <tr>
@@ -393,20 +393,20 @@ if (($action == 'new') || ($action == 'edit')) {
     $slider_result_raw = "SELECT p.products_id, pd.products_name, s.slider_id, s.slider_date_added, s.slider_last_modified, s.expires_date, s.date_status_change, s.status FROM " . $oostable['products'] . " p, " . $oostable['categories_slider'] . " s, " . $oostable['products_description'] . " pd WHERE p.products_id = pd.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND p.products_id = s.products_id ORDER BY pd.products_name";
             $slider_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $slider_result_raw, $slider_result_numrows);
             $slider_result = $dbconn->Execute($slider_result_raw);
-            while ($slider = $slider_result->fields) {
-                if ((!isset($_GET['sID']) || (isset($_GET['sID']) && ($_GET['sID'] == $slider['slider_id']))) && !isset($sInfo)) {
-                    $productstable = $oostable['products'];
-                    $products_result = $dbconn->Execute("SELECT products_image FROM " . $oostable['products'] . " WHERE products_id = '" . $slider['products_id'] . "'");
-                    $products = $products_result->fields;
-                    $sInfo_array = array_merge($slider, $products);
-                    $sInfo = new objectInfo($sInfo_array);
-                }
+    while ($slider = $slider_result->fields) {
+        if ((!isset($_GET['sID']) || (isset($_GET['sID']) && ($_GET['sID'] == $slider['slider_id']))) && !isset($sInfo)) {
+            $productstable = $oostable['products'];
+            $products_result = $dbconn->Execute("SELECT products_image FROM " . $oostable['products'] . " WHERE products_id = '" . $slider['products_id'] . "'");
+            $products = $products_result->fields;
+            $sInfo_array = array_merge($slider, $products);
+            $sInfo = new objectInfo($sInfo_array);
+        }
 
-                if (isset($sInfo) && is_object($sInfo) && ($slider['slider_id'] == $sInfo->slider_id)) {
-                    echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $sInfo->slider_id . '&action=edit') . '\'">' . "\n";
-                } else {
-                    echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $slider['slider_id']) . '\'">' . "\n";
-                } ?>
+        if (isset($sInfo) && is_object($sInfo) && ($slider['slider_id'] == $sInfo->slider_id)) {
+            echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $sInfo->slider_id . '&action=edit') . '\'">' . "\n";
+        } else {
+            echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $slider['slider_id']) . '\'">' . "\n";
+        } ?>
                 <td><?php echo $slider['products_name']; ?></td>
                 <td  align="right">&nbsp;</td>
                 <td  align="right">
@@ -431,7 +431,7 @@ if (($action == 'new') || ($action == 'edit')) {
         <?php
         // Move that ADOdb pointer!
         $slider_result->MoveNext();
-            } ?>
+    } ?>
               <tr>
                 <td colspan="4"><table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
@@ -493,7 +493,7 @@ if (($action == 'new') || ($action == 'edit')) {
         </table>
     </div>
     <?php
-        }
+}
 ?>
 <!-- body_text_eof //-->
                 </div>

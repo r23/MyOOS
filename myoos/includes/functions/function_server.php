@@ -253,7 +253,7 @@ function oos_server_get_remote()
         }
     }
 
-	$remote_addr = filter_var($remote_addr, FILTER_VALIDATE_IP);
+    $remote_addr = filter_var($remote_addr, FILTER_VALIDATE_IP);
 
     return $remote_addr;
 }

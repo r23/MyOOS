@@ -68,7 +68,6 @@ class Patch extends PayPalModel
     /**
      * New value to apply based on the operation.
      *
-     *
      * @return $this
      */
     public function setValue(mixed $value)

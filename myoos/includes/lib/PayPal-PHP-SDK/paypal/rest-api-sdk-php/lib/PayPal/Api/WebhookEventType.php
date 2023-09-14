@@ -92,9 +92,9 @@ class WebhookEventType extends PayPalResourceModel
     /**
      * Lists event subscriptions for a webhook, by ID.
      *
-     * @param string $webhookId
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  string         $webhookId
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return WebhookEventTypeList
      */
     public static function subscribedEventTypes($webhookId, $apiContext = null, $restCall = null)
@@ -117,8 +117,8 @@ class WebhookEventType extends PayPalResourceModel
     /**
      * Lists available events to which any webhook can subscribe. For a list of supported events, see [Webhook events](/docs/integration/direct/rest/webhooks/webhook-events/).
      *
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return WebhookEventTypeList
      */
     public static function availableEventTypes($apiContext = null, $restCall = null)

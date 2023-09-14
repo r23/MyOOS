@@ -235,7 +235,7 @@ class Metadata extends PayPalModel
     /**
      * URL representing the payer's view of the invoice.
      *
-     * @param string $payer_view_url
+     * @param  string $payer_view_url
      * @throws \InvalidArgumentException
      * @return $this
      */

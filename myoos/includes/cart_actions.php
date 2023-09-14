@@ -26,9 +26,9 @@
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 if (isset($_GET['action'])) {
-	$action = filter_string_polyfill(filter_input(INPUT_GET, 'action'));
+    $action = filter_string_polyfill(filter_input(INPUT_GET, 'action'));
 } elseif (isset($_POST['action'])) {
-	$action = filter_string_polyfill(filter_input(INPUT_POST, 'action'));
+    $action = filter_string_polyfill(filter_input(INPUT_POST, 'action'));
 }
 
 
@@ -183,13 +183,13 @@ case 'add_product':
             }
         } else {
             if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
-				$nProductsID = filter_input(INPUT_POST, 'products_id', FILTER_VALIDATE_INT);
+                $nProductsID = filter_input(INPUT_POST, 'products_id', FILTER_VALIDATE_INT);
 
                 if ((oos_is_the_product_b_ware($nProductsID)) && (!isset($_POST['used_goods']))) {
                     // check if is chopped
                     $oMessage->add_session('danger', $aLang['error_product_information_used_goods']);
                 } else {
-					$cart_quantity = filter_input(INPUT_POST, 'cart_quantity', FILTER_VALIDATE_INT);
+                    $cart_quantity = filter_input(INPUT_POST, 'cart_quantity', FILTER_VALIDATE_INT);
 
                     $cart_qty = $_SESSION['cart']->get_quantity(oos_get_uprid($nProductsID, $real_ids));
                     $news_qty = $cart_qty + $cart_quantity;
@@ -417,7 +417,7 @@ case 'notify_remove':
 
     $products_notificationstable = $oostable['products_notifications'];
     if (isset($_SESSION['customer_id']) && isset($_GET['products_id'])) {
-		$sProductsId = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
+        $sProductsId = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
         $nProductsID = oos_get_product_id($sProductsId);
 
         $check_sql = "SELECT COUNT(*) AS total
@@ -442,7 +442,7 @@ case 'notify_remove':
 
 case 'remove_wishlist':
     if (isset($_SESSION['customer_id']) && isset($_GET['pid'])) {
-		$pid  = filter_string_polyfill(filter_input(INPUT_GET, 'pid'));
+        $pid  = filter_string_polyfill(filter_input(INPUT_GET, 'pid'));
         $customers_wishlisttable = $oostable['customers_wishlist'];
         $dbconn->Execute("DELETE FROM $customers_wishlisttable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($pid) . "'");
 
@@ -453,7 +453,7 @@ case 'remove_wishlist':
 
 case 'add_wishlist':
     if (isset($_GET['products_id'])) {
-		$sProductsId = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
+        $sProductsId = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
         $wishlist_products_id = oos_get_product_id($sProductsId);
         $attributes = oos_get_attributes($sProductsId);
 
@@ -523,10 +523,10 @@ case 'wishlist_add_product':
     }
 
 
-	$cart_quantity = filter_input(INPUT_POST, 'cart_quantity', FILTER_VALIDATE_INT) ?: 1;
+    $cart_quantity = filter_input(INPUT_POST, 'cart_quantity', FILTER_VALIDATE_INT) ?: 1;
 
     if (isset($_POST['products_id'])) {
-		$sProductsId = filter_string_polyfill(filter_input(INPUT_POST, 'products_id'));
+        $sProductsId = filter_string_polyfill(filter_input(INPUT_POST, 'products_id'));
 
         if (empty($sProductsId) || !is_string($sProductsId)) {
             oos_redirect(oos_href_link($aContents['403']));
@@ -556,7 +556,7 @@ case 'wishlist_add_product':
         }
 
         if ($oMessage->size('danger') == 0) {
-			$nPage = filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT) ?: 1;
+            $nPage = filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT) ?: 1;
             oos_redirect(oos_href_link($aContents['account_wishlist'], 'page=' . $nPage));
         } else {
             oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $sProductsId));

@@ -377,8 +377,8 @@ if ($action == 'edit_video') {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                    echo TEXT_VIDEO_TITLE;
-                } ?></label>
+                                    echo TEXT_VIDEO_TITLE;
+} ?></label>
                 <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
@@ -395,8 +395,8 @@ if ($action == 'edit_video') {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                    echo TEXT_VIDEO_DESCRIPTION;
-                } ?></label>
+                                    echo TEXT_VIDEO_DESCRIPTION;
+} ?></label>
                 <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>

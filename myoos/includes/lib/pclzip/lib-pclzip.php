@@ -211,8 +211,8 @@ class PclZip
     //   created. Use create() for that.
     // --------------------------------------------------------------------------------
     public function __construct(// ----- Filename of the zip file
-    public $zipname)
-    {
+        public $zipname
+    ) {
 
         // ----- Tests the zlib
         if (!function_exists('gzopen')) {

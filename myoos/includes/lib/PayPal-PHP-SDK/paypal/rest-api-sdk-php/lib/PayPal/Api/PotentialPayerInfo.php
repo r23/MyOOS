@@ -10,14 +10,14 @@ use PayPal\Common\PayPalModel;
  * A resource representing a information about a potential Payer.
  *
  * @package PayPal\Api
- *
  */
 class PotentialPayerInfo extends PayPalModel
 {
     /**
      * Email address representing the potential payer.
+     *
      * @deprecated Not publicly available
-     * @param string $email
+     * @param      string $email
      * 
      * @return $this
      */
@@ -29,8 +29,9 @@ class PotentialPayerInfo extends PayPalModel
 
     /**
      * Email address representing the potential payer.
+     *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getEmail()
     {
@@ -39,8 +40,9 @@ class PotentialPayerInfo extends PayPalModel
 
     /**
      * ExternalRememberMe id representing the potential payer
+     *
      * @deprecated Not publicly available
-     * @param string $external_remember_me_id
+     * @param      string $external_remember_me_id
      * 
      * @return $this
      */
@@ -52,8 +54,9 @@ class PotentialPayerInfo extends PayPalModel
 
     /**
      * ExternalRememberMe id representing the potential payer
+     *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getExternalRememberMeId()
     {
@@ -62,8 +65,9 @@ class PotentialPayerInfo extends PayPalModel
 
     /**
      * Account Number representing the potential payer
+     *
      * @deprecated Not publicly available
-     * @param string $account_number
+     * @param      string $account_number
      * 
      * @return $this
      */
@@ -75,8 +79,9 @@ class PotentialPayerInfo extends PayPalModel
 
     /**
      * Account Number representing the potential payer
+     *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getAccountNumber()
     {
@@ -85,8 +90,9 @@ class PotentialPayerInfo extends PayPalModel
 
     /**
      * Billing address of the potential payer.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\Address $billing_address
+     * @param      \PayPal\Api\Address $billing_address
      * 
      * @return $this
      */
@@ -98,8 +104,9 @@ class PotentialPayerInfo extends PayPalModel
 
     /**
      * Billing address of the potential payer.
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\Address
+     * @return     \PayPal\Api\Address
      */
     public function getBillingAddress()
     {

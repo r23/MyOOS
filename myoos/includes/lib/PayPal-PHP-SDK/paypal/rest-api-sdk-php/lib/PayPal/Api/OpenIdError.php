@@ -18,7 +18,7 @@ class OpenIdError extends PayPalModel
     /**
      * A single ASCII error code from the following enum.
      *
-     * @param string $error
+     * @param  string $error
      * @return self
      */
     public function setError($error)
@@ -40,7 +40,7 @@ class OpenIdError extends PayPalModel
     /**
      * A resource ID that indicates the starting resource in the returned results.
      *
-     * @param string $error_description
+     * @param  string $error_description
      * @return self
      */
     public function setErrorDescription($error_description)
@@ -62,7 +62,7 @@ class OpenIdError extends PayPalModel
     /**
      * A URI identifying a human-readable web page with information about the error, used to provide the client developer with additional information about the error.
      *
-     * @param string $error_uri
+     * @param  string $error_uri
      * @return self
      */
     public function setErrorUri($error_uri)

@@ -10,7 +10,7 @@ use PayPal\Validation\ArgumentValidator;
 /**
  * Class CreditCard
  *
- * @package    PayPal\Api
+ * @package PayPal\Api
  *
  * @property string              number
  * @property string              type
@@ -31,7 +31,7 @@ class CreditCard extends PayPalResourceModel
      * ID of the credit card. This ID is provided in the response when storing credit cards. **Required if using a stored credit card.**
      *
      * @deprecated Not publicly available
-     * @param string $id
+     * @param      string $id
      *
      * @return $this
      */
@@ -45,7 +45,7 @@ class CreditCard extends PayPalResourceModel
      * ID of the credit card. This ID is provided in the response when storing credit cards. **Required if using a stored credit card.**
      *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getId()
     {
@@ -286,7 +286,7 @@ class CreditCard extends PayPalResourceModel
      * A unique identifier that you can assign and track when storing a credit card or using a stored credit card. This ID can help to avoid unintentional use or misuse of credit cards. This ID can be any value you would like to associate with the saved card, such as a UUID, username, or email address. Required when using a stored credit card if a payer_id was originally provided when storing the credit card in vault.
      *
      * @deprecated This is being deprecated in favor of the `external_customer_id` property.
-     * @param string $payer_id
+     * @param      string $payer_id
      *
      * @return $this
      */
@@ -300,7 +300,7 @@ class CreditCard extends PayPalResourceModel
      * A unique identifier that you can assign and track when storing a credit card or using a stored credit card. This ID can help to avoid unintentional use or misuse of credit cards. This ID can be any value you would like to associate with the saved card, such as a UUID, username, or email address. Required when using a stored credit card if a payer_id was originally provided when storing the credit card in vault.
      *
      * @deprecated This is being deprecated in favor of the `external_customer_id` property.
-     * @return string
+     * @return     string
      */
     public function getPayerId()
     {
@@ -426,8 +426,8 @@ class CreditCard extends PayPalResourceModel
     /**
      * Creates a new Credit Card Resource (aka Tokenize).
      *
-     * @param ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return CreditCard
      */
     public function create($apiContext = null, $restCall = null)
@@ -448,9 +448,9 @@ class CreditCard extends PayPalResourceModel
     /**
      * Obtain the Credit Card resource for the given identifier.
      *
-     * @param string         $creditCardId
-     * @param ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
+     * @param  string         $creditCardId
+     * @param  ApiContext     $apiContext   is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall     is the Rest Call Service that is used to make rest calls
      * @return CreditCard
      */
     public static function get($creditCardId, $apiContext = null, $restCall = null)
@@ -473,8 +473,8 @@ class CreditCard extends PayPalResourceModel
     /**
      * Delete the Credit Card resource for the given identifier.
      *
-     * @param ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return bool
      */
     public function delete($apiContext = null, $restCall = null)
@@ -495,9 +495,9 @@ class CreditCard extends PayPalResourceModel
     /**
      * Update information in a previously saved card. Only the modified fields need to be passed in the request.
      *
-     * @param PatchRequest   $patchRequest
-     * @param ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
+     * @param  PatchRequest   $patchRequest
+     * @param  ApiContext     $apiContext   is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall     is the Rest Call Service that is used to make rest calls
      * @return CreditCard
      */
     public function update($patchRequest, $apiContext = null, $restCall = null)
@@ -520,9 +520,9 @@ class CreditCard extends PayPalResourceModel
     /**
      * Retrieves a list of Credit Card resources.
      *
-     * @param array          $params
-     * @param ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
+     * @param  array          $params
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return CreditCardList
      */
     public static function all($params, $apiContext = null, $restCall = null)

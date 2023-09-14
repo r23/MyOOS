@@ -13,8 +13,8 @@ class UrlValidator
     /**
      * Helper method for validating URLs that will be used by this API in any requests.
      *
-     * @param      $url
-     * @param string|null $urlName
+     * @param  $url
+     * @param  string|null $urlName
      * @throws \InvalidArgumentException
      */
     public static function validate($url, $urlName = null)

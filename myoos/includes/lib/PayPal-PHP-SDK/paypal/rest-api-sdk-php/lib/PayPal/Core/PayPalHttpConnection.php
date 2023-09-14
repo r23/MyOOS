@@ -54,11 +54,12 @@ class PayPalHttpConnection
     /**
      * Parses the response headers for debugging.
      *
-     * @param resource $ch
-     * @param string $data
+     * @param  resource $ch
+     * @param  string   $data
      * @return int
      */
-    protected function parseResponseHeaders($ch, $data) {
+    protected function parseResponseHeaders($ch, $data)
+    {
         if (!$this->skippedHttpStatusLine) {
             $this->skippedHttpStatusLine = true;
             return strlen($data);
@@ -95,10 +96,11 @@ class PayPalHttpConnection
     /**
      * Implodes a key/value array for printing.
      *
-     * @param array $arr
+     * @param  array $arr
      * @return string
      */
-    protected function implodeArray($arr) {
+    protected function implodeArray($arr)
+    {
         $retStr = '';
         foreach($arr as $key => $value) {
             $retStr .= $key . ': ' . $value . ', ';
@@ -110,7 +112,7 @@ class PayPalHttpConnection
     /**
      * Executes an HTTP request
      *
-     * @param string $data query string OR POST content as a string
+     * @param  string $data query string OR POST content as a string
      * @return mixed
      * @throws PayPalConnectionException
      */
@@ -133,15 +135,15 @@ class PayPalHttpConnection
 
         //Determine Curl Options based on Method
         switch ($this->httpConfig->getMethod()) {
-            case 'POST':
-                curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-                break;
-            case 'PUT':
-            case 'PATCH':
-            case 'DELETE':
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-                break;
+        case 'POST':
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            break;
+        case 'PUT':
+        case 'PATCH':
+        case 'DELETE':
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            break;
         }
 
         //Default Option if Method not of given types in switch case

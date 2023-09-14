@@ -13,7 +13,7 @@ class NumericValidator
     /**
      * Helper method for validating an argument if it is numeric
      *
-     * @param string|null $argumentName
+     * @param  string|null $argumentName
      * @return bool
      */
     public static function validate(mixed $argument, $argumentName = null)

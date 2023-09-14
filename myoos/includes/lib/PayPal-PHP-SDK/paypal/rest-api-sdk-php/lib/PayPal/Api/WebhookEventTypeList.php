@@ -41,7 +41,7 @@ class WebhookEventTypeList extends PayPalModel
     /**
      * Append EventTypes to the list.
      *
-     * @param \PayPal\Api\WebhookEventType $webhookEventType
+     * @param  \PayPal\Api\WebhookEventType $webhookEventType
      * @return $this
      */
     public function addEventType($webhookEventType)
@@ -58,7 +58,7 @@ class WebhookEventTypeList extends PayPalModel
     /**
      * Remove EventTypes from the list.
      *
-     * @param \PayPal\Api\WebhookEventType $webhookEventType
+     * @param  \PayPal\Api\WebhookEventType $webhookEventType
      * @return $this
      */
     public function removeEventType($webhookEventType)

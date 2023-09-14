@@ -88,8 +88,9 @@ class FundingInstrument extends PayPalModel
 
     /**
      * Bank Account information.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\ExtendedBankAccount $bank_account
+     * @param      \PayPal\Api\ExtendedBankAccount $bank_account
      *
      * @return $this
      */
@@ -101,8 +102,9 @@ class FundingInstrument extends PayPalModel
 
     /**
      * Bank Account information.
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\ExtendedBankAccount
+     * @return     \PayPal\Api\ExtendedBankAccount
      */
     public function getBankAccount()
     {
@@ -111,8 +113,9 @@ class FundingInstrument extends PayPalModel
 
     /**
      * Vaulted bank account instrument.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\BankToken $bank_account_token
+     * @param      \PayPal\Api\BankToken $bank_account_token
      *
      * @return $this
      */
@@ -124,8 +127,9 @@ class FundingInstrument extends PayPalModel
 
     /**
      * Vaulted bank account instrument.
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\BankToken
+     * @return     \PayPal\Api\BankToken
      */
     public function getBankAccountToken()
     {
@@ -134,8 +138,9 @@ class FundingInstrument extends PayPalModel
 
     /**
      * PayPal credit funding instrument.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\Credit $credit
+     * @param      \PayPal\Api\Credit $credit
      *
      * @return $this
      */
@@ -147,8 +152,9 @@ class FundingInstrument extends PayPalModel
 
     /**
      * PayPal credit funding instrument.
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\Credit
+     * @return     \PayPal\Api\Credit
      */
     public function getCredit()
     {
@@ -157,8 +163,9 @@ class FundingInstrument extends PayPalModel
 
     /**
      * Incentive funding instrument.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\Incentive $incentive
+     * @param      \PayPal\Api\Incentive $incentive
      *
      * @return $this
      */
@@ -170,8 +177,9 @@ class FundingInstrument extends PayPalModel
 
     /**
      * Incentive funding instrument.
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\Incentive
+     * @return     \PayPal\Api\Incentive
      */
     public function getIncentive()
     {
@@ -180,8 +188,9 @@ class FundingInstrument extends PayPalModel
 
     /**
      * External funding instrument.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\ExternalFunding $external_funding
+     * @param      \PayPal\Api\ExternalFunding $external_funding
      *
      * @return $this
      */
@@ -193,8 +202,9 @@ class FundingInstrument extends PayPalModel
 
     /**
      * External funding instrument.
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\ExternalFunding
+     * @return     \PayPal\Api\ExternalFunding
      */
     public function getExternalFunding()
     {
@@ -203,8 +213,9 @@ class FundingInstrument extends PayPalModel
 
     /**
      * Carrier account token instrument.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\CarrierAccountToken $carrier_account_token
+     * @param      \PayPal\Api\CarrierAccountToken $carrier_account_token
      *
      * @return $this
      */
@@ -216,8 +227,9 @@ class FundingInstrument extends PayPalModel
 
     /**
      * Carrier account token instrument.
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\CarrierAccountToken
+     * @return     \PayPal\Api\CarrierAccountToken
      */
     public function getCarrierAccountToken()
     {
@@ -226,8 +238,9 @@ class FundingInstrument extends PayPalModel
 
     /**
      * Carrier account instrument
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\CarrierAccount $carrier_account
+     * @param      \PayPal\Api\CarrierAccount $carrier_account
      *
      * @return $this
      */
@@ -239,8 +252,9 @@ class FundingInstrument extends PayPalModel
 
     /**
      * Carrier account instrument
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\CarrierAccount
+     * @return     \PayPal\Api\CarrierAccount
      */
     public function getCarrierAccount()
     {
@@ -249,8 +263,9 @@ class FundingInstrument extends PayPalModel
 
     /**
      * Private Label Card funding instrument. These are store cards provided by merchants to drive business with value to customer with convenience and rewards.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\PrivateLabelCard $private_label_card
+     * @param      \PayPal\Api\PrivateLabelCard $private_label_card
      *
      * @return $this
      */
@@ -262,8 +277,9 @@ class FundingInstrument extends PayPalModel
 
     /**
      * Private Label Card funding instrument. These are store cards provided by merchants to drive business with value to customer with convenience and rewards.
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\PrivateLabelCard
+     * @return     \PayPal\Api\PrivateLabelCard
      */
     public function getPrivateLabelCard()
     {
@@ -297,7 +313,7 @@ class FundingInstrument extends PayPalModel
      * Alternate Payment  information - Mostly regional payment providers. For e.g iDEAL in Netherlands
      *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\AlternatePayment $alternate_payment
+     * @param      \PayPal\Api\AlternatePayment $alternate_payment
      *
      * @return $this
      */
@@ -311,7 +327,7 @@ class FundingInstrument extends PayPalModel
      * Alternate Payment  information - Mostly regional payment providers. For e.g iDEAL in Netherlands
      *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\AlternatePayment
+     * @return     \PayPal\Api\AlternatePayment
      */
     public function getAlternatePayment()
     {

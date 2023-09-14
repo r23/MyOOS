@@ -114,7 +114,7 @@ class InstallmentInfo extends PayPalModel
     /**
      * Append InstallmentOptions to the list.
      *
-     * @param \PayPal\Api\InstallmentOption $installmentOption
+     * @param  \PayPal\Api\InstallmentOption $installmentOption
      * @return $this
      */
     public function addInstallmentOption($installmentOption)
@@ -131,7 +131,7 @@ class InstallmentInfo extends PayPalModel
     /**
      * Remove InstallmentOptions from the list.
      *
-     * @param \PayPal\Api\InstallmentOption $installmentOption
+     * @param  \PayPal\Api\InstallmentOption $installmentOption
      * @return $this
      */
     public function removeInstallmentOption($installmentOption)

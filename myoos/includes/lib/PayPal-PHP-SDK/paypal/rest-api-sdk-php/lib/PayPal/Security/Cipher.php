@@ -23,7 +23,7 @@ class Cipher
     /**
      * Encrypts the input text using the cipher key
      *
-     * @param $input
+     * @param  $input
      * @return string
      */
     public function encrypt($input)
@@ -39,7 +39,7 @@ class Cipher
     /**
      * Decrypts the input text from the cipher key
      *
-     * @param $input
+     * @param  $input
      * @return string
      */
     public function decrypt($input)

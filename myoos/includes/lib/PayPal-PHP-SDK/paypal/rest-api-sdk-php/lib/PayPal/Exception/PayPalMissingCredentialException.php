@@ -14,7 +14,7 @@ class PayPalMissingCredentialException extends \Exception
      * Default Constructor
      *
      * @param string $message
-     * @param int  $code
+     * @param int    $code
      */
     public function __construct($message = null, $code = 0)
     {

@@ -55,7 +55,7 @@ class FundingDetail extends PayPalModel
     }
 
     /**
-     * @deprecated  [DEPRECATED] Hold-off duration of the payment. payment_debit_date should be used instead.
+     * @deprecated [DEPRECATED] Hold-off duration of the payment. payment_debit_date should be used instead.
      *
      * @return string
      */

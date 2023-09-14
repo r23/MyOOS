@@ -74,7 +74,7 @@ class MerchantPreferences extends PayPalModel
     /**
      * Redirect URL on cancellation of agreement request. 1000 characters max.
      *
-     * @param string $cancel_url
+     * @param  string $cancel_url
      * @throws \InvalidArgumentException
      * @return $this
      */
@@ -98,7 +98,7 @@ class MerchantPreferences extends PayPalModel
     /**
      * Redirect URL on creation of agreement request. 1000 characters max.
      *
-     * @param string $return_url
+     * @param  string $return_url
      * @throws \InvalidArgumentException
      * @return $this
      */
@@ -122,7 +122,7 @@ class MerchantPreferences extends PayPalModel
     /**
      * Notify URL on agreement creation. 1000 characters max.
      *
-     * @param string $notify_url
+     * @param  string $notify_url
      * @throws \InvalidArgumentException
      * @return $this
      */

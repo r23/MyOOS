@@ -149,8 +149,8 @@ class paypal_api
 
 
         /**
-		* @var \Paypal\Rest\ApiContext $apiContext
-		*/
+        * @var \Paypal\Rest\ApiContext $apiContext
+        */
         $apiContext = getApiContext($clientId, $clientSecret);
 
 
@@ -366,7 +366,7 @@ class paypal_api
             // The payer_id is added to the request query parameters
             // when the user is redirected from paypal back to your site
             $execution = new PaymentExecution();
-			$PayerID = filter_string_polyfill(filter_input(INPUT_GET, 'PayerID'));
+            $PayerID = filter_string_polyfill(filter_input(INPUT_GET, 'PayerID'));
             $execution->setPayerId($PayerID);
 
             // Add the above transaction object inside our Execution object.

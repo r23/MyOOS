@@ -43,7 +43,7 @@ class BankAccountsList extends PayPalModel
     /**
      * Append BankAccounts to the list.
      *
-     * @param \PayPal\Api\BankAccount $bankAccount
+     * @param  \PayPal\Api\BankAccount $bankAccount
      * @return $this
      */
     public function addBankAccount($bankAccount)
@@ -60,7 +60,7 @@ class BankAccountsList extends PayPalModel
     /**
      * Remove BankAccounts from the list.
      *
-     * @param \PayPal\Api\BankAccount $bankAccount
+     * @param  \PayPal\Api\BankAccount $bankAccount
      * @return $this
      */
     public function removeBankAccount($bankAccount)

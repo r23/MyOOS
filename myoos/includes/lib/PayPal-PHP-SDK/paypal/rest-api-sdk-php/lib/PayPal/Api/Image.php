@@ -39,7 +39,7 @@ class Image extends PayPalModel
     /**
      * Stores the Image to file
      *
-     * @param string $name File Name
+     * @param  string $name File Name
      * @return string File name
      */
     public function saveToFile($name = null)

@@ -63,7 +63,6 @@
             return '' + globalID++;
         },
         /**
-         * 
          * Third party functions 
          **/
         // Zepto deserialize function
@@ -926,7 +925,6 @@
             // Give field its Parsley id in DOM
             fieldInstance.$element.attr(fieldInstance.options.namespace + 'id', fieldInstance.__id__);
             /**
-   
      * Generate important UI elements and store them in fieldInstance 
 **/
             // $errorClassHandler is the $element that woul have parsley-error and parsley-success classes

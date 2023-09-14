@@ -41,8 +41,9 @@ class PaymentOptions extends PayPalModel
 
     /**
      * Indicator if this payment request is a recurring payment. Only supported when the `payment_method` is set to `credit_card`
+     *
      * @deprecated Not publicly available
-     * @param bool $recurring_flag
+     * @param      bool $recurring_flag
      * 
      * @return $this
      */
@@ -54,8 +55,9 @@ class PaymentOptions extends PayPalModel
 
     /**
      * Indicator if this payment request is a recurring payment. Only supported when the `payment_method` is set to `credit_card`
+     *
      * @deprecated Not publicly available
-     * @return bool
+     * @return     bool
      */
     public function getRecurringFlag()
     {
@@ -64,8 +66,9 @@ class PaymentOptions extends PayPalModel
 
     /**
      * Indicator if fraud management filters (fmf) should be skipped for this transaction. Only supported when the `payment_method` is set to `credit_card`
+     *
      * @deprecated Not publicly available
-     * @param bool $skip_fmf
+     * @param      bool $skip_fmf
      * 
      * @return $this
      */
@@ -77,8 +80,9 @@ class PaymentOptions extends PayPalModel
 
     /**
      * Indicator if fraud management filters (fmf) should be skipped for this transaction. Only supported when the `payment_method` is set to `credit_card`
+     *
      * @deprecated Not publicly available
-     * @return bool
+     * @return     bool
      */
     public function getSkipFmf()
     {

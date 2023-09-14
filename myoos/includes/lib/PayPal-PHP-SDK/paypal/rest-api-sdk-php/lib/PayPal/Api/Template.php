@@ -142,7 +142,7 @@ class Template extends PayPalResourceModel
     /**
      * Append Settings to the list.
      *
-     * @param \PayPal\Api\TemplateSettings $templateSettings
+     * @param  \PayPal\Api\TemplateSettings $templateSettings
      * @return $this
      */
     public function addSetting($templateSettings)
@@ -159,7 +159,7 @@ class Template extends PayPalResourceModel
     /**
      * Remove Settings from the list.
      *
-     * @param \PayPal\Api\TemplateSettings $templateSettings
+     * @param  \PayPal\Api\TemplateSettings $templateSettings
      * @return $this
      */
     public function removeSetting($templateSettings)
@@ -218,9 +218,9 @@ class Template extends PayPalResourceModel
     /**
      * Retrieve the details for a particular template by passing the template ID to the request URI.
      *
-     * @param string $templateId
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  string         $templateId
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return Template
      */
     public static function get($templateId, $apiContext = null, $restCall = null)
@@ -243,8 +243,8 @@ class Template extends PayPalResourceModel
     /**
      * Delete a particular template by passing the template ID to the request URI.
      *
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return bool
      */
     public function delete($apiContext = null, $restCall = null)
@@ -265,8 +265,8 @@ class Template extends PayPalResourceModel
     /**
      * Creates a template.
      *
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return Template
      */
     public function create($apiContext = null, $restCall = null)
@@ -286,8 +286,8 @@ class Template extends PayPalResourceModel
     /**
      * Update an existing template by passing the template ID to the request URI. In addition, pass a complete template object in the request JSON. Partial updates are not supported.
      *
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return Template
      */
     public function update($apiContext = null, $restCall = null)

@@ -35,7 +35,8 @@
    ----------------------------------------------------------------------
    Original Author of file: Gregor J. Rothfuss
    Purpose of file: Provide ML functionality for the installer.
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 /**
  * Loads the required language file for the installer

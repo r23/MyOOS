@@ -24,7 +24,7 @@
 $php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
 if (str_starts_with(basename($php_self), 'admin_member')) {
 
-?>
+    ?>
 
 <script>
 function validateForm() {
@@ -93,7 +93,7 @@ function checkSub(obj) {
 
     <?php
 } else {
-        ?>
+    ?>
 
 <script>
 function validateForm() {
@@ -140,5 +140,5 @@ function validateForm() {
 </script>
 
     <?php
-    }
+}
 ?>

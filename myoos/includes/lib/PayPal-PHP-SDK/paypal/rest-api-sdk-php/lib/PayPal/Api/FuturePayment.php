@@ -16,9 +16,9 @@ class FuturePayment extends Payment
     /**
      * Extends the Payment object to create future payments
      *
-     * @param null $apiContext
-     * @param string|null  $clientMetadataId
-     * @param PayPalRestCall|null $restCall is the Rest Call Service that is used to make rest calls
+     * @param  null                $apiContext
+     * @param  string|null         $clientMetadataId
+     * @param  PayPalRestCall|null $restCall         is the Rest Call Service that is used to make rest calls
      * @return $this
      */
     public function create($apiContext = null, $clientMetadataId = null, $restCall = null)
@@ -43,8 +43,8 @@ class FuturePayment extends Payment
     /**
      * Get a Refresh Token from Authorization Code
      *
-     * @param $authorizationCode
-     * @param ApiContext $apiContext
+     * @param  $authorizationCode
+     * @param  ApiContext $apiContext
      * @return string|null refresh token
      */
     public static function getRefreshToken($authorizationCode, $apiContext = null)

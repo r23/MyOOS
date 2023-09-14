@@ -190,10 +190,11 @@ class InvoiceItem extends PayPalModel
 
     /**
      * The image URL. Maximum length is 4000 characters.
+     *
      * @deprecated Not publicly available
-     * @param string $image_url
-     * @throws \InvalidArgumentException
-     * @return $this
+     * @param      string $image_url
+     * @throws     \InvalidArgumentException
+     * @return     $this
      */
     public function setImageUrl($image_url)
     {
@@ -204,8 +205,9 @@ class InvoiceItem extends PayPalModel
 
     /**
      * The image URL. Maximum length is 4000 characters.
+     *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getImageUrl()
     {

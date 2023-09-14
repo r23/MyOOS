@@ -35,7 +35,8 @@
    ----------------------------------------------------------------------
    Original Author of file:  Gregor J. Rothfuss
    Purpose of file: Provide common db functions for the installer.
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
   /***
    * Connect to Database

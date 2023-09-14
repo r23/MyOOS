@@ -110,12 +110,12 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
         $_SESSION['success_message'] = $aLang['text_password_sent'];
         oos_redirect(oos_href_link($aContents['login']));
     } else {
-		#  $_SESSION['error_message'] = $aLang['text_no_email_address_found'];
-		#  oos_redirect(oos_href_link($aContents['password_forgotten']));
-		# no info for attackers
-		$_SESSION['success_message'] = $aLang['text_password_sent'];
-        oos_redirect(oos_href_link($aContents['login']));	
-		
+        // $_SESSION['error_message'] = $aLang['text_no_email_address_found'];
+        // oos_redirect(oos_href_link($aContents['password_forgotten']));
+        // no info for attackers
+        $_SESSION['success_message'] = $aLang['text_password_sent'];
+        oos_redirect(oos_href_link($aContents['login']));    
+        
     }
 } else {
 
@@ -140,8 +140,8 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
         ['breadcrumb'    => $oBreadcrumb->trail(), 'heading_title' => $aLang['heading_title'], 'robots'        => 'noindex,follow,noodp,noydir', 'canonical'        => $sCanonical]
     );
 
-	// Send the CSP header with the nonce RANDOM_VALUE
-	header("Content-Security-Policy: script-src 'nonce-" . NONCE . "' 'unsafe-eval'");
+    // Send the CSP header with the nonce RANDOM_VALUE
+    header("Content-Security-Policy: script-src 'nonce-" . NONCE . "' 'unsafe-eval'");
 
 
     // register the outputfilter

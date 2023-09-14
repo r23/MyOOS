@@ -7,8 +7,6 @@ use PayPal\Common\PayPalModel;
 /**
  * Class HyperSchema
  *
- * 
- *
  * @package PayPal\Api
  *
  * @property \PayPal\Api\Links[] links
@@ -46,7 +44,7 @@ class HyperSchema extends PayPalModel
     /**
      * Append Links to the list.
      *
-     * @param \PayPal\Api\Links $links
+     * @param  \PayPal\Api\Links $links
      * @return $this
      */
     public function addLink($links)
@@ -63,7 +61,7 @@ class HyperSchema extends PayPalModel
     /**
      * Remove Links from the list.
      *
-     * @param \PayPal\Api\Links $links
+     * @param  \PayPal\Api\Links $links
      * @return $this
      */
     public function removeLink($links)

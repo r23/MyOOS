@@ -72,8 +72,9 @@ class Payer extends PayPalModel
     /**
      * Type of account relationship payer has with PayPal.
      * Valid Values: ["BUSINESS", "PERSONAL", "PREMIER"]
+     *
      * @deprecated Not publicly available
-     * @param string $account_type
+     * @param      string $account_type
      * 
      * @return $this
      */
@@ -85,8 +86,9 @@ class Payer extends PayPalModel
 
     /**
      * Type of account relationship payer has with PayPal.
+     *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getAccountType()
     {
@@ -95,8 +97,9 @@ class Payer extends PayPalModel
 
     /**
      * Duration since the payer established account relationship with PayPal in days.
+     *
      * @deprecated Not publicly available
-     * @param string $account_age
+     * @param      string $account_age
      * 
      * @return $this
      */
@@ -108,8 +111,9 @@ class Payer extends PayPalModel
 
     /**
      * Duration since the payer established account relationship with PayPal in days.
+     *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getAccountAge()
     {
@@ -142,7 +146,7 @@ class Payer extends PayPalModel
     /**
      * Append FundingInstruments to the list.
      *
-     * @param \PayPal\Api\FundingInstrument $fundingInstrument
+     * @param  \PayPal\Api\FundingInstrument $fundingInstrument
      * @return $this
      */
     public function addFundingInstrument($fundingInstrument)
@@ -159,7 +163,7 @@ class Payer extends PayPalModel
     /**
      * Remove FundingInstruments from the list.
      *
-     * @param \PayPal\Api\FundingInstrument $fundingInstrument
+     * @param  \PayPal\Api\FundingInstrument $fundingInstrument
      * @return $this
      */
     public function removeFundingInstrument($fundingInstrument)
@@ -171,8 +175,9 @@ class Payer extends PayPalModel
 
     /**
      * Id of user selected funding option for the payment.'OneOf' funding_instruments,funding_option_id to be used to identify the specifics of payment method passed.
+     *
      * @deprecated Not publicly available
-     * @param string $funding_option_id
+     * @param      string $funding_option_id
      * 
      * @return $this
      */
@@ -184,8 +189,9 @@ class Payer extends PayPalModel
 
     /**
      * Id of user selected funding option for the payment.'OneOf' funding_instruments,funding_option_id to be used to identify the specifics of payment method passed.
+     *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getFundingOptionId()
     {
@@ -194,8 +200,9 @@ class Payer extends PayPalModel
 
     /**
      * Default funding option available for the payment 
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\FundingOption $funding_option
+     * @param      \PayPal\Api\FundingOption $funding_option
      * 
      * @return $this
      */
@@ -207,8 +214,9 @@ class Payer extends PayPalModel
 
     /**
      * Default funding option available for the payment 
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\FundingOption
+     * @return     \PayPal\Api\FundingOption
      */
     public function getFundingOption()
     {
@@ -241,8 +249,9 @@ class Payer extends PayPalModel
 
     /**
      * Funding option related to default funding option.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\FundingOption $related_funding_option
+     * @param      \PayPal\Api\FundingOption $related_funding_option
      * 
      * @return $this
      */
@@ -254,8 +263,9 @@ class Payer extends PayPalModel
 
     /**
      * Funding option related to default funding option.
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\FundingOption
+     * @return     \PayPal\Api\FundingOption
      */
     public function getRelatedFundingOption()
     {

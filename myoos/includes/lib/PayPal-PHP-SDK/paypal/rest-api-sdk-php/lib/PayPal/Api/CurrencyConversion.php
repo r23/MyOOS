@@ -188,10 +188,11 @@ class CurrencyConversion extends PayPalModel
     /**
      * Base URL to web applications endpoint
      * Valid Values: ["https://www.paypal.com/{country_code}/webapps/xocspartaweb/webflow/sparta/proxwebflow", "https://www.paypal.com/{country_code}/proxflow"]
+     *
      * @deprecated Not publicly available
-     * @param string $web_url
-     * @throws \InvalidArgumentException
-     * @return $this
+     * @param      string $web_url
+     * @throws     \InvalidArgumentException
+     * @return     $this
      */
     public function setWebUrl($web_url)
     {
@@ -202,8 +203,9 @@ class CurrencyConversion extends PayPalModel
 
     /**
      * Base URL to web applications endpoint
+     *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getWebUrl()
     {
@@ -236,7 +238,7 @@ class CurrencyConversion extends PayPalModel
     /**
      * Append Links to the list.
      *
-     * @param \PayPal\Api\Links $links
+     * @param  \PayPal\Api\Links $links
      * @return $this
      */
     public function addLink($links)
@@ -253,7 +255,7 @@ class CurrencyConversion extends PayPalModel
     /**
      * Remove Links from the list.
      *
-     * @param \PayPal\Api\Links $links
+     * @param  \PayPal\Api\Links $links
      * @return $this
      */
     public function removeLink($links)

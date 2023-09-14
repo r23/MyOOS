@@ -262,7 +262,7 @@ class FundingSource extends FundingInstrument
     /**
      * Append Links to the list.
      *
-     * @param \PayPal\Api\Links $links
+     * @param  \PayPal\Api\Links $links
      * @return $this
      */
     public function addLink($links)
@@ -279,7 +279,7 @@ class FundingSource extends FundingInstrument
     /**
      * Remove Links from the list.
      *
-     * @param \PayPal\Api\Links $links
+     * @param  \PayPal\Api\Links $links
      * @return $this
      */
     public function removeLink($links)

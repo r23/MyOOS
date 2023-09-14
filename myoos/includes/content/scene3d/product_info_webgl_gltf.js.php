@@ -37,12 +37,12 @@
 
     import * as THREE from 'three';
 
-	import { OrbitControls } from './jsm/controls/OrbitControls.js';
-	import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
-	import { DRACOLoader } from './jsm/loaders/DRACOLoader.js';
-	import { RGBELoader } from './jsm/loaders/RGBELoader.js';
+    import { OrbitControls } from './jsm/controls/OrbitControls.js';
+    import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
+    import { DRACOLoader } from './jsm/loaders/DRACOLoader.js';
+    import { RGBELoader } from './jsm/loaders/RGBELoader.js';
 
-	let camera, scene, renderer, loader;
+    let camera, scene, renderer, loader;
 
     init();
     render();
@@ -74,17 +74,17 @@
 
                 const loader = new GLTFLoader().setPath( '<?php echo $model_path; ?>' );
 
-				// Optional: Provide a DRACOLoader instance to decode compressed mesh data
-				const dracoLoader = new DRACOLoader();
-				dracoLoader.setDecoderPath( 'js/libs/draco/gltf/' );
-				loader.setDRACOLoader( dracoLoader );
+                // Optional: Provide a DRACOLoader instance to decode compressed mesh data
+                const dracoLoader = new DRACOLoader();
+                dracoLoader.setDecoderPath( 'js/libs/draco/gltf/' );
+                loader.setDRACOLoader( dracoLoader );
 
                 loader.load( '<?php echo $model_info['models_webgl_gltf']; ?>', function ( gltf ) {
 
-					let model = gltf.scene;
-					model.rotation.y = <?php echo $model_info['models_object_rotation']; ?>;
-					model.scale.setScalar( <?php echo $model_info['models_object_scalar']; ?> );
-					scene.add( model );
+                    let model = gltf.scene;
+                    model.rotation.y = <?php echo $model_info['models_object_rotation']; ?>;
+                    model.scale.setScalar( <?php echo $model_info['models_object_scalar']; ?> );
+                    scene.add( model );
 
 
                    // scene.add( gltf.scene );
@@ -105,9 +105,9 @@
 
         const controls = new OrbitControls( camera, renderer.domElement );
         controls.addEventListener( 'change', render ); // use if there is no animation loop
-		controls.minDistance = 2;
-		controls.maxDistance = 10;
-		controls.target.set( 0, 0.2, 0 );
+        controls.minDistance = 2;
+        controls.maxDistance = 10;
+        controls.target.set( 0, 0.2, 0 );
 
 
         controls.update();
@@ -115,7 +115,7 @@
 
        window.addEventListener( 'resize', onWindowResize );
 
-	}
+    }
 
 
     function onWindowResize() {

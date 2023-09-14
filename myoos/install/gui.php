@@ -35,7 +35,8 @@
    ----------------------------------------------------------------------
    Original Author of file:  Gregor J. Rothfuss
    Purpose of file: Provide gui rendering functions for the installer.
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 
 function oos_httpCoreDir()
@@ -303,7 +304,7 @@ function print_Admin()
         '  <td align="left"><font class="oos-normal">' . ADMIN_PHONE . '</font></td>' . "\n" .
         '  <td><input type="text" name="phone" SIZE=30 maxlength=80 value=""></td>' . "\n" .
         ' </tr>' . "\n" .
-		
+        
         ' <tr>' . "\n" .
         '  <td align="left"><font class="oos-normal">' . ADMIN_PHONE . '</font></td>' . "\n" .
         '  <td><input type="text" name="phone" SIZE=30 maxlength=80 value=""></td>' . "\n" .
@@ -311,11 +312,11 @@ function print_Admin()
         ' <tr>' . "\n" .
         '  <td align="left">&nbsp;</td>' . "\n" .
         '  <td>&nbsp;</td>' . "\n" .
-        ' </tr>' . "\n" .		
+        ' </tr>' . "\n" .        
         ' <tr>' . "\n" .
         '  <td align="left"><font class="oos-normal">' . GST_CHECK . '</font></td>' . "\n" .
-        '  <td><input type="checkbox" name="gst" checked></td>' . "\n" .	
-        ' </tr>' . "\n" .	
+        '  <td><input type="checkbox" name="gst" checked></td>' . "\n" .    
+        ' </tr>' . "\n" .    
         '</table>' . "\n" .
         '<br /><br />' . "\n";
     print_FormHidden();
@@ -382,8 +383,8 @@ function print_ChangeLogin()
         ' </tr>' . "\n" .
         ' <tr>' . "\n" .
         '  <td align="left"><font class="oos-normal">' . GST_CHECK . '</font></td>' . "\n" .
-        '  <td><input type="checkbox" name="gst" checked></td>' . "\n" .	
-        ' </tr>' . "\n" .			
+        '  <td><input type="checkbox" name="gst" checked></td>' . "\n" .    
+        ' </tr>' . "\n" .            
         '</table>' . "\n";
     print_DBHidden();
     print_ServerHidden();
@@ -435,23 +436,23 @@ function print_Login()
         '  <td align="left">&nbsp;</td>' . "\n" .
         '  <td>&nbsp;</td>' . "\n" .
         ' </tr>' . "\n" .
-		' <tr>' . "\n" .
+    ' <tr>' . "\n" .
         '  <td align="left"><font class="oos-normal">' . GST . '</font></td>' . "\n";
 
-if (isset($_POST['gst'])) {		
-    echo ' <td><b>' . YES . '</b></td>' . "\n";
-} else {
-    echo ' <td><b>' . NO . '</b></td>' . "\n";
-}	
-		
+    if (isset($_POST['gst'])) {        
+        echo ' <td><b>' . YES . '</b></td>' . "\n";
+    } else {
+        echo ' <td><b>' . NO . '</b></td>' . "\n";
+    }    
+        
     echo ' </tr>' . "\n" .
-		' <tr>' . "\n" .
+    ' <tr>' . "\n" .
         '  <td>&nbsp;</td>' . "\n" .
         '  <td>' . "\n";
         ' <tr>' . "\n" .
         '  <td align="left">&nbsp;</td>' . "\n" .
         '  <td>&nbsp;</td>' . "\n" .
-        ' </tr>' . "\n";		
+        ' </tr>' . "\n";        
     print_FormHidden();
     echo '<input type="hidden" name="op" value="Change Login">' . "\n" .
         '<input type="submit" value="' . BTN_CHANGE_INFO . '"><br />' . "\n" .

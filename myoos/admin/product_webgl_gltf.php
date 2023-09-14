@@ -395,8 +395,8 @@ if ($action == 'edit_3d') {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                    echo TEXT_MODELS_NAME;
-                } ?></label>
+                                    echo TEXT_MODELS_NAME;
+} ?></label>
                 <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
@@ -412,8 +412,8 @@ if ($action == 'edit_3d') {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                    echo TEXT_MODELS_TITLE;
-                } ?></label>
+                                    echo TEXT_MODELS_TITLE;
+} ?></label>
                 <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
@@ -429,8 +429,8 @@ if ($action == 'edit_3d') {
                     <fieldset>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                    echo TEXT_MODELS_DESCRIPTION_META;
-                } ?></label>
+                                echo TEXT_MODELS_DESCRIPTION_META;
+} ?></label>
                 <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
@@ -475,7 +475,7 @@ if ($action == 'edit_3d') {
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_OBJECT_ROTATION; ?></label>
                               <div class="col-lg-10">
-								<?php echo oos_draw_input_field('models_object_rotation['. $nCounter . ']', $models['models_object_rotation']); ?>
+            <?php echo oos_draw_input_field('models_object_rotation['. $nCounter . ']', $models['models_object_rotation']); ?>
                               </div>
                            </div>
                         </fieldset>

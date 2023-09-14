@@ -37,7 +37,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * Subject - Identifier for the End-User at the Issuer.
      *
-     * @param string $user_id
+     * @param  string $user_id
      * @return self
      */
     public function setUserId($user_id)
@@ -59,7 +59,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * Subject - Identifier for the End-User at the Issuer.
      *
-     * @param string $sub
+     * @param  string $sub
      * @return self
      */
     public function setSub($sub)
@@ -81,7 +81,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * End-User's full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User's locale and preferences.
      *
-     * @param string $name
+     * @param  string $name
      * @return self
      */
     public function setName($name)
@@ -103,7 +103,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * Given name(s) or first name(s) of the End-User
      *
-     * @param string $given_name
+     * @param  string $given_name
      * @return self
      */
     public function setGivenName($given_name)
@@ -125,7 +125,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * Surname(s) or last name(s) of the End-User.
      *
-     * @param string $family_name
+     * @param  string $family_name
      * @return self
      */
     public function setFamilyName($family_name)
@@ -147,7 +147,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * Middle name(s) of the End-User.
      *
-     * @param string $middle_name
+     * @param  string $middle_name
      * @return self
      */
     public function setMiddleName($middle_name)
@@ -169,7 +169,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * URL of the End-User's profile picture.
      *
-     * @param string $picture
+     * @param  string $picture
      * @return self
      */
     public function setPicture($picture)
@@ -191,7 +191,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * End-User's preferred e-mail address.
      *
-     * @param string $email
+     * @param  string $email
      * @return self
      */
     public function setEmail($email)
@@ -213,7 +213,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * True if the End-User's e-mail address has been verified; otherwise false.
      *
-     * @param boolean $email_verified
+     * @param  boolean $email_verified
      * @return self
      */
     public function setEmailVerified($email_verified)
@@ -235,7 +235,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * End-User's gender.
      *
-     * @param string $gender
+     * @param  string $gender
      * @return self
      */
     public function setGender($gender)
@@ -257,7 +257,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * End-User's birthday, represented as an YYYY-MM-DD format. They year MAY be 0000, indicating it is omited. To represent only the year, YYYY format would be used.
      *
-     * @param string $birthday
+     * @param  string $birthday
      * @return self
      */
     public function setBirthday($birthday)
@@ -279,7 +279,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * Time zone database representing the End-User's time zone
      *
-     * @param string $zoneinfo
+     * @param  string $zoneinfo
      * @return self
      */
     public function setZoneinfo($zoneinfo)
@@ -301,7 +301,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * End-User's locale.
      *
-     * @param string $locale
+     * @param  string $locale
      * @return self
      */
     public function setLocale($locale)
@@ -323,7 +323,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * End-User's language.
      *
-     * @param string $language
+     * @param  string $language
      * @return self
      */
     public function setLanguage($language)
@@ -345,7 +345,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * End-User's verified status.
      *
-     * @param boolean $verified
+     * @param  boolean $verified
      * @return self
      */
     public function setVerified($verified)
@@ -367,7 +367,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * End-User's preferred telephone number.
      *
-     * @param string $phone_number
+     * @param  string $phone_number
      * @return self
      */
     public function setPhoneNumber($phone_number)
@@ -389,7 +389,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * End-User's preferred address.
      *
-     * @param \PayPal\Api\OpenIdAddress $address
+     * @param  \PayPal\Api\OpenIdAddress $address
      * @return self
      */
     public function setAddress($address)
@@ -411,7 +411,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * Verified account status.
      *
-     * @param boolean $verified_account
+     * @param  boolean $verified_account
      * @return self
      */
     public function setVerifiedAccount($verified_account)
@@ -433,7 +433,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * Account type.
      *
-     * @param string $account_type
+     * @param  string $account_type
      * @return self
      */
     public function setAccountType($account_type)
@@ -455,7 +455,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * Account holder age range.
      *
-     * @param string $age_range
+     * @param  string $age_range
      * @return self
      */
     public function setAgeRange($age_range)
@@ -477,7 +477,7 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * Account payer identifier.
      *
-     * @param string $payer_id
+     * @param  string $payer_id
      * @return self
      */
     public function setPayerId($payer_id)
@@ -500,12 +500,14 @@ class OpenIdUserinfo extends PayPalResourceModel
     /**
      * returns user details
      *
-     * @path /v1/identity/openidconnect/userinfo
+     * @path   /v1/identity/openidconnect/userinfo
      * @method GET
-     * @param array        $params     (allowed values are access_token)
-     *                                 access_token - access token from the createFromAuthorizationCode / createFromRefreshToken calls
-     * @param ApiContext $apiContext Optional API Context
-     * @param PayPalRestCall $restCall
+     * @param  array          $params     (allowed values are access_token)
+     *                                    access_token - access token from
+     *                                    the createFromAuthorizationCode /
+     *                                    createFromRefreshToken calls
+     * @param  ApiContext     $apiContext Optional API Context
+     * @param  PayPalRestCall $restCall
      * @return OpenIdUserinfo
      */
     public static function getUserinfo($params, $apiContext = null, $restCall = null)

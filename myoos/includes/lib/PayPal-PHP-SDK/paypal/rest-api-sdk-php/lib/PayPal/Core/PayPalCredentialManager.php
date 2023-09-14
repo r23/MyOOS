@@ -16,13 +16,11 @@ class PayPalCredentialManager
 {
     /**
      * Singleton Object
-     *
      */
     private static ?\PayPal\Core\PayPalCredentialManager $instance = null;
 
     /**
      * Hashmap to contain credentials for accounts.
-     *
      */
     private array $credentialHashmap = [];
 
@@ -37,7 +35,7 @@ class PayPalCredentialManager
     /**
      * Constructor initialize credential for multiple accounts specified in property file
      *
-     * @param $config
+     * @param  $config
      * @throws \Exception
      */
     private function __construct($config)
@@ -53,7 +51,7 @@ class PayPalCredentialManager
     /**
      * Create singleton instance for this class.
      *
-     * @param array|null $config
+     * @param  array|null $config
      * @return PayPalCredentialManager
      */
     public static function getInstance($config = null)
@@ -116,8 +114,8 @@ class PayPalCredentialManager
     /**
      * Sets credential object for users
      *
-     * @param string|null   $userId  User Id associated with the account
-     * @param bool $default If set, it would make it as a default credential for all requests
+     * @param string|null $userId  User Id associated with the account
+     * @param bool        $default If set, it would make it as a default credential for all requests
      *
      * @return $this
      */
@@ -134,7 +132,7 @@ class PayPalCredentialManager
     /**
      * Obtain Credential Object based on UserId provided.
      *
-     * @param null $userId
+     * @param  null $userId
      * @return OAuthTokenCredential
      * @throws PayPalInvalidCredentialException
      */
@@ -147,8 +145,10 @@ class PayPalCredentialManager
         }
 
         if (empty($credObj)) {
-            throw new PayPalInvalidCredentialException("Credential not found for " .  ($userId ?: " default user") .
-            ". Please make sure your configuration/APIContext has credential information");
+            throw new PayPalInvalidCredentialException(
+                "Credential not found for " .  ($userId ?: " default user") .
+                ". Please make sure your configuration/APIContext has credential information"
+            );
         }
         return $credObj;
     }

@@ -885,18 +885,18 @@ function oos_get_tax_rate($class_id, $country_id = -1, $zone_id = -1)
         $zone_id = STORE_ZONE;
     }
 
-	static $tax_rates = [];
+    static $tax_rates = [];
 
 
     if (!isset($tax_rates[$class_id][$country_id][$zone_id]['rate'])) {
-		// Get database information
-		$dbconn =& oosDBGetConn();
-		$oostable =& oosDBGetTables();
+        // Get database information
+        $dbconn =& oosDBGetConn();
+        $oostable =& oosDBGetTables();
 
-		$tax_ratestable = $oostable['tax_rates'];
-		$zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
-		$geo_zonestable = $oostable['geo_zones'];
-		$query = "SELECT SUM(tax_rate) AS tax_rate
+        $tax_ratestable = $oostable['tax_rates'];
+        $zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
+        $geo_zonestable = $oostable['geo_zones'];
+        $query = "SELECT SUM(tax_rate) AS tax_rate
 				FROM $tax_ratestable tr LEFT JOIN
 					$zones_to_geo_zonestable za
                  ON (tr.tax_zone_id = za.geo_zone_id) LEFT JOIN
@@ -905,10 +905,10 @@ function oos_get_tax_rate($class_id, $country_id = -1, $zone_id = -1)
               WHERE za.zone_country_id = '" . intval($country_id) . "'
                 AND (za.zone_id is null OR za.zone_id = '0' OR za.zone_id = '" . intval($zone_id) . "')
                 AND tr.tax_class_id = '" . intval($class_id) . "'";
-		$result = $dbconn->Execute($query);
-		if (!$result) {
-			return 0;
-		}
+        $result = $dbconn->Execute($query);
+        if (!$result) {
+            return 0;
+        }
 
         if ($result->RecordCount() > 0) {
             $tax_multiplier = 1.0;
@@ -1138,7 +1138,7 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
 
     $sLang = ($_SESSION['iso_639_1'] ?? DEFAULT_LANGUAGE_CODE);
 
-	$phpmailer = new PHPMailer\PHPMailer\PHPMailer();
+    $phpmailer = new PHPMailer\PHPMailer\PHPMailer();
 
     //To load the French version
     $phpmailer->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/language/');
@@ -1161,26 +1161,26 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
     // Add smtp values if needed
     if (EMAIL_TRANSPORT == 'smtp') {
         $phpmailer->IsSMTP(); // set mailer to use SMTP
-		
-		// $phpmailer->SMTPDebug = PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
-		
-		$phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server		
+        
+        // $phpmailer->SMTPDebug = PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
+        
+        $phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server        
         $phpmailer->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
         $phpmailer->Username = OOS_SMTPUSER; // SMTP username
         $phpmailer->Password = OOS_SMTPPASS; // SMTP password
         
-		
-		// Set the encryption mechanism to use:
-		// - SMTPS (implicit TLS on port 465) or
-		// - STARTTLS (explicit TLS on port 587)
-		$phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
-		$phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+        
+        // Set the encryption mechanism to use:
+        // - SMTPS (implicit TLS on port 465) or
+        // - STARTTLS (explicit TLS on port 587)
+        $phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+        $phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
 
-		// Set the SMTP port number:
-		// - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or
-		// - 587 for SMTP+STARTTLS
-		$phpmailer->Port = OOS_SMTPPORT; 		
-		
+        // Set the SMTP port number:
+        // - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or
+        // - 587 for SMTP+STARTTLS
+        $phpmailer->Port = OOS_SMTPPORT;         
+        
     } else {
         // Set sendmail path
         if (EMAIL_TRANSPORT == 'sendmail') {

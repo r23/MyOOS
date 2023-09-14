@@ -4,7 +4,6 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-
    Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:

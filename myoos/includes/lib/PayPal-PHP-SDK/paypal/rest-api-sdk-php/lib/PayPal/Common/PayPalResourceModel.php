@@ -11,7 +11,7 @@ use PayPal\Transport\PayPalRestCall;
  * An Executable PayPalModel Class
  *
  * @property \PayPal\Api\Links[] links
- * @package PayPal\Common
+ * @package  PayPal\Common
  */
 class PayPalResourceModel extends PayPalModel implements IResource
 {
@@ -54,7 +54,7 @@ class PayPalResourceModel extends PayPalModel implements IResource
     /**
      * Append Links to the list.
      *
-     * @param \PayPal\Api\Links $links
+     * @param  \PayPal\Api\Links $links
      * @return $this
      */
     public function addLink($links)
@@ -71,7 +71,7 @@ class PayPalResourceModel extends PayPalModel implements IResource
     /**
      * Remove Links from the list.
      *
-     * @param \PayPal\Api\Links $links
+     * @param  \PayPal\Api\Links $links
      * @return $this
      */
     public function removeLink($links)
@@ -85,13 +85,13 @@ class PayPalResourceModel extends PayPalModel implements IResource
     /**
      * Execute SDK Call to Paypal services
      *
-     * @param string      $url
-     * @param string      $method
-     * @param string      $payLoad
-     * @param array $headers
-     * @param ApiContext      $apiContext
-     * @param PayPalRestCall      $restCall
-     * @param array $handlers
+     * @param  string         $url
+     * @param  string         $method
+     * @param  string         $payLoad
+     * @param  array          $headers
+     * @param  ApiContext     $apiContext
+     * @param  PayPalRestCall $restCall
+     * @param  array          $handlers
      * @return string json response of the object
      */
     protected static function executeCall($url, $method, $payLoad, $headers = [], $apiContext = null, $restCall = null, $handlers = [\PayPal\Handler\RestHandler::class])
@@ -108,8 +108,8 @@ class PayPalResourceModel extends PayPalModel implements IResource
     /**
      * Updates Access Token using long lived refresh token
      *
-     * @param string|null $refreshToken
-     * @param ApiContext $apiContext
+     * @param  string|null $refreshToken
+     * @param  ApiContext  $apiContext
      * @return void
      */
     public function updateAccessToken($refreshToken, $apiContext)

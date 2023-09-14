@@ -96,7 +96,7 @@ class splitPageResults
             $pages_array[] = ['id' => $i, 'text' => $i];
         }
 
-		$php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
+        $php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
         if ($num_pages > 1) {
             $display_links = oos_draw_form('id', 'pages', basename($php_self), '', 'get', false);
 

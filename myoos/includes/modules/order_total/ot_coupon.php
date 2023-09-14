@@ -239,7 +239,7 @@ class ot_coupon
 
         if (isset($_POST['gv_redeem_code'])) {
             $gv_redeem_code = filter_string_polyfill(filter_input(INPUT_POST, 'gv_redeem_code'));
-			
+            
             if (empty($gv_redeem_code) || !is_string($gv_redeem_code)) {
                 return;
             }

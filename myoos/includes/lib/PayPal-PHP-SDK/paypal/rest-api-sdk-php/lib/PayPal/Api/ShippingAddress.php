@@ -15,8 +15,9 @@ class ShippingAddress extends Address
 {
     /**
      * Address ID assigned in PayPal system.
+     *
      * @deprecated Not publicly available
-     * @param string $id
+     * @param      string $id
      * 
      * @return $this
      */
@@ -28,8 +29,9 @@ class ShippingAddress extends Address
 
     /**
      * Address ID assigned in PayPal system.
+     *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getId()
     {
@@ -61,8 +63,9 @@ class ShippingAddress extends Address
 
     /**
      * Default shipping address of the Payer.
+     *
      * @deprecated Not publicly available
-     * @param bool $default_address
+     * @param      bool $default_address
      * 
      * @return $this
      */
@@ -74,8 +77,9 @@ class ShippingAddress extends Address
 
     /**
      * Default shipping address of the Payer.
+     *
      * @deprecated Not publicly available
-     * @return bool
+     * @return     bool
      */
     public function getDefaultAddress()
     {
@@ -84,8 +88,9 @@ class ShippingAddress extends Address
 
     /**
      * Shipping Address marked as preferred by Payer.
+     *
      * @deprecated Not publicly available
-     * @param bool $preferred_address
+     * @param      bool $preferred_address
      * 
      * @return $this
      */
@@ -97,8 +102,9 @@ class ShippingAddress extends Address
 
     /**
      * Shipping Address marked as preferred by Payer.
+     *
      * @deprecated Not publicly available
-     * @return bool
+     * @return     bool
      */
     public function getPreferredAddress()
     {

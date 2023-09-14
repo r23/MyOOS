@@ -66,7 +66,7 @@ class PayoutBatch extends PayPalModel
     /**
      * Append Items to the list.
      *
-     * @param \PayPal\Api\PayoutItemDetails $payoutItemDetails
+     * @param  \PayPal\Api\PayoutItemDetails $payoutItemDetails
      * @return $this
      */
     public function addItem($payoutItemDetails)
@@ -83,7 +83,7 @@ class PayoutBatch extends PayPalModel
     /**
      * Remove Items from the list.
      *
-     * @param \PayPal\Api\PayoutItemDetails $payoutItemDetails
+     * @param  \PayPal\Api\PayoutItemDetails $payoutItemDetails
      * @return $this
      */
     public function removeItem($payoutItemDetails)

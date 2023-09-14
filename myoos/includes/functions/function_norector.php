@@ -45,19 +45,19 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 function oos_var_prep_for_os(...$args)
 {
     static $search = [
-		'!\.\./!si',
-		/* .. (directory traversal) */
-		'!^.*://!si',
-		/* .*:// (start of URL) */
-		'!/!si',
-		/* Forward slash (directory traversal) */
-		'!\\\\!si',
-	]; // Backslash (directory traversal)
+    '!\.\./!si',
+    /* .. (directory traversal) */
+    '!^.*://!si',
+    /* .*:// (start of URL) */
+    '!/!si',
+    /* Forward slash (directory traversal) */
+    '!\\\\!si',
+    ]; // Backslash (directory traversal)
 
     static $replace = ['', '', '_', '_'];
 
     $resarray = [];
-	
+    
     // Pass through each argument that is passed to the function
     foreach ($args as $ourvar) {
         $ourvar = preg_replace($search, $replace, $ourvar);

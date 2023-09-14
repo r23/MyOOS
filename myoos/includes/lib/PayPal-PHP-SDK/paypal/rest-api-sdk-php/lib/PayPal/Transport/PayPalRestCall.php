@@ -25,7 +25,6 @@ class PayPalRestCall
 
     /**
      * Default Constructor
-     *
      */
     public function __construct(private readonly ApiContext $apiContext)
     {
@@ -33,11 +32,11 @@ class PayPalRestCall
     }
 
     /**
-     * @param array  $handlers Array of handlers
-     * @param string $path     Resource path relative to base service endpoint
-     * @param string $method   HTTP method - one of GET, POST, PUT, DELETE, PATCH etc
-     * @param string $data     Request payload
-     * @param array  $headers  HTTP headers
+     * @param  array  $handlers Array of handlers
+     * @param  string $path     Resource path relative to base service endpoint
+     * @param  string $method   HTTP method - one of GET, POST, PUT, DELETE, PATCH etc
+     * @param  string $data     Request payload
+     * @param  array  $headers  HTTP headers
      * @return mixed
      * @throws \PayPal\Exception\PayPalConnectionException
      */
@@ -46,7 +45,8 @@ class PayPalRestCall
         $config = $this->apiContext->getConfig();
         $httpConfig = new PayPalHttpConfig(null, $method, $config);
         $headers = $headers ?: [];
-        $httpConfig->setHeaders($headers +
+        $httpConfig->setHeaders(
+            $headers +
             ['Content-Type' => 'application/json']
         );
 
@@ -55,7 +55,9 @@ class PayPalRestCall
             $httpConfig->setHttpProxy($config['http.Proxy']);
         }
 
-        /** @var \Paypal\Handler\IPayPalHandler $handler */
+        /**
+ * @var \Paypal\Handler\IPayPalHandler $handler 
+*/
         foreach ($handlers as $handler) {
             if (!is_object($handler)) {
                 $fullHandler = "\\" . (string)$handler;

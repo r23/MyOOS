@@ -41,7 +41,7 @@ class PatchRequest extends PayPalModel
     /**
      * Append Patches to the list.
      *
-     * @param \PayPal\Api\Patch $patch
+     * @param  \PayPal\Api\Patch $patch
      * @return $this
      */
     public function addPatch($patch)
@@ -58,7 +58,7 @@ class PatchRequest extends PayPalModel
     /**
      * Remove Patches from the list.
      *
-     * @param \PayPal\Api\Patch $patch
+     * @param  \PayPal\Api\Patch $patch
      * @return $this
      */
     public function removePatch($patch)
@@ -72,7 +72,7 @@ class PatchRequest extends PayPalModel
      * As PatchRequest holds the array of Patch object, we would override the json conversion to return
      * a json representation of array of Patch objects.
      *
-     * @param int $options
+     * @param  int $options
      * @return mixed|string
      */
     public function toJSON($options = 0)

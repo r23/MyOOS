@@ -43,7 +43,7 @@ class WebhookEventList extends PayPalModel
     /**
      * Append Events to the list.
      *
-     * @param \PayPal\Api\WebhookEvent $webhookEvent
+     * @param  \PayPal\Api\WebhookEvent $webhookEvent
      * @return $this
      */
     public function addEvent($webhookEvent)
@@ -60,7 +60,7 @@ class WebhookEventList extends PayPalModel
     /**
      * Remove Events from the list.
      *
-     * @param \PayPal\Api\WebhookEvent $webhookEvent
+     * @param  \PayPal\Api\WebhookEvent $webhookEvent
      * @return $this
      */
     public function removeEvent($webhookEvent)
@@ -119,7 +119,7 @@ class WebhookEventList extends PayPalModel
     /**
      * Append Links to the list.
      *
-     * @param \PayPal\Api\Links $links
+     * @param  \PayPal\Api\Links $links
      * @return $this
      */
     public function addLink($links)
@@ -136,7 +136,7 @@ class WebhookEventList extends PayPalModel
     /**
      * Remove Links from the list.
      *
-     * @param \PayPal\Api\Links $links
+     * @param  \PayPal\Api\Links $links
      * @return $this
      */
     public function removeLink($links)

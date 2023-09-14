@@ -41,7 +41,7 @@ class WebhookList extends PayPalModel
     /**
      * Append Webhooks to the list.
      *
-     * @param \PayPal\Api\Webhook $webhook
+     * @param  \PayPal\Api\Webhook $webhook
      * @return $this
      */
     public function addWebhook($webhook)
@@ -58,7 +58,7 @@ class WebhookList extends PayPalModel
     /**
      * Remove Webhooks from the list.
      *
-     * @param \PayPal\Api\Webhook $webhook
+     * @param  \PayPal\Api\Webhook $webhook
      * @return $this
      */
     public function removeWebhook($webhook)

@@ -27,9 +27,9 @@ $bError = false;
 
 // Newsletter
 if (isset($_GET['email_address'])) {
-	$email_address = filter_input(INPUT_GET, 'email_address', FILTER_VALIDATE_EMAIL);
+    $email_address = filter_input(INPUT_GET, 'email_address', FILTER_VALIDATE_EMAIL);
 } else {
-	$email_address = filter_input(INPUT_POST, 'email_address', FILTER_VALIDATE_EMAIL);
+    $email_address = filter_input(INPUT_POST, 'email_address', FILTER_VALIDATE_EMAIL);
 }
 
 if (empty($email_address) || !is_string($email_address)) {

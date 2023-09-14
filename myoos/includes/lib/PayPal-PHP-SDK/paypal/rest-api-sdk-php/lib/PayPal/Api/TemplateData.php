@@ -84,7 +84,7 @@ class TemplateData extends PayPalModel
     /**
      * Append BillingInfo to the list.
      *
-     * @param \PayPal\Api\BillingInfo $billingInfo
+     * @param  \PayPal\Api\BillingInfo $billingInfo
      * @return $this
      */
     public function addBillingInfo($billingInfo)
@@ -101,7 +101,7 @@ class TemplateData extends PayPalModel
     /**
      * Remove BillingInfo from the list.
      *
-     * @param \PayPal\Api\BillingInfo $billingInfo
+     * @param  \PayPal\Api\BillingInfo $billingInfo
      * @return $this
      */
     public function removeBillingInfo($billingInfo)
@@ -137,7 +137,7 @@ class TemplateData extends PayPalModel
     /**
      * Append CcInfo to the list.
      *
-     * @param string $email
+     * @param  string $email
      * @return $this
      */
     public function addCcInfo($email)
@@ -154,7 +154,7 @@ class TemplateData extends PayPalModel
     /**
      * Remove CcInfo from the list.
      *
-     * @param string $email
+     * @param  string $email
      * @return $this
      */
     public function removeCcInfo($email)
@@ -213,7 +213,7 @@ class TemplateData extends PayPalModel
     /**
      * Append Items to the list.
      *
-     * @param \PayPal\Api\InvoiceItem $invoiceItem
+     * @param  \PayPal\Api\InvoiceItem $invoiceItem
      * @return $this
      */
     public function addItem($invoiceItem)
@@ -230,7 +230,7 @@ class TemplateData extends PayPalModel
     /**
      * Remove Items from the list.
      *
-     * @param \PayPal\Api\InvoiceItem $invoiceItem
+     * @param  \PayPal\Api\InvoiceItem $invoiceItem
      * @return $this
      */
     public function removeItem($invoiceItem)
@@ -519,7 +519,7 @@ class TemplateData extends PayPalModel
     /**
      * Full URL of an external image to use as the logo. Maximum length is 4000 characters.
      *
-     * @param string $logo_url
+     * @param  string $logo_url
      * @throws \InvalidArgumentException
      * @return $this
      */
@@ -589,7 +589,7 @@ class TemplateData extends PayPalModel
     /**
      * Append Attachments to the list.
      *
-     * @param \PayPal\Api\FileAttachment $fileAttachment
+     * @param  \PayPal\Api\FileAttachment $fileAttachment
      * @return $this
      */
     public function addAttachment($fileAttachment)
@@ -606,7 +606,7 @@ class TemplateData extends PayPalModel
     /**
      * Remove Attachments from the list.
      *
-     * @param \PayPal\Api\FileAttachment $fileAttachment
+     * @param  \PayPal\Api\FileAttachment $fileAttachment
      * @return $this
      */
     public function removeAttachment($fileAttachment)

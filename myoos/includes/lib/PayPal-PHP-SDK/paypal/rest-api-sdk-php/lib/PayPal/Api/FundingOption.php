@@ -69,7 +69,7 @@ class FundingOption extends PayPalModel
     /**
      * Append FundingSources to the list.
      *
-     * @param \PayPal\Api\FundingSource $fundingSource
+     * @param  \PayPal\Api\FundingSource $fundingSource
      * @return $this
      */
     public function addFundingSource($fundingSource)
@@ -86,7 +86,7 @@ class FundingOption extends PayPalModel
     /**
      * Remove FundingSources from the list.
      *
-     * @param \PayPal\Api\FundingSource $fundingSource
+     * @param  \PayPal\Api\FundingSource $fundingSource
      * @return $this
      */
     public function removeFundingSource($fundingSource)
@@ -191,7 +191,7 @@ class FundingOption extends PayPalModel
     /**
      * Append Links to the list.
      *
-     * @param \PayPal\Api\Links $links
+     * @param  \PayPal\Api\Links $links
      * @return $this
      */
     public function addLink($links)
@@ -208,7 +208,7 @@ class FundingOption extends PayPalModel
     /**
      * Remove Links from the list.
      *
-     * @param \PayPal\Api\Links $links
+     * @param  \PayPal\Api\Links $links
      * @return $this
      */
     public function removeLink($links)

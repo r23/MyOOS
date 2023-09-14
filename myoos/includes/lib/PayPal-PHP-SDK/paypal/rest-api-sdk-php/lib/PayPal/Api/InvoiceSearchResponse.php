@@ -7,8 +7,6 @@ use PayPal\Common\PayPalModel;
 /**
  * Class InvoiceSearchResponse
  *
- * 
- *
  * @package PayPal\Api
  *
  * @property int total_count
@@ -65,7 +63,7 @@ class InvoiceSearchResponse extends PayPalModel
     /**
      * Append Invoices to the list.
      *
-     * @param \PayPal\Api\Invoice $invoice
+     * @param  \PayPal\Api\Invoice $invoice
      * @return $this
      */
     public function addInvoice($invoice)
@@ -82,7 +80,7 @@ class InvoiceSearchResponse extends PayPalModel
     /**
      * Remove Invoices from the list.
      *
-     * @param \PayPal\Api\Invoice $invoice
+     * @param  \PayPal\Api\Invoice $invoice
      * @return $this
      */
     public function removeInvoice($invoice)

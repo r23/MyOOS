@@ -237,8 +237,9 @@ class CartBase extends PayPalModel
 
     /**
      * Soft descriptor city used when charging this funding source. If length exceeds max length, the value will be truncated. Only supported when the `payment_method` is set to `credit_card`
+     *
      * @deprecated Not publicly available
-     * @param string $soft_descriptor_city
+     * @param      string $soft_descriptor_city
      * 
      * @return $this
      */
@@ -250,8 +251,9 @@ class CartBase extends PayPalModel
 
     /**
      * Soft descriptor city used when charging this funding source. If length exceeds max length, the value will be truncated. Only supported when the `payment_method` is set to `credit_card`
+     *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getSoftDescriptorCity()
     {
@@ -307,7 +309,7 @@ class CartBase extends PayPalModel
     /**
      * URL to send payment notifications
      *
-     * @param string $notify_url
+     * @param  string $notify_url
      * @throws \InvalidArgumentException
      * @return $this
      */
@@ -331,7 +333,7 @@ class CartBase extends PayPalModel
     /**
      * Url on merchant site pertaining to this payment.
      *
-     * @param string $order_url
+     * @param  string $order_url
      * @throws \InvalidArgumentException
      * @return $this
      */
@@ -354,8 +356,9 @@ class CartBase extends PayPalModel
 
     /**
      * List of external funding being applied to the purchase unit. Each external_funding unit should have a unique reference_id
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\ExternalFunding[] $external_funding
+     * @param      \PayPal\Api\ExternalFunding[] $external_funding
      *
      * @return $this
      */
@@ -367,8 +370,9 @@ class CartBase extends PayPalModel
 
     /**
      * List of external funding being applied to the purchase unit. Each external_funding unit should have a unique reference_id
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\ExternalFunding[]
+     * @return     \PayPal\Api\ExternalFunding[]
      */
     public function getExternalFunding()
     {
@@ -377,9 +381,10 @@ class CartBase extends PayPalModel
 
     /**
      * Append ExternalFunding to the list.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\ExternalFunding $externalFunding
-     * @return $this
+     * @param      \PayPal\Api\ExternalFunding $externalFunding
+     * @return     $this
      */
     public function addExternalFunding($externalFunding)
     {
@@ -394,9 +399,10 @@ class CartBase extends PayPalModel
 
     /**
      * Remove ExternalFunding from the list.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\ExternalFunding $externalFunding
-     * @return $this
+     * @param      \PayPal\Api\ExternalFunding $externalFunding
+     * @return     $this
      */
     public function removeExternalFunding($externalFunding)
     {

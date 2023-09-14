@@ -16,7 +16,7 @@ class PayPalDefaultLogFactory implements PayPalLogFactory
     /**
      * Returns logger instance implementing LoggerInterface.
      *
-     * @param string $className
+     * @param  string $className
      * @return LoggerInterface instance of logger object implementing LoggerInterface
      */
     public function getLogger($className)

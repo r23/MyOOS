@@ -140,9 +140,9 @@ class PayoutItem extends PayPalResourceModel
     /**
      * Obtain the status of a payout item by passing the item ID to the request URI.
      *
-     * @param string $payoutItemId
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  string         $payoutItemId
+     * @param  ApiContext     $apiContext   is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall     is the Rest Call Service that is used to make rest calls
      * @return PayoutItemDetails
      */
     public static function get($payoutItemId, $apiContext = null, $restCall = null)
@@ -165,9 +165,9 @@ class PayoutItem extends PayPalResourceModel
     /**
      * Cancels the unclaimed payment using the items id passed in the request URI. If an unclaimed item is not claimed within 30 days, the funds will be automatically returned to the sender. This call can be used to cancel the unclaimed item prior to the automatic 30-day return.
      *
-     * @param string $payoutItemId
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  string         $payoutItemId
+     * @param  ApiContext     $apiContext   is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall     is the Rest Call Service that is used to make rest calls
      * @return PayoutItemDetails
      */
     public static function cancel($payoutItemId, $apiContext = null, $restCall = null)

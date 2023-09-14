@@ -80,7 +80,7 @@ class PayerInfo extends PayPalModel
      * Account Number representing the Payer
      *
      * @deprecated Use #setBuyerAccountNumberInstead
-     * @param string $account_number
+     * @param      string $account_number
      *
      * @return $this
      */
@@ -96,7 +96,7 @@ class PayerInfo extends PayPalModel
      * @deprecated Use #getBuyerAccountNumberInstead
      *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getAccountNumber()
     {
@@ -441,7 +441,7 @@ class PayerInfo extends PayPalModel
     }
 
     /**
-     * @deprecated  [DEPRECATED] Use shipping address present in purchase unit or at root level of checkout Session.
+     * @deprecated [DEPRECATED] Use shipping address present in purchase unit or at root level of checkout Session.
      *
      * @return \PayPal\Api\ShippingAddress
      */

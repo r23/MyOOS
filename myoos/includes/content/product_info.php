@@ -35,8 +35,8 @@ use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
 use Endroid\QrCode\Writer\PngWriter;
 
 if (!isset($nProductsID)) {
-	$products_id = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
-	$nProductsID = oos_get_product_id($products_id);
+    $products_id = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
+    $nProductsID = oos_get_product_id($products_id);
 } else {
     oos_redirect(oos_href_link($aContents['home']));
 }
@@ -471,21 +471,21 @@ if (!$product_info_result->RecordCount()) {
         include_once MYOOS_INCLUDE_PATH . '/includes/content/chart/line.php';
         $chart = ob_get_contents();
         ob_end_clean();
-		$chart = true;
+        $chart = true;
         $smarty->assign('chart', $chart);
-/*
-		$aPriceAlert = [];
-		$five = $calculate_price - ($calculate_price / 100) * 5;
-		$aPriceAlert['five'] = $oCurrencies->display_price($five, oos_get_tax_rate($product_info['products_tax_class_id']));
+        /*
+        $aPriceAlert = [];
+        $five = $calculate_price - ($calculate_price / 100) * 5;
+        $aPriceAlert['five'] = $oCurrencies->display_price($five, oos_get_tax_rate($product_info['products_tax_class_id']));
 
-		$ten = $calculate_price - ($calculate_price / 100) * 10;
-		$aPriceAlert['ten'] = $oCurrencies->display_price($ten, oos_get_tax_rate($product_info['products_tax_class_id']));
+        $ten = $calculate_price - ($calculate_price / 100) * 10;
+        $aPriceAlert['ten'] = $oCurrencies->display_price($ten, oos_get_tax_rate($product_info['products_tax_class_id']));
 
-		$fifteen = $calculate_price - ($calculate_price / 100) * 15;
-		$aPriceAlert['fifteen'] = $oCurrencies->display_price($fifteen, oos_get_tax_rate($product_info['products_tax_class_id']));
+        $fifteen = $calculate_price - ($calculate_price / 100) * 15;
+        $aPriceAlert['fifteen'] = $oCurrencies->display_price($fifteen, oos_get_tax_rate($product_info['products_tax_class_id']));
 
-		$smarty->assign('pricealert', $aPriceAlert);
-*/
+        $smarty->assign('pricealert', $aPriceAlert);
+        */
     }
 
 

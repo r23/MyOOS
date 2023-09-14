@@ -137,7 +137,7 @@ class CancelNotification extends PayPalModel
     /**
      * Append CcEmails to the list.
      *
-     * @param string $string
+     * @param  string $string
      * @return $this
      */
     public function addCcEmail($string)
@@ -154,7 +154,7 @@ class CancelNotification extends PayPalModel
     /**
      * Remove CcEmails from the list.
      *
-     * @param string $string
+     * @param  string $string
      * @return $this
      */
     public function removeCcEmail($string)

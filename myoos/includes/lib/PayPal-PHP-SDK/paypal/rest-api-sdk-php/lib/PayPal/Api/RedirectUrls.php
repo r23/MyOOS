@@ -20,7 +20,7 @@ class RedirectUrls extends PayPalModel
     /**
      * Url where the payer would be redirected to after approving the payment. **Required for PayPal account payments.**
      *
-     * @param string $return_url
+     * @param  string $return_url
      * @throws \InvalidArgumentException
      * @return $this
      */
@@ -44,7 +44,7 @@ class RedirectUrls extends PayPalModel
     /**
      * Url where the payer would be redirected to after canceling the payment. **Required for PayPal account payments.**
      *
-     * @param string $cancel_url
+     * @param  string $cancel_url
      * @throws \InvalidArgumentException
      * @return $this
      */

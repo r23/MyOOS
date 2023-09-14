@@ -92,7 +92,7 @@ function &oos_parse_search_string(string $sSearch = ''): array|bool
             }
         }
 
-        // Check individual words	
+        // Check individual words    
         if (!str_contains($pieces[$k], '"')) {
             $objects[] = trim((string) $pieces[$k]);
 

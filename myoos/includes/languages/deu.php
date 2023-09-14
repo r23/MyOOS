@@ -326,7 +326,7 @@ $aLang = [
 'button_notifications'               => 'Benachrichtigungen',
 'button_set_price_alert'             => 'Preisalarm einstellen',
 'button_place_price_alert'           => 'Preisalarm stellen',
-'button_save_price_alert'  			 => 'Weiter mit E-Mail',
+'button_save_price_alert'               => 'Weiter mit E-Mail',
 'button_quick_find'                  => 'Schnellsuche',
 'button_remove_notifications'        => 'Benachrichtigungen löschen',
 'button_reviews'                     => 'Bewertungen',
@@ -523,9 +523,9 @@ $aLang = [
 ];
 
 if (defined('TEST')) {
-$aLang = [
-	'review_text'                     => 'Die Rezension muss mindestens aus ' . REVIEW_TEXT_MIN_LENGTH . ' Buchstaben bestehen.',
-'review_rating'                   => 'Geben Sie Ihre Bewertung ein.',
-'review_headline'                 => 'Die Überschrift muss mindestens aus 10 Buchstaben bestehen.',
-];
+    $aLang = [
+    'review_text'                     => 'Die Rezension muss mindestens aus ' . REVIEW_TEXT_MIN_LENGTH . ' Buchstaben bestehen.',
+    'review_rating'                   => 'Geben Sie Ihre Bewertung ein.',
+    'review_headline'                 => 'Die Überschrift muss mindestens aus 10 Buchstaben bestehen.',
+    ];
 }

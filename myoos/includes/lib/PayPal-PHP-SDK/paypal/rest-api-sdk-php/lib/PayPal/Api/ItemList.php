@@ -44,7 +44,7 @@ class ItemList extends PayPalModel
     /**
      * Append Items to the list.
      *
-     * @param \PayPal\Api\Item $item
+     * @param  \PayPal\Api\Item $item
      * @return $this
      */
     public function addItem($item)
@@ -61,7 +61,7 @@ class ItemList extends PayPalModel
     /**
      * Remove Items from the list.
      *
-     * @param \PayPal\Api\Item $item
+     * @param  \PayPal\Api\Item $item
      * @return $this
      */
     public function removeItem($item)

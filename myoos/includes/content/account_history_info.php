@@ -71,7 +71,7 @@ if ($customer_number != $_SESSION['customer_id']) {
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account']));
 $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_history'], 'page=' . $nPage));
-$oBreadcrumb->add($aLang['navbar_title_3'], oos_href_link($aContents['account_history_info'], 'order_id=' . intval($order_id )));
+$oBreadcrumb->add($aLang['navbar_title_3'], oos_href_link($aContents['account_history_info'], 'order_id=' . intval($order_id)));
 
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
 $oOrder = new order($order_id);

@@ -48,8 +48,8 @@ class PayPalHttpConfig
      * Default Constructor
      *
      * @param string $url
-     * @param string $method HTTP method (GET, POST etc) defaults to POST
-     * @param array $configs All Configurations
+     * @param string $method  HTTP method (GET, POST etc) defaults to POST
+     * @param array  $configs All Configurations
      */
     public function __construct(private $url = null, private $method = self::HTTP_POST, $configs = [])
     {
@@ -96,7 +96,7 @@ class PayPalHttpConfig
     /**
      * Get Header by Name
      *
-     * @param $name
+     * @param  $name
      * @return string|null
      */
     public function getHeader($name)
@@ -119,7 +119,6 @@ class PayPalHttpConfig
 
     /**
      * Set Headers
-     *
      */
     public function setHeaders(array $headers = [])
     {
@@ -129,8 +128,8 @@ class PayPalHttpConfig
     /**
      * Adds a Header
      *
-     * @param      $name
-     * @param      $value
+     * @param $name
+     * @param $value
      * @param bool $overWrite allows you to override header value
      */
     public function addHeader($name, $value, $overWrite = true)
@@ -195,7 +194,7 @@ class PayPalHttpConfig
     /**
      * Set ssl parameters for certificate based client authentication
      *
-     * @param      $certPath
+     * @param $certPath
      * @param null $passPhrase
      */
     public function setSSLCert($certPath, $passPhrase = null)
@@ -219,7 +218,7 @@ class PayPalHttpConfig
     /**
      * Set HTTP proxy information
      *
-     * @param string $proxy
+     * @param  string $proxy
      * @throws PayPalConfigurationException
      */
     public function setHttpProxy($proxy)
@@ -270,8 +269,8 @@ class PayPalHttpConfig
     /**
      * Retrieves an array of constant key, and value based on Prefix
      *
-     * @param array $configs
-     * @param       $prefix
+     * @param  array $configs
+     * @param  $prefix
      * @return array
      */
     public function getHttpConstantsFromConfigs($prefix, $configs = [])

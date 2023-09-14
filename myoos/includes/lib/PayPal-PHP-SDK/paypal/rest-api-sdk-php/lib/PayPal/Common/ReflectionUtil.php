@@ -32,8 +32,8 @@ class ReflectionUtil
      * If the class is null, it returns null.
      * If the property is not found, it returns null.
      *
-     * @param $class
-     * @param $propertyName
+     * @param  $class
+     * @param  $propertyName
      * @return null|string
      * @throws PayPalConfigurationException
      */
@@ -64,8 +64,8 @@ class ReflectionUtil
     /**
      * Checks if the Property is of type array or an object
      *
-     * @param $class
-     * @param $propertyName
+     * @param  $class
+     * @param  $propertyName
      * @return null|boolean
      * @throws PayPalConfigurationException
      */
@@ -90,8 +90,8 @@ class ReflectionUtil
     /**
      * Retrieves Annotations of each property
      *
-     * @param $class
-     * @param $propertyName
+     * @param  $class
+     * @param  $propertyName
      * @throws \RuntimeException
      * @return mixed
      */
@@ -117,7 +117,9 @@ class ReflectionUtil
             '~\@([^\s@\(]+)[\t ]*(?:\(?([^\n@]+)\)?)?~i',
             (string) $refl->getDocComment(),
             $annots,
-            PREG_PATTERN_ORDER)) {
+            PREG_PATTERN_ORDER
+        )
+        ) {
             return null;
         }
         foreach ($annots[1] as $i => $annot) {
@@ -130,7 +132,7 @@ class ReflectionUtil
     /**
      * preg_replace_callback callback function
      *
-     * @param $match
+     * @param  $match
      * @return string
      */
     private static function replace_callback($match)
@@ -142,8 +144,8 @@ class ReflectionUtil
      * Returns the properly formatted getter function name based on class name and property
      * Formats the property name to a standard getter function
      *
-     * @param string $class
-     * @param string $propertyName
+     * @param  string $class
+     * @param  string $propertyName
      * @return string getter function name
      */
     public static function getter($class, $propertyName)

@@ -7,8 +7,8 @@ class FormatConverter
     /**
      * Format the data based on the input formatter value
      *
-     * @param $value
-     * @param $formatter
+     * @param  $value
+     * @param  $formatter
      * @return string
      */
     public static function format($value, $formatter)
@@ -21,8 +21,8 @@ class FormatConverter
      *
      * Defaults to 2 decimal places
      *
-     * @param     $value
-     * @param int $decimals
+     * @param  $value
+     * @param  int $decimals
      * @return null|string
      */
     public static function formatToNumber($value, $decimals = 2)
@@ -39,8 +39,8 @@ class FormatConverter
      * It covers the cases where certain currencies does not accept decimal values. We will be adding
      * any specific currency level rules as required here.
      *
-     * @param      $value
-     * @param null $currency
+     * @param  $value
+     * @param  null $currency
      * @return null|string
      */
     public static function formatToPrice($value, $currency = null)

@@ -41,7 +41,7 @@ class AgreementTransactions extends PayPalModel
     /**
      * Append AgreementTransactionList to the list.
      *
-     * @param \PayPal\Api\AgreementTransaction $agreementTransaction
+     * @param  \PayPal\Api\AgreementTransaction $agreementTransaction
      * @return $this
      */
     public function addAgreementTransactionList($agreementTransaction)
@@ -58,7 +58,7 @@ class AgreementTransactions extends PayPalModel
     /**
      * Remove AgreementTransactionList from the list.
      *
-     * @param \PayPal\Api\AgreementTransaction $agreementTransaction
+     * @param  \PayPal\Api\AgreementTransaction $agreementTransaction
      * @return $this
      */
     public function removeAgreementTransactionList($agreementTransaction)

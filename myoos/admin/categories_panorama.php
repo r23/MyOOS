@@ -351,11 +351,11 @@ require 'includes/header.php';
     $parameters = ['panorama_id' => '', 'categories_id' => '', 'panorama_preview' => '', 'panorama_author' => '', 'panorama_autoload' => 'false', 'panorama_autorotates' => '-2', 'panorama_name' => '', 'panorama_title' => '', 'panorama_description_meta' => '', 'categories_panorama_scene' => [], 'panorama_date_added' => '', 'panorama_last_modified' => ''];
     $pInfo = new objectInfo($parameters);
 
-    if (isset($_GET['cID'])) {
-        $categories_panoramatable = $oostable['categories_panorama'];
-        $categories_panorama_descriptiontable = $oostable['categories_panorama_description'];
-        $categories_panorama_scenetable = $oostable['categories_panorama_scene'];
-        $query = "SELECT c.panorama_id, c.categories_id, c.panorama_preview, c.panorama_author, 
+if (isset($_GET['cID'])) {
+    $categories_panoramatable = $oostable['categories_panorama'];
+    $categories_panorama_descriptiontable = $oostable['categories_panorama_description'];
+    $categories_panorama_scenetable = $oostable['categories_panorama_scene'];
+    $query = "SELECT c.panorama_id, c.categories_id, c.panorama_preview, c.panorama_author, 
 						 c.panorama_autoload, c.panorama_autorotates, c.panorama_date_added, c.panorama_last_modified,
 						 cd.panorama_name, cd.panorama_title, cd.panorama_description_meta, cd.panorama_keywords,
 						 s.scene_id, s.scene_image, s.scene_type, s.scene_hfov, s.scene_pitch, s.scene_yaw, s.scene_default
@@ -366,20 +366,20 @@ require 'includes/header.php';
                         c.panorama_id = cd.panorama_id AND
 						s.panorama_id = c.panorama_id AND
                         cd.panorama_languages_id = '" . intval($_SESSION['language_id']) . "'";
-        $panorama_result = $dbconn->Execute($query);
-        if (!$panorama_result->RecordCount()) {
-            $form_action = 'insert_panorama';
-        } else {
-            $form_action = 'update_panorama';
-            $panorama = $panorama_result->fields;
+    $panorama_result = $dbconn->Execute($query);
+    if (!$panorama_result->RecordCount()) {
+        $form_action = 'insert_panorama';
+    } else {
+        $form_action = 'update_panorama';
+        $panorama = $panorama_result->fields;
 
-            $pInfo = new objectInfo($panorama);
-        }
+        $pInfo = new objectInfo($panorama);
     }
+}
 
 
-    if ($action == 'delete_panorama') {
-        ?>
+if ($action == 'delete_panorama') {
+    ?>
     <!-- Breadcrumbs //-->
     <div class="content-heading">
         <div class="col-lg-12">
@@ -403,7 +403,7 @@ require 'includes/header.php';
         <div class="row">
             <div class="col-lg-12">
         <?php
-                echo oos_draw_form('delete', 'panorama', $aContents['categories_panorama'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $cID . '&action=delete_panorama_confirm&page=' . $nPage, 'post', false);
+            echo oos_draw_form('delete', 'panorama', $aContents['categories_panorama'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $cID . '&action=delete_panorama_confirm&page=' . $nPage, 'post', false);
         echo oos_draw_hidden_field('panorama_id', $pInfo->panorama_id); ?>
                 <div class="row  mt-3 mb-5">
                     <div class="col-lg-12">
@@ -431,20 +431,20 @@ require 'includes/header.php';
         </div>
     </div>
         <?php
-    } elseif ($action == 'panorama' || $action == 'update_panorama') {
-        $aLanguages = oos_get_languages();
-        $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
+} elseif ($action == 'panorama' || $action == 'update_panorama') {
+    $aLanguages = oos_get_languages();
+    $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
 
-        $text_new_or_edit = ($form_action == 'insert_panorama') ? TEXT_INFO_HEADING_NEW_PANORAMA : TEXT_INFO_HEADING_EDIT_PANORAMA;
+    $text_new_or_edit = ($form_action == 'insert_panorama') ? TEXT_INFO_HEADING_NEW_PANORAMA : TEXT_INFO_HEADING_EDIT_PANORAMA;
 
-        $back_url = $aContents['categories'];
-        $back_url_params = 'cPath=' . oos_prepare_input($cPath) . '&page=' . $nPage;
-        if (oos_is_not_null($pInfo->categories_id)) {
-            $back_url_params .= '&cID=' . $pInfo->categories_id;
-        }
+    $back_url = $aContents['categories'];
+    $back_url_params = 'cPath=' . oos_prepare_input($cPath) . '&page=' . $nPage;
+    if (oos_is_not_null($pInfo->categories_id)) {
+        $back_url_params .= '&cID=' . $pInfo->categories_id;
+    }
 
-        $aAutorotates = [];
-        $aAutorotates = ['-3', '-2', '-1', '1', '2', '3']; ?>
+    $aAutorotates = [];
+    $aAutorotates = ['-3', '-2', '-1', '1', '2', '3']; ?>
     <!-- Breadcrumbs //-->
     <div class="content-heading">
         <div class="col-lg-12">
@@ -520,8 +520,8 @@ require 'includes/header.php';
                     <fieldset>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                echo TEXT_EDIT_PANORAMA_NAME;
-            } ?></label>
+                                echo TEXT_EDIT_PANORAMA_NAME;
+} ?></label>
             <?php if ($nLanguages > 1) {
                 echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
             } ?>
@@ -537,8 +537,8 @@ require 'includes/header.php';
                     <fieldset>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                echo TEXT_EDIT_PANORAMA_TITLE;
-            } ?></label>
+                                echo TEXT_EDIT_PANORAMA_TITLE;
+} ?></label>
             <?php if ($nLanguages > 1) {
                 echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
             } ?>
@@ -554,8 +554,8 @@ require 'includes/header.php';
                     <fieldset>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                echo TEXT_EDIT_PANORAMA_DESCRIPTION_META;
-            } ?></label>
+                                echo TEXT_EDIT_PANORAMA_DESCRIPTION_META;
+} ?></label>
             <?php if ($nLanguages > 1) {
                 echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
             } ?>
@@ -611,23 +611,23 @@ require 'includes/header.php';
                                 <div class="col-lg-10">
                                     <div class="c-radio c-radio-nofont">
                                         <label>
-                                        <?php
-                                            echo '<input type="radio" name="panorama_autoload" value="true"';
-        if ((isset($panorama['panorama_autoload']) && $panorama['panorama_autoload'] == 'true')) {
-            echo ' checked="checked"';
-        }
-        echo  '>&nbsp;'; ?>
+                                    <?php
+                                        echo '<input type="radio" name="panorama_autoload" value="true"';
+                                    if ((isset($panorama['panorama_autoload']) && $panorama['panorama_autoload'] == 'true')) {
+                                        echo ' checked="checked"';
+                                    }
+                                    echo  '>&nbsp;'; ?>
                                             <span class="badge badge-success float-right"><?php echo ENTRY_ON; ?></span>
                                         </label>
                                     </div>
                                     <div class="c-radio c-radio-nofont">
                                         <label>
               <?php
-                                            echo '<input type="radio" name="panorama_autoload" value="false"';
-        if ((isset($panorama['panorama_autoload']) && $panorama['panorama_autoload'] == 'false')) {
-            echo ' checked="checked"';
-        }
-        echo  '>&nbsp;'; ?>
+                                        echo '<input type="radio" name="panorama_autoload" value="false"';
+                if ((isset($panorama['panorama_autoload']) && $panorama['panorama_autoload'] == 'false')) {
+                    echo ' checked="checked"';
+                }
+                echo  '>&nbsp;'; ?>
                                         <span class="badge badge-danger float-right"><?php echo ENTRY_OFF; ?></span>
                                         </label>
                                     </div>
@@ -729,7 +729,7 @@ pannellum.viewer('panorama', {
                             </div>
                         </div>
 
-<?php
+            <?php
         } else {
             ?>
                         <div class="text-right mt-3 mb-5">
@@ -811,7 +811,7 @@ pannellum.viewer('panorama', {
             <li class="nav-item">
                 <a href="#hotspot<?php echo $i; ?>" data-toggle="tab" aria-expanded="true" class="nav-link <?php if ($i == 1) {
                         echo 'active';
-                    } ?>">
+} ?>">
                     <i class="fa fa-dot-circle-o"></i> <?php echo $i; ?>
                 </a>
             </li>
@@ -855,8 +855,8 @@ pannellum.viewer('panorama', {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                        echo TEXT_HOTSPOT_TEXT;
-                    } ?></label>
+                                    echo TEXT_HOTSPOT_TEXT;
+} ?></label>
                     <?php if ($nLanguages > 1) {
                         echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                     } ?>
@@ -901,7 +901,7 @@ pannellum.viewer('panorama', {
                     $nHotspot = $id+1; ?>
                     <div class="tab-pane fade <?php if ($id == 0) {
                         echo 'show active';
-                    } ?>" id="hotspot<?php echo $nHotspot; ?>">
+} ?>" id="hotspot<?php echo $nHotspot; ?>">
                         <div class="row  mt-3 mb-5">
                             <div class="col-lg-10">
                                 <h2>            
@@ -923,8 +923,8 @@ pannellum.viewer('panorama', {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                            echo TEXT_HOTSPOT_TEXT;
-                        } ?></label>
+                                    echo TEXT_HOTSPOT_TEXT;
+} ?></label>
                         <?php if ($nLanguages > 1) {
                             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                         } ?>
@@ -1005,8 +1005,8 @@ pannellum.viewer('panorama', {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                    echo TEXT_HOTSPOT_TEXT;
-                } ?></label>
+                                    echo TEXT_HOTSPOT_TEXT;
+} ?></label>
                 <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
@@ -1131,8 +1131,8 @@ pannellum.viewer('panorama_hot', {
     </div>
 </div>
         <?php
-    }
-    ?>
+}
+?>
 <!-- body_text_eof //-->
             </div>
         </div>

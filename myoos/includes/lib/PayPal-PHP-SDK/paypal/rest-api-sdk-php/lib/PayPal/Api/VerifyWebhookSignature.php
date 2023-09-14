@@ -51,7 +51,7 @@ class VerifyWebhookSignature extends PayPalResourceModel
     /**
      * The X.509 public key certificate. Download the certificate from this URL and use it to verify the signature. Extract this value from the `PAYPAL-CERT-URL` response header, which is received with the webhook notification.
      *
-     * @param string $cert_url
+     * @param  string $cert_url
      * @throws \InvalidArgumentException
      * @return $this
      */
@@ -166,8 +166,9 @@ class VerifyWebhookSignature extends PayPalResourceModel
 
     /**
      * The webhook notification, which is the content of the HTTP `POST` request body.
+     *
      * @deprecated Please use setRequestBody($request_body) instead.
-     * @param \PayPal\Api\WebhookEvent $webhook_event
+     * @param      \PayPal\Api\WebhookEvent $webhook_event
      *
      * @return $this
      */
@@ -213,8 +214,8 @@ class VerifyWebhookSignature extends PayPalResourceModel
     /**
      * Verifies a webhook signature.
      *
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return VerifyWebhookSignatureResponse
      */
     public function post($apiContext = null, $restCall = null)

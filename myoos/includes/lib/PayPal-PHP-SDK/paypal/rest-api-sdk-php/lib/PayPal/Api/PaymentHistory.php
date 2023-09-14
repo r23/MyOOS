@@ -43,7 +43,7 @@ class PaymentHistory extends PayPalModel
     /**
      * Append Payments to the list.
      *
-     * @param \PayPal\Api\Payment $payment
+     * @param  \PayPal\Api\Payment $payment
      * @return $this
      */
     public function addPayment($payment)
@@ -60,7 +60,7 @@ class PaymentHistory extends PayPalModel
     /**
      * Remove Payments from the list.
      *
-     * @param \PayPal\Api\Payment $payment
+     * @param  \PayPal\Api\Payment $payment
      * @return $this
      */
     public function removePayment($payment)

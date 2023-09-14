@@ -49,7 +49,7 @@ class Templates extends PayPalResourceModel
     /**
      * Append Addresses to the list.
      *
-     * @param \PayPal\Api\Address $address
+     * @param  \PayPal\Api\Address $address
      * @return $this
      */
     public function addAddress($address)
@@ -66,7 +66,7 @@ class Templates extends PayPalResourceModel
     /**
      * Remove Addresses from the list.
      *
-     * @param \PayPal\Api\Address $address
+     * @param  \PayPal\Api\Address $address
      * @return $this
      */
     public function removeAddress($address)
@@ -102,7 +102,7 @@ class Templates extends PayPalResourceModel
     /**
      * Append Emails to the list.
      *
-     * @param string $string
+     * @param  string $string
      * @return $this
      */
     public function addEmail($string)
@@ -119,7 +119,7 @@ class Templates extends PayPalResourceModel
     /**
      * Remove Emails from the list.
      *
-     * @param string $string
+     * @param  string $string
      * @return $this
      */
     public function removeEmail($string)
@@ -155,7 +155,7 @@ class Templates extends PayPalResourceModel
     /**
      * Append Phones to the list.
      *
-     * @param \PayPal\Api\Phone $phone
+     * @param  \PayPal\Api\Phone $phone
      * @return $this
      */
     public function addPhone($phone)
@@ -172,7 +172,7 @@ class Templates extends PayPalResourceModel
     /**
      * Remove Phones from the list.
      *
-     * @param \PayPal\Api\Phone $phone
+     * @param  \PayPal\Api\Phone $phone
      * @return $this
      */
     public function removePhone($phone)
@@ -208,7 +208,7 @@ class Templates extends PayPalResourceModel
     /**
      * Append Templates to the list.
      *
-     * @param \PayPal\Api\Template $template
+     * @param  \PayPal\Api\Template $template
      * @return $this
      */
     public function addTemplate($template)
@@ -225,7 +225,7 @@ class Templates extends PayPalResourceModel
     /**
      * Remove Templates from the list.
      *
-     * @param \PayPal\Api\Template $template
+     * @param  \PayPal\Api\Template $template
      * @return $this
      */
     public function removeTemplate($template)
@@ -239,11 +239,11 @@ class Templates extends PayPalResourceModel
      * Retrieve the details for a particular template by passing the template ID to the request URI.
      *
      * @deprecated Please use `Template::get()` instead.
-     * @see Template::get
-     * @param string $templateId
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-     * @return Template
+     * @see        Template::get
+     * @param      string         $templateId
+     * @param      ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param      PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
+     * @return     Template
      */
     public static function get($templateId, $apiContext = null, $restCall = null)
     {
@@ -265,9 +265,9 @@ class Templates extends PayPalResourceModel
     /**
      * Retrieves the template information of the merchant.
      *
-     * @param array $params
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  array          $params
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return Templates
      */
     public static function getAll($params = [], $apiContext = null, $restCall = null)

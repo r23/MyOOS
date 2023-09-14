@@ -25,7 +25,7 @@ class PayPalModel implements \Stringable
      * Sets Credential
      *
      * @deprecated Pass ApiContext to create/get methods instead
-     * @param \PayPal\Auth\OAuthTokenCredential $credential
+     * @param      \PayPal\Auth\OAuthTokenCredential $credential
      */
     public static function setCredential($credential)
     {
@@ -38,22 +38,22 @@ class PayPalModel implements \Stringable
      * You can pass data as a json representation or array object. This argument eliminates the need
      * to do $obj->fromJson($data) later after creating the object.
      *
-     * @param array|string|null $data
+     * @param  array|string|null $data
      * @throws \InvalidArgumentException
      */
     public function __construct($data = null)
     {
         switch (gettype($data)) {
-            case "NULL":
-                break;
-            case "string":
-                JsonValidator::validate($data);
-                $this->fromJson($data);
-                break;
-            case "array":
-                $this->fromArray($data);
-                break;
-            default:
+        case "NULL":
+            break;
+        case "string":
+            JsonValidator::validate($data);
+            $this->fromJson($data);
+            break;
+        case "array":
+            $this->fromArray($data);
+            break;
+        default:
         }
     }
 
@@ -61,7 +61,7 @@ class PayPalModel implements \Stringable
      * Returns a list of Object from Array or Json String. It is generally used when your json
      * contains an array of this object
      *
-     * @param mixed $data Array object or json string representation
+     * @param  mixed $data Array object or json string representation
      * @return array
      */
     public static function getList(mixed $data)
@@ -105,7 +105,7 @@ class PayPalModel implements \Stringable
     /**
      * Magic Get Method
      *
-     * @param $key
+     * @param  $key
      * @return mixed
      */
     public function __get($key)
@@ -134,7 +134,7 @@ class PayPalModel implements \Stringable
     /**
      * Converts the input key into a valid Setter Method Name
      *
-     * @param $key
+     * @param  $key
      * @return mixed
      */
     private function convertToCamelCase($key)
@@ -145,7 +145,7 @@ class PayPalModel implements \Stringable
     /**
      * Magic isSet Method
      *
-     * @param $key
+     * @param  $key
      * @return bool
      */
     public function __isset($key)
@@ -166,7 +166,7 @@ class PayPalModel implements \Stringable
     /**
      * Converts Params to Array
      *
-     * @param $param
+     * @param  $param
      * @return array
      */
     private function _convertToArray($param)
@@ -195,7 +195,7 @@ class PayPalModel implements \Stringable
     /**
      * Fills object value from Array list
      *
-     * @param $arr
+     * @param  $arr
      * @return $this
      */
     public function fromArray($arr)
@@ -218,7 +218,9 @@ class PayPalModel implements \Stringable
                             //$arr = array();
                             $this->assignValue($k, $o);
                         } elseif (ArrayUtil::isAssocArray($v)) {
-                            /** @var self $o */
+                            /**
+ * @var self $o 
+*/
                             $o = new $clazz();
                             $o->fromArray($v);
                             $this->assignValue($k, $o);
@@ -262,7 +264,7 @@ class PayPalModel implements \Stringable
     /**
      * Fills object value from Json string
      *
-     * @param $json
+     * @param  $json
      * @return $this
      */
     public function fromJson($json)
@@ -283,7 +285,7 @@ class PayPalModel implements \Stringable
     /**
      * Returns object JSON representation
      *
-     * @param int $options http://php.net/manual/en/json.constants.php
+     * @param  int $options http://php.net/manual/en/json.constants.php
      * @return string
      */
     public function toJSON($options = 0)

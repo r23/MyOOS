@@ -113,12 +113,12 @@ $consentCookieJson = filter_input(INPUT_COOKIE, 'myoos-cookie-consent', FILTER_D
 if ($consentCookieJson) {
     $consentCookie = json_decode($consentCookieJson, null, 512, JSON_THROW_ON_ERROR);
 
-	/*
-	// technically necessary cookies
+    /*
+    // technically necessary cookies
     if ($consentCookie && $consentCookie->necessary == 1) {
         $bNecessary = true;
     }
-	*/
+    */
 
     if ($consentCookie && $consentCookie->analyses == 1) {
         $bAnalyses = true;
@@ -168,7 +168,7 @@ if (!isset($_SESSION['language']) || isset($_GET['language']) && $bNecessary == 
             $session->start();
         }
 
-		$language = filter_string_polyfill(filter_input(INPUT_GET, 'language'));
+        $language = filter_string_polyfill(filter_input(INPUT_GET, 'language'));
         $oLang->set_language($language);
     } else {
         $oLang->get_browser_language();

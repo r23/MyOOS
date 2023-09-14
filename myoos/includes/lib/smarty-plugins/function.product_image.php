@@ -35,7 +35,7 @@ function smarty_function_product_image($params, &$smarty)
 
     $basedir = OOS_SHOP_IMAGES . 'product/';
     $dir = 'large';
-	$loading = 'lazy';
+    $loading = 'lazy';
     $alt = '';
     $src = '';
     $extra = '';
@@ -43,7 +43,7 @@ function smarty_function_product_image($params, &$smarty)
 
     foreach ($params as $_key => $_val) {
         switch ($_key) {
-		case 'loading':
+        case 'loading':
         case 'src':
         case 'basedir':
         case 'dir':

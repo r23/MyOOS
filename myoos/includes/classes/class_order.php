@@ -31,7 +31,7 @@ class order
     public $products = [];
     public $customer = [];
     public $delivery = [];
-	public $billing;
+    public $billing;
     public $content_type;
 
     public function __construct($order_id = '')
@@ -214,11 +214,11 @@ class order
 
         if ($this->content_type == 'virtual') {
             $_SESSION['customer_country_id'] = $billing_address['entry_country_id'];
-            $_SESSION['customer_zone_id'] = $billing_address['entry_zone_id'];				
+            $_SESSION['customer_zone_id'] = $billing_address['entry_zone_id'];                
             $tax_address = ['entry_country_id' => $billing_address['entry_country_id'], 'entry_zone_id' => $billing_address['entry_zone_id']];
         } else {
-    #        $_SESSION['customer_country_id'] = $shipping_address['entry_country_id'];
-    #        $_SESSION['customer_zone_id'] = $shipping_address['entry_zone_id'];		
+            // $_SESSION['customer_country_id'] = $shipping_address['entry_country_id'];
+            // $_SESSION['customer_zone_id'] = $shipping_address['entry_zone_id'];        
             $tax_address = ['entry_country_id' => $shipping_address['entry_country_id'], 'entry_zone_id' => $shipping_address['entry_zone_id']];
         }
 

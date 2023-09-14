@@ -13,8 +13,8 @@ abstract class AuthorizationCache
      * A pull method which would read the persisted data based on clientId.
      * If clientId is not provided, an array with all the tokens would be passed.
      *
-     * @param array|null $config
-     * @param string $clientId
+     * @param  array|null $config
+     * @param  string     $clientId
      * @return mixed|null
      */
     public static function pull($config = null, $clientId = null)
@@ -46,11 +46,11 @@ abstract class AuthorizationCache
     /**
      * Persists the data into a cache file provided in $CACHE_PATH
      *
-     * @param array|null $config
-     * @param      $clientId
-     * @param      $accessToken
-     * @param      $tokenCreateTime
-     * @param      $tokenExpiresIn
+     * @param  array|null $config
+     * @param  $clientId
+     * @param  $accessToken
+     * @param  $tokenCreateTime
+     * @param  $tokenExpiresIn
      * @throws \Exception
      */
     public static function push($clientId, $accessToken, $tokenCreateTime, $tokenExpiresIn, $config = null)
@@ -81,7 +81,7 @@ abstract class AuthorizationCache
     /**
      * Determines from the Configuration if caching is currently enabled/disabled
      *
-     * @param $config
+     * @param  $config
      * @return bool
      */
     public static function isEnabled($config)
@@ -93,7 +93,7 @@ abstract class AuthorizationCache
     /**
      * Returns the cache file path
      *
-     * @param $config
+     * @param  $config
      * @return string
      */
     public static function cachePath($config)
@@ -106,8 +106,8 @@ abstract class AuthorizationCache
      * Returns the Value of the key if found in given config, or from PayPal Config Manager
      * Returns null if not found
      *
-     * @param $key
-     * @param $config
+     * @param  $key
+     * @param  $config
      * @return null|string
      */
     private static function getConfigValue($key, $config)

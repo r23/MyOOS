@@ -105,7 +105,7 @@ if (isset($_SESSION['password_forgotten'])) {
                 </div>    
     <?php
 } elseif ($login == 'success') {
-        ?>
+    ?>
 
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
     <?php echo TEXT_FORGOTTEN_SUCCESS; ?>
@@ -120,9 +120,9 @@ if (isset($_SESSION['password_forgotten'])) {
                     </div>
                 </div>    
     <?php
-    } else {
-        if ($login == 'fail') {
-            ?>
+} else {
+    if ($login == 'fail') {
+        ?>
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <?php echo TEXT_FORGOTTEN_ERROR; ?>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -131,7 +131,7 @@ if (isset($_SESSION['password_forgotten'])) {
                 </div>
 
         <?php
-        } ?>
+    } ?>
 
             
                 <div class="login-header text-center">
@@ -143,14 +143,14 @@ if (isset($_SESSION['password_forgotten'])) {
                 </div>                
         
             <?php echo oos_draw_form('id', 'login', $aContents['password_forgotten'], 'action=process', 'post', true); ?>
-                <?php echo oos_draw_hidden_field('formid', $sFormid); ?>
+            <?php echo oos_draw_hidden_field('formid', $sFormid); ?>
         
                     <div class="form-group m-b-20">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="mdi mdi-account"></i></span>
                             </div>
-                        <?php echo oos_draw_input_field('firstname', '', '', true, 'text'); ?>        
+                    <?php echo oos_draw_input_field('firstname', '', '', true, 'text'); ?>        
                         </div>
                     </div>
 
@@ -159,7 +159,7 @@ if (isset($_SESSION['password_forgotten'])) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="mdi mdi-email"></i></span>
                             </div>
-                        <?php echo oos_draw_input_field('email_address', '', '', true, 'text'); ?>                            
+                    <?php echo oos_draw_input_field('email_address', '', '', true, 'text'); ?>                            
                         </div>
                     </div>
 
@@ -172,7 +172,7 @@ if (isset($_SESSION['password_forgotten'])) {
                 </form>
 
     <?php
-    }
+}
 ?>
             </div>
         </div>

@@ -45,7 +45,7 @@ class FlowConfig extends PayPalModel
     /**
      * The merchant site URL to display after a bank transfer payment. Valid for only the Giropay or bank transfer payment method in Germany.
      *
-     * @param string $bank_txn_pending_url
+     * @param  string $bank_txn_pending_url
      * @throws \InvalidArgumentException
      * @return $this
      */

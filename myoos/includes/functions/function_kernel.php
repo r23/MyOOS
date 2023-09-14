@@ -680,8 +680,8 @@ function oos_get_tax_rate($class_id, $country_id = -1, $zone_id = -1)
                   ON (tz.geo_zone_id = tr.tax_zone_id)
               WHERE za.zone_country_id = '" . intval($country_id) . "' AND
                     (za.zone_id is null or za.zone_id = '0' or za.zone_id = '" . intval($zone_id) . "') AND
-                     tr.tax_class_id = '" . intval($class_id) . "'";					 
-        $tax_result = $dbconn->Execute($query);	
+                     tr.tax_class_id = '" . intval($class_id) . "'";                     
+        $tax_result = $dbconn->Execute($query);    
         if (!$tax_result) {
             return 0;
         }
@@ -1156,7 +1156,7 @@ function oos_has_product_attributes($sProductsId)
 						       AND pa.options_values_id = 0
 						       AND pa.products_attributes_id = pad.products_attributes_id";
             $downloads = $dbconn->Execute($download_sql);
-            $nDownloads	= $downloads->fields['total'];
+            $nDownloads    = $downloads->fields['total'];
             $nAattributes = $attributes->fields['total'];
             if (($nAattributes - $nDownloads) > 0) {
                 $return_value = true;
@@ -1738,10 +1738,10 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
         $attachments = explode("\n", str_replace("\r\n", "\n", (string) $attachments));
     }
 
-	$phpmailer = new PHPMailer\PHPMailer\PHPMailer();	
+    $phpmailer = new PHPMailer\PHPMailer\PHPMailer();    
 
     // load the appropriate language version
-	$sLang = ($_SESSION['iso_639_1'] ?? DEFAULT_LANGUAGE_CODE);
+    $sLang = ($_SESSION['iso_639_1'] ?? DEFAULT_LANGUAGE_CODE);
     $phpmailer->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/vendor/phpmailer/phpmailer/language/');
 
     // Empty out the values that may be set.
@@ -1761,26 +1761,26 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
     // Add smtp values if needed
     if (EMAIL_TRANSPORT == 'smtp') {
         $phpmailer->IsSMTP(); // set mailer to use SMTP
-		
-		// $phpmailer->SMTPDebug = PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
-		
-		$phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server		
+        
+        // $phpmailer->SMTPDebug = PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
+        
+        $phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server        
         $phpmailer->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
         $phpmailer->Username = OOS_SMTPUSER; // SMTP username
         $phpmailer->Password = OOS_SMTPPASS; // SMTP password
         
-		
-		// Set the encryption mechanism to use:
-		// - SMTPS (implicit TLS on port 465) or
-		// - STARTTLS (explicit TLS on port 587)
-		$phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
-		$phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+        
+        // Set the encryption mechanism to use:
+        // - SMTPS (implicit TLS on port 465) or
+        // - STARTTLS (explicit TLS on port 587)
+        $phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+        $phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
 
-		// Set the SMTP port number:
-		// - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or
-		// - 587 for SMTP+STARTTLS
-		$phpmailer->Port = OOS_SMTPPORT; 		
-		
+        // Set the SMTP port number:
+        // - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or
+        // - 587 for SMTP+STARTTLS
+        $phpmailer->Port = OOS_SMTPPORT;         
+        
     } else {
         // Set sendmail path
         if (EMAIL_TRANSPORT == 'sendmail') {
@@ -1805,9 +1805,9 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
         $phpmailer->Body = $text;
     }
 
-	// Attach a file from the server as an attachment
-	// $phpmailer->addAttachment('log.xml', 'Log.xml');
-	$phpmailer->Send();
+    // Attach a file from the server as an attachment
+    // $phpmailer->addAttachment('log.xml', 'Log.xml');
+    $phpmailer->Send();
 
 }
 

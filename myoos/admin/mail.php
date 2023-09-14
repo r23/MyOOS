@@ -47,9 +47,9 @@ if (($action == 'send_email_to_user') && isset($_POST['customers_email_address']
         break;
     }
 
-	global $phpmailer;
+    global $phpmailer;
 
-	$phpmailer = new PHPMailer\PHPMailer\PHPMailer();
+    $phpmailer = new PHPMailer\PHPMailer\PHPMailer();
 
     $sLang = ($_SESSION['iso_639_1'] ?? 'en');
     $phpmailer->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/vendor/phpmailer/phpmailer/language/');
@@ -58,32 +58,32 @@ if (($action == 'send_email_to_user') && isset($_POST['customers_email_address']
     $phpmailer->CharSet = CHARSET;
     $phpmailer->IsMail();
 
-	$phpmailer->From = isset($_POST['from_mail']) ? oos_db_prepare_input($_POST['from_mail']) : STORE_OWNER_EMAIL_ADDRESS;
-	$phpmailer->FromName = isset($_POST['from_name']) ? oos_db_prepare_input($_POST['from_name']) : STORE_OWNER;
+    $phpmailer->From = isset($_POST['from_mail']) ? oos_db_prepare_input($_POST['from_mail']) : STORE_OWNER_EMAIL_ADDRESS;
+    $phpmailer->FromName = isset($_POST['from_name']) ? oos_db_prepare_input($_POST['from_name']) : STORE_OWNER;
 
     // Add smtp values if needed
     if (EMAIL_TRANSPORT == 'smtp') {
         $phpmailer->IsSMTP(); // set mailer to use SMTP
-		
-		// $phpmailer->SMTPDebug = PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
-		
-		$phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server		
+        
+        // $phpmailer->SMTPDebug = PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
+        
+        $phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server        
         $phpmailer->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
         $phpmailer->Username = OOS_SMTPUSER; // SMTP username
         $phpmailer->Password = OOS_SMTPPASS; // SMTP password
         
-		
-		// Set the encryption mechanism to use:
-		// - SMTPS (implicit TLS on port 465) or
-		// - STARTTLS (explicit TLS on port 587)
-		$phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
-		$phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+        
+        // Set the encryption mechanism to use:
+        // - SMTPS (implicit TLS on port 465) or
+        // - STARTTLS (explicit TLS on port 587)
+        $phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+        $phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
 
-		// Set the SMTP port number:
-		// - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or
-		// - 587 for SMTP+STARTTLS
-		$phpmailer->Port = OOS_SMTPPORT; 		
-		
+        // Set the SMTP port number:
+        // - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or
+        // - 587 for SMTP+STARTTLS
+        $phpmailer->Port = OOS_SMTPPORT;         
+        
     } else {
         // Set sendmail path
         if (EMAIL_TRANSPORT == 'sendmail') {
@@ -94,10 +94,10 @@ if (($action == 'send_email_to_user') && isset($_POST['customers_email_address']
         }
     }
 
-	$phpmailer->Subject = isset($_POST['subject']) ? oos_db_prepare_input($_POST['subject']) : STORE_NAME;
+    $phpmailer->Subject = isset($_POST['subject']) ? oos_db_prepare_input($_POST['subject']) : STORE_NAME;
 
     while ($mail = $mail_result->fields) {
-		$phpmailer->Body = isset($_POST['message']) ? oos_db_prepare_input($_POST['message']) : '';
+        $phpmailer->Body = isset($_POST['message']) ? oos_db_prepare_input($_POST['message']) : '';
         $phpmailer->AddAddress($mail['customers_email_address'], $mail['customers_firstname'] . ' ' . $mail['customers_lastname']);
         $phpmailer->Send();
         $phpmailer->ClearAddresses();
@@ -225,7 +225,7 @@ if (($action == 'preview') && isset($_POST['customers_email_address'])) {
           </form></tr>
     <?php
 } else {
-        ?>
+    ?>
           <tr><?php echo oos_draw_form('id', 'mail', $aContents['mail'], 'action=preview', 'post', false); ?>
             <td><table border="0" cellpadding="0" cellspacing="2">
               <tr>
@@ -237,12 +237,12 @@ if (($action == 'preview') && isset($_POST['customers_email_address'])) {
         $customers[] = ['id' => '***', 'text' => TEXT_ALL_CUSTOMERS];
         $customers[] = ['id' => '**D', 'text' => TEXT_NEWSLETTER_CUSTOMERS];
         $mail_result = $dbconn->Execute("SELECT customers_email_address, customers_firstname, customers_lastname FROM " . $oostable['customers'] . " ORDER BY customers_lastname");
-        while ($customers_values = $mail_result->fields) {
-            $customers[] = ['id' => $customers_values['customers_email_address'], 'text' => $customers_values['customers_lastname'] . ', ' . $customers_values['customers_firstname'] . ' (' . $customers_values['customers_email_address'] . ')'];
+    while ($customers_values = $mail_result->fields) {
+        $customers[] = ['id' => $customers_values['customers_email_address'], 'text' => $customers_values['customers_lastname'] . ', ' . $customers_values['customers_firstname'] . ' (' . $customers_values['customers_email_address'] . ')'];
 
-            // Move that ADOdb pointer!
-            $mail_result->MoveNext();
-        } ?>
+        // Move that ADOdb pointer!
+        $mail_result->MoveNext();
+    } ?>
               <tr>
                 <td class="main"><?php echo TEXT_CUSTOMER; ?></td>
                 <td><?php echo oos_draw_pull_down_menu('customers_email_address', $customers, $sCustomer); ?></td>
@@ -281,7 +281,7 @@ if (($action == 'preview') && isset($_POST['customers_email_address'])) {
             </table></td>
           </form></tr>
     <?php
-    }
+}
 ?>
 
         </table></td>

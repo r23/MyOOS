@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
@@ -16,7 +17,8 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
@@ -27,14 +29,14 @@ $cID = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT) ?: 0;
 
 if (!empty($action)) {
     switch ($action) {
-      case 'save':
+    case 'save':
         $configuration_value = oos_db_prepare_input($_POST['configuration_value']);
 
         $dbconn->Execute("UPDATE " . $oostable['configuration'] . " SET configuration_value = '" . oos_db_input($configuration_value) . "', last_modified = now() WHERE configuration_id = '" . intval($cID) . "'");
 
 
         if ($cID == 2 || $cID == 3 || $cID == 4) {
-            require 'includes/classes/class_upload.php';
+            include 'includes/classes/class_upload.php';
 
 
             // Logo
@@ -183,10 +185,12 @@ if (!empty($action)) {
             $oLogo->set_destination($dir_fs_catalog_images);
             if ($oLogo->parse() && oos_is_not_null($oLogo->filename)) {
                 $configurationtable =  $oostable['configuration'];
-                $dbconn->Execute("UPDATE $configurationtable
+                $dbconn->Execute(
+                    "UPDATE $configurationtable
                             SET configuration_value = '" . oos_db_input($oLogo->filename) . "', 
 							last_modified = now()				
-                            WHERE configuration_id = '" . intval($cID) . "'");
+                            WHERE configuration_id = '" . intval($cID) . "'"
+                );
             }
         }
 
@@ -203,108 +207,108 @@ if (!empty($action)) {
 
 ?>
 <div class="wrapper">
-	<!-- Header //-->
-	<header class="topnavbar-wrapper">
-		<!-- Top Navbar //-->
-		<?php require 'includes/menue.php'; ?>
-	</header>
-	<!-- END Header //-->
-	<aside class="aside">
-		<!-- Sidebar //-->
-		<div class="aside-inner">
-			<?php require 'includes/blocks.php'; ?>
-		</div>
-		<!-- END Sidebar (left) //-->
-	</aside>
-	
-	<!-- Main section //-->
-	<section>
-		<!-- Page content //-->
-		<div class="content-wrapper">
-			
-			<!-- Breadcrumbs //-->
-			<div class="content-heading">
-				<div class="col-lg-12">
-					<h2><?php echo $sHeaderTitle; ?></h2>
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item">
-							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
-						</li>
-						<li class="breadcrumb-item">
-							<?php echo '<a href="' . oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&gID=1') . '">' . BOX_HEADING_CONFIGURATION . '</a>'; ?>
-						</li>
-						<li class="breadcrumb-item active">
-							<strong><?php echo $sHeaderTitle; ?></strong>
-						</li>
-					</ol>
-				</div>
-			</div>
-			<!-- END Breadcrumbs //-->	
-			
-			<div class="row">
-				<div class="col-lg-12">	
-				
+    <!-- Header //-->
+    <header class="topnavbar-wrapper">
+        <!-- Top Navbar //-->
+        <?php require 'includes/menue.php'; ?>
+    </header>
+    <!-- END Header //-->
+    <aside class="aside">
+        <!-- Sidebar //-->
+        <div class="aside-inner">
+            <?php require 'includes/blocks.php'; ?>
+        </div>
+        <!-- END Sidebar (left) //-->
+    </aside>
+    
+    <!-- Main section //-->
+    <section>
+        <!-- Page content //-->
+        <div class="content-wrapper">
+            
+            <!-- Breadcrumbs //-->
+            <div class="content-heading">
+                <div class="col-lg-12">
+                    <h2><?php echo $sHeaderTitle; ?></h2>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <?php echo '<a href="' . oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&gID=1') . '">' . BOX_HEADING_CONFIGURATION . '</a>'; ?>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <strong><?php echo $sHeaderTitle; ?></strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <!-- END Breadcrumbs //-->    
+            
+            <div class="row">
+                <div class="col-lg-12">    
+                
 <!-- body_text //-->
-	<div class="table-responsive">
-		<table class="table w-100">
+    <div class="table-responsive">
+        <table class="table w-100">
           <tr>
             <td valign="top">
-				<table class="table table-striped table-hover w-100">
-					<thead class="thead-dark">
-						<tr>
-							<th><?php echo TABLE_HEADING_CONFIGURATION_TITLE; ?></th>
-							<th><?php echo TABLE_HEADING_CONFIGURATION_VALUE; ?></th>
-							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
-						</tr>	
-					</thead>
+                <table class="table table-striped table-hover w-100">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th><?php echo TABLE_HEADING_CONFIGURATION_TITLE; ?></th>
+                            <th><?php echo TABLE_HEADING_CONFIGURATION_VALUE; ?></th>
+                            <th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
+                        </tr>    
+                    </thead>
 <?php
   $configuration_result = $dbconn->Execute("SELECT configuration_id, configuration_key, configuration_value, use_function FROM " . $oostable['configuration'] . " WHERE configuration_group_id = '" . intval($_GET['gID']) . "' ORDER BY sort_order");
 
-  while ($configuration = $configuration_result->fields) {
-      if (oos_is_not_null($configuration['use_function'])) {
-          $use_function = $configuration['use_function'];
-          if (preg_match('/->/', (string) $use_function)) {
-              $class_method = explode('->', (string) $use_function);
-              if (!is_object(${$class_method[0]})) {
-                  include 'includes/classes/class_'. $class_method[0] . '.php';
-                  ${$class_method[0]} = new $class_method[0]();
-              }
-              $cfgValue = oos_call_function($class_method[1], $configuration['configuration_value'], ${$class_method[0]});
-          } else {
-              if (function_exists($use_function)) {
-                  $cfgValue = oos_call_function($use_function, $configuration['configuration_value']);
-              }
-          }
-      } else {
-          $cfgValue = $configuration['configuration_value'];
-      }
+while ($configuration = $configuration_result->fields) {
+    if (oos_is_not_null($configuration['use_function'])) {
+        $use_function = $configuration['use_function'];
+        if (preg_match('/->/', (string) $use_function)) {
+            $class_method = explode('->', (string) $use_function);
+            if (!is_object(${$class_method[0]})) {
+                include 'includes/classes/class_'. $class_method[0] . '.php';
+                ${$class_method[0]} = new $class_method[0]();
+            }
+            $cfgValue = oos_call_function($class_method[1], $configuration['configuration_value'], ${$class_method[0]});
+        } else {
+            if (function_exists($use_function)) {
+                $cfgValue = oos_call_function($use_function, $configuration['configuration_value']);
+            }
+        }
+    } else {
+        $cfgValue = $configuration['configuration_value'];
+    }
 
-      if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $configuration['configuration_id']))) && !isset($cInfo) && (!str_starts_with((string) $action, 'new'))) {
-          $cfg_extra_result = $dbconn->Execute("SELECT configuration_key, date_added, last_modified, use_function, set_function FROM " . $oostable['configuration'] . " WHERE configuration_id = '" . $configuration['configuration_id'] . "'");
-          $cfg_extra = $cfg_extra_result->fields;
+    if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $configuration['configuration_id']))) && !isset($cInfo) && (!str_starts_with((string) $action, 'new'))) {
+        $cfg_extra_result = $dbconn->Execute("SELECT configuration_key, date_added, last_modified, use_function, set_function FROM " . $oostable['configuration'] . " WHERE configuration_id = '" . $configuration['configuration_id'] . "'");
+        $cfg_extra = $cfg_extra_result->fields;
 
-          $cInfo_array = array_merge($configuration, $cfg_extra);
-          $cInfo = new objectInfo($cInfo_array);
-      }
+        $cInfo_array = array_merge($configuration, $cfg_extra);
+        $cInfo = new objectInfo($cInfo_array);
+    }
 
 
-      if (isset($cInfo) && is_object($cInfo) && ($configuration['configuration_id'] == $cInfo->configuration_id)) {
-          echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=edit') . '\'">' . "\n";
-      } else {
-          echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $configuration['configuration_id']) . '\'">' . "\n";
-      } ?>
+    if (isset($cInfo) && is_object($cInfo) && ($configuration['configuration_id'] == $cInfo->configuration_id)) {
+        echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=edit') . '\'">' . "\n";
+    } else {
+        echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $configuration['configuration_id']) . '\'">' . "\n";
+    } ?>
                 <td><?php echo constant(strtoupper($configuration['configuration_key'] . '_TITLE')); ?></td>
                 <td><?php echo htmlspecialchars((string)$cfgValue, ENT_QUOTES, 'UTF-8'); ?></td>
                 <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($configuration['configuration_id'] == $cInfo->configuration_id)) {
-          echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-      } else {
-          echo '<a href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $configuration['configuration_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-      } ?>&nbsp;</td>
+                    echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+} else {
+                                           echo '<a href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $configuration['configuration_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+                                       } ?>&nbsp;</td>
               </tr>
-<?php
+    <?php
     // Move that ADOdb pointer!
     $configuration_result->MoveNext();
-  }
+}
 ?>
             </table></td>
 <?php
@@ -312,82 +316,82 @@ if (!empty($action)) {
   $contents = [];
 
   switch ($action) {
-    case 'edit':
-      $heading[] = ['text' => '<b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b>'];
+case 'edit':
+    $heading[] = ['text' => '<b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b>'];
 
-        if ($cID == 2 || $cID == 3 || $cID == 4) {
-            $value_field = oos_draw_file_field('site_image') . '<br>' . $cInfo->configuration_value;
-        } else {
-            if ($cInfo->set_function) {
-				
-				// Allowed values for $cInfo->set_function
-				$whitelist = ['oos_cfg_select_option', 'oos_cfg_pull_down_order_statuses', 'oos_cfg_get_order_status_name', 'oos_cfg_pull_down_zone_classes', 'pull_down_country_list'];
+    if ($cID == 2 || $cID == 3 || $cID == 4) {
+        $value_field = oos_draw_file_field('site_image') . '<br>' . $cInfo->configuration_value;
+    } else {
+        if ($cInfo->set_function) {
+                
+            // Allowed values for $cInfo->set_function
+            $whitelist = ['oos_cfg_select_option', 'oos_cfg_pull_down_order_statuses', 'oos_cfg_get_order_status_name', 'oos_cfg_pull_down_zone_classes', 'pull_down_country_list'];
 
-				// Check if $cInfo->set_function is in the whitelist
-				if (in_array ($cInfo->set_function, $whitelist)) {
-					// Evaluation of the code
-					eval('$value_field = ' . $cInfo->set_function . '"' . htmlspecialchars((string)$cInfo->configuration_value, ENT_QUOTES, 'UTF-8') . '");');
-				} else {
-					die ('Invalid value for $cInfo->set_function: '.$cInfo->set_function);
-				}				
+            // Check if $cInfo->set_function is in the whitelist
+            if (in_array($cInfo->set_function, $whitelist)) {
+                // Evaluation of the code
+                eval('$value_field = ' . $cInfo->set_function . '"' . htmlspecialchars((string)$cInfo->configuration_value, ENT_QUOTES, 'UTF-8') . '");');
             } else {
-                $value_field = oos_draw_input_field('configuration_value', $cInfo->configuration_value);
-            }
+                die('Invalid value for $cInfo->set_function: '.$cInfo->set_function);
+            }                
+        } else {
+            $value_field = oos_draw_input_field('configuration_value', $cInfo->configuration_value);
         }
+    }
 
-      $contents = ['form' => oos_draw_form('id', 'configuration', $aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=save', 'post', false, 'enctype="multipart/form-data"')];
-      $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
-      $contents[] = ['text' => '<br><b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b><br>' . constant(strtoupper($cInfo->configuration_key . '_DESC')) . '<br>' . $value_field];
-      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
-      break;
+    $contents = ['form' => oos_draw_form('id', 'configuration', $aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=save', 'post', false, 'enctype="multipart/form-data"')];
+    $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
+    $contents[] = ['text' => '<br><b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b><br>' . constant(strtoupper($cInfo->configuration_key . '_DESC')) . '<br>' . $value_field];
+    $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
+    break;
 
-   default:
-      if (isset($cInfo) && is_object($cInfo)) {
+default:
+    if (isset($cInfo) && is_object($cInfo)) {
           $heading[] = ['text' => '<b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b>'];
           $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>'];
-          if ($cID == 2) {
-              $contents[] = ['text' => '<br>' . oos_info_image('logo/medium/' . $cInfo->configuration_value, $cInfo->configuration_value)];
-          } elseif ($cID == 3) {
-              $contents[] = ['text' => '<br>' . oos_info_image('ico/180x180/' . $cInfo->configuration_value, $cInfo->configuration_value)];
-          } elseif ($cID == 4) {
-              $contents[] = ['text' => '<br>' . oos_info_image('og/medium/' . $cInfo->configuration_value, $cInfo->configuration_value)];
-          }
+        if ($cID == 2) {
+            $contents[] = ['text' => '<br>' . oos_info_image('logo/medium/' . $cInfo->configuration_value, $cInfo->configuration_value)];
+        } elseif ($cID == 3) {
+            $contents[] = ['text' => '<br>' . oos_info_image('ico/180x180/' . $cInfo->configuration_value, $cInfo->configuration_value)];
+        } elseif ($cID == 4) {
+            $contents[] = ['text' => '<br>' . oos_info_image('og/medium/' . $cInfo->configuration_value, $cInfo->configuration_value)];
+        }
           $contents[] = ['text' => '<br>' . constant(strtoupper($cInfo->configuration_key . '_DESC'))];
           $contents[] = ['text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($cInfo->date_added)];
-          if (oos_is_not_null($cInfo->last_modified)) {
-              $contents[] = ['text' => TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($cInfo->last_modified)];
-          }
-      }
-      break;
+        if (oos_is_not_null($cInfo->last_modified)) {
+            $contents[] = ['text' => TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($cInfo->last_modified)];
+        }
+    }
+    break;
   }
 
 
-    if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+  if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
         ?>
-	<td class="w-25" valign="top">
-		<table class="table table-striped">
-<?php
+    <td class="w-25" valign="top">
+        <table class="table table-striped">
+      <?php
         $box = new box();
         echo $box->infoBox($heading, $contents); ?>
-		</table> 
-	</td> 
-<?php
-    }
-?>
+        </table> 
+    </td> 
+      <?php
+  }
+    ?>
           </tr>
         </table>
-	</div>
+    </div>
 <!-- body_text_eof //-->
 
-				</div>
-			</div>
+                </div>
+            </div>
 
-		</div>
-	</section>
-	<!-- Page footer //-->
-	<footer>
-		<span>&copy; <?php echo date('Y'); ?> - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
-	</footer>
+        </div>
+    </section>
+    <!-- Page footer //-->
+    <footer>
+        <span>&copy; <?php echo date('Y'); ?> - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
+    </footer>
 </div>
 
 

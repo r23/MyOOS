@@ -15,13 +15,11 @@ class PayPalConfigManager
 
     /**
      * Configuration Options
-     *
      */
     private float|int|array $configs = [];
 
     /**
      * Singleton Object
-     *
      */
     private static ?\PayPal\Core\PayPalConfigManager $instance = null;
 
@@ -33,8 +31,10 @@ class PayPalConfigManager
         if (defined('PP_CONFIG_PATH')) {
             $configFile = constant('PP_CONFIG_PATH') . '/sdk_config.ini';
         } else {
-            $configFile = implode(DIRECTORY_SEPARATOR,
-                [__DIR__, "..", "config", "sdk_config.ini"]);
+            $configFile = implode(
+                DIRECTORY_SEPARATOR,
+                [__DIR__, "..", "config", "sdk_config.ini"]
+            );
         }
         if (file_exists($configFile)) {
             $this->addConfigFromIni($configFile);
@@ -57,7 +57,7 @@ class PayPalConfigManager
     /**
      * Add Configuration from configuration.ini files
      *
-     * @param string $fileName
+     * @param  string $fileName
      * @return $this
      */
     public function addConfigFromIni($fileName)
@@ -73,7 +73,7 @@ class PayPalConfigManager
      * then the element from the first array will be used and
      * the matching key's element from the second array will be ignored.
      *
-     * @param array $configs
+     * @param  array $configs
      * @return $this
      */
     public function addConfigs($configs = [])
@@ -87,7 +87,7 @@ class PayPalConfigManager
      * If an exact match for key is not found,
      * does a "contains" search on the key
      *
-     * @param string $searchKey
+     * @param  string $searchKey
      * @return array
      */
     public function get($searchKey)
@@ -115,7 +115,7 @@ class PayPalConfigManager
      * If $userId is null, returns config keys corresponding to
      * all configured accounts
      *
-     * @param string|null $userId
+     * @param  string|null $userId
      * @return array|string
      */
     public function getIniPrefix($userId = null)

@@ -25,8 +25,8 @@
  */
 
 /**
-* ensure this file is being included by a parent file
-*/
+ * ensure this file is being included by a parent file
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 if (oos_var_prep_for_os($sContent) != $aContents['account_history_info']) {

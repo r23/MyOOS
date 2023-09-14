@@ -47,7 +47,7 @@ class Error extends PayPalModel
      * Reference ID of the purchase_unit associated with this error
      *
      * @deprecated Not publicly available
-     * @param string $purchase_unit_reference_id
+     * @param      string $purchase_unit_reference_id
      *
      * @return $this
      */
@@ -61,7 +61,7 @@ class Error extends PayPalModel
      * Reference ID of the purchase_unit associated with this error
      *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getPurchaseUnitReferenceId()
     {
@@ -72,7 +72,7 @@ class Error extends PayPalModel
      * PayPal internal error code.
      *
      * @deprecated Not publicly available
-     * @param string $code
+     * @param      string $code
      *
      * @return $this
      */
@@ -86,7 +86,7 @@ class Error extends PayPalModel
      * PayPal internal error code.
      *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getCode()
     {
@@ -188,7 +188,7 @@ class Error extends PayPalModel
     /**
      * Append Details to the list.
      *
-     * @param \PayPal\Api\ErrorDetails $errorDetails
+     * @param  \PayPal\Api\ErrorDetails $errorDetails
      * @return $this
      */
     public function addDetail($errorDetails)
@@ -205,7 +205,7 @@ class Error extends PayPalModel
     /**
      * Remove Details from the list.
      *
-     * @param \PayPal\Api\ErrorDetails $errorDetails
+     * @param  \PayPal\Api\ErrorDetails $errorDetails
      * @return $this
      */
     public function removeDetail($errorDetails)
@@ -219,7 +219,7 @@ class Error extends PayPalModel
      * response codes returned from a payment processor such as avs, cvv, etc. Only supported when the `payment_method` is set to `credit_card`.
      *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\ProcessorResponse $processor_response
+     * @param      \PayPal\Api\ProcessorResponse $processor_response
      *
      * @return $this
      */
@@ -233,7 +233,7 @@ class Error extends PayPalModel
      * response codes returned from a payment processor such as avs, cvv, etc. Only supported when the `payment_method` is set to `credit_card`.
      *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\ProcessorResponse
+     * @return     \PayPal\Api\ProcessorResponse
      */
     public function getProcessorResponse()
     {
@@ -244,7 +244,7 @@ class Error extends PayPalModel
      * Fraud filter details.  Only supported when the `payment_method` is set to `credit_card`
      *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\FmfDetails $fmf_details
+     * @param      \PayPal\Api\FmfDetails $fmf_details
      *
      * @return $this
      */
@@ -258,7 +258,7 @@ class Error extends PayPalModel
      * Fraud filter details.  Only supported when the `payment_method` is set to `credit_card`
      *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\FmfDetails
+     * @return     \PayPal\Api\FmfDetails
      */
     public function getFmfDetails()
     {
@@ -291,7 +291,7 @@ class Error extends PayPalModel
     /**
      * Append Links to the list.
      *
-     * @param \PayPal\Api\Links $links
+     * @param  \PayPal\Api\Links $links
      * @return $this
      */
     public function addLink($links)
@@ -308,7 +308,7 @@ class Error extends PayPalModel
     /**
      * Remove Links from the list.
      *
-     * @param \PayPal\Api\Links $links
+     * @param  \PayPal\Api\Links $links
      * @return $this
      */
     public function removeLink($links)

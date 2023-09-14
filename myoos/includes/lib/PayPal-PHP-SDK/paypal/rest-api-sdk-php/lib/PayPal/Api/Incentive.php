@@ -142,7 +142,7 @@ class Incentive extends PayPalModel
     /**
      * Logo image url for the incentive.
      *
-     * @param string $logo_image_url
+     * @param  string $logo_image_url
      * @throws \InvalidArgumentException
      * @return $this
      */

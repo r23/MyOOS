@@ -214,7 +214,7 @@ class Invoice extends PayPalResourceModel
     /**
      * Append BillingInfo to the list.
      *
-     * @param \PayPal\Api\BillingInfo $billingInfo
+     * @param  \PayPal\Api\BillingInfo $billingInfo
      * @return $this
      */
     public function addBillingInfo($billingInfo)
@@ -231,7 +231,7 @@ class Invoice extends PayPalResourceModel
     /**
      * Remove BillingInfo from the list.
      *
-     * @param \PayPal\Api\BillingInfo $billingInfo
+     * @param  \PayPal\Api\BillingInfo $billingInfo
      * @return $this
      */
     public function removeBillingInfo($billingInfo)
@@ -267,7 +267,7 @@ class Invoice extends PayPalResourceModel
     /**
      * Append CcInfo to the list.
      *
-     * @param \PayPal\Api\Participant $participant
+     * @param  \PayPal\Api\Participant $participant
      * @return $this
      */
     public function addCcInfo($participant)
@@ -284,7 +284,7 @@ class Invoice extends PayPalResourceModel
     /**
      * Remove CcInfo from the list.
      *
-     * @param \PayPal\Api\Participant $participant
+     * @param  \PayPal\Api\Participant $participant
      * @return $this
      */
     public function removeCcInfo($participant)
@@ -343,7 +343,7 @@ class Invoice extends PayPalResourceModel
     /**
      * Append Items to the list.
      *
-     * @param \PayPal\Api\InvoiceItem $invoiceItem
+     * @param  \PayPal\Api\InvoiceItem $invoiceItem
      * @return $this
      */
     public function addItem($invoiceItem)
@@ -360,7 +360,7 @@ class Invoice extends PayPalResourceModel
     /**
      * Remove Items from the list.
      *
-     * @param \PayPal\Api\InvoiceItem $invoiceItem
+     * @param  \PayPal\Api\InvoiceItem $invoiceItem
      * @return $this
      */
     public function removeItem($invoiceItem)
@@ -672,7 +672,7 @@ class Invoice extends PayPalResourceModel
     /**
      * Full URL of an external image to use as the logo. Maximum length is 4000 characters.
      *
-     * @param string $logo_url
+     * @param  string $logo_url
      * @throws \InvalidArgumentException
      * @return $this
      */
@@ -742,7 +742,7 @@ class Invoice extends PayPalResourceModel
     /**
      * Append Payments to the list.
      *
-     * @param \PayPal\Api\PaymentDetail $paymentDetail
+     * @param  \PayPal\Api\PaymentDetail $paymentDetail
      * @return $this
      */
     public function addPayment($paymentDetail)
@@ -759,7 +759,7 @@ class Invoice extends PayPalResourceModel
     /**
      * Remove Payments from the list.
      *
-     * @param \PayPal\Api\PaymentDetail $paymentDetail
+     * @param  \PayPal\Api\PaymentDetail $paymentDetail
      * @return $this
      */
     public function removePayment($paymentDetail)
@@ -795,7 +795,7 @@ class Invoice extends PayPalResourceModel
     /**
      * Append Refunds to the list.
      *
-     * @param \PayPal\Api\RefundDetail $refundDetail
+     * @param  \PayPal\Api\RefundDetail $refundDetail
      * @return $this
      */
     public function addRefund($refundDetail)
@@ -812,7 +812,7 @@ class Invoice extends PayPalResourceModel
     /**
      * Remove Refunds from the list.
      *
-     * @param \PayPal\Api\RefundDetail $refundDetail
+     * @param  \PayPal\Api\RefundDetail $refundDetail
      * @return $this
      */
     public function removeRefund($refundDetail)
@@ -847,8 +847,9 @@ class Invoice extends PayPalResourceModel
 
     /**
      * Any miscellaneous invoice data. Maximum length is 4000 characters.
+     *
      * @deprecated Not publicly available
-     * @param string $additional_data
+     * @param      string $additional_data
      * 
      * @return $this
      */
@@ -860,8 +861,9 @@ class Invoice extends PayPalResourceModel
 
     /**
      * Any miscellaneous invoice data. Maximum length is 4000 characters.
+     *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getAdditionalData()
     {
@@ -940,7 +942,7 @@ class Invoice extends PayPalResourceModel
     /**
      * Append Attachments to the list.
      *
-     * @param \PayPal\Api\FileAttachment $fileAttachment
+     * @param  \PayPal\Api\FileAttachment $fileAttachment
      * @return $this
      */
     public function addAttachment($fileAttachment)
@@ -957,7 +959,7 @@ class Invoice extends PayPalResourceModel
     /**
      * Remove Attachments from the list.
      *
-     * @param \PayPal\Api\FileAttachment $fileAttachment
+     * @param  \PayPal\Api\FileAttachment $fileAttachment
      * @return $this
      */
     public function removeAttachment($fileAttachment)
@@ -970,8 +972,8 @@ class Invoice extends PayPalResourceModel
     /**
      * Creates an invoice. Include invoice details including merchant information in the request.
      *
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return Invoice
      */
     public function create($apiContext = null, $restCall = null)
@@ -992,9 +994,9 @@ class Invoice extends PayPalResourceModel
     /**
      * Searches for an invoice or invoices. Include a search object that specifies your search criteria in the request.
      *
-     * @param Search $search
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  Search         $search
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return InvoiceSearchResponse
      */
     public static function search($search, $apiContext = null, $restCall = null)
@@ -1017,8 +1019,8 @@ class Invoice extends PayPalResourceModel
     /**
      * Sends an invoice, by ID, to a recipient. Optionally, set the `notify_merchant` query parameter to send the merchant an invoice update notification. By default, `notify_merchant` is `true`.
      *
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return bool
      */
     public function send($apiContext = null, $restCall = null)
@@ -1039,9 +1041,9 @@ class Invoice extends PayPalResourceModel
     /**
      * Sends a reminder about a specific invoice, by ID, to a recipient. Include a notification object that defines the reminder subject and other details in the JSON request body.
      *
-     * @param Notification $notification
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  Notification   $notification
+     * @param  ApiContext     $apiContext   is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall     is the Rest Call Service that is used to make rest calls
      * @return bool
      */
     public function remind($notification, $apiContext = null, $restCall = null)
@@ -1063,9 +1065,9 @@ class Invoice extends PayPalResourceModel
     /**
      * Cancels an invoice, by ID.
      *
-     * @param CancelNotification $cancelNotification
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  CancelNotification $cancelNotification
+     * @param  ApiContext         $apiContext         is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall     $restCall           is the Rest Call Service that is used to make rest calls
      * @return bool
      */
     public function cancel($cancelNotification, $apiContext = null, $restCall = null)
@@ -1087,9 +1089,9 @@ class Invoice extends PayPalResourceModel
     /**
      * Marks the status of a specified invoice, by ID, as paid. Include a payment detail object that defines the payment method and other details in the JSON request body.
      *
-     * @param PaymentDetail $paymentDetail
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  PaymentDetail  $paymentDetail
+     * @param  ApiContext     $apiContext    is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall      is the Rest Call Service that is used to make rest calls
      * @return bool
      */
     public function recordPayment($paymentDetail, $apiContext = null, $restCall = null)
@@ -1111,9 +1113,9 @@ class Invoice extends PayPalResourceModel
     /**
      * Marks the status of a specified invoice, by ID, as refunded. Include a refund detail object that defines the refund type and other details in the JSON request body.
      *
-     * @param RefundDetail $refundDetail
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  RefundDetail   $refundDetail
+     * @param  ApiContext     $apiContext   is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall     is the Rest Call Service that is used to make rest calls
      * @return bool
      */
     public function recordRefund($refundDetail, $apiContext = null, $restCall = null)
@@ -1135,9 +1137,9 @@ class Invoice extends PayPalResourceModel
     /**
      * Gets the details for a specified invoice, by ID.
      *
-     * @param string $invoiceId
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  string         $invoiceId
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return Invoice
      */
     public static function get($invoiceId, $apiContext = null, $restCall = null)
@@ -1160,9 +1162,9 @@ class Invoice extends PayPalResourceModel
     /**
      * Lists some or all merchant invoices. Filters the response by any specified optional query string parameters.
      *
-     * @param array $params
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  array          $params
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return InvoiceSearchResponse
      */
     public static function getAll($params = [], $apiContext = null, $restCall = null)
@@ -1188,8 +1190,8 @@ class Invoice extends PayPalResourceModel
     /**
      * Fully updates an invoice by passing the invoice ID to the request URI. In addition, pass a complete invoice object in the request JSON. Partial updates are not supported.
      *
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return Invoice
      */
     public function update($apiContext = null, $restCall = null)
@@ -1211,8 +1213,8 @@ class Invoice extends PayPalResourceModel
     /**
      * Delete a particular invoice by passing the invoice ID to the request URI.
      *
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return bool
      */
     public function delete($apiContext = null, $restCall = null)
@@ -1233,8 +1235,8 @@ class Invoice extends PayPalResourceModel
     /**
      * Delete external payment.
      *
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return bool
      */
     public function deleteExternalPayment($transactionId, $apiContext = null, $restCall = null)
@@ -1256,8 +1258,8 @@ class Invoice extends PayPalResourceModel
     /**
      * Delete external refund.
      *
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return bool
      */
     public function deleteExternalRefund($transactionId, $apiContext = null, $restCall = null)
@@ -1279,10 +1281,10 @@ class Invoice extends PayPalResourceModel
     /**
      * Generate a QR code for an invoice by passing the invoice ID to the request URI. The request generates a QR code that is 500 pixels in width and height. You can change the dimensions of the returned code by specifying optional query parameters.
      *
-     * @param array $params
-     * @param string $invoiceId
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  array          $params
+     * @param  string         $invoiceId
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return Image
      */
     public static function qrCode($invoiceId, $params = [], $apiContext = null, $restCall = null)
@@ -1309,8 +1311,8 @@ class Invoice extends PayPalResourceModel
     /**
      * Generates the successive invoice number.
      *
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @param  ApiContext     $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param  PayPalRestCall $restCall   is the Rest Call Service that is used to make rest calls
      * @return InvoiceNumber
      */
     public static function generateNumber($apiContext = null, $restCall = null)

@@ -8,6 +8,7 @@ use PayPal\Common\PayPalModel;
  * Class BankAccount
  * 
  * A resource representing a bank account that can be used to fund a payment.
+ *
  * @deprecated Deprecated. It is for internal use only. It may be removed in next major revision.
  *
  * @package PayPal\Api
@@ -40,8 +41,9 @@ class BankAccount extends PayPalModel
 {
     /**
      * ID of the bank account being saved for later use.
+     *
      * @deprecated Not publicly available
-     * @param string $id
+     * @param      string $id
      * 
      * @return $this
      */
@@ -53,8 +55,9 @@ class BankAccount extends PayPalModel
 
     /**
      * ID of the bank account being saved for later use.
+     *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getId()
     {
@@ -449,7 +452,7 @@ class BankAccount extends PayPalModel
     }
 
     /**
-     * @deprecated  [DEPRECATED] Use external_customer_id instead.
+     * @deprecated [DEPRECATED] Use external_customer_id instead.
      *
      * @return string
      */
@@ -599,7 +602,7 @@ class BankAccount extends PayPalModel
     /**
      * Append Links to the list.
      *
-     * @param \PayPal\Api\Links $links
+     * @param  \PayPal\Api\Links $links
      * @return $this
      */
     public function addLink($links)
@@ -616,7 +619,7 @@ class BankAccount extends PayPalModel
     /**
      * Remove Links from the list.
      *
-     * @param \PayPal\Api\Links $links
+     * @param  \PayPal\Api\Links $links
      * @return $this
      */
     public function removeLink($links)

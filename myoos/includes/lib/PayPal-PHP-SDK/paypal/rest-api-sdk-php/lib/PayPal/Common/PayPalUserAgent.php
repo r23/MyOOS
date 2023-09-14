@@ -15,8 +15,8 @@ class PayPalUserAgent
      * Returns the value of the User-Agent header
      * Add environment values and php version numbers
      *
-     * @param string $sdkName
-     * @param string $sdkVersion
+     * @param  string $sdkName
+     * @param  string $sdkVersion
      * @return string
      */
     public static function getValue($sdkName, $sdkVersion)

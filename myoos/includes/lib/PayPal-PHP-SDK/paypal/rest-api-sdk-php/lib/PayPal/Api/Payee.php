@@ -64,8 +64,9 @@ class Payee extends PayPalModel
 
     /**
      * First Name of the Payee.
+     *
      * @deprecated Not publicly available
-     * @param string $first_name
+     * @param      string $first_name
      * 
      * @return $this
      */
@@ -77,8 +78,9 @@ class Payee extends PayPalModel
 
     /**
      * First Name of the Payee.
+     *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getFirstName()
     {
@@ -87,8 +89,9 @@ class Payee extends PayPalModel
 
     /**
      * Last Name of the Payee.
+     *
      * @deprecated Not publicly available
-     * @param string $last_name
+     * @param      string $last_name
      * 
      * @return $this
      */
@@ -100,8 +103,9 @@ class Payee extends PayPalModel
 
     /**
      * Last Name of the Payee.
+     *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getLastName()
     {
@@ -110,8 +114,9 @@ class Payee extends PayPalModel
 
     /**
      * Unencrypted PayPal account Number of the Payee
+     *
      * @deprecated Not publicly available
-     * @param string $account_number
+     * @param      string $account_number
      * 
      * @return $this
      */
@@ -123,8 +128,9 @@ class Payee extends PayPalModel
 
     /**
      * Unencrypted PayPal account Number of the Payee
+     *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getAccountNumber()
     {
@@ -133,8 +139,9 @@ class Payee extends PayPalModel
 
     /**
      * Information related to the Payee.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\Phone $phone
+     * @param      \PayPal\Api\Phone $phone
      * 
      * @return $this
      */
@@ -146,8 +153,9 @@ class Payee extends PayPalModel
 
     /**
      * Information related to the Payee.
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\Phone
+     * @return     \PayPal\Api\Phone
      */
     public function getPhone()
     {

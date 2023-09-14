@@ -88,15 +88,17 @@ class TestLogger extends AbstractLogger
         if (is_string($record)) {
             $record = ['message' => $record];
         }
-        return $this->hasRecordThatPasses(function ($rec) use ($record) {
-            if ($rec['message'] !== $record['message']) {
-                return false;
-            }
-            if (isset($record['context']) && $rec['context'] !== $record['context']) {
-                return false;
-            }
-            return true;
-        }, $level);
+        return $this->hasRecordThatPasses(
+            function ($rec) use ($record) {
+                if ($rec['message'] !== $record['message']) {
+                    return false;
+                }
+                if (isset($record['context']) && $rec['context'] !== $record['context']) {
+                    return false;
+                }
+                return true;
+            }, $level
+        );
     }
 
     public function hasRecordThatContains($message, $level)

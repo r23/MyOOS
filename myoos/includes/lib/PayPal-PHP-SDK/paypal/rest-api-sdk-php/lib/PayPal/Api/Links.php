@@ -7,8 +7,6 @@ use PayPal\Common\PayPalModel;
 /**
  * Class Links
  *
- * 
- *
  * @package PayPal\Api
  *
  * @property string href

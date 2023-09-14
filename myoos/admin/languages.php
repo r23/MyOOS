@@ -709,7 +709,7 @@ if (!empty($action)) {
 }
   $lang_select_array = [['id' => '0', 'text' => TEXT_ALL_LANGUAGES], ['id' => '1', 'text' => TEXT_ACTIVE_LANGUAGES]];
   require 'includes/header.php';
-    ?>
+?>
 <div class="wrapper">
     <!-- Header //-->
     <header class="topnavbar-wrapper">
@@ -805,10 +805,10 @@ while ($languages = $languages_result->fields) {
     } ?></td>
 
                 <td class="text-right"><?php if (isset($lInfo) && is_object($lInfo) && ($languages['languages_id'] == $lInfo->languages_id)) {
-        echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-    } else {
-        echo '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $languages['languages_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-    } ?>&nbsp;</td>
+                    echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+} else {
+                                           echo '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $languages['languages_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+                                       } ?>&nbsp;</td>
               </tr>
     <?php
     // Move that ADOdb pointer!
@@ -894,12 +894,12 @@ default:
   }
 
   if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
-      ?>
+        ?>
     <td class="w-25" valign="top">
         <table class="table table-striped">
       <?php
         $box = new box();
-      echo $box->infoBox($heading, $contents); ?>
+        echo $box->infoBox($heading, $contents); ?>
         </table> 
     </td> 
       <?php

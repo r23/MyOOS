@@ -209,7 +209,7 @@ class PaymentDefinition extends PayPalModel
     /**
      * Append ChargeModels to the list.
      *
-     * @param \PayPal\Api\ChargeModel $chargeModel
+     * @param  \PayPal\Api\ChargeModel $chargeModel
      * @return $this
      */
     public function addChargeModel($chargeModel)
@@ -226,7 +226,7 @@ class PaymentDefinition extends PayPalModel
     /**
      * Remove ChargeModels from the list.
      *
-     * @param \PayPal\Api\ChargeModel $chargeModel
+     * @param  \PayPal\Api\ChargeModel $chargeModel
      * @return $this
      */
     public function removeChargeModel($chargeModel)

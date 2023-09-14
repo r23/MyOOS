@@ -61,16 +61,16 @@ function smarty_function_oos_address_format($params, &$smarty)
     $address_format = $dbconn->GetRow($query);
 
 
-	$company = (isset($address['company'])) ? oos_db_output($address['company']) : '';
-	$firstname = (isset($address['firstname'])) ? oos_db_output($address['firstname']) : '';
-	$lastname = (isset($address['lastname'])) ? oos_db_output($address['lastname']) : '';
-	$street = (isset($address['street_address'])) ? oos_db_output($address['street_address']) : '';	
-	$city = (isset($address['city'])) ? oos_db_output($address['city']) : '';
-	$state = (isset($address['state'])) ? oos_db_output($address['state']) : '';
-	$country_id = (isset($address['country_id'])) ? intval($address['country_id']) : STORE_COUNTRY;
-	$country_id = (isset($address['country_id'])) ? intval($address['country_id']) : STORE_COUNTRY;	
-	$zone_id = (isset($address['zone_id'])) ? oos_db_output($address['zone_id']) : '';	
-	$zip = (isset($address['postcode'])) ? oos_db_output($address['postcode']) : '';
+    $company = (isset($address['company'])) ? oos_db_output($address['company']) : '';
+    $firstname = (isset($address['firstname'])) ? oos_db_output($address['firstname']) : '';
+    $lastname = (isset($address['lastname'])) ? oos_db_output($address['lastname']) : '';
+    $street = (isset($address['street_address'])) ? oos_db_output($address['street_address']) : '';    
+    $city = (isset($address['city'])) ? oos_db_output($address['city']) : '';
+    $state = (isset($address['state'])) ? oos_db_output($address['state']) : '';
+    $country_id = (isset($address['country_id'])) ? intval($address['country_id']) : STORE_COUNTRY;
+    $country_id = (isset($address['country_id'])) ? intval($address['country_id']) : STORE_COUNTRY;    
+    $zone_id = (isset($address['zone_id'])) ? oos_db_output($address['zone_id']) : '';    
+    $zip = (isset($address['postcode'])) ? oos_db_output($address['postcode']) : '';
 
     $country = oos_get_country_name($country_id);
     $state = oos_get_zone_code($country_id, $zone_id, $state);
@@ -98,10 +98,10 @@ function smarty_function_oos_address_format($params, &$smarty)
     $statecomma = '';
     $streets = $street;
     if ($firstname == '') {
-		$firstname = (isset($address['name'])) ? oos_db_output($address['name']) : '';
+        $firstname = (isset($address['name'])) ? oos_db_output($address['name']) : '';
     }
     if ($country == '') {
-		$country = (isset($address['country'])) ? oos_db_output($address['country']) : '';
+        $country = (isset($address['country'])) ? oos_db_output($address['country']) : '';
     }
     if ($state != '') {
         $statecomma = $state . ', ';

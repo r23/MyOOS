@@ -23,7 +23,7 @@ class OpenIdTokeninfo extends PayPalResourceModel
     /**
      * OPTIONAL, if identical to the scope requested by the client; otherwise, REQUIRED.
      *
-     * @param string $scope
+     * @param  string $scope
      * @return self
      */
     public function setScope($scope)
@@ -45,7 +45,7 @@ class OpenIdTokeninfo extends PayPalResourceModel
     /**
      * The access token issued by the authorization server.
      *
-     * @param string $access_token
+     * @param  string $access_token
      * @return self
      */
     public function setAccessToken($access_token)
@@ -67,7 +67,7 @@ class OpenIdTokeninfo extends PayPalResourceModel
     /**
      * The refresh token, which can be used to obtain new access tokens using the same authorization grant as described in OAuth2.0 RFC6749 in Section 6.
      *
-     * @param string $refresh_token
+     * @param  string $refresh_token
      * @return self
      */
     public function setRefreshToken($refresh_token)
@@ -89,7 +89,7 @@ class OpenIdTokeninfo extends PayPalResourceModel
     /**
      * The type of the token issued as described in OAuth2.0 RFC6749 (Section 7.1).  Value is case insensitive.
      *
-     * @param string $token_type
+     * @param  string $token_type
      * @return self
      */
     public function setTokenType($token_type)
@@ -111,7 +111,7 @@ class OpenIdTokeninfo extends PayPalResourceModel
     /**
      * The id_token is a session token assertion that denotes the user's authentication status
      *
-     * @param string $id_token
+     * @param  string $id_token
      * @return self
      */
     public function setIdToken($id_token)
@@ -133,7 +133,7 @@ class OpenIdTokeninfo extends PayPalResourceModel
     /**
      * The lifetime in seconds of the access token.
      *
-     * @param integer $expires_in
+     * @param  integer $expires_in
      * @return self
      */
     public function setExpiresIn($expires_in)
@@ -156,19 +156,19 @@ class OpenIdTokeninfo extends PayPalResourceModel
     /**
      * Creates an Access Token from an Authorization Code.
      *
-     * @path /v1/identity/openidconnect/tokenservice
+     * @path   /v1/identity/openidconnect/tokenservice
      * @method POST
-     * @param array        $params     (allowed values are client_id, client_secret, grant_type, code and redirect_uri)
-     *                                 (required) client_id from developer portal
-     *                                 (required) client_secret from developer portal
-     *                                 (required) code is Authorization code previously received from the authorization server
-     *                                 (required) redirect_uri Redirection endpoint that must match the one provided during the
-     *                                 authorization request that ended in receiving the authorization code.
-     *                                 (optional) grant_type is the Token grant type. Defaults to authorization_code
-     * @param string $clientId
-     * @param string $clientSecret
-     * @param ApiContext $apiContext Optional API Context
-     * @param PayPalRestCall $restCall
+     * @param  array          $params       (allowed values are client_id, client_secret, grant_type, code and redirect_uri)
+     *                                      (required) client_id from developer portal (required) client_secret from
+     *                                      developer portal (required) code is Authorization code previously received from
+     *                                      the authorization server (required) redirect_uri Redirection endpoint that must
+     *                                      match the one provided during the authorization request that ended in receiving
+     *                                      the authorization code. (optional) grant_type is the Token grant type. Defaults
+     *                                      to authorization_code
+     * @param  string         $clientId
+     * @param  string         $clientSecret
+     * @param  ApiContext     $apiContext   Optional API Context
+     * @param  PayPalRestCall $restCall
      * @return OpenIdTokeninfo
      */
     public static function createFromAuthorizationCode($params, $clientId = null, $clientSecret = null, $apiContext = null, $restCall = null)
@@ -207,16 +207,21 @@ class OpenIdTokeninfo extends PayPalResourceModel
     /**
      * Creates an Access Token from an Refresh Token.
      *
-     * @path /v1/identity/openidconnect/tokenservice
+     * @path   /v1/identity/openidconnect/tokenservice
      * @method POST
-     * @param array      $params     (allowed values are grant_type and scope)
-     *                               (required) client_id from developer portal
-     *                               (required) client_secret from developer portal
-     *                               (optional) refresh_token refresh token. If one is not passed, refresh token from the current object is used.
-     *                               (optional) grant_type is the Token grant type. Defaults to refresh_token
-     *                               (optional) scope is an array that either the same or a subset of the scope passed to the authorization request
-     * @param APIContext $apiContext Optional API Context
-     * @param PayPalRestCall $restCall
+     * @param  array          $params     (allowed values are grant_type and scope)
+     *                                    (required) client_id from developer
+     *                                    portal (required) client_secret from
+     *                                    developer portal (optional) refresh_token
+     *                                    refresh token. If one is not passed,
+     *                                    refresh token from the current object is
+     *                                    used. (optional) grant_type is the Token
+     *                                    grant type. Defaults to refresh_token
+     *                                    (optional) scope is an array that either
+     *                                    the same or a subset of the scope passed
+     *                                    to the authorization request
+     * @param  APIContext     $apiContext Optional API Context
+     * @param  PayPalRestCall $restCall
      * @return OpenIdTokeninfo
      */
     public function createFromRefreshToken($params, $apiContext = null, $restCall = null)

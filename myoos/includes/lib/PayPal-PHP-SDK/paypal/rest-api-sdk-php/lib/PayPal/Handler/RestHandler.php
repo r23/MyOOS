@@ -29,9 +29,9 @@ class RestHandler implements IPayPalHandler
     }
 
     /**
-     * @param PayPalHttpConfig $httpConfig
-     * @param string                    $request
-     * @param mixed                     $options
+     * @param  PayPalHttpConfig $httpConfig
+     * @param  string           $request
+     * @param  mixed            $options
      * @return mixed|void
      * @throws PayPalConfigurationException
      * @throws PayPalInvalidCredentialException

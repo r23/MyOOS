@@ -193,7 +193,7 @@ class Item extends PayPalModel
     /**
      * URL linking to item information. Available to payer in transaction history.
      *
-     * @param string $url
+     * @param  string $url
      * @throws \InvalidArgumentException
      * @return $this
      */
@@ -217,8 +217,9 @@ class Item extends PayPalModel
     /**
      * Category type of the item.
      * Valid Values: ["DIGITAL", "PHYSICAL"]
+     *
      * @deprecated Not publicly available
-     * @param string $category
+     * @param      string $category
      * 
      * @return $this
      */
@@ -230,8 +231,9 @@ class Item extends PayPalModel
 
     /**
      * Category type of the item.
+     *
      * @deprecated Not publicly available
-     * @return string
+     * @return     string
      */
     public function getCategory()
     {
@@ -240,8 +242,9 @@ class Item extends PayPalModel
 
     /**
      * Weight of the item.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\Measurement $weight
+     * @param      \PayPal\Api\Measurement $weight
      * 
      * @return $this
      */
@@ -253,8 +256,9 @@ class Item extends PayPalModel
 
     /**
      * Weight of the item.
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\Measurement
+     * @return     \PayPal\Api\Measurement
      */
     public function getWeight()
     {
@@ -263,8 +267,9 @@ class Item extends PayPalModel
 
     /**
      * Length of the item.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\Measurement $length
+     * @param      \PayPal\Api\Measurement $length
      * 
      * @return $this
      */
@@ -276,8 +281,9 @@ class Item extends PayPalModel
 
     /**
      * Length of the item.
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\Measurement
+     * @return     \PayPal\Api\Measurement
      */
     public function getLength()
     {
@@ -286,8 +292,9 @@ class Item extends PayPalModel
 
     /**
      * Height of the item.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\Measurement $height
+     * @param      \PayPal\Api\Measurement $height
      * 
      * @return $this
      */
@@ -299,8 +306,9 @@ class Item extends PayPalModel
 
     /**
      * Height of the item.
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\Measurement
+     * @return     \PayPal\Api\Measurement
      */
     public function getHeight()
     {
@@ -309,8 +317,9 @@ class Item extends PayPalModel
 
     /**
      * Width of the item.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\Measurement $width
+     * @param      \PayPal\Api\Measurement $width
      * 
      * @return $this
      */
@@ -322,8 +331,9 @@ class Item extends PayPalModel
 
     /**
      * Width of the item.
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\Measurement
+     * @return     \PayPal\Api\Measurement
      */
     public function getWidth()
     {
@@ -332,8 +342,9 @@ class Item extends PayPalModel
 
     /**
      * Set of optional data used for PayPal risk determination.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\NameValuePair[] $supplementary_data
+     * @param      \PayPal\Api\NameValuePair[] $supplementary_data
      * 
      * @return $this
      */
@@ -345,8 +356,9 @@ class Item extends PayPalModel
 
     /**
      * Set of optional data used for PayPal risk determination.
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\NameValuePair[]
+     * @return     \PayPal\Api\NameValuePair[]
      */
     public function getSupplementaryData()
     {
@@ -355,9 +367,10 @@ class Item extends PayPalModel
 
     /**
      * Append SupplementaryData to the list.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\NameValuePair $nameValuePair
-     * @return $this
+     * @param      \PayPal\Api\NameValuePair $nameValuePair
+     * @return     $this
      */
     public function addSupplementaryData($nameValuePair)
     {
@@ -372,9 +385,10 @@ class Item extends PayPalModel
 
     /**
      * Remove SupplementaryData from the list.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\NameValuePair $nameValuePair
-     * @return $this
+     * @param      \PayPal\Api\NameValuePair $nameValuePair
+     * @return     $this
      */
     public function removeSupplementaryData($nameValuePair)
     {
@@ -385,8 +399,9 @@ class Item extends PayPalModel
 
     /**
      * Set of optional data used for PayPal post-transaction notifications.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\NameValuePair[] $postback_data
+     * @param      \PayPal\Api\NameValuePair[] $postback_data
      * 
      * @return $this
      */
@@ -398,8 +413,9 @@ class Item extends PayPalModel
 
     /**
      * Set of optional data used for PayPal post-transaction notifications.
+     *
      * @deprecated Not publicly available
-     * @return \PayPal\Api\NameValuePair[]
+     * @return     \PayPal\Api\NameValuePair[]
      */
     public function getPostbackData()
     {
@@ -408,9 +424,10 @@ class Item extends PayPalModel
 
     /**
      * Append PostbackData to the list.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\NameValuePair $nameValuePair
-     * @return $this
+     * @param      \PayPal\Api\NameValuePair $nameValuePair
+     * @return     $this
      */
     public function addPostbackData($nameValuePair)
     {
@@ -425,9 +442,10 @@ class Item extends PayPalModel
 
     /**
      * Remove PostbackData from the list.
+     *
      * @deprecated Not publicly available
-     * @param \PayPal\Api\NameValuePair $nameValuePair
-     * @return $this
+     * @param      \PayPal\Api\NameValuePair $nameValuePair
+     * @return     $this
      */
     public function removePostbackData($nameValuePair)
     {
