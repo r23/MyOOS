@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-09-07 15:08:28+0000\n"
+"PO-Revision-Date: 2023-09-14 08:02:12+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,7 +19,7 @@ msgstr "seo"
 #: includes/modules/content-ai/blocks/command/assets/src/block.json
 msgctxt "block keyword"
 msgid "content ai"
-msgstr "inhalts-ki"
+msgstr "inhalt-ki"
 
 #: includes/modules/content-ai/blocks/command/assets/src/block.json
 msgctxt "block keyword"
@@ -44,12 +44,12 @@ msgstr "ki"
 #: includes/modules/content-ai/blocks/command/assets/src/block.json
 msgctxt "block description"
 msgid "Generate content without any hassle, powered by Rank Math's Content AI."
-msgstr "Generiere mühelos Inhalte, unterstützt durch die Inhalts-KI von Rank Math."
+msgstr "Generiere mühelos Inhalte, unterstützt durch die Inhalt-KI von Rank Math."
 
 #: includes/modules/content-ai/blocks/command/assets/src/block.json
 msgctxt "block title"
 msgid "AI Assistant [Content AI]"
-msgstr "KI-Assistent [Inhalts-KI]"
+msgstr "KI-Assistent [Inhalt-KI]"
 
 #. translators: 1. Credits left 2. Buy more credits link
 #: includes/modules/content-ai/views/options.php:200
@@ -58,7 +58,7 @@ msgstr "%1$s Guthaben sind diesen Monat übrig. Guthaben werden nächsten Monat 
 
 #: includes/modules/content-ai/views/options.php:182
 msgid "Choose the type of posts/pages/CPTs where you want to use Content AI."
-msgstr "Wähle die Art von Beiträgen/Seiten/CPTs, für die du Inhalts-KI verwenden möchtest."
+msgstr "Wähle die Art von Beiträgen/Seiten/CPTs, für die du Inhalt-KI verwenden möchtest."
 
 #: includes/modules/content-ai/views/options.php:167
 msgid "Enable this feature to fix the grammatical errors on the fly while content is being written/generated."
@@ -178,7 +178,7 @@ msgstr "English"
 
 #: includes/modules/content-ai/views/options.php:126
 msgid "This option lets you set the default language for content generated using Content AI. You can override this in individual tools."
-msgstr "Mit dieser Option kannst du die Standardsprache für mit Inhalts-KI erstellte Inhalte festlegen. Du kannst dies in den einzelnen Werkzeugen außer Kraft setzen."
+msgstr "Mit dieser Option kannst du die Standardsprache für mit Inhalt-KI erstellte Inhalte festlegen. Du kannst dies in den einzelnen Werkzeugen außer Kraft setzen."
 
 #: includes/modules/content-ai/views/options.php:125
 msgid "Default Language"
@@ -474,15 +474,15 @@ msgstr "Standard-Ton"
 
 #: includes/modules/content-ai/views/options.php:19
 msgid "Content AI tailors keyword research to the target country for highly relevant suggestions. You can override this in individual posts/pages/CPTs."
-msgstr "Inhalts-KI schneidet die Schlüsselwort-Recherche auf das Zielland zu und liefert hochrelevante Vorschläge. Du kannst dies in einzelnen Beiträgen/Seiten/CPTs außer Kraft setzen."
+msgstr "Inhalt-KI schneidet die Schlüsselwort-Recherche auf das Zielland zu und liefert hochrelevante Vorschläge. Du kannst dies in einzelnen Beiträgen/Seiten/CPTs außer Kraft setzen."
 
 #: includes/modules/content-ai/class-content-ai-page.php:272
 msgid "Content AI History"
-msgstr "Inhalts-KI Historie"
+msgstr "Inhalt-KI Historie"
 
 #: includes/modules/content-ai/class-content-ai-page.php:266
 msgid "Content AI Chat"
-msgstr "Inhalts-KI Chat"
+msgstr "Inhalt-KI Chat"
 
 #: includes/modules/content-ai/class-content-ai-page.php:264
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
@@ -491,16 +491,16 @@ msgstr "Chat"
 
 #: includes/modules/content-ai/class-content-ai-page.php:260
 msgid "Content AI Editor"
-msgstr "Inhalts-KI Editor"
+msgstr "Inhalt-KI Editor"
 
 #: includes/modules/content-ai/class-content-ai-page.php:258
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 msgid "Content Editor"
-msgstr "Inhalts Editor"
+msgstr "Inhalt Editor"
 
 #: includes/modules/content-ai/class-content-ai-page.php:254
 msgid "Content AI Tools"
-msgstr "Inhalts-KI Werkzeuge"
+msgstr "Inhalt-KI Werkzeuge"
 
 #: includes/modules/content-ai/class-content-ai-page.php:252
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
@@ -525,12 +525,12 @@ msgstr "Schreibe SEO-Titel mit KI"
 
 #: includes/modules/content-ai/class-content-ai-page.php:169
 msgid "&#8595; Rank Math Content AI"
-msgstr "&#8595; Rank Math Inhalts-KI"
+msgstr "&#8595; Rank Math Inhalt-KI"
 
 #. Translators: placeholder is the new label.
 #: includes/modules/content-ai/class-content-ai-page.php:129
 msgid "Content AI %s"
-msgstr "Inhalts-KI %s"
+msgstr "Inhalt-KI %s"
 
 #: includes/modules/content-ai/class-content-ai-page.php:79
 msgid "Credits Remaining: "
@@ -578,7 +578,7 @@ msgstr "Hoppla! Zu viele Anfragen in kurzer Zeit. Bitte versuche es nach einiger
 
 #: includes/helpers/class-content-ai.php:413
 msgid "This feature is only available for Content AI subscribers."
-msgstr "Diese Funktion ist nur für Inhalts-KI Abonnenten verfügbar."
+msgstr "Diese Funktion ist nur für Inhalt-KI Abonnenten verfügbar."
 
 #: includes/helpers/class-content-ai.php:412
 msgid "Please update the Rank Math SEO plugin to the latest version to use this feature."
@@ -586,7 +586,7 @@ msgstr "Bitte aktualisiere das Rank Math SEO-Plugin auf die neueste Version, um 
 
 #: includes/helpers/class-content-ai.php:411
 msgid "Please connect your account to use the Content AI."
-msgstr "Bitte verbinde dein Konto, um die Inhalts-KI zu nutzen."
+msgstr "Bitte verbinde dein Konto, um die Inhalt-KI zu nutzen."
 
 #. translators: %s: Allowed tags
 #: includes/settings/general/webmaster.php:94
@@ -609,7 +609,7 @@ msgstr "Bitte aktualisieren"
 #. Translators: link to the update page.
 #: includes/modules/content-ai/class-rest.php:445
 msgid "There is a new version of Content AI available! %s the Rank Math SEO plugin to use this feature."
-msgstr "Es ist eine neue Version der Inhalts-KI verfügbar! %s das Rank Math SEO Plugin, um diese Funktion zu nutzen."
+msgstr "Es ist eine neue Version der Inhalt-KI verfügbar! %s das Rank Math SEO Plugin, um diese Funktion zu nutzen."
 
 #: includes/modules/redirections/class-form.php:240
 msgid "The redirection you are trying to update may cause an infinite loop. Please check the source and destination URLs."
@@ -1720,7 +1720,7 @@ msgstr "Für das recherchierte Schlüsselwort wurden keine Daten gefunden."
 
 #: includes/modules/content-ai/class-rest.php:198
 msgid "Content AI is not enabled on this Post type."
-msgstr "Inhalts-KI ist für diesen Beitragstyp nicht aktiviert."
+msgstr "Inhalt-KI ist für diesen Beitragstyp nicht aktiviert."
 
 #: includes/modules/content-ai/class-rest.php:163
 msgid "Sorry, only authenticated users can research the keyword."
@@ -1747,7 +1747,7 @@ msgstr "Erhalte ausgefeilte KI-Vorschläge für verwandte Schlüsselwörter, Fra
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 #: includes/modules/content-ai/assets/js/content-ai.js:1
 msgid "Content AI"
-msgstr "Inhalts-KI"
+msgstr "Inhalt-KI"
 
 #: includes/helpers/class-choices.php:730
 msgid "Viet Nam"
