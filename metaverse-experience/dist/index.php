@@ -23,21 +23,12 @@ $nonce = bin2hex(random_bytes(16));
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=no,maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, maximum-scale=1">
     <title>Web-Based Virtual Experiences in the Metaverse</title>
 	
-	<!-- Bootstrap Bootswatch theme CSS - other themes available here: https://bootswatch.com -->
+	<!-- Bootstrap -->
 	<link rel="stylesheet" href="themes/metaverse/css/vr-commerce.min.css" />
 
-  <!-- Font Awesome -->
-  <?php
-  //   <link rel="stylesheet" href="assets/css/font-awesome-4.7.0/css/font-awesome.min.css" />
-  ?>
-
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="themes/metaverse/css/style.css" />
-
-<link rel="stylesheet" href="themes/metaverse/css/preloader.css" />
 	<!-- Bootstrap JS Dependencies -->
 	<script nonce="<?php echo $nonce; ?>" src="themes/metaverse/js/vendor.min.js"></script>
 
@@ -61,38 +52,118 @@ $nonce = bin2hex(random_bytes(16));
    	<script nonce="<?php echo $nonce; ?>" src="static/js/477.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/main.js"></script>
 
+<style>
+body, html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background-color: #232323;
+}
+
+body.AR-container {
+  margin : 0px; 
+  overflow: hidden;
+  background-color: none;
+}
+
+#splash {
+  position: fixed;
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  
+  margin: auto;
+
+  font-size: 14px;
+  font-family: sans-serif;
+  color: #fff;
+
+  background-color: rgba(0, 0, 0, .99);
+  transition: all 1s ease-out;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+#splash .loading {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 0.25rem solid rgba(255, 255, 255, 0.2);
+  border-top-color: #fff;
+  animation: spin 1s infinite linear;
+}
+
+#splash .start-button {
+  padding: 10px 30px;
+  border-radius: 3px;
+  opacity: 0;
+  transition: opacity .5s ease;
+  cursor: pointer;
+  background-color: #292929;
+  letter-spacing: 1px;
+}
+
+.controlKeys {
+  position: absolute;
+  width: 7rem;
+  left: 5%;
+  bottom: 13%;
+}
+
+</style>
+
   </head>
 <body>
 
-<div id="preloader-modal" class="modal instructions-modal" tabindex="-1" role="dialog" style="display: none;">
-  <div class="modal-dialog modal-dialog__full" role="document">
-    <div class="modal-content vertical-align text-center">
-      <div class="col-md-6 col-md-offset-3">
-        <div class="row">
-          <div class="col-xs-12">
-            <i class="preloader-modal__ok fa fa-check fa-5x text-success" aria-hidden="true"></i>
-            <i class="preloader-modal__spinner fa fa-cog fa-spin fa-5x fa-fw text-muted" aria-hidden="true"></i>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12">
-            <span class="progress-label">Loading 0%</span>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12">
-            <button type="button" class="btn btn-default clearfix" data-dismiss="modal">Start</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+	<div id="splash">
+		<div class="loading"></div>
+		<div class="start-button">Start</div>
+			<div class="container-fluid ">
+				<div class="row">
+					<div class="col px-5" style="position: relative; margin-top: 400px;">
+						<div style="position: absolute; bottom: 0;">
+							<h1>MyOOS Immersive-Showroom</h2>
+							<p>Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die 
+							Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines 
+							großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und 
+							versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem 
+							gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion 
+							werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber 
+							beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die 
+							weite Grammatik.</p>
+						</div>
+					</div>
+				<div class="col-4">
+				</div>
+				<div class="col px-5" style="position: relative; margin-top: 400px;">
+					<div style="position: absolute; bottom: 0;">
+						<img class="controlKeys" src="image/key_controls.png" alt="control keys">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-	<!-- slowLoad: true is only for demo purposes -->
-	<a-scene nonce="<?php echo $nonce; ?>" embedded="false" vr-mode-ui="enabled: true" preloader="autoInject: false; clickToClose: true; autoClose: true; target: #preloader-modal; bar: #preloader-modal .progress-bar; label: #preloader-modal .progress-label; labelText: Loading {0}%; slowLoad: true; doneLabelText: Press Start To Play!;">
 
-		<!-- creates a UI element for the VR mode -->
+	<a-scene nonce="<?php echo $nonce; ?>" embedded="false" vr-mode-ui="enabled: true"><!-- creates a UI element for the VR mode -->
+
 		<a-assets>
 			<img id="skyTexture" src="texture/kloofendal_43d_clear_puresky.jpg" preload="auto">
 			<a-asset-item id="navmesh" src="model/hall-navmesh.glb" preload="auto"></a-asset-item>
@@ -103,28 +174,30 @@ $nonce = bin2hex(random_bytes(16));
 		*/
 		?>
 		</a-assets>
-	<a-sky src="#skyTexture"></a-sky>
-	
-	 <!-- Erstellen Sie ein ambient light mit einer hellgrauen Farbe -->
-	<a-entity light="type: ambient; color: #CCC"></a-entity>  
-	<!-- Erstellen Sie ein point light mit einer weißen Farbe an der Position -5 10 0 -->
-    <a-entity light="type: point; color: #FFF; intensity: 0.8; distance: 20; decay: 2" position="-5 10 0"></a-entity> 
-	<!-- Fügen Sie Ihre anderen Entitäten hinzu -->
 
-      <!-- Player. -->
-      <a-entity id="rig"
+		<a-sky src="#skyTexture"></a-sky>
+	
+		<!-- Erstellen Sie ein ambient light mit einer hellgrauen Farbe -->
+		<a-entity light="type: ambient; color: #CCC"></a-entity>  
+		<!-- Erstellen Sie ein point light mit einer weißen Farbe an der Position -5 10 0 -->
+		<a-entity light="type: point; color: #FFF; intensity: 0.8; distance: 20; decay: 2" position="-5 10 0"></a-entity> 
+		<!-- Fügen Sie Ihre anderen Entitäten hinzu -->
+
+		<!-- Player. -->
+		<a-entity id="rig"
                 movement-controls="constrainToNavMesh: true;
                                    controls: checkpoint, gamepad, trackpad, keyboard, touch;"
                 position="-7 0 21">
-        <a-entity camera
+			<a-entity camera
                   position="0 1.6 0"
                   look-controls="pointerLockEnabled: true"
 				  rotation="0 -90 0"> 
-          <a-cursor></a-cursor>
-        </a-entity>
+				<a-cursor></a-cursor>
+			</a-entity>
       </a-entity>
 <?php
-/*
+/**
+		<audio id="river" src="sound/birds-singing-calm-river-nature-ambient-sound-127411.mp3" preload="auto"></audio>
       <!-- Teleport gems. -->
       <a-entity id="wall-gem"
                 checkpoint="offset: 0 -0.8 0;"
@@ -144,6 +217,8 @@ $nonce = bin2hex(random_bytes(16));
                 levitate>
         <a-light not-mobile type="point" intensity="0.5" color="#33FF66" distance="2" position="0.5 -0.25 0"></a-light>
       </a-entity>
+	  <a-entity position="0 0 20" sound="src: #river; loop: true; positional: false"></a-entity>
+    </a-scene>
 */
 ?>
       <!-- Nav mesh. -->
@@ -158,5 +233,42 @@ $nonce = bin2hex(random_bytes(16));
                 gltf-model="#hall">
       </a-entity>
     </a-scene>
-  </body>
+	
+
+<script nonce="<?php echo $nonce; ?>">
+document.addEventListener('DOMContentLoaded', function() {
+    const scene = document.querySelector('a-scene');
+    const splash = document.querySelector('#splash');
+    const loading = document.querySelector('#splash .loading');
+    const startButton = document.querySelector('#splash .start-button');
+
+    const emitEvent = (eventName, listeners) => {
+        listeners.forEach((listener) => {
+            const el = document.querySelector(listener);
+            el.emit(eventName);
+        })
+    };
+
+    const emitMediaEvent = (eventType, listeners) => {
+        listeners.forEach((listener) => {
+            const el = document.querySelector(listener);
+            el.components.sound[eventType]();
+        })
+    };
+
+    scene.addEventListener('loaded', function (e) {
+        setTimeout(() => {
+            loading.style.display = 'none';
+            splash.style.backgroundColor = 'rgba(0, 0, 0, 0.85)';
+            startButton.style.opacity = 1;
+        }, 50);
+    });
+
+    startButton.addEventListener('click', function (e) {
+        splash.style.display = 'none';
+    });
+});
+</script>
+
+</body>
 </html>
