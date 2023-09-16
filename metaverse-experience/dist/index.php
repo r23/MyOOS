@@ -19,6 +19,7 @@ $nonce = bin2hex(random_bytes(16));
 
 // header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
 ?>
+<!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -128,7 +129,6 @@ body.AR-container {
 }
 
 </style>
-
   </head>
 <body>
 
@@ -173,8 +173,9 @@ body.AR-container {
 			<a-asset-item id="gem" src="model/rupee.glb"></a-asset-item>
 		*/
 		?>
+		    <audio id="sound" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto"></audio>
 		</a-assets>
-
+		
 		<a-sky src="#skyTexture"></a-sky>
 	
 		<!-- Erstellen Sie ein ambient light mit einer hellgrauen Farbe -->
@@ -221,6 +222,10 @@ body.AR-container {
     </a-scene>
 */
 ?>
+      <!-- Füge einen Schalter mit der benutzerdefinierten Komponente audiohandler hinzu -->
+
+		<a-sound src="#sound" autoplay="true" playsinline="true" position="0 2 5"></a-sound>
+		<a-box sound="src: #sound; on: click"></a-box>
       <!-- Nav mesh. -->
       <a-entity nav-mesh
                 visible="false"
@@ -267,6 +272,34 @@ document.addEventListener('DOMContentLoaded', function() {
     startButton.addEventListener('click', function (e) {
         splash.style.display = 'none';
     });
+});
+
+var audioContext = new AudioContext();
+var soundUrl = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+var soundBuffer = null;
+var request = new XMLHttpRequest();
+request.open("GET", soundUrl, true);
+request.responseType = "arraybuffer";
+request.onload = function() {
+  audioContext.decodeAudioData(request.response, function(buffer) {
+    soundBuffer = buffer;
+  });
+};
+request.send();
+
+var box = document.querySelector("a-box");
+box.addEventListener("click", function() {
+  if (audioContext.state === "suspended") {
+    audioContext.resume().then(function() {
+      console.log("AudioContext resumed");
+    });
+  }
+  if (soundBuffer) {
+    var source = audioContext.createBufferSource();
+    source.buffer = soundBuffer;
+    source.connect(audioContext.destination);
+    source.start(0);
+  }
 });
 </script>
 
