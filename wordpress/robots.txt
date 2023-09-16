@@ -1,26 +1,24 @@
-User-agent: *
-Disallow: /cgi-bin
-Disallow: /wp-admin
-Disallow: /wp-content/cache
-Disallow: /trackback
-Disallow: /wp-register.php
-Disallow: /wp-login.php
-Disallow: /wp-trackback.php
-Allow: /wp-content/uploads
+User-agent: * 
+Disallow: /cgi-bin 
+Disallow: /wp-admin 
+Disallow: /wp-content/cache/cachify 
+Disallow: /trackback 
+Disallow: /wp-register.php 
+Disallow: /wp-login.php 
+Disallow: /wp-trackback.php 
 
- 
-# disallow all files with ? in url
-Disallow: /*s=*
-Disallow: /*.php$
-Disallow: /*.js$
-Disallow: /*.inc$
-Disallow: /*.css$
-Disallow: /*.gz$
-Disallow: /*.wmv$
-Disallow: /*.tar$
-Disallow: /*.tgz$
-Disallow: /*.cgi$
-Disallow: /*.xhtml$
+Allow: /wp-content/uploads 
+Allow: /wp-includes/js
+
+# disallow all files with ? in url except for search and pagination
+Disallow: /*?*
+Allow: /*?s=
+Allow: /*?paged=
+
+# allow only specific file extensions
+Allow: /*.pdf$
+Allow: /*.png$
+Allow: /*.mp3$
 
 User-agent: ia_archiver
 Disallow: /
