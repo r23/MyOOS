@@ -127,7 +127,6 @@ body.AR-container {
   left: 5%;
   bottom: 13%;
 }
-
 </style>
   </head>
 <body>
@@ -145,9 +144,7 @@ body.AR-container {
 							großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und 
 							versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem 
 							gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion 
-							werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber 
-							beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die 
-							weite Grammatik.</p>
+							werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben.</p>
 						</div>
 					</div>
 				<div class="col-4">
@@ -164,6 +161,9 @@ body.AR-container {
 
 	<a-scene nonce="<?php echo $nonce; ?>" embedded="false" vr-mode-ui="enabled: true"><!-- creates a UI element for the VR mode -->
 
+		<!-- NOTE: Playing sound on iOS — in any browser — requires a physical user interaction. -->
+		<!-- More info here: https://aframe.io/docs/1.0.0/components/sound.html -->
+		<!-- Also, on Desktop devices, autoplay works in Firefox and doesn't work in Chrome  -->
 		<a-assets>
 			<img id="skyTexture" src="texture/kloofendal_43d_clear_puresky.jpg" preload="auto">
 			<a-asset-item id="navmesh" src="model/hall-navmesh.glb" preload="auto"></a-asset-item>
@@ -173,10 +173,10 @@ body.AR-container {
 			<a-asset-item id="gem" src="model/rupee.glb"></a-asset-item>
 		*/
 		?>
-		    <audio id="sound" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto"></audio>
+		    <audio id="river" crossorigin="anonymous" preload="auto" src="sound/birds-singing-calm-river-nature-ambient-sound-127411.mp3"></audio>
 		</a-assets>
 		
-		<a-sky src="#skyTexture"></a-sky>
+		
 	
 		<!-- Erstellen Sie ein ambient light mit einer hellgrauen Farbe -->
 		<a-entity light="type: ambient; color: #CCC"></a-entity>  
@@ -198,7 +198,6 @@ body.AR-container {
       </a-entity>
 <?php
 /**
-		<audio id="river" src="sound/birds-singing-calm-river-nature-ambient-sound-127411.mp3" preload="auto"></audio>
       <!-- Teleport gems. -->
       <a-entity id="wall-gem"
                 checkpoint="offset: 0 -0.8 0;"
@@ -218,25 +217,27 @@ body.AR-container {
                 levitate>
         <a-light not-mobile type="point" intensity="0.5" color="#33FF66" distance="2" position="0.5 -0.25 0"></a-light>
       </a-entity>
-	  <a-entity position="0 0 20" sound="src: #river; loop: true; positional: false"></a-entity>
     </a-scene>
 */
 ?>
-      <!-- Füge einen Schalter mit der benutzerdefinierten Komponente audiohandler hinzu -->
-
-		<a-sound src="#sound" autoplay="true" playsinline="true" position="0 2 5"></a-sound>
-		<a-box sound="src: #sound; on: click"></a-box>
-      <!-- Nav mesh. -->
-      <a-entity nav-mesh
+																																<!-- Nav mesh. -->
+		<a-entity nav-mesh
                 visible="false"
                 position="0 0 20"
-                gltf-model="#navmesh"></a-entity>
+                gltf-model="#navmesh">
+		</a-entity>
 
-      <!-- Scene. -->
-      <a-entity position="0 0 20"
+		<!-- Scene. -->
+		<a-entity position="0 0 20"
                 scale="1 1 1"
                 gltf-model="#hall">
-      </a-entity>
+		</a-entity>
+	
+
+        <!-- 360° Panorama -->
+        <a-sky src="#skyTexture"
+        	   sound="src: #river; autoplay: true; loop: true; positional: false; volume: 0.5">
+        </a-sky>	  
     </a-scene>
 	
 
@@ -274,33 +275,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-var audioContext = new AudioContext();
-var soundUrl = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
-var soundBuffer = null;
-var request = new XMLHttpRequest();
-request.open("GET", soundUrl, true);
-request.responseType = "arraybuffer";
-request.onload = function() {
-  audioContext.decodeAudioData(request.response, function(buffer) {
-    soundBuffer = buffer;
-  });
-};
-request.send();
-
-var box = document.querySelector("a-box");
-box.addEventListener("click", function() {
-  if (audioContext.state === "suspended") {
-    audioContext.resume().then(function() {
-      console.log("AudioContext resumed");
-    });
-  }
-  if (soundBuffer) {
-    var source = audioContext.createBufferSource();
-    source.buffer = soundBuffer;
-    source.connect(audioContext.destination);
-    source.start(0);
-  }
-});
 </script>
 
 </body>
