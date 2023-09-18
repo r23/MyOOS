@@ -5,6 +5,7 @@ require('aframe-physics-system');
 require('aframe-blink-controls');
 require('super-hands');
 require('aframe-event-set-component');
+require('aframe-animation-component');
 
 
 // On click, send the NPC to the target location.
