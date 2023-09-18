@@ -4,6 +4,7 @@ import * as AFRAME from 'aframe';
 require('aframe-extras');
 require('aframe-physics-system');
 require('aframe-blink-controls');
+require('super-hands');
 
 
 // On click, send the NPC to the target location.
