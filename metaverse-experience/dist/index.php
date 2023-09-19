@@ -25,6 +25,7 @@ $nonce = bin2hex(random_bytes(16));
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, maximum-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes">
     <title>Web-Based Virtual Experiences in the Metaverse</title>
 	
 	<!-- Bootstrap -->
@@ -128,6 +129,26 @@ body.AR-container {
   bottom: 13%;
 }
 </style>
+
+    <script>
+		AFRAME.registerComponent('play-pause', {
+			init: function () {
+				var myVideo = document.querySelector('#my-video');
+				var videoControls = document.querySelector('#videoControls');
+				this.el.addEventListener('click', function () {
+					if (myVideo.paused) {
+						myVideo.play();
+						videoControls.setAttribute('src', '#pause');
+					} else {
+						myVideo.pause();
+						videoControls.setAttribute('src', '#play');
+					}
+				});
+			}
+		});
+	</script>
+
+
   </head>
 <body>
 
@@ -161,9 +182,7 @@ body.AR-container {
 
 	<a-scene nonce="<?php echo $nonce; ?>" embedded="false" vr-mode-ui="enabled: true"><!-- creates a UI element for the VR mode -->
 
-		<!-- NOTE: Playing sound on iOS — in any browser — requires a physical user interaction. -->
-		<!-- More info here: https://aframe.io/docs/1.0.0/components/sound.html -->
-		<!-- Also, on Desktop devices, autoplay works in Firefox and doesn't work in Chrome  -->
+
 		<a-assets>
 			<img id="skyTexture" src="texture/kloofendal_43d_clear_puresky.jpg" preload="auto">
 			<a-asset-item id="navmesh" src="model/hall-navmesh.glb" preload="auto"></a-asset-item>
@@ -173,7 +192,14 @@ body.AR-container {
 			<a-asset-item id="gem" src="model/rupee.glb"></a-asset-item>
 		*/
 		?>
+			<!-- NOTE: Playing sound on iOS — in any browser — requires a physical user interaction. -->
+			<!-- More info here: https://aframe.io/docs/1.0.0/components/sound.html -->
+			<!-- Also, on Desktop devices, autoplay works in Firefox and doesn't work in Chrome  -->
 		    <audio id="river" crossorigin="anonymous" preload="auto" src="sound/birds-singing-calm-river-nature-ambient-sound-127411.mp3"></audio>
+
+        	<img id="play" src="image/play.png">
+        	<img id="pause" src="image/pause.png">
+			<video id="my-video" src="video/" loop="true" crossorigin="anonymous"></video>			
 		</a-assets>
 		
 		
@@ -220,7 +246,7 @@ body.AR-container {
     </a-scene>
 */
 ?>
-																																<!-- Nav mesh. -->
+		<!-- Nav mesh. -->
 		<a-entity nav-mesh
                 visible="false"
                 position="0 0 20"
@@ -237,7 +263,15 @@ body.AR-container {
         <!-- 360° Panorama -->
         <a-sky src="#skyTexture"
         	   sound="src: #river; autoplay: true; loop: true; positional: false; volume: 0.5">
-        </a-sky>	  
+        </a-sky>
+
+		<!-- Video 16:9 -->
+		<a-video src="#my-video" width="8" height="4.5" position="0 3 -9">
+			<!-- Play/Pause -->
+			<a-image id="videoControls" src="#play" position="0 -3 0" scale="0.5 0.5 1"
+					 play-pause>
+			</a-image>
+		</a-video>		
     </a-scene>
 	
 
