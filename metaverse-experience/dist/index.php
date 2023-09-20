@@ -195,11 +195,11 @@ body.AR-container {
 			<!-- NOTE: Playing sound on iOS — in any browser — requires a physical user interaction. -->
 			<!-- More info here: https://aframe.io/docs/1.0.0/components/sound.html -->
 			<!-- Also, on Desktop devices, autoplay works in Firefox and doesn't work in Chrome  -->
-		    <audio id="river" crossorigin="anonymous" preload="auto" src="sound/birds-singing-calm-river-nature-ambient-sound-127411.mp3"></audio>
+		    <audio id="river" preload="auto" src="sound/birds-singing-calm-river-nature-ambient-sound-127411.mp3"></audio>
 
         	<img id="play" src="image/play.png">
         	<img id="pause" src="image/pause.png">
-			<video id="my-video" src="video/" loop="true" crossorigin="anonymous"></video>			
+			<video id="my-video" src="video/produktanimation.mp4" loop="true"></video>			
 		</a-assets>
 		
 		
@@ -266,9 +266,9 @@ body.AR-container {
         </a-sky>
 
 		<!-- Video 16:9 -->
-		<a-video src="#my-video" width="8" height="4.5" position="0 3 -9">
+		<a-video src="#my-video" width="16" height="9" position="0.793  16.34 -47.75">
 			<!-- Play/Pause -->
-			<a-image id="videoControls" src="#play" position="0 -3 0" scale="0.5 0.5 1"
+			<a-image id="videoControls" src="#play" position="0 -5 0" scale="0.5 0.5 1"
 					 play-pause>
 			</a-image>
 		</a-video>		
