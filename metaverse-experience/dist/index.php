@@ -163,7 +163,7 @@ body.AR-container {
 	</div>
 
 
-	<a-scene nonce="<?php echo $nonce; ?>" embedded="false" vr-mode-ui="enabled: true"><!-- creates a UI element for the VR mode -->
+	<a-scene nonce="<?php echo $nonce; ?>" embedded="false" vr-mode-ui="enabled: true" allow=autoplay><!-- creates a UI element for the VR mode -->
 
 
 		<a-assets>
@@ -182,7 +182,7 @@ body.AR-container {
 
         	<img id="play" src="image/play.png">
         	<img id="pause" src="image/pause.png">
-			<video id="my-video" src="video/produktanimation.mp4" loop="true"></video>			
+			<video id="my-video" src="video/produktanimation.mp4" autoplay="true" loop="true" webkit-playsinline playsinline></video>
 		</a-assets>
 		
 		
@@ -214,37 +214,18 @@ body.AR-container {
                 blink-controls="collisionEntities: #ground">
 		</a-entity>					
       </a-entity>
-<?php
-/**
-      <!-- Teleport gems. -->
-      <a-entity id="wall-gem"
-                checkpoint="offset: 0 -0.8 0;"
-                position="-9 7 -6"
-                gltf-model="#gem"
-                scale="0.05 0.05 0.05"
-                glow="color: #33FF66; intensity: 0.5"
-                levitate>
-        <a-light not-mobile type="point" intensity="0.5" color="#33FF66" distance="2" position="0.5 -0.25 0"></a-light>
-      </a-entity>
-      <a-entity id="tower-gem"
-                checkpoint="offset: 0 -0.8 0;"
-                position="0 10.2 -3.5"
-                gltf-model="#gem"
-                scale="0.05 0.05 0.05"
-                glow="color: #33FF66; intensity: 0.5"
-                levitate>
-        <a-light not-mobile type="point" intensity="0.5" color="#33FF66" distance="2" position="0.5 -0.25 0"></a-light>
-      </a-entity>
-    </a-scene>
-*/
-?>
 
 		<!-- Nav mesh. -->
-		<a-entity id="ground" nav-mesh
+		<a-entity id="ground"nav-mesh
                 visible="false"
-                position="0 0 20"
+                position="0 0.001 20"
                 gltf-model="#navmesh">
 		</a-entity>
+
+<?php
+// <a-entity id="ground" gltf-model="#my-navmesh" position="0 0.001 0" visible="false">
+?>
+
 
 		<!-- Scene. -->
 		<a-entity position="0 0 20"
@@ -262,7 +243,10 @@ body.AR-container {
 		<a-video src="#my-video" width="16" height="9" position="0.793  16.34 -47.75">
 			<!-- Play/Pause -->
 			<a-image id="videoControls" src="#play" position="0 -5 0" scale="0.5 0.5 1"
-					 play-pause>
+					 play-pause class="clickable"
+					material="color: white"
+					animation__mouseenter="property: material.color; to: yellow; startEvents: raycaster-intersected; dur: 500"
+					animation__mouseleave="property: material.color; to: white; startEvents: raycaster-intersected-cleared; dur: 500">
 			</a-image>
 		</a-video>		
     </a-scene>
