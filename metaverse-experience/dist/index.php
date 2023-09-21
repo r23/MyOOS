@@ -37,23 +37,25 @@ $nonce = bin2hex(random_bytes(16));
 	<!-- Virtual Experiences JS Dependencies -->
    	<script nonce="<?php echo $nonce; ?>" src="static/js/runtime-main.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/572.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/734.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/995.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/203.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/434.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/454.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/986.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/861.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/58.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/710.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/223.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/850.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/848.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/227.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/918.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/569.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/687.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/928.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/403.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/406.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/477.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/main.js"></script>
-
+	
 <style>
 body, html {
   width: 100%;
@@ -130,25 +132,6 @@ body.AR-container {
 }
 </style>
 
-    <script>
-		AFRAME.registerComponent('play-pause', {
-			init: function () {
-				var myVideo = document.querySelector('#my-video');
-				var videoControls = document.querySelector('#videoControls');
-				this.el.addEventListener('click', function () {
-					if (myVideo.paused) {
-						myVideo.play();
-						videoControls.setAttribute('src', '#pause');
-					} else {
-						myVideo.pause();
-						videoControls.setAttribute('src', '#play');
-					}
-				});
-			}
-		});
-	</script>
-
-
   </head>
 <body>
 
@@ -221,6 +204,15 @@ body.AR-container {
 				  rotation="0 -90 0"> 
 				<a-cursor></a-cursor>
 			</a-entity>
+			
+		<!-- Right Controller  -->
+		<a-entity laser-controls="hand: right" raycaster="objects: .clickable; lineColor: #FF0000"
+				blink-controls="collisionEntities: #ground">
+		</a-entity>
+		<!-- Left Controller  -->
+		<a-entity laser-controls="hand: left" raycaster="objects: .clickable; lineColor: #FF0000"
+                blink-controls="collisionEntities: #ground">
+		</a-entity>					
       </a-entity>
 <?php
 /**
@@ -246,8 +238,9 @@ body.AR-container {
     </a-scene>
 */
 ?>
+
 		<!-- Nav mesh. -->
-		<a-entity nav-mesh
+		<a-entity id="ground" nav-mesh
                 visible="false"
                 position="0 0 20"
                 gltf-model="#navmesh">

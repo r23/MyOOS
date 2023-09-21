@@ -1,12 +1,10 @@
 import * as AFRAME from 'aframe';
 
 require('aframe-extras');
-require('aframe-physics-system');
 require('aframe-blink-controls');
 require('super-hands');
 require('aframe-event-set-component');
-require('aframe-animation-component');
-
+require('aframe-physics-system');
 
 // On click, send the NPC to the target location.
 AFRAME.registerComponent('nav-pointer', {
@@ -83,5 +81,24 @@ AFRAME.registerComponent('not-mobile',  {
     if (el.sceneEl.isMobile) {
       el.parentEl.remove(el);
     }
+  }
+});
+
+/**
+ * Video
+ */
+AFRAME.registerComponent('play-pause', {
+  init: function () {
+    var myVideo = document.querySelector('#my-video');
+    var videoControls = document.querySelector('#videoControls');
+    this.el.addEventListener('click', function () {
+      if (myVideo.paused) {
+        myVideo.play();
+        videoControls.setAttribute('src', '#pause');
+      } else {
+        myVideo.pause();
+        videoControls.setAttribute('src', '#play');
+      }
+    });
   }
 });
