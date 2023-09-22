@@ -69,7 +69,7 @@ body {
 body.AR-container {
   margin : 0px; 
   overflow: hidden;
-  background-color: transparent; ;
+  background-color: transparent;
 }
 
 #splash {
@@ -138,7 +138,7 @@ window.addEventListener('enter-vr', e => {
       document.getElementById('cursor').remove()
     }
   }
-})
+});
 </script>
   </head>
 <body>
@@ -186,7 +186,7 @@ window.addEventListener('enter-vr', e => {
 
         	<img id="play" src="image/play.png">
         	<img id="pause" src="image/pause.png">
-			<video id="my-video" src="video/produktanimation.mp4" loop="true"></video>
+			<video id="my-video" autoplay loop="true" src="video/produktanimation.mp4"></video>
 		</a-assets>
 		
 		
@@ -244,12 +244,23 @@ window.addEventListener('enter-vr', e => {
 			</a-entity>
 
 		<!-- Right Controller  -->
-		<a-entity id="rightHand" laser-controls="hand: right" oculus-touch-controls="hand: right" vive-controls="hand: right" raycaster="objects: .clickable; lineColor: #FF0000">
-		</a-entity>	
-
-		<!-- Left Controller  -->
-		<a-entity id="leftHand" oculus-touch-controls="hand: left" blink-controls="cameraRig: #rig; teleportOrigin: #camera; collisionEntities: #ground" vive-controls="hand: left">
+		<a-entity id="right-hand" laser-controls="hand: right" 
+			oculus-touch-controls="hand: right" 
+			vive-controls="hand: right" 
+			raycaster="objects: .clickable; lineColor: #FF0000" 
+			super-hands="colliderEvent: raycaster-intersection; colliderEventProperty: els; colliderEndEvent: raycaster-intersection-cleared; colliderEndEventProperty: clearedEls"> 
 		</a-entity>
+
+
+		<!-- Left Controller  -->		
+		<a-entity id="left-hand" hand-controls="hand: left"
+			super-hands="colliderEvent: hitstart; colliderEventProperty: els; colliderEndEvent: hitend; colliderEndEventProperty: clearedEls" 
+			blink-controls="button: trigger; startEvents: triggerdown; endEvents: triggerup; cancelEvents: gripdown; collisionEntities: #ground">
+		</a-entity>
+			
+		</a-entity>
+
+
 
       </a-entity>		
 		
