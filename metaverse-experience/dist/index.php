@@ -131,7 +131,15 @@ body.AR-container {
   bottom: 13%;
 }
 </style>
-
+<script nonce="<?php echo $nonce; ?>">
+window.addEventListener('enter-vr', e => {
+  if (AFRAME.utils.device.checkHeadsetConnected()) {
+    if (document.getElementById('cursor')) {
+      document.getElementById('cursor').remove()
+    }
+  }
+})
+</script>
   </head>
 <body>
 
@@ -163,18 +171,14 @@ body.AR-container {
 	</div>
 
 
-	<a-scene nonce="<?php echo $nonce; ?>" embedded="false" vr-mode-ui="enabled: true" allow=autoplay><!-- creates a UI element for the VR mode -->
+	<a-scene nonce="<?php echo $nonce; ?>" embedded="false" vr-mode-ui="enabled: true" allow="autoplay"><!-- creates a UI element for the VR mode -->
 
 
 		<a-assets>
 			<img id="skyTexture" src="texture/kloofendal_43d_clear_puresky.jpg" preload="auto">
 			<a-asset-item id="navmesh" src="model/hall-navmesh.glb" preload="auto"></a-asset-item>
 			<a-asset-item id="hall" src="model/hall.glb" preload="auto"></a-asset-item>
-		<?php
-		/*
-			<a-asset-item id="gem" src="model/rupee.glb"></a-asset-item>
-		*/
-		?>
+
 			<!-- NOTE: Playing sound on iOS — in any browser — requires a physical user interaction. -->
 			<!-- More info here: https://aframe.io/docs/1.0.0/components/sound.html -->
 			<!-- Also, on Desktop devices, autoplay works in Firefox and doesn't work in Chrome  -->
@@ -192,40 +196,15 @@ body.AR-container {
 		<!-- Erstellen Sie ein point light mit einer weißen Farbe an der Position -5 10 0 -->
 		<a-entity light="type: point; color: #FFF; intensity: 0.8; distance: 20; decay: 2" position="-5 10 0"></a-entity> 
 		<!-- Fügen Sie Ihre anderen Entitäten hinzu -->
+		
 
-		<!-- Player. -->
-		<a-entity id="rig"
-                movement-controls="constrainToNavMesh: true;
-                                   controls: checkpoint, gamepad, trackpad, keyboard, touch;"
-                position="-7 0 21">
-			<a-entity camera
-                  position="0 1.6 0"
-                  look-controls="pointerLockEnabled: true"
-				  rotation="0 -90 0"> 
-				<a-cursor></a-cursor>
-			</a-entity>
-			
-		<!-- Right Controller  -->
-		<a-entity laser-controls="hand: right" raycaster="objects: .clickable; lineColor: #FF0000"
-				blink-controls="collisionEntities: #ground">
-		</a-entity>
-		<!-- Left Controller  -->
-		<a-entity laser-controls="hand: left" raycaster="objects: .clickable; lineColor: #FF0000"
-                blink-controls="collisionEntities: #ground">
-		</a-entity>					
-      </a-entity>
 
 		<!-- Nav mesh. -->
-		<a-entity id="ground"nav-mesh
+		<a-entity id="ground" nav-mesh
                 visible="false"
                 position="0 0.001 20"
                 gltf-model="#navmesh">
 		</a-entity>
-
-<?php
-// <a-entity id="ground" gltf-model="#my-navmesh" position="0 0.001 0" visible="false">
-?>
-
 
 		<!-- Scene. -->
 		<a-entity position="0 0 20"
@@ -243,14 +222,40 @@ body.AR-container {
 		<a-video src="#my-video" width="16" height="9" position="0.793  16.34 -47.75">
 			<!-- Play/Pause -->
 			<a-image id="videoControls" src="#play" position="0 -5 0" scale="0.5 0.5 1"
-					 play-pause class="clickable"
-					material="color: white"
-					animation__mouseenter="property: material.color; to: yellow; startEvents: raycaster-intersected; dur: 500"
-					animation__mouseleave="property: material.color; to: white; startEvents: raycaster-intersected-cleared; dur: 500">
+					 play-pause class="clickable">
 			</a-image>
-		</a-video>		
+		</a-video>
+		
+		<!-- CAMERA RIG -->
+		<a-entity id="rig"
+                movement-controls="constrainToNavMesh: true;
+                                   controls: checkpoint, gamepad, trackpad, keyboard, touch;"
+                position="-7 0 21">
+			<a-entity camera
+                  position="0 1.6 0"
+                  look-controls="pointerLockEnabled: true"
+				  rotation="0 -90 0">
+                        <a-entity id="cursor" cursor="fuse: false;" animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 50; from: 	0.1 0.1 0.1; to: 1 1 1"
+                            position="0 0 -0.1"
+                            geometry="primitive: circle; radius: 0.001;"
+                            material="color: #CCC; shader: flat;"
+                            >
+                        </a-entity>
+			</a-entity>
+
+		<!-- Right Controller  -->
+		<a-entity id="rightHand" laser-controls="hand: right" oculus-touch-controls="hand: right" vive-controls="hand: right" raycaster="objects: .clickable; lineColor: #FF0000">
+		</a-entity>	
+
+		<!-- Left Controller  -->
+		<a-entity id="leftHand" oculus-touch-controls="hand: left" blink-controls="cameraRig: #rig; teleportOrigin: #camera; collisionEntities: #ground" vive-controls="hand: left">
+		</a-entity>
+
+      </a-entity>		
+		
     </a-scene>
-	
+
+
 
 <script nonce="<?php echo $nonce; ?>">
 document.addEventListener('DOMContentLoaded', function() {
