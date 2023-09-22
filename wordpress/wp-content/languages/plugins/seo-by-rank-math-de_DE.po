@@ -2,14 +2,34 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-09-14 08:02:12+0000\n"
+"PO-Revision-Date: 2023-09-21 13:35:23+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-alpha.7\n"
+"X-Generator: GlotPress/4.0.0-alpha.8\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO - Stable (latest release)\n"
+
+#: includes/modules/content-ai/views/options.php:131
+msgid "UK English"
+msgstr "Englisch (UK)"
+
+#: includes/modules/content-ai/views/options.php:130
+msgid "US English"
+msgstr "Englisch (US)"
+
+#: includes/modules/content-ai/class-content-ai.php:306
+msgid "Content AI Refresh Date"
+msgstr "Inhalt-KI Aktualisierungsdatum"
+
+#: includes/modules/content-ai/class-content-ai.php:302
+msgid "Content AI Credits"
+msgstr "Inhalt-KI Guthaben"
+
+#: includes/modules/content-ai/class-content-ai.php:298
+msgid "Content AI Plan"
+msgstr "Inhalt-KI Plan"
 
 #: includes/modules/content-ai/blocks/command/assets/src/block.json
 msgctxt "block keyword"
@@ -52,129 +72,125 @@ msgid "AI Assistant [Content AI]"
 msgstr "KI-Assistent [Inhalt-KI]"
 
 #. translators: 1. Credits left 2. Buy more credits link
-#: includes/modules/content-ai/views/options.php:200
+#: includes/modules/content-ai/views/options.php:201
 msgid "%1$s credits left this month. Credits will renew next month or you can upgrade to get more credits %2$s."
 msgstr "%1$s Guthaben sind diesen Monat übrig. Guthaben werden nächsten Monat erneuert oder du kannst ein Upgrade durchführen, um mehr Guthaben zu erhalten %2$s."
 
-#: includes/modules/content-ai/views/options.php:182
+#: includes/modules/content-ai/views/options.php:183
 msgid "Choose the type of posts/pages/CPTs where you want to use Content AI."
 msgstr "Wähle die Art von Beiträgen/Seiten/CPTs, für die du Inhalt-KI verwenden möchtest."
 
-#: includes/modules/content-ai/views/options.php:167
+#: includes/modules/content-ai/views/options.php:168
 msgid "Enable this feature to fix the grammatical errors on the fly while content is being written/generated."
 msgstr "Aktiviere diese Funktion, um grammatikalische Fehler während des Schreibens/Generierens von Inhalten sofort zu korrigieren."
 
-#: includes/modules/content-ai/views/options.php:166
+#: includes/modules/content-ai/views/options.php:167
 msgid "Enable Grammarly"
 msgstr "Grammarly einschalten"
 
-#: includes/modules/content-ai/views/options.php:157
+#: includes/modules/content-ai/views/options.php:158
 msgid "Swedish"
 msgstr "Schwedisch"
 
-#: includes/modules/content-ai/views/options.php:156
+#: includes/modules/content-ai/views/options.php:157
 msgid "Spanish"
 msgstr "Spanisch"
 
-#: includes/modules/content-ai/views/options.php:155
+#: includes/modules/content-ai/views/options.php:156
 msgid "Slovenian"
 msgstr "Slowenisch"
 
-#: includes/modules/content-ai/views/options.php:154
+#: includes/modules/content-ai/views/options.php:155
 msgid "Slovak"
 msgstr "Slowakisch"
 
-#: includes/modules/content-ai/views/options.php:152
+#: includes/modules/content-ai/views/options.php:153
 msgid "Romanian"
 msgstr "Rumänisch"
 
-#: includes/modules/content-ai/views/options.php:151
+#: includes/modules/content-ai/views/options.php:152
 msgid "Portuguese"
 msgstr "Portugiesisch"
 
-#: includes/modules/content-ai/views/options.php:150
+#: includes/modules/content-ai/views/options.php:151
 msgid "Polish"
 msgstr "Polnisch"
 
-#: includes/modules/content-ai/views/options.php:149
+#: includes/modules/content-ai/views/options.php:150
 msgid "Norwegian"
 msgstr "Norwegisch"
 
-#: includes/modules/content-ai/views/options.php:148
+#: includes/modules/content-ai/views/options.php:149
 msgid "Lithuanian"
 msgstr "Litauisch"
 
-#: includes/modules/content-ai/views/options.php:147
+#: includes/modules/content-ai/views/options.php:148
 msgid "Latvian"
 msgstr "Lettisch"
 
-#: includes/modules/content-ai/views/options.php:146
+#: includes/modules/content-ai/views/options.php:147
 msgid "Korean"
 msgstr "Koreanisch"
 
-#: includes/modules/content-ai/views/options.php:145
+#: includes/modules/content-ai/views/options.php:146
 msgid "Japanese"
 msgstr "Japanisch"
 
-#: includes/modules/content-ai/views/options.php:144
+#: includes/modules/content-ai/views/options.php:145
 msgid "Italian"
 msgstr "Italienisch"
 
-#: includes/modules/content-ai/views/options.php:143
+#: includes/modules/content-ai/views/options.php:144
 msgid "Indonesian"
 msgstr "Indonesisch"
 
-#: includes/modules/content-ai/views/options.php:142
+#: includes/modules/content-ai/views/options.php:143
 msgid "Hungarian"
 msgstr "Ungarisch"
 
-#: includes/modules/content-ai/views/options.php:141
+#: includes/modules/content-ai/views/options.php:142
 msgid "Hebrew"
 msgstr "Hebräisch"
 
-#: includes/modules/content-ai/views/options.php:140
+#: includes/modules/content-ai/views/options.php:141
 msgid "Greek"
 msgstr "Griechisch"
 
-#: includes/modules/content-ai/views/options.php:139
+#: includes/modules/content-ai/views/options.php:140
 msgid "German"
 msgstr "Deutsch"
 
-#: includes/modules/content-ai/views/options.php:138
+#: includes/modules/content-ai/views/options.php:139
 msgid "French"
 msgstr "Französisch"
 
-#: includes/modules/content-ai/views/options.php:137
+#: includes/modules/content-ai/views/options.php:138
 msgid "Finnish"
 msgstr "Finnisch"
 
-#: includes/modules/content-ai/views/options.php:136
+#: includes/modules/content-ai/views/options.php:137
 msgid "Estonian"
 msgstr "Estländisch"
 
-#: includes/modules/content-ai/views/options.php:135
+#: includes/modules/content-ai/views/options.php:136
 msgid "Dutch"
 msgstr "Holländisch"
 
-#: includes/modules/content-ai/views/options.php:134
+#: includes/modules/content-ai/views/options.php:135
 msgid "Danish"
 msgstr "Dänisch"
 
-#: includes/modules/content-ai/views/options.php:133
+#: includes/modules/content-ai/views/options.php:134
 msgid "Czech"
 msgstr "Tschechisch"
 
-#: includes/modules/content-ai/views/options.php:132
+#: includes/modules/content-ai/views/options.php:133
 msgid "Chinese"
 msgstr "Chinesisch"
 
-#: includes/modules/content-ai/views/options.php:131
+#: includes/modules/content-ai/views/options.php:132
 msgid "Bulgarian"
 msgstr "Bulgarisch"
-
-#: includes/modules/content-ai/views/options.php:130
-msgid "English"
-msgstr "English"
 
 #: includes/modules/content-ai/views/options.php:126
 msgid "This option lets you set the default language for content generated using Content AI. You can override this in individual tools."
@@ -476,54 +492,54 @@ msgstr "Standard-Ton"
 msgid "Content AI tailors keyword research to the target country for highly relevant suggestions. You can override this in individual posts/pages/CPTs."
 msgstr "Inhalt-KI schneidet die Schlüsselwort-Recherche auf das Zielland zu und liefert hochrelevante Vorschläge. Du kannst dies in einzelnen Beiträgen/Seiten/CPTs außer Kraft setzen."
 
-#: includes/modules/content-ai/class-content-ai-page.php:272
+#: includes/modules/content-ai/class-content-ai-page.php:274
 msgid "Content AI History"
 msgstr "Inhalt-KI Historie"
 
-#: includes/modules/content-ai/class-content-ai-page.php:266
+#: includes/modules/content-ai/class-content-ai-page.php:268
 msgid "Content AI Chat"
 msgstr "Inhalt-KI Chat"
 
-#: includes/modules/content-ai/class-content-ai-page.php:264
+#: includes/modules/content-ai/class-content-ai-page.php:266
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 msgid "Chat"
 msgstr "Chat"
 
-#: includes/modules/content-ai/class-content-ai-page.php:260
+#: includes/modules/content-ai/class-content-ai-page.php:262
 msgid "Content AI Editor"
 msgstr "Inhalt-KI Editor"
 
-#: includes/modules/content-ai/class-content-ai-page.php:258
+#: includes/modules/content-ai/class-content-ai-page.php:260
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 msgid "Content Editor"
 msgstr "Inhalt Editor"
 
-#: includes/modules/content-ai/class-content-ai-page.php:254
+#: includes/modules/content-ai/class-content-ai-page.php:256
 msgid "Content AI Tools"
 msgstr "Inhalt-KI Werkzeuge"
 
-#: includes/modules/content-ai/class-content-ai-page.php:252
+#: includes/modules/content-ai/class-content-ai-page.php:254
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 msgid "AI Tools"
 msgstr "KI-Werkzeuge"
 
-#: includes/modules/content-ai/class-content-ai-page.php:193
+#: includes/modules/content-ai/class-content-ai-page.php:194
 msgid "Another bulk editing process is already running. Please try again later after the existing process is complete."
 msgstr "Ein weiterer Massenbearbeitungsprozess läuft bereits. Bitte versuche es später noch einmal, nachdem der bestehende Vorgang abgeschlossen ist."
 
-#: includes/modules/content-ai/class-content-ai-page.php:172
+#: includes/modules/content-ai/class-content-ai-page.php:173
 msgid "Write SEO Title & Description with AI"
 msgstr "Schreibe SEO-Titel & Beschreibung mit KI"
 
-#: includes/modules/content-ai/class-content-ai-page.php:171
+#: includes/modules/content-ai/class-content-ai-page.php:172
 msgid "Write SEO Description with AI"
 msgstr "Schreibe eine SEO-Beschreibung mit KI"
 
-#: includes/modules/content-ai/class-content-ai-page.php:170
+#: includes/modules/content-ai/class-content-ai-page.php:171
 msgid "Write SEO Title with AI"
 msgstr "Schreibe SEO-Titel mit KI"
 
-#: includes/modules/content-ai/class-content-ai-page.php:169
+#: includes/modules/content-ai/class-content-ai-page.php:170
 msgid "&#8595; Rank Math Content AI"
 msgstr "&#8595; Rank Math Inhalt-KI"
 
@@ -537,12 +553,12 @@ msgid "Credits Remaining: "
 msgstr "Verbleibendes Guthaben: "
 
 #. Translators: placeholder is the number of modified posts.
-#: includes/modules/content-ai/class-bulk-edit-seo-meta.php:148
+#: includes/modules/content-ai/class-bulk-edit-seo-meta.php:150
 msgid "SEO meta successfully updated in %d posts. The process was stopped as you have used all the credits on your site."
 msgstr "SEO-Meta in %d Beiträgen erfolgreich aktualisiert. Der Vorgang wurde abgebrochen, da du alle Guthaben auf deiner Website aufgebraucht hast."
 
 #. Translators: placeholder is the number of modified posts.
-#: includes/modules/content-ai/class-bulk-edit-seo-meta.php:90
+#: includes/modules/content-ai/class-bulk-edit-seo-meta.php:92
 msgid "SEO meta successfully updated in %d post."
 msgid_plural "SEO meta successfully updated in %d posts."
 msgstr[0] "SEO-Meta in %d Beitrag erfolgreich aktualisiert."
@@ -552,39 +568,39 @@ msgstr[1] "SEO-Meta in %d Beiträgen erfolgreich aktualisiert."
 msgid "Bulk editing SEO meta started. It might take few minutes to complete the process."
 msgstr "Die Massenbearbeitung von SEO-Meta hat begonnen. Es kann einige Minuten dauern, bis der Vorgang abgeschlossen ist."
 
-#: includes/helpers/class-content-ai.php:419
+#: includes/helpers/class-content-ai.php:431
 msgid "Could not generate. Please try again later."
 msgstr "Konnte nicht generiert werden. Bitte versuche es später noch einmal."
 
-#: includes/helpers/class-content-ai.php:418
+#: includes/helpers/class-content-ai.php:430
 msgid "The output was stopped as it was identified as potentially unsafe by the content filter."
 msgstr "Die Ausgabe wurde gestoppt, da sie vom Inhaltsfilter als potenziell unsicher eingestuft wurde."
 
-#: includes/helpers/class-content-ai.php:417
+#: includes/helpers/class-content-ai.php:429
 msgid "Please revise the entered values in the fields as they are not secure. Make the required adjustments and try again."
 msgstr "Bitte überarbeite die eingegebenen Werte in den Feldern, da diese nicht sicher sind. Nehme die erforderlichen Anpassungen vor und versuche es erneut."
 
-#: includes/helpers/class-content-ai.php:416
+#: includes/helpers/class-content-ai.php:428
 msgid "You've used up all available credits from the connected account."
 msgstr "Du hast alle verfügbaren Guthaben des verbundenen Kontos aufgebraucht."
 
-#: includes/helpers/class-content-ai.php:415
+#: includes/helpers/class-content-ai.php:427
 msgid "You've used up all available credits for this domain."
 msgstr "Du hast alle verfügbaren Guthaben für diese Domain aufgebraucht."
 
-#: includes/helpers/class-content-ai.php:414
+#: includes/helpers/class-content-ai.php:426
 msgid "Oops! Too many requests in a short time. Please try again after some time."
 msgstr "Hoppla! Zu viele Anfragen in kurzer Zeit. Bitte versuche es nach einiger Zeit erneut."
 
-#: includes/helpers/class-content-ai.php:413
+#: includes/helpers/class-content-ai.php:425
 msgid "This feature is only available for Content AI subscribers."
 msgstr "Diese Funktion ist nur für Inhalt-KI Abonnenten verfügbar."
 
-#: includes/helpers/class-content-ai.php:412
+#: includes/helpers/class-content-ai.php:424
 msgid "Please update the Rank Math SEO plugin to the latest version to use this feature."
 msgstr "Bitte aktualisiere das Rank Math SEO-Plugin auf die neueste Version, um diese Funktion nutzen zu können."
 
-#: includes/helpers/class-content-ai.php:411
+#: includes/helpers/class-content-ai.php:423
 msgid "Please connect your account to use the Content AI."
 msgstr "Bitte verbinde dein Konto, um die Inhalt-KI zu nutzen."
 
@@ -618,10 +634,6 @@ msgstr "Die Umleitung, die du aktualisieren möchtest, kann eine Endlosschleife 
 #: includes/modules/redirections/class-form.php:237
 msgid "The redirection you are trying to create may cause an infinite loop. Please check the source and destination URLs. The redirection has been deactivated."
 msgstr "Die Umleitung, die du erstellen möchtest, kann eine Endlosschleife verursachen. Bitte überprüfe die Quell- und Ziel-URLs. Die Umleitung wurde deaktiviert."
-
-#: includes/admin/class-admin.php:264
-msgid "Please update to WordPress v6.0 or higher as Rank Math SEO will soon stop supporting lower versions."
-msgstr "Bitte aktualisiere auf WordPress v6.0 oder höher, da Rank Math SEO in Kürze die Unterstützung niedrigerer Versionen einstellen wird."
 
 #: includes/modules/version-control/views/beta-optin-panel.php:21
 msgid "You cannot turn on the Beta Tester feature because site wide plugins auto-update option is disabled on your site."
@@ -679,11 +691,11 @@ msgstr "Importiere Social Media-URLs deiner Autorenarchivseiten."
 msgid "Add social account information to your website's Schema and Open Graph. %s."
 msgstr "Füge dem Schema und Open Graph deiner Website Informationen zu sozialen Konten hinzu. %s."
 
-#: includes/admin/class-admin.php:428 includes/settings/titles/social.php:88
+#: includes/admin/class-admin.php:411 includes/settings/titles/social.php:88
 msgid "Additional Profiles to add in the <code>sameAs</code> Schema property."
 msgstr "Zusätzliche Profile, die der <code>sameAs</code> Schema-Eigenschaft hinzugefügt werden sollen."
 
-#: includes/admin/class-admin.php:74
+#: includes/admin/class-admin.php:73
 msgid "Additional profile URLs"
 msgstr "Zusätzliche Profil-URLs"
 
@@ -975,7 +987,7 @@ msgstr "HTML-Sitemap"
 msgid "Ctrl/Cmd + Enter"
 msgstr "Strg/Befehlstaste + Eingabetaste"
 
-#: includes/admin/class-admin.php:415
+#: includes/admin/class-admin.php:398
 msgid "Exclusive Offer!"
 msgstr "Exklusives Angebot!"
 
@@ -1116,7 +1128,7 @@ msgid "<strong>Min Size: 112Χ112px</strong>.<br />A squared image is preferred 
 msgstr "<strong>Mindestgröße: 112Χ112px</strong>.<br />Ein quadratisches Bild wird von den Suchmaschinen bevorzugt."
 
 #. translators: Link to kb article
-#: includes/modules/content-ai/class-content-ai.php:111
+#: includes/modules/content-ai/class-content-ai.php:112
 msgid "Get sophisticated AI suggestions for related Keywords, Questions & Links to include in the SEO meta & Content Area. %s."
 msgstr "Erhalte ausgefeilte KI-Vorschläge für verwandte Schlüsselworts, Fragen und Links, die du in den SEO-Meta- und Content-Bereich aufnehmen kannst. %s."
 
@@ -1532,7 +1544,7 @@ msgstr "Bei der Übermittlung der URL ist ein Fehler aufgetreten."
 msgid "The last 100 IndexNow API requests."
 msgstr "Die letzten 100 Anfragen an die IndexNow-API."
 
-#: includes/modules/content-ai/class-content-ai-page.php:270
+#: includes/modules/content-ai/class-content-ai-page.php:272
 #: includes/modules/instant-indexing/class-instant-indexing.php:223
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 msgid "History"
@@ -1687,7 +1699,7 @@ msgstr "Unterstützung für Headless-CMS"
 msgid "URL to get HTML tags for."
 msgstr "URL zum Abrufen von HTML-Tags."
 
-#: includes/modules/content-ai/views/options.php:192
+#: includes/modules/content-ai/views/options.php:193
 #: includes/modules/content-ai/assets/js/content-ai.js:1
 msgid "Click to refresh the available credits."
 msgstr "Klicke auf aktualisieren, um das verfügbare Guthaben zu aktualisieren."
@@ -1698,7 +1710,7 @@ msgstr "Klicke auf aktualisieren, um das verfügbare Guthaben zu aktualisieren."
 msgid "New!"
 msgstr "Neu!"
 
-#: includes/modules/content-ai/views/options.php:181
+#: includes/modules/content-ai/views/options.php:182
 msgid "Select Post Type"
 msgstr "Beitragstyp auswählen"
 
@@ -1740,9 +1752,9 @@ msgstr "Erhalte ausgefeilte KI-Vorschläge für verwandte Schlüsselwörter, Fra
 
 #: includes/module/class-manager.php:176
 #: includes/modules/content-ai/class-content-ai-page.php:124
-#: includes/modules/content-ai/class-content-ai-page.php:244
-#: includes/modules/content-ai/class-content-ai.php:109
-#: includes/modules/content-ai/class-content-ai.php:133
+#: includes/modules/content-ai/class-content-ai-page.php:246
+#: includes/modules/content-ai/class-content-ai.php:110
+#: includes/modules/content-ai/class-content-ai.php:134
 #: includes/modules/role-manager/class-capability-manager.php:70
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 #: includes/modules/content-ai/assets/js/content-ai.js:1
@@ -2849,7 +2861,7 @@ msgid "Saudi Arabia"
 msgstr "Saudi Arabien"
 
 #: includes/modules/content-ai/views/options.php:107
-#: includes/modules/content-ai/views/options.php:153
+#: includes/modules/content-ai/views/options.php:154
 msgid "Russian"
 msgstr "Russisch"
 
@@ -3313,6 +3325,8 @@ msgstr "Konto trennen"
 #: includes/admin/views/plugin-activation.php:42
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 #: includes/modules/content-ai/assets/js/content-ai.js:1
+#: includes/modules/content-ai/blocks/command/assets/js/index.js:1
+#: includes/modules/content-ai/blocks/command/assets/src/edit.js:24
 msgid "Connect Now"
 msgstr "Jetzt verbinden"
 
@@ -4192,7 +4206,7 @@ msgid "You have not entered a tagline yet. It is a good idea to choose one. %1$s
 msgstr "Du hast noch keinen Untertitel eingegeben. Es ist eine gute Idee, einen zu wählen. %1$sDu kannst dies im Customizer%2$s beheben."
 
 #. translators: 1. Credits left 2. Buy more credits link
-#: includes/modules/content-ai/views/options.php:200
+#: includes/modules/content-ai/views/options.php:201
 msgid "here"
 msgstr "hier"
 
@@ -6145,7 +6159,7 @@ msgstr "Update-Funktionen"
 msgid "Control which user has access to which options of Rank Math. %s"
 msgstr "Steuere, welcher Benutzer Zugriff auf welche Optionen von Rank Math hat. %s"
 
-#: includes/admin/class-admin.php:348
+#: includes/admin/class-admin.php:331
 #: includes/modules/role-manager/class-role-manager.php:132
 #: includes/traits/class-ajax.php:59
 msgid "You are not authorized to perform this action."
@@ -8234,7 +8248,7 @@ msgstr "Werde Mitglied der KOSTENLOSEN Facebook-Gruppe"
 #: includes/admin/wizard/views/ready.php:45
 #: includes/modules/404-monitor/class-admin.php:200
 #: includes/modules/analytics/class-analytics.php:501
-#: includes/modules/content-ai/class-content-ai.php:111
+#: includes/modules/content-ai/class-content-ai.php:112
 #: includes/modules/image-seo/class-admin.php:47
 #: includes/modules/instant-indexing/class-instant-indexing.php:210
 #: includes/modules/instant-indexing/class-instant-indexing.php:218
@@ -8264,6 +8278,7 @@ msgstr "Deine Seite ist fertig!"
 #: includes/modules/404-monitor/class-admin.php:225
 #: includes/modules/redirections/class-admin.php:354
 #: includes/modules/analytics/assets/js/admin-bar.js:1
+#: includes/modules/content-ai/assets/js/content-ai-page.js:1
 msgid "Learn More"
 msgstr "Mehr erfahren"
 
@@ -8830,7 +8845,7 @@ msgstr "Füge automatisch ein <code>target=\"_blank\"</code> Attribut zu externe
 #: includes/admin/wizard/class-optimization.php:85
 #: includes/settings/general/links.php:109
 msgid "Open External Links in New Tab/Window"
-msgstr "Externe Links in einem neuen Tab/Fenster öffnen"
+msgstr "Öffne externe Links in einem neuen Tab/Fenster"
 
 #: includes/admin/wizard/class-optimization.php:75
 #: includes/settings/general/links.php:60
@@ -9342,15 +9357,15 @@ msgstr "Ein"
 msgid "Off"
 msgstr "Aus"
 
-#: includes/admin/class-admin.php:318
+#: includes/admin/class-admin.php:301
 msgid "Insert Link in Content"
 msgstr "Link in Inhalt einfügen"
 
-#: includes/admin/class-admin.php:317
+#: includes/admin/class-admin.php:300
 msgid "Copy Link URL to Clipboard"
 msgstr "Link URL in die Zwischenablage kopieren"
 
-#: includes/admin/class-admin.php:117
+#: includes/admin/class-admin.php:116
 msgid "The canonical URL you entered does not seem to be a valid URL. Please double check it in the SEO meta box &raquo; Advanced tab."
 msgstr "Die von dir eingegebene kanonische URL scheint keine gültige URL zu sein. Bitte überprüfen diese noch einmal in der SEO-Meta-Box &raquo; Registerkarte Erweitert."
 
@@ -9381,11 +9396,11 @@ msgstr "Hilfe"
 msgid "Modules"
 msgstr "Module"
 
-#: includes/admin/class-admin.php:73
+#: includes/admin/class-admin.php:72
 msgid "Facebook profile URL"
 msgstr "Facebook Profil-URL"
 
-#: includes/admin/class-admin.php:72
+#: includes/admin/class-admin.php:71
 msgid "Twitter username (without @)"
 msgstr "Twitter-Benutzername (ohne @)"
 
