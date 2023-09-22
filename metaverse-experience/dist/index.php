@@ -20,16 +20,16 @@ $nonce = bin2hex(random_bytes(16));
 // header("Content-Security-Policy: script-src 'nonce-$nonce' 'unsafe-eval'");
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="de">
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, maximum-scale=1">
 	<meta name="apple-mobile-web-app-capable" content="yes">
-    <title>Web-Based Virtual Experiences in the Metaverse</title>
+    <title>Webbasierte virtuelle Erlebnisse im Metaversum</title>
 	
 	<!-- Bootstrap -->
-	<link rel="stylesheet" href="themes/metaverse/css/vr-commerce.min.css" />
+	<link rel="stylesheet" href="themes/metaverse/css/vr-commerce.min.css">
 
 	<!-- Bootstrap JS Dependencies -->
 	<script nonce="<?php echo $nonce; ?>" src="themes/metaverse/js/vendor.min.js"></script>
@@ -69,7 +69,7 @@ body {
 body.AR-container {
   margin : 0px; 
   overflow: hidden;
-  background-color: none;
+  background-color: transparent; ;
 }
 
 #splash {
@@ -150,7 +150,7 @@ window.addEventListener('enter-vr', e => {
 				<div class="row">
 					<div class="col px-5" style="position: relative; margin-top: 400px;">
 						<div style="position: absolute; bottom: 0;">
-							<h1>MyOOS Immersive-Showroom</h2>
+							<h1>MyOOS Immersive-Showroom</h1>
 							<p>Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die 
 							Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines 
 							großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und 
@@ -171,7 +171,7 @@ window.addEventListener('enter-vr', e => {
 	</div>
 
 
-	<a-scene nonce="<?php echo $nonce; ?>" embedded="false" vr-mode-ui="enabled: true" allow="autoplay"><!-- creates a UI element for the VR mode -->
+	<a-scene nonce="<?php echo $nonce; ?>" embedded="false" vr-mode-ui="enabled: true"><!-- creates a UI element for the VR mode -->
 
 
 		<a-assets>
@@ -186,16 +186,16 @@ window.addEventListener('enter-vr', e => {
 
         	<img id="play" src="image/play.png">
         	<img id="pause" src="image/pause.png">
-			<video id="my-video" src="video/produktanimation.mp4" autoplay="true" loop="true" webkit-playsinline playsinline></video>
+			<video id="my-video" src="video/produktanimation.mp4" loop="true"></video>
 		</a-assets>
 		
 		
 	
-		<!-- Erstellen Sie ein ambient light mit einer hellgrauen Farbe -->
+		<!-- Create an ambient light with a light grey colour -->
 		<a-entity light="type: ambient; color: #CCC"></a-entity>  
-		<!-- Erstellen Sie ein point light mit einer weißen Farbe an der Position -5 10 0 -->
+		<!-- Create a point light with a white colour at the position -5 10 0 -->
 		<a-entity light="type: point; color: #FFF; intensity: 0.8; distance: 20; decay: 2" position="-5 10 0"></a-entity> 
-		<!-- Fügen Sie Ihre anderen Entitäten hinzu -->
+		<!-- Add your other entities -->
 		
 
 
