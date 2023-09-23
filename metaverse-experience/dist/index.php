@@ -188,16 +188,12 @@ window.addEventListener('enter-vr', e => {
         	<img id="pause" src="image/pause.png">
 			<video id="my-video" autoplay loop="true" src="video/produktanimation.mp4"></video>
 		</a-assets>
-		
-		
 	
 		<!-- Create an ambient light with a light grey colour -->
 		<a-entity light="type: ambient; color: #CCC"></a-entity>  
 		<!-- Create a point light with a white colour at the position -5 10 0 -->
 		<a-entity light="type: point; color: #FFF; intensity: 0.8; distance: 20; decay: 2" position="-5 10 0"></a-entity> 
 		<!-- Add your other entities -->
-		
-
 
 		<!-- Nav mesh. -->
 		<a-entity id="ground" nav-mesh
@@ -243,29 +239,23 @@ window.addEventListener('enter-vr', e => {
                         </a-entity>
 			</a-entity>
 
-		<!-- Right Controller  -->
-		<a-entity id="right-hand" laser-controls="hand: right" 
-			oculus-touch-controls="hand: right" 
-			vive-controls="hand: right" 
-			raycaster="objects: .clickable; lineColor: #FF0000" 
-			super-hands="colliderEvent: raycaster-intersection; colliderEventProperty: els; colliderEndEvent: raycaster-intersection-cleared; colliderEndEventProperty: clearedEls"> 
-		</a-entity>
+			<!-- Right Controller  -->
+			<a-entity id="right-hand" laser-controls="hand: right" 
+				oculus-touch-controls="hand: right" 
+				vive-controls="hand: right" 
+				raycaster="objects: .clickable; lineColor: #FF0000" 
+				super-hands="colliderEvent: raycaster-intersection; colliderEventProperty: els; colliderEndEvent: raycaster-intersection-cleared; colliderEndEventProperty: clearedEls"> 
+			</a-entity>
 
 
-		<!-- Left Controller  -->		
-		<a-entity id="left-hand" hand-controls="hand: left"
-			super-hands="colliderEvent: hitstart; colliderEventProperty: els; colliderEndEvent: hitend; colliderEndEventProperty: clearedEls" 
-			blink-controls="button: trigger; startEvents: triggerdown; endEvents: triggerup; cancelEvents: gripdown; collisionEntities: #ground">
-		</a-entity>
+			<!-- Left Controller  -->		
+			<a-entity id="left-hand" hand-controls="hand: left"
+				super-hands="colliderEvent: hitstart; colliderEventProperty: els; colliderEndEvent: hitend; colliderEndEventProperty: clearedEls" 
+				blink-controls="button: trigger; startEvents: triggerdown; endEvents: triggerup; cancelEvents: gripdown; collisionEntities: #ground">
+			</a-entity>
 			
 		</a-entity>
-
-
-
-      </a-entity>		
-		
-    </a-scene>
-
+	</a-scene>
 
 
 <script nonce="<?php echo $nonce; ?>">
