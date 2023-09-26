@@ -114,16 +114,6 @@ body.AR-container {
   animation: spin 1s infinite linear;
 }
 
-#splash .start-button {
-  padding: 10px 30px;
-  border-radius: 3px;
-  opacity: 0;
-  transition: opacity .5s ease;
-  cursor: pointer;
-  background-color: #292929;
-  letter-spacing: 1px;
-}
-
 .controlKeys {
   position: absolute;
   width: 7rem;
@@ -145,7 +135,6 @@ window.addEventListener('enter-vr', e => {
 
 	<div id="splash">
 		<div class="loading"></div>
-		<div class="start-button">Start</div>
 			<div class="container-fluid ">
 				<div class="row">
 					<div class="col px-5" style="position: relative; margin-top: 400px;">
@@ -163,7 +152,7 @@ window.addEventListener('enter-vr', e => {
 				</div>
 				<div class="col px-5" style="position: relative; margin-top: 400px;">
 					<div style="position: absolute; bottom: 0;">
-						<img class="controlKeys" src="image/key_controls.png" alt="control keys">
+						<img class="controlKeys" src="image/key_controls.png" alt="Steuerungstasten">
 					</div>
 				</div>
 			</div>
@@ -172,15 +161,11 @@ window.addEventListener('enter-vr', e => {
 
 
 	<a-scene nonce="<?php echo $nonce; ?>" embedded="false" vr-mode-ui="enabled: true"><!-- creates a UI element for the VR mode -->
-
-
 		<a-assets>
 			<img id="skyTexture" src="texture/kloofendal_43d_clear_puresky.jpg" preload="auto">
-			<?php
-			// <a-asset-item id="navmesh" src="model/hall-navmesh.glb" preload="auto"></a-asset-item>
-			//	<a-asset-item id="hall" src="model/hall.glb" preload="auto"></a-asset-item>
-			?>
-			<a-asset-item id="ocean" src="model/ocean.glb" preload="auto"></a-asset-item>
+
+			<a-asset-item id="navmesh" src="model/hall-navmesh.glb" preload="auto"></a-asset-item>
+			<a-asset-item id="hall" src="model/hall.glb" preload="auto"></a-asset-item>
 
 			<!-- NOTE: Playing sound on iOS — in any browser — requires a physical user interaction. -->
 			<!-- More info here: https://aframe.io/docs/1.0.0/components/sound.html -->
@@ -192,20 +177,6 @@ window.addEventListener('enter-vr', e => {
 			<video id="my-video" autoplay loop="true" src="video/produktanimation.mp4"></video>
 		</a-assets>
 
-		<!-- Laden der glb-Datei mit der gltf-model Komponente -->
-		<a-entity gltf-model="#ocean" position="0 0 -10">
-			<!-- Verwenden der animation-mixer Komponente, um die Animation abzuspielen -->
-			<a-entity animation-mixer="clip: Ocean; loop: true; timeScale: 1"></a-entity>
-		</a-entity>
-
-      <!-- Animation
-           See: http://threejs.org/examples/#webgl_animation_scene
-      -->
-      <a-entity position="0 0 20"
-                animation-mixer="clip: *;"
-                gltf-model="src: url(http://localhost/ent/MyOOS/metaverse-experience/dist/model/ocean.glb);">
-      </a-entity>
-	
 		<!-- Create an ambient light with a light grey colour -->
 		<a-entity light="type: ambient; color: #CCC"></a-entity>  
 		<!-- Create a point light with a white colour at the position -5 10 0 -->
@@ -280,7 +251,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const scene = document.querySelector('a-scene');
     const splash = document.querySelector('#splash');
     const loading = document.querySelector('#splash .loading');
-    const startButton = document.querySelector('#splash .start-button');
 
     const emitEvent = (eventName, listeners) => {
         listeners.forEach((listener) => {
@@ -300,15 +270,10 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             loading.style.display = 'none';
             splash.style.backgroundColor = 'rgba(0, 0, 0, 0.85)';
-            startButton.style.opacity = 1;
+			splash.style.display = 'none'; 
         }, 50);
     });
-
-    startButton.addEventListener('click', function (e) {
-        splash.style.display = 'none';
-    });
 });
-
 </script>
 
 </body>
