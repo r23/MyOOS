@@ -18,6 +18,7 @@ use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\CodingStyle\NodeAnalyzer\UseImportNameMatcher;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
+use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
 use Rector\Core\Util\StringUtils;
 use Rector\Core\ValueObject\Application\File;
 use Rector\NodeNameResolver\NodeNameResolver;
@@ -98,9 +99,9 @@ final class ShortNameResolver
     public function resolveShortClassLikeNames(File $file) : array
     {
         $newStmts = $file->getNewStmts();
-        /** @var Namespace_[] $namespaces */
+        /** @var Namespace_[]|FileWithoutNamespace[] $namespaces */
         $namespaces = \array_filter($newStmts, static function (Stmt $stmt) : bool {
-            return $stmt instanceof Namespace_;
+            return $stmt instanceof Namespace_ || $stmt instanceof FileWithoutNamespace;
         });
         if (\count($namespaces) !== 1) {
             // only handle single namespace nodes
@@ -108,7 +109,7 @@ final class ShortNameResolver
         }
         $namespace = \current($namespaces);
         /** @var ClassLike[] $classLikes */
-        $classLikes = $this->betterNodeFinder->findInstanceOf($namespace, ClassLike::class);
+        $classLikes = $this->betterNodeFinder->findInstanceOf($namespace->stmts, ClassLike::class);
         $shortClassLikeNames = [];
         foreach ($classLikes as $classLike) {
             $shortClassLikeNames[] = $this->nodeNameResolver->getShortName($classLike);

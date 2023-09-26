@@ -176,8 +176,11 @@ window.addEventListener('enter-vr', e => {
 
 		<a-assets>
 			<img id="skyTexture" src="texture/kloofendal_43d_clear_puresky.jpg" preload="auto">
-			<a-asset-item id="navmesh" src="model/hall-navmesh.glb" preload="auto"></a-asset-item>
-			<a-asset-item id="hall" src="model/hall.glb" preload="auto"></a-asset-item>
+			<?php
+			// <a-asset-item id="navmesh" src="model/hall-navmesh.glb" preload="auto"></a-asset-item>
+			//	<a-asset-item id="hall" src="model/hall.glb" preload="auto"></a-asset-item>
+			?>
+			<a-asset-item id="ocean" src="model/ocean.glb" preload="auto"></a-asset-item>
 
 			<!-- NOTE: Playing sound on iOS — in any browser — requires a physical user interaction. -->
 			<!-- More info here: https://aframe.io/docs/1.0.0/components/sound.html -->
@@ -188,6 +191,20 @@ window.addEventListener('enter-vr', e => {
         	<img id="pause" src="image/pause.png">
 			<video id="my-video" autoplay loop="true" src="video/produktanimation.mp4"></video>
 		</a-assets>
+
+		<!-- Laden der glb-Datei mit der gltf-model Komponente -->
+		<a-entity gltf-model="#ocean" position="0 0 -10">
+			<!-- Verwenden der animation-mixer Komponente, um die Animation abzuspielen -->
+			<a-entity animation-mixer="clip: Ocean; loop: true; timeScale: 1"></a-entity>
+		</a-entity>
+
+      <!-- Animation
+           See: http://threejs.org/examples/#webgl_animation_scene
+      -->
+      <a-entity position="0 0 20"
+                animation-mixer="clip: *;"
+                gltf-model="src: url(http://localhost/ent/MyOOS/metaverse-experience/dist/model/ocean.glb);">
+      </a-entity>
 	
 		<!-- Create an ambient light with a light grey colour -->
 		<a-entity light="type: ambient; color: #CCC"></a-entity>  

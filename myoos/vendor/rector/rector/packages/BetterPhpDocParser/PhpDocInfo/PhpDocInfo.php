@@ -334,7 +334,6 @@ final class PhpDocInfo
     }
     /**
      * @deprecated Change doc block and print directly in the node instead
-     * @internal
      * Should be handled by attributes of phpdoc node - if stard_and_end is missing in one of nodes, it has been changed
      *
      * @api
@@ -372,7 +371,9 @@ final class PhpDocInfo
         $genericTagValueNodes = $this->phpDocNodeByTypeFinder->findByType($this->phpDocNode, GenericTagValueNode::class);
         $resolvedClasses = [];
         foreach ($genericTagValueNodes as $genericTagValueNode) {
-            $resolvedClasses[] = $genericTagValueNode->value;
+            if ($genericTagValueNode->value !== '') {
+                $resolvedClasses[] = $genericTagValueNode->value;
+            }
         }
         return $resolvedClasses;
     }

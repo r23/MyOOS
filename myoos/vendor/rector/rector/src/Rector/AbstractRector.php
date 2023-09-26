@@ -29,6 +29,13 @@ use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\PhpDocParser\NodeTraverser\SimpleCallableNodeTraverser;
 use Rector\Skipper\Skipper\Skipper;
 use Rector\StaticTypeMapper\StaticTypeMapper;
+/**
+ * @property-read PhpDocInfoFactory $phpDocInfoFactory; @deprecated The parent AbstractRector dependency is deprecated and will be removed. Use dependency injection in your own rule instead.
+ *
+ * @property-read ValueResolver $valueResolver; @deprecated The parent AbstractRector dependency is deprecated and will be removed. Use dependency injection in your own rule instead.
+ *
+ * @property-read BetterNodeFinder $betterNodeFinder; @deprecated The parent AbstractRector dependency is deprecated and will be removed. Use dependency injection in your own rule instead.
+ */
 abstract class AbstractRector extends NodeVisitorAbstract implements RectorInterface
 {
     /**
@@ -58,21 +65,9 @@ CODE_SAMPLE;
      */
     protected $staticTypeMapper;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory
-     */
-    protected $phpDocInfoFactory;
-    /**
      * @var \Rector\Core\PhpParser\Node\NodeFactory
      */
     protected $nodeFactory;
-    /**
-     * @var \Rector\Core\PhpParser\Node\Value\ValueResolver
-     */
-    protected $valueResolver;
-    /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
-     */
-    protected $betterNodeFinder;
     /**
      * @var \Rector\Core\PhpParser\Comparing\NodeComparator
      */
@@ -109,21 +104,42 @@ CODE_SAMPLE;
      * @var int|null
      */
     private $toBeRemovedNodeId;
+    /**
+     * @var array<string, object>
+     */
+    private $deprecatedDependencies = [];
+    /**
+     * @var array<class-string, array<string, bool>>
+     */
+    private $cachedDeprecatedDependenciesWarning = [];
+    /**
+     * Handle deprecated dependencies compatbility
+     * @return mixed
+     */
+    public function __get(string $name)
+    {
+        if (!isset($this->cachedDeprecatedDependenciesWarning[static::class][$name])) {
+            echo \sprintf('Get %s property from AbstractRector on %s is deprecated, inject via __construct() instead', $name, static::class);
+            echo \PHP_EOL;
+            $this->cachedDeprecatedDependenciesWarning[static::class][$name] = \true;
+        }
+        return $this->deprecatedDependencies[$name] ?? null;
+    }
     public function autowire(NodeNameResolver $nodeNameResolver, NodeTypeResolver $nodeTypeResolver, SimpleCallableNodeTraverser $simpleCallableNodeTraverser, NodeFactory $nodeFactory, PhpDocInfoFactory $phpDocInfoFactory, StaticTypeMapper $staticTypeMapper, Skipper $skipper, ValueResolver $valueResolver, BetterNodeFinder $betterNodeFinder, NodeComparator $nodeComparator, CurrentFileProvider $currentFileProvider, CreatedByRuleDecorator $createdByRuleDecorator, ChangedNodeScopeRefresher $changedNodeScopeRefresher) : void
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->nodeFactory = $nodeFactory;
-        $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->staticTypeMapper = $staticTypeMapper;
         $this->skipper = $skipper;
-        $this->valueResolver = $valueResolver;
-        $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeComparator = $nodeComparator;
         $this->currentFileProvider = $currentFileProvider;
         $this->createdByRuleDecorator = $createdByRuleDecorator;
         $this->changedNodeScopeRefresher = $changedNodeScopeRefresher;
+        $this->deprecatedDependencies['phpDocInfoFactory'] = $phpDocInfoFactory;
+        $this->deprecatedDependencies['valueResolver'] = $valueResolver;
+        $this->deprecatedDependencies['betterNodeFinder'] = $betterNodeFinder;
     }
     /**
      * @return Node[]|null
