@@ -121,6 +121,7 @@ body.AR-container {
   bottom: 13%;
 }
 </style>
+
 <script nonce="<?php echo $nonce; ?>">
 window.addEventListener('enter-vr', e => {
   if (AFRAME.utils.device.checkHeadsetConnected()) {
@@ -196,6 +197,14 @@ window.addEventListener('enter-vr', e => {
                 gltf-model="#hall">
 		</a-entity>
 	
+
+      <!-- Erste Wasserfläche -->
+      <a-water id="water1" position="0 0 -10" width="20" height="20" color="#00BFFF" opacity="0.8" wave-height="0.5" wave-speed="1"></a-water>
+
+      <!-- Zweite Wasserfläche -->
+      <a-water id="water2" position="0 -5 -30" width="40" height="40" color="#191970" opacity="0.6" wave-height="1" wave-speed="2"></a-water>
+
+
 
         <!-- 360° Panorama -->
         <a-sky src="#skyTexture"
