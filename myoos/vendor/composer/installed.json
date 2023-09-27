@@ -3187,12 +3187,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "ed458bcfb6ea743356d152730c1dda4028458835"
+                "reference": "6dfb209baa81622f9c5daa272e5b21c602d9d94a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/ed458bcfb6ea743356d152730c1dda4028458835",
-                "reference": "ed458bcfb6ea743356d152730c1dda4028458835",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/6dfb209baa81622f9c5daa272e5b21c602d9d94a",
+                "reference": "6dfb209baa81622f9c5daa272e5b21c602d9d94a",
                 "shasum": ""
             },
             "conflict": {
@@ -3332,7 +3332,7 @@
                 "ezsystems/ezplatform-richtext": ">=2.3,<2.3.7.1-dev",
                 "ezsystems/ezplatform-user": ">=1,<1.0.1",
                 "ezsystems/ezpublish-kernel": "<6.13.8.2-dev|>=7,<7.5.30",
-                "ezsystems/ezpublish-legacy": "<=2017.12.7.3|>=2018.06,<=2019.03.5.1",
+                "ezsystems/ezpublish-legacy": "<=2017.12.7.3|>=2018.6,<=2019.03.5.1",
                 "ezsystems/platform-ui-assets-bundle": ">=4.2,<4.2.3",
                 "ezsystems/repository-forms": ">=2.3,<2.3.2.1-dev|>=2.5,<2.5.15",
                 "ezyang/htmlpurifier": "<4.1.1",
@@ -3821,7 +3821,7 @@
                 "zfr/zfr-oauth2-server-module": "<0.1.2",
                 "zoujingli/thinkadmin": "<6.0.22"
             },
-            "time": "2023-09-26T17:04:26+00:00",
+            "time": "2023-09-27T01:25:44+00:00",
             "default-branch": true,
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
