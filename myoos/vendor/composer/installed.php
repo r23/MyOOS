@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '173c096536968a7669cf865cfe54bb99d5109f78',
+        'reference' => '0c1abb24f6140561d2d23f0e84b15831abd8a0a4',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -47,9 +47,9 @@
             'dev_requirement' => false,
         ),
         'doctrine/deprecations' => array(
-            'pretty_version' => 'v1.1.1',
-            'version' => '1.1.1.0',
-            'reference' => '612a3ee5ab0d5dd97b7cf3874a6efe24325efac3',
+            'pretty_version' => '1.1.2',
+            'version' => '1.1.2.0',
+            'reference' => '4f2d4f2836e7ec4e7a8625e75c6aa916004db931',
             'type' => 'library',
             'install_path' => __DIR__ . '/../doctrine/deprecations',
             'aliases' => array(),
@@ -202,7 +202,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '173c096536968a7669cf865cfe54bb99d5109f78',
+            'reference' => '0c1abb24f6140561d2d23f0e84b15831abd8a0a4',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -493,7 +493,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '6dfb209baa81622f9c5daa272e5b21c602d9d94a',
+            'reference' => '4570a7d6bd6649a3ee2e5eaec97bbbffe192d1f8',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
