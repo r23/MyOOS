@@ -173,6 +173,8 @@ window.addEventListener('enter-vr', e => {
 			<!-- Also, on Desktop devices, autoplay works in Firefox and doesn't work in Chrome  -->
 		    <audio id="river" preload="auto" src="sound/birds-singing-calm-river-nature-ambient-sound-127411.mp3"></audio>
 
+			<a-asset-item id="ocean" src="model/ocean.glb"></a-asset-item>
+
         	<img id="play" src="image/play.png">
         	<img id="pause" src="image/pause.png">
 			<video id="my-video" autoplay loop="true" src="video/produktanimation.mp4"></video>
@@ -197,14 +199,8 @@ window.addEventListener('enter-vr', e => {
                 gltf-model="#hall">
 		</a-entity>
 	
-
-      <!-- Erste Wasserfläche -->
-      <a-water id="water1" position="0 0 -10" width="20" height="20" color="#00BFFF" opacity="0.8" wave-height="0.5" wave-speed="1"></a-water>
-
-      <!-- Zweite Wasserfläche -->
-      <a-water id="water2" position="0 -5 -30" width="40" height="40" color="#191970" opacity="0.6" wave-height="1" wave-speed="2"></a-water>
-
-
+		<a-entity gltf-model="#ocean" position="0 10 -10" animation-mixer="clip: *; loop: true; timeScale: 0.25">
+		</a-entity> 
 
         <!-- 360° Panorama -->
         <a-sky src="#skyTexture"
