@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-09-21 13:35:23+0000\n"
+"PO-Revision-Date: 2023-09-27 12:33:34+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-alpha.8\n"
+"X-Generator: GlotPress/4.0.0-alpha.9\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO - Stable (latest release)\n"
 
@@ -4212,7 +4212,7 @@ msgstr "hier"
 
 #: includes/settings/titles/global.php:30 assets/admin/js/rank-math-app.js:1
 msgid "Advanced Robots Meta"
-msgstr "Erweiterte Roboter-Meta"
+msgstr "Erweiterte Robots-Meta"
 
 #. translators: variable name
 #: includes/replace-variables/class-variable.php:100
@@ -6703,7 +6703,7 @@ msgstr "Status"
 #: includes/modules/redirections/views/options.php:51
 #: assets/admin/js/rank-math-app.js:1
 msgid "Redirection Type"
-msgstr "Umleitungs Typ"
+msgstr "Umleitungstyp"
 
 #: includes/modules/redirections/class-form.php:117
 #: assets/admin/js/rank-math-app.js:1
