@@ -5,7 +5,7 @@ Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, mult
 Requires at least: 6.2
 Requires PHP: 7.4
 Tested up to: 6.3
-Stable tag: 5.8
+Stable tag: 5.8.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,7 +37,7 @@ If you activate certain features in this plugin, the contact form submitter's pe
 * reCAPTCHA ([Google](https://policies.google.com/?hl=en))
 * Akismet ([Automattic](https://automattic.com/privacy/))
 * Constant Contact ([Endurance International Group](https://www.endurance.com/privacy))
-* [Brevo (formerly Sendinblue)](https://www.brevo.com/legal/privacypolicy/)
+* [Brevo](https://www.brevo.com/legal/privacypolicy/)
 * [Stripe](https://stripe.com/privacy)
 
 = Recommended plugins =
@@ -77,6 +77,10 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 == Changelog ==
 
 For more information, see [Releases](https://contactform7.com/category/releases/).
+
+= 5.8.1 =
+
+[https://contactform7.com/contact-form-7-581/](https://contactform7.com/contact-form-7-581/)
 
 = 5.8 =
 

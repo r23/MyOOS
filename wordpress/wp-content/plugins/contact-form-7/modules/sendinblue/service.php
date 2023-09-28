@@ -27,7 +27,7 @@ class WPCF7_Sendinblue extends WPCF7_Service {
 	}
 
 	public function get_title() {
-		return __( 'Brevo (formerly Sendinblue)', 'contact-form-7' );
+		return __( 'Brevo', 'contact-form-7' );
 	}
 
 	public function is_active() {
@@ -47,7 +47,7 @@ class WPCF7_Sendinblue extends WPCF7_Service {
 
 	public function link() {
 		echo wpcf7_link(
-			'https://www.brevo.com/?tap_a=30591-fb13f0&tap_s=1031580-b1bb1d',
+			'https://www.brevo.com/',
 			'brevo.com'
 		);
 	}
@@ -153,7 +153,7 @@ class WPCF7_Sendinblue extends WPCF7_Service {
 			'<p><strong>%s</strong></p>',
 			wpcf7_link(
 				__( 'https://contactform7.com/sendinblue-integration/', 'contact-form-7' ),
-				__( 'Brevo (formerly Sendinblue) integration', 'contact-form-7' )
+				__( 'Brevo integration', 'contact-form-7' )
 			)
 		);
 
