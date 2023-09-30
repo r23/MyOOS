@@ -1,5 +1,5 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' );
-// 2022 -> @axew3.com //
+// &copy; 2023 -> @axew3.com //
 
 // START (MAY) DO NOT MODIFY
 
@@ -28,14 +28,13 @@ if($spos !== false)
  $w3guessdomaindisplay = substr($w3guessdomaindisplay, 0, $spos);
 }} else { $w3guessdomaindisplay = 'Did you setup the URL that point to phpBB into the integration plugin admin page<br /> and is it correct?'; }
 
+//old to be removed
 if(!empty($w3cookie_domain)){
  if(substr($w3cookie_domain, 0, 1) == '.'){
     $document_domain = substr($w3cookie_domain, 1);
    } else {
       $document_domain = $w3cookie_domain;
      }
- } else {
-  $document_domain = 'localhost';
  }
 
 // do not use wp is_ssl() because it fail on some server
@@ -84,8 +83,6 @@ echo'<!-- noscript warning and simple preloader -->
 <iframe id="w3all_phpbb_iframe" style="width:1px;min-width:100%;*width:100%;border:0;" scrolling="no" src="'.$w3all_url_to_cms_switch_phpbb_default_url.'"></iframe>
 ';
 echo "<script type=\"text/javascript\">
-    document.domain = '".$document_domain."'; // NOTE: for domains like 'mysite.co.uk' remove this line, if you setup the next to match the correct document.domain
-    // document.domain = 'mydomain.com'; // NOTE: reset/setup this with domain (like mysite.co.uk) if js error when WP is installed like on mysite.domain.com and phpBB on domain.com: js origin error can come out for example when WordPress is on subdomain install and phpBB on domain. The origin fix is needed: (do this also on phpBB overall_footer.html added code, it need to match)
     var wp_u_logged = ".$current_user->ID.";
     var phpBBuid2 = ".$phpBBuid2.";
     var inhomepageShort = '".$ltm['wp_page_name']."';
@@ -95,17 +92,23 @@ echo "<script type=\"text/javascript\">
     var wp_w3all_forum_folder_wp = '".$wp_w3all_forum_folder_wp."';
     var w3all_iframe_custom_w3fancyurl = '".$w3all_iframe_custom_w3fancyurl."';
 
- function w3all_phpbb_pushUrlToParentOnBackForward(w3ER){
-   if(w3ER != ''){
-   var rem = w3ER.slice(-1);
-   if(rem == '#'){ w3ER = w3ER.substring(0, w3ER.length - 1); }
-    w3ER = window.btoa(unescape(encodeURIComponent(w3ER)));
-    var w3all_url_pushER = w3allhomeurl + '/' + wp_w3all_forum_folder_wp + '/?' + w3all_iframe_custom_w3fancyurl + '=' + w3ER;
-    window.history.replaceState({}, \"\", w3all_url_pushER);
-   }
-  }
+   window.addEventListener('message', function (event)
+   {
+    if (event.origin != '".$w3all_url_to_cms0."')
+    {
+      //console.error('The event origin do not match');
+      //console.error(event);
+     //return;
+    }
+
+     if(/#w3all/ig.exec(event.data.message)){
+        w3all_ajaxup_from_phpbb(event.data.message);
+      //console.log(event.data);
+     }
+   });
 
  function w3all_ajaxup_from_phpbb(res){
+
       var w3all_phpbb_u_logged  = /#w3all_phpbb_u_logged=1/ig.exec(res);
 
    if(phpBBuid2 != 2){ // if not phpBB uid 2 or get loop for this user
@@ -113,6 +116,7 @@ echo "<script type=\"text/javascript\">
         document.location.replace('".$w3allhomeurl."/index.php/".$wp_w3all_forum_folder_wp."/');
        }
     }
+
       jQuery('#w3idwloader').css(\"display\",\"none\");
       var w3all_phpbbpmcount = /.*(#w3all_phpbbpmcount)=([0-9]+).*/ig.exec(res);
       if(w3all_phpbbpmcount !== null){
@@ -132,7 +136,7 @@ echo "<script type=\"text/javascript\">
 
    // array() of allowed domains
 
-    var w3all_orig_domains = ['".$w3all_orig."','".$w3all_orig_www."','".$w3all_url_to_cms_clean."','".$w3all_url_to_cms_clean0."','https://localhost','http://localhost'];
+    var w3all_orig_domains = ['".$w3all_url_to_cms0."','".$w3all_orig."','".$w3all_orig_www."','".$w3all_url_to_cms_clean."','".$w3all_url_to_cms_clean0."','https://localhost','http://localhost'];
 
  iFrameResize({
         log         : false,
@@ -175,6 +179,16 @@ onScroll: function(x,y){
 //return false;
 }
 });
+
+/*function w3all_phpbb_pushUrlToParentOnBackForward(w3ER){
+   if(w3ER != ''){
+   var rem = w3ER.slice(-1);
+   if(rem == '#'){ w3ER = w3ER.substring(0, w3ER.length - 1); }
+    w3ER = window.btoa(unescape(encodeURIComponent(w3ER)));
+    var w3all_url_pushER = w3allhomeurl + '/' + wp_w3all_forum_folder_wp + '/?' + w3all_iframe_custom_w3fancyurl + '=' + w3ER;
+    window.history.replaceState({}, \"\", w3all_url_pushER);
+   }
+  }*/
 </script>";
 
 echo'</div><!-- END iframe div -->';

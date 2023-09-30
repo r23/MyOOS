@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, template, user
-Stable tag: 2.7.3
+Stable tag: 2.7.4
 License: GPLv2 or later
 Requires at least: 6.0.0
 Tested up to: 6.3
@@ -72,6 +72,14 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.7.4 =
+*Release Date - 30 Sep, 2023*
+* Fix: the file /wp-content/plugins/wp-w3all-phpbb-integration/admin/config.php has been fixed to clean up all Php warnings, when WP is in debug mode, and plugin's vars were still not initializated
+* Fix: the iframe integration remove the use of the deprecated JS document.domain
+* NOTE: if using the iframe integration via Shortcode, it is MANDATORY to change/update the overall_footer.html JS code, with the new one: https://www.axew3.com/w3/2020/01/phpbb-wordpress-template-integration-iframe-v5/
+* NOTE: if using the page-forum iframe integration instead: you can follow with the old code OR: to update to the new one, just rebuild or manually substitute the page-forum (or whatever named), and replace the old overall_footer.html phpBB added code, with the new one: https://www.axew3.com/w3/2020/01/phpbb-wordpress-template-integration-iframe-v5/
+* Minor fixes
 
 = 2.7.3 =
 *Release Date - 27 Aug, 2023*

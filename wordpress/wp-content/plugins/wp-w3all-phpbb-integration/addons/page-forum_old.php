@@ -38,7 +38,7 @@ if(!empty($w3cookie_domain)){
    } else {
       $document_domain = $w3cookie_domain;
      }
- } else { $document_domain = 'localhost'; }
+ }
 
 // do not use wp is_ssl() because it fail on some server
 $w3all_orig = strpos($w3all_url_to_cms,'https') !== false ? 'https://'. $document_domain : 'http://' . $document_domain;
@@ -61,15 +61,6 @@ if( isset($_GET["w3"]) ){ // default
    }
 }
 
- if(substr($w3all_url_to_cms, 0, 5) == 'https'){
-  $w3all_url_to_cms_htt = substr($w3all_url_to_cms, 0, 5);
-  $w3all_url_to_cms_htt = 'http' . substr($w3all_url_to_cms, 5);
- } else {
-    $w3all_url_to_cms_htt = substr($w3all_url_to_cms, 0, 4);
-    $w3all_url_to_cms_htt = 'https'.substr($w3all_url_to_cms, 4);
-   }
-
-// old way - to be removed
 // assure that passed url is correctly all decoded // may something else need to be added in certain conditions
 $w3all_url_to_cms = str_replace(array("%2F", "%23", "%2E"), array("/", "#", "."), $w3all_url_to_cms);
 
@@ -206,7 +197,7 @@ get_header();
 <iframe id="w3all_phpbb_iframe" style="width:1px;min-width:100%;*width:100%;border:0;" scrolling="no" src="<?php echo $w3all_url_to_cms; ?>"></iframe>
 <?php
     echo "<script>
-    //document.domain = '".$document_domain."'; // NOTE: for domains like 'mysite.co.uk' remove this line, if you setup the next to match the correct document.domain
+    document.domain = '".$document_domain."'; // NOTE: for domains like 'mysite.co.uk' remove this line, if you setup the next to match the correct document.domain
      //document.domain = '192.168.1.6'; // NOTE: reset/setup this with domain (like mysite.co.uk) if js error when WP is installed like on mysite.domain.com and phpBB on domain.com: js origin error can come out for example when WordPress is on subdomain install and phpBB on domain. The origin fix is needed: (do this also on phpBB overall_footer.html added code, it need to match)
     var wp_u_logged = ".$current_user->ID.";
     var phpBBuid2 = ".$phpBBuid2.";
@@ -224,25 +215,9 @@ get_header();
    }
   }
 
-
-   window.addEventListener('message', function (event)
-   {
-    if (event.origin != '".$w3all_url_to_cms0."')
-    {
-     // console.error('The event origin do not match');
-     // console.error(event);
-     // return;
-    }
-
-     if(/#w3all/ig.exec(event.data.message)){
-       w3all_ajaxup_from_phpbb(event.data.message);
-      //console.log(event.data);
-     }
-   });
-
-
  function w3all_ajaxup_from_phpbb(res){
       var w3all_phpbb_u_logged  = /#w3all_phpbb_u_logged=1/ig.exec(res);
+
    if(phpBBuid2 != 2){ // if not phpBB uid 2 or get loop for this user
        if( w3all_phpbb_u_logged == null && wp_u_logged > 1 || wp_u_logged == 0 && w3all_phpbb_u_logged != null ){
         document.location.replace('".$w3allhomeurl."/index.php/".$wp_w3all_forum_folder_wp."/');
@@ -265,7 +240,7 @@ get_header();
 
    // array() of allowed domains
 
-    var w3all_orig_domains = ['".$w3all_url_to_cms0."','".$w3all_orig."','".$w3all_orig_www."','".$w3all_url_to_cms_clean."','".$w3all_url_to_cms_clean0."','https://localhost','http://localhost'];
+    var w3all_orig_domains = ['".$w3all_orig."','".$w3all_orig_www."','".$w3all_url_to_cms_clean."','".$w3all_url_to_cms_clean0."','https://localhost','http://localhost'];
 
  iFrameResize({
         log         : false,
