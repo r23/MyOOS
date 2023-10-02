@@ -130,6 +130,7 @@ window.addEventListener('enter-vr', e => {
     }
   }
 });
+
 </script>
   </head>
 <body>
@@ -214,7 +215,8 @@ window.addEventListener('enter-vr', e => {
 					 play-pause class="clickable">
 			</a-image>
 		</a-video>
-		
+
+
 		<!-- CAMERA RIG -->
 		<a-entity id="rig"
                 movement-controls="constrainToNavMesh: true;
@@ -279,6 +281,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 50);
     });
 });
+
+
 </script>
 
 </body>
