@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '556a8f50652460a5bd2530417b9d21a1b8b9d479',
+        'reference' => 'b66347d6ccbfa29033db424e6671e050959339aa',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -202,7 +202,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '556a8f50652460a5bd2530417b9d21a1b8b9d479',
+            'reference' => 'b66347d6ccbfa29033db424e6671e050959339aa',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
