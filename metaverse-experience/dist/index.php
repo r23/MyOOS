@@ -47,11 +47,12 @@ $nonce = bin2hex(random_bytes(16));
    	<script nonce="<?php echo $nonce; ?>" src="static/js/223.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/850.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/848.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/918.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/503.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/569.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/687.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/928.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/403.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/448.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/109.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/339.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/406.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/477.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/main.js"></script>
@@ -150,11 +151,12 @@ window.addEventListener('enter-vr', e => {
 							werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben.</p>
 						</div>
 					</div>
-				<div class="col-4">
-				</div>
-				<div class="col px-5" style="position: relative; margin-top: 400px;">
-					<div style="position: absolute; bottom: 0;">
-						<img class="controlKeys" src="image/key_controls.png" alt="Steuerungstasten">
+					<div class="col-4">
+					</div>
+					<div class="col px-5" style="position: relative; margin-top: 400px;">
+						<div style="position: absolute; bottom: 0;">
+							<img class="controlKeys" src="image/key_controls.png" alt="Steuerungstasten">
+						</div>
 					</div>
 				</div>
 			</div>

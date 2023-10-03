@@ -1,3 +1,7 @@
+import React from "react";
+import { render } from "react-dom";
+import { Scene } from "aframe-react";
+import { Canvas } from "react-three-fiber";
 import * as AFRAME from 'aframe';
 
 require('aframe-extras');
@@ -102,3 +106,49 @@ AFRAME.registerComponent('play-pause', {
     });
   }
 });
+
+/*
+// Create a component that renders a three.js scene
+function ThreeScene() {
+  // Import react-three-fiber
+  const { useFrame } = require("react-three-fiber");
+
+  // Create a ref for the mesh
+  const meshRef = React.useRef();
+
+  // Animate the mesh on each frame
+  useFrame(() => {
+    meshRef.current.rotation.x += 0.01;
+    meshRef.current.rotation.y += 0.01;
+  });
+
+  // Render the canvas element with some three.js objects
+  return (
+    <Canvas>
+      <ambientLight />
+      <pointLight position={[10, 10, 10]} />
+      <mesh ref={meshRef}>
+        <boxBufferGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial color={"orange"} />
+      </mesh>
+    </Canvas>
+  );
+}
+
+// Register the component with aframe-react
+AFRAME.registerComponent("three-scene", {
+  init: function () {
+    // Render the component to this element
+    render(<ThreeScene />, this.el);
+  },
+});
+
+// Render the scene with the three-scene component
+render(
+  <Scene>
+    <a-entity three-scene></a-entity>
+  </Scene>,
+  document.body
+);
+
+*/
