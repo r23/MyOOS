@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\Core\DependencyInjection;
 
-use RectorPrefix202309\Doctrine\Inflector\Inflector;
-use RectorPrefix202309\Doctrine\Inflector\Rules\English\InflectorFactory;
-use RectorPrefix202309\Illuminate\Container\Container;
+use RectorPrefix202310\Doctrine\Inflector\Inflector;
+use RectorPrefix202310\Doctrine\Inflector\Rules\English\InflectorFactory;
+use RectorPrefix202310\Illuminate\Container\Container;
 use PhpParser\Lexer;
 use PHPStan\Analyser\NodeScopeResolver;
 use PHPStan\Analyser\ScopeFactory;
@@ -48,6 +48,7 @@ use Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterfac
 use Rector\Config\RectorConfig;
 use Rector\Core\Application\ChangedNodeScopeRefresher;
 use Rector\Core\Application\FileProcessor;
+use Rector\Core\Collector\ParentClassCollector;
 use Rector\Core\Configuration\ConfigInitializer;
 use Rector\Core\Configuration\RenamedClassesDataCollector;
 use Rector\Core\Console\Command\ListRulesCommand;
@@ -178,13 +179,12 @@ use Rector\StaticTypeMapper\PhpParser\NullableTypeNodeMapper;
 use Rector\StaticTypeMapper\PhpParser\StringNodeMapper;
 use Rector\StaticTypeMapper\PhpParser\UnionTypeNodeMapper;
 use Rector\StaticTypeMapper\StaticTypeMapper;
-use Rector\TypeDeclaration\Collector\ParentClassCollector;
 use Rector\Utils\Command\MissingInSetCommand;
 use Rector\Utils\Command\OutsideAnySetCommand;
-use RectorPrefix202309\Symfony\Component\Console\Application;
-use RectorPrefix202309\Symfony\Component\Console\Command\Command;
-use RectorPrefix202309\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix202309\Webmozart\Assert\Assert;
+use RectorPrefix202310\Symfony\Component\Console\Application;
+use RectorPrefix202310\Symfony\Component\Console\Command\Command;
+use RectorPrefix202310\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix202310\Webmozart\Assert\Assert;
 final class LazyContainerFactory
 {
     /**
@@ -320,6 +320,7 @@ final class LazyContainerFactory
                 $container->get(NodeFactory::class),
                 // @deprecated, use injected service in your Rector rules
                 $container->get(PhpDocInfoFactory::class),
+                // @deprecated, use injected service in your Rector rules
                 $container->get(StaticTypeMapper::class),
                 $container->get(Skipper::class),
                 // @deprecated, use injected service in your Rector rules

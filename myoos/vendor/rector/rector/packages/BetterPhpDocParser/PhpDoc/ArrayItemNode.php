@@ -36,6 +36,8 @@ final class ArrayItemNode implements PhpDocTagValueNode
             foreach ($this->value as $singleValue) {
                 $value .= $singleValue;
             }
+        } elseif ($this->value instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
+            $value .= $this->value->identifierTypeNode . $this->value;
         } else {
             $value .= $this->value;
         }

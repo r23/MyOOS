@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\FileSystemRector\Parser;
 
-use RectorPrefix202309\Nette\Utils\FileSystem;
+use RectorPrefix202310\Nette\Utils\FileSystem;
 use PhpParser\Node\Stmt;
 use Rector\Core\PhpParser\Parser\RectorParser;
 use Rector\Core\Provider\CurrentFileProvider;
@@ -41,9 +41,10 @@ final class FileInfoParser
      */
     public function parseFileInfoToNodesAndDecorate(string $filePath) : array
     {
-        $stmts = $this->rectorParser->parseFile($filePath);
-        $file = new File($filePath, FileSystem::read($filePath));
-        $stmts = $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($file, $stmts);
+        $fileContent = FileSystem::read($filePath);
+        $stmts = $this->rectorParser->parseString($fileContent);
+        $file = new File($filePath, $fileContent);
+        $stmts = $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($filePath, $stmts);
         $file->hydrateStmtsAndTokens($stmts, $stmts, []);
         $this->currentFileProvider->setFile($file);
         return $stmts;

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Testing\TestingParser;
 
-use RectorPrefix202309\Nette\Utils\FileSystem;
+use RectorPrefix202310\Nette\Utils\FileSystem;
 use PhpParser\Node;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Configuration\Parameter\SimpleParameterProvider;
@@ -48,9 +48,10 @@ final class TestingParser
     {
         // needed for PHPStan reflection, as it caches the last processed file
         $this->dynamicSourceLocatorProvider->setFilePath($filePath);
-        $file = new File($filePath, FileSystem::read($filePath));
-        $stmts = $this->rectorParser->parseFile($filePath);
-        $stmts = $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($file, $stmts);
+        $fileContent = FileSystem::read($filePath);
+        $file = new File($filePath, $fileContent);
+        $stmts = $this->rectorParser->parseString($fileContent);
+        $stmts = $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($filePath, $stmts);
         $file->hydrateStmtsAndTokens($stmts, $stmts, []);
         $this->currentFileProvider->setFile($file);
         return $file;
@@ -63,9 +64,10 @@ final class TestingParser
         // needed for PHPStan reflection, as it caches the last processed file
         $this->dynamicSourceLocatorProvider->setFilePath($filePath);
         SimpleParameterProvider::setParameter(Option::SOURCE, [$filePath]);
-        $stmts = $this->rectorParser->parseFile($filePath);
-        $file = new File($filePath, FileSystem::read($filePath));
-        $stmts = $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($file, $stmts);
+        $fileContent = FileSystem::read($filePath);
+        $stmts = $this->rectorParser->parseString($fileContent);
+        $file = new File($filePath, $fileContent);
+        $stmts = $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($filePath, $stmts);
         $file->hydrateStmtsAndTokens($stmts, $stmts, []);
         $this->currentFileProvider->setFile($file);
         return $stmts;

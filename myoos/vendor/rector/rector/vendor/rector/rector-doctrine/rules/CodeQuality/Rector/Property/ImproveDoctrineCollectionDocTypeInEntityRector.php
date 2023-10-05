@@ -23,6 +23,7 @@ use Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
 use Rector\Doctrine\TypeAnalyzer\CollectionTypeFactory;
 use Rector\Doctrine\TypeAnalyzer\CollectionTypeResolver;
 use Rector\Doctrine\TypeAnalyzer\CollectionVarTagValueNodeResolver;
+use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -81,7 +82,12 @@ final class ImproveDoctrineCollectionDocTypeInEntityRector extends AbstractRecto
      * @var \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
-    public function __construct(CollectionTypeFactory $collectionTypeFactory, AssignManipulator $assignManipulator, CollectionTypeResolver $collectionTypeResolver, CollectionVarTagValueNodeResolver $collectionVarTagValueNodeResolver, PhpDocTypeChanger $phpDocTypeChanger, DoctrineDocBlockResolver $doctrineDocBlockResolver, ReflectionResolver $reflectionResolver, AttributeFinder $attributeFinder, TargetEntityResolver $targetEntityResolver, PhpDocInfoFactory $phpDocInfoFactory)
+    /**
+     * @readonly
+     * @var \Rector\StaticTypeMapper\StaticTypeMapper
+     */
+    private $staticTypeMapper;
+    public function __construct(CollectionTypeFactory $collectionTypeFactory, AssignManipulator $assignManipulator, CollectionTypeResolver $collectionTypeResolver, CollectionVarTagValueNodeResolver $collectionVarTagValueNodeResolver, PhpDocTypeChanger $phpDocTypeChanger, DoctrineDocBlockResolver $doctrineDocBlockResolver, ReflectionResolver $reflectionResolver, AttributeFinder $attributeFinder, TargetEntityResolver $targetEntityResolver, PhpDocInfoFactory $phpDocInfoFactory, StaticTypeMapper $staticTypeMapper)
     {
         $this->collectionTypeFactory = $collectionTypeFactory;
         $this->assignManipulator = $assignManipulator;
@@ -93,6 +99,7 @@ final class ImproveDoctrineCollectionDocTypeInEntityRector extends AbstractRecto
         $this->attributeFinder = $attributeFinder;
         $this->targetEntityResolver = $targetEntityResolver;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
+        $this->staticTypeMapper = $staticTypeMapper;
     }
     public function getRuleDefinition() : RuleDefinition
     {

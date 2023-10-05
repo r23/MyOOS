@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Rector\TypeDeclaration\Rector\ClassMethod;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrowFunction;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\New_;
@@ -31,6 +30,7 @@ use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeTypeResolver\NodeTypeResolver\NewTypeResolver;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\PHPStanStaticTypeMapper\Enum\TypeKind;
+use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\SelfStaticType;
 use Rector\TypeDeclaration\NodeAnalyzer\ReturnTypeAnalyzer\StrictReturnNewAnalyzer;
 use Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
@@ -88,7 +88,12 @@ final class ReturnTypeFromReturnNewRector extends AbstractScopeAwareRector imple
      * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
      */
     private $betterNodeFinder;
-    public function __construct(TypeFactory $typeFactory, ReflectionProvider $reflectionProvider, ReflectionResolver $reflectionResolver, StrictReturnNewAnalyzer $strictReturnNewAnalyzer, ClassMethodReturnTypeOverrideGuard $classMethodReturnTypeOverrideGuard, ReturnTypeInferer $returnTypeInferer, ClassAnalyzer $classAnalyzer, NewTypeResolver $newTypeResolver, BetterNodeFinder $betterNodeFinder)
+    /**
+     * @readonly
+     * @var \Rector\StaticTypeMapper\StaticTypeMapper
+     */
+    private $staticTypeMapper;
+    public function __construct(TypeFactory $typeFactory, ReflectionProvider $reflectionProvider, ReflectionResolver $reflectionResolver, StrictReturnNewAnalyzer $strictReturnNewAnalyzer, ClassMethodReturnTypeOverrideGuard $classMethodReturnTypeOverrideGuard, ReturnTypeInferer $returnTypeInferer, ClassAnalyzer $classAnalyzer, NewTypeResolver $newTypeResolver, BetterNodeFinder $betterNodeFinder, StaticTypeMapper $staticTypeMapper)
     {
         $this->typeFactory = $typeFactory;
         $this->reflectionProvider = $reflectionProvider;
@@ -99,6 +104,7 @@ final class ReturnTypeFromReturnNewRector extends AbstractScopeAwareRector imple
         $this->classAnalyzer = $classAnalyzer;
         $this->newTypeResolver = $newTypeResolver;
         $this->betterNodeFinder = $betterNodeFinder;
+        $this->staticTypeMapper = $staticTypeMapper;
     }
     public function getRuleDefinition() : RuleDefinition
     {
@@ -221,20 +227,11 @@ CODE_SAMPLE
     {
         $newTypes = [];
         foreach ($returns as $return) {
-            if (!$return->expr instanceof Expr) {
-                return null;
-            }
             if (!$return->expr instanceof New_) {
-                $returnType = $this->nodeTypeResolver->getNativeType($return->expr);
-                if ($returnType instanceof ObjectType) {
-                    $newTypes[] = $returnType;
-                    continue;
-                }
                 return null;
             }
-            $new = $return->expr;
-            $newType = $this->createObjectTypeFromNew($new);
-            if ($newType === null) {
+            $newType = $this->createObjectTypeFromNew($return->expr);
+            if (!$newType instanceof Type) {
                 return null;
             }
             $newTypes[] = $newType;

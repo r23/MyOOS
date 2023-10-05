@@ -13,7 +13,6 @@ use PhpParser\Node\Stmt\GroupUse;
 use PhpParser\Node\Stmt\InlineHTML;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Use_;
-use PHPStan\Reflection\ReflectionProvider;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper;
@@ -52,11 +51,6 @@ final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPo
     private $phpDocInfoFactory;
     /**
      * @readonly
-     * @var \PHPStan\Reflection\ReflectionProvider
-     */
-    private $reflectionProvider;
-    /**
-     * @readonly
      * @var \Rector\Core\Provider\CurrentFileProvider
      */
     private $currentFileProvider;
@@ -75,13 +69,12 @@ final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPo
      * @var \Rector\Comments\NodeDocBlock\DocBlockUpdater
      */
     private $docBlockUpdater;
-    public function __construct(NameImporter $nameImporter, DocBlockNameImporter $docBlockNameImporter, ClassNameImportSkipper $classNameImportSkipper, PhpDocInfoFactory $phpDocInfoFactory, ReflectionProvider $reflectionProvider, CurrentFileProvider $currentFileProvider, UseImportsResolver $useImportsResolver, AliasNameResolver $aliasNameResolver, DocBlockUpdater $docBlockUpdater)
+    public function __construct(NameImporter $nameImporter, DocBlockNameImporter $docBlockNameImporter, ClassNameImportSkipper $classNameImportSkipper, PhpDocInfoFactory $phpDocInfoFactory, CurrentFileProvider $currentFileProvider, UseImportsResolver $useImportsResolver, AliasNameResolver $aliasNameResolver, DocBlockUpdater $docBlockUpdater)
     {
         $this->nameImporter = $nameImporter;
         $this->docBlockNameImporter = $docBlockNameImporter;
         $this->classNameImportSkipper = $classNameImportSkipper;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
-        $this->reflectionProvider = $reflectionProvider;
         $this->currentFileProvider = $currentFileProvider;
         $this->useImportsResolver = $useImportsResolver;
         $this->aliasNameResolver = $aliasNameResolver;
@@ -134,23 +127,19 @@ final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPo
         }
         /** @var Use_[]|GroupUse[] $currentUses */
         $currentUses = $this->useImportsResolver->resolve();
-        if ($this->shouldImportName($name, $currentUses)) {
-            $nameInUse = $this->resolveNameInUse($name, $currentUses);
-            if ($nameInUse instanceof FullyQualified) {
-                return null;
-            }
-            if ($nameInUse instanceof Name) {
-                return $nameInUse;
-            }
-            return $this->nameImporter->importName($name, $file);
+        if ($this->classNameImportSkipper->shouldSkipName($name, $currentUses)) {
+            return null;
         }
-        return null;
+        $nameInUse = $this->resolveNameInUse($name, $currentUses);
+        if ($nameInUse instanceof Name) {
+            return $nameInUse;
+        }
+        return $this->nameImporter->importName($name, $file);
     }
     /**
      * @param Use_[]|GroupUse[] $currentUses
-     * @return null|\PhpParser\Node\Name|\PhpParser\Node\Name\FullyQualified
      */
-    private function resolveNameInUse(Name $name, array $currentUses)
+    private function resolveNameInUse(Name $name, array $currentUses) : ?\PhpParser\Node\Name
     {
         $originalName = $name->getAttribute(AttributeKey::ORIGINAL_NAME);
         if (!$originalName instanceof FullyQualified) {
@@ -160,17 +149,16 @@ final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPo
         if (\is_string($aliasName)) {
             return new Name($aliasName);
         }
-        $isShortFullyQualifiedName = \substr_count($name->toCodeString(), '\\') === 1;
-        if (!$isShortFullyQualifiedName) {
-            return $this->resolveLongNameInUseName($name, $currentUses);
-        }
-        return $this->resolveConflictedShortNameInUse($name, $currentUses);
+        return $this->resolveLongNameInUseName($name, $currentUses);
     }
     /**
      * @param Use_[]|GroupUse[] $currentUses
      */
     private function resolveLongNameInUseName(Name $name, array $currentUses) : ?Name
     {
+        if (\substr_count($name->toCodeString(), '\\') === 1) {
+            return null;
+        }
         $lastName = $name->getLast();
         foreach ($currentUses as $currentUse) {
             foreach ($currentUse->uses as $useUse) {
@@ -183,42 +171,5 @@ final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPo
             }
         }
         return null;
-    }
-    /**
-     * @param Use_[]|GroupUse[] $currentUses
-     */
-    private function resolveConflictedShortNameInUse(Name $name, array $currentUses) : ?FullyQualified
-    {
-        $currentName = $name->toString();
-        foreach ($currentUses as $currentUse) {
-            $prefix = $this->useImportsResolver->resolvePrefix($currentUse);
-            foreach ($currentUse->uses as $useUse) {
-                $useName = $prefix . $name->toString();
-                $lastUseName = $name->getLast();
-                if (!$useUse->alias instanceof Identifier && $useName !== $currentName && $lastUseName === $currentName) {
-                    return new FullyQualified($currentName);
-                }
-                if ($useUse->alias instanceof Identifier && $useUse->alias->toString() === $currentName) {
-                    return new FullyQualified($currentName);
-                }
-            }
-        }
-        return null;
-    }
-    /**
-     * @param Use_[]|GroupUse[] $currentUses
-     */
-    private function shouldImportName(Name $name, array $currentUses) : bool
-    {
-        if (\substr_count($name->toCodeString(), '\\') <= 1) {
-            return \true;
-        }
-        if (!$this->classNameImportSkipper->isFoundInUse($name, $currentUses)) {
-            return \true;
-        }
-        if ($this->classNameImportSkipper->isAlreadyImported($name, $currentUses)) {
-            return \true;
-        }
-        return $this->reflectionProvider->hasFunction(new Name($name->getLast()), null);
     }
 }

@@ -3,18 +3,18 @@
 declare (strict_types=1);
 namespace Rector\Privatization\Rector\Class_;
 
-use RectorPrefix202309\Nette\Utils\Arrays;
+use RectorPrefix202310\Nette\Utils\Arrays;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Node\CollectedDataNode;
 use PHPStan\Reflection\ClassReflection;
+use Rector\Core\Collector\ParentClassCollector;
 use Rector\Core\NodeAnalyzer\ClassAnalyzer;
 use Rector\Core\NodeAnalyzer\DoctrineEntityAnalyzer;
 use Rector\Core\Rector\AbstractCollectorRector;
 use Rector\Core\Reflection\ReflectionResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Privatization\NodeManipulator\VisibilityManipulator;
-use Rector\TypeDeclaration\Collector\ParentClassCollector;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Tests\Privatization\Rector\Class_\FinalizeClassesWithoutChildrenCollectorRector\FinalizeClassesWithoutChildrenCollectorRectorTest
