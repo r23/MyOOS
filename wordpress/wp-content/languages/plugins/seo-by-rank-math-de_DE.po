@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-09-27 12:33:34+0000\n"
+"PO-Revision-Date: 2023-10-05 11:21:01+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,10 @@ msgstr ""
 "X-Generator: GlotPress/4.0.0-alpha.9\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO - Stable (latest release)\n"
+
+#: includes/modules/analytics/class-analytics-common.php:301
+msgid "This is the number of pageviews carried out by visitors from Search Engines."
+msgstr "Dies ist die Anzahl der Seitenaufrufe, die Besucher über Suchmaschinen durchführen."
 
 #: includes/modules/content-ai/views/options.php:131
 msgid "UK English"
@@ -1057,19 +1061,19 @@ msgstr "SEO-Ergebnisse berechnen"
 msgid "Recalculating scores for posts %1$s - %2$s... "
 msgstr "Neuberechnung der Punktzahlen für Beiträge %1$s - %2$s... "
 
-#: includes/modules/database-tools/class-update-score.php:289
+#: includes/modules/database-tools/class-update-score.php:291
 msgid "The SEO Scores have been recalculated successfully!"
 msgstr "Die SEO-Ergebnisse wurden erfolgreich neu berechnet!"
 
-#: includes/modules/database-tools/class-update-score.php:281
+#: includes/modules/database-tools/class-update-score.php:283
 msgid "Calculated:"
 msgstr "Berechnet:"
 
-#: includes/modules/database-tools/class-update-score.php:277
+#: includes/modules/database-tools/class-update-score.php:279
 msgid "This process may take a while. Please keep this window open until the process is complete."
 msgstr "Dieser Vorgang kann eine Weile dauern. Bitte lasse dieses Fenster geöffnet, bis der Vorgang abgeschlossen ist."
 
-#: includes/modules/database-tools/class-update-score.php:276
+#: includes/modules/database-tools/class-update-score.php:278
 msgid "Recalculating SEO Scores"
 msgstr "SEO-Ergebnisse neu berechnen"
 
@@ -2677,7 +2681,6 @@ msgstr "Upgraden"
 msgid "How many times your site showed up in the search results."
 msgstr "Gibt an, wie oft deine Website in den Suchergbnissen angezeigt wurde."
 
-#: includes/modules/analytics/class-analytics-common.php:301
 #: includes/modules/analytics/class-analytics-common.php:313
 msgid "This is the number of pageviews carried out by visitors from Google."
 msgstr "Dies ist die Anzahl der Seiten, die Besucher von Google aufgerufen haben."
@@ -4030,7 +4033,7 @@ msgstr "%1$s In deinem Theme ist ein Filter zum Entfernen der Rank Math Daten au
 msgid "Review (Unsupported)"
 msgstr "Rezension (Nicht unterstützt)"
 
-#: includes/modules/database-tools/class-update-score.php:291
+#: includes/modules/database-tools/class-update-score.php:293
 #: assets/admin/js/rank-math-app.js:1
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
