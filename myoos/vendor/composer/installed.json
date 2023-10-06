@@ -66,17 +66,17 @@
         },
         {
             "name": "api-platform/core",
-            "version": "v2.7.15",
-            "version_normalized": "2.7.15.0",
+            "version": "v2.7.16",
+            "version_normalized": "2.7.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "dd433f76da60819cd01278b54e4fb70283302aa8"
+                "reference": "e6f77e20b4ed9cb3e44c7398d6cda971d32190b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/dd433f76da60819cd01278b54e4fb70283302aa8",
-                "reference": "dd433f76da60819cd01278b54e4fb70283302aa8",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/e6f77e20b4ed9cb3e44c7398d6cda971d32190b0",
+                "reference": "e6f77e20b4ed9cb3e44c7398d6cda971d32190b0",
                 "shasum": ""
             },
             "require": {
@@ -181,7 +181,7 @@
                 "symfony/web-profiler-bundle": "To use the data collector.",
                 "webonyx/graphql-php": "To support GraphQL."
             },
-            "time": "2023-08-11T14:04:22+00:00",
+            "time": "2023-10-06T10:13:25+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -226,7 +226,7 @@
             ],
             "support": {
                 "issues": "https://github.com/api-platform/core/issues",
-                "source": "https://github.com/api-platform/core/tree/v2.7.15"
+                "source": "https://github.com/api-platform/core/tree/v2.7.16"
             },
             "funding": [
                 {
@@ -2464,17 +2464,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.37",
-            "version_normalized": "1.10.37.0",
+            "version": "1.10.38",
+            "version_normalized": "1.10.38.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "058ba07e92f744d4dcf6061ae75283d0c6456f2e"
+                "reference": "5302bb402c57f00fb3c2c015bac86e0827e4b691"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/058ba07e92f744d4dcf6061ae75283d0c6456f2e",
-                "reference": "058ba07e92f744d4dcf6061ae75283d0c6456f2e",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/5302bb402c57f00fb3c2c015bac86e0827e4b691",
+                "reference": "5302bb402c57f00fb3c2c015bac86e0827e4b691",
                 "shasum": ""
             },
             "require": {
@@ -2483,7 +2483,7 @@
             "conflict": {
                 "phpstan/phpstan-shim": "*"
             },
-            "time": "2023-10-02T16:18:37+00:00",
+            "time": "2023-10-06T14:19:14+00:00",
             "bin": [
                 "phpstan",
                 "phpstan.phar"
@@ -3187,12 +3187,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "bfb87b7907dac95bb71d398ff3e225d5362f768e"
+                "reference": "22acdd541cc4d006d3c0d6f52608243910e6b720"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/bfb87b7907dac95bb71d398ff3e225d5362f768e",
-                "reference": "bfb87b7907dac95bb71d398ff3e225d5362f768e",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/22acdd541cc4d006d3c0d6f52608243910e6b720",
+                "reference": "22acdd541cc4d006d3c0d6f52608243910e6b720",
                 "shasum": ""
             },
             "conflict": {
@@ -3512,7 +3512,7 @@
                 "nystudio107/craft-seomatic": "<3.4.12",
                 "nzo/url-encryptor-bundle": ">=4,<4.3.2|>=5,<5.0.1",
                 "october/backend": "<1.1.2",
-                "october/cms": "<=3.4.16",
+                "october/cms": "<1.0.469|==1.0.469|==1.0.471|==1.1.1",
                 "october/october": "<=3.4.4",
                 "october/rain": "<1.0.472|>=1.1,<1.1.2",
                 "october/system": "<1.0.476|>=1.1,<1.1.12|>=2,<2.2.34|>=3,<3.0.66",
@@ -3824,7 +3824,7 @@
                 "zfr/zfr-oauth2-server-module": "<0.1.2",
                 "zoujingli/thinkadmin": "<6.0.22"
             },
-            "time": "2023-10-04T11:04:46+00:00",
+            "time": "2023-10-05T18:04:31+00:00",
             "default-branch": true,
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
