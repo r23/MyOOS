@@ -58,4 +58,5 @@ Released under the GNU General Public License. You can find the whole license te
 * [MyOOS Shopsystem](https://www.oos-shop.de) - Homepage of MyOOS [Shopsystem]
 * [MyOOS Documentation](http://doku.oos-shop.de) - MyOOS [Shopsystem] documentation
 * [MyOOS Forum](https://foren.myoos.de) - Community forum
+* [MyOOS Blog](https://blog.myoos.de) - Community blog
 * [MyOOS Demo](https://oos-shop.de/shop/index.php?content=product_info&products_id=1) - MyOOS [Shopsystem] demo
