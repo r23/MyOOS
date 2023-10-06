@@ -110,7 +110,8 @@ $sql_data_array = ['customers_id' => $_SESSION['customer_id'], 'customers_firstn
 oos_db_perform($oostable['orders'], $sql_data_array);
 $insert_id = $dbconn->Insert_ID();
 
-for ($i=0, $n=is_countable($order_totals) ? count($order_totals) : 0; $i<$n; $i++) {
+$n = is_countable($order_totals) ? count($order_totals) : 0;
+for ($i=0, $n; $i<$n; $i++) {
     $sql_data_array = ['orders_id' => $insert_id, 'title' => $order_totals[$i]['title'], 'text' => $order_totals[$i]['text'], 'value' => $order_totals[$i]['value'], 'class' => $order_totals[$i]['code'], 'sort_order' => $order_totals[$i]['sort_order']];
     oos_db_perform($oostable['orders_total'], $sql_data_array);
 }
@@ -124,7 +125,8 @@ $products_ordered = '';
 $subtotal = 0;
 $total_tax = 0;
 
-for ($i=0, $n=is_countable($oOrder->products) ? count($oOrder->products) : 0; $i<$n; $i++) {
+$n = is_countable($oOrder->products) ? count($oOrder->products) : 0;
+for ($i=0, $n; $i<$n; $i++) {
     // Stock Update - Joao Correia
     if (STOCK_LIMITED == 'true') {
         if (DOWNLOAD_ENABLED == 'true') {

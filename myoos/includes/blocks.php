@@ -78,8 +78,7 @@ foreach ($block_result as $block) {
     }
 }
 
-
-$n = count($aContentBlock);
+$n = is_countable($aContentBlock) ? count($aContentBlock) : 0;
 for ($i = 0, $n; $i < $n; $i++) {
     switch ($aContentBlock[$i]['side']) {
 

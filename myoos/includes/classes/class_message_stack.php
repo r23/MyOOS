@@ -38,8 +38,9 @@ class messageStack
     {
         $this->messages = [];
 
-        if (isset($_SESSION) && isset($_SESSION['messageToStack']) && is_array($_SESSION['messageToStack'])) {
-            for ($i=0, $n=count($_SESSION['messageToStack']); $i<$n; $i++) {
+        if (isset($_SESSION)) {
+			$n = is_countable($_SESSION['messageToStack']) ? count($_SESSION['messageToStack']) : 0;
+			for ($i=0, $n; $i<$n; $i++) {
                 $this->add($_SESSION['messageToStack'][$i]['text'], $_SESSION['messageToStack'][$i]['type']);
             }
             unset($_SESSION['messageToStack']);

@@ -109,7 +109,7 @@ if ($category_depth == 'nested') {
         if (isset($sCategory) && strpos('_', (string) $sCategory)) {
             // check to see if there are deeper categories within the current category
             $aCategoryLinks = array_reverse($aCategoryPath);
-            $n = count($aCategoryLinks);
+			$n = is_countable($aCategoryLinks) ? count($aCategoryLinks) : 0;
             for ($i = 0, $n; $i < $n; $i++) {
                 $categoriestable = $oostable['categories'];
                 $categories_descriptiontable = $oostable['categories_description'];
@@ -270,7 +270,7 @@ if ($category_depth == 'nested') {
         }
 
         $select_column_list = '';
-        $n = count($aColumnList);
+		$n = is_countable($aColumnList) ? count($aColumnList) : 0;
         for ($col = 0, $n; $col < $n; $col++) {
             if ($aColumnList[$col] == 'PRODUCT_LIST_PRICE') {
                 continue;
