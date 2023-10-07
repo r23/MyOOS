@@ -227,7 +227,8 @@ if (isset($categories_id) && is_numeric($categories_id)) {
                            p2c.products_id = p.products_id AND
                            p2c.products_id = pd.products_id AND
                            (p2c.categories_id = '" . intval($categories_id) . "'";
-        for ($i=0, $n=is_countable($subcategories_array) ? count($subcategories_array) : 0; $i<$n; $i++) {
+		$n = is_countable($subcategories_array) ? count($subcategories_array) : 0;				   
+        for ($i=0, $n; $i<$n; $i++) {
             $where_str .= " OR p2c.categories_id = '" . intval($subcategories_array[$i]) . "'";
         }
         $where_str .= ")";
@@ -248,7 +249,8 @@ if (isset($manufacturers_id) && is_numeric($manufacturers_id)) {
 
 if (isset($search_keywords) && ((is_countable($search_keywords) ? count($search_keywords) : 0) > 0)) {
     $where_str .= " AND (";
-    for ($i=0, $n=is_countable($search_keywords) ? count($search_keywords) : 0; $i<$n; $i++) {
+	$n = is_countable($search_keywords) ? count($search_keywords) : 0;
+    for ($i=0, $n; $i<$n; $i++) {
         switch ($search_keywords[$i]) {
         case '(':
         case ')':

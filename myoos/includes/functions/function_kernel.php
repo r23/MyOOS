@@ -1057,7 +1057,8 @@ function oos_get_uprid($prid, $parameters)
                 // strpos()+1 to remove up to and including the first { which would create an empty array element in explode()
                 $attributes = explode('{', substr((string) $prid, strpos((string) $prid, '{')+1));
 
-                for ($i=0, $n=count($attributes); $i<$n; $i++) {
+				$n = is_countable($attributes) ? count($attributes) : 0;
+                for ($i=0, $n; $i<$n; $i++) {
                     $pair = explode('}', $attributes[$i]);
 
                     if (is_numeric($pair[0]) && is_numeric($pair[1])) {
@@ -1101,7 +1102,8 @@ function oos_get_attributes($sProductsId)
             // strpos()+1 to remove up to and including the first { which would create an empty array element in explode()
             $attributes = explode('{', substr((string) $sProductsId, strpos((string) $sProductsId, '{')+1));
 
-            for ($i=0, $n=count($attributes); $i<$n; $i++) {
+			$n = is_countable($attributes) ? count($attributes) : 0;
+            for ($i=0, $n; $i<$n; $i++) {
                 $pair = explode('}', $attributes[$i]);
 
                 if (is_numeric($pair[0]) && is_numeric($pair[1])) {
@@ -1270,7 +1272,8 @@ function oos_count_modules($modules = '')
 
     $aModules = explode(';', (string) $modules);
 
-    for ($i=0, $n=count($aModules); $i<$n; $i++) {
+	$n = is_countable($aModules) ? count($aModules) : 0;
+    for ($i=0, $n; $i<$n; $i++) {
         $class = substr($aModules[$i], 0, strrpos($aModules[$i], '.'));
 
         if (is_object($GLOBALS[$class])) {
@@ -1420,7 +1423,8 @@ function oos_parse_category_path($sCategory)
 
     // make sure no duplicate category IDs exist which could lock the server in a loop
     $aTmp = [];
-    for ($i=0, $n=count($aCategoryPath); $i<$n; $i++) {
+	$n = is_countable($aCategoryPath) ? count($aCategoryPath) : 0;
+    for ($i=0, $n; $i<$n; $i++) {
         if (!in_array($aCategoryPath[$i], $aTmp)) {
             $aTmp[] = $aCategoryPath[$i];
         }

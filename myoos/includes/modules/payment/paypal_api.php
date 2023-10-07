@@ -222,8 +222,8 @@ class paypal_api
         $payer->setPaymentMethod("paypal");
 
         $itemList = new ItemList();
-        $nOrder = is_countable($oOrder->products) ? count($oOrder->products) : 0;
-        for ($i=0, $n=$nOrder; $i<$n; $i++) {
+        $n = is_countable($oOrder->products) ? count($oOrder->products) : 0;
+        for ($i=0, $n; $i<$n; $i++) {
             $name = html_entity_decode((string) $oOrder->products[$i]['name'], ENT_NOQUOTES, 'UTF-8');
             $sku = $oOrder->products[$i]['model'];
 

@@ -80,7 +80,9 @@ function oos_validate_is_vatid($sVatno)
     $sVatno = strtoupper($sVatno);
 
     $aRemove = [' ', '-', '/', '.', ':', ',', ';', '#'];
-    for ($i=0, $n=count($aRemove); $i<$n; $i++) {
+	
+	$n = is_countable($aRemove) ? count($aRemove) : 0;
+    for ($i=0, $n; $i<$n; $i++) {
         $sVatno = str_replace($aRemove[$i], '', $sVatno);
     }
 

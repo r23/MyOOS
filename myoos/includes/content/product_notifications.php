@@ -55,7 +55,8 @@ if (isset($_POST['action']) && ($_POST['action'] == 'update_notifications')
 ) {
     (array)$products = $_POST['products'];
     $aRemove = [];
-    for ($i=0, $n=is_countable($products) ? count($products) : 0; $i<$n; $i++) {
+	$n = is_countable($products) ? count($products) : 0;
+    for ($i=0, $n; $i<$n; $i++) {
         if (is_numeric($products[$i])) {
             $aRemove[] = $products[$i];
         }

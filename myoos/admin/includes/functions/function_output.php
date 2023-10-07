@@ -640,7 +640,8 @@ function oos_draw_pull_down_menu($name, $values, $default = '', $params = '', $r
         }
     }
 
-    for ($i=0, $n=is_countable($values) ? count($values) : 0; $i<$n; $i++) {
+	$n = is_countable($values) ? count($values) : 0;
+    for ($i=0, $n; $i<$n; $i++) {
         $field .= '<option value="' . $values[$i]['id'] . '"';
         if ($default == $values[$i]['id']) {
             $field .= ' selected="selected"';
@@ -684,7 +685,8 @@ function oos_draw_select_menu($name, $values, $default = '', $params = '', $requ
         }
     }
 
-    for ($i=0, $n=is_countable($values) ? count($values) : 0; $i<$n; $i++) {
+	$n = is_countable($values) ? count($values) : 0;
+    for ($i=0, $n; $i<$n; $i++) {
         $field .= '<option value="' . $values[$i] . '"';
         if ($default == $values[$i]) {
             $field .= ' selected="selected"';
@@ -731,7 +733,8 @@ function oos_draw_extensions_menu($name, $values, $default = '', $params = '', $
         }
     }
 
-    for ($i=0, $n=is_countable($values) ? count($values) : 0; $i<$n; $i++) {
+	$n = is_countable($values) ? count($values) : 0;
+    for ($i=0, $n; $i<$n; $i++) {
         $field .= '<option value="' . $values[$i] . '"';
         if ($default == $values[$i]) {
             $field .= ' selected="selected"';

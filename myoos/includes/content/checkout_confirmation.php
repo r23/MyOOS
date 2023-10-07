@@ -161,7 +161,8 @@ $shipping_modules = new shipping($module);
 // Stock Check
 $any_out_of_stock = false;
 if (STOCK_CHECK == 'true') {
-    for ($i=0, $n=is_countable($oOrder->products) ? count($oOrder->products) : 0; $i<$n; $i++) {
+	$n = is_countable($oOrder->products) ? count($oOrder->products) : 0;
+    for ($i=0, $n; $i<$n; $i++) {
         if (oos_check_stock($oOrder->products[$i]['id'], $oOrder->products[$i]['qty'])) {
             $any_out_of_stock = true;
         }

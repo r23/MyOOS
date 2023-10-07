@@ -87,8 +87,8 @@ class table
         }
 
         $table_cost = preg_split("/[:,]/", (string) MODULE_SHIPPING_TABLE_COST);
-        $size = is_countable($table_cost) ? count($table_cost) : 0;
-        for ($i=0, $n=$size; $i<$n; $i+=2) {
+        $n = is_countable($table_cost) ? count($table_cost) : 0;
+        for ($i=0, $n; $i<$n; $i+=2) {
             if ($oOrder_total <= $table_cost[$i]) {
                 $shipping = $table_cost[$i+1];
                 break;

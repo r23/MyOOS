@@ -95,7 +95,8 @@ class oosCategoryTree
         if (is_array($data_array)) {
             $this->data = [];
 
-            for ($i=0, $n=count($data_array); $i<$n; $i++) {
+			$n = is_countable($data_array) ? count($data_array) : 0;
+            for ($i=0, $n; $i<$n; $i++) {
                 $this->data[$data_array[$i]['parent_id']][$data_array[$i]['categories_id']] = ['name' => $data_array[$i]['categories_name'], 'count' => $data_array[$i]['categories_count']];
             }
         }

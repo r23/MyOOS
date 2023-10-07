@@ -54,7 +54,8 @@ if (isset($_POST['action']) && ($_POST['action'] == 'notify_process')
         }
 
         $products_notificationstable = $oostable['products_notifications'];
-        for ($i=0, $n=count($notify); $i<$n; $i++) {
+		$n = is_countable($notify) ? count($notify) : 0;
+        for ($i=0, $n; $i<$n; $i++) {
             $sql = "SELECT COUNT(*) AS total
                 FROM $products_notificationstable
                 WHERE products_id = '" . intval($notify[$i]) . "'
@@ -120,7 +121,8 @@ if ($global['global_product_notifications'] != '1') {
     $products_notify .= $aLang['text_notify_products'] . '<br /><p class="productsNotifications">';
 
     $products_displayed = [];
-    for ($i=0, $n=is_countable($products_array) ? count($products_array) : 0; $i<$n; $i++) {
+	$n = is_countable($products_array) ? count($products_array) : 0;
+    for ($i=0, $n; $i<$n; $i++) {
         if (!in_array($products_array[$i]['id'], $products_displayed)) {
             $products_notify .= oos_draw_checkbox_field('notify[]', $products_array[$i]['id']) . ' ' . $products_array[$i]['text'] . '<br />';
             $products_displayed[] = $products_array[$i]['id'];

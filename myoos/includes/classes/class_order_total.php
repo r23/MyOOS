@@ -62,7 +62,8 @@ class order_total
                     $GLOBALS[$class]->output = [];
                     $GLOBALS[$class]->process();
 
-                    for ($i=0, $n=sizeof($GLOBALS[$class]->output); $i<$n; $i++) {
+					$n = is_countable($GLOBALS[$class]->output) ? count($GLOBALS[$class]->output) : 0;
+                    for ($i=0, $n; $i<$n; $i++) {
                         if (oos_is_not_null($GLOBALS[$class]->output[$i]['title']) && oos_is_not_null($GLOBALS[$class]->output[$i]['text'])) {
                             $order_total_array[] = ['code' => $GLOBALS[$class]->code,
                                                         'title' => $GLOBALS[$class]->output[$i]['title'],
@@ -90,8 +91,8 @@ class order_total
                     $GLOBALS[$class]->output = [];
                     $GLOBALS[$class]->shopping_cart_process();
 
-                    $size = count($GLOBALS[$class]->output);
-                    for ($i=0, $n=$size; $i<$n; $i++) {
+					$n = is_countable($GLOBALS[$class]->output) ? count($GLOBALS[$class]->output) : 0;
+                    for ($i=0, $n; $i<$n; $i++) {
                         if (oos_is_not_null($GLOBALS[$class]->output[$i]['title']) && oos_is_not_null($GLOBALS[$class]->output[$i]['text'])) {
                             $order_total_array[] = ['code' => $GLOBALS[$class]->code,
                                                         'title' => $GLOBALS[$class]->output[$i]['title'],

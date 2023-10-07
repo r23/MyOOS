@@ -306,7 +306,8 @@ $email_order .= $aLang['email_text_products'] . "\n" .
                   $products_ordered .
                   $aLang['email_separator'] . "\n";
 
-for ($i=0, $n=is_countable($order_totals) ? count($order_totals) : 0; $i<$n; $i++) {
+$n = is_countable($order_totals) ? count($order_totals) : 0;
+for ($i=0, $n; $i<$n; $i++) {
     $email_order .= strip_tags((string) $order_totals[$i]['title']) . ' ' . strip_tags((string) $order_totals[$i]['text']) . "\n";
 }
 

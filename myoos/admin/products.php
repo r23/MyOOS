@@ -493,7 +493,8 @@ if ($action == 'new_product' || $action == 'edit_product') {
 <script>
 let tax_rates = new Array();
 <?php
-    for ($i=0, $n=sizeof($tax_class_array); $i<$n; $i++) {
+	$n = is_countable($tax_class_array) ? count($tax_class_array) : 0;
+    for ($i=0, $n; $i<$n; $i++) {
         if ($tax_class_array[$i]['id'] > 0) {
             echo 'tax_rates["' . $tax_class_array[$i]['id'] . '"] = ' . oos_get_tax_rate_value($tax_class_array[$i]['id']) . ';' . "\n";
         }
