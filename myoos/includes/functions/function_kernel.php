@@ -1777,8 +1777,11 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
         // Set the encryption mechanism to use:
         // - SMTPS (implicit TLS on port 465) or
         // - STARTTLS (explicit TLS on port 587)
-        $phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
-        $phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+		if (OOS_SMTPPORT == '465') {
+			$phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+		} elseif (OOS_SMTPPORT == '587') { {
+			$phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+		}
 
         // Set the SMTP port number:
         // - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or
@@ -1812,7 +1815,6 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
     // Attach a file from the server as an attachment
     // $phpmailer->addAttachment('log.xml', 'Log.xml');
     $phpmailer->Send();
-
 }
 
 function oos_newsletter_subscribe_mail($email_address)
