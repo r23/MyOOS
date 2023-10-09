@@ -30,8 +30,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 <html lang="<?php echo $_SESSION['iso_639_1']; ?>">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.1, maximum-scale=5.0, user-scalable=yes">
     <title><?php echo HEADING_TITLE . ' - ' . TITLE; ?></title>
     <meta http-equiv="expires" content="0" >
 
