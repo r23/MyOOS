@@ -128,7 +128,7 @@ class newsletter
 			// - STARTTLS (explicit TLS on port 587)
 			if (OOS_SMTPPORT == '465') {
 				$oEmail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
-			} elseif (OOS_SMTPPORT == '587') { {
+			} elseif (OOS_SMTPPORT == '587') {
 				$oEmail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
 			}
 

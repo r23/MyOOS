@@ -1779,7 +1779,7 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
         // - STARTTLS (explicit TLS on port 587)
 		if (OOS_SMTPPORT == '465') {
 			$phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
-		} elseif (OOS_SMTPPORT == '587') { {
+		} elseif (OOS_SMTPPORT == '587') {
 			$phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
 		}
 

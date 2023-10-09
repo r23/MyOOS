@@ -115,7 +115,7 @@ if (($action == 'send_email_to_user') && ($_POST['customers_email_address'] || $
 				// - STARTTLS (explicit TLS on port 587)
 				if (OOS_SMTPPORT == '465') {
 					$phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
-				} elseif (OOS_SMTPPORT == '587') { {
+				} elseif (OOS_SMTPPORT == '587') {
 					$phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
 				}
 
@@ -196,7 +196,7 @@ if (($action == 'send_email_to_user') && ($_POST['customers_email_address'] || $
 			// - STARTTLS (explicit TLS on port 587)
 			if (OOS_SMTPPORT == '465') {
 				$phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
-			} elseif (OOS_SMTPPORT == '587') { {
+			} elseif (OOS_SMTPPORT == '587') {
 				$phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
 			}
 
