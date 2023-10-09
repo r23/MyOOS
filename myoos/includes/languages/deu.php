@@ -78,6 +78,7 @@ $aLang = [
 'header_select_currencies'     => 'Meine Währung',
 'sub_title_total'              => 'Summe:',
 'block_heading_specials'       => 'Angebote',
+'nav_toggle'                   => 'Navigation öffnen oder schließen',
 // footer text in includes/oos_footer.php
 'footer_text_requests_since'   => 'Zugriffe seit',
 // text for gender

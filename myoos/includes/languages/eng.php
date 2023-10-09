@@ -84,12 +84,10 @@ $aLang = [
 'header_title_search'          => 'Suche',
 'header_title_whats_new'       => 'What\'s New?',
 'header_select_language'       => 'Your Language',
-'header_select_currencies'      => 'Currency',
-
-'sub_title_total'           => 'Total:',
-
-'block_heading_specials'    => 'Specials',
-
+'header_select_currencies'     => 'Currency',
+'sub_title_total'              => 'Total:',
+'block_heading_specials'       => 'Specials',
+'nav_toggle'                   => 'Open or close navigation',
 
 // footer text in includes/oos_footer.php
 'footer_text_requests_since'  => 'requests since',
