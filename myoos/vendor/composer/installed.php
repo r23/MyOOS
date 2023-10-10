@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'c97ed133581966603b422e56ca40439e27821898',
+        'reference' => 'd4e88971272eba2118268bdfad880b5a27d83ea2',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -146,9 +146,9 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-escaper' => array(
-            'pretty_version' => '2.12.0',
-            'version' => '2.12.0.0',
-            'reference' => 'ee7a4c37bf3d0e8c03635d5bddb5bb3184ead490',
+            'pretty_version' => '2.13.0',
+            'version' => '2.13.0.0',
+            'reference' => 'af459883f4018d0f8a0c69c7a209daef3bf973ba',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-escaper',
             'aliases' => array(),
@@ -202,7 +202,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'c97ed133581966603b422e56ca40439e27821898',
+            'reference' => 'd4e88971272eba2118268bdfad880b5a27d83ea2',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -493,7 +493,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '85afa852eeecec97cec35d987dcfbc602c025620',
+            'reference' => '66dba7265a37e4081f443ed8211d507cd3cce5ef',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
