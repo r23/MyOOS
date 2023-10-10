@@ -4,7 +4,7 @@
 			<div class="row">
 					
 				<div class="col-md-3 col-sm-6">
-					<h4>{$lang.header_title_my_account}</h4>
+					<h5>{$lang.header_title_my_account}</h5>
 					<ul class="list-unstyled">
 						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.account}" title="{$lang.login_block_my_account}" rel="nofollow">{$lang.login_block_my_account}</a></li>
 						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.account_history page=1}" title="{$lang.login_block_account_history}" rel="nofollow">{$lang.page_order_history}</a></li>
@@ -56,7 +56,7 @@
 				</div><!-- .col -->
 
 				<div class="col-md-3 col-sm-6">
-					<h4>{$block_heading_information}</h4>
+					<h5>{$block_heading_information}</h5>
 					
 					<ul class="list-unstyled">
 					{foreach $information as $info}
@@ -68,7 +68,7 @@
 				</div><!-- .col -->
 					
 				<div class="col-md-3 col-sm-6">
-					<h4>{$lang.header_title_service}</h4>
+					<h5>{$lang.header_title_service}</h5>
 					<ul class="list-unstyled">
 						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.products_new}" title="{$lang.page_products_new}"><i class="fa fa-bullhorn" aria-hidden="true"></i> {$lang.page_products_new}</a></li>
 					{if $oEvent->installed_plugin('spezials')}
@@ -90,7 +90,7 @@
 				</div><!-- .col -->
 					
 				<div class="col-md-3 col-sm-6">
-					<h4>{$lang.get_in_touch_with_us}</h4>
+					<h5>{$lang.get_in_touch_with_us}</h5>
 
 					<address class="g-bg-no-repeat fs-12 mb-0" style="background-image: url({$theme}/images/maps/map.png);">
 					<!-- Location -->
