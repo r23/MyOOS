@@ -44,7 +44,7 @@
   * @param  $length
   * @return string
   */
-function oos_create_coupon_code($salt="secret", $length = SECURITY_CODE_LENGTH)
+function oos_create_coupon_code($salt = "secret", $length = SECURITY_CODE_LENGTH)
 {
 
     // Get database information
