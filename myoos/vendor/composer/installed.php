@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'b5cb2666a81711e9b70d9d6d2c003e8dcf5c0237',
+        'reference' => 'e697c8c0a33837c0dded5735adcdf98fb7b388d5',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -202,7 +202,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'b5cb2666a81711e9b70d9d6d2c003e8dcf5c0237',
+            'reference' => 'e697c8c0a33837c0dded5735adcdf98fb7b388d5',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -493,7 +493,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '138c8164ca26fdf365c2d3091040d78b0723735f',
+            'reference' => 'efd339340c840237fad050f3ea6fd8bbbbfc7ed6',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
