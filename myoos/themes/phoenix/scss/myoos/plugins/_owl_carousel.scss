@@ -526,7 +526,7 @@ section.dark .owl-theme .owl-controls .owl-buttons div {
       margin-top: -28px;
       right: auto;
       left: -13px;
-      zoom: 1;
+      transform: scale(1);
       width: 36px;
       height: 36px;
       opacity: 0;
@@ -537,7 +537,7 @@ section.dark .owl-theme .owl-controls .owl-buttons div {
       margin-top: -28px;
       left: auto;
       right: -13px;
-      zoom: 1;
+      transform: scale(1);
       width: 36px;
       height: 36px;
       opacity: 0;
@@ -554,6 +554,7 @@ section.dark .owl-theme .owl-controls .owl-buttons div {
     z-index: 1;
   }
 }
+
 
 .owl-theme.controlls-over .owl-controls .owl-page {
   background: rgba(0, 0, 0, 0.3);
