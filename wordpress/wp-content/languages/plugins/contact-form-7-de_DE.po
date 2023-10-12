@@ -2,16 +2,21 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-08-14 08:41:13+0000\n"
+"PO-Revision-Date: 2023-10-11 17:31:38+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-alpha.7\n"
+"X-Generator: GlotPress/4.0.0-alpha.9\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Contact Form 7 - Stable (latest release)\n"
 
-#: includes/config-validator/validator.php:194
+#: modules/sendinblue/contact-form-properties.php:101
+#: modules/sendinblue/service.php:156
+msgid "Brevo integration"
+msgstr "Brevo-Integration"
+
+#: includes/config-validator/validator.php:229
 msgid "Configuration error is detected."
 msgstr "Ein Konfigurationsfehler wurde festgestellt."
 
@@ -19,18 +24,10 @@ msgstr "Ein Konfigurationsfehler wurde festgestellt."
 msgid "Brevo is active on this site."
 msgstr "Brevo ist auf dieser Website aktiv."
 
-#: modules/sendinblue/contact-form-properties.php:109
-#: modules/sendinblue/service.php:30
-msgid "Brevo (formerly Sendinblue)"
-msgstr "Brevo (bisher Sendinblue)"
-
-#: modules/sendinblue/contact-form-properties.php:101
-#: modules/sendinblue/service.php:156
-msgid "Brevo (formerly Sendinblue) integration"
-msgstr "Brevo (bisher Sendinblue) Integration"
-
 #: admin/includes/welcome-panel.php:153
+#: modules/sendinblue/contact-form-properties.php:109
 #: modules/sendinblue/contact-form-properties.php:297
+#: modules/sendinblue/service.php:30
 msgid "Brevo"
 msgstr "Brevo"
 
@@ -85,11 +82,11 @@ msgstr "Dieses Formular verwendet Akismet, um Spam zu reduzieren."
 msgid "Contact form"
 msgstr "Kontaktformular"
 
-#: includes/config-validator/form.php:233
+#: includes/config-validator/form.php:81
 msgid "Uploadable file size exceeds PHP’s maximum acceptable size."
 msgstr "Die Dateigröße der hochzuladenden Datei übersteigt die von PHP vorgegebene maximale Größe."
 
-#: includes/config-validator/form.php:183
+#: includes/config-validator/form.php:69
 msgid "Colons are used in form-tag names."
 msgstr "Doppelpunkte werden in Formular-Tag-Namen verwendet."
 
@@ -254,7 +251,7 @@ msgstr "%1$s %2$s"
 msgid "Unique identifier for the contact form."
 msgstr "Eindeutiger Identifikator für das Kontaktformular."
 
-#: includes/config-validator/form.php:156
+#: includes/config-validator/form.php:57
 msgid "Dots are used in form-tag names."
 msgstr "Punkte werden im Namen des form-Tags verwendet."
 
@@ -472,11 +469,11 @@ msgstr "Zusätzliche Einstellungen"
 msgid "Error"
 msgstr "Fehler"
 
-#: includes/config-validator/mail.php:284
+#: includes/config-validator/mail.php:462
 msgid "The total size of attachment files is too large."
 msgstr "Die Gesamtgröße aller Anhänge ist zu groß."
 
-#: includes/config-validator/form.php:130
+#: includes/config-validator/form.php:45
 msgid "Unavailable HTML elements are used in the form template."
 msgstr "In diesem Formular-Template werden nicht verfügbare HTML-Elemente verwendet."
 
@@ -602,7 +599,7 @@ msgstr "Constant Contact"
 msgid "Email marketing"
 msgstr "E-Mail-Marketing"
 
-#: includes/config-validator/mail.php:367
+#: includes/config-validator/mail.php:448
 msgid "It is not allowed to use files outside the wp-content directory."
 msgstr "Es ist nicht erlaubt, Dateien außerhalb des Verzeichnisses „wp-content“ zu benutzen."
 
@@ -724,7 +721,7 @@ msgstr "Es ist schwer, die Entwicklung und den Support für dieses Plugin ohne B
 msgid "This contact form is available only for logged in users."
 msgstr "Dieses Kontaktformular ist nur für angemeldete Benutzer verfügbar."
 
-#: includes/config-validator/additional-settings.php:17
+#: includes/config-validator/additional-settings.php:19
 msgid "Deprecated settings are used."
 msgstr "Es werden veraltete Einstellungen verwendet."
 
@@ -759,36 +756,38 @@ msgstr "Ein vorhandenes Kontaktformular kann nicht erstellt werden."
 msgid "You are not allowed to access contact forms."
 msgstr "Du hast keine Berechtigung, um auf Kontaktformulare zuzugreifen."
 
-#: includes/config-validator/mail.php:345
+#: includes/config-validator/mail.php:434
 msgid "Attachment file does not exist at %path%."
 msgstr "Datei für Anhang in folgendem Pfad nicht vorhanden: %path%."
 
-#: includes/config-validator/mail.php:203
+#: includes/config-validator/mail.php:335
 msgid "Invalid mailbox syntax is used in the %name% field."
 msgstr "Ungültige Postfachsyntax wird im Feld %name% verwendet."
 
 #. translators: %names%: a list of form control names
-#: includes/config-validator/form.php:108
+#: includes/config-validator/form.php:32
 msgid "Unavailable names (%names%) are used for form controls."
 msgstr "Nicht verfügbare Namen (%names%) werden für Formularfelder verwendet."
 
-#: includes/config-validator/mail.php:215
+#: includes/config-validator/mail.php:322
 msgid "There are invalid mail header fields."
 msgstr "Es gibt ungültige Mail-Header-Felder."
 
-#: includes/config-validator/messages.php:39
+#: includes/config-validator/messages.php:29
 msgid "HTML tags are used in a message."
 msgstr "In einer Nachricht werden HTML-Tags verwendet."
 
-#: includes/config-validator/mail.php:156
+#: includes/config-validator/mail.php:223
 msgid "Sender email address does not belong to the site domain."
 msgstr "Die Absender-E-Mail-Adresse gehört nicht zur Domain der Website."
 
-#: includes/config-validator/mail.php:299
+#: includes/config-validator/mail.php:205
+#: includes/config-validator/mail.php:242
 msgid "Invalid mailbox syntax is used."
 msgstr "Es wird eine ungültige Mailbox-Syntax verwendet."
 
-#: includes/config-validator/mail.php:324
+#: includes/config-validator/mail.php:185
+#: includes/config-validator/mail.php:369
 msgid "There is a possible empty field."
 msgstr "Es gibt möglicherweise ein leeres Eingabefeld."
 
@@ -860,7 +859,7 @@ msgstr "Spammer nehmen alles ins Visier; deine Kontaktformulare sind da keine Au
 msgid "Getting spammed? You have protection."
 msgstr "Wirst du zugespammt? Du bist geschützt."
 
-#: includes/config-validator/form.php:60
+#: includes/config-validator/form.php:16
 msgid "Multiple form controls are in a single label element."
 msgstr "Mehrere Formularfelder sind in einem einzigen Beschriftungselement platziert."
 
@@ -919,7 +918,7 @@ msgstr "Eine Fehlkonfiguration führt zu Fehlern bei der E-Mail-Zustellung oder 
 msgid "Validate Contact Form 7 Configuration"
 msgstr "Konfiguration von Contact Form 7 validieren"
 
-#: includes/config-validator/validator.php:52
+#: includes/config-validator/validator.php:56
 msgid "https://contactform7.com/configuration-errors/"
 msgstr "https://contactform7.com/configuration-errors/"
 
@@ -998,7 +997,7 @@ msgid "https://contactform7.com/"
 msgstr "https://contactform7.com/"
 
 #. translators: title of your first contact form. %d: number fixed to '1'
-#: load.php:188
+#: load.php:192
 msgid "Contact form %d"
 msgstr "Kontaktformular %d"
 
@@ -1475,11 +1474,6 @@ msgstr "Die Nachricht des Absenders konnte nicht gesendet werden"
 #: includes/contact-form-template.php:164
 msgid "Sender's message was sent successfully"
 msgstr "Die Nachricht des Absenders wurde erfolgreich gesendet"
-
-#. translators: 1: blog name, 2: blog URL
-#: includes/contact-form-template.php:77 includes/contact-form-template.php:111
-msgid "This e-mail was sent from a contact form on %1$s (%2$s)"
-msgstr "Diese E-Mail wurde von einem Kontaktformular von %1$s (%2$s) gesendet"
 
 #: includes/contact-form-template.php:72 includes/contact-form-template.php:106
 msgid "Message Body:"
