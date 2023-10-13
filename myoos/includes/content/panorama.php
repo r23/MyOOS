@@ -131,7 +131,7 @@ if (!$categories_panorama_result->RecordCount()) {
 }
 
 // Send the CSP header with the nonce RANDOM_VALUE
-header("Content-Security-Policy: script-src 'nonce-" . NONCE . "' 'unsafe-eval'");
+header("Content-Security-Policy: script-src 'nonce-" . NONCE . "' 'unsafe-eval' 'strict-dynamic' 'unsafe-inline'; object-src 'none'; base-uri 'self'");
 
 
 // register the outputfilter

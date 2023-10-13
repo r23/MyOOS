@@ -222,7 +222,7 @@ $smarty->assign('order', $oOrder);
 $smarty->assign('text_conditions', sprintf($aLang['text_conditions'], oos_href_link($aContents['information'], 'information_id=2'), oos_href_link($aContents['information'], 'information_id=3'), oos_href_link($aContents['information'], 'information_id=4')));
 
 // Send the CSP header with the nonce RANDOM_VALUE
-header("Content-Security-Policy: script-src 'nonce-" . NONCE . "' 'unsafe-eval'");
+header("Content-Security-Policy: script-src 'nonce-" . NONCE . "' 'unsafe-eval' 'strict-dynamic' 'unsafe-inline'; object-src 'none'; base-uri 'self'");
 
 // register the outputfilter
 $smarty->loadFilter('output', 'trimwhitespace');
