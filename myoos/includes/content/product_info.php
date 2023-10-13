@@ -471,7 +471,6 @@ if (!$product_info_result->RecordCount()) {
         include_once MYOOS_INCLUDE_PATH . '/includes/content/chart/line.php';
         $chart = ob_get_contents();
         ob_end_clean();
-        $chart = true;
         $smarty->assign('chart', $chart);
         /*
         $aPriceAlert = [];
@@ -487,7 +486,6 @@ if (!$product_info_result->RecordCount()) {
         $smarty->assign('pricealert', $aPriceAlert);
         */
     }
-
 
     if (!isset($block_get_parameters)) {
         $block_get_parameters = oos_get_all_get_parameters(['action']);

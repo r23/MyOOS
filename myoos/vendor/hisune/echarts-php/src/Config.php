@@ -116,10 +116,11 @@ HTML;
                 }
             }
             $option = self::jsonEncode($option);
+			$nonce = NONCE;
             return <<<HTML
 <div id="$id" $attribute></div>
 $js
-<script type="text/javascript">
+<script nonce="$nonce">
     var $prefix$jsVar = echarts.init(document.getElementById('$id'), '$theme');
     $prefix$jsVar.setOption($option);$eventsHtml
 </script>
@@ -130,7 +131,7 @@ HTML;
     private static function _renderScript($src, &$js)
     {
         if(!isset(self::$scripts[$src])){
-            $js .= '<script type="text/javascript" src="' . $src . '"></script>';
+            $js .= '<script nonce="' . NONCE .'" src="' . $src . '"></script>';
             self::$scripts[$src] = true;
         }
     }

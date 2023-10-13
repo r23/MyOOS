@@ -86,6 +86,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
 
 $startD = filter_input(INPUT_GET, 'startD', FILTER_VALIDATE_INT) ?: 2;
+
 $last_show_date = 0;
 
 $startDate_1 = mktime(0, 0, 0, date("m"), date("d")-30, date("Y"));
@@ -93,14 +94,27 @@ $startDate_2 = mktime(0, 0, 0, date("m"), date("d")-90, date("Y"));
 $startDate_3 = mktime(0, 0, 0, date("m"), date("d")-183, date("Y"));
 $startDate_4 = mktime(0, 0, 0, date("m"), date("d")-365, date("Y"));
 
+switch ($startD) {
+case '1':
+    $startDate = $startDate_1;
+    break;
 
-$startDate = match ($startD) {
-    '1' => $startDate_1,
-    '2' => $startDate_2,
-    '3' => $startDate_3,
-    '4' => $startDate_4,
-    default => $startDate_2,
-};
+case '2':
+    $startDate = $startDate_2;
+    break;
+
+case '3':
+    $startDate = $startDate_3;
+    break;
+
+case '4':
+    $startDate = $startDate_4;
+    break;
+
+default:
+    $startDate = $startDate_2;
+    break;
+}
 
 $endDate = mktime(0, 0, 0, date("m"), date("d") + 1, date("Y"));
 $get_products_id = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
@@ -116,6 +130,7 @@ $first = $first_result->fields;
 
 $global_start_date = mktime(0, 0, 0, date("m", $first['first']), date("d", $first['first']), date("Y", $first['first']));
 if ($startDate == 0  or $startDate < $global_start_date) {
+
     $before_date = date("Y-m-d", $startDate);
     $sInfoTitle = sprintf($aLang['text_price_chart_info'], $product_info['products_name'], oos_date_short($before_date));
 
@@ -138,6 +153,19 @@ if ($startDate_4 < $global_start_date) {
     $ds = 1;
 }
 
+echo '<h3 id="anchor_1">' . $aLang['text_price_chart_titel'] . '</h3>';
+echo '<h4>' . $product_info['products_name'] . '</h4>';
+
+if (isset($sInfoTitle)) {
+	echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">		
+	<h4>' . $sInfoTitle . '</h4>
+	<p>' . $sInfoText . '</p>
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>';
+}
+$aDate = [];
+$aData = [];
+
 $products_price_historytable = $oostable['products_price_history'];
 $sql = "SELECT products_price, date_added
           FROM $products_price_historytable
@@ -147,19 +175,6 @@ $sql = "SELECT products_price, date_added
       ORDER BY date_added ASC";
 $price_history_result = $dbconn->Execute($sql);
 if ($price_history_result->RecordCount() >= 2) {
-    echo '<h3>' . $aLang['text_price_chart_titel'] . '</h3>';
-    echo '<h4>' . $product_info['products_name'] . '</h4>';
-
-    if (isset($sInfoTitle)) {
-        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">		
-			<h4>' . $sInfoTitle . '</h4>
-			<p>' . $sInfoText . '</p>
-			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-			</div>';
-    }
-    $aDate = [];
-    $aData = [];
-
     while ($price_history = $price_history_result->fields) {
         $history_price = $oCurrencies->schema_price($price_history['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']), 1, false);
 
@@ -169,50 +184,52 @@ if ($price_history_result->RecordCount() >= 2) {
         // Move that ADOdb pointer!
         $price_history_result->MoveNext();
     }
+} else {
+	$aDate[] = oos_date_short(date("Y-m-d\TH:i:s", $startDate));
+	$aData[] = $schema_product_price;
+}
+
+// current price with date
+$aDate = [...$aDate, oos_date_short($today)];
+$aData = [...$aData, $schema_product_price];
 
 
-    // current price with date
-    $aDate = [...$aDate, oos_date_short($today)];
-    $aData = [...$aData, $schema_product_price];
+echo '<p class="text-end">';
+if ($ds > 1) {
+	if ($startD == 1) {
+		echo '1 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
+	} else {
+		echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=1#anchor_1') . '">1 ' . $aLang['text_month'] . '</a>&nbsp;|&nbsp;';
+	}
+}
+if ($ds > 2) {
+	if ($startD == 2) {
+		echo '3 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
+	} else {
+		echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=2#anchor_1') . '">3 ' . $aLang['text_months'] . '</a>&nbsp;|&nbsp;';
+	}
+}
+if ($ds > 3) {
+	if ($startD == 3) {
+		echo '6 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
+	} else {
+		echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=3#anchor_1') . '">6 ' . $aLang['text_months'] . '</a>&nbsp;|&nbsp;';
+	}
+}
+if ($ds > 4) {
+	if ($startD == 4) {
+		echo '1 ' . $aLang['text_year'] . '&nbsp;|&nbsp;';
+	} else {
+		echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=4#anchor_1') . '">1' . $aLang['text_year'] . '</a>&nbsp;';
+	}
+}
+echo '</p>';
 
 
-    echo '<p class="text-end">';
-    if ($ds > 1) {
-        if ($startD == 1) {
-            echo '1 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
-        } else {
-            echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=1#anchor_1') . '">1 ' . $aLang['text_month'] . '</a>&nbsp;|&nbsp;';
-        }
-    }
-    if ($ds > 2) {
-        if ($startD == 2) {
-            echo '3 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
-        } else {
-            echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=2#anchor_1') . '">3 ' . $aLang['text_months'] . '</a>&nbsp;|&nbsp;';
-        }
-    }
-    if ($ds > 3) {
-        if ($startD == 3) {
-            echo '6 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
-        } else {
-            echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=3#anchor_1') . '">6 ' . $aLang['text_months'] . '</a>&nbsp;|&nbsp;';
-        }
-    }
-    if ($ds > 4) {
-        if ($startD == 4) {
-            echo '1 ' . $aLang['text_year'] . '&nbsp;|&nbsp;';
-        } else {
-            echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=4#anchor_1') . '">1' . $aLang['text_year'] . '</a>&nbsp;';
-        }
-    }
-    echo '</p>';
-
-
-    echo chartLine(
-        $aDate,
+echo chartLine(
+    $aDate,
         [
             ['name' => $product_info['products_name'], 'data' => $aData],
         ],
-        $aLang['text_price_chart_titel']
-    );
-}
+    $aLang['text_price_chart_titel']
+);
