@@ -199,28 +199,28 @@ if ($ds > 1) {
 	if ($startD == 1) {
 		echo '1 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
 	} else {
-		echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=1#anchor_1') . '">1 ' . $aLang['text_month'] . '</a>&nbsp;|&nbsp;';
+		echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=1') . '#anchor_1">1 ' . $aLang['text_month'] . '</a>&nbsp;|&nbsp;';
 	}
 }
 if ($ds > 2) {
 	if ($startD == 2) {
 		echo '3 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
 	} else {
-		echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=2#anchor_1') . '">3 ' . $aLang['text_months'] . '</a>&nbsp;|&nbsp;';
+		echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=2') . '#anchor_1">3 ' . $aLang['text_months'] . '</a>&nbsp;|&nbsp;';
 	}
 }
 if ($ds > 3) {
 	if ($startD == 3) {
 		echo '6 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
 	} else {
-		echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=3#anchor_1') . '">6 ' . $aLang['text_months'] . '</a>&nbsp;|&nbsp;';
+		echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=3') . '#anchor_1">6 ' . $aLang['text_months'] . '</a>&nbsp;|&nbsp;';
 	}
 }
 if ($ds > 4) {
 	if ($startD == 4) {
 		echo '1 ' . $aLang['text_year'] . '&nbsp;|&nbsp;';
 	} else {
-		echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=4#anchor_1') . '">1' . $aLang['text_year'] . '</a>&nbsp;';
+		echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=4') . '#anchor_1">1' . $aLang['text_year'] . '</a>&nbsp;';
 	}
 }
 echo '</p>';
