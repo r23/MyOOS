@@ -355,7 +355,7 @@ function updateNet() {
     netValue = netValue / ((taxRate / 100) + 1);
   }
 
-  document.forms["new_special"].specials_price.value = doRound(netValue, 4);
+  document.forms["new_special"].specials_price.value = doRound(netValue, 2);
 }
 
 
@@ -380,7 +380,8 @@ function updateNet() {
                                 <?php
 
     if (isset($sInfo->specials_new_products_price)) {
-        echo oos_draw_input_field('specials_price', $sInfo->specials_new_products_price, 'onkeyup="updateWithTax()"');
+		$sPrice = number_format($sInfo->specials_new_products_price, TAX_DECIMAL_PLACES, '.', '');
+        echo oos_draw_input_field('specials_price', $sPrice, 'onkeyup="updateWithTax()"');
     } else {
         echo oos_draw_input_field('specials_price', '', 'onkeyup="updateWithTax()"');
     } ?>						
