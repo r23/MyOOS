@@ -260,7 +260,7 @@ while ($orders_status = $orders_status_result->fields) {
                     <td class="smallText" align="right"><?php echo $orders_status_split->display_links($orders_status_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
                   </tr>
 <?php
-if (empty($action)) {
+ if ($action == 'default') {
     ?>
                   <tr>
                     <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['orders_status'], 'page=' . $nPage . '&action=new') . '">' . oos_button(BUTTON_INSERT) . '</a>'; ?></td>

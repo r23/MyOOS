@@ -193,7 +193,7 @@ while ($palm_doa = $payment_dai_result->fields) {
                     <td class="smallText" align="right"><?php echo $payment_dai_split->display_links($payment_dai_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
                   </tr>
 <?php
-if (empty($action)) {
+ if ($action == 'default') {
     ?>
                   <tr><td colspan="2" align="right">&nbsp;</td></tr>
     <?php

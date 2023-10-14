@@ -526,7 +526,7 @@ function updateNet() {
                     <td class="smallText" align="right"><?php echo $specials_split->display_links($specials_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, intval($nPage)); ?></td>
                   </tr>
 <?php
-  if (empty($action)) {
+  if ($action == 'default') {
       ?>
                   <tr> 
                     <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage) . '&action=new') . '">' . oos_button(IMAGE_NEW_PRODUCT) . '</a>'; ?></td>

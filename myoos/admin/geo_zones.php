@@ -317,7 +317,7 @@ if (empty($saction)) {
                 </table></td>
               </tr>
               <tr>
-                <td align="right" colspan="2"><?php if (empty($action)) {
+                <td align="right" colspan="2"><?php  if ($action == 'default') {
           echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . (empty($zInfo->geo_zone_id) ? '' : '&zID=' . $zInfo->geo_zone_id) . '&action=new_zone') . '">' . oos_button(BUTTON_INSERT) . '</a>';
       } ?></td>
               </tr>

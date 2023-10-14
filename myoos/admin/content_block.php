@@ -236,7 +236,7 @@ if (!empty($action)) {
                 </table></td>
               </tr>
 <?php
-  if (empty($action)) {
+   if ($action == 'default') {
       ?>
               <tr>
                 <td align="right" colspan="6" class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id . '&action=new') . '">' . oos_button(BUTTON_INSERT) . '</a>'; ?></td>

@@ -1463,7 +1463,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         <div class="wrapper wrapper-content">
 
     <?php
-    if (empty($action)) {
+	if ($action == 'default') {
         ?>
         <div class="col-lg-12">
             <div class="float-right">

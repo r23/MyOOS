@@ -395,7 +395,7 @@ if ($action == 'new' || $action == 'edit') {
                 </table></td>
               </tr>
     <?php
-    if (empty($action)) {
+     if ($action == 'default') {
         ?>
               <tr>
                 <td align="right" colspan="4" class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&action=new') . '">' . oos_button(BUTTON_INSERT) . '</a>'; ?></td>

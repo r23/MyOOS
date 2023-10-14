@@ -155,7 +155,7 @@ require 'includes/header.php';
                     <td class="smallText" align="right"><?php echo $zones_split->display_links($zones_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
                   </tr>
 <?php
-  if (empty($action)) {
+   if ($action == 'default') {
       ?>
                   <tr>
                     <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&action=new') . '">' . oos_button(IMAGE_NEW_ZONE) . '</a>'; ?></td>

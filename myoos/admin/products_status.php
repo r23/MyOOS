@@ -224,7 +224,7 @@ if (!empty($action)) {
                     <td class="smallText" align="right"><?php echo $products_status_split->display_links($products_status_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
                   </tr>
 <?php
-  if (empty($action)) {
+   if ($action == 'default') {
       ?>
                   <tr>
                     <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&action=new') . '">' . oos_button(IMAGE_NEW_PRODUCT_STATUS) . '</a>'; ?></td>

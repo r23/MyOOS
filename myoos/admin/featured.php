@@ -300,7 +300,7 @@ if (($action == 'new') || ($action == 'edit')) {
                     <td class="smallText" align="right"><?php echo $featured_split->display_links($featured_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
                   </tr>
     <?php
-    if (empty($action)) {
+	if ($action == 'default') {
         ?>
                   <tr> 
                     <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&action=new') . '">' . oos_button(IMAGE_NEW_PRODUCT) . '</a>'; ?></td>

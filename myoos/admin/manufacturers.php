@@ -285,7 +285,7 @@ while ($manufacturers = $manufacturers_result->fields) {
                 </table></td>
               </tr>
 <?php
-if (empty($action)) {
+ if ($action == 'default') {
     ?>
               <tr>
                 <td align="right" colspan="2" class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . ($mInfo->manufacturers_id ?? '') . '&action=new') . '">' . oos_button(BUTTON_INSERT) . '</a>'; ?></td>

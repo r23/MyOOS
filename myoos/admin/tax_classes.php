@@ -149,7 +149,7 @@ while ($classes = $classes_result->fields) {
                     <td class="smallText" align="right"><?php echo $classes_split->display_links($classes_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
                   </tr>
 <?php
-if (empty($action)) {
+ if ($action == 'default') {
     ?>
                   <tr>
                     <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&action=new') . '">' . oos_button(IMAGE_NEW_TAX_CLASS) . '</a>'; ?></td>

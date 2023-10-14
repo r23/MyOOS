@@ -225,7 +225,7 @@ if (!empty($action)) {
                     <td class="smallText" align="right"><?php echo $currency_split->display_links($currency_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
                   </tr>
 <?php
-  if (empty($action)) {
+   if ($action == 'default') {
       ?>
                   <tr>
                     <td><?php if (CURRENCY_SERVER) {

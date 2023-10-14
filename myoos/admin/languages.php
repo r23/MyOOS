@@ -822,7 +822,7 @@ while ($languages = $languages_result->fields) {
                     <td class="smallText" align="right"><?php echo $languages_split->display_links($languages_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
                   </tr>
 <?php
-if (empty($action)) {
+ if ($action == 'default') {
     ?>
                   <tr>
                     <td align="right" colspan="2"><?php echo '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=new') . '">' . oos_button(IMAGE_NEW_LANGUAGE) . '</a>'; ?></td>
