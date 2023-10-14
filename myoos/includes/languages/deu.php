@@ -188,11 +188,11 @@ $aLang = [
 'block_service_shopping_cart'     => 'Warenkorb',
 'block_service_contact'           => 'Kontakt',
 
-'page_order_history'                 => 'Meine Bestellungen',
+'page_order_history'              => 'Meine Bestellungen',
 'page_products_new'               => 'Neue Produkte',
-'page_specials'                    => 'Angebote',
-'page_blog'                         => 'Blog',
-'page_phpb3'                         => 'Support Forum',
+'page_specials'                   => 'Angebote',
+'page_blog'                       => 'Blog',
+'page_phpb3'                      => 'Support Forum',
 
 
 'form_error'                      => '<strong>Notwendige Angaben fehlen!</strong> Bitte richtig ausfüllen.',
@@ -312,7 +312,7 @@ $aLang = [
 'button_apply_coupon'                => 'Gutschein einlösen',
 'button_back'                        => 'Zurück',
 'button_buy_it_again'                => 'Nochmals kaufen',
-'button_calculate_shipping'             => 'Versand berechnen',
+'button_calculate_shipping'          => 'Versand berechnen',
 'button_change_address'              => 'Adresse ändern',
 'button_checkout'                    => 'Kasse',
 'button_clear_cart'                  => 'Warenkorb löschen',
