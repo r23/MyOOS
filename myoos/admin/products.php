@@ -534,12 +534,12 @@ function updateWithTax() {
 	grossDiscount4Value = grossDiscount4Value * ((taxRate / 100) + 1)	
   }
 
-  document.forms["new_product"].products_price_gross.value = doRound(grossValue, 4);
-  document.forms["new_product"].products_price_list_gross.value = doRound(grossListValue, 4);
-  document.forms["new_product"].products_discount_gross1.value = doRound(grossDiscount1Value, 4); 
-  document.forms["new_product"].products_discount_gross2.value = doRound(grossDiscount2Value, 4);
-  document.forms["new_product"].products_discount_gross3.value = doRound(grossDiscount3Value, 4); 
-  document.forms["new_product"].products_discount_gross4.value = doRound(grossDiscount4Value, 4); 
+  document.forms["new_product"].products_price_gross.value = doRound(grossValue, 2);
+  document.forms["new_product"].products_price_list_gross.value = doRound(grossListValue, 2);
+  document.forms["new_product"].products_discount_gross1.value = doRound(grossDiscount1Value, 2); 
+  document.forms["new_product"].products_discount_gross2.value = doRound(grossDiscount2Value, 2);
+  document.forms["new_product"].products_discount_gross3.value = doRound(grossDiscount3Value, 2); 
+  document.forms["new_product"].products_discount_gross4.value = doRound(grossDiscount4Value, 2); 
 }
 
 function updateNet() {
@@ -560,12 +560,12 @@ function updateNet() {
 	netDiscount4Value = netDiscount4Value / ((taxRate / 100) + 1);	
   }
 
-  document.forms["new_product"].products_price.value = doRound(netValue, 4);
-  document.forms["new_product"].products_price_list.value = doRound(netListValue, 4);
-  document.forms["new_product"].products_discount1.value = doRound(netDiscount1Value, 4);
-  document.forms["new_product"].products_discount2.value = doRound(netDiscount2Value, 4);
-  document.forms["new_product"].products_discount3.value = doRound(netDiscount3Value, 4);
-  document.forms["new_product"].products_discount4.value = doRound(netDiscount4Value, 4);  
+  document.forms["new_product"].products_price.value = doRound(netValue, 2);
+  document.forms["new_product"].products_price_list.value = doRound(netListValue, 2);
+  document.forms["new_product"].products_discount1.value = doRound(netDiscount1Value, 2);
+  document.forms["new_product"].products_discount2.value = doRound(netDiscount2Value, 2);
+  document.forms["new_product"].products_discount3.value = doRound(netDiscount3Value, 2);
+  document.forms["new_product"].products_discount4.value = doRound(netDiscount4Value, 2);  
 }
 
 function calcBasePriceFactor() {
@@ -812,7 +812,7 @@ function calcBasePriceFactor() {
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRICE; ?></label>
                               <div class="col-lg-10">
                                 <?php
-                                    $sPrice = number_format($pInfo->products_price, 4, '.', '');
+    $sPrice = number_format($pInfo->products_price, TAX_DECIMAL_PLACES, '.', '');
     echo oos_draw_input_field('products_price', $sPrice, 'onkeyup="updateWithTax()"'); ?>								
                               </div>
                            </div>
@@ -822,7 +822,7 @@ function calcBasePriceFactor() {
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRICE_WITH_TAX; ?></label>
                               <div class="col-lg-10">
                                 <?php
-                                    $sPrice = number_format($pInfo->products_price, TAX_DECIMAL_PLACES, '.', '');
+    $sPrice = number_format($pInfo->products_price, TAX_DECIMAL_PLACES, '.', '');
     echo oos_draw_input_field('products_price_gross', $sPrice, 'onkeyup="updateNet()"'); ?>
                               </div>
                            </div>
@@ -832,7 +832,7 @@ function calcBasePriceFactor() {
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_LIST_PRICE; ?></label>
                               <div class="col-lg-10">
                                 <?php
-                                    $sPriceList = number_format($pInfo->products_price_list ?? 0, 4, '.', '');
+    $sPriceList = number_format($pInfo->products_price_list ?? 0, TAX_DECIMAL_PLACES, '.', '');
     echo oos_draw_input_field('products_price_list', $sPriceList, 'onkeyup="updateWithTax()"'); ?>
                               </div>
                            </div>
@@ -842,7 +842,7 @@ function calcBasePriceFactor() {
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_LIST_PRICE_WITH_TAX; ?></label>
                               <div class="col-lg-10">
                                 <?php
-                                    $sPriceList = number_format($pInfo->products_price_list ?? 0, TAX_DECIMAL_PLACES, '.', '');
+    $sPriceList = number_format($pInfo->products_price_list ?? 0, TAX_DECIMAL_PLACES, '.', '');
     echo oos_draw_input_field('products_price_list_gross', $sPriceList, 'onkeyup="updateNet()"'); ?>
                               </div>
                            </div>
@@ -907,10 +907,10 @@ function calcBasePriceFactor() {
                               <div class="col-lg-10">
  <?php
 
-   $sDiscount1 = number_format($pInfo->products_discount1 ?? 0, 4, '.', '');
-    $sDiscount2 = number_format($pInfo->products_discount2 ?? 0, 4, '.', '');
-    $sDiscount3 = number_format($pInfo->products_discount3 ?? 0, 4, '.', '');
-    $sDiscount4 = number_format($pInfo->products_discount4 ?? 0, 4, '.', ''); ?>
+    $sDiscount1 = number_format($pInfo->products_discount1 ?? 0, 2, '.', '');
+    $sDiscount2 = number_format($pInfo->products_discount2 ?? 0, 2, '.', '');
+    $sDiscount3 = number_format($pInfo->products_discount3 ?? 0, 2, '.', '');
+    $sDiscount4 = number_format($pInfo->products_discount4 ?? 0, 2, '.', ''); ?>
  
 <table class="table table-striped">
   <thead class="thead-dark">
