@@ -35,8 +35,7 @@ $customers_statuses_array = oos_get_customers_statuses();
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
        case 'setflag':
         if (($_GET['loginflag'] == '0') || ($_GET['loginflag'] == '1')) {
             if (isset($_GET['cID'])) {
@@ -271,11 +270,11 @@ if (!empty($action)) {
 
         oos_redirect_admin(oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID', 'action'])));
         break;
-    }
 }
-  require 'includes/header.php';
 
-  if ($action == 'edit') {
+require 'includes/header.php';
+
+if ($action == 'edit') {
       ?>
 <script>
 function resetStateText(theForm) {

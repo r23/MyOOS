@@ -47,8 +47,7 @@ $currencies = new currencies();
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
     case 'insert':
     case 'save':
         $customers_status_id = oos_db_prepare_input($_GET['cID']);
@@ -131,9 +130,9 @@ if (!empty($action)) {
             }
         }
         break;
-    }
 }
-  require 'includes/header.php';
+
+require 'includes/header.php';
 ?>
 <div class="wrapper">
     <!-- Header //-->

@@ -37,8 +37,7 @@ $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $sSearch = filter_string_polyfill(filter_input(INPUT_GET, 'search'));
 
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
     case 'new_slave_product':
         $product_check = false;
         if (oos_is_not_null($_POST['slave_product_id'])) {
@@ -774,7 +773,6 @@ if (!empty($action)) {
 
         oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $categories_id . '&page=' . intval($nPage) . '&pID=' . $products_id));
         break;
-    }
 }
 
 

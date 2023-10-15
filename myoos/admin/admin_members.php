@@ -30,8 +30,7 @@ $mID = filter_input(INPUT_GET, 'mID', FILTER_VALIDATE_INT);
 $gID = filter_input(INPUT_GET, 'gID', FILTER_VALIDATE_INT);
 
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
     case 'member_new':
         $admintable = $oostable['admin'];
         $check_email_query = "SELECT admin_email_address FROM $admintable";
@@ -192,10 +191,10 @@ if (!empty($action)) {
             }
         }
         break;
-    }
 }
-  require 'includes/header.php';
-  require 'includes/account_check.js.php';
+
+require 'includes/header.php';
+require 'includes/account_check.js.php';
 ?>
 <div class="wrapper">
     <!-- Header //-->

@@ -18,16 +18,15 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
-  $current_boxes = OOS_ABSOLUTE_PATH . 'admin/includes/boxes/';
-  $current_files = OOS_ABSOLUTE_PATH . OOS_ADMIN;
+$current_boxes = OOS_ABSOLUTE_PATH . 'admin/includes/boxes/';
+$current_files = OOS_ABSOLUTE_PATH . OOS_ADMIN;
 
-  $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
+$action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
     case 'box_store':
         $sql_data_array = ['admin_files_name' => oos_db_prepare_input($_GET['box']), 'admin_files_is_boxes' => '1'];
         oos_db_perform($oostable['admin_files'], $sql_data_array);
@@ -62,10 +61,9 @@ if (!empty($action)) {
 
         oos_redirect_admin(oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath']));
         break;
-    }
 }
 
-  require 'includes/header.php';
+require 'includes/header.php';
 
 
 ?>

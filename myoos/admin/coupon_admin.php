@@ -164,8 +164,7 @@ if (isset($_GET['mail_sent_to'])) {
     $messageStack->add(sprintf(NOTICE_EMAIL_SENT_TO, $_GET['mail_sent_to']), 'notice');
 }
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
         case 'confirmdelete':
             $delete_result=$dbconn->Execute("UPDATE " . $oostable['coupons'] . " SET coupon_active = 'N' WHERE coupon_id='". intval($_GET['cID'])."'");
             break;
@@ -285,8 +284,8 @@ if (!empty($action)) {
                     }
                 }
             }
-    }
 }
+
 require 'includes/header.php';
 ?>
 <!-- body //-->

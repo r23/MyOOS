@@ -34,8 +34,7 @@ $cPath = filter_string_polyfill(filter_input(INPUT_GET, 'cPath')) ?: $current_ca
 $cID = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT) ?: 0; 
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
     case 'insert_panorama':
     case 'update_panorama':
 
@@ -307,8 +306,6 @@ if (!empty($action)) {
 
         oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . $nPage));
         break;
-
-    }
 }
 
 

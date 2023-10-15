@@ -29,8 +29,7 @@ $currencies = new currencies();
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
         case 'insert':
         case 'save':
             $currency_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
@@ -122,9 +121,9 @@ if (!empty($action)) {
                 $messageStack->add(ERROR_REMOVE_DEFAULT_CURRENCY, 'error');
             }
             break;
-        }
 }
-    require 'includes/header.php';
+
+require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->

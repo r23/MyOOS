@@ -27,8 +27,7 @@ $current_boxes = OOS_ABSOLUTE_PATH . 'admin/includes/boxes/';
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-if (!empty($action)) {
-      switch ($action) {
+switch ($action) {
       case 'check_password':
         $admintable = $oostable['admin'];
         $check_pass_query = "SELECT admin_password as confirm_password FROM $admintable WHERE admin_id = '" . oos_db_input($_POST['id_info']) . "'";
@@ -71,10 +70,10 @@ if (!empty($action)) {
             oos_redirect_admin(oos_href_link_admin($aContents['admin_account'], 'page=' . $nPage . '&mID=' . $admin_id));
         }
         break;
-    }
-  }
-  require 'includes/header.php';
-  require 'includes/account_check.js.php';
+}
+
+require 'includes/header.php';
+require 'includes/account_check.js.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->

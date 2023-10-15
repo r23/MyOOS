@@ -27,8 +27,7 @@ require 'includes/functions/function_modules.php';
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 $cID = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT) ?: 0; 
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
     case 'save':
         $configuration_value = oos_db_prepare_input($_POST['configuration_value']);
 
@@ -196,14 +195,13 @@ if (!empty($action)) {
 
         oos_redirect_admin(oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cID));
         break;
-    }
 }
 
 
-  $sHeaderTitle = constant(strtoupper((int)$_GET['gID'] . '_TITLE'));
-  define('HEADING_TITLE', $sHeaderTitle);
+$sHeaderTitle = constant(strtoupper((int)$_GET['gID'] . '_TITLE'));
+define('HEADING_TITLE', $sHeaderTitle);
 
-  require 'includes/header.php';
+require 'includes/header.php';
 
 ?>
 <div class="wrapper">

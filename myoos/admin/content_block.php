@@ -23,8 +23,7 @@ require 'includes/functions/function_block.php';
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
         case 'setflag':
             if (isset($_GET['bID'])) {
                 if (isset($_GET['flag']) && ($_GET['flag'] == '1')) {
@@ -117,10 +116,9 @@ if (!empty($action)) {
 
         oos_redirect_admin(oos_href_link_admin($aContents['content_block'], 'page=' . $nPage));
         break;
-    }
 }
 
-  require 'includes/header.php';
+require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->

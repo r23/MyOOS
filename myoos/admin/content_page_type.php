@@ -76,8 +76,7 @@ function oosGetPageType()
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
     case 'insert':
     case 'save':
 		$page_type_id = filter_input(INPUT_GET, 'ptID', FILTER_VALIDATE_INT);
@@ -127,9 +126,9 @@ if (!empty($action)) {
             $messageStack->add(ERROR_STATUS_USED_IN_ORDERS, 'error');
         }
         break;
-    }
 }
-  require 'includes/header.php';
+
+require 'includes/header.php';
 ?>
 <div class="wrapper">
     <!-- Header //-->
