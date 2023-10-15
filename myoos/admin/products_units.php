@@ -81,8 +81,7 @@ function oos_get_unit_of_measure($products_units_id, $language_id = '')
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
         case 'insert':
         case 'save':
             $products_units_id = oos_db_prepare_input($_GET['uID']);
@@ -139,8 +138,8 @@ if (!empty($action)) {
                 $messageStack->add(ERROR_STATUS_USED_IN_PRODUCTS, 'error');
             }
             break;
-    }
 }
+
 require 'includes/header.php';
 ?>
 <div class="wrapper">

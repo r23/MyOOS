@@ -32,8 +32,7 @@ $pID = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT) ?: 0;
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
     case 'insert_video':
     case 'update_video':
 
@@ -186,8 +185,6 @@ if (!empty($action)) {
             oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . '&pID=' . intval($products_id)));
         }
         break;
-
-    }
 }
 
 require 'includes/header.php';

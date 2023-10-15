@@ -32,8 +32,7 @@ $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default'
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
     case 'slave_delete':
         $dbconn->Execute("DELETE FROM " . $oostable['products_to_master'] . " WHERE slave_id = " . intval($_GET['slave_id']) . " AND master_id = " . intval($_GET['master_id']) . " LIMIT 1");
         $check_product_result = $dbconn->Execute("SELECT slave_id, master_id FROM " . $oostable['products_to_master'] . " WHERE slave_id = " . intval($_GET['slave_id']));
@@ -119,9 +118,6 @@ if (!empty($action)) {
 
         oos_redirect_admin(oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath));
         break;
-
-
-    }
 }
 
 // check if the catalog image directory exists

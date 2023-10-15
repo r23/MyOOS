@@ -54,8 +54,7 @@ $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default'
 $sID = filter_input(INPUT_GET, 'sID', FILTER_VALIDATE_INT);
 $pID = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT);
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
         case 'setflag':
             if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 oos_set_specials_status($_GET['id'], $_GET['flag']);
@@ -172,7 +171,6 @@ if (!empty($action)) {
 
             oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage)));
             break;
-    }
 }
 
 

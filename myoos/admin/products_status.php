@@ -60,8 +60,7 @@ function oos_get_products_status()
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
       case 'insert':
       case 'save':
         $products_status_id = oos_db_prepare_input($_GET['psID']);
@@ -122,11 +121,10 @@ if (!empty($action)) {
             $remove_status = false;
             $messageStack->add(ERROR_REMOVE_DEFAULT_ORDER_STATUS, 'error');
         } 
-        break;	
-		
-    }
+        break;
 }
-  require 'includes/header.php';
+
+require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->

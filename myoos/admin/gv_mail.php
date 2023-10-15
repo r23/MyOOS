@@ -246,7 +246,8 @@ if (isset($_GET['mail_sent_to'])) {
     $messageStack->add(sprintf(NOTICE_EMAIL_SENT_TO, $_GET['mail_sent_to']), 'notice');
 }
 
-  require 'includes/header.php';
+require 'includes/header.php';
+
 ?>
 <div class="wrapper">
     <!-- Header //-->

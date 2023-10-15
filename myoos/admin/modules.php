@@ -56,8 +56,7 @@ switch ($set) {
 
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
         case 'save':
 
             $aKeys = [];
@@ -120,7 +119,6 @@ if (!empty($action)) {
             }
             oos_redirect_admin(oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class));
             break;
-    }
 }
 
 require 'includes/header.php';

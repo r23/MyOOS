@@ -42,8 +42,7 @@ function oos_get_manufacturer_url($manufacturer_id, $language_id = '')
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
     case 'insert':
     case 'save':
         if (isset($_GET['mID'])) {
@@ -184,9 +183,9 @@ if (!empty($action)) {
 
           oos_redirect_admin(oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage));
         break;
-    }
 }
-    require 'includes/header.php';
+
+require 'includes/header.php';
 ?>
 <div class="wrapper">
     <!-- Header //-->

@@ -55,8 +55,7 @@ $nzPage = filter_input(INPUT_GET, 'zpage', FILTER_VALIDATE_INT) ?: 1;
 
 $saction = filter_string_polyfill(filter_input(INPUT_GET, 'saction')) ?: 'default';
 
-if (!empty($saction)) {
-    switch ($saction) {
+switch ($saction) {
       case 'insert_sub':
         $zID = oos_db_prepare_input($_GET['zID']);
         $zone_country_id = oos_db_prepare_input($_POST['zone_country_id']);
@@ -89,13 +88,11 @@ if (!empty($saction)) {
 
         oos_redirect_admin(oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage));
         break;
-    }
 }
 
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
     case 'insert_zone':
         $geo_zone_name = oos_db_prepare_input($_POST['geo_zone_name']);
         $geo_zone_description = oos_db_prepare_input($_POST['geo_zone_description']);
@@ -128,7 +125,6 @@ if (!empty($action)) {
 
         oos_redirect_admin(oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage));
         break;
-    }
 }
 
 require 'includes/header.php';

@@ -24,8 +24,7 @@ require 'includes/main.php';
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
     case 'insert':
         $tax_class_title = oos_db_prepare_input($_POST['tax_class_title']);
         $tax_class_description = oos_db_prepare_input($_POST['tax_class_description']);
@@ -52,7 +51,6 @@ if (!empty($action)) {
         $dbconn->Execute("DELETE FROM $tax_classtable WHERE tax_class_id = '" . oos_db_input($tax_class_id) . "'");
         oos_redirect_admin(oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage));
         break;
-    }
 }
   require 'includes/header.php';
 ?>

@@ -28,8 +28,7 @@ $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $iID = filter_input(INPUT_GET, 'iID', FILTER_VALIDATE_INT);
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
     case 'setflag':
         if (isset($_GET['flag']) && ($_GET['flag'] == '0')) {
             $dbconn->Execute(
@@ -114,10 +113,9 @@ if (!empty($action)) {
 
         oos_redirect_admin(oos_href_link_admin($aContents['information'], 'page=' . $nPage));
         break;
-
-    }
 }
-  require 'includes/header.php';
+
+require 'includes/header.php';
 ?>
 <div class="wrapper">
     <!-- Header //-->

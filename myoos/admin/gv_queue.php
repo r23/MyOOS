@@ -128,7 +128,7 @@ if ($action == 'confirmrelease' && isset($_GET['gid'])) {
     }
 }
 
-  require 'includes/header.php';
+require 'includes/header.php';
 ?>
 <div class="wrapper">
     <!-- Header //-->

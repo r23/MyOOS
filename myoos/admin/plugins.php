@@ -18,16 +18,15 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
-  require 'includes/functions/function_modules.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
+require 'includes/functions/function_modules.php';
 
-  $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
+$action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-  $installed = explode(';', (string) MODULE_PLUGIN_EVENT_INSTALLED);
+$installed = explode(';', (string) MODULE_PLUGIN_EVENT_INSTALLED);
 
-  if (!empty($action)) {
-      switch ($action) {
+switch ($action) {
       case 'save':
         foreach ($_POST['configuration'] as $key => $value) {
             $configurationtable = $oostable['configuration'];
@@ -136,8 +135,8 @@
         }
         oos_redirect_admin(oos_href_link_admin($aContents['plugins'], 'plugin=' . $_GET['plugin']));
         break;
-    }
-  }
+
+}
 
   $sLocaleDir = OOS_ABSOLUTE_PATH . 'includes/plugins/';
   $aDirectory = [];

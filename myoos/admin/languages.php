@@ -26,8 +26,7 @@ require 'includes/main.php';
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
     case 'setflag':
         $lID = oos_db_prepare_input($_GET['lID']);
 
@@ -705,10 +704,10 @@ if (!empty($action)) {
             $messageStack->add(ERROR_REMOVE_DEFAULT_LANGUAGE, 'error');
         }
         break;
-    }
 }
-  $lang_select_array = [['id' => '0', 'text' => TEXT_ALL_LANGUAGES], ['id' => '1', 'text' => TEXT_ACTIVE_LANGUAGES]];
-  require 'includes/header.php';
+
+$lang_select_array = [['id' => '0', 'text' => TEXT_ALL_LANGUAGES], ['id' => '1', 'text' => TEXT_ACTIVE_LANGUAGES]];
+require 'includes/header.php';
 ?>
 <div class="wrapper">
     <!-- Header //-->

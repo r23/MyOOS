@@ -116,8 +116,7 @@ $options = ['image_versions' => [
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
     case 'add_product_options':
         for ($i = 0, $n = is_countable($aLanguages) ? count($aLanguages) : 0; $i < $n; $i ++) {
             $option_name =  oos_db_prepare_input($_POST['option_name']);
@@ -443,7 +442,6 @@ if (!empty($action)) {
         $dbconn->Execute("DELETE FROM $products_attributes_downloadtable WHERE products_attributes_id = '" . intval($_GET['attribute_id']) . "'");
         oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
         break;
-    }
 }
 
 

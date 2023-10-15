@@ -43,6 +43,9 @@ $language = oos_db_prepare_input($_SESSION['language']);
 $php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
 $step = $_GET['step'] ?? $_POST['step'] ?? 1;
 $oID = filter_input(INPUT_GET, 'oID', FILTER_VALIDATE_INT);
+$action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
+
+
 
 $update_products = isset($_POST['update_products']) ? oos_db_prepare_input($_POST['update_products']) : '';
 $update_totals = isset($_POST['update_totals']) ? oos_db_prepare_input($_POST['update_totals']) : '';

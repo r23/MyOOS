@@ -29,8 +29,7 @@ $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default'
 $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
 $pID = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT) ?: 0; 
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
     case 'insert_model':
     case 'update_model':
 
@@ -176,8 +175,6 @@ if (!empty($action)) {
             oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products_id));
         }
         break;
-
-    }
 }
 
 require 'includes/header.php';

@@ -18,7 +18,6 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
@@ -104,8 +103,7 @@ while ($orders_status = $orders_status_result->fields) {
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
       case 'update_order':
         $oID = oos_db_prepare_input($_GET['oID']);
         $comments = isset($_POST['comments']) ? oos_db_prepare_input($_POST['comments']) : '';
@@ -205,8 +203,6 @@ if (!empty($action)) {
 
         oos_redirect_admin(oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action'])));
         break;
-
-    }
 }
 
 if (($action == 'edit') && isset($_GET['oID'])) {

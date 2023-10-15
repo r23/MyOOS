@@ -96,8 +96,7 @@ require 'includes/main.php';
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
       case 'insert':
         $tax_zone_id = oos_db_prepare_input($_POST['tax_zone_id']);
         $tax_class_id = oos_db_prepare_input($_POST['tax_class_id']);
@@ -134,7 +133,6 @@ if (!empty($action)) {
         $dbconn->Execute("DELETE FROM $tax_ratestable WHERE tax_rates_id = '" . oos_db_input($tax_rates_id) . "'");
         oos_redirect_admin(oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage));
         break;
-    }
 }
   require 'includes/header.php';
 ?>

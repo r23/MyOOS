@@ -25,8 +25,7 @@ require 'includes/main.php';
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
-  if (!empty($action)) {
-      switch ($action) {
+switch ($action) {
       case 'update':
         $reviews_id = oos_db_prepare_input($_GET['rID']);
 
@@ -62,9 +61,9 @@ $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default'
 
         oos_redirect_admin(oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $_GET['rID']));
         break;
-    }
-  }
-  require 'includes/header.php';
+}
+
+require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
