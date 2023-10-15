@@ -34,7 +34,7 @@ $order = new order($oID);
 <html lang="<?php echo $_SESSION['iso_639_1']; ?>">
 <head>
     <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.1, maximum-scale=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.1, maximum-scale=5.0, user-scalable=yes">
 <title><?php echo TITLE; ?> - Administration [OOS]</title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>

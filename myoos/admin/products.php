@@ -34,9 +34,7 @@ $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_c
 $pID = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT) ?: 0;
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 
-
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
         case 'insert_product':
         case 'update_product':
             $_POST['products_price'] = str_replace(',', '.', (string) $_POST['products_price']);
@@ -310,8 +308,6 @@ if (!empty($action)) {
 
             oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products_id));
         break;
-
-    }
 }
 
 // check if the catalog image directory exists

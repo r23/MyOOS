@@ -265,9 +265,9 @@ if ($action == 'new') {
       <tr>
         <td><?php if ($module->show_choose_audience) {
             echo $module->choose_audience();
-} else {
+            } else {
                 echo $module->confirm();
-            } ?></td>
+} ?></td>
       </tr>
     <?php
 } elseif ($action == 'confirm') {
@@ -364,19 +364,19 @@ if ($action == 'new') {
                 <td class="text-right"><?php echo $newsletters['module']; ?></td>
                 <td class="text-center"><?php if ($newsletters['status'] == '1') {
                     echo '<i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i>';
-} else {
+                                        } else {
                                             echo oos_image(OOS_IMAGES . 'icons/cross.gif', ICON_CROSS);
-                                        } ?></td>
+} ?></td>
                 <td class="text-center"><?php if ($newsletters['locked'] > 0) {
                     echo oos_image(OOS_IMAGES . 'icons/locked.gif', ICON_LOCKED);
-} else {
+                                        } else {
                                             echo oos_image(OOS_IMAGES . 'icons/unlocked.gif', ICON_UNLOCKED);
-                                        } ?></td>
+} ?></td>
                 <td class="text-right"><?php if (isset($nInfo) && is_object($nInfo) && ($newsletters['newsletters_id'] == $nInfo->newsletters_id)) {
                     echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-} else {
+                                       } else {
                                            echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $newsletters['newsletters_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-                                       } ?>&nbsp;</td>
+} ?>&nbsp;</td>
               </tr>
         <?php
         // Move that ADOdb pointer!

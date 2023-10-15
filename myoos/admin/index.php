@@ -20,12 +20,12 @@
    ----------------------------------------------------------------------
  */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
-  $languages = oos_get_languages();
-  $languages_array = [];
-  $languages_selected = DEFAULT_LANGUAGE;
+$languages = oos_get_languages();
+$languages_array = [];
+$languages_selected = DEFAULT_LANGUAGE;
 for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
     $languages_array[] = ['id' => $languages[$i]['iso_639_2'], 'text' => $languages[$i]['name']];
     if ($languages[$i]['iso_639_2'] == $_SESSION['language']) {

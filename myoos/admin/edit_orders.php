@@ -43,7 +43,7 @@ $language = oos_db_prepare_input($_SESSION['language']);
 $php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
 $step = $_GET['step'] ?? $_POST['step'] ?? 1;
 $oID = filter_input(INPUT_GET, 'oID', FILTER_VALIDATE_INT);
-$action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
+$action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'edit';
 
 
 
@@ -70,13 +70,12 @@ while ($orders_status = $orders_status_result->fields) {
     $orders_status_result->MoveNext();
 }
 
-  $action = ($_GET['action'] ?? 'edit');
+
 //UPDATE_INVENTORY_QUANTITY_START#
 $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " . $oostable['orders_products'] . " WHERE orders_id = '" . intval($oID) . "'");
 
 
-if (!empty($action)) {
-    switch ($action) {
+switch ($action) {
 
     // Update Order
     case 'update_order':
@@ -435,7 +434,6 @@ if (!empty($action)) {
             oos_redirect_admin(oos_href_link_admin("edit_orders.php", oos_get_all_get_params(['action']) . 'action=edit'));
         }
         break;
-    }
 }
 
 if (($action == 'edit') && isset($_GET['oID'])) {
@@ -449,7 +447,7 @@ if (($action == 'edit') && isset($_GET['oID'])) {
     }
 }
 
-  require 'includes/header.php';
+require 'includes/header.php';
 ?>
 <div class="wrapper">
     <!-- Header //-->
