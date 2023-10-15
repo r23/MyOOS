@@ -20,22 +20,22 @@
    ----------------------------------------------------------------------
  */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
-  require 'includes/classes/class_currencies.php';
-  $currencies = new currencies();
+require 'includes/classes/class_currencies.php';
+$currencies = new currencies();
 
-  $oID = oos_db_prepare_input($_GET['oID']);
+$oID = oos_db_prepare_input($_GET['oID']);
 
-  require '../includes/classes/class_order.php';
-  $order = new order($oID);
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
+$order = new order($oID);
   
 ?><!DOCTYPE html>
 <html lang="<?php echo $_SESSION['iso_639_1']; ?>">
 <head>
     <meta charset="utf-8">
-<title><?php echo TITLE; ?> - Administration [OOS]</title>
+<title><?php echo TITLE; ?> - Administration [MyOOS]</title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">

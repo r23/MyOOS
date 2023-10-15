@@ -29,7 +29,7 @@ require 'includes/main.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.1, maximum-scale=5.0, user-scalable=yes">
-<title>Valid Categories/Products List - Administration [OOS]</title>
+<title>Valid Categories/Products List - Administration [MyOOS]</title>
 <style type="text/css">
 <!--
 h4 {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: x-small; text-align: center}

@@ -221,7 +221,7 @@ if (($action == 'edit') && isset($_GET['oID'])) {
     }
 }
 
-require '../includes/classes/class_order.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
 
 require 'includes/header.php';
 ?>
