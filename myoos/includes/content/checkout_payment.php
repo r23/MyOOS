@@ -97,7 +97,7 @@ if (isset($_SESSION['cart']->cartID) && isset($_SESSION['cartID'])) {
 if ((STOCK_CHECK == 'true') && (STOCK_ALLOW_CHECKOUT != 'true')) {
     $products = $_SESSION['cart']->get_products();
     $any_out_of_stock = 0;
-	$n = is_countable($products) ? count($products) : 0;
+    $n = is_countable($products) ? count($products) : 0;
     for ($i=0, $n; $i<$n; $i++) {
         if (oos_check_stock($products[$i]['id'], $products[$i]['quantity'])) {
             $any_out_of_stock = 1;

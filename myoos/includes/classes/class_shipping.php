@@ -57,7 +57,7 @@ class shipping
 
             $sLanguage = isset($_SESSION['language']) ? oos_var_prep_for_os($_SESSION['language']) : DEFAULT_LANGUAGE;
 
-			$n = is_countable($include_modules) ? count($include_modules) : 0;
+            $n = is_countable($include_modules) ? count($include_modules) : 0;
             for ($i=0, $n; $i<$n; $i++) {
                 include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/shipping/' . $include_modules[$i]['file'];
                 include_once MYOOS_INCLUDE_PATH . '/includes/modules/shipping/' . $include_modules[$i]['file'];

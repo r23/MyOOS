@@ -249,7 +249,7 @@ class order
         $index = 0;
         $products = $_SESSION['cart']->get_products();
 
-		$n = is_countable($products) ? count($products) : 0;
+        $n = is_countable($products) ? count($products) : 0;
         for ($i=0, $n; $i<$n; $i++) {
             $this->products[$index] = ['qty' => $products[$i]['quantity'], 'name' => $products[$i]['name'], 'essential_characteristics' => $products[$i]['essential_characteristics'], 'image' => $products[$i]['image'], 'model' => $products[$i]['model'], 'ean' => $products[$i]['ean'], 'tax' => oos_get_tax_rate($products[$i]['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']), 'price' => $products[$i]['price'], 'final_price' => $products[$i]['price'] + $_SESSION['cart']->attributes_price($products[$i]['id']), 'weight' => $products[$i]['weight'], 'towlid' => $products[$i]['towlid'], 'products_base_price' => $products[$i]['products_base_price'], 'base_product_price' => $products[$i]['base_product_price'], 'products_units_id' => $products[$i]['products_units_id'], 'products_product_quantity' => $products[$i]['products_product_quantity'], 'old_electrical_equipment' => $products[$i]['old_electrical_equipment'], 'return_free_of_charge' => $products[$i]['return_free_of_charge'], 'id' => $products[$i]['id']];
 

@@ -132,7 +132,7 @@ if (isset($_SESSION)) {
                 $aData['content'] .= '<div class="text-right"><button id="clear-cart" type="button" class="btn btn-link"><i class="fa fa-remove" aria-hidden="true"></i> ' . $aLang['text_clear_cart'] . '</button></div>' . "\n";
                 $aData['content'] .= '<div id="cart-item-refresh" class="cart-entries pt-3">' . "\n";
 
-				$n = is_countable($products) ? count($products) : 0;
+                $n = is_countable($products) ? count($products) : 0;
                 for ($i=0, $n; $i<$n; $i++) {
                     $aData['content'] .= '<div class="media"><!-- cart item -->' . "\n";
                     $aData['content'] .= '  <div class="cart-entry-thumb mr-3"><a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $products[$i]['id']) . '">' . "\n";

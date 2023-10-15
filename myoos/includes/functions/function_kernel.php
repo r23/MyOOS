@@ -1057,7 +1057,7 @@ function oos_get_uprid($prid, $parameters)
                 // strpos()+1 to remove up to and including the first { which would create an empty array element in explode()
                 $attributes = explode('{', substr((string) $prid, strpos((string) $prid, '{')+1));
 
-				$n = is_countable($attributes) ? count($attributes) : 0;
+                $n = is_countable($attributes) ? count($attributes) : 0;
                 for ($i=0, $n; $i<$n; $i++) {
                     $pair = explode('}', $attributes[$i]);
 
@@ -1102,7 +1102,7 @@ function oos_get_attributes($sProductsId)
             // strpos()+1 to remove up to and including the first { which would create an empty array element in explode()
             $attributes = explode('{', substr((string) $sProductsId, strpos((string) $sProductsId, '{')+1));
 
-			$n = is_countable($attributes) ? count($attributes) : 0;
+            $n = is_countable($attributes) ? count($attributes) : 0;
             for ($i=0, $n; $i<$n; $i++) {
                 $pair = explode('}', $attributes[$i]);
 
@@ -1272,7 +1272,7 @@ function oos_count_modules($modules = '')
 
     $aModules = explode(';', (string) $modules);
 
-	$n = is_countable($aModules) ? count($aModules) : 0;
+    $n = is_countable($aModules) ? count($aModules) : 0;
     for ($i=0, $n; $i<$n; $i++) {
         $class = substr($aModules[$i], 0, strrpos($aModules[$i], '.'));
 
@@ -1423,7 +1423,7 @@ function oos_parse_category_path($sCategory)
 
     // make sure no duplicate category IDs exist which could lock the server in a loop
     $aTmp = [];
-	$n = is_countable($aCategoryPath) ? count($aCategoryPath) : 0;
+    $n = is_countable($aCategoryPath) ? count($aCategoryPath) : 0;
     for ($i=0, $n; $i<$n; $i++) {
         if (!in_array($aCategoryPath[$i], $aTmp)) {
             $aTmp[] = $aCategoryPath[$i];
@@ -1777,11 +1777,11 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
         // Set the encryption mechanism to use:
         // - SMTPS (implicit TLS on port 465) or
         // - STARTTLS (explicit TLS on port 587)
-		if (OOS_SMTPPORT == '465') {
-			$phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
-		} elseif (OOS_SMTPPORT == '587') {
-			$phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
-		}
+        if (OOS_SMTPPORT == '465') {
+            $phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+        } elseif (OOS_SMTPPORT == '587') {
+            $phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+        }
 
         // Set the SMTP port number:
         // - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or

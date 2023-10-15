@@ -157,7 +157,7 @@ echo '<h3 id="anchor_1">' . $aLang['text_price_chart_titel'] . '</h3>';
 echo '<h4>' . $product_info['products_name'] . '</h4>';
 
 if (isset($sInfoTitle)) {
-	echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">		
+    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">		
 	<h4>' . $sInfoTitle . '</h4>
 	<p>' . $sInfoText . '</p>
 	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -185,8 +185,8 @@ if ($price_history_result->RecordCount() >= 2) {
         $price_history_result->MoveNext();
     }
 } else {
-	$aDate[] = oos_date_short(date("Y-m-d\TH:i:s", $startDate));
-	$aData[] = $schema_product_price;
+    $aDate[] = oos_date_short(date("Y-m-d\TH:i:s", $startDate));
+    $aData[] = $schema_product_price;
 }
 
 // current price with date
@@ -196,39 +196,39 @@ $aData = [...$aData, $schema_product_price];
 
 echo '<p class="text-end">';
 if ($ds > 1) {
-	if ($startD == 1) {
-		echo '1 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
-	} else {
-		echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=1') . '#anchor_1">1 ' . $aLang['text_month'] . '</a>&nbsp;|&nbsp;';
-	}
+    if ($startD == 1) {
+        echo '1 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
+    } else {
+        echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=1') . '#anchor_1">1 ' . $aLang['text_month'] . '</a>&nbsp;|&nbsp;';
+    }
 }
 if ($ds > 2) {
-	if ($startD == 2) {
-		echo '3 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
-	} else {
-		echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=2') . '#anchor_1">3 ' . $aLang['text_months'] . '</a>&nbsp;|&nbsp;';
-	}
+    if ($startD == 2) {
+        echo '3 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
+    } else {
+        echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=2') . '#anchor_1">3 ' . $aLang['text_months'] . '</a>&nbsp;|&nbsp;';
+    }
 }
 if ($ds > 3) {
-	if ($startD == 3) {
-		echo '6 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
-	} else {
-		echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=3') . '#anchor_1">6 ' . $aLang['text_months'] . '</a>&nbsp;|&nbsp;';
-	}
+    if ($startD == 3) {
+        echo '6 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
+    } else {
+        echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=3') . '#anchor_1">6 ' . $aLang['text_months'] . '</a>&nbsp;|&nbsp;';
+    }
 }
 if ($ds > 4) {
-	if ($startD == 4) {
-		echo '1 ' . $aLang['text_year'] . '&nbsp;|&nbsp;';
-	} else {
-		echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=4') . '#anchor_1">1' . $aLang['text_year'] . '</a>&nbsp;';
-	}
+    if ($startD == 4) {
+        echo '1 ' . $aLang['text_year'] . '&nbsp;|&nbsp;';
+    } else {
+        echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=4') . '#anchor_1">1' . $aLang['text_year'] . '</a>&nbsp;';
+    }
 }
 echo '</p>';
 
 
 echo chartLine(
     $aDate,
-        [
+    [
             ['name' => $product_info['products_name'], 'data' => $aData],
         ],
     $aLang['text_price_chart_titel']

@@ -382,7 +382,7 @@ case 'notify':
         }
 
         $products_notificationstable = $oostable['products_notifications'];
-		$n = is_countable($notify) ? count($notify) : 0;
+        $n = is_countable($notify) ? count($notify) : 0;
         for ($i=0, $n; $i<$n; $i++) {
             $check_sql = "SELECT COUNT(*) AS total 
                         FROM $products_notificationstable 

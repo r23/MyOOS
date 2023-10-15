@@ -369,7 +369,7 @@ function oos_draw_pull_down_menu($name, $values, $default = null, $parameters = 
         }
     }
 
-	$n = is_countable($values) ? count($values) : 0;
+    $n = is_countable($values) ? count($values) : 0;
     for ($i=0, $n; $i<$n; $i++) {
         $field .= '<option value="' . oos_output_string($values[$i]['id']) . '"';
         if ($default == $values[$i]['id']) {
