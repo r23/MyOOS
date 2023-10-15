@@ -24,9 +24,11 @@
   define('OOS_VALID_MOD', 'yes');
   require 'includes/main.php';
 
-?>
-<html>
+?><!DOCTYPE html>
+<html lang="<?php echo $_SESSION['iso_639_1']; ?>">
 <head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.1, maximum-scale=5.0, user-scalable=yes">
 <title>Valid Categories/Products List - Administration [OOS]</title>
 <style type="text/css">
 <!--

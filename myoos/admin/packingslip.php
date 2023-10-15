@@ -30,11 +30,11 @@
 
   require '../includes/classes/class_order.php';
   $order = new order($oID);
-?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
+  
+?><!DOCTYPE html>
+<html lang="<?php echo $_SESSION['iso_639_1']; ?>">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
+    <meta charset="utf-8">
 <title><?php echo TITLE; ?> - Administration [OOS]</title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>

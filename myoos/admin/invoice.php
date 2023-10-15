@@ -30,11 +30,11 @@ $oID = filter_input(INPUT_GET, 'oID', FILTER_VALIDATE_INT);
 
 require '../includes/classes/class_order.php';
 $order = new order($oID);
-?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
+?><!DOCTYPE html>
+<html lang="<?php echo $_SESSION['iso_639_1']; ?>">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.1, maximum-scale=5.0, user-scalable=yes">
 <title><?php echo TITLE; ?> - Administration [OOS]</title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
