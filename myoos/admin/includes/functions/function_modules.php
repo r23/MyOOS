@@ -196,7 +196,7 @@ function oos_cfg_get_country_name($country_id)
  */
 function oos_cfg_pull_down_country_list($country_id)
 {
-    return oos_draw_pull_down_menu('configuration_value', oos_get_countries(), $country_id);
+    return oos_draw_pull_down_menu('configuration_value', '', oos_get_countries(), $country_id);
 }
 
 
@@ -208,7 +208,7 @@ function oos_cfg_pull_down_country_list($country_id)
  */
 function oos_cfg_pull_down_zone_list($zone_id)
 {
-    return oos_draw_pull_down_menu('configuration_value', oos_get_country_zones(STORE_COUNTRY), $zone_id);
+    return oos_draw_pull_down_menu('configuration_value', '', oos_get_country_zones(STORE_COUNTRY), $zone_id);
 }
 
 
@@ -241,7 +241,7 @@ function oos_cfg_pull_down_zone_classes($zone_class_id, $key = '')
         $result->MoveNext();
     }
 
-    return oos_draw_pull_down_menu($name, $zone_class_array, $zone_class_id);
+    return oos_draw_pull_down_menu($name, '', $zone_class_array, $zone_class_id);
 }
 
 
@@ -275,7 +275,7 @@ function oos_cfg_pull_down_order_statuses($order_status_id, $key = '')
         $result->MoveNext();
     }
 
-    return oos_draw_pull_down_menu($name, $statuses_array, $order_status_id);
+    return oos_draw_pull_down_menu($name, '', $statuses_array, $order_status_id);
 }
 
 
@@ -308,5 +308,5 @@ function oos_cfg_pull_down_tax_classes($tax_class_id, $key = '')
         $result->MoveNext();
     }
 
-    return oos_draw_pull_down_menu($name, $tax_class_array, $tax_class_id);
+    return oos_draw_pull_down_menu($name, '', $tax_class_array, $tax_class_id);
 }

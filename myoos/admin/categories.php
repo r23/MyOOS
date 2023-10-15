@@ -899,7 +899,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
             $back_url_params .= '&cID=' . $cInfo->categories_id;
         }
     } ?>
-<script src="js/ckeditor/ckeditor.js"></script>
+<script nonce="<?php echo NONCE; ?>" src="js/ckeditor/ckeditor.js"></script>
     <!-- Breadcrumbs //-->
     <div class="content-heading">
         <div class="col-lg-12">
@@ -1052,7 +1052,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_EDIT_STATUS; ?></label>
-                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('categories_status', $aSetting, $cInfo->categories_status); ?></div>
+                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('categories_status', '', $aSetting, $cInfo->categories_status); ?></div>
                            </div>
                         </fieldset>
                         <fieldset>
@@ -1487,7 +1487,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                     <?php echo oos_draw_form('id', 'goto', $aContents['categories'], '', 'get', false, 'class="form-inline"'); ?>
                         <div class="dataTables_filter">
                             <label><?php echo HEADING_TITLE_GOTO; ?></label>
-                            <?php echo oos_draw_pull_down_menu('cPath', oos_get_category_tree(), $current_category_id, 'onChange="this.form.submit();"'); ?>
+                            <?php echo oos_draw_pull_down_menu('cPath', '', oos_get_category_tree(), $current_category_id, 'onChange="this.form.submit();"'); ?>
                         </div>
                     </form>
                 </div>
@@ -1678,7 +1678,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
         $contents = ['form' => oos_draw_form('id', 'categories', $aContents['categories'], 'action=move_category_confirm', 'post', false) . oos_draw_hidden_field('categories_id', $cInfo->categories_id)];
         $contents[] = ['text' => sprintf(TEXT_MOVE_CATEGORIES_INTRO, $cInfo->categories_name)];
-        $contents[] = ['text' => '<br>' . sprintf(TEXT_MOVE, $cInfo->categories_name) . '<br>' . oos_draw_pull_down_menu('move_to_category_id', oos_get_category_tree('0', '', $cInfo->categories_id), $current_category_id)];
+        $contents[] = ['text' => '<br>' . sprintf(TEXT_MOVE, $cInfo->categories_name) . '<br>' . oos_draw_pull_down_menu('move_to_category_id', '', oos_get_category_tree('0', '', $cInfo->categories_id), $current_category_id)];
         $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_MOVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $cInfo->categories_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
         break;
@@ -1700,7 +1700,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $contents = ['form' => oos_draw_form('id', 'products', $aContents['categories'], 'action=move_product_confirm&cPath=' . $cPath, 'post', false) . oos_draw_hidden_field('products_id', $pInfo->products_id)];
         $contents[] = ['text' => sprintf(TEXT_MOVE_PRODUCTS_INTRO, $pInfo->products_name)];
         $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENT_CATEGORIES . '<br><b>' . oos_output_generated_category_path($pInfo->products_id, 'product') . '</b>'];
-        $contents[] = ['text' => '<br>' . sprintf(TEXT_MOVE, $pInfo->products_name) . '<br>' . oos_draw_pull_down_menu('move_to_category_id', oos_get_category_tree(), $current_category_id)];
+        $contents[] = ['text' => '<br>' . sprintf(TEXT_MOVE, $pInfo->products_name) . '<br>' . oos_draw_pull_down_menu('move_to_category_id', '', oos_get_category_tree(), $current_category_id)];
         $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_MOVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $pInfo->products_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
         break;
@@ -1711,7 +1711,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $contents = ['form' => oos_draw_form('id', 'copy_to', $aContents['categories'], 'action=copy_to_confirm&cPath=' . $cPath, 'post', false) . oos_draw_hidden_field('products_id', $pInfo->products_id)];
         $contents[] = ['text' => TEXT_INFO_COPY_TO_INTRO];
         $contents[] = ['text' => '<br>' . TEXT_INFO_CURRENT_CATEGORIES . '<br><b>' . oos_output_generated_category_path($pInfo->products_id, 'product') . '</b>'];
-        $contents[] = ['text' => '<br>' . TEXT_CATEGORIES . '<br>' . oos_draw_pull_down_menu('categories_id', oos_get_category_tree(), $current_category_id)];
+        $contents[] = ['text' => '<br>' . TEXT_CATEGORIES . '<br>' . oos_draw_pull_down_menu('categories_id', '', oos_get_category_tree(), $current_category_id)];
         $contents[] = ['text' => '<br>' . TEXT_HOW_TO_COPY . '<br>' . oos_draw_radio_field('copy_as', 'link', true) . ' ' . TEXT_COPY_AS_LINK . '<br>' . oos_draw_radio_field('copy_as', 'duplicate') . ' ' . TEXT_COPY_AS_DUPLICATE];
         $contents[] = ['text' => '<br>' . oos_image(OOS_IMAGES . 'pixel_black.gif', '', '100%')];
         $contents[] = ['text' => '<br>' . TEXT_COPY_ATTRIBUTES_ONLY];

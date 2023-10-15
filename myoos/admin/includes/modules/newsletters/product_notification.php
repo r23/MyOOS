@@ -98,9 +98,9 @@ function selectAll(FormName, SelectBox) {
 
         $choose_audience_string .= '<form name="notifications" action="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID'] . '&action=confirm') . '" method="post" onSubmit="return selectAll(\'notifications\', \'chosen[]\')"><table border="0" width="100%" cellspacing="0" cellpadding="2">' . "\n" .
                                '  <tr>' . "\n" .
-                               '    <td align="center" class="main"><b>' . TEXT_PRODUCTS . '</b><br>' . oos_draw_pull_down_menu('products', $products_array, '', 'size="20" style="width: 20em;" multiple') . '</td>' . "\n" .
+                               '    <td align="center" class="main"><b>' . TEXT_PRODUCTS . '</b><br>' . oos_draw_pull_down_menu('products', '', $products_array, '', 'size="20" style="width: 20em;" multiple') . '</td>' . "\n" .
                                '    <td align="center" class="main">&nbsp;<br><a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID'] . '&action=confirm&GLOBAL=true') . '"><input type="button" value="' . BUTTON_GLOBAL . '" style="width: 8em;"></a><br><br><br><input type="button" value="' . BUTTON_SELECT . '" style="width: 8em;" onClick="mover(\'remove\');"><br><br><input type="button" value="' . BUTTON_UNSELECT . '" style="width: 8em;" onClick="mover(\'add\');"><br><br><br><input type="submit" value="' . BUTTON_SUBMIT . '" style="width: 8em;"><br><br><a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID']) . '"><input type="button" value="' . BUTTON_CANCEL . '" style="width: 8em;"></a></td>' . "\n" .
-                               '    <td align="center" class="main"><b>' . TEXT_SELECTED_PRODUCTS . '</b><br>' . oos_draw_pull_down_menu('chosen[]', [], '', 'size="20" style="width: 20em;" multiple') . '</td>' . "\n" .
+                               '    <td align="center" class="main"><b>' . TEXT_SELECTED_PRODUCTS . '</b><br>' . oos_draw_pull_down_menu('chosen[]', '', [], '', 'size="20" style="width: 20em;" multiple') . '</td>' . "\n" .
                                '  </tr>' . "\n" .
                                '</table></form>';
 

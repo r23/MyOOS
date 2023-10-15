@@ -178,7 +178,7 @@ require 'includes/header.php';
       $contents[] = ['text' => TEXT_INFO_INSERT_INTRO];
       $contents[] = ['text' => '<br>' . TEXT_INFO_ZONES_NAME . '<br>' . oos_draw_input_field('zone_name')];
       $contents[] = ['text' => '<br>' . TEXT_INFO_ZONES_CODE . '<br>' . oos_draw_input_field('zone_code')];
-      $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_NAME . '<br>' . oos_draw_pull_down_menu('zone_country_id', oos_get_countries())];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_NAME . '<br>' . oos_draw_pull_down_menu('zone_country_id', '', oos_get_countries())];
       $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
       break;
 
@@ -189,7 +189,7 @@ require 'includes/header.php';
       $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
       $contents[] = ['text' => '<br>' . TEXT_INFO_ZONES_NAME . '<br>' . oos_draw_input_field('zone_name', $cInfo->zone_name)];
       $contents[] = ['text' => '<br>' . TEXT_INFO_ZONES_CODE . '<br>' . oos_draw_input_field('zone_code', $cInfo->zone_code)];
-      $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_NAME . '<br>' . oos_draw_pull_down_menu('zone_country_id', oos_get_countries(), $cInfo->countries_id)];
+      $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_NAME . '<br>' . oos_draw_pull_down_menu('zone_country_id', '', oos_get_countries(), $cInfo->countries_id)];
       $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
       break;
 

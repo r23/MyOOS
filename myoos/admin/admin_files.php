@@ -319,7 +319,7 @@ case 'store_file':
         $contents = ['form' => oos_draw_form('id', 'store_file', $aContents['admin_files'], '&cPath=' . $cPath . '&admin_files_id=' . $admin_files_id . '&action=file_store', 'post', false, 'enctype="multipart/form-data"')];
         $contents[] = ['text' => '<b>' . TEXT_INFO_NEW_FILE_BOX .  ucfirst(substr_replace(($current_box['admin_box_name'] ?? ''), '', -4)) . '</b>'];
         $contents[] = ['text' => TEXT_INFO_NEW_FILE_INTRO];
-        $contents[] = ['align' => 'left', 'text' => '<br>&nbsp;' . oos_draw_pull_down_menu('admin_files_name', $show, $show)];
+        $contents[] = ['align' => 'left', 'text' => '<br>&nbsp;' . oos_draw_pull_down_menu('admin_files_name', '', $show, $show)];
         $contents[] = ['text' => oos_draw_hidden_field('admin_files_to_boxes', $_GET['cPath'])];
         $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 

@@ -605,7 +605,7 @@ case 'voucherreport':
               </tr>
               <tr>
                 <td class="main"><?php echo TEXT_CUSTOMER; ?>&nbsp;&nbsp;</td>
-                <td><?php echo oos_draw_pull_down_menu('customers_email_address', $customers, isset($_GET['customer']) ? oos_db_prepare_input($_GET['customer']) : ''); ?></td>
+                <td><?php echo oos_draw_pull_down_menu('customers_email_address', '', $customers, isset($_GET['customer']) ? oos_db_prepare_input($_GET['customer']) : ''); ?></td>
               </tr>
               <tr>
                 <td colspan="2"></td>
@@ -1036,7 +1036,7 @@ case 'voucherreport':
 
     $status = isset($_GET['status']) ? oos_db_prepare_input($_GET['status']) : 'Y';
 
-    echo HEADING_TITLE_STATUS . ' ' . oos_draw_pull_down_menu('status', $status_array, $status, 'onChange="this.form.submit();"');
+    echo HEADING_TITLE_STATUS . ' ' . oos_draw_pull_down_menu('status', '', $status_array, $status, 'onChange="this.form.submit();"');
 ?>
               </form>
            </td>

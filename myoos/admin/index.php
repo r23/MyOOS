@@ -76,7 +76,7 @@ require 'includes/header.php';
                         <div class="col-8 py-4 bg-info justify-content-center rounded-right">
                             <div class="text-center">
                                 <?php echo oos_draw_form('id', 'languages', 'index.php', '', 'get', false); ?>
-                                    <?php echo oos_draw_pull_down_menu('language', $languages_array, $languages_selected, 'onChange="this.form.submit();"'); ?> 
+                                    <?php echo oos_draw_pull_down_menu('language', 'language-select', $languages_array, $languages_selected); ?> 
                                 </form>                                
                             </div>
                         </div>
@@ -166,5 +166,14 @@ require 'includes/header.php';
 
 <?php
     require 'includes/bottom.php';
+?>
+<script nonce="<?php echo NONCE; ?>">
+// Add an event listener to the select element
+document.getElementById('language-select').addEventListener('change', function() { 
+	// Submit the form 
+	this.form.submit(); 
+}); 
+</script>
+<?php
     require 'includes/nice_exit.php';
 ?>

@@ -1181,7 +1181,7 @@ while ($attributes_values = $attributes->fields) {
                   <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR . '<br>' . oos_draw_input_field('options_values_base_price', $options_values_base_price); ?></td>
                   <td class="main"><br> <- </td>
                   <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY . '<br>' . oos_draw_input_field('options_values_quantity', $options_values_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
-                  <td class="main"><?php echo TEXT_PRODUCTS_UNIT . '<br>' . oos_draw_pull_down_menu('options_values_units_id', $products_units_array, $options_values_units_id); ?></td>
+                  <td class="main"><?php echo TEXT_PRODUCTS_UNIT . '<br>' . oos_draw_pull_down_menu('options_values_units_id', '', $products_units_array, $options_values_units_id); ?></td>
                 </tr>
                 <tr>
                     <td class="main"></td>
@@ -1385,7 +1385,7 @@ if ($action != 'update_attribute') {
                   <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR . '<br>' . oos_draw_input_field('options_values_base_price', $options_values_base_price); ?></td>
                   <td class="main"><br> <- </td>
                   <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY . '<br>' . oos_draw_input_field('options_values_quantity', 1, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
-                  <td class="main"><?php echo TEXT_PRODUCTS_UNIT . '<br>' . oos_draw_pull_down_menu('options_values_units_id', $products_units_array, $options_values_units_id); ?></td>
+                  <td class="main"><?php echo TEXT_PRODUCTS_UNIT . '<br>' . oos_draw_pull_down_menu('options_values_units_id', '', $products_units_array, $options_values_units_id); ?></td>
                 </tr>
                 <tr>
                     <td class="main"></td>

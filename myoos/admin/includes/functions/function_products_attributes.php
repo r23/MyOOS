@@ -98,7 +98,7 @@ function oos_draw_option_type_pull_down_menu($name, $default = '')
     foreach ($products_options_types_list as $id => $text) {
         $values[] = ['id' => $id, 'text' => $text];
     }
-    return oos_draw_pull_down_menu($name, $values, $default);
+    return oos_draw_pull_down_menu($name, '', $values, $default);
 }
 
 

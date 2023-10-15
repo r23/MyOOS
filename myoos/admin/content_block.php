@@ -268,8 +268,8 @@ require 'includes/header.php';
       $contents[] = ['text' => '<br><b>' . TEXT_BLOCK_FUNCTION . ':</b><br>' . oos_draw_input_field('function')];
       $contents[] = ['text' => '<br><b>' . TEXT_BLOCK_CACHE . ':</b><br>' . oos_draw_input_field('block_cache')];
       $contents[] = ['text' => '<br><b>' . TABLE_HEADING_COLUMN . ':</b><br>' . oos_block_select_option(['', 'sidebar'], 'block_side')];
-      $contents[] = ['text' => '<br><b>'  . TABLE_HEADING_STATUS . ':</b> ' . oos_draw_pull_down_menu('block_status', $block_status_array)];
-      $contents[] = ['text' => '<br><b>'  . TEXT_BLOCK_LOGIN . '</b> ' . oos_draw_pull_down_menu('block_login_flag', $block_login_flag_array)];
+      $contents[] = ['text' => '<br><b>'  . TABLE_HEADING_STATUS . ':</b> ' . oos_draw_pull_down_menu('block_status', '', $block_status_array)];
+      $contents[] = ['text' => '<br><b>'  . TEXT_BLOCK_LOGIN . '</b> ' . oos_draw_pull_down_menu('block_login_flag', '', $block_login_flag_array)];
       $contents[] = ['text' => '<br><b>'  . TEXT_BLOCK_PAGE . '</b><br>' . oos_select_block_to_page()];
 
       $contents[] = ['text' => '<br><b>' . TABLE_HEADING_SORT_ORDER . ':</b> ' . oos_draw_input_field('sort_order', '', 'size="2"')];
@@ -307,8 +307,8 @@ require 'includes/header.php';
       $contents[] = ['text' => '<br><b>' . TEXT_BLOCK_FUNCTION . ':</b><br>' . oos_draw_input_field('function', $bInfo->block_file)];
       $contents[] = ['text' => '<br><b>' . TEXT_BLOCK_CACHE . ':</b><br>' . oos_draw_input_field('block_cache', $bInfo->block_cache)];
       $contents[] = ['text' => '<br><b>' . TABLE_HEADING_COLUMN . ':</b><br>' . $value_field];
-      $contents[] = ['text' => '<br><b>'  . TABLE_HEADING_STATUS . ':</b> ' . oos_draw_pull_down_menu('block_status', $block_status_array, $bInfo->block_status)];
-      $contents[] = ['text' => '<br><b>'  . TEXT_BLOCK_LOGIN . ':</b> ' . oos_draw_pull_down_menu('block_login_flag', $block_login_flag_array, $bInfo->block_login_flag)];
+      $contents[] = ['text' => '<br><b>'  . TABLE_HEADING_STATUS . ':</b> ' . oos_draw_pull_down_menu('block_status', '', $block_status_array, $bInfo->block_status)];
+      $contents[] = ['text' => '<br><b>'  . TEXT_BLOCK_LOGIN . ':</b> ' . oos_draw_pull_down_menu('block_login_flag', '', $block_login_flag_array, $bInfo->block_login_flag)];
       $contents[] = ['text' => '<br><b>'  . TEXT_BLOCK_PAGE . ':</b><br>' . oos_show_block_to_page($bInfo->block_id)];
 
       $contents[] = ['text' => '<br><b>' . TABLE_HEADING_SORT_ORDER . ':</b><br>' . oos_draw_input_field('sort_order', $bInfo->block_sort_order, 'size="2"')];

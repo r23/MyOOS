@@ -393,7 +393,7 @@ if (($action == 'preview') && ($_POST['customers_email_address'] || $_POST['emai
     } ?>
               <tr>
                 <td class="main"><?php echo TEXT_CUSTOMER; ?></td>
-                <td><?php echo oos_draw_pull_down_menu('customers_email_address', $customers, $sCustomer); ?></td>
+                <td><?php echo oos_draw_pull_down_menu('customers_email_address', '', $customers, $sCustomer); ?></td>
               </tr>
               <tr>
                 <td colspan="2"></td>

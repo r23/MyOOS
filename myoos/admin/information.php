@@ -162,7 +162,7 @@ if ($action == 'new' || $action == 'edit') {
 
     $form_action = (isset($_GET['iID'])) ? 'save' : 'insert';
     $text_new_or_edit = ($action=='new') ? TEXT_HEADING_NEW_INFORMATION : TEXT_HEADING_EDIT_INFORMATION; ?>
-<script src="js/ckeditor/ckeditor.js"></script>
+<script nonce="<?php echo NONCE; ?>" src="js/ckeditor/ckeditor.js"></script>
 
 
     <div class="content-heading">

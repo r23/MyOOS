@@ -484,7 +484,7 @@ if ($action == 'new_product' || $action == 'edit_product') {
             $back_url_params .= '&pID=' . $pInfo->products_id;
         }
     } ?>
-<script src="js/ckeditor/ckeditor.js"></script>
+<script nonce="<?php echo NONCE; ?>" src="js/ckeditor/ckeditor.js"></script>
 
 <script>
 let tax_rates = new Array();
@@ -634,7 +634,7 @@ function calcBasePriceFactor() {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo ENTRY_STATUS; ?></label>
-                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('products_setting', $aSetting, $pInfo->products_setting); ?></div>
+                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('products_setting', '', $aSetting, $pInfo->products_setting); ?></div>
                            </div>
                         </fieldset>
 
@@ -694,7 +694,7 @@ function calcBasePriceFactor() {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_MANUFACTURER; ?></label>
-                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('manufacturers_id', $manufacturers_array, $pInfo->manufacturers_id); ?></div>
+                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('manufacturers_id', '', $manufacturers_array, $pInfo->manufacturers_id); ?></div>
                            </div>
                         </fieldset>
 
@@ -858,7 +858,7 @@ function calcBasePriceFactor() {
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_UNIT; ?></label>
                               <div class="col-lg-10">
-                                 <?php echo oos_draw_pull_down_menu('products_units_id', $products_units_array, $pInfo->products_units_id); ?>
+                                 <?php echo oos_draw_pull_down_menu('products_units_id', '', $products_units_array, $pInfo->products_units_id); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -892,7 +892,7 @@ function calcBasePriceFactor() {
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_TAX_CLASS; ?></label>
                               <div class="col-lg-10">
-                                 <?php echo oos_draw_pull_down_menu('products_tax_class_id', $tax_class_array, $pInfo->products_tax_class_id, 'onchange="updateWithTax()"') ?>
+                                 <?php echo oos_draw_pull_down_menu('products_tax_class_id', '', $tax_class_array, $pInfo->products_tax_class_id, 'onchange="updateWithTax()"') ?>
                               </div>
                            </div>
                         </fieldset>
@@ -1021,7 +1021,7 @@ updateWithTax();
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_STATUS; ?></label>
-                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('products_status', $products_status_array, $pInfo->products_status); ?></div>
+                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('products_status', '', $products_status_array, $pInfo->products_status); ?></div>
                            </div>
                         </fieldset>
                         <fieldset>

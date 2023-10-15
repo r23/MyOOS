@@ -189,7 +189,7 @@ case 'update_video':
 
 require 'includes/header.php';
 ?>
-<script src="js/ckeditor/ckeditor.js"></script>
+<script nonce="<?php echo NONCE; ?>" src="js/ckeditor/ckeditor.js"></script>
 <!-- body //-->
 <div class="wrapper">
     <!-- Header //-->

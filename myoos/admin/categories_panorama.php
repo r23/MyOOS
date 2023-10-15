@@ -969,7 +969,7 @@ pannellum.viewer('panorama', {
                         <!-- end row -->
 
 
-<script id="templateNavItem" type="x-tmpl-mustache">
+<script nonce="<?php echo NONCE; ?>" id="templateNavItem" type="x-tmpl-mustache">
     <li class="nav-item">
             <a href="#hotspot{{counter}}" data-toggle="tab" aria-expanded="true" class="nav-link">
                 <i class="fa fa-dot-circle-o"></i> {{counter}}

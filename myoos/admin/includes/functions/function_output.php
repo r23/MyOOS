@@ -624,9 +624,9 @@ function oos_draw_login_form($name, $page, $parameters = '', $method = 'post', $
   * @param  $required
   * @return string
   */
-function oos_draw_pull_down_menu($name, $values, $default = '', $params = '', $required = false)
+function oos_draw_pull_down_menu($name, $id, $values, $default = '', $params = '', $required = false)
 {
-    $field = '<select class="form-control" name="' . $name . '"';
+    $field = '<select class="form-control" name="' . $name . '" id="' . $id . '"';
     if ($params) {
         $field .= ' ' . $params;
     }

@@ -476,7 +476,7 @@ case 'new_member':
         // Move that ADOdb pointer!
         $groups_result->MoveNext();
     }
-        $contents[] = ['text' => '<br>&nbsp;' . TEXT_INFO_GROUP . '<br>&nbsp;' . oos_draw_pull_down_menu('admin_groups_id', $groups_array, '0')];
+        $contents[] = ['text' => '<br>&nbsp;' . TEXT_INFO_GROUP . '<br>&nbsp;' . oos_draw_pull_down_menu('admin_groups_id', '', $groups_array, '0')];
         $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $nPage . '&mID=' . $mID) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
     break;
@@ -504,7 +504,7 @@ case 'edit_member':
             // Move that ADOdb pointer!
             $groups_result->MoveNext();
         }
-        $contents[] = ['text' => '<br>&nbsp;' . TEXT_INFO_GROUP . '<br>&nbsp;' . oos_draw_pull_down_menu('admin_groups_id', $groups_array, $mInfo->admin_groups_id)];
+        $contents[] = ['text' => '<br>&nbsp;' . TEXT_INFO_GROUP . '<br>&nbsp;' . oos_draw_pull_down_menu('admin_groups_id', '', $groups_array, $mInfo->admin_groups_id)];
     }
         $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $nPage . '&mID=' . $mID) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 

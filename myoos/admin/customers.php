@@ -558,7 +558,7 @@ function check_form() {
           </tr>
           <tr>
             <td class="main"><?php echo ENTRY_VAT_ID_STATUS; ?></td>
-            <td class="main"><?php echo oos_draw_pull_down_menu('entry_vat_id_status', $vat_id_status_array, $cInfo->entry_vat_id_status); ?></td>
+            <td class="main"><?php echo oos_draw_pull_down_menu('entry_vat_id_status', '', $vat_id_status_array, $cInfo->entry_vat_id_status); ?></td>
           </tr>
 <?php
       } ?>
@@ -606,14 +606,14 @@ function check_form() {
           </tr>
           <tr>
             <td class="main"><?php echo ENTRY_COUNTRY; ?></td>
-            <td class="main"><?php echo oos_draw_pull_down_menu('entry_country_id', oos_get_countries(), $cInfo->entry_country_id, 'onChange="update_zone(this.form);"'); ?></td>
+            <td class="main"><?php echo oos_draw_pull_down_menu('entry_country_id', '', oos_get_countries(), $cInfo->entry_country_id, 'onChange="update_zone(this.form);"'); ?></td>
           </tr>
 <?php
     if (ACCOUNT_STATE == 'true') {
         ?>
           <tr>
             <td class="main"><?php echo ENTRY_STATE; ?></td>
-            <td class="main"><?php echo oos_draw_pull_down_menu('entry_zone_id', oos_prepare_country_zones_pull_down($cInfo->entry_country_id), $cInfo->entry_zone_id, 'onChange="resetStateText(this.form);"'); ?></td>
+            <td class="main"><?php echo oos_draw_pull_down_menu('entry_zone_id', '', oos_prepare_country_zones_pull_down($cInfo->entry_country_id), $cInfo->entry_zone_id, 'onChange="resetStateText(this.form);"'); ?></td>
           </tr>
           <tr>
             <td class="main">&nbsp;</td>
@@ -678,7 +678,7 @@ function check_form() {
 						<?php echo oos_draw_form('id', 'status', $aContents['customers'], '', 'get', false, 'class="form-inline"'); ?>
 							<div class="dataTables_filter">			
 								<label><?php echo HEADING_TITLE_STATUS; ?></label>
-								<?php echo oos_draw_pull_down_menu('status', array_merge([['id' => '0', 'text' => TEXT_ALL_CUSTOMERS]], $customers_statuses_array), '0', 'onChange="this.form.submit();"'); ?>
+								<?php echo oos_draw_pull_down_menu('status', '', array_merge([['id' => '0', 'text' => TEXT_ALL_CUSTOMERS]], $customers_statuses_array), '0', 'onChange="this.form.submit();"'); ?>
 
 							</div>							
 						</form>				
@@ -831,7 +831,7 @@ function check_form() {
     case 'editstatus':
         $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_STATUS_CUSTOMER . '</b>'];
         $contents = ['form' => oos_draw_form('id', 'customers', $aContents['customers'], oos_get_all_get_params(['cID', 'action']) . 'cID=' . $cInfo->customers_id . '&action=statusconfirm', 'post', false)];
-        $contents[] = ['text' => '<br>' . oos_draw_pull_down_menu('pdm_status', array_merge([['id' => '0', 'text' => PULL_DOWN_DEFAULT]], $customers_statuses_array), $cInfo->customers_status)];
+        $contents[] = ['text' => '<br>' . oos_draw_pull_down_menu('pdm_status', '', array_merge([['id' => '0', 'text' => PULL_DOWN_DEFAULT]], $customers_statuses_array), $cInfo->customers_status)];
         $contents[] = ['text' => '<table border="0" cellspacing="0" cellpadding="5"><tr><td class="smallText" align="center">' . TABLE_HEADING_NEW_VALUE .' </td><td class="smallText" align="center">' . TABLE_HEADING_DATE_ADDED];
 
         if (isset($_GET['cID'])) {

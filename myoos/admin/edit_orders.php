@@ -847,7 +847,7 @@ if (($action == 'edit') && ($order_exists == true)) {
       <tr>
         <td><table border="0" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main"><b><?php echo ENTRY_STATUS; ?></b> <?php echo oos_draw_pull_down_menu('status', $orders_statuses, $order->info['orders_status']); ?></td>
+            <td class="main"><b><?php echo ENTRY_STATUS; ?></b> <?php echo oos_draw_pull_down_menu('status', '', $orders_statuses, $order->info['orders_status']); ?></td>
           </tr>
           <tr>
             <td class="main"><b><?php echo ENTRY_NOTIFY_CUSTOMER; ?></b> <?php echo oos_draw_checkbox_field('notify', '', true); ?></td>
@@ -925,7 +925,7 @@ if ($action == "add_product") {
     // Step 1: Choose Category
     echo '<tr class="dataTableRow"><form action="'.$php_self.'?oID='.$oID.'&action='.$action.'" method="POST">'."\n";
     echo '<td class="dataTableContent" align="right"><b>STEP 1:</b></td><td class="dataTableContent" valign="top">';
-    echo ' ' . oos_draw_pull_down_menu('add_product_categories_id', oos_get_category_tree(), $current_category_id, 'onChange="this.form.submit();"');
+    echo ' ' . oos_draw_pull_down_menu('add_product_categories_id', '', oos_get_category_tree(), $current_category_id, 'onChange="this.form.submit();"');
     echo '<input type="hidden" name="step" value="2">';
     echo '</td>' . "\n";
     echo '</form></tr>' . "\n";

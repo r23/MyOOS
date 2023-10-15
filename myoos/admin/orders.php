@@ -480,7 +480,7 @@ if (($action == 'edit') && ($order_exists == true)) {
           <tr>
             <td><table border="0" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main"><b><?php echo ENTRY_STATUS; ?></b> <?php echo oos_draw_pull_down_menu('status', $orders_statuses, $order->info['orders_status']); ?></td>
+                <td class="main"><b><?php echo ENTRY_STATUS; ?></b> <?php echo oos_draw_pull_down_menu('status', '', $orders_statuses, $order->info['orders_status']); ?></td>
               </tr>
               <tr>
                 <td class="main"><b><?php echo ENTRY_NOTIFY_CUSTOMER; ?></b> <?php echo oos_draw_checkbox_field('notify', '', true); ?></td>
@@ -531,7 +531,7 @@ if (($action == 'edit') && ($order_exists == true)) {
                         <?php echo oos_draw_form('id', 'status', $aContents['orders'], '', 'get', false, 'class="form-inline"'); ?>
                             <div class="dataTables_filter">            
                                 <label><?php echo HEADING_TITLE_STATUS; ?></label>
-                                <?php echo oos_draw_pull_down_menu('status', [['id' => '', 'text' => TEXT_ALL_ORDERS], ...$orders_statuses], '', 'onChange="this.form.submit();"'); ?>
+                                <?php echo oos_draw_pull_down_menu('status', '', [['id' => '', 'text' => TEXT_ALL_ORDERS], ...$orders_statuses], '', 'onChange="this.form.submit();"'); ?>
                             </div>                            
                         </form>                
                     </div>

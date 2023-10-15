@@ -26,6 +26,14 @@
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
+// Create a nonce RANDOM_VALUE
+$nonce = bin2hex(random_bytes(16));
+define('NONCE', $nonce);
+
+// Send the CSP header with the nonce RANDOM_VALUE
+// header("Content-Security-Policy: script-src 'nonce-" . NONCE . "' 'unsafe-eval' 'strict-dynamic' 'unsafe-inline'; object-src 'none'; base-uri 'self'");
+
+
 ?><!DOCTYPE html>
 <html lang="<?php echo $_SESSION['iso_639_1']; ?>">
 <head>
@@ -47,8 +55,8 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
     <link href="css/plugins/flag-icon/css/flag-icon.min.css" rel="stylesheet" />
     <link href="css/pannellum.min.css" rel="stylesheet" />
 
-    <script src="js/pannellum/pannellum.min.js"></script>
-    <script src="js/pannellum/libpannellum.min.js"></script>
+    <script nonce="<?php echo NONCE; ?>" src="js/pannellum/pannellum.min.js"></script>
+    <script nonce="<?php echo NONCE; ?>" src="js/pannellum/libpannellum.min.js"></script>
 </head>
 <body>
 <?php
