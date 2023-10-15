@@ -35,277 +35,277 @@ $cID = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT) ?: 0;
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 
 switch ($action) {
-    case 'insert_panorama':
-    case 'update_panorama':
+case 'insert_panorama':
+case 'update_panorama':
 
-        if (isset($_FILES['files'])) {
-            foreach ($_FILES['files']['name'] as $key => $name) {
-                if (empty($name)) {
-                    // purge empty slots
-                    unset($_FILES['files']['name'][$key]);
-                    unset($_FILES['files']['type'][$key]);
-                    unset($_FILES['files']['tmp_name'][$key]);
-                    unset($_FILES['files']['error'][$key]);
-                    unset($_FILES['files']['size'][$key]);
-                }
+    if (isset($_FILES['files'])) {
+        foreach ($_FILES['files']['name'] as $key => $name) {
+            if (empty($name)) {
+                // purge empty slots
+                unset($_FILES['files']['name'][$key]);
+                unset($_FILES['files']['type'][$key]);
+                unset($_FILES['files']['tmp_name'][$key]);
+                unset($_FILES['files']['error'][$key]);
+                unset($_FILES['files']['size'][$key]);
             }
         }
+    }
 
-        if (isset($_POST['panorama_id'])) {
-            $panorama_id = intval($_POST['panorama_id']);
-        }
-        if (isset($_POST['categories_id'])) {
-            $categories_id = intval($_POST['categories_id']);
-        }
+    if (isset($_POST['panorama_id'])) {
+        $panorama_id = intval($_POST['panorama_id']);
+    }
+    if (isset($_POST['categories_id'])) {
+        $categories_id = intval($_POST['categories_id']);
+    }
 
-        if (isset($_GET['cID']) && (empty($categories_id))) {
-            $categories_id = intval($_GET['cID']);
-        }
+    if (isset($_GET['cID']) && (empty($categories_id))) {
+        $categories_id = intval($_GET['cID']);
+    }
 
-        if (isset($_POST['scene_id'])) {
-            $scene_id = intval($_POST['scene_id']);
-        }
+    if (isset($_POST['scene_id'])) {
+        $scene_id = intval($_POST['scene_id']);
+    }
 
-        $sql_data_array = [];
-        $sql_data_array = ['categories_id' => intval($categories_id), 'panorama_author' => (isset($_POST['panorama_author']) ? oos_db_prepare_input($_POST['panorama_author']) : ''), 'panorama_autoload' => (isset($_POST['panorama_autoload']) ? oos_db_prepare_input($_POST['panorama_autoload']) : 'false'), 'panorama_autorotates' => (isset($_POST['panorama_autoload']) ? oos_db_prepare_input($_POST['panorama_autorotates']) : '-2')];
+    $sql_data_array = [];
+    $sql_data_array = ['categories_id' => intval($categories_id), 'panorama_author' => (isset($_POST['panorama_author']) ? oos_db_prepare_input($_POST['panorama_author']) : ''), 'panorama_autoload' => (isset($_POST['panorama_autoload']) ? oos_db_prepare_input($_POST['panorama_autoload']) : 'false'), 'panorama_autorotates' => (isset($_POST['panorama_autoload']) ? oos_db_prepare_input($_POST['panorama_autorotates']) : '-2')];
+
+    if ($action == 'insert_panorama') {
+        $insert_sql_data = [];
+        $insert_sql_data = ['panorama_date_added' => 'now()'];
+
+        $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
+
+        oos_db_perform($oostable['categories_panorama'], $sql_data_array);
+
+        $panorama_id = $dbconn->Insert_ID();
+    } elseif ($action == 'update_panorama') {
+        $update_sql_data = ['panorama_last_modified' => 'now()'];
+
+        $sql_data_array = [...$sql_data_array, ...$update_sql_data];
+
+        oos_db_perform($oostable['categories_panorama'], $sql_data_array, 'UPDATE', 'panorama_id = \'' . $panorama_id . '\'');
+    }
+
+    $aLanguages = oos_get_languages();
+    $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
+
+    for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+        $language_id = $aLanguages[$i]['id'];
+
+        $sql_data_array = ['panorama_name' => oos_db_prepare_input($_POST['panorama_name'][$language_id]), 'panorama_title' => oos_db_prepare_input($_POST['panorama_title'][$language_id]), 'panorama_description_meta' => oos_db_prepare_input($_POST['panorama_description_meta'][$language_id])];
 
         if ($action == 'insert_panorama') {
-            $insert_sql_data = [];
-            $insert_sql_data = ['panorama_date_added' => 'now()'];
+            $insert_sql_data = ['panorama_id' => intval($panorama_id), 'panorama_viewed' => '0', 'panorama_languages_id' => intval($aLanguages[$i]['id'])];
 
             $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
-            oos_db_perform($oostable['categories_panorama'], $sql_data_array);
-
-            $panorama_id = $dbconn->Insert_ID();
+            oos_db_perform($oostable['categories_panorama_description'], $sql_data_array);
         } elseif ($action == 'update_panorama') {
-            $update_sql_data = ['panorama_last_modified' => 'now()'];
-
-            $sql_data_array = [...$sql_data_array, ...$update_sql_data];
-
-            oos_db_perform($oostable['categories_panorama'], $sql_data_array, 'UPDATE', 'panorama_id = \'' . $panorama_id . '\'');
+            oos_db_perform($oostable['categories_panorama_description'], $sql_data_array, 'UPDATE', 'panorama_id = \'' . intval($panorama_id) . '\' AND panorama_languages_id = \'' . intval($language_id) . '\'');
         }
+    }
 
-        $aLanguages = oos_get_languages();
-        $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
+    if ((isset($_POST['remove_image']) && ($_POST['remove_image'] == 'yes')) && (isset($_POST['panorama_preview_image']))) {
+        $panorama_preview_image = oos_db_prepare_input($_POST['panorama_preview_image']);
 
-        for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-            $language_id = $aLanguages[$i]['id'];
-
-            $sql_data_array = ['panorama_name' => oos_db_prepare_input($_POST['panorama_name'][$language_id]), 'panorama_title' => oos_db_prepare_input($_POST['panorama_title'][$language_id]), 'panorama_description_meta' => oos_db_prepare_input($_POST['panorama_description_meta'][$language_id])];
-
-            if ($action == 'insert_panorama') {
-                $insert_sql_data = ['panorama_id' => intval($panorama_id), 'panorama_viewed' => '0', 'panorama_languages_id' => intval($aLanguages[$i]['id'])];
-
-                $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
-
-                oos_db_perform($oostable['categories_panorama_description'], $sql_data_array);
-            } elseif ($action == 'update_panorama') {
-                oos_db_perform($oostable['categories_panorama_description'], $sql_data_array, 'UPDATE', 'panorama_id = \'' . intval($panorama_id) . '\' AND panorama_languages_id = \'' . intval($language_id) . '\'');
-            }
-        }
-
-        if ((isset($_POST['remove_image']) && ($_POST['remove_image'] == 'yes')) && (isset($_POST['panorama_preview_image']))) {
-            $panorama_preview_image = oos_db_prepare_input($_POST['panorama_preview_image']);
-
-            $categoriestable = $oostable['categories_panorama'];
-            $dbconn->Execute(
-                "UPDATE $categoriestable
+        $categoriestable = $oostable['categories_panorama'];
+        $dbconn->Execute(
+            "UPDATE $categoriestable
 								SET panorama_preview = NULL
 								WHERE panorama_id = '" . intval($panorama_id) . "'"
-            );
+        );
 
-            oos_remove_panorama_preview_image($panorama_preview_image);
-        }
+        oos_remove_panorama_preview_image($panorama_preview_image);
+    }
 
-        if ((isset($_POST['scene_image']) && ($_POST['scene_image'] == 'yes')) && (isset($_POST['scene_preview_image']))) {
-            $scene_preview_image = oos_db_prepare_input($_POST['scene_preview_image']);
+    if ((isset($_POST['scene_image']) && ($_POST['scene_image'] == 'yes')) && (isset($_POST['scene_preview_image']))) {
+        $scene_preview_image = oos_db_prepare_input($_POST['scene_preview_image']);
 
-            $categories_panorama_scenetable = $oostable['categories_panorama_scene'];
-            $dbconn->Execute(
-                "UPDATE $categories_panorama_scenetable
+        $categories_panorama_scenetable = $oostable['categories_panorama_scene'];
+        $dbconn->Execute(
+            "UPDATE $categories_panorama_scenetable
 								SET scene_image = NULL
 								WHERE panorama_id = '" . intval($panorama_id) . "'"
-            );
+        );
 
-            oos_remove_scene_image($scene_preview_image);
-        }
+        oos_remove_scene_image($scene_preview_image);
+    }
 
 
-        // Panorama Preview
-        $aPreviewOptions = ['image_versions' => [
-            // The empty image version key defines options for the original image.
-            // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards.
-            // Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
-            '' => [
-                // Automatically rotate images based on EXIF meta data:
-                'auto_orient' => true,
-            ],
-            'large' => [
-                // 'auto_orient' => TRUE,
-                // 'crop' => TRUE,
-                // 'jpeg_quality' => 82,
-                // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                'max_width' => 1920,
-                // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                'max_height' => 1080,
-            ],
-            'medium' => [
-                // 'auto_orient' => TRUE,
-                // 'crop' => TRUE,
-                // 'jpeg_quality' => 82,
-                // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                'max_width' => 675,
-                // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                'max_height' => 380,
-            ],
-        ]];
+    // Panorama Preview
+    $aPreviewOptions = ['image_versions' => [
+        // The empty image version key defines options for the original image.
+        // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards.
+        // Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
+        '' => [
+            // Automatically rotate images based on EXIF meta data:
+            'auto_orient' => true,
+        ],
+        'large' => [
+            // 'auto_orient' => TRUE,
+            // 'crop' => TRUE,
+            // 'jpeg_quality' => 82,
+            // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+            // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+            'max_width' => 1920,
+            // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+            'max_height' => 1080,
+        ],
+        'medium' => [
+            // 'auto_orient' => TRUE,
+            // 'crop' => TRUE,
+            // 'jpeg_quality' => 82,
+            // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+            // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+            'max_width' => 675,
+            // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+            'max_height' => 380,
+        ],
+    ]];
 
-            $oPanoramaPreview = new upload('panorama_preview', $aPreviewOptions);
+        $oPanoramaPreview = new upload('panorama_preview', $aPreviewOptions);
 
-            $dir_fs_panorama_preview = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/';
-            $oPanoramaPreview->set_destination($dir_fs_panorama_preview);
+        $dir_fs_panorama_preview = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/';
+        $oPanoramaPreview->set_destination($dir_fs_panorama_preview);
 
-        if ($oPanoramaPreview->parse() && oos_is_not_null($oPanoramaPreview->filename)) {
-            $categories_panoramatable = $oostable['categories_panorama'];
-            $dbconn->Execute(
-                "UPDATE $categories_panoramatable
+    if ($oPanoramaPreview->parse() && oos_is_not_null($oPanoramaPreview->filename)) {
+        $categories_panoramatable = $oostable['categories_panorama'];
+        $dbconn->Execute(
+            "UPDATE $categories_panoramatable
 								SET panorama_preview = '" . oos_db_input($oPanoramaPreview->filename) . "'
 								WHERE panorama_id = '" . intval($panorama_id) . "'"
-            );
-        }
+        );
+    }
 
 
 
-        if (isset($_FILES['scene_image'])) {
-            if ($_FILES["scene_image"]["error"] == UPLOAD_ERR_OK) {
-                $filename = oos_db_prepare_input($_FILES['scene_image']['name']);
-                $source = $_FILES['scene_image']['tmp_name'];
-                $type = oos_db_prepare_input($_FILES['scene_image']['type']);
+    if (isset($_FILES['scene_image'])) {
+        if ($_FILES["scene_image"]["error"] == UPLOAD_ERR_OK) {
+            $filename = oos_db_prepare_input($_FILES['scene_image']['name']);
+            $source = $_FILES['scene_image']['tmp_name'];
+            $type = oos_db_prepare_input($_FILES['scene_image']['type']);
 
-                if (is_image($filename)) {
-                    $dir_fs_panoramas = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/';
-                    $filename = pathinfo((string) $_FILES['scene_image']['name'], PATHINFO_FILENAME);
-                    $extension = strtolower(pathinfo((string) $_FILES['scene_image']['name'], PATHINFO_EXTENSION));
+            if (is_image($filename)) {
+                $dir_fs_panoramas = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/';
+                $filename = pathinfo((string) $_FILES['scene_image']['name'], PATHINFO_FILENAME);
+                $extension = strtolower(pathinfo((string) $_FILES['scene_image']['name'], PATHINFO_EXTENSION));
 
-                    $scene_image = $filename.'.'.$extension;
-                    $new_path = $dir_fs_panoramas.$scene_image;
+                $scene_image = $filename.'.'.$extension;
+                $new_path = $dir_fs_panoramas.$scene_image;
 
-                    //New file name if the file already exists
-                    if (file_exists($new_path)) {
-                        $id = 1;
-                        do {
-                            // If file exists, append a number to the file name
-                            $scene_image = $filename.'_'.$id.'.'.$extension;
-                            $new_path = $dir_fs_panoramas.$scene_image;
-                            $id++;
-                        } while (file_exists($new_path));
-                    }
-
-                    move_uploaded_file($source, $new_path);
-
-                    $messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED, 'success');
-
-
-                    $sql_data_array = [];
-                    $sql_data_array = ['panorama_id' => intval($panorama_id), 'scene_image' => oos_db_prepare_input($scene_image), 'scene_type' => 'equirectangular'];
-
-                    if (!isset($scene_id)) {
-                        oos_db_perform($oostable['categories_panorama_scene'], $sql_data_array);
-                        $scene_id = $dbconn->Insert_ID();
-                    } else {
-                        // todo 360 Tour
-                        oos_db_perform($oostable['categories_panorama_scene'], $sql_data_array, 'UPDATE', 'scene_id = \'' .  intval($scene_id) . '\'');
-                    }
-                } else {
-                    $messageStack->add_session(ERROR_NO_IMAGE_FILE, 'error');
-                }
-            }
-        }
-
-        // HOTSPOT
-        if (isset($_POST['hotspot_count'])) {
-            $nHotspots = is_countable($_POST['hotspot_count']) ? count($_POST['hotspot_count']) : 0;
-
-            for ($h = 0, $nh = $nHotspots; $h < $nh; $h++) {
-                $hotspot_action = 'insert_hotspot';
-                if (isset($_POST['hotspot_id']) && (isset($_POST['hotspot_id'][$h]) || is_numeric($_POST['hotspot_id'][$h]))) {
-                    $hotspot_id = intval($_POST['hotspot_id'][$h]);
-                    $hotspot_action = 'update_hotspot';
+                //New file name if the file already exists
+                if (file_exists($new_path)) {
+                    $id = 1;
+                    do {
+                        // If file exists, append a number to the file name
+                        $scene_image = $filename.'_'.$id.'.'.$extension;
+                        $new_path = $dir_fs_panoramas.$scene_image;
+                        $id++;
+                    } while (file_exists($new_path));
                 }
 
-                if (isset($_POST['delete-hotspott'][$h])) {
-                    $hotspot_action = 'delete_hotspot';
+                move_uploaded_file($source, $new_path);
 
-                    if (is_numeric($_POST['delete-hotspott'][$h])) {
-                        $delete_hotspot = intval($_POST['delete-hotspott'][$h]);
-
-                        if (isset($_POST['hotspot_id'][$h]) || is_numeric($_POST['hotspot_id'][$h])) {
-                            $hotspot_id = intval($_POST['hotspot_id'][$h]);
-
-                            $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene_hotspot'] . " WHERE hotspot_id = '" . intval($hotspot_id) . "'");
-                            $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene_hotspot_text'] . " WHERE hotspot_id = '" . intval($hotspot_id) . "'");
-                        }
-                    }
-                }
+                $messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED, 'success');
 
 
                 $sql_data_array = [];
-                $sql_data_array = ['panorama_id' => intval($panorama_id), 'scene_id' => intval($scene_id), 'hotspot_pitch' => (isset($_POST['hotspot_pitch'][$h]) ? oos_db_prepare_input($_POST['hotspot_pitch'][$h]) : ''), 'hotspot_yaw' => (isset($_POST['hotspot_yaw'][$h]) ? oos_db_prepare_input($_POST['hotspot_yaw'][$h]) : ''), 'hotspot_type' => 'info', 'hotspot_icon_class' => '', 'products_id' => (isset($_POST['products_id'][$h]) ? oos_db_prepare_input($_POST['products_id'][$h]) : ''), 'categories_id' => (isset($_POST['categories_id'][$h]) ? oos_db_prepare_input($_POST['categories_id'][$h]) : ''), 'hotspot_url' => (isset($_POST['hotspot_url'][$h]) ? oos_db_prepare_input($_POST['hotspot_url'][$h]) : '')];
+                $sql_data_array = ['panorama_id' => intval($panorama_id), 'scene_image' => oos_db_prepare_input($scene_image), 'scene_type' => 'equirectangular'];
 
-                if ($hotspot_action == 'insert_hotspot') {
-                    oos_db_perform($oostable['categories_panorama_scene_hotspot'], $sql_data_array);
-
-                    $hotspot_id = $dbconn->Insert_ID();
-                } elseif ($hotspot_action == 'update_hotspot') {
-                    oos_db_perform($oostable['categories_panorama_scene_hotspot'], $sql_data_array, 'UPDATE', 'hotspot_id = \'' . intval($hotspot_id) . '\'');
+                if (!isset($scene_id)) {
+                    oos_db_perform($oostable['categories_panorama_scene'], $sql_data_array);
+                    $scene_id = $dbconn->Insert_ID();
+                } else {
+                    // todo 360 Tour
+                    oos_db_perform($oostable['categories_panorama_scene'], $sql_data_array, 'UPDATE', 'scene_id = \'' .  intval($scene_id) . '\'');
                 }
+            } else {
+                $messageStack->add_session(ERROR_NO_IMAGE_FILE, 'error');
+            }
+        }
+    }
 
+    // HOTSPOT
+    if (isset($_POST['hotspot_count'])) {
+        $nHotspots = is_countable($_POST['hotspot_count']) ? count($_POST['hotspot_count']) : 0;
 
-                for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-                    $language_id = $aLanguages[$i]['id'];
+        for ($h = 0, $nh = $nHotspots; $h < $nh; $h++) {
+            $hotspot_action = 'insert_hotspot';
+            if (isset($_POST['hotspot_id']) && (isset($_POST['hotspot_id'][$h]) || is_numeric($_POST['hotspot_id'][$h]))) {
+                $hotspot_id = intval($_POST['hotspot_id'][$h]);
+                $hotspot_action = 'update_hotspot';
+            }
 
-                    $sql_data_array = ['hotspot_text' => oos_db_prepare_input($_POST['hotspot_text'][$h][$language_id])];
+            if (isset($_POST['delete-hotspott'][$h])) {
+                $hotspot_action = 'delete_hotspot';
 
-                    if ($hotspot_action == 'insert_hotspot') {
-                        $insert_sql_data = ['hotspot_id' => intval($hotspot_id), 'hotspot_languages_id' => intval($aLanguages[$i]['id'])];
+                if (is_numeric($_POST['delete-hotspott'][$h])) {
+                    $delete_hotspot = intval($_POST['delete-hotspott'][$h]);
 
-                        $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
-                        oos_db_perform($oostable['categories_panorama_scene_hotspot_text'], $sql_data_array);
-                    } elseif ($hotspot_action == 'update_hotspot') {
-                        oos_db_perform($oostable['categories_panorama_scene_hotspot_text'], $sql_data_array, 'UPDATE', 'hotspot_id = \'' . intval($hotspot_id) . '\' AND hotspot_languages_id = \'' . intval($language_id) . '\'');
+                    if (isset($_POST['hotspot_id'][$h]) || is_numeric($_POST['hotspot_id'][$h])) {
+                        $hotspot_id = intval($_POST['hotspot_id'][$h]);
+
+                        $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene_hotspot'] . " WHERE hotspot_id = '" . intval($hotspot_id) . "'");
+                        $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene_hotspot_text'] . " WHERE hotspot_id = '" . intval($hotspot_id) . "'");
                     }
                 }
             }
-        }
 
-        $preview = ($_POST['preview'] ?? '');
-        if (!empty($preview)) {
-            switch ($preview) {
-            case 'scene':
-                    oos_redirect_admin(oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . oos_prepare_input($cPath) . (isset($_GET['cID']) ? '&cID=' . $cID : '') . '&page=' . $nPage . '&action=update_panorama#scene'));
-                break;
-            case 'hotspot':
-                        oos_redirect_admin(oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . oos_prepare_input($cPath) . (isset($_GET['cID']) ? '&cID=' . $cID : '')  . '&page=' . $nPage . '&action=update_panorama#hotspot'));
-                break;
+
+            $sql_data_array = [];
+            $sql_data_array = ['panorama_id' => intval($panorama_id), 'scene_id' => intval($scene_id), 'hotspot_pitch' => (isset($_POST['hotspot_pitch'][$h]) ? oos_db_prepare_input($_POST['hotspot_pitch'][$h]) : ''), 'hotspot_yaw' => (isset($_POST['hotspot_yaw'][$h]) ? oos_db_prepare_input($_POST['hotspot_yaw'][$h]) : ''), 'hotspot_type' => 'info', 'hotspot_icon_class' => '', 'products_id' => (isset($_POST['products_id'][$h]) ? oos_db_prepare_input($_POST['products_id'][$h]) : ''), 'categories_id' => (isset($_POST['categories_id'][$h]) ? oos_db_prepare_input($_POST['categories_id'][$h]) : ''), 'hotspot_url' => (isset($_POST['hotspot_url'][$h]) ? oos_db_prepare_input($_POST['hotspot_url'][$h]) : '')];
+
+            if ($hotspot_action == 'insert_hotspot') {
+                oos_db_perform($oostable['categories_panorama_scene_hotspot'], $sql_data_array);
+
+                $hotspot_id = $dbconn->Insert_ID();
+            } elseif ($hotspot_action == 'update_hotspot') {
+                oos_db_perform($oostable['categories_panorama_scene_hotspot'], $sql_data_array, 'UPDATE', 'hotspot_id = \'' . intval($hotspot_id) . '\'');
+            }
+
+
+            for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+                $language_id = $aLanguages[$i]['id'];
+
+                $sql_data_array = ['hotspot_text' => oos_db_prepare_input($_POST['hotspot_text'][$h][$language_id])];
+
+                if ($hotspot_action == 'insert_hotspot') {
+                    $insert_sql_data = ['hotspot_id' => intval($hotspot_id), 'hotspot_languages_id' => intval($aLanguages[$i]['id'])];
+
+                    $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
+                    oos_db_perform($oostable['categories_panorama_scene_hotspot_text'], $sql_data_array);
+                } elseif ($hotspot_action == 'update_hotspot') {
+                    oos_db_perform($oostable['categories_panorama_scene_hotspot_text'], $sql_data_array, 'UPDATE', 'hotspot_id = \'' . intval($hotspot_id) . '\' AND hotspot_languages_id = \'' . intval($language_id) . '\'');
+                }
             }
         }
+    }
 
-        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $categories_id . '&page=' . $nPage));
-
-        break;
-
-    case 'delete_panorama_confirm':
-        if (isset($_POST['panorama_id']) && is_numeric($_POST['panorama_id'])) {
-            $panorama_id = oos_db_prepare_input($_POST['panorama_id']);
-
-            oos_remove_panorama($panorama_id);
+    $preview = ($_POST['preview'] ?? '');
+    if (!empty($preview)) {
+        switch ($preview) {
+        case 'scene':
+                oos_redirect_admin(oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . oos_prepare_input($cPath) . (isset($_GET['cID']) ? '&cID=' . $cID : '') . '&page=' . $nPage . '&action=update_panorama#scene'));
+            break;
+        case 'hotspot':
+                    oos_redirect_admin(oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . oos_prepare_input($cPath) . (isset($_GET['cID']) ? '&cID=' . $cID : '')  . '&page=' . $nPage . '&action=update_panorama#hotspot'));
+            break;
         }
+    }
 
-        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . $nPage));
-        break;
+    oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $categories_id . '&page=' . $nPage));
+
+    break;
+
+case 'delete_panorama_confirm':
+    if (isset($_POST['panorama_id']) && is_numeric($_POST['panorama_id'])) {
+        $panorama_id = oos_db_prepare_input($_POST['panorama_id']);
+
+        oos_remove_panorama($panorama_id);
+    }
+
+    oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . $nPage));
+    break;
 }
 
 
@@ -518,7 +518,7 @@ if ($action == 'delete_panorama') {
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
                                 echo TEXT_EDIT_PANORAMA_NAME;
-} ?></label>
+                                                                   } ?></label>
             <?php if ($nLanguages > 1) {
                 echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
             } ?>
@@ -535,7 +535,7 @@ if ($action == 'delete_panorama') {
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
                                 echo TEXT_EDIT_PANORAMA_TITLE;
-} ?></label>
+                                                                   } ?></label>
             <?php if ($nLanguages > 1) {
                 echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
             } ?>
@@ -552,7 +552,7 @@ if ($action == 'delete_panorama') {
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
                                 echo TEXT_EDIT_PANORAMA_DESCRIPTION_META;
-} ?></label>
+                                                                   } ?></label>
             <?php if ($nLanguages > 1) {
                 echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
             } ?>
@@ -808,7 +808,7 @@ pannellum.viewer('panorama', {
             <li class="nav-item">
                 <a href="#hotspot<?php echo $i; ?>" data-toggle="tab" aria-expanded="true" class="nav-link <?php if ($i == 1) {
                         echo 'active';
-} ?>">
+                                 } ?>">
                     <i class="fa fa-dot-circle-o"></i> <?php echo $i; ?>
                 </a>
             </li>
@@ -853,7 +853,7 @@ pannellum.viewer('panorama', {
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
                                     echo TEXT_HOTSPOT_TEXT;
-} ?></label>
+                                                                     } ?></label>
                     <?php if ($nLanguages > 1) {
                         echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                     } ?>
@@ -898,7 +898,7 @@ pannellum.viewer('panorama', {
                     $nHotspot = $id+1; ?>
                     <div class="tab-pane fade <?php if ($id == 0) {
                         echo 'show active';
-} ?>" id="hotspot<?php echo $nHotspot; ?>">
+                                              } ?>" id="hotspot<?php echo $nHotspot; ?>">
                         <div class="row  mt-3 mb-5">
                             <div class="col-lg-10">
                                 <h2>            
@@ -921,7 +921,7 @@ pannellum.viewer('panorama', {
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
                                     echo TEXT_HOTSPOT_TEXT;
-} ?></label>
+                                                                     } ?></label>
                         <?php if ($nLanguages > 1) {
                             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                         } ?>
@@ -1003,7 +1003,7 @@ pannellum.viewer('panorama', {
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
                                     echo TEXT_HOTSPOT_TEXT;
-} ?></label>
+                                                                     } ?></label>
                 <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>

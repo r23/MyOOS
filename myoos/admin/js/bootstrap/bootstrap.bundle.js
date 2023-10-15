@@ -61,7 +61,7 @@
                 function (sym) {
                     return Object.getOwnPropertyDescriptor(object, sym).enumerable;
                 }
-                );
+            );
             }
             keys.push.apply(keys, symbols);
         }
@@ -1721,7 +1721,7 @@ $(window).on(
                     }
                 );
             }
-        );
+            );
             /**
                -------------------------------------------------------------------------
              * jQuery
@@ -5239,11 +5239,11 @@ $(window).on(
 
                     Dropdown._jQueryInterface.call($(this), 'toggle');
                 }
-            ).on(
-                    Event$4.CLICK_DATA_API, Selector$4.FORM_CHILD, function (e) {
+                ).on(
+                Event$4.CLICK_DATA_API, Selector$4.FORM_CHILD, function (e) {
                         e.stopPropagation();
-                }
-                );
+                    }
+            );
                 /**
                    -------------------------------------------------------------------------
                  * jQuery
@@ -5917,7 +5917,7 @@ $(window).on(
 
                         Modal._jQueryInterface.call($(target), config, this);
                     }
-                    );
+                );
                     /**
                        -------------------------------------------------------------------------
                      * jQuery
@@ -6867,7 +6867,7 @@ $(window).on(
                             content: '',
                             template: '<div class="popover" role="tooltip">' + '<div class="arrow"></div>' + '<h3 class="popover-header"></h3>' + '<div class="popover-body"></div></div>'
                         }
-                    );
+                        );
 
                         var DefaultType$5 = _objectSpread2(
                             {}, Tooltip.DefaultType, {
@@ -7383,7 +7383,7 @@ $(window).on(
                                     ScrollSpy._jQueryInterface.call($spy, $spy.data());
                                 }
                             }
-                            );
+                        );
                             /**
                                -------------------------------------------------------------------------
                              * jQuery
@@ -7640,7 +7640,7 @@ $(window).on(
 
                                 Tab._jQueryInterface.call($(this), 'show');
                             }
-                            );
+                        );
                             /**
                                -------------------------------------------------------------------------
                              * jQuery

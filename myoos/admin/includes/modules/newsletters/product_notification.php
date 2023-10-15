@@ -234,62 +234,62 @@ function selectAll(FormName, SelectBox) {
         }
 
         // Instantiate a new mail object
-		$send_mail = new PHPMailer\PHPMailer\PHPMailer();    
+        $send_mail = new PHPMailer\PHPMailer\PHPMailer();    
 
         $sLang = ($_SESSION['iso_639_1'] ?? DEFAULT_LANGUAGE_CODE);
         $send_mail->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/language/');
 
-		// Empty out the values that may be set.
-		$send_mail->clearAllRecipients();
-		$send_mail->clearAttachments();
-		$send_mail->clearCustomHeaders();
-		$send_mail->clearReplyTos();
+        // Empty out the values that may be set.
+        $send_mail->clearAllRecipients();
+        $send_mail->clearAttachments();
+        $send_mail->clearCustomHeaders();
+        $send_mail->clearReplyTos();
 
-		$send_mail->IsMail();
+        $send_mail->IsMail();
 
-		$send_mail->CharSet   = 'UTF-8';
-		$send_mail->Encoding  = 'base64';
+        $send_mail->CharSet   = 'UTF-8';
+        $send_mail->Encoding  = 'base64';
 
 
         $send_mail->From = STORE_OWNER_EMAIL_ADDRESS;
         $send_mail->FromName = STORE_OWNER;
  
 
-		// Add smtp values if needed
-		if (EMAIL_TRANSPORT == 'smtp') {
-			$send_mail->IsSMTP(); // set mailer to use SMTP
+        // Add smtp values if needed
+        if (EMAIL_TRANSPORT == 'smtp') {
+            $send_mail->IsSMTP(); // set mailer to use SMTP
         
-			// $send_mail->SMTPDebug = PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
+            // $send_mail->SMTPDebug = PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
         
-			$send_mail->Host     = OOS_SMTPHOST; // specify main and backup server        
-			$send_mail->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
-			$send_mail->Username = OOS_SMTPUSER; // SMTP username
-			$send_mail->Password = OOS_SMTPPASS; // SMTP password
+            $send_mail->Host     = OOS_SMTPHOST; // specify main and backup server        
+            $send_mail->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
+            $send_mail->Username = OOS_SMTPUSER; // SMTP username
+            $send_mail->Password = OOS_SMTPPASS; // SMTP password
         
         
-			// Set the encryption mechanism to use:
-			// - SMTPS (implicit TLS on port 465) or
-			// - STARTTLS (explicit TLS on port 587)
-			if (OOS_SMTPPORT == '465') {
-				$send_mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
-			} elseif (OOS_SMTPPORT == '587') {
-				$send_mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
-			}
+            // Set the encryption mechanism to use:
+            // - SMTPS (implicit TLS on port 465) or
+            // - STARTTLS (explicit TLS on port 587)
+            if (OOS_SMTPPORT == '465') {
+                $send_mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+            } elseif (OOS_SMTPPORT == '587') {
+                $send_mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+            }
 
-			// Set the SMTP port number:
-			// - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or
-			// - 587 for SMTP+STARTTLS
-			$send_mail->Port = OOS_SMTPPORT;         
+            // Set the SMTP port number:
+            // - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or
+            // - 587 for SMTP+STARTTLS
+            $send_mail->Port = OOS_SMTPPORT;         
 
-		} else {
-			// Set sendmail path
-			if (EMAIL_TRANSPORT == 'sendmail') {
-				if (!oos_empty(OOS_SENDMAIL)) {
-					$send_mail->Sendmail = OOS_SENDMAIL;
-					$send_mail->IsSendmail();
-				}
-			}
-		}
+        } else {
+            // Set sendmail path
+            if (EMAIL_TRANSPORT == 'sendmail') {
+                if (!oos_empty(OOS_SENDMAIL)) {
+                    $send_mail->Sendmail = OOS_SENDMAIL;
+                    $send_mail->IsSendmail();
+                }
+            }
+        }
 
         $send_mail->Subject = $this->title;
 

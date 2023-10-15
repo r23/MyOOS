@@ -49,39 +49,39 @@ $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default'
 $fID = filter_input(INPUT_GET, 'fID', FILTER_VALIDATE_INT);
 
 switch ($action) {
-    case 'setflag':
-        if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-            oos_set_featured_status($_GET['id'], $_GET['flag']);
-        }
+case 'setflag':
+    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+        oos_set_featured_status($_GET['id'], $_GET['flag']);
+    }
 
-        oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'fID=' . intval($_GET['id']) . '&page=' . $nPage));
-        break;
+    oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'fID=' . intval($_GET['id']) . '&page=' . $nPage));
+    break;
 
-    case 'insert':
-        $expires_date = oos_db_prepare_input($_POST['expires_date']);
+case 'insert':
+    $expires_date = oos_db_prepare_input($_POST['expires_date']);
 
-        $featuredtable = $oostable['featured'];
-        $dbconn->Execute("INSERT INTO $featuredtable (products_id, featured_date_added, expires_date, status) VALUES ('" . intval($_POST['products_id']) . "', now(), '" . oos_db_input($expires_date) . "', '1')");
-        oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage));
-        break;
+    $featuredtable = $oostable['featured'];
+    $dbconn->Execute("INSERT INTO $featuredtable (products_id, featured_date_added, expires_date, status) VALUES ('" . intval($_POST['products_id']) . "', now(), '" . oos_db_input($expires_date) . "', '1')");
+    oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage));
+    break;
 
-    case 'update':
-        $featured_id = oos_db_prepare_input($_POST['featured_id']);
-        $expires_date = oos_db_prepare_input($_POST['expires_date']);
+case 'update':
+    $featured_id = oos_db_prepare_input($_POST['featured_id']);
+    $expires_date = oos_db_prepare_input($_POST['expires_date']);
 
-        $featuredtable = $oostable['featured'];
-        $dbconn->Execute("UPDATE $featuredtable SET featured_last_modified = now(), expires_date = '" . oos_db_input($expires_date) . "' WHERE featured_id = '" . intval($featured_id) . "'");
-        oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . intval($featured_id)));
-        break;
+    $featuredtable = $oostable['featured'];
+    $dbconn->Execute("UPDATE $featuredtable SET featured_last_modified = now(), expires_date = '" . oos_db_input($expires_date) . "' WHERE featured_id = '" . intval($featured_id) . "'");
+    oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . intval($featured_id)));
+    break;
 
-    case 'deleteconfirm':
-        $featured_id = oos_db_prepare_input($_GET['fID']);
+case 'deleteconfirm':
+    $featured_id = oos_db_prepare_input($_GET['fID']);
 
-        $featuredtable = $oostable['featured'];
-        $dbconn->Execute("DELETE FROM $featuredtable WHERE featured_id = '" . oos_db_input($featured_id) . "'");
+    $featuredtable = $oostable['featured'];
+    $dbconn->Execute("DELETE FROM $featuredtable WHERE featured_id = '" . oos_db_input($featured_id) . "'");
 
-        oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage));
-        break;
+    oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage));
+    break;
 }
 
 require 'includes/header.php';
@@ -298,7 +298,7 @@ if (($action == 'new') || ($action == 'edit')) {
                     <td class="smallText" align="right"><?php echo $featured_split->display_links($featured_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
                   </tr>
     <?php
-	if ($action == 'default') {
+    if ($action == 'default') {
         ?>
                   <tr> 
                     <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&action=new') . '">' . oos_button(IMAGE_NEW_PRODUCT) . '</a>'; ?></td>

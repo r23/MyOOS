@@ -3846,7 +3846,7 @@
                                                     0,
                                                     newDefer,
                                                     isFunction(onProgress) ?
-                                                onProgress :
+                                        onProgress :
                                                     Identity,
                                                     newDefer.notifyWith
                                                 )
@@ -3858,7 +3858,7 @@
                                                     0,
                                                     newDefer,
                                                     isFunction(onFulfilled) ?
-                                                onFulfilled :
+                                        onFulfilled :
                                                           Identity
                                                 )
                                             );
@@ -3869,7 +3869,7 @@
                                                     0,
                                                     newDefer,
                                                     isFunction(onRejected) ?
-                                                onRejected :
+                                        onRejected :
                                                           Thrower
                                                 )
                                             );
@@ -8354,7 +8354,7 @@
                                         this.setAttribute(
                                             "class",
                                             className || value === false ?
-                                            "" :
+                                    "" :
                                             dataPriv.get(this, "__className__") || ""
                                         );
                                 }
