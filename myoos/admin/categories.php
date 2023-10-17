@@ -1227,7 +1227,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                      </div>
 
                      <div class="tab-pane" id="picture" role="tabpanel">
-    <script>
+    <script nonce="<?php echo NONCE; ?>">
         window.totalinputs = 3;
         function addUploadBoxes(placeholderid, copyfromid, num) {
             for (i = 0; i < num; i++) {
@@ -1487,7 +1487,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                     <?php echo oos_draw_form('id', 'goto', $aContents['categories'], '', 'get', false, 'class="form-inline"'); ?>
                         <div class="dataTables_filter">
                             <label><?php echo HEADING_TITLE_GOTO; ?></label>
-                            <?php echo oos_draw_pull_down_menu('cPath', '', oos_get_category_tree(), $current_category_id, 'onChange="this.form.submit();"'); ?>
+                            <?php echo oos_draw_pull_down_menu('cPath', 'category-select', oos_get_category_tree(), $current_category_id); ?>
                         </div>
                     </form>
                 </div>
@@ -1519,6 +1519,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
     } else {
         $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.categories_status != 0 AND c.parent_id = '" . intval($current_category_id) . "' AND c.categories_id = cd.categories_id AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY c.sort_order, cd.categories_name");
     }
+	$aDocument = [];
     while ($categories = $categories_result->fields) {
         $categories_count++;
         $rows++;
@@ -1535,11 +1536,14 @@ if ($action == 'new_category' || $action == 'edit_category') {
             $cInfo_array = array_merge($categories, $category_childs, $category_products);
             $cInfo = new objectInfo($cInfo_array);
         }
-
         if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id)) {
-            echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], oos_get_path($categories['categories_id'])) . '\'">' . "\n";
-        } else {
-            echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $categories['categories_id']) . '\'">' . "\n";
+			$aDocument[] = ['id' => $rows,
+							'link' => oos_href_link_admin($aContents['categories'], oos_get_path($categories['categories_id']))	];
+			echo ' <tr id="row-' . $rows .'">' . "\n";
+		} else {
+			$aDocument[] = ['id' => $rows,
+							'link' => oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $categories['categories_id'])];			
+			echo ' <tr id="row-' . $rows .'">' . "\n";
         } ?>
                 <td>&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['categories'], oos_get_path($categories['categories_id'])) . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-folder"></i></button></a>&nbsp;<b>' . ' #' . $categories['categories_id'] . ' ' . $categories['categories_name'] . '</b>'; ?></td>
                 <td class="text-center">&nbsp;</td>
@@ -1563,7 +1567,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
     }
 
 
-        $products_count = 0;
+    $products_count = 0;
     if (isset($_GET['search'])) {
         $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, p.products_quantity, p.products_reorder_level, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_tax_class_id, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_setting, p2c.categories_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_max, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd, " . $oostable['products_to_categories'] . " p2c WHERE p.products_id = pd.products_id AND products_setting != 0 AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND p.products_id = p2c.products_id AND pd.products_name like '%" . oos_db_input($_GET['search']) . "%' OR p.products_model like '%" . oos_db_input($_GET['search']) . "%' ORDER BY pd.products_name");
     } else {
@@ -1896,6 +1900,27 @@ if ($action == 'new_category' || $action == 'edit_category') {
 </div>
 
 <?php
-    require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+
+require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+	echo '<script nonce="' . NONCE . '">' . "\n";
+	$nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+	for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+		echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+		echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+		echo '});' . "\n";
+	}
+	echo '</script>' . "\n";
+}
+?>
+<script nonce="<?php echo NONCE; ?>">
+// Add an event listener to the select element
+document.getElementById('category-select').addEventListener('change', function() { 
+	// Submit the form 
+	this.form.submit(); 
+}); 
+</script>
+<?php
+require 'includes/nice_exit.php';
 ?>

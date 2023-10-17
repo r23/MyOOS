@@ -24,7 +24,15 @@
  * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+?>
 
+<!-- HTML5 shim and Respond.js IE support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+    <script nonce="<?php echo NONCE; ?>" src="js/plugin/respond.js"></script>
+    <script nonce="<?php echo NONCE; ?>" src="js/plugin/html5shiv.js"></script>
+<![endif]-->
+
+<?php
 /*
   echo '<pre>';
   print_r($_SESSION);
@@ -34,3 +42,6 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
   print_r($_POST);
   echo '</pre>';
 */
+?>
+</body>
+</html>

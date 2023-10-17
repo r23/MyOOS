@@ -27,6 +27,7 @@ if (isset($bForm) && ($bForm == true)) {
     <?php
 }
 ?>
+
 <!-- JS GLOBAL Compulsory -->      
 <script nonce="<?php echo NONCE; ?>" src="js/jquery/jquery.min.js"></script>
 <script nonce="<?php echo NONCE; ?>" src="js/plugins/popper/dist/umd/popper.min.js"></script>
@@ -60,11 +61,3 @@ for (let i = 0; i < radios.length; i++) {
 }
 </script>
 
-<!-- HTML5 shim and Respond.js IE support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-    <script nonce="<?php echo NONCE; ?>" src="js/plugin/respond.js"></script>
-    <script nonce="<?php echo NONCE; ?>" src="js/plugin/html5shiv.js"></script>
-<![endif]-->
-
-</body>
-</html>
