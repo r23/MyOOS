@@ -1922,5 +1922,5 @@ document.getElementById('category-select').addEventListener('change', function()
 }); 
 </script>
 <?php
+
 require 'includes/nice_exit.php';
-?>
