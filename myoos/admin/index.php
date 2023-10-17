@@ -170,8 +170,8 @@ require 'includes/header.php';
 <script nonce="<?php echo NONCE; ?>">
 // Add an event listener to the select element
 document.getElementById('language-select').addEventListener('change', function() { 
-	// Submit the form 
-	this.form.submit(); 
+    // Submit the form 
+    this.form.submit(); 
 }); 
 </script>
 <?php

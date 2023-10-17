@@ -27,7 +27,7 @@ return static function (RectorConfig $rectorConfig): void {
 
     // define sets of rules
     $rectorConfig->sets([
-            LevelSetList::UP_TO_PHP_82
+            LevelSetList::UP_TO_PHP_80
     ]);
 	
 	// exclude a directory from Rector
@@ -35,6 +35,5 @@ return static function (RectorConfig $rectorConfig): void {
 		__DIR__ . '/includes/functions/function_norector.php', // exclude all files with php extension in the inc directory
 		__DIR__ . '/temp', // exclude the whole temp directory
         __DIR__ . '/vendor', // exclude the whole vendor directory
-        __DIR__ . '/inc/adodb/*.php', // exclude all files with php extension in the inc directory
     ]);
 };

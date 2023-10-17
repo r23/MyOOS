@@ -24,31 +24,31 @@ $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
 switch ($action) {
-        case 'setflag':
-            if (isset($_GET['bID'])) {
-                if (isset($_GET['flag']) && ($_GET['flag'] == '1')) {
-                    $dbconn->Execute("UPDATE " . $oostable['block'] . " SET block_status = '1' WHERE block_id = '" . intval($_GET['bID']) . "'");
-                } elseif (isset($_GET['flag']) && ($_GET['flag'] == '0')) {
-                    $dbconn->Execute("UPDATE " . $oostable['block'] . " SET block_status = '0' WHERE block_id = '" . intval($_GET['bID']) . "'");
-                }
-            }
-            oos_redirect_admin(oos_href_link_admin($aContents['content_block'], 'page=' . intval($nPage) . '&bID=' . intval($_GET['bID'])));
-            break;
+	case 'setflag':
+        if (isset($_GET['bID'])) {
+			if (isset($_GET['flag']) && ($_GET['flag'] == '1')) {
+				$dbconn->Execute("UPDATE " . $oostable['block'] . " SET block_status = '1' WHERE block_id = '" . intval($_GET['bID']) . "'");
+			} elseif (isset($_GET['flag']) && ($_GET['flag'] == '0')) {
+				$dbconn->Execute("UPDATE " . $oostable['block'] . " SET block_status = '0' WHERE block_id = '" . intval($_GET['bID']) . "'");
+			}
+        }
+        oos_redirect_admin(oos_href_link_admin($aContents['content_block'], 'page=' . intval($nPage) . '&bID=' . intval($_GET['bID'])));
+        break;
 
-        case 'setloginflag':
-            if (isset($_GET['bID'])) {
-                if (isset($_GET['login_flag']) && ($_GET['login_flag'] == '1')) {
+	case 'setloginflag':
+        if (isset($_GET['bID'])) {
+			if (isset($_GET['login_flag']) && ($_GET['login_flag'] == '1')) {
                     $dbconn->Execute("UPDATE " . $oostable['block'] . " SET block_login_flag = '1' WHERE block_id = '" . intval($_GET['bID']) . "'");
-                } elseif (isset($_GET['login_flag']) && ($_GET['login_flag'] == '0')) {
+			} elseif (isset($_GET['login_flag']) && ($_GET['login_flag'] == '0')) {
                     $dbconn->Execute("UPDATE " . $oostable['block'] . " SET block_login_flag = '0' WHERE block_id = '" . intval($_GET['bID']) . "'");
-                }
-            }
-            oos_redirect_admin(oos_href_link_admin($aContents['content_block'], 'page=' . intval($nPage) . '&bID=' . intval($_GET['bID'])));
-            break;
+			}
+        }
+        oos_redirect_admin(oos_href_link_admin($aContents['content_block'], 'page=' . intval($nPage) . '&bID=' . intval($_GET['bID'])));
+        break;
 
-      case 'insert':
-      case 'save':
-        $block_content_id = oos_db_prepare_input($_GET['bID']);
+	case 'insert':
+	case 'save':
+		$block_content_id = oos_db_prepare_input($_GET['bID']);
 
         $block_side = oos_db_prepare_input($_POST['block_side']);
         $function  = oos_db_prepare_input($_POST['function']);
@@ -75,7 +75,8 @@ switch ($action) {
         }
 
         $languages = oos_get_languages();
-        for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
+		$n = is_countable($languages) ? count($languages) : 0;
+        for ($i = 0, $n; $i < $n; $i++) {
             $block_content_name_array = oos_db_prepare_input($_POST['block_name']);
             $language_id = $languages[$i]['id'];
 
@@ -107,7 +108,7 @@ switch ($action) {
         oos_redirect_admin(oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $block_content_id));
         break;
 
-      case 'deleteconfirm':
+	case 'deleteconfirm':
         $block_content_id = oos_db_prepare_input($_GET['bID']);
 
         $dbconn->Execute("DELETE FROM " . $oostable['block'] . " WHERE block_id = '" . intval($block_content_id) . "'");
