@@ -485,7 +485,7 @@ if (!isset($attribute_page)) {
 
 require 'includes/header.php';
 ?>
-<script>
+<script nonce="<?php echo NONCE; ?>">
 function go_option() {
   if (document.option_order_by.selected.options[document.option_order_by.selected.selectedIndex].value != "none") {
     location = "<?php echo oos_href_link_admin($aContents['products_attributes'], 'option_page=' . (isset($_GET['option_page']) ? intval($_GET['option_page']) : 1)); ?>&option_order_by="+document.option_order_by.selected.options[document.option_order_by.selected.selectedIndex].value;
@@ -987,7 +987,7 @@ if ($action == 'update_attribute') {
     $form_action = 'add_product_attributes';
 }
 ?>
-<script>
+<script nonce="<?php echo NONCE; ?>">
 
 function doRound(x, places) {
   return Math.round(x * Math.pow(10, places)) / Math.pow(10, places);

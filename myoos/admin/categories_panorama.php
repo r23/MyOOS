@@ -694,7 +694,7 @@ if ($action == 'delete_panorama') {
 
                                 <div id="panorama"></div>
 
-<script>
+<script nonce="<?php echo NONCE; ?>">
 pannellum.viewer('panorama', {
     "type": "equirectangular",
     "panorama": "<?php echo OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'panoramas/' . oos_output_string($panorama['scene_image']); ?>",
@@ -1060,7 +1060,7 @@ pannellum.viewer('panorama', {
                         <div class="col-lg-10">
 
                             <div id="panorama_hot"></div>
-<script>
+<script nonce="<?php echo NONCE; ?>">
 pannellum.viewer('panorama_hot', {
     "type": "equirectangular",
     "panorama": "<?php echo OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'panoramas/' . oos_output_string($panorama['scene_image']); ?>",

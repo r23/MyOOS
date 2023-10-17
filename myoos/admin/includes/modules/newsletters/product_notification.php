@@ -52,7 +52,7 @@ class product_notification
             $products_result->MoveNext();
         }
 
-        $choose_audience_string = '<script>
+        $choose_audience_string = '<script nonce="' . NONCE . '">'
 function mover(move) {
   if (move == \'remove\') {
     for (x=0; x<(document.notifications.products.length); x++) {

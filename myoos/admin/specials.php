@@ -328,7 +328,7 @@ if (($action == 'new') || ($action == 'edit')) {
         }
 
         echo "\n";
-        echo '<script>' . "\n";
+        echo '<script nonce="' . NONCE  . '">' . "\n";
         echo 'let taxRate = ' . $tax['tax_rate'] . ';' . "\n"; ?>
 function doRound(x, places) {
   num = Math.round(x * Math.pow(10, places)) / Math.pow(10, places);

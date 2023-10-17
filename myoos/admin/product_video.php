@@ -403,7 +403,7 @@ if ($action == 'edit_video') {
                               </div>
                            </div>
                         </fieldset>
-        <script>
+        <script nonce="<?php echo NONCE; ?>">
             CKEDITOR.replace( 'video_description_<?php echo  $nCounter . '_' . $aLanguages[$i]['id']; ?>');
         </script>
                 <?php

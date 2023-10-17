@@ -131,7 +131,7 @@ require 'includes/header.php';
 
 if (isset($_GET['zID'])  && (($saction == 'edit') || ($saction == 'new'))) {
     ?>
-<script>
+<script nonce="<?php echo NONCE; ?>">
 function resetZoneSelected(theForm) {
   if (theForm.state.value != '') {
     theForm.zone_id.selectedIndex = '0';

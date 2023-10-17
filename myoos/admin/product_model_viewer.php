@@ -396,7 +396,7 @@ if ($action == 'edit_3d') {
                               </div>
                            </div>
                         </fieldset>
-        <script>
+        <script nonce="<?php echo NONCE; ?>">
             CKEDITOR.replace( 'model_viewer_description_<?php echo  $nCounter . '_' . $aLanguages[$i]['id']; ?>');
         </script>
                 <?php

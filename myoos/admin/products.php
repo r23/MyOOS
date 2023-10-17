@@ -486,7 +486,7 @@ if ($action == 'new_product' || $action == 'edit_product') {
     } ?>
 <script nonce="<?php echo NONCE; ?>" src="js/ckeditor/ckeditor.js"></script>
 
-<script>
+<script nonce="<?php echo NONCE; ?>">
 let tax_rates = new Array();
 <?php
 	$n = is_countable($tax_class_array) ? count($tax_class_array) : 0;
@@ -715,7 +715,7 @@ function calcBasePriceFactor() {
                               </div>
                            </div>
                         </fieldset>
-		<script>
+		<script nonce="<?php echo NONCE; ?>">
 			CKEDITOR.replace( 'products_description_<?php echo $aLanguages[$i]['id']; ?>');
 		</script>
 
@@ -737,7 +737,7 @@ function calcBasePriceFactor() {
                               </div>
                            </div>
                         </fieldset>
-		<script>
+		<script nonce="<?php echo NONCE; ?>">
 			CKEDITOR.replace( 'products_short_description_<?php echo $aLanguages[$i]['id']; ?>');
 		</script>
 
@@ -759,7 +759,7 @@ function calcBasePriceFactor() {
                               </div>
                            </div>
                         </fieldset>
-		<script>
+		<script nonce="<?php echo NONCE; ?>">
 			CKEDITOR.replace( 'products_essential_characteristics_<?php echo $aLanguages[$i]['id']; ?>');
 		</script>
 
@@ -947,7 +947,7 @@ function calcBasePriceFactor() {
                             </div>
                            </div>
                         </fieldset>
-<script>
+<script nonce="<?php echo NONCE; ?>">
 updateWithTax();
 </script>
 
@@ -1207,7 +1207,7 @@ updateWithTax();
                      </div>
 				 				 
                      <div class="tab-pane" id="picture" role="tabpanel">
-		<script>
+		<script nonce="<?php echo NONCE; ?>">
 		window.totalinputs = 3;
 		function addUploadBoxes(placeholderid, copyfromid, num) {
 			for (i = 0; i < num; i++) {

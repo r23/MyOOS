@@ -256,7 +256,7 @@ if ($action == 'new' || $action == 'edit') {
                             </div>
                         </div>
                     </fieldset>
-            <script>
+            <script nonce="<?php echo NONCE; ?>">
                 CKEDITOR.replace( 'information_description[<?php echo $aLanguages[$i]['id']; ?>]');
             </script>
         <?php

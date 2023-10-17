@@ -276,7 +276,7 @@ require 'includes/header.php';
 
 if ($action == 'edit') {
       ?>
-<script>
+<script nonce="<?php echo NONCE; ?>">
 function resetStateText(theForm) {
   theForm.entry_state.value = '';
   if (theForm.entry_zone_id.options.length > 1) {

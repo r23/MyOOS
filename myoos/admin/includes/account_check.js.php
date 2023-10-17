@@ -26,7 +26,7 @@ if (str_starts_with(basename($php_self), 'admin_member')) {
 
     ?>
 
-<script>
+<script nonce="<?php echo NONCE; ?>">
 function validateForm() {
   let p,z,xEmail,errors='',dbEmail,result=0,i;
 
@@ -95,7 +95,7 @@ function checkSub(obj) {
 } else {
     ?>
 
-<script>
+<script nonce="<?php echo NONCE; ?>">
 function validateForm() {
   let p,z,xEmail,errors='',dbEmail,result=0,i;
 

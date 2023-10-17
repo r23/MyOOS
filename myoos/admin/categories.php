@@ -1019,7 +1019,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                             </div>
                         </div>
                     </fieldset>
-            <script>
+            <script nonce="<?php echo NONCE; ?>">
                 CKEDITOR.replace( 'categories_description[<?php echo $aLanguages[$i]['id']; ?>]');
             </script>
         <?php
