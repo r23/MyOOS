@@ -649,7 +649,7 @@ if (($action == 'edit') && ($order_exists == true)) {
 <!-- Begin Products Listing Block -->
       <tr>
   <td>
-                  <table class="table table-striped w-100">
+                  <table class="table table-striped table-hover w-100">
                     <thead class="thead-dark">
                         <tr>
                             <th colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></th>

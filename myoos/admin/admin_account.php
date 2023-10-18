@@ -136,7 +136,7 @@ require 'includes/account_check.js.php';
   $my_account_query = "SELECT a.admin_id, a.admin_firstname, a.admin_lastname, a.admin_email_address, a.admin_created, a.admin_modified, a.admin_logdate, a.admin_lognum, g.admin_groups_name FROM " . $oostable['admin'] . " a, " . $oostable['admin_groups'] . " g WHERE a.admin_id= " . $_SESSION['login_id'] . " AND g.admin_groups_id= " . $_SESSION['login_groups_id'] . "";
   $myAccount = $dbconn->GetRow($my_account_query);
 ?>
-                <table class="table table-striped w-100">
+                <table class="table table-striped table-hover w-100">
                     <thead class="thead-dark">
                         <tr>
                             <th><?php echo TABLE_HEADING_ACCOUNT; ?></th>

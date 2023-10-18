@@ -537,7 +537,7 @@ if ($action == 'delete_product_option') { // delete product option
               <tr>
                 <td>
 
-                <table class="table table-striped w-100">
+                <table class="table table-striped table-hover w-100">
     <?php
     $productstable = $oostable['products'];
     $products_options_valuestable = $oostable['products_options_values'];
@@ -747,7 +747,7 @@ if ($action == 'delete_option_value') { // delete product option value
               <tr>
                 <td>
 
-                <table class="table table-striped w-100">
+                <table class="table table-striped table-hover w-100">
     <?php
     $productstable = $oostable['products'];
     $products_attributestable = $oostable['products_attributes'];

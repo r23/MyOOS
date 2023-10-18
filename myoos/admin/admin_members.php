@@ -343,7 +343,7 @@ if (isset($_GET['gPath']) && ($_GET['gPath'])) {
     <?php
 } elseif (isset($_GET['gID']) && ($_GET['gID'])) {
         ?>
-        <table class="table table-striped w-100">
+        <table class="table table-striped table-hover w-100">
             <thead class="thead-dark">
                 <tr>
                     <th>&nbsp;<?php echo TABLE_HEADING_GROUPS_NAME; ?></th>
@@ -393,7 +393,7 @@ if (isset($_GET['gPath']) && ($_GET['gPath'])) {
     <?php
     } else {
         ?>
-        <table class="table table-striped w-100">
+        <table class="table table-striped table-hover w-100">
             <thead class="thead-dark">
                 <tr>
                     <th><?php echo TABLE_HEADING_NAME; ?></th>

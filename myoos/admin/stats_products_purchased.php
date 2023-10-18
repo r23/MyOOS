@@ -77,7 +77,7 @@ require 'includes/header.php';
           <tr>
             <td valign="top">
             
-                <table class="table table-striped w-100">
+                <table class="table table-striped table-hover w-100">
                     <thead class="thead-dark">
                         <tr>
                             <th><?php echo TABLE_HEADING_NUMBER; ?></th>

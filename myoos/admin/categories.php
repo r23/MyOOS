@@ -1513,13 +1513,13 @@ if ($action == 'new_category' || $action == 'edit_category') {
                     </thead>
     <?php
     $categories_count = 0;
-        $rows = 0;
+	$rows = 0;
+	$aDocument = [];
     if (isset($_GET['search'])) {
         $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.categories_status != 0 AND c.categories_id = cd.categories_id AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' AND cd.categories_name like '%" . oos_db_input($_GET['search']) . "%' ORDER BY c.sort_order, cd.categories_name");
     } else {
         $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.categories_status != 0 AND c.parent_id = '" . intval($current_category_id) . "' AND c.categories_id = cd.categories_id AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY c.sort_order, cd.categories_name");
     }
-	$aDocument = [];
     while ($categories = $categories_result->fields) {
         $categories_count++;
         $rows++;
