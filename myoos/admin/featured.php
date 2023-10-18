@@ -239,7 +239,7 @@ if (($action == 'new') || ($action == 'edit')) {
           <tr>
             <td valign="top">
             
-                <table class="table table-striped w-100">
+                <table class="table table-striped table-hover w-100">
                     <thead class="thead-dark">
                         <tr>
                             <th><?php echo TABLE_HEADING_PRODUCTS; ?></th>
@@ -249,10 +249,13 @@ if (($action == 'new') || ($action == 'edit')) {
                         </tr>    
                     </thead>
     <?php
+	$rows = 0;
+	$aDocument = [];
     $featured_result_raw = "SELECT p.products_id, pd.products_name, s.featured_id, s.featured_date_added, s.featured_last_modified, s.expires_date, s.date_status_change, s.status FROM " . $oostable['products'] . " p, " . $oostable['featured'] . " s, " . $oostable['products_description'] . " pd WHERE p.products_id = pd.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND p.products_id = s.products_id ORDER BY pd.products_name";
-        $featured_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $featured_result_raw, $featured_result_numrows);
-        $featured_result = $dbconn->Execute($featured_result_raw);
+    $featured_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $featured_result_raw, $featured_result_numrows);
+    $featured_result = $dbconn->Execute($featured_result_raw);
     while ($featured = $featured_result->fields) {
+		$rows++;
         if ((!isset($_GET['fID']) || (isset($_GET['fID']) && ($_GET['fID'] == $featured['featured_id']))) && !isset($sInfo)) {
             $productstable = $oostable['products'];
             $products_result = $dbconn->Execute("SELECT products_image FROM " . $oostable['products'] . " WHERE products_id = '" . $featured['products_id'] . "'");
@@ -262,9 +265,15 @@ if (($action == 'new') || ($action == 'edit')) {
         }
 
         if (isset($sInfo) && is_object($sInfo) && ($featured['featured_id'] == $sInfo->featured_id)) {
-            echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '\'">' . "\n";
+				$aDocument[] = ['id' => $rows,
+								'link' => oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit')];
+				echo ' <tr id="row-' . $rows .'">' . "\n";			
+#            echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '\'">' . "\n";
         } else {
-            echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id']) . '\'">' . "\n";
+				$aDocument[] = ['id' => $rows,
+								'link' => oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id'])];
+				echo ' <tr id="row-' . $rows .'">' . "\n";			
+ #           echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id']) . '\'">' . "\n";
         } ?>
                 <td><?php echo $featured['products_name']; ?></td>
                 <td  align="right">&nbsp;</td>
@@ -369,6 +378,18 @@ if (($action == 'new') || ($action == 'edit')) {
 
 
 <?php
-    require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
-?>
+require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+	echo '<script nonce="' . NONCE . '">' . "\n";
+	$nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+	for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+		echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+		echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+		echo '});' . "\n";
+	}
+	echo '</script>' . "\n";
+}
+
+require 'includes/nice_exit.php';
+
