@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-10-05 11:21:01+0000\n"
+"PO-Revision-Date: 2023-10-18 12:55:38+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-alpha.9\n"
+"X-Generator: GlotPress/4.0.0-alpha.10\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO - Stable (latest release)\n"
 
@@ -4430,19 +4430,19 @@ msgstr "Automatische Aktualisierung"
 msgid "Enables or disables Author Archives. If disabled, the Author Archives are redirected to your homepage. To avoid duplicate content issues, noindex author archives if you keep them enabled."
 msgstr "Aktiviert oder deaktiviert Autorenarchive. Wenn deaktiviert, werden Autorenarchive auf deine Homepage umgeleitet. Um Probleme mit doppelten Inhalten zu vermeiden, setze Autorenarchive auf noindex, wenn du diese aktiviert lässt."
 
-#: includes/replace-variables/class-term-variables.php:69
+#: includes/replace-variables/class-term-variables.php:70
 msgid "Custom Term description"
 msgstr "Beschreibung des individuellen Begriffs"
 
-#: includes/replace-variables/class-term-variables.php:61
+#: includes/replace-variables/class-term-variables.php:62
 msgid "Custom term value"
 msgstr "Individueller Term-Wert"
 
-#: includes/replace-variables/class-term-variables.php:59
+#: includes/replace-variables/class-term-variables.php:60
 msgid "Custom term value."
 msgstr "Individueller Term-Wert."
 
-#: includes/replace-variables/class-term-variables.php:58
+#: includes/replace-variables/class-term-variables.php:59
 msgid "Custom Term (advanced)"
 msgstr "Individueller Begriff (fortgeschritten)"
 
@@ -4460,8 +4460,8 @@ msgid "Enable or disable the date archives (e.g: %s). If this option is disabled
 msgstr "Aktiviere oder deaktiviere das Datumsarchiv (_z.B.: %s). Wenn diese Option deaktiviert ist, werden die Datumsarchive auf die Homepage umgeleitet."
 
 #: includes/replace-variables/class-manager.php:302
-#: includes/replace-variables/class-term-variables.php:70
-#: includes/replace-variables/class-term-variables.php:72
+#: includes/replace-variables/class-term-variables.php:71
+#: includes/replace-variables/class-term-variables.php:73
 msgid "Custom Term description."
 msgstr "Individuelle Begriffs-Beschreibung."
 
@@ -7777,27 +7777,27 @@ msgstr "Suchanfrage (nur auf der Suchergebnisseite verfügbar)"
 msgid "Search Query"
 msgstr "Suchanfrage"
 
-#: includes/replace-variables/class-term-variables.php:50
+#: includes/replace-variables/class-term-variables.php:51
 msgid "Example Term Description"
 msgstr "Beispiel Begriffsbeschreibung"
 
-#: includes/replace-variables/class-term-variables.php:48
+#: includes/replace-variables/class-term-variables.php:49
 msgid "Current term description"
 msgstr "Beschreibung des benutzerdefinierten Begriffs"
 
-#: includes/replace-variables/class-term-variables.php:47
+#: includes/replace-variables/class-term-variables.php:48
 msgid "Term Description"
 msgstr "Begriff Beschreibung"
 
-#: includes/replace-variables/class-term-variables.php:38
+#: includes/replace-variables/class-term-variables.php:39
 msgid "Example Term"
 msgstr "Beispiel Begriff"
 
-#: includes/replace-variables/class-term-variables.php:36
+#: includes/replace-variables/class-term-variables.php:37
 msgid "Current term name"
 msgstr "Name des aktuellen Begriffs"
 
-#: includes/replace-variables/class-term-variables.php:35
+#: includes/replace-variables/class-term-variables.php:36
 msgid "Current Term"
 msgstr "Aktuelle Laufzeit"
 
