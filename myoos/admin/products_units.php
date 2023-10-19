@@ -82,62 +82,62 @@ $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
 switch ($action) {
-        case 'insert':
-        case 'save':
-            $products_units_id = oos_db_prepare_input($_GET['uID']);
+	case 'insert':
+	case 'save':
+		$uID = filter_input(INPUT_GET, 'uID', FILTER_VALIDATE_INT);
 
-            $languages = oos_get_languages();
-            for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
-                $products_unit_name_array = oos_db_prepare_input($_POST['products_unit_name']);
-                $unit_of_measure_array = oos_db_prepare_input($_POST['unit_of_measure']);
-                $language_id = $languages[$i]['id'];
+		$languages = oos_get_languages();
+		for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
+			$products_unit_name_array = oos_db_prepare_input($_POST['products_unit_name']);
+			$unit_of_measure_array = oos_db_prepare_input($_POST['unit_of_measure']);
+			$language_id = $languages[$i]['id'];
 
-                $sql_data_array = ['products_unit_name' => oos_db_prepare_input($products_unit_name_array[$language_id]), 'unit_of_measure' => oos_db_prepare_input($unit_of_measure_array[$language_id])];
+			$sql_data_array = ['products_unit_name' => oos_db_prepare_input($products_unit_name_array[$language_id]), 'unit_of_measure' => oos_db_prepare_input($unit_of_measure_array[$language_id])];
 
-                if ($action == 'insert') {
-                    if (oos_empty($products_units_id)) {
-                        $products_unitstable = $oostable['products_units'];
-                        $next_id_result = $dbconn->Execute("SELECT max(products_units_id) as products_units_id FROM $products_unitstable");
-                        $next_id = $next_id_result->fields;
-                        $products_units_id = $next_id['products_units_id'] + 1;
-                    }
+			if ($action == 'insert') {
+				if (oos_empty($products_units_id)) {
+					$products_unitstable = $oostable['products_units'];
+					$next_id_result = $dbconn->Execute("SELECT max(products_units_id) as products_units_id FROM $products_unitstable");
+					$next_id = $next_id_result->fields;
+					$products_units_id = $next_id['products_units_id'] + 1;
+				}
 
-                    $insert_sql_data = ['products_units_id' => $products_units_id, 'languages_id' => $language_id];
+				$insert_sql_data = ['products_units_id' => $uID, 'languages_id' => $language_id];
 
-                    $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
+				$sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
-                    oos_db_perform($oostable['products_units'], $sql_data_array);
-                } elseif ($action == 'save') {
-                    oos_db_perform($oostable['products_units'], $sql_data_array, 'UPDATE', "products_units_id = '" . intval($products_units_id) . "' AND languages_id = '" . intval($language_id) . "'");
-                }
-            }
+				oos_db_perform($oostable['products_units'], $sql_data_array);
+			} elseif ($action == 'save') {
+				oos_db_perform($oostable['products_units'], $sql_data_array, 'UPDATE', "products_units_id = '" . intval($uID) . "' AND languages_id = '" . intval($language_id) . "'");
+			}
+		}
 
-            oos_redirect_admin(oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $products_units_id));
-            break;
+		oos_redirect_admin(oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $products_units_id));
+		break;
 
-        case 'deleteconfirm':
-            $uID = oos_db_prepare_input($_GET['uID']);
+	case 'deleteconfirm':
+		$uID = filter_input(INPUT_GET, 'uID', FILTER_VALIDATE_INT);
 
 
-            $products_unitstable = $oostable['products_units'];
-            $dbconn->Execute("DELETE FROM $products_unitstable WHERE products_units_id = '" . intval($uID) . "'");
+		$products_unitstable = $oostable['products_units'];
+		$dbconn->Execute("DELETE FROM $products_unitstable WHERE products_units_id = '" . intval($uID) . "'");
 
-            oos_redirect_admin(oos_href_link_admin($aContents['products_units'], 'page=' . $nPage));
-            break;
+		oos_redirect_admin(oos_href_link_admin($aContents['products_units'], 'page=' . $nPage));
+		break;
 
-        case 'delete':
-            $uID = oos_db_prepare_input($_GET['uID']);
+	case 'delete':
+		$uID = filter_input(INPUT_GET, 'uID', FILTER_VALIDATE_INT);
+		
+		$productstable = $oostable['products'];
+		$status_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM $productstable WHERE products_units_id = '" . intval($uID) . "'");
+		$status = $status_result->fields;
 
-            $productstable = $oostable['products'];
-            $status_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM $productstable WHERE products_units_id = '" . intval($uID) . "'");
-            $status = $status_result->fields;
-
-            $remove_status = true;
-            if ($status['total'] > 0) {
-                $remove_status = false;
-                $messageStack->add(ERROR_STATUS_USED_IN_PRODUCTS, 'error');
-            }
-            break;
+		$remove_status = true;
+		if ($status['total'] > 0) {
+			$remove_status = false;
+			$messageStack->add(ERROR_STATUS_USED_IN_PRODUCTS, 'error');
+		}
+		break;
 }
 
 require 'includes/header.php';
@@ -230,7 +230,7 @@ require 'includes/header.php';
 <?php
     // Move that ADOdb pointer!
     $products_units_result->MoveNext();
-  }
+}
 ?>
               <tr>
                 <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
