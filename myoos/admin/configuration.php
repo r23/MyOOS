@@ -17,7 +17,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('OOS_VALID_MOD', 'yes');
@@ -25,7 +25,7 @@ require 'includes/main.php';
 
 require 'includes/functions/function_modules.php';
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
-$cID = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT) ?: 0; 
+$cID = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT) ?: 0;
 
 switch ($action) {
     case 'save':
@@ -300,9 +300,9 @@ while ($configuration = $configuration_result->fields) {
                 <td><?php echo htmlspecialchars((string)$cfgValue, ENT_QUOTES, 'UTF-8'); ?></td>
                 <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($configuration['configuration_id'] == $cInfo->configuration_id)) {
                     echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-} else {
-                                           echo '<a href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $configuration['configuration_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-                                       } ?>&nbsp;</td>
+                } else {
+                    echo '<a href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $configuration['configuration_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+                } ?>&nbsp;</td>
               </tr>
     <?php
     // Move that ADOdb pointer!
@@ -316,68 +316,68 @@ $heading = [];
 $contents = [];
 
 switch ($action) {
-case 'edit':
-    $heading[] = ['text' => '<b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b>'];
+    case 'edit':
+        $heading[] = ['text' => '<b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b>'];
 
-    if ($cID == 2 || $cID == 3 || $cID == 4) {
-        $value_field = oos_draw_file_field('site_image') . '<br>' . $cInfo->configuration_value;
-    } else {
-        if ($cInfo->set_function) {
-                
-            // Allowed values for $cInfo->set_function
-            $whitelist = ['oos_cfg_select_option', 'oos_cfg_pull_down_order_statuses', 'oos_cfg_get_order_status_name', 'oos_cfg_pull_down_zone_classes', 'pull_down_country_list'];
-
-            // Check if $cInfo->set_function is in the whitelist
-            if (in_array($cInfo->set_function, $whitelist)) {
-                // Evaluation of the code
-                eval('$value_field = ' . $cInfo->set_function . '"' . htmlspecialchars((string)$cInfo->configuration_value, ENT_QUOTES, 'UTF-8') . '");');
-            } else {
-                die('Invalid value for $cInfo->set_function: '.$cInfo->set_function);
-            }                
+        if ($cID == 2 || $cID == 3 || $cID == 4) {
+            $value_field = oos_draw_file_field('site_image') . '<br>' . $cInfo->configuration_value;
         } else {
-            $value_field = oos_draw_input_field('configuration_value', $cInfo->configuration_value);
+            if ($cInfo->set_function) {
+
+                // Allowed values for $cInfo->set_function
+                $whitelist = ['oos_cfg_select_option', 'oos_cfg_pull_down_order_statuses', 'oos_cfg_get_order_status_name', 'oos_cfg_pull_down_zone_classes', 'pull_down_country_list'];
+
+                // Check if $cInfo->set_function is in the whitelist
+                if (in_array($cInfo->set_function, $whitelist)) {
+                    // Evaluation of the code
+                    eval('$value_field = ' . $cInfo->set_function . '"' . htmlspecialchars((string)$cInfo->configuration_value, ENT_QUOTES, 'UTF-8') . '");');
+                } else {
+                    die('Invalid value for $cInfo->set_function: '.$cInfo->set_function);
+                }
+            } else {
+                $value_field = oos_draw_input_field('configuration_value', $cInfo->configuration_value);
+            }
         }
-    }
 
-    $contents = ['form' => oos_draw_form('id', 'configuration', $aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=save', 'post', false, 'enctype="multipart/form-data"')];
-    $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
-    $contents[] = ['text' => '<br><b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b><br>' . constant(strtoupper($cInfo->configuration_key . '_DESC')) . '<br>' . $value_field];
-    $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
-    break;
+        $contents = ['form' => oos_draw_form('id', 'configuration', $aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=save', 'post', false, 'enctype="multipart/form-data"')];
+        $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
+        $contents[] = ['text' => '<br><b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b><br>' . constant(strtoupper($cInfo->configuration_key . '_DESC')) . '<br>' . $value_field];
+        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
+        break;
 
-default:
-    if (isset($cInfo) && is_object($cInfo)) {
-          $heading[] = ['text' => '<b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b>'];
-          $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>'];
-        if ($cID == 2) {
-            $contents[] = ['text' => '<br>' . oos_info_image('logo/medium/' . $cInfo->configuration_value, $cInfo->configuration_value)];
-        } elseif ($cID == 3) {
-            $contents[] = ['text' => '<br>' . oos_info_image('ico/180x180/' . $cInfo->configuration_value, $cInfo->configuration_value)];
-        } elseif ($cID == 4) {
-            $contents[] = ['text' => '<br>' . oos_info_image('og/medium/' . $cInfo->configuration_value, $cInfo->configuration_value)];
+    default:
+        if (isset($cInfo) && is_object($cInfo)) {
+            $heading[] = ['text' => '<b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b>'];
+            $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>'];
+            if ($cID == 2) {
+                $contents[] = ['text' => '<br>' . oos_info_image('logo/medium/' . $cInfo->configuration_value, $cInfo->configuration_value)];
+            } elseif ($cID == 3) {
+                $contents[] = ['text' => '<br>' . oos_info_image('ico/180x180/' . $cInfo->configuration_value, $cInfo->configuration_value)];
+            } elseif ($cID == 4) {
+                $contents[] = ['text' => '<br>' . oos_info_image('og/medium/' . $cInfo->configuration_value, $cInfo->configuration_value)];
+            }
+            $contents[] = ['text' => '<br>' . constant(strtoupper($cInfo->configuration_key . '_DESC'))];
+            $contents[] = ['text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($cInfo->date_added)];
+            if (oos_is_not_null($cInfo->last_modified)) {
+                $contents[] = ['text' => TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($cInfo->last_modified)];
+            }
         }
-          $contents[] = ['text' => '<br>' . constant(strtoupper($cInfo->configuration_key . '_DESC'))];
-          $contents[] = ['text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($cInfo->date_added)];
-        if (oos_is_not_null($cInfo->last_modified)) {
-            $contents[] = ['text' => TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($cInfo->last_modified)];
-        }
-    }
-    break;
-  }
+        break;
+}
 
 
-  if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
-        ?>
+if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+    ?>
     <td class="w-25" valign="top">
         <table class="table table-striped">
       <?php
-        $box = new box();
-        echo $box->infoBox($heading, $contents); ?>
+    $box = new box();
+    echo $box->infoBox($heading, $contents); ?>
         </table> 
     </td> 
       <?php
-  }
-    ?>
+}
+?>
           </tr>
         </table>
     </div>
@@ -396,6 +396,6 @@ default:
 
 
 <?php
-    require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/bottom.php';
+require 'includes/nice_exit.php';
 ?>

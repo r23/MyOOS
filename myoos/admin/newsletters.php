@@ -17,7 +17,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('OOS_VALID_MOD', 'yes');
@@ -28,90 +28,90 @@ $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default'
 $nID = filter_input(INPUT_GET, 'nID', FILTER_VALIDATE_INT);
 
 switch ($action) {
-case 'lock':
-case 'unlock':
-    $status = (($action == 'lock') ? '1' : '0');
+    case 'lock':
+    case 'unlock':
+        $status = (($action == 'lock') ? '1' : '0');
 
-    $newsletterstable = $oostable['newsletters'];
-    $dbconn->Execute("UPDATE $newsletterstable SET locked = '" . $status . "' WHERE newsletters_id = '" . oos_db_input($nID) . "'");
-
-    oos_redirect_admin(oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nID));
-    break;
-
-case 'insert':
-case 'update':
-    $module = oos_db_prepare_input($_POST['module']);
-    $title = oos_db_prepare_input($_POST['title']);
-    $content = oos_db_prepare_input($_POST['content']);
-
-    $newsletter_error = false;
-    if (empty($title)) {
-            $messageStack->add(ERROR_NEWSLETTER_TITLE, 'error');
-            $newsletter_error = true;
-    }
-    if (empty($module)) {
-        $messageStack->add(ERROR_NEWSLETTER_MODULE, 'error');
-        $newsletter_error = true;
-    }
-
-    if (!$newsletter_error) {
-        $sql_data_array = ['title' => $title, 'content' => $content, 'module' => $module];
-
-        if ($action == 'insert') {
-            $sql_data_array['date_added'] = 'now()';
-            $sql_data_array['status'] = '0';
-            $sql_data_array['locked'] = '0';
-
-            oos_db_perform($oostable['newsletters'], $sql_data_array);
-            $nID  = $dbconn->Insert_ID();
-        } elseif ($action == 'update') {
-            oos_db_perform($oostable['newsletters'], $sql_data_array, 'UPDATE', 'newsletters_id = \'' . oos_db_input($nID) . '\'');
-        }
+        $newsletterstable = $oostable['newsletters'];
+        $dbconn->Execute("UPDATE $newsletterstable SET locked = '" . $status . "' WHERE newsletters_id = '" . oos_db_input($nID) . "'");
 
         oos_redirect_admin(oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nID));
-    } else {
-        $action = 'new';
+        break;
+
+    case 'insert':
+    case 'update':
+        $module = oos_db_prepare_input($_POST['module']);
+        $title = oos_db_prepare_input($_POST['title']);
+        $content = oos_db_prepare_input($_POST['content']);
+
+        $newsletter_error = false;
+        if (empty($title)) {
+            $messageStack->add(ERROR_NEWSLETTER_TITLE, 'error');
+            $newsletter_error = true;
+        }
+        if (empty($module)) {
+            $messageStack->add(ERROR_NEWSLETTER_MODULE, 'error');
+            $newsletter_error = true;
+        }
+
+        if (!$newsletter_error) {
+            $sql_data_array = ['title' => $title, 'content' => $content, 'module' => $module];
+
+            if ($action == 'insert') {
+                $sql_data_array['date_added'] = 'now()';
+                $sql_data_array['status'] = '0';
+                $sql_data_array['locked'] = '0';
+
+                oos_db_perform($oostable['newsletters'], $sql_data_array);
+                $nID  = $dbconn->Insert_ID();
+            } elseif ($action == 'update') {
+                oos_db_perform($oostable['newsletters'], $sql_data_array, 'UPDATE', 'newsletters_id = \'' . oos_db_input($nID) . '\'');
+            }
+
+            oos_redirect_admin(oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nID));
+        } else {
+            $action = 'new';
+        }
+        break;
+
+    case 'deleteconfirm':
+        $newsletterstable = $oostable['newsletters'];
+        $dbconn->Execute("DELETE FROM $newsletterstable WHERE newsletters_id = '" . oos_db_input($nID) . "'");
+
+        oos_redirect_admin(oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage));
+        break;
+
+    case 'delete':
+    case 'new': if (!isset($_GET['nID'])) {
+        break;
     }
-    break;
+        // no break
+    case 'send':
+    case 'confirm_send':
+        $newsletter_id = oos_db_prepare_input($nID);
 
-case 'deleteconfirm':
-    $newsletterstable = $oostable['newsletters'];
-    $dbconn->Execute("DELETE FROM $newsletterstable WHERE newsletters_id = '" . oos_db_input($nID) . "'");
+        $newsletterstable = $oostable['newsletters'];
+        $check_result = $dbconn->Execute("SELECT locked FROM $newsletterstable WHERE newsletters_id = '" . oos_db_input($newsletter_id) . "'");
+        $check = $check_result->fields;
 
-    oos_redirect_admin(oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage));
-    break;
-
-case 'delete':
-case 'new': if (!isset($_GET['nID'])) {
-        break;
-}
-// no break
-case 'send':
-case 'confirm_send':
-$newsletter_id = oos_db_prepare_input($nID);
-
-$newsletterstable = $oostable['newsletters'];
-$check_result = $dbconn->Execute("SELECT locked FROM $newsletterstable WHERE newsletters_id = '" . oos_db_input($newsletter_id) . "'");
-$check = $check_result->fields;
-
-if ($check['locked'] < 1) {
+        if ($check['locked'] < 1) {
             switch ($action) {
-    case 'delete': $error = ERROR_REMOVE_UNLOCKED_NEWSLETTER; 
-        break;
-    case 'new': $error = ERROR_EDIT_UNLOCKED_NEWSLETTER; 
-        break;
-    case 'send': $error = ERROR_SEND_UNLOCKED_NEWSLETTER; 
-        break;
-    case 'confirm_send': $error = ERROR_SEND_UNLOCKED_NEWSLETTER; 
-        break;
+                case 'delete': $error = ERROR_REMOVE_UNLOCKED_NEWSLETTER;
+                    break;
+                case 'new': $error = ERROR_EDIT_UNLOCKED_NEWSLETTER;
+                    break;
+                case 'send': $error = ERROR_SEND_UNLOCKED_NEWSLETTER;
+                    break;
+                case 'confirm_send': $error = ERROR_SEND_UNLOCKED_NEWSLETTER;
+                    break;
             }
             $messageStack->add_session($error, 'error');
             oos_redirect_admin(oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nID));
-}
-    break;
+        }
+        break;
 }
 
-  require 'includes/header.php';
+require 'includes/header.php';
 ?>
 <div class="wrapper">
     <!-- Header //-->
@@ -198,9 +198,9 @@ if ($action == 'new') {
         <td></td>
       </tr>
       <tr><?php echo oos_draw_form('id', 'newsletter', $aContents['newsletters'], 'page=' . $nPage . '&action=' . $form_action, 'post', false);
-        if ($form_action == 'update') {
-            echo oos_draw_hidden_field('newsletter_id', $nID);
-        } ?>
+    if ($form_action == 'update') {
+        echo oos_draw_hidden_field('newsletter_id', $nID);
+    } ?>
         <td><table border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_NEWSLETTER_MODULE; ?></td>
@@ -265,9 +265,9 @@ if ($action == 'new') {
       <tr>
         <td><?php if ($module->show_choose_audience) {
             echo $module->choose_audience();
-} else {
-                echo $module->confirm();
-            } ?></td>
+        } else {
+            echo $module->confirm();
+        } ?></td>
       </tr>
     <?php
 } elseif ($action == 'confirm') {
@@ -364,19 +364,19 @@ if ($action == 'new') {
                 <td class="text-right"><?php echo $newsletters['module']; ?></td>
                 <td class="text-center"><?php if ($newsletters['status'] == '1') {
                     echo '<i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i>';
-} else {
-                                            echo oos_image(OOS_IMAGES . 'icons/cross.gif', ICON_CROSS);
-                                        } ?></td>
+                } else {
+                    echo oos_image(OOS_IMAGES . 'icons/cross.gif', ICON_CROSS);
+                } ?></td>
                 <td class="text-center"><?php if ($newsletters['locked'] > 0) {
                     echo oos_image(OOS_IMAGES . 'icons/locked.gif', ICON_LOCKED);
-} else {
-                                            echo oos_image(OOS_IMAGES . 'icons/unlocked.gif', ICON_UNLOCKED);
-                                        } ?></td>
+                } else {
+                    echo oos_image(OOS_IMAGES . 'icons/unlocked.gif', ICON_UNLOCKED);
+                } ?></td>
                 <td class="text-right"><?php if (isset($nInfo) && is_object($nInfo) && ($newsletters['newsletters_id'] == $nInfo->newsletters_id)) {
                     echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-} else {
-                                           echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $newsletters['newsletters_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-                                       } ?>&nbsp;</td>
+                } else {
+                    echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $newsletters['newsletters_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+                } ?>&nbsp;</td>
               </tr>
         <?php
         // Move that ADOdb pointer!
@@ -399,30 +399,30 @@ if ($action == 'new') {
     $contents = [];
 
     switch ($action) {
-    case 'delete':
-        $heading[] = ['text' => '<b>' . $nInfo->title . '</b>'];
-
-        $contents = ['form' => oos_draw_form('id', 'newsletters', $aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=deleteconfirm', 'post', false)];
-        $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
-        $contents[] = ['text' => '<br><b>' . $nInfo->title . '</b>'];
-        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nID) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
-        break;
-
-    default:
-        if (isset($nInfo) && is_object($nInfo)) {
+        case 'delete':
             $heading[] = ['text' => '<b>' . $nInfo->title . '</b>'];
 
-            if ($nInfo->locked > 0) {
-                $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=new') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=preview') . '">' . oos_button('preview') . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=send') . '">' . oos_button(IMAGE_SEND) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=unlock') . '">' . oos_button('unlock') . '</a>'];
-            } else {
-                $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=preview') . '">' . oos_button(BUTTON_PREVIEW) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=lock') . '">' . oos_button(IMAGE_LOCK) . '</a>'];
+            $contents = ['form' => oos_draw_form('id', 'newsletters', $aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=deleteconfirm', 'post', false)];
+            $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
+            $contents[] = ['text' => '<br><b>' . $nInfo->title . '</b>'];
+            $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nID) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
+            break;
+
+        default:
+            if (isset($nInfo) && is_object($nInfo)) {
+                $heading[] = ['text' => '<b>' . $nInfo->title . '</b>'];
+
+                if ($nInfo->locked > 0) {
+                    $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=new') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=preview') . '">' . oos_button('preview') . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=send') . '">' . oos_button(IMAGE_SEND) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=unlock') . '">' . oos_button('unlock') . '</a>'];
+                } else {
+                    $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=preview') . '">' . oos_button(BUTTON_PREVIEW) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=lock') . '">' . oos_button(IMAGE_LOCK) . '</a>'];
+                }
+                $contents[] = ['text' => '<br>' . TEXT_NEWSLETTER_DATE_ADDED . ' ' . oos_date_short($nInfo->date_added)];
+                if ($nInfo->status == '1') {
+                    $contents[] = ['text' => TEXT_NEWSLETTER_DATE_SENT . ' ' . oos_date_short($nInfo->date_sent)];
+                }
             }
-            $contents[] = ['text' => '<br>' . TEXT_NEWSLETTER_DATE_ADDED . ' ' . oos_date_short($nInfo->date_added)];
-            if ($nInfo->status == '1') {
-                $contents[] = ['text' => TEXT_NEWSLETTER_DATE_SENT . ' ' . oos_date_short($nInfo->date_sent)];
-            }
-        }
-        break;
+            break;
     }
 
     if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
@@ -458,5 +458,5 @@ if ($action == 'new') {
 
 <?php
     require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/nice_exit.php';
 ?>

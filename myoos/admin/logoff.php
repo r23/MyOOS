@@ -20,12 +20,12 @@
    ----------------------------------------------------------------------
  */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
-  unset($_SESSION['login_id']);
-  unset($_SESSION['login_firstname']);
-  unset($_SESSION['login_groups_id']);
+unset($_SESSION['login_id']);
+unset($_SESSION['login_firstname']);
+unset($_SESSION['login_groups_id']);
 
 require 'includes/header.php';
 ?>
@@ -62,5 +62,5 @@ require 'includes/header.php';
 
 <?php
     require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/nice_exit.php';
 ?>

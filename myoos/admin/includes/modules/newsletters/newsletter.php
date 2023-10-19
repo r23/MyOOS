@@ -46,8 +46,8 @@ class newsletter
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $aContents = oos_get_content();
 
@@ -87,7 +87,7 @@ class newsletter
 
 
 
-        $oEmail = new PHPMailer\PHPMailer\PHPMailer();    
+        $oEmail = new PHPMailer\PHPMailer\PHPMailer();
 
         // load the appropriate language version
         $sLang = ($_SESSION['iso_639_1'] ?? DEFAULT_LANGUAGE_CODE);
@@ -114,15 +114,15 @@ class newsletter
         // Add smtp values if needed
         if (EMAIL_TRANSPORT == 'smtp') {
             $oEmail->IsSMTP(); // set mailer to use SMTP
-        
+
             // $oEmail->SMTPDebug = PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
-        
-            $oEmail->Host     = OOS_SMTPHOST; // specify main and backup server        
+
+            $oEmail->Host     = OOS_SMTPHOST; // specify main and backup server
             $oEmail->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
             $oEmail->Username = OOS_SMTPUSER; // SMTP username
             $oEmail->Password = OOS_SMTPPASS; // SMTP password
-        
-        
+
+
             // Set the encryption mechanism to use:
             // - SMTPS (implicit TLS on port 465) or
             // - STARTTLS (explicit TLS on port 587)
@@ -135,8 +135,8 @@ class newsletter
             // Set the SMTP port number:
             // - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or
             // - 587 for SMTP+STARTTLS
-            $oEmail->Port = OOS_SMTPPORT;         
-        
+            $oEmail->Port = OOS_SMTPPORT;
+
         } else {
             // Set sendmail path
             if (EMAIL_TRANSPORT == 'sendmail') {
@@ -150,8 +150,8 @@ class newsletter
         $oEmail->Subject = $this->title;
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $sql = "SELECT customers_gender, customers_firstname, customers_lastname, customers_email_address 
               FROM " . $oostable['newsletter_recipients'] . " 

@@ -34,7 +34,7 @@
    Copyright (c) 2002 - 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('OOS_VALID_MOD', 'yes');
@@ -196,11 +196,11 @@ require 'includes/header.php';
 <?php
   // Add V1.1  //Change from V3 i reuse same string entry_yes entry_no instead of entry_ot_xmember_yes/no these change are also reported in language file
   $customers_status_ot_discount_flag_array = [['id' => '0', 'text' => ENTRY_NO], ['id' => '1', 'text' => ENTRY_YES]];
-  $customers_status_qty_discounts_array =    [['id' => '0', 'text' => ENTRY_NO], ['id' => '1', 'text' => ENTRY_YES]];
-  $customers_status_public_array =           [['id' => '0', 'text' => ENTRY_NO], ['id' => '1', 'text' => ENTRY_YES]];
-  $customers_status_show_price_array =       [['id' => '0', 'text' => ENTRY_NO], ['id' => '1', 'text' => ENTRY_YES]];
-  $customers_status_show_price_tax_array =   [['id' => '0', 'text' => ENTRY_TAX_NO], ['id' => '1', 'text' => ENTRY_TAX_YES]];
-  $customers_status_result_raw = "SELECT
+$customers_status_qty_discounts_array =    [['id' => '0', 'text' => ENTRY_NO], ['id' => '1', 'text' => ENTRY_YES]];
+$customers_status_public_array =           [['id' => '0', 'text' => ENTRY_NO], ['id' => '1', 'text' => ENTRY_YES]];
+$customers_status_show_price_array =       [['id' => '0', 'text' => ENTRY_NO], ['id' => '1', 'text' => ENTRY_YES]];
+$customers_status_show_price_tax_array =   [['id' => '0', 'text' => ENTRY_TAX_NO], ['id' => '1', 'text' => ENTRY_TAX_YES]];
+$customers_status_result_raw = "SELECT
                                      customers_status_id, customers_status_name, customers_status_public,
                                      customers_status_show_price, customers_status_show_price_tax,
                                      customers_status_ot_discount_flag , customers_status_ot_discount,
@@ -212,8 +212,8 @@ require 'includes/header.php';
                                      customers_status_languages_id = '" . intval($_SESSION['language_id']) . "'
                                   ORDER BY
                                      customers_status_id";
-  $customers_status_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $customers_status_result_raw, $customers_status_result_numrows);
-  $customers_status_result = $dbconn->Execute($customers_status_result_raw);
+$customers_status_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $customers_status_result_raw, $customers_status_result_numrows);
+$customers_status_result = $dbconn->Execute($customers_status_result_raw);
 while ($customers_status = $customers_status_result->fields) {
     if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $customers_status['customers_status_id']))) && !isset($cInfo) && (!str_starts_with((string) $action, 'new'))) {
         $cInfo = new objectInfo($customers_status);
@@ -257,9 +257,9 @@ while ($customers_status = $customers_status_result->fields) {
     echo "\n"; ?>
                 <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($customers_status['customers_status_id'] == $cInfo->customers_status_id)) {
                     echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-} else {
-                                           echo '<a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $customers_status['customers_status_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-                                       } ?>&nbsp;</td>
+                } else {
+                    echo '<a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $customers_status['customers_status_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+                } ?>&nbsp;</td>
               </tr>
     <?php
     // Move that ADOdb pointer!
@@ -275,30 +275,30 @@ while ($customers_status = $customers_status_result->fields) {
                   </tr>
 <?php
  if ($action == 'default') {
-    ?>
+     ?>
                   <tr>
                     <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&action=new') . '">' . oos_button(BUTTON_INSERT) . '</a>'; ?></td>
                   </tr>
     <?php
-}
+ }
 ?>
                 </table></td>
               </tr>
             </table></td>
 <?php
   $heading = [];
-  $contents = [];
+$contents = [];
 
-  switch ($action) {
-case 'new':
-    $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_NEW_CUSTOMERS_STATUS . '</b>'];
-    $contents = ['form' => oos_draw_form('id', 'status', $aContents['customers_status'], 'page=' . $nPage . '&action=insert', 'post', false, 'enctype="multipart/form-data"')];
-    $contents[] = ['text' => TEXT_INFO_INSERT_INTRO];
-    $customers_status_inputs_string = '';
-    $languages = oos_get_languages();
-    for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
-          $customers_status_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('customers_status_name[' . $languages[$i]['id'] . ']');
-    }
+switch ($action) {
+    case 'new':
+        $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_NEW_CUSTOMERS_STATUS . '</b>'];
+        $contents = ['form' => oos_draw_form('id', 'status', $aContents['customers_status'], 'page=' . $nPage . '&action=insert', 'post', false, 'enctype="multipart/form-data"')];
+        $contents[] = ['text' => TEXT_INFO_INSERT_INTRO];
+        $customers_status_inputs_string = '';
+        $languages = oos_get_languages();
+        for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
+            $customers_status_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('customers_status_name[' . $languages[$i]['id'] . ']');
+        }
 
         $contents[] = ['text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_NAME . $customers_status_inputs_string];
         $contents[] = ['text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_PUBLIC_INTRO . '<br><b>' . ENTRY_CUSTOMERS_STATUS_PUBLIC . '</b> ' . oos_draw_pull_down_menu('customers_status_public', '', $customers_status_public_array, $cInfo->customers_status_public ?? '')];
@@ -310,17 +310,17 @@ case 'new':
         $contents[] = ['text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT];
         $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
-    break;
+        break;
 
-case 'edit':
-    $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_EDIT_CUSTOMERS_STATUS . '</b>'];
-    $contents = ['form' => oos_draw_form('id', 'status', $aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id  .'&action=save', 'post', false, 'enctype="multipart/form-data"')];
-    $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
-    $customers_status_inputs_string = '';
-    $languages = oos_get_languages();
-    for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
-          $customers_status_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('customers_status_name[' . $languages[$i]['id'] . ']', oos_get_customer_status_name($cInfo->customers_status_id, $languages[$i]['id']));
-    }
+    case 'edit':
+        $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_EDIT_CUSTOMERS_STATUS . '</b>'];
+        $contents = ['form' => oos_draw_form('id', 'status', $aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id  .'&action=save', 'post', false, 'enctype="multipart/form-data"')];
+        $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
+        $customers_status_inputs_string = '';
+        $languages = oos_get_languages();
+        for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
+            $customers_status_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('customers_status_name[' . $languages[$i]['id'] . ']', oos_get_customer_status_name($cInfo->customers_status_id, $languages[$i]['id']));
+        }
         $contents[] = ['text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_NAME . $customers_status_inputs_string];
         $contents[] = ['text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_PUBLIC_INTRO . '<br><b>' . ENTRY_CUSTOMERS_STATUS_PUBLIC . '</b> ' . oos_draw_pull_down_menu('customers_status_public', '', $customers_status_public_array, $cInfo->customers_status_public ?? '')];
         $contents[] = ['text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_SHOW_PRICE_INTRO     . '<br><b>' . ENTRY_CUSTOMERS_STATUS_SHOW_PRICE . '</b> ' . oos_draw_pull_down_menu('customers_status_show_price', '', $customers_status_show_price_array, $cInfo->customers_status_show_price ?? '')];
@@ -328,56 +328,56 @@ case 'edit':
         $contents[] = ['text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_OT_XMEMBER_INTRO . '<br><b>' . ENTRY_OT_XMEMBER . '</b> ' . oos_draw_pull_down_menu('customers_status_ot_discount_flag', '', $customers_status_ot_discount_flag_array, $cInfo->customers_status_ot_discount_flag ?? ''). '<br>' . TEXT_INFO_CUSTOMERS_STATUS_MINIMUM_AMOUNT_OT_XMEMBER_INTRO . '<br><b>' . ENTRY_MINIMUM_AMOUNT_OT_XMEMBER . '</b><br>' . oos_draw_input_field('customers_status_ot_minimum', $cInfo->customers_status_ot_minimum ?? '') . '<br>' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE . '<br>' . oos_draw_input_field('customers_status_ot_discount', $cInfo->customers_status_ot_discount ?? '')];
         $contents[] = ['text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_STAFFELPREIS_INTRO . '<br><b>' . ENTRY_STAFFELPREIS . '</b> ' . oos_draw_pull_down_menu('customers_status_qty_discounts', '', $customers_status_qty_discounts_array, $cInfo->customers_status_qty_discounts ?? '')];
         $contents[] = ['text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_PAYMENT_INTRO . '<br><b>' . ENTRY_CUSTOMERS_STATUS_PAYMENT . '</b><br>'.  oos_installed_payment($cInfo->customers_status_payment ?? '')];
-    if (DEFAULT_CUSTOMERS_STATUS_ID != $cInfo->customers_status_id) {
-        $contents[] = ['text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT];
-    }
+        if (DEFAULT_CUSTOMERS_STATUS_ID != $cInfo->customers_status_id) {
+            $contents[] = ['text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT];
+        }
         $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
-    break;
+        break;
 
-case 'delete':
-    $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_CUSTOMERS_STATUS . '</b>'];
+    case 'delete':
+        $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_CUSTOMERS_STATUS . '</b>'];
 
-    $contents = ['form' => oos_draw_form('id', 'status', $aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id  . '&action=deleteconfirm', 'post', false)];
-    $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
-    $contents[] = ['text' => '<br><b>' . $cInfo->customers_status_name . '</b>'];
-    if ($remove_status) {
-          $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
-    }
-
-    break;
-
-default:
-    if (isset($cInfo) && is_object($cInfo)) {
-          $heading[] = ['text' => '<b>' . $cInfo->customers_status_name . '</b>'];
-
-          $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
-          $customers_status_inputs_string = '';
-          $languages = oos_get_languages();
-        for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
-            $customers_status_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_get_customer_status_name($cInfo->customers_status_id, $languages[$i]['id']);
+        $contents = ['form' => oos_draw_form('id', 'status', $aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id  . '&action=deleteconfirm', 'post', false)];
+        $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
+        $contents[] = ['text' => '<br><b>' . $cInfo->customers_status_name . '</b>'];
+        if ($remove_status) {
+            $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
         }
-          $contents[] = ['text' => $customers_status_inputs_string];
-          $contents[] = ['text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_OT_XMEMBER_INTRO . '<br><b>' . ENTRY_OT_XMEMBER . ' ' . $customers_status_ot_discount_flag_array[$cInfo->customers_status_ot_discount_flag]['text'] . ' (' . $cInfo->customers_status_ot_discount_flag . ')' . '</b><br>' . ENTRY_MINIMUM_AMOUNT_OT_XMEMBER . ':<br><b>' .  $currencies->format($cInfo->customers_status_ot_minimum) . ' - ' . $cInfo->customers_status_ot_discount . '%</b>'];
-          $contents[] = ['text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_STAFFELPREIS_INTRO . '<br><b>' . ENTRY_STAFFELPREIS . ' ' . $customers_status_qty_discounts_array[$cInfo->customers_status_qty_discounts]['text'] . ' (' . $cInfo->customers_status_qty_discounts . ')</b>'];
-          $contents[] = ['text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_PAYMENT_INTRO . '<br><b>' . ENTRY_CUSTOMERS_STATUS_PAYMENT . '</b>'];
-          $contents[] = ['text' => '<br>'  . oos_customers_payment($cInfo->customers_status_payment)];
-    }
-    break;
-  }
 
-  if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
-        ?>
+        break;
+
+    default:
+        if (isset($cInfo) && is_object($cInfo)) {
+            $heading[] = ['text' => '<b>' . $cInfo->customers_status_name . '</b>'];
+
+            $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
+            $customers_status_inputs_string = '';
+            $languages = oos_get_languages();
+            for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
+                $customers_status_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_get_customer_status_name($cInfo->customers_status_id, $languages[$i]['id']);
+            }
+            $contents[] = ['text' => $customers_status_inputs_string];
+            $contents[] = ['text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_OT_XMEMBER_INTRO . '<br><b>' . ENTRY_OT_XMEMBER . ' ' . $customers_status_ot_discount_flag_array[$cInfo->customers_status_ot_discount_flag]['text'] . ' (' . $cInfo->customers_status_ot_discount_flag . ')' . '</b><br>' . ENTRY_MINIMUM_AMOUNT_OT_XMEMBER . ':<br><b>' .  $currencies->format($cInfo->customers_status_ot_minimum) . ' - ' . $cInfo->customers_status_ot_discount . '%</b>'];
+            $contents[] = ['text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_STAFFELPREIS_INTRO . '<br><b>' . ENTRY_STAFFELPREIS . ' ' . $customers_status_qty_discounts_array[$cInfo->customers_status_qty_discounts]['text'] . ' (' . $cInfo->customers_status_qty_discounts . ')</b>'];
+            $contents[] = ['text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_PAYMENT_INTRO . '<br><b>' . ENTRY_CUSTOMERS_STATUS_PAYMENT . '</b>'];
+            $contents[] = ['text' => '<br>'  . oos_customers_payment($cInfo->customers_status_payment)];
+        }
+        break;
+}
+
+if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+    ?>
     <td class="w-25" valign="top">
         <table class="table table-striped">
       <?php
-        $box = new box();
-        echo $box->infoBox($heading, $contents); ?>
+    $box = new box();
+    echo $box->infoBox($heading, $contents); ?>
         </table> 
     </td> 
       <?php
-  }
-    ?>
+}
+?>
           </tr>
         </table>
 <!-- body_text_eof //-->
@@ -395,6 +395,6 @@ default:
 </div>
 
 <?php
-    require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/bottom.php';
+require 'includes/nice_exit.php';
 ?>

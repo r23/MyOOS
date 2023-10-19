@@ -35,8 +35,8 @@ class paymentModuleInfo
         $this->payment_code = $pmInfo_array['payment_code'];
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         for ($i = 0, $n = (is_countable($pmInfo_array) ? count($pmInfo_array) : 0) - 1; $i < $n; $i++) {
             $query = "SELECT configuration_value 

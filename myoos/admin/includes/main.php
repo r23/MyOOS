@@ -102,7 +102,7 @@ if (!oosDBInit()) {
     die('Unable to connect to database server!');
 }
 
-$dbconn =& oosDBGetConn();
+$dbconn = & oosDBGetConn();
 oosDB_importTables($oostable);
 
 
@@ -176,7 +176,7 @@ require 'includes/classes/class_object_info.php';
 $cPath = isset($_GET['cPath']) ? oos_db_prepare_input($_GET['cPath']) : '';
 if (strlen((string) $cPath) > 0) {
     $aPath = explode('_', (string) $cPath);
-    $current_category_id = $aPath[(count($aPath)-1)];
+    $current_category_id = $aPath[(count($aPath) - 1)];
 } else {
     $current_category_id = 0;
 }

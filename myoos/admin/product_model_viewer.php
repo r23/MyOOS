@@ -18,7 +18,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 
@@ -29,154 +29,154 @@ require 'includes/functions/function_categories.php';
 
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
-$pID = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT) ?: 0; 
+$pID = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT) ?: 0;
 
 switch ($action) {
-case 'insert_model':
-case 'update_model':
+    case 'insert_model':
+    case 'update_model':
 
-    if (isset($_SESSION['formid']) && isset($_POST['formid']) && ($_SESSION['formid'] == $_POST['formid'])) {
-        $products_id = intval($_POST['products_id']);
+        if (isset($_SESSION['formid']) && isset($_POST['formid']) && ($_SESSION['formid'] == $_POST['formid'])) {
+            $products_id = intval($_POST['products_id']);
 
-        if (isset($_FILES['files'])) {
-            foreach ($_FILES['files']['name'] as $key => $name) {
-                if (empty($name)) {
-                    // purge empty slots
-                    unset($_FILES['files']['name'][$key]);
-                    unset($_FILES['files']['type'][$key]);
-                    unset($_FILES['files']['tmp_name'][$key]);
-                    unset($_FILES['files']['error'][$key]);
-                    unset($_FILES['files']['size'][$key]);
+            if (isset($_FILES['files'])) {
+                foreach ($_FILES['files']['name'] as $key => $name) {
+                    if (empty($name)) {
+                        // purge empty slots
+                        unset($_FILES['files']['name'][$key]);
+                        unset($_FILES['files']['type'][$key]);
+                        unset($_FILES['files']['tmp_name'][$key]);
+                        unset($_FILES['files']['error'][$key]);
+                        unset($_FILES['files']['size'][$key]);
+                    }
                 }
             }
-        }
 
 
 
-        $nModelCounter = (!isset($_POST['model_counter']) || !is_numeric($_POST['model_counter'])) ? 0 : intval($_POST['model_counter']);
+            $nModelCounter = (!isset($_POST['model_counter']) || !is_numeric($_POST['model_counter'])) ? 0 : intval($_POST['model_counter']);
 
-        for ($i = 0, $n = $nModelCounter; $i < $n; $i++) {
-            $action = (!isset($_POST['model_viewer_id'][$i]) || !is_numeric($_POST['model_viewer_id'][$i])) ? 'insert_model' : 'update_model';
+            for ($i = 0, $n = $nModelCounter; $i < $n; $i++) {
+                $action = (!isset($_POST['model_viewer_id'][$i]) || !is_numeric($_POST['model_viewer_id'][$i])) ? 'insert_model' : 'update_model';
 
-            $sql_data_array = ['products_id' => intval($products_id), 'model_viewer_background_color' => oos_db_prepare_input($_POST['model_viewer_background_color'][$i]), 'model_viewer_scale' => oos_db_prepare_input($_POST['model_viewer_scale'][$i]), 'model_viewer_auto_rotate' => oos_db_prepare_input($_POST['model_viewer_auto_rotate'][$i]), 'model_viewer_hdr' => oos_db_prepare_input($_POST['model_viewer_hdr'][$i])];
-
-            if ($action == 'insert_model') {
-                $insert_sql_data = ['model_viewer_date_added' => 'now()'];
-
-                $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
-
-                oos_db_perform($oostable['products_model_viewer'], $sql_data_array);
-                $model_viewer_id = $dbconn->Insert_ID();
-            } elseif ($action == 'update_model') {
-                $update_sql_data = ['model_viewer_last_modified' => 'now()'];
-                $model_viewer_id = intval($_POST['model_viewer_id'][$i]);
-
-                $sql_data_array = [...$sql_data_array, ...$update_sql_data];
-
-                oos_db_perform($oostable['products_model_viewer'], $sql_data_array, 'UPDATE', 'model_viewer_id = \'' . intval($model_viewer_id) . '\'');
-            }
-
-            $aLanguages = oos_get_languages();
-            $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
-
-            for ($li = 0, $l = $nLanguages; $li < $l; $li++) {
-                $language_id = $aLanguages[$li]['id'];
-
-                $sql_data_array = ['model_viewer_title' => oos_db_prepare_input($_POST['model_viewer_title'][$i][$language_id]), 'model_viewer_description' => oos_db_prepare_input($_POST['model_viewer_description_'. $i . '_'  . $aLanguages[$li]['id']])];
+                $sql_data_array = ['products_id' => intval($products_id), 'model_viewer_background_color' => oos_db_prepare_input($_POST['model_viewer_background_color'][$i]), 'model_viewer_scale' => oos_db_prepare_input($_POST['model_viewer_scale'][$i]), 'model_viewer_auto_rotate' => oos_db_prepare_input($_POST['model_viewer_auto_rotate'][$i]), 'model_viewer_hdr' => oos_db_prepare_input($_POST['model_viewer_hdr'][$i])];
 
                 if ($action == 'insert_model') {
-                    $insert_sql_data = ['model_viewer_id' => $model_viewer_id, 'model_viewer_languages_id' => $language_id];
+                    $insert_sql_data = ['model_viewer_date_added' => 'now()'];
 
                     $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
-                    oos_db_perform($oostable['products_model_viewer_description'], $sql_data_array);
+                    oos_db_perform($oostable['products_model_viewer'], $sql_data_array);
+                    $model_viewer_id = $dbconn->Insert_ID();
                 } elseif ($action == 'update_model') {
-                    oos_db_perform($oostable['products_model_viewer_description'], $sql_data_array, 'UPDATE', 'model_viewer_id = \'' . intval($model_viewer_id) . '\' AND model_viewer_languages_id = \'' . intval($language_id) . '\'');
+                    $update_sql_data = ['model_viewer_last_modified' => 'now()'];
+                    $model_viewer_id = intval($_POST['model_viewer_id'][$i]);
+
+                    $sql_data_array = [...$sql_data_array, ...$update_sql_data];
+
+                    oos_db_perform($oostable['products_model_viewer'], $sql_data_array, 'UPDATE', 'model_viewer_id = \'' . intval($model_viewer_id) . '\'');
                 }
-            }
 
+                $aLanguages = oos_get_languages();
+                $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
 
-            if ((isset($_POST['remove_products_model_viewer'][$i]) && ($_POST['remove_products_model_viewer'][$i] == 'yes')) && (isset($_POST['model_viewer_glb'][$i]))) {
-                $model_viewer_glb = oos_db_prepare_input($_POST['model_viewer_glb'][$i]);
-                $model_viewer_usds =  oos_db_prepare_input($_POST['model_viewer_usdz'][$i]);
+                for ($li = 0, $l = $nLanguages; $li < $l; $li++) {
+                    $language_id = $aLanguages[$li]['id'];
 
-                $dbconn->Execute("DELETE FROM " . $oostable['products_model_viewer'] . " WHERE model_viewer_id = '" . intval($_POST['model_viewer_id'][$i]) . "'");
-                $dbconn->Execute("DELETE FROM " . $oostable['products_model_viewer_description'] . " WHERE model_viewer_id = '" . intval($_POST['model_viewer_id'][$i]) . "'");
+                    $sql_data_array = ['model_viewer_title' => oos_db_prepare_input($_POST['model_viewer_title'][$i][$language_id]), 'model_viewer_description' => oos_db_prepare_input($_POST['model_viewer_description_'. $i . '_'  . $aLanguages[$li]['id']])];
 
-                oos_remove_products_model($model_viewer_glb);
-                oos_remove_model_usds($model_viewer_usds);
-            }
+                    if ($action == 'insert_model') {
+                        $insert_sql_data = ['model_viewer_id' => $model_viewer_id, 'model_viewer_languages_id' => $language_id];
 
-            // glb
-            if (isset($_FILES['glb'])) {
-                if ($_FILES["glb"]["error"] == UPLOAD_ERR_OK) {
-                    $filename = oos_db_prepare_input($_FILES['glb']['name']);
-                    $source = $_FILES['glb']['tmp_name'];
-                    $type = oos_db_prepare_input($_FILES['glb']['type']);
+                        $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
-                    $name = oos_strip_suffix($filename);
-                    $ext = oos_get_suffix($filename);
-                    if ($ext == 'glb') {
-                        $check =  OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . oos_var_prep_for_os($name);
-                        if (is_dir($check)) {
-                            oos_remove($check);
-                        }
-
-                        $path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . oos_var_prep_for_os($name) . '/glTF-Binary/';
-                        $targetdir = $path;  // target directory
-                        $uploadfile = $path . $filename; // target zip file
-
-                        mkdir($check, 0755);
-                        mkdir($targetdir, 0755);
-
-                        if (move_uploaded_file($source, $uploadfile)) {
-                            $messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_GLB, 'success');
-                        } else {
-                            $messageStack->add_session(ERROR_PROBLEM_WITH_GLB_FILE, 'error');
-                        }
-
-                        $sql_data_array = ['model_viewer_glb' => oos_db_prepare_input($filename)];
-
-                        oos_db_perform($oostable['products_model_viewer'], $sql_data_array, 'UPDATE', 'model_viewer_id = \'' . intval($model_viewer_id) . '\'');
-                    } else {
-                        $messageStack->add_session(ERROR_NO_GLB_FILE, 'error');
+                        oos_db_perform($oostable['products_model_viewer_description'], $sql_data_array);
+                    } elseif ($action == 'update_model') {
+                        oos_db_perform($oostable['products_model_viewer_description'], $sql_data_array, 'UPDATE', 'model_viewer_id = \'' . intval($model_viewer_id) . '\' AND model_viewer_languages_id = \'' . intval($language_id) . '\'');
                     }
                 }
-            }
 
 
-            // usdz
-            if (isset($_FILES['usdz'])) {
-                if ($_FILES["usdz"]["error"] == UPLOAD_ERR_OK) {
-                    $filename = oos_db_prepare_input($_FILES['usdz']['name']);
-                    $source = $_FILES['usdz']['tmp_name'];
-                    $type = oos_db_prepare_input($_FILES['usdz']['type']);
+                if ((isset($_POST['remove_products_model_viewer'][$i]) && ($_POST['remove_products_model_viewer'][$i] == 'yes')) && (isset($_POST['model_viewer_glb'][$i]))) {
+                    $model_viewer_glb = oos_db_prepare_input($_POST['model_viewer_glb'][$i]);
+                    $model_viewer_usds =  oos_db_prepare_input($_POST['model_viewer_usdz'][$i]);
 
-                    $name = oos_strip_suffix($filename);
-                    $ext = oos_get_suffix($filename);
-                    if ($ext == 'usdz') {
-                        $path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/usdz/';
-                        $targetdir = $path;  // target directory
-                        $uploadfile = $path . $filename; // target zip file
+                    $dbconn->Execute("DELETE FROM " . $oostable['products_model_viewer'] . " WHERE model_viewer_id = '" . intval($_POST['model_viewer_id'][$i]) . "'");
+                    $dbconn->Execute("DELETE FROM " . $oostable['products_model_viewer_description'] . " WHERE model_viewer_id = '" . intval($_POST['model_viewer_id'][$i]) . "'");
 
-                        if (move_uploaded_file($source, $uploadfile)) {
-                            $messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_USDZ, 'success');
+                    oos_remove_products_model($model_viewer_glb);
+                    oos_remove_model_usds($model_viewer_usds);
+                }
+
+                // glb
+                if (isset($_FILES['glb'])) {
+                    if ($_FILES["glb"]["error"] == UPLOAD_ERR_OK) {
+                        $filename = oos_db_prepare_input($_FILES['glb']['name']);
+                        $source = $_FILES['glb']['tmp_name'];
+                        $type = oos_db_prepare_input($_FILES['glb']['type']);
+
+                        $name = oos_strip_suffix($filename);
+                        $ext = oos_get_suffix($filename);
+                        if ($ext == 'glb') {
+                            $check =  OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . oos_var_prep_for_os($name);
+                            if (is_dir($check)) {
+                                oos_remove($check);
+                            }
+
+                            $path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . oos_var_prep_for_os($name) . '/glTF-Binary/';
+                            $targetdir = $path;  // target directory
+                            $uploadfile = $path . $filename; // target zip file
+
+                            mkdir($check, 0755);
+                            mkdir($targetdir, 0755);
+
+                            if (move_uploaded_file($source, $uploadfile)) {
+                                $messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_GLB, 'success');
+                            } else {
+                                $messageStack->add_session(ERROR_PROBLEM_WITH_GLB_FILE, 'error');
+                            }
+
+                            $sql_data_array = ['model_viewer_glb' => oos_db_prepare_input($filename)];
+
+                            oos_db_perform($oostable['products_model_viewer'], $sql_data_array, 'UPDATE', 'model_viewer_id = \'' . intval($model_viewer_id) . '\'');
+                        } else {
+                            $messageStack->add_session(ERROR_NO_GLB_FILE, 'error');
+                        }
+                    }
+                }
+
+
+                // usdz
+                if (isset($_FILES['usdz'])) {
+                    if ($_FILES["usdz"]["error"] == UPLOAD_ERR_OK) {
+                        $filename = oos_db_prepare_input($_FILES['usdz']['name']);
+                        $source = $_FILES['usdz']['tmp_name'];
+                        $type = oos_db_prepare_input($_FILES['usdz']['type']);
+
+                        $name = oos_strip_suffix($filename);
+                        $ext = oos_get_suffix($filename);
+                        if ($ext == 'usdz') {
+                            $path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/usdz/';
+                            $targetdir = $path;  // target directory
+                            $uploadfile = $path . $filename; // target zip file
+
+                            if (move_uploaded_file($source, $uploadfile)) {
+                                $messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_USDZ, 'success');
+                            } else {
+                                $messageStack->add_session(ERROR_PROBLEM_WITH_USDZ_FILE, 'error');
+                            }
+
+                            $sql_data_array = ['model_viewer_usdz' => oos_db_prepare_input($filename)];
+
+                            oos_db_perform($oostable['products_model_viewer'], $sql_data_array, 'UPDATE', 'model_viewer_id = \'' . intval($model_viewer_id) . '\'');
                         } else {
                             $messageStack->add_session(ERROR_PROBLEM_WITH_USDZ_FILE, 'error');
                         }
-
-                        $sql_data_array = ['model_viewer_usdz' => oos_db_prepare_input($filename)];
-
-                        oos_db_perform($oostable['products_model_viewer'], $sql_data_array, 'UPDATE', 'model_viewer_id = \'' . intval($model_viewer_id) . '\'');
-                    } else {
-                        $messageStack->add_session(ERROR_PROBLEM_WITH_USDZ_FILE, 'error');
                     }
                 }
             }
+            oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products_id));
         }
-        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products_id));
-    }
-    break;
+        break;
 }
 
 require 'includes/header.php';
@@ -367,8 +367,8 @@ if ($action == 'edit_3d') {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                    echo TEXT_MODELS_TITLE;
-                                                                     } ?></label>
+                                  echo TEXT_MODELS_TITLE;
+                              } ?></label>
                 <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
@@ -385,8 +385,8 @@ if ($action == 'edit_3d') {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                    echo TEXT_MODELS_DESCRIPTION;
-                                                                     } ?></label>
+                                  echo TEXT_MODELS_DESCRIPTION;
+                              } ?></label>
                 <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
@@ -630,5 +630,5 @@ if ($action == 'edit_3d') {
 
 <?php
     require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/nice_exit.php';
 ?>

@@ -61,7 +61,7 @@ class splitPageResults
         $sql = "SELECT count(*) AS total " . substr($sql_query, $pos_from, ($pos_to - $pos_from));
 
         // Get database information
-        $dbconn =& oosDBGetConn();
+        $dbconn = & oosDBGetConn();
 
         $reviews_count = $dbconn->Execute($sql);
         $query_num_rows = $reviews_count->fields['total'];
@@ -92,7 +92,7 @@ class splitPageResults
         } // has remainder so add one page
 
         $pages_array = [];
-        for ($i=1; $i<=$num_pages; $i++) {
+        for ($i = 1; $i <= $num_pages; $i++) {
             $pages_array[] = ['id' => $i, 'text' => $i];
         }
 

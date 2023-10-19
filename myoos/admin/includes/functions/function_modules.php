@@ -39,8 +39,8 @@ function oos_cfg_get_zone_class_title($zone_class_id)
     } else {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $query = "SELECT geo_zone_name 
                 FROM " . $oostable['geo_zones'] . " 
@@ -70,8 +70,8 @@ function oos_cfg_get_order_status_name($order_status_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $query = "SELECT orders_status_name
               FROM " . $oostable['orders_status'] . "
@@ -96,8 +96,8 @@ function oos_cfg_get_tax_class_title($tax_class_id)
     } else {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $query = "SELECT tax_class_title
                 FROM " . $oostable['tax_class'] . "
@@ -119,8 +119,8 @@ function oos_cfg_get_zone_name($zone_id)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $query = "SELECT zone_name
               FROM " . $oostable['zones'] . "
@@ -226,8 +226,8 @@ function oos_cfg_pull_down_zone_classes($zone_class_id, $key = '')
     $zone_class_array = [['id' => '0', 'text' => TEXT_NONE]];
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $query = "SELECT geo_zone_id, geo_zone_name
               FROM " . $oostable['geo_zones'] . "
@@ -259,8 +259,8 @@ function oos_cfg_pull_down_order_statuses($order_status_id, $key = '')
     $statuses_array = [['id' => '0', 'text' => TEXT_DEFAULT]];
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $query = "SELECT orders_status_id, orders_status_name
               FROM " . $oostable['orders_status'] . "
@@ -293,8 +293,8 @@ function oos_cfg_pull_down_tax_classes($tax_class_id, $key = '')
     $tax_class_array = [['id' => '0', 'text' => TEXT_NONE]];
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $query = "SELECT tax_class_id, tax_class_title
               FROM " . $oostable['tax_class'] . "

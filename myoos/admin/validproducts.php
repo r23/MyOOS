@@ -48,16 +48,16 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
 </tr>
 <?php
     echo "<tr><th>". TEXT_VALID_PRODUCTS_ID . "</th><th>" . TEXT_VALID_PRODUCTS_NAME . "</th><th>" . TEXT_VALID_PRODUCTS_MODEL . "</th></tr>";
-    $productstable = $oostable['products'];
-    $products_descriptiontable = $oostable['products_description'];
-    $sql = "SELECT p.products_id, p.products_model, p.products_status, pd.products_name
+$productstable = $oostable['products'];
+$products_descriptiontable = $oostable['products_description'];
+$sql = "SELECT p.products_id, p.products_model, p.products_status, pd.products_name
             FROM $productstable p,
                  $products_descriptiontable pd
             WHERE p.products_status >= '1'
               AND pd.products_id = p.products_id
               AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'
             ORDER BY pd.products_name";
-    $result = $dbconn->Execute($sql);
+$result = $dbconn->Execute($sql);
 while ($row = $result->fields) {
     echo '<tr>' . "\n";
     echo '<td>' . $row['products_id'] . '</td>' . "\n";
@@ -69,7 +69,7 @@ while ($row = $result->fields) {
     $result->MoveNext();
 }
 
-    echo "</table>\n";
+echo "</table>\n";
 ?>
 <br>
 <table width="550" border="0" cellspacing="1">

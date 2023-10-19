@@ -35,278 +35,278 @@ $pID = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT) ?: 0;
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 
 switch ($action) {
-        case 'insert_product':
-        case 'update_product':
-            $_POST['products_price'] = str_replace(',', '.', (string) $_POST['products_price']);
-            $_POST['products_price_list'] = str_replace(',', '.', (string) $_POST['products_price_list']);
-            $_POST['products_discount1'] = str_replace(',', '.', (string) $_POST['products_discount1']);
-            $_POST['products_discount2'] = str_replace(',', '.', (string) $_POST['products_discount2']);
-            $_POST['products_discount3'] = str_replace(',', '.', (string) $_POST['products_discount3']);
-            $_POST['products_discount4'] = str_replace(',', '.', (string) $_POST['products_discount4']);
+    case 'insert_product':
+    case 'update_product':
+        $_POST['products_price'] = str_replace(',', '.', (string) $_POST['products_price']);
+        $_POST['products_price_list'] = str_replace(',', '.', (string) $_POST['products_price_list']);
+        $_POST['products_discount1'] = str_replace(',', '.', (string) $_POST['products_discount1']);
+        $_POST['products_discount2'] = str_replace(',', '.', (string) $_POST['products_discount2']);
+        $_POST['products_discount3'] = str_replace(',', '.', (string) $_POST['products_discount3']);
+        $_POST['products_discount4'] = str_replace(',', '.', (string) $_POST['products_discount4']);
 
-            if (isset($_FILES['files'])) {
-                foreach ($_FILES['files']['name'] as $key => $name) {
-                    if (empty($name)) {
-                        // purge empty slots
-                        unset($_FILES['files']['name'][$key]);
-                        unset($_FILES['files']['type'][$key]);
-                        unset($_FILES['files']['tmp_name'][$key]);
-                        unset($_FILES['files']['error'][$key]);
-                        unset($_FILES['files']['size'][$key]);
-                    }
+        if (isset($_FILES['files'])) {
+            foreach ($_FILES['files']['name'] as $key => $name) {
+                if (empty($name)) {
+                    // purge empty slots
+                    unset($_FILES['files']['name'][$key]);
+                    unset($_FILES['files']['type'][$key]);
+                    unset($_FILES['files']['tmp_name'][$key]);
+                    unset($_FILES['files']['error'][$key]);
+                    unset($_FILES['files']['size'][$key]);
                 }
             }
-            $nImageCounter = (!isset($_POST['image_counter']) || !is_numeric($_POST['image_counter'])) ? 0 : intval($_POST['image_counter']);
+        }
+        $nImageCounter = (!isset($_POST['image_counter']) || !is_numeric($_POST['image_counter'])) ? 0 : intval($_POST['image_counter']);
 
-            $nProductsQuantity = isset($_POST['products_quantity']) ? intval($_POST['products_quantity']) : 1;
-            $nProductsStatus = isset($_POST['products_status']) ? intval($_POST['products_status']) : 1;
-            $nProductsReorderLevel = isset($_POST['products_reorder_level']) ? intval($_POST['products_reorder_level']) : 5;
+        $nProductsQuantity = isset($_POST['products_quantity']) ? intval($_POST['products_quantity']) : 1;
+        $nProductsStatus = isset($_POST['products_status']) ? intval($_POST['products_status']) : 1;
+        $nProductsReorderLevel = isset($_POST['products_reorder_level']) ? intval($_POST['products_reorder_level']) : 5;
 
-            $nProductsReplacementProductID = isset($_POST['products_replacement_product_id']) ? intval($_POST['products_replacement_product_id']) : '';
-            if (isset($_POST['products_replacement_product_id']) && is_numeric($_POST['products_replacement_product_id']) && ($_POST['products_replacement_product_id'] > 0)) {
-                $messageStack->add_session(ERROR_REPLACEMENT, 'error');
-                $nProductsStatus = 4;
+        $nProductsReplacementProductID = isset($_POST['products_replacement_product_id']) ? intval($_POST['products_replacement_product_id']) : '';
+        if (isset($_POST['products_replacement_product_id']) && is_numeric($_POST['products_replacement_product_id']) && ($_POST['products_replacement_product_id'] > 0)) {
+            $messageStack->add_session(ERROR_REPLACEMENT, 'error');
+            $nProductsStatus = 4;
+        }
+
+        if (STOCK_CHECK == 'true') {
+            if ($nProductsQuantity <= 0) {
+                $messageStack->add_session(ERROR_OUTOFSTOCK, 'error');
+                $nProductsStatus = 0;
+            }
+        }
+
+
+        $products_id = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT);
+        $products_date_available = isset($_POST['products_date_available']) ? oos_db_prepare_input($_POST['products_date_available']) : '';
+
+        if (isset($_POST['products_base_price'])) {
+            $products_base_price = oos_db_prepare_input($_POST['products_base_price']);
+            $products_product_quantity = oos_db_prepare_input($_POST['products_product_quantity']);
+            $products_base_quantity = oos_db_prepare_input($_POST['products_base_quantity']);
+        } else {
+            $products_base_price = 1.0;
+            $products_product_quantity = 1;
+            $products_base_quantity = 1;
+        }
+
+
+        if ((date('Y-m-d') < $products_date_available) && ($nProductsStatus == 3)) {
+            $nProductsStatus = 2;
+        }
+
+        $products_date_available = (date('Y-m-d') < $products_date_available) ? $products_date_available : 'null';
+
+        $sql_data_array = ['products_quantity' => intval($nProductsQuantity), 'products_reorder_level' => intval($nProductsReorderLevel), 'products_model' => oos_db_prepare_input($_POST['products_model']), 'products_replacement_product_id' => intval($nProductsReplacementProductID), 'products_ean' => oos_db_prepare_input($_POST['products_ean']), 'products_price' => oos_db_prepare_input($_POST['products_price']), 'products_base_price' => $products_base_price, 'products_product_quantity' => $products_product_quantity, 'products_base_quantity' => $products_base_quantity, 'products_base_unit' => $products_base_unit, 'products_date_available' => $products_date_available, 'products_weight' => oos_db_prepare_input($_POST['products_weight']), 'products_status' => $nProductsStatus, 'products_setting' => oos_db_prepare_input($_POST['products_setting']), 'products_tax_class_id' => oos_db_prepare_input($_POST['products_tax_class_id']), 'products_units_id' => (isset($_POST['products_units_id']) ? intval($_POST['products_units_id']) : 0), 'products_old_electrical_equipment' => (isset($_POST['products_old_electrical_equipment']) ? 1 : 0), 'products_used_goods' => (isset($_POST['products_used_goods']) ? 1 : 0), 'manufacturers_id' => oos_db_prepare_input($_POST['manufacturers_id']), 'products_price_list' => oos_db_prepare_input($_POST['products_price_list']), 'products_quantity_order_min' => oos_db_prepare_input($_POST['products_quantity_order_min']), 'products_quantity_order_units' => oos_db_prepare_input($_POST['products_quantity_order_units']), 'products_quantity_order_max' => oos_db_prepare_input($_POST['products_quantity_order_max']), 'products_discount1' => oos_db_prepare_input($_POST['products_discount1']), 'products_discount1_qty' => oos_db_prepare_input($_POST['products_discount1_qty']), 'products_discount2' => oos_db_prepare_input($_POST['products_discount2']), 'products_discount2_qty' => oos_db_prepare_input($_POST['products_discount2_qty']), 'products_discount3' => oos_db_prepare_input($_POST['products_discount3']), 'products_discount3_qty' => oos_db_prepare_input($_POST['products_discount3_qty']), 'products_discount4' => oos_db_prepare_input($_POST['products_discount4']), 'products_discount4_qty' => oos_db_prepare_input($_POST['products_discount4_qty'])];
+
+        if ($action == 'insert_product') {
+            $insert_sql_data = ['products_date_added' => 'now()'];
+
+            $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
+
+            oos_db_perform($oostable['products'], $sql_data_array);
+            $products_id = $dbconn->Insert_ID();
+
+            $products_to_categoriestable = $oostable['products_to_categories'];
+            $dbconn->Execute("INSERT INTO $products_to_categoriestable (products_id, categories_id) VALUES ('" . intval($products_id) . "', '" . intval($current_category_id) . "')");
+
+            // product price history
+            $sql_price_array = ['products_id' => $products_id, 'products_price' => oos_db_prepare_input($_POST['products_price']), 'date_added' => 'now()'];
+            oos_db_perform($oostable['products_price_history'], $sql_price_array);
+        } elseif ($action == 'update_product') {
+            // product price history
+            $productstable = $oostable['products'];
+            $products_price_sql = "SELECT products_price
+                        FROM $productstable 
+                        WHERE products_id = '" . intval($products_id) . "'";
+            $products_price_result = $dbconn->Execute($products_price_sql);
+            $products_price = $products_price_result->fields;
+            $old_products_price = $products_price['products_price'];
+            $new_products_price = oos_db_prepare_input($_POST['products_price']);
+
+            $epsilon = 0.00001;
+
+            # https://www.php.net/manual/en/language.types.float.php#language.types.float.casting
+            if (abs($old_products_price - $new_products_price) > $epsilon) {
+                $sql_price_array = ['products_id' => intval($products_id), 'products_price' => oos_db_prepare_input($_POST['products_price']), 'date_added' => 'now()'];
+                oos_db_perform($oostable['products_price_history'], $sql_price_array);
             }
 
-            if (STOCK_CHECK == 'true') {
-                if ($nProductsQuantity <= 0) {
-                    $messageStack->add_session(ERROR_OUTOFSTOCK, 'error');
-                    $nProductsStatus = 0;
-                }
+
+            $update_sql_data = ['products_last_modified' => 'now()'];
+
+            $sql_data_array = [...$sql_data_array, ...$update_sql_data];
+
+            oos_db_perform($oostable['products'], $sql_data_array, 'UPDATE', 'products_id = \'' . intval($products_id) . '\'');
+        }
+
+
+        $aLanguages = oos_get_languages();
+        $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
+
+        for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+            $language_id = $aLanguages[$i]['id'];
+
+
+            $products_description = isset($_POST['products_description_' . $language_id]) ? oos_db_prepare_input($_POST['products_description_' . $language_id]) : '';
+            $products_description_meta  = isset($_POST['products_description_meta_' . $language_id]) ? oos_db_prepare_input($_POST['products_description_meta_' . $language_id]) : '';
+
+
+            if (empty($products_description_meta)) {
+                $products_description_meta =  substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '', (string) $products_description)), 0, 250);
             }
 
+            $products_facebook_title = oos_db_prepare_input($_POST['products_facebook_title'][$language_id]);
+            $products_facebook_description = oos_db_prepare_input($_POST['products_facebook_description'][$language_id]);
+            $products_twitter_title = oos_db_prepare_input($_POST['products_twitter_title'][$language_id]);
+            $products_twitter_description = oos_db_prepare_input($_POST['products_twitter_description'][$language_id]);
 
-			$products_id = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT);
-            $products_date_available = isset($_POST['products_date_available']) ? oos_db_prepare_input($_POST['products_date_available']) : '';
-
-            if (isset($_POST['products_base_price'])) {
-                $products_base_price = oos_db_prepare_input($_POST['products_base_price']);
-                $products_product_quantity = oos_db_prepare_input($_POST['products_product_quantity']);
-                $products_base_quantity = oos_db_prepare_input($_POST['products_base_quantity']);
-            } else {
-                $products_base_price = 1.0;
-                $products_product_quantity = 1;
-                $products_base_quantity = 1;
+            if (empty($products_facebook_title)) {
+                $products_facebook_title = oos_db_prepare_input($_POST['products_name'][$language_id]);
+            }
+            if (empty($products_facebook_description)) {
+                $products_facebook_description = $products_description_meta;
             }
 
-
-            if ((date('Y-m-d') < $products_date_available) && ($nProductsStatus == 3)) {
-                $nProductsStatus = 2;
+            if (empty($products_twitter_title)) {
+                $products_twitter_title = $products_facebook_title;
+            }
+            if (empty($products_twitter_description)) {
+                $products_twitter_description = $products_facebook_description;
             }
 
-            $products_date_available = (date('Y-m-d') < $products_date_available) ? $products_date_available : 'null';
+            $products_short_description = isset($_POST['products_short_description_' . $language_id]) ? oos_db_prepare_input($_POST['products_short_description_' . $language_id]) : '';
+            $products_essential_characteristics  = isset($_POST['products_essential_characteristics_' . $language_id]) ? oos_db_prepare_input($_POST['products_essential_characteristics_' . $language_id]) : '';
+            $products_old_electrical_equipment_description = isset($_POST['products_old_electrical_equipment_description_' . $language_id]) ? oos_db_prepare_input($_POST['products_old_electrical_equipment_description_' . $language_id]) : '';
+            $products_used_goods_description = isset($_POST['products_used_goods_description_' . $language_id]) ? oos_db_prepare_input($_POST['products_used_goods_description_' . $language_id]) : '';
 
-            $sql_data_array = ['products_quantity' => intval($nProductsQuantity), 'products_reorder_level' => intval($nProductsReorderLevel), 'products_model' => oos_db_prepare_input($_POST['products_model']), 'products_replacement_product_id' => intval($nProductsReplacementProductID), 'products_ean' => oos_db_prepare_input($_POST['products_ean']), 'products_price' => oos_db_prepare_input($_POST['products_price']), 'products_base_price' => $products_base_price, 'products_product_quantity' => $products_product_quantity, 'products_base_quantity' => $products_base_quantity, 'products_base_unit' => $products_base_unit, 'products_date_available' => $products_date_available, 'products_weight' => oos_db_prepare_input($_POST['products_weight']), 'products_status' => $nProductsStatus, 'products_setting' => oos_db_prepare_input($_POST['products_setting']), 'products_tax_class_id' => oos_db_prepare_input($_POST['products_tax_class_id']), 'products_units_id' => (isset($_POST['products_units_id']) ? intval($_POST['products_units_id']) : 0), 'products_old_electrical_equipment' => (isset($_POST['products_old_electrical_equipment']) ? 1 : 0), 'products_used_goods' => (isset($_POST['products_used_goods']) ? 1 : 0), 'manufacturers_id' => oos_db_prepare_input($_POST['manufacturers_id']), 'products_price_list' => oos_db_prepare_input($_POST['products_price_list']), 'products_quantity_order_min' => oos_db_prepare_input($_POST['products_quantity_order_min']), 'products_quantity_order_units' => oos_db_prepare_input($_POST['products_quantity_order_units']), 'products_quantity_order_max' => oos_db_prepare_input($_POST['products_quantity_order_max']), 'products_discount1' => oos_db_prepare_input($_POST['products_discount1']), 'products_discount1_qty' => oos_db_prepare_input($_POST['products_discount1_qty']), 'products_discount2' => oos_db_prepare_input($_POST['products_discount2']), 'products_discount2_qty' => oos_db_prepare_input($_POST['products_discount2_qty']), 'products_discount3' => oos_db_prepare_input($_POST['products_discount3']), 'products_discount3_qty' => oos_db_prepare_input($_POST['products_discount3_qty']), 'products_discount4' => oos_db_prepare_input($_POST['products_discount4']), 'products_discount4_qty' => oos_db_prepare_input($_POST['products_discount4_qty'])];
+
+
+            $sql_data_array = ['products_name' => oos_db_prepare_input($_POST['products_name'][$language_id]), 'products_title' => oos_db_prepare_input($_POST['products_title'][$language_id]), 'products_description' => $products_description, 'products_short_description' => $products_short_description, 'products_essential_characteristics' => $products_essential_characteristics, 'products_old_electrical_equipment_description' => $products_old_electrical_equipment_description, 'products_used_goods_description' => $products_used_goods_description, 'products_description_meta' => $products_description_meta, 'products_facebook_title' => $products_facebook_title, 'products_facebook_description' => $products_facebook_description, 'products_twitter_title' => $products_twitter_title, 'products_twitter_description' => $products_twitter_description, 'products_url' => oos_db_prepare_input($_POST['products_url'][$language_id])];
 
             if ($action == 'insert_product') {
-                $insert_sql_data = ['products_date_added' => 'now()'];
+                $insert_sql_data = ['products_id' => $products_id, 'products_languages_id' => $language_id];
 
                 $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
-                oos_db_perform($oostable['products'], $sql_data_array);
-                $products_id = $dbconn->Insert_ID();
-
-                $products_to_categoriestable = $oostable['products_to_categories'];
-                $dbconn->Execute("INSERT INTO $products_to_categoriestable (products_id, categories_id) VALUES ('" . intval($products_id) . "', '" . intval($current_category_id) . "')");
-
-                // product price history
-                $sql_price_array = ['products_id' => $products_id, 'products_price' => oos_db_prepare_input($_POST['products_price']), 'date_added' => 'now()'];
-                oos_db_perform($oostable['products_price_history'], $sql_price_array);
+                oos_db_perform($oostable['products_description'], $sql_data_array);
             } elseif ($action == 'update_product') {
-                // product price history
-                $productstable = $oostable['products'];
-                $products_price_sql = "SELECT products_price
-                        FROM $productstable 
-                        WHERE products_id = '" . intval($products_id) . "'";
-                $products_price_result = $dbconn->Execute($products_price_sql);
-                $products_price = $products_price_result->fields;
-                $old_products_price = $products_price['products_price'];
-                $new_products_price = oos_db_prepare_input($_POST['products_price']);
-
-                $epsilon = 0.00001;
-
-                # https://www.php.net/manual/en/language.types.float.php#language.types.float.casting
-                if (abs($old_products_price-$new_products_price) > $epsilon) {
-                    $sql_price_array = ['products_id' => intval($products_id), 'products_price' => oos_db_prepare_input($_POST['products_price']), 'date_added' => 'now()'];
-                    oos_db_perform($oostable['products_price_history'], $sql_price_array);
-                }
-
-
-                $update_sql_data = ['products_last_modified' => 'now()'];
-
-                $sql_data_array = [...$sql_data_array, ...$update_sql_data];
-
-                oos_db_perform($oostable['products'], $sql_data_array, 'UPDATE', 'products_id = \'' . intval($products_id) . '\'');
+                oos_db_perform($oostable['products_description'], $sql_data_array, 'UPDATE', 'products_id = \'' . intval($products_id) . '\' AND products_languages_id = \'' . intval($language_id) . '\'');
             }
+        }
 
 
-            $aLanguages = oos_get_languages();
-            $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
+        if ((isset($_POST['remove_image']) && ($_POST['remove_image'] == 'yes')) && (isset($_POST['products_previous_image']))) {
+            $products_previous_image = oos_db_prepare_input($_POST['products_previous_image']);
 
-            for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-                $language_id = $aLanguages[$i]['id'];
-
-
-                $products_description = isset($_POST['products_description_' . $language_id]) ? oos_db_prepare_input($_POST['products_description_' . $language_id]) : '';
-                $products_description_meta  = isset($_POST['products_description_meta_' . $language_id]) ? oos_db_prepare_input($_POST['products_description_meta_' . $language_id]) : '';
-
-
-                if (empty($products_description_meta)) {
-                    $products_description_meta =  substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '', (string) $products_description)), 0, 250);
-                }
-
-                $products_facebook_title = oos_db_prepare_input($_POST['products_facebook_title'][$language_id]);
-                $products_facebook_description = oos_db_prepare_input($_POST['products_facebook_description'][$language_id]);
-                $products_twitter_title = oos_db_prepare_input($_POST['products_twitter_title'][$language_id]);
-                $products_twitter_description = oos_db_prepare_input($_POST['products_twitter_description'][$language_id]);
-
-                if (empty($products_facebook_title)) {
-                    $products_facebook_title = oos_db_prepare_input($_POST['products_name'][$language_id]);
-                }
-                if (empty($products_facebook_description)) {
-                    $products_facebook_description = $products_description_meta;
-                }
-
-                if (empty($products_twitter_title)) {
-                    $products_twitter_title = $products_facebook_title;
-                }
-                if (empty($products_twitter_description)) {
-                    $products_twitter_description = $products_facebook_description;
-                }
-
-                $products_short_description = isset($_POST['products_short_description_' . $language_id]) ? oos_db_prepare_input($_POST['products_short_description_' . $language_id]) : '';
-                $products_essential_characteristics  = isset($_POST['products_essential_characteristics_' . $language_id]) ? oos_db_prepare_input($_POST['products_essential_characteristics_' . $language_id]) : '';
-                $products_old_electrical_equipment_description = isset($_POST['products_old_electrical_equipment_description_' . $language_id]) ? oos_db_prepare_input($_POST['products_old_electrical_equipment_description_' . $language_id]) : '';
-                $products_used_goods_description = isset($_POST['products_used_goods_description_' . $language_id]) ? oos_db_prepare_input($_POST['products_used_goods_description_' . $language_id]) : '';
-
-
-
-                $sql_data_array = ['products_name' => oos_db_prepare_input($_POST['products_name'][$language_id]), 'products_title' => oos_db_prepare_input($_POST['products_title'][$language_id]), 'products_description' => $products_description, 'products_short_description' => $products_short_description, 'products_essential_characteristics' => $products_essential_characteristics, 'products_old_electrical_equipment_description' => $products_old_electrical_equipment_description, 'products_used_goods_description' => $products_used_goods_description, 'products_description_meta' => $products_description_meta, 'products_facebook_title' => $products_facebook_title, 'products_facebook_description' => $products_facebook_description, 'products_twitter_title' => $products_twitter_title, 'products_twitter_description' => $products_twitter_description, 'products_url' => oos_db_prepare_input($_POST['products_url'][$language_id])];
-
-                if ($action == 'insert_product') {
-                    $insert_sql_data = ['products_id' => $products_id, 'products_languages_id' => $language_id];
-
-                    $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
-
-                    oos_db_perform($oostable['products_description'], $sql_data_array);
-                } elseif ($action == 'update_product') {
-                    oos_db_perform($oostable['products_description'], $sql_data_array, 'UPDATE', 'products_id = \'' . intval($products_id) . '\' AND products_languages_id = \'' . intval($language_id) . '\'');
-                }
-            }
-
-
-            if ((isset($_POST['remove_image']) && ($_POST['remove_image'] == 'yes')) && (isset($_POST['products_previous_image']))) {
-                $products_previous_image = oos_db_prepare_input($_POST['products_previous_image']);
-
-                $productsstable = $oostable['products'];
-                $dbconn->Execute("UPDATE $productsstable
+            $productsstable = $oostable['products'];
+            $dbconn->Execute("UPDATE $productsstable
                                  SET products_image = NULL
                                  WHERE products_id = '" . intval($products_id) . "'");
 
-                oos_remove_product_image($products_previous_image);
+            oos_remove_product_image($products_previous_image);
+        }
+
+        for ($i = 1, $n = $nImageCounter + 1; $i < $n; $i++) {
+            if ((isset($_POST['remove_products_image']) && ($_POST['remove_products_image'][$i] == 'yes')) && (isset($_POST['products_previous_large_image'][$i]))) {
+                $products_previous_large_image = oos_db_prepare_input($_POST['products_previous_large_image'][$i]);
+
+                $dbconn->Execute("DELETE FROM " . $oostable['products_gallery'] . " WHERE image_name = '" . oos_db_input($products_previous_large_image) . "'");
+
+                oos_remove_category_image($products_previous_large_image);
             }
-
-            for ($i = 1, $n = $nImageCounter+1; $i < $n; $i++) {
-                if ((isset($_POST['remove_products_image']) && ($_POST['remove_products_image'][$i] == 'yes')) && (isset($_POST['products_previous_large_image'][$i]))) {
-                    $products_previous_large_image = oos_db_prepare_input($_POST['products_previous_large_image'][$i]);
-
-                    $dbconn->Execute("DELETE FROM " . $oostable['products_gallery'] . " WHERE image_name = '" . oos_db_input($products_previous_large_image) . "'");
-
-                    oos_remove_category_image($products_previous_large_image);
-                }
-            }
+        }
 
 
-            $options = ['image_versions' => [
-                // The empty image version key defines options for the original image.
-                // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards.
-                // Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
-                '' => [
-                    // Automatically rotate images based on EXIF meta data:
-                    'auto_orient' => true,
-                ],
-                'large' => [
-                    // 'auto_orient' => TRUE,
-                    // 'crop' => TRUE,
-                    // 'jpeg_quality' => 82,
-                    // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                    // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                    'max_width' => 1200,
-                    // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                    'max_height' => 1200,
-                ],
-                'medium_large' => [
-                    // 'auto_orient' => TRUE,
-                    // 'crop' => TRUE,
-                    // 'jpeg_quality' => 82,
-                    // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                    // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                    'max_width' => 600,
-                    // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                    'max_height' => 600,
-                ],
-                'medium' => [
-                    // 'auto_orient' => TRUE,
-                    // 'crop' => TRUE,
-                    // 'jpeg_quality' => 82,
-                    // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                    // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                    'max_width' => 420,
-                    // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                    'max_height' => 455,
-                ],
-                'small' => [
-                    // 'auto_orient' => TRUE,
-                    // 'crop' => TRUE,
-                    // 'jpeg_quality' => 82,
-                    // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                    // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                    'max_width' => 150,
-                    // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                    'max_height' => 150,
-                ],
-                'min' => [
-                    // 'auto_orient' => TRUE,
-                    // 'crop' => TRUE,
-                    // 'jpeg_quality' => 82,
-                    // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-                    // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-                    'max_width' => 64,
-                    // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-                    'max_height' => 64,
-                ],
-            ]];
+        $options = ['image_versions' => [
+            // The empty image version key defines options for the original image.
+            // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards.
+            // Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
+            '' => [
+                // Automatically rotate images based on EXIF meta data:
+                'auto_orient' => true,
+            ],
+            'large' => [
+                // 'auto_orient' => TRUE,
+                // 'crop' => TRUE,
+                // 'jpeg_quality' => 82,
+                // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                'max_width' => 1200,
+                // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                'max_height' => 1200,
+            ],
+            'medium_large' => [
+                // 'auto_orient' => TRUE,
+                // 'crop' => TRUE,
+                // 'jpeg_quality' => 82,
+                // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                'max_width' => 600,
+                // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                'max_height' => 600,
+            ],
+            'medium' => [
+                // 'auto_orient' => TRUE,
+                // 'crop' => TRUE,
+                // 'jpeg_quality' => 82,
+                // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                'max_width' => 420,
+                // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                'max_height' => 455,
+            ],
+            'small' => [
+                // 'auto_orient' => TRUE,
+                // 'crop' => TRUE,
+                // 'jpeg_quality' => 82,
+                // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                'max_width' => 150,
+                // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                'max_height' => 150,
+            ],
+            'min' => [
+                // 'auto_orient' => TRUE,
+                // 'crop' => TRUE,
+                // 'jpeg_quality' => 82,
+                // 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+                // 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+                'max_width' => 64,
+                // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+                'max_height' => 64,
+            ],
+        ]];
 
-            $oProductImage = new upload('products_image', $options);
+        $oProductImage = new upload('products_image', $options);
 
-            $dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/';
-            $oProductImage->set_destination($dir_fs_catalog_images);
+        $dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/';
+        $oProductImage->set_destination($dir_fs_catalog_images);
 
-            if ($oProductImage->parse() && oos_is_not_null($oProductImage->filename)) {
-                $productstable = $oostable['products'];
-                $dbconn->Execute("UPDATE $productstable
+        if ($oProductImage->parse() && oos_is_not_null($oProductImage->filename)) {
+            $productstable = $oostable['products'];
+            $dbconn->Execute("UPDATE $productstable
                             SET products_image = '" . oos_db_input($oProductImage->filename) . "'
                             WHERE products_id = '" . intval($products_id) . "'");
-            }
+        }
 
-            if (isset($_FILES['files'])) {
-                $oImage = new upload('files', $options);
+        if (isset($_FILES['files'])) {
+            $oImage = new upload('files', $options);
 
-                $dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/';
-                $oImage->set_destination($dir_fs_catalog_images);
-                $oImage->parse();
+            $dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/';
+            $oImage->set_destination($dir_fs_catalog_images);
+            $oImage->parse();
 
-                if (oos_is_not_null($oImage->response)) {
-                    $sort_order = 0 + $nImageCounter;
-                    foreach ($oImage->response as $index => $value) {
-                        $sort_order++;
-                        $sql_data_array = ['products_id' => intval($products_id), 'image_name' => oos_db_prepare_input($value), 'sort_order' => intval($sort_order)];
-                        oos_db_perform($oostable['products_gallery'], $sql_data_array);
-                    }
+            if (oos_is_not_null($oImage->response)) {
+                $sort_order = 0 + $nImageCounter;
+                foreach ($oImage->response as $index => $value) {
+                    $sort_order++;
+                    $sql_data_array = ['products_id' => intval($products_id), 'image_name' => oos_db_prepare_input($value), 'sort_order' => intval($sort_order)];
+                    oos_db_perform($oostable['products_gallery'], $sql_data_array);
                 }
             }
+        }
 
-            oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products_id));
+        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products_id));
         break;
 }
 
@@ -489,8 +489,8 @@ if ($action == 'new_product' || $action == 'edit_product') {
 <script nonce="<?php echo NONCE; ?>">
 let tax_rates = new Array();
 <?php
-	$n = is_countable($tax_class_array) ? count($tax_class_array) : 0;
-    for ($i=0, $n; $i<$n; $i++) {
+    $n = is_countable($tax_class_array) ? count($tax_class_array) : 0;
+    for ($i = 0, $n; $i < $n; $i++) {
         if ($tax_class_array[$i]['id'] > 0) {
             echo 'tax_rates["' . $tax_class_array[$i]['id'] . '"] = ' . oos_get_tax_rate_value($tax_class_array[$i]['id']) . ';' . "\n";
         }
@@ -646,11 +646,11 @@ function calcBasePriceFactor() {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-            echo TEXT_PRODUCTS_NAME;
-        } ?></label>
+                                  echo TEXT_PRODUCTS_NAME;
+                              } ?></label>
 							  <?php if ($nLanguages > 1) {
-            echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
-        } ?>
+							      echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
+							  } ?>
                               <div class="col-lg-9">
 								<?php echo oos_draw_input_field('products_name[' . $aLanguages[$i]['id'] . ']', (isset($products_name[$aLanguages[$i]['id']]) ? stripslashes((string) $products_name[$aLanguages[$i]['id']]) : oos_get_products_name($pInfo->products_id))); ?>
                               </div>
@@ -663,11 +663,11 @@ function calcBasePriceFactor() {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-            echo TEXT_PRODUCTS_TITLE;
-        } ?></label>
+                                  echo TEXT_PRODUCTS_TITLE;
+                              } ?></label>
 							  <?php if ($nLanguages > 1) {
-            echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
-        } ?>
+							      echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
+							  } ?>
                               <div class="col-lg-9">
 								<?php echo oos_draw_input_field('products_title[' . $aLanguages[$i]['id'] . ']', (isset($products_title[$aLanguages[$i]['id']]) ? stripslashes((string) $products_title[$aLanguages[$i]['id']]) : oos_get_products_title($pInfo->products_id, $aLanguages[$i]['id']))); ?>
                               </div>
@@ -704,11 +704,11 @@ function calcBasePriceFactor() {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-            echo TEXT_PRODUCTS_DESCRIPTION;
-        } ?></label>
+                                  echo TEXT_PRODUCTS_DESCRIPTION;
+                              } ?></label>
 							  <?php if ($nLanguages > 1) {
-            echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
-        } ?>
+							      echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
+							  } ?>
                               <div class="col-lg-9">
 <?php
        echo oos_draw_textarea_field('products_description_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['products_description_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_description_' .$aLanguages[$i]['id']]) : oos_get_products_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
@@ -726,11 +726,11 @@ function calcBasePriceFactor() {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-            echo TEXT_PRODUCTS_SHORT_DESCRIPTION;
-        } ?></label>
+                                  echo TEXT_PRODUCTS_SHORT_DESCRIPTION;
+                              } ?></label>
 							  <?php if ($nLanguages > 1) {
-            echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
-        } ?>
+							      echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
+							  } ?>
                               <div class="col-lg-9">
 <?php
        echo oos_draw_textarea_field('products_short_description_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['products_short_description_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_short_description_' .$aLanguages[$i]['id']]) : oos_get_products_short_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
@@ -748,11 +748,11 @@ function calcBasePriceFactor() {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-            echo TEXT_PRODUCTS_ESSENTIAL_CHARACTERISTICS;
-        } ?></label>
+                                  echo TEXT_PRODUCTS_ESSENTIAL_CHARACTERISTICS;
+                              } ?></label>
 							  <?php if ($nLanguages > 1) {
-            echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
-        } ?>
+							      echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
+							  } ?>
                               <div class="col-lg-9">
 <?php
        echo oos_draw_textarea_field('products_essential_characteristics_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['products_essential_characteristics_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_essential_characteristics_' .$aLanguages[$i]['id']]) : oos_get_products_essential_characteristicsn($pInfo->products_id, $aLanguages[$i]['id']))); ?>
@@ -770,11 +770,11 @@ function calcBasePriceFactor() {
 					<fieldset>
 						<div class="form-group row">
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-            echo TEXT_PRODUCTS_DESCRIPTION_META;
-        } ?></label>
+							    echo TEXT_PRODUCTS_DESCRIPTION_META;
+							} ?></label>
 							<?php if ($nLanguages > 1) {
-            echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
-        } ?>
+							    echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
+							} ?>
 							<div class="col-lg-9">
 								<?php echo oos_draw_textarea_field('products_description_meta_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['products_description_meta_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_description_meta_' .$aLanguages[$i]['id']]) : oos_get_products_description_meta($pInfo->products_id, $aLanguages[$i]['id']))); ?>
 							</div>
@@ -790,11 +790,11 @@ function calcBasePriceFactor() {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-            echo TEXT_PRODUCTS_URL . '<br><small>' . TEXT_PRODUCTS_URL_WITHOUT_HTTP . '</small>';
-        } ?></label>
+                                  echo TEXT_PRODUCTS_URL . '<br><small>' . TEXT_PRODUCTS_URL_WITHOUT_HTTP . '</small>';
+                              } ?></label>
 							  <?php if ($nLanguages > 1) {
-            echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
-        } ?>
+							      echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
+							  } ?>
                               <div class="col-lg-9"><?php echo oos_draw_input_field('products_url[' . $aLanguages[$i]['id'] . ']', (isset($products_url[$aLanguages[$i]['iso_639_2']]) ? stripslashes((string) $products_url[$aLanguages[$i]['id']]) : oos_get_products_url($pInfo->products_id, $aLanguages[$i]['id']))); ?></div>
                            </div>
                         </fieldset>
@@ -1056,11 +1056,11 @@ updateWithTax();
 					<fieldset>
 						<div class="form-group row">
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-            echo TEXT_OLD_ELECTRICAL_EQUIPMENT_OBLIGATIONS_NOTE;
-        } ?></label>
+							    echo TEXT_OLD_ELECTRICAL_EQUIPMENT_OBLIGATIONS_NOTE;
+							} ?></label>
 							<?php if ($nLanguages > 1) {
-            echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
-        } ?>
+							    echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
+							} ?>
 							<div class="col-lg-9">
 								<?php echo oos_draw_textarea_field('products_old_electrical_equipment_description_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['products_old_electrical_equipment_description_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_old_electrical_equipment_description_' .$aLanguages[$i]['id']]) : oos_get_products_old_electrical_equipment_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
 							</div>
@@ -1082,11 +1082,11 @@ updateWithTax();
 					<fieldset>
 						<div class="form-group row">
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-            echo TEXT_OFFER_B_WARE_INFO_NOTE;
-        } ?></label>
+							    echo TEXT_OFFER_B_WARE_INFO_NOTE;
+							} ?></label>
 							<?php if ($nLanguages > 1) {
-            echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
-        } ?>
+							    echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
+							} ?>
 							<div class="col-lg-9">
 								<?php echo oos_draw_textarea_field('products_used_goods_description_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['products_used_goods_description_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_used_goods_description_' .$aLanguages[$i]['id']]) : oos_get_products_used_goods_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
 							</div>
@@ -1109,16 +1109,16 @@ updateWithTax();
 
 
 <?php
-        for ($i=0; $i < (is_countable($aLanguages) ? count($aLanguages) : 0); $i++) {
+        for ($i = 0; $i < (is_countable($aLanguages) ? count($aLanguages) : 0); $i++) {
             ?>
 					<fieldset>
 						<div class="form-group row">
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                echo TEXT_TITLE;
-            } ?></label>
+							    echo TEXT_TITLE;
+							} ?></label>
 							<?php if ($nLanguages > 1) {
-                echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
-            } ?>
+							    echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
+							} ?>
 							<div class="col-lg-9">
 								<?php echo oos_draw_input_field('products_facebook_title[' . $aLanguages[$i]['id'] . ']', (empty($pInfo->products_id) ? '' : oos_get_products_facebook_title($pInfo->products_id, $aLanguages[$i]['id']))); ?>
 							</div>
@@ -1126,16 +1126,16 @@ updateWithTax();
 					</fieldset>
 <?php
         }
-    for ($i=0; $i < (is_countable($aLanguages) ? count($aLanguages) : 0); $i++) {
+    for ($i = 0; $i < (is_countable($aLanguages) ? count($aLanguages) : 0); $i++) {
         ?>
 					<fieldset>
 						<div class="form-group row">
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-            echo TEXT_DESCRIPTION;
-        } ?></label>
+							    echo TEXT_DESCRIPTION;
+							} ?></label>
 							<?php if ($nLanguages > 1) {
-            echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
-        } ?>
+							    echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
+							} ?>
 							<div class="col-lg-9">
 								<?php echo oos_draw_textarea_field('products_facebook_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (empty($pInfo->products_id) ? '' : oos_get_products_facebook_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
 							</div>
@@ -1168,16 +1168,16 @@ updateWithTax();
 						</div>
 
 <?php
-        for ($i=0; $i < (is_countable($aLanguages) ? count($aLanguages) : 0); $i++) {
+        for ($i = 0; $i < (is_countable($aLanguages) ? count($aLanguages) : 0); $i++) {
             ?>
 					<fieldset>
 						<div class="form-group row">
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                echo TEXT_TITLE;
-            } ?></label>
+							    echo TEXT_TITLE;
+							} ?></label>
 							<?php if ($nLanguages > 1) {
-                echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
-            } ?>
+							    echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
+							} ?>
 							<div class="col-lg-9">
 								<?php echo oos_draw_input_field('products_twitter_title[' . $aLanguages[$i]['id'] . ']', (empty($pInfo->products_id) ? '' : oos_get_products_twitter_title($pInfo->products_id, $aLanguages[$i]['id']))); ?>
 							</div>
@@ -1185,16 +1185,16 @@ updateWithTax();
 					</fieldset>
 <?php
         }
-    for ($i=0; $i < (is_countable($aLanguages) ? count($aLanguages) : 0); $i++) {
+    for ($i = 0; $i < (is_countable($aLanguages) ? count($aLanguages) : 0); $i++) {
         ?>
 					<fieldset>
 						<div class="form-group row">
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-            echo TEXT_DESCRIPTION;
-        } ?></label>
+							    echo TEXT_DESCRIPTION;
+							} ?></label>
 							<?php if ($nLanguages > 1) {
-            echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
-        } ?>
+							    echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
+							} ?>
 							<div class="col-lg-9">
 								<?php echo oos_draw_textarea_field('products_twitter_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (empty($pInfo->products_id) ? '' : oos_get_products_twitter_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
 							</div>
@@ -1381,30 +1381,30 @@ updateWithTax();
 <!-- body_text_eof //-->
 <?php
 } elseif ($action == 'new_product_preview') {
-        $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_description_meta, pd.products_url, p.products_id, p.products_quantity, p.products_reorder_level, p.products_model, p.products_replacement_product_id, p.products_ean, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.products_units_id, p.products_old_electrical_equipment, p.manufacturers_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd WHERE p.products_id = '" . intval($pID) . "' and p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
-        $product = $product_result->fields;
+    $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_description_meta, pd.products_url, p.products_id, p.products_quantity, p.products_reorder_level, p.products_model, p.products_replacement_product_id, p.products_ean, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.products_units_id, p.products_old_electrical_equipment, p.manufacturers_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd WHERE p.products_id = '" . intval($pID) . "' and p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
+    $product = $product_result->fields;
 
-        $pInfo = new objectInfo($product);
-        $products_image_name = $pInfo->products_image;
+    $pInfo = new objectInfo($product);
+    $products_image_name = $pInfo->products_image;
 
-        $aLanguages = oos_get_languages();
-        $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
+    $aLanguages = oos_get_languages();
+    $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
 
-        for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-            $pInfo->products_name = oos_get_products_name($pInfo->products_id);
-            $pInfo->products_description = oos_get_products_description($pInfo->products_id, $aLanguages[$i]['id']);
-            $pInfo->products_description_meta = oos_get_products_description_meta($pInfo->products_id, $aLanguages[$i]['id']);
-            $pInfo->products_url = oos_get_products_url($pInfo->products_id, $aLanguages[$i]['id']);
-        } ?>
+    for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+        $pInfo->products_name = oos_get_products_name($pInfo->products_id);
+        $pInfo->products_description = oos_get_products_description($pInfo->products_id, $aLanguages[$i]['id']);
+        $pInfo->products_description_meta = oos_get_products_description_meta($pInfo->products_id, $aLanguages[$i]['id']);
+        $pInfo->products_url = oos_get_products_url($pInfo->products_id, $aLanguages[$i]['id']);
+    } ?>
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading"><?php 
-	$id = 0;
-	echo oos_flag_icon($aLanguages[$id]) . '&nbsp;' . $pInfo->products_name; ?></td>
+            <td class="pageHeading"><?php
+    $id = 0;
+    echo oos_flag_icon($aLanguages[$id]) . '&nbsp;' . $pInfo->products_name; ?></td>
 			<td class="pageHeading" align="right"><?php echo $currencies->format($pInfo->products_price); ?></td>
           </tr>
 <?php
@@ -1420,16 +1420,16 @@ if (!($pInfo->products_discount1_qty == 0 and $pInfo->products_discount2_qty == 
 
     $col_cnt = 1;
     if ($pInfo->products_discount1 > 0) {
-        $col_cnt = $col_cnt+1;
+        $col_cnt = $col_cnt + 1;
     }
     if ($pInfo->products_discount2 > 0) {
-        $col_cnt = $col_cnt+1;
+        $col_cnt = $col_cnt + 1;
     }
     if ($pInfo->products_discount3 > 0) {
-        $col_cnt = $col_cnt+1;
+        $col_cnt = $col_cnt + 1;
     }
     if ($pInfo->products_discount4 > 0) {
-        $col_cnt = $col_cnt+1;
+        $col_cnt = $col_cnt + 1;
     } ?>
 
   <tr>
@@ -1437,13 +1437,13 @@ if (!($pInfo->products_discount1_qty == 0 and $pInfo->products_discount2_qty == 
   </tr>
   <tr>
     <td colspan="2" class="main" align="right">
-      <table width="<?php echo 50*$col_cnt; ?>" border="1" cellpadding="2" cellspacing="2" align="right">
+      <table width="<?php echo 50 * $col_cnt; ?>" border="1" cellpadding="2" cellspacing="2" align="right">
         <tr>
           <td>
             <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
 <?php
 if ($q1 < $q0) {
-        ?>
+    ?>
               <tr>
                 <td colspan="<?php echo $col_cnt; ?>" class="DiscountPriceTitle" align="center">WARNING: Quanties Minimum &gt;<br> Price Break 1</td>
               </tr>
@@ -1452,31 +1452,31 @@ if ($q1 < $q0) {
               </tr>
 
 <?php
-    } ?>
+} ?>
               <tr>
                 <td colspan="<?php echo $col_cnt; ?>" class="DiscountPriceTitle" align="center"><?php echo TEXT_DISCOUNTS_TITLE; ?></td>
               </tr>
               <tr>
 <?php
   echo '      <td class="DiscountPriceQty" align="center">';
-    echo(($q1-1) > $q0 ? $q0 . '-' . ($q1-1) : $q0);
+    echo(($q1 - 1) > $q0 ? $q0 . '-' . ($q1 - 1) : $q0);
     echo '      </td>';
 
     if ($q1 > 0) {
         echo '<td class="DiscountPriceQty" align="center">';
-        echo($q2 > 0 ? (($q2-1) > $q1 ? $q1 . '-' . ($q2-1) : $q1) : $q1 . '+');
+        echo($q2 > 0 ? (($q2 - 1) > $q1 ? $q1 . '-' . ($q2 - 1) : $q1) : $q1 . '+');
         echo '</td>';
     }
 
     if ($q2 > 0) {
         echo '<td class="DiscountPriceQty" align="center">';
-        echo($q3 > 0 ? (($q3-1) > $q2 ? $q2 . '-' . ($q3-1) : $q2) : $q2 . '+');
+        echo($q3 > 0 ? (($q3 - 1) > $q2 ? $q2 . '-' . ($q3 - 1) : $q2) : $q2 . '+');
         echo '</td>';
     }
 
     if ($q3 > 0) {
         echo '<td class="DiscountPriceQty" align="center">';
-        echo($q4 > 0 ? (($q4-1) > $q3 ? $q3 . '-' . ($q4-1) : $q3) : $q3 . '+');
+        echo($q4 > 0 ? (($q4 - 1) > $q3 ? $q3 . '-' . ($q4 - 1) : $q3) : $q3 . '+');
         echo '</td>';
     }
 
@@ -1490,7 +1490,7 @@ if ($q1 < $q0) {
               <tr>
 <?php
     echo '<td class="DiscountPrice" align="center">';
-    echo(($the_special==0) ? $currencies->format($pInfo->products_price) : $currencies->format($the_special));
+    echo(($the_special == 0) ? $currencies->format($pInfo->products_price) : $currencies->format($the_special));
     echo '</td>';
 
     if ($q1 > 0) {
@@ -1534,7 +1534,7 @@ if ($q1 < $q0) {
         <td class="main">
 <?php
     echo(($products_image_name) ? oos_image(OOS_SHOP_IMAGES . $products_image_name, $pInfo->products_name, '') : '');
-        echo $pInfo->products_description; ?></td>
+    echo $pInfo->products_description; ?></td>
       </tr>
 <?php
     if ($pInfo->products_url) {
@@ -1590,7 +1590,7 @@ if ($q1 < $q0) {
 	      </table>
 <!-- body_text_eof //-->
 <?php
-    }
+}
 ?>
 
 
@@ -1607,5 +1607,5 @@ if ($q1 < $q0) {
 
 <?php
     require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/nice_exit.php';
 ?>

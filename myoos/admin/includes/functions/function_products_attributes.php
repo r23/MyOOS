@@ -33,8 +33,8 @@ function oos_options_name($options_id)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     if (empty($options_id) || ($options_id == 0)) {
         return '';
@@ -53,18 +53,18 @@ function oos_options_name($options_id)
 }
 
 
- /**
-  * Return values name
-  *
-  * @param  $values_id
-  * @return string
-  */
+/**
+ * Return values name
+ *
+ * @param  $values_id
+ * @return string
+ */
 function oos_values_name($values_id)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     if (empty($values_id) || ($values_id == 0)) {
         return '';
@@ -125,8 +125,8 @@ function oos_set_attributes_status($products_attributes_id, $status)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_attributestable = $oostable['products_attributes'];
     if ($status == 1) {
@@ -139,7 +139,7 @@ function oos_set_attributes_status($products_attributes_id, $status)
         $query = "UPDATE $products_attributestable
 				SET options_values_status = '0'
 				WHERE products_attributes_id = '" . intval($products_attributes_id) . "'";
-        $result =& $dbconn->Execute($query);
+        $result = & $dbconn->Execute($query);
         return;
     } else {
         return false;

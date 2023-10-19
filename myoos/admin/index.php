@@ -92,10 +92,10 @@ require 'includes/header.php';
 
 <?php
     $customers_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['customers']);
-    $customers = $customers_result->fields;
+$customers = $customers_result->fields;
 
-    $products_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['products'] . " WHERE products_status >= '1'");
-    $products = $products_result->fields;
+$products_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['products'] . " WHERE products_status >= '1'");
+$products = $products_result->fields;
 
 ?>
                     <div class="row">

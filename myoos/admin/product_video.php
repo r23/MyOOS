@@ -33,158 +33,158 @@ $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 
 
 switch ($action) {
-case 'insert_video':
-case 'update_video':
+    case 'insert_video':
+    case 'update_video':
 
-    if (isset($_SESSION['formid']) && isset($_POST['formid']) && ($_SESSION['formid'] == $_POST['formid'])) {
-        $products_id = intval($_POST['products_id']);
+        if (isset($_SESSION['formid']) && isset($_POST['formid']) && ($_SESSION['formid'] == $_POST['formid'])) {
+            $products_id = intval($_POST['products_id']);
 
-        if (isset($_FILES['files'])) {
-            foreach ($_FILES['files']['name'] as $key => $name) {
-                if (empty($name)) {
-                    // purge empty slots
-                    unset($_FILES['files']['name'][$key]);
-                    unset($_FILES['files']['type'][$key]);
-                    unset($_FILES['files']['tmp_name'][$key]);
-                    unset($_FILES['files']['error'][$key]);
-                    unset($_FILES['files']['size'][$key]);
-                }
-            }
-        }
-
-        $nVideoCounter = (!isset($_POST['video_counter']) || !is_numeric($_POST['video_counter'])) ? 0 : intval($_POST['video_counter']);
-
-        for ($i = 0, $n = $nVideoCounter; $i < $n; $i++) {
-            $action = (!isset($_POST['video_id'][$i]) || !is_numeric($_POST['video_id'][$i])) ? 'insert_video' : 'update_video';
-
-            $sql_data_array = ['products_id' => intval($products_id),
-                               'video_source' => oos_db_prepare_input($_POST['video_source'][$i]),
-                               'video_preload' => oos_db_prepare_input($_POST['video_preload'][$i])];
-
-            if ($action == 'insert_video') {
-                $insert_sql_data = ['video_date_added' => 'now()'];
-
-                $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
-
-                oos_db_perform($oostable['products_video'], $sql_data_array);
-                $video_id = $dbconn->Insert_ID();
-            } elseif ($action == 'update_video') {
-                $update_sql_data = ['video_last_modified' => 'now()'];
-                $video_id = intval($_POST['video_id'][$i]);
-
-                $sql_data_array = [...$sql_data_array, ...$update_sql_data];
-
-                oos_db_perform($oostable['products_video'], $sql_data_array, 'UPDATE', 'video_id = \'' . intval($video_id) . '\'');
-            }
-
-            $aLanguages = oos_get_languages();
-            $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
-
-            for ($li = 0, $l = $nLanguages; $li < $l; $li++) {
-                $language_id = $aLanguages[$li]['id'];
-
-                $sql_data_array = ['video_title' => oos_db_prepare_input($_POST['video_title'][$i][$language_id]),
-                                        'video_description' => oos_db_prepare_input($_POST['video_description_'. $i . '_'  . $aLanguages[$li]['id']])];
-
-                if ($action == 'insert_video') {
-                    $insert_sql_data = ['video_id' => $video_id,
-                                        'video_languages_id' => $language_id];
-
-                    $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
-
-                    oos_db_perform($oostable['products_video_description'], $sql_data_array);
-                } elseif ($action == 'update_video') {
-                    oos_db_perform($oostable['products_video_description'], $sql_data_array, 'UPDATE', 'video_id = \'' . intval($video_id) . '\' AND video_languages_id = \'' . intval($language_id) . '\'');
-                }
-            }
-
-            if ((isset($_POST['remove_products_video'][$i]) && ($_POST['remove_products_video'][$i] == 'yes')) && (isset($_POST['video_source'][$i]))) {
-                $video_source = oos_db_prepare_input($_POST['video_source'][$i]);
-                $video_id = intval($_POST['video_id'][$i]);
-
-                $products_videotable = $oostable['products_video'];
-                $video_sql = "SELECT video_id, video_source, video_mp4, video_webm, video_ogv, video_poster
-								  FROM $products_videotable 
-								  WHERE video_id = '" . intval($video_id) . "'";
-                $video_files = $dbconn->GetRow($video_sql);
-
-                $dbconn->Execute("DELETE FROM " . $oostable['products_video'] . " WHERE video_id = '" . intval($video_id) . "'");
-                $dbconn->Execute("DELETE FROM " . $oostable['products_video_description'] . " WHERE video_id = '" . intval($video_id) . "'");
-
-                oos_remove_products_video($video_files);
-            }
-
-            // video
-            if (isset($_FILES['video'])) {
-                if ($_FILES["video"]["error"] == UPLOAD_ERR_OK) {
-                    $filename = oos_db_prepare_input($_FILES['video']['name']);
-                    $source = $_FILES['video']['tmp_name'];
-                    $type = oos_db_prepare_input($_FILES['video']['type']);
-
-                    $name = oos_strip_suffix($filename);
-                    $ext = oos_get_suffix($filename);
-                    if ($ext == 'avi') {
-                        $poster = $name . '.jpg';
-                        $video_mp4 = $name . '-x264.mp4';
-                        $video_webm = $name . '-webm.webm';
-                        $video_ogv = $name . '-ogg.ogv';
-
-                        $sql_data_array = ['video_source' => oos_db_prepare_input($filename),
-                                            'video_mp4' => oos_db_prepare_input($video_mp4),
-                                            'video_webm' => oos_db_prepare_input($video_webm),
-                                            'video_ogv' => oos_db_prepare_input($video_ogv),
-                                            'video_poster' => oos_db_prepare_input($poster)];
-
-                        oos_db_perform($oostable['products_video'], $sql_data_array, 'UPDATE', 'video_id = \'' . intval($video_id) . '\'');
-
-                        $path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'video/';
-                        $targetdir = $path;  // target directory
-                        $uploadfile = $path . $filename; // target avi file
-
-                        if (move_uploaded_file($source, $uploadfile)) {
-                            $messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_VIDEO, 'success');
-                        } else {
-                            $messageStack->add_session(ERROR_PROBLEM_WITH_VIDEO_FILE, 'error');
-                        }
-
-                        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-                            $ffmpeg = FFMpeg\FFMpeg::create(
-                                [
-                                'ffmpeg.binaries'  => 'C:/ffmpeg/bin/ffmpeg.exe',
-                                'ffprobe.binaries' => 'C:/ffmpeg/bin/ffprobe.exe',
-                                'timeout'          => 3600, // The timeout for the underlying process
-                                'ffmpeg.threads'   => 12,   // The number of threads that FFMpeg should use
-                                ]
-                            );
-                        } else {
-                            $ffmpeg = FFMpeg\FFMpeg::create();
-                        }
-
-                        $video = $ffmpeg->open($uploadfile);
-                        /*
-                        $video
-                        ->filters()
-                        ->resize(new FFMpeg\Coordinate\Dimension(320, 240))
-                        ->synchronize();
-                        */
-                        $dir_video_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'video/';
-                        $frame = $dir_video_images . $poster;
-                        $video
-                            ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(4))
-                            ->save($frame);
-                        $video
-                            ->save(new FFMpeg\Format\Video\X264(), $path . $name . '-x264.mp4')
-                            ->save(new FFMpeg\Format\Video\Ogg(), $path . $name . '-ogg.ogv')
-                            ->save(new FFMpeg\Format\Video\WebM(), $path .$name . '-webm.webm');
-                    } else {
-                        $messageStack->add_session(ERROR_NO_VIDEO_FILE, 'error');
+            if (isset($_FILES['files'])) {
+                foreach ($_FILES['files']['name'] as $key => $name) {
+                    if (empty($name)) {
+                        // purge empty slots
+                        unset($_FILES['files']['name'][$key]);
+                        unset($_FILES['files']['type'][$key]);
+                        unset($_FILES['files']['tmp_name'][$key]);
+                        unset($_FILES['files']['error'][$key]);
+                        unset($_FILES['files']['size'][$key]);
                     }
                 }
             }
+
+            $nVideoCounter = (!isset($_POST['video_counter']) || !is_numeric($_POST['video_counter'])) ? 0 : intval($_POST['video_counter']);
+
+            for ($i = 0, $n = $nVideoCounter; $i < $n; $i++) {
+                $action = (!isset($_POST['video_id'][$i]) || !is_numeric($_POST['video_id'][$i])) ? 'insert_video' : 'update_video';
+
+                $sql_data_array = ['products_id' => intval($products_id),
+                                   'video_source' => oos_db_prepare_input($_POST['video_source'][$i]),
+                                   'video_preload' => oos_db_prepare_input($_POST['video_preload'][$i])];
+
+                if ($action == 'insert_video') {
+                    $insert_sql_data = ['video_date_added' => 'now()'];
+
+                    $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
+
+                    oos_db_perform($oostable['products_video'], $sql_data_array);
+                    $video_id = $dbconn->Insert_ID();
+                } elseif ($action == 'update_video') {
+                    $update_sql_data = ['video_last_modified' => 'now()'];
+                    $video_id = intval($_POST['video_id'][$i]);
+
+                    $sql_data_array = [...$sql_data_array, ...$update_sql_data];
+
+                    oos_db_perform($oostable['products_video'], $sql_data_array, 'UPDATE', 'video_id = \'' . intval($video_id) . '\'');
+                }
+
+                $aLanguages = oos_get_languages();
+                $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
+
+                for ($li = 0, $l = $nLanguages; $li < $l; $li++) {
+                    $language_id = $aLanguages[$li]['id'];
+
+                    $sql_data_array = ['video_title' => oos_db_prepare_input($_POST['video_title'][$i][$language_id]),
+                                            'video_description' => oos_db_prepare_input($_POST['video_description_'. $i . '_'  . $aLanguages[$li]['id']])];
+
+                    if ($action == 'insert_video') {
+                        $insert_sql_data = ['video_id' => $video_id,
+                                            'video_languages_id' => $language_id];
+
+                        $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
+
+                        oos_db_perform($oostable['products_video_description'], $sql_data_array);
+                    } elseif ($action == 'update_video') {
+                        oos_db_perform($oostable['products_video_description'], $sql_data_array, 'UPDATE', 'video_id = \'' . intval($video_id) . '\' AND video_languages_id = \'' . intval($language_id) . '\'');
+                    }
+                }
+
+                if ((isset($_POST['remove_products_video'][$i]) && ($_POST['remove_products_video'][$i] == 'yes')) && (isset($_POST['video_source'][$i]))) {
+                    $video_source = oos_db_prepare_input($_POST['video_source'][$i]);
+                    $video_id = intval($_POST['video_id'][$i]);
+
+                    $products_videotable = $oostable['products_video'];
+                    $video_sql = "SELECT video_id, video_source, video_mp4, video_webm, video_ogv, video_poster
+								  FROM $products_videotable 
+								  WHERE video_id = '" . intval($video_id) . "'";
+                    $video_files = $dbconn->GetRow($video_sql);
+
+                    $dbconn->Execute("DELETE FROM " . $oostable['products_video'] . " WHERE video_id = '" . intval($video_id) . "'");
+                    $dbconn->Execute("DELETE FROM " . $oostable['products_video_description'] . " WHERE video_id = '" . intval($video_id) . "'");
+
+                    oos_remove_products_video($video_files);
+                }
+
+                // video
+                if (isset($_FILES['video'])) {
+                    if ($_FILES["video"]["error"] == UPLOAD_ERR_OK) {
+                        $filename = oos_db_prepare_input($_FILES['video']['name']);
+                        $source = $_FILES['video']['tmp_name'];
+                        $type = oos_db_prepare_input($_FILES['video']['type']);
+
+                        $name = oos_strip_suffix($filename);
+                        $ext = oos_get_suffix($filename);
+                        if ($ext == 'avi') {
+                            $poster = $name . '.jpg';
+                            $video_mp4 = $name . '-x264.mp4';
+                            $video_webm = $name . '-webm.webm';
+                            $video_ogv = $name . '-ogg.ogv';
+
+                            $sql_data_array = ['video_source' => oos_db_prepare_input($filename),
+                                                'video_mp4' => oos_db_prepare_input($video_mp4),
+                                                'video_webm' => oos_db_prepare_input($video_webm),
+                                                'video_ogv' => oos_db_prepare_input($video_ogv),
+                                                'video_poster' => oos_db_prepare_input($poster)];
+
+                            oos_db_perform($oostable['products_video'], $sql_data_array, 'UPDATE', 'video_id = \'' . intval($video_id) . '\'');
+
+                            $path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'video/';
+                            $targetdir = $path;  // target directory
+                            $uploadfile = $path . $filename; // target avi file
+
+                            if (move_uploaded_file($source, $uploadfile)) {
+                                $messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_VIDEO, 'success');
+                            } else {
+                                $messageStack->add_session(ERROR_PROBLEM_WITH_VIDEO_FILE, 'error');
+                            }
+
+                            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+                                $ffmpeg = FFMpeg\FFMpeg::create(
+                                    [
+                                    'ffmpeg.binaries'  => 'C:/ffmpeg/bin/ffmpeg.exe',
+                                    'ffprobe.binaries' => 'C:/ffmpeg/bin/ffprobe.exe',
+                                    'timeout'          => 3600, // The timeout for the underlying process
+                                    'ffmpeg.threads'   => 12,   // The number of threads that FFMpeg should use
+                                    ]
+                                );
+                            } else {
+                                $ffmpeg = FFMpeg\FFMpeg::create();
+                            }
+
+                            $video = $ffmpeg->open($uploadfile);
+                            /*
+                            $video
+                            ->filters()
+                            ->resize(new FFMpeg\Coordinate\Dimension(320, 240))
+                            ->synchronize();
+                            */
+                            $dir_video_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'video/';
+                            $frame = $dir_video_images . $poster;
+                            $video
+                                ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(4))
+                                ->save($frame);
+                            $video
+                                ->save(new FFMpeg\Format\Video\X264(), $path . $name . '-x264.mp4')
+                                ->save(new FFMpeg\Format\Video\Ogg(), $path . $name . '-ogg.ogv')
+                                ->save(new FFMpeg\Format\Video\WebM(), $path .$name . '-webm.webm');
+                        } else {
+                            $messageStack->add_session(ERROR_NO_VIDEO_FILE, 'error');
+                        }
+                    }
+                }
+            }
+            oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . '&pID=' . intval($products_id)));
         }
-        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . '&pID=' . intval($products_id)));
-    }
-    break;
+        break;
 }
 
 require 'includes/header.php';
@@ -374,8 +374,8 @@ if ($action == 'edit_video') {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                    echo TEXT_VIDEO_TITLE;
-                                                                     } ?></label>
+                                  echo TEXT_VIDEO_TITLE;
+                              } ?></label>
                 <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
@@ -392,8 +392,8 @@ if ($action == 'edit_video') {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                    echo TEXT_VIDEO_DESCRIPTION;
-                                                                     } ?></label>
+                                  echo TEXT_VIDEO_DESCRIPTION;
+                              } ?></label>
                 <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
@@ -526,5 +526,5 @@ if ($action == 'edit_video') {
 
 <?php
     require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/nice_exit.php';
 ?>

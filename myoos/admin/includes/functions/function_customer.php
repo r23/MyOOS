@@ -24,18 +24,18 @@
    ----------------------------------------------------------------------
  */
 
-  /**
-   * ensure this file is being included by a parent file
-   */
-  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+/**
+ * ensure this file is being included by a parent file
+ */
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
- /**
-  * Customer Status Name
-  *
-  * @param  $customers_status_id
-  * @param  $language
-  * @return string
-  */
+/**
+ * Customer Status Name
+ *
+ * @param  $customers_status_id
+ * @param  $language
+ * @return string
+ */
 function oos_get_customer_status_name($customers_status_id, $language_id = '')
 {
     if (empty($language_id) || !is_numeric($language_id)) {
@@ -43,8 +43,8 @@ function oos_get_customer_status_name($customers_status_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $query = "SELECT customers_status_name
               FROM " . $oostable['customers_status'] . "
@@ -57,23 +57,23 @@ function oos_get_customer_status_name($customers_status_id, $language_id = '')
     return $customers_status_name;
 }
 
- /**
-  * Return all customers statuses for a specified language_id and return an array(array())
-  * Use it to make pull_down_menu, checkbox
-  *
-  * @author  elari - Added in CS V1.1
-  * @changed by $Author: r23 $
-  * @param   $customers_status_id
-  * @param   $language
-  * @return  array(array())
-  */
+/**
+ * Return all customers statuses for a specified language_id and return an array(array())
+ * Use it to make pull_down_menu, checkbox
+ *
+ * @author  elari - Added in CS V1.1
+ * @changed by $Author: r23 $
+ * @param   $customers_status_id
+ * @param   $language
+ * @return  array(array())
+ */
 function oos_get_customers_statuses()
 {
     $customers_statuses_array = [];
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $query = "SELECT customers_status_id, customers_status_name, customers_status_ot_discount_flag,
                      customers_status_ot_discount, customers_status_payment
@@ -92,22 +92,22 @@ function oos_get_customers_statuses()
     return $customers_statuses_array;
 }
 
- /**
-  * Return all status info values for a customer_id in admin . no need to check session !
-  * Use it to make pull_down_menu, checkbox
-  *
-  * @author  elari - Added in CS V1.1
-  * @changed by $Author: r23 $
-  * @param   $customers_id
-  * @return  array(array())
-  */
+/**
+ * Return all status info values for a customer_id in admin . no need to check session !
+ * Use it to make pull_down_menu, checkbox
+ *
+ * @author  elari - Added in CS V1.1
+ * @changed by $Author: r23 $
+ * @param   $customers_id
+ * @return  array(array())
+ */
 function oos_get_customers_status($customer_id)
 {
     $customer_status_array = [];
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $query = "SELECT customers_status, customers_status_name, customers_status_public, 
                      customers_status_ot_discount_flag, customers_status_ot_discount,
@@ -123,18 +123,18 @@ function oos_get_customers_status($customer_id)
     return $customer_status_array;
 }
 
- /**
-  * Set Login Status
-  *
-  * @param $customer_id
-  * @param $status
-  */
+/**
+ * Set Login Status
+ *
+ * @param $customer_id
+ * @param $status
+ */
 function oos_set_customer_login($customer_id, $status)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     if ($status == '1') {
         $query = "UPDATE " . $oostable['customers'] . "
@@ -155,14 +155,14 @@ function oos_set_customer_login($customer_id, $status)
     }
 }
 
- /**
-  * Installed Payment
-  *
-  * @author    r23 <info@r23.de>
-  * @copyright 2003 r23
-  * @param     $customers_payment
-  * @return    string
-  */
+/**
+ * Installed Payment
+ *
+ * @author    r23 <info@r23.de>
+ * @copyright 2003 r23
+ * @param     $customers_payment
+ * @return    string
+ */
 function oos_installed_payment($customers_payment = '')
 {
     global $aLang;
@@ -190,14 +190,14 @@ function oos_installed_payment($customers_payment = '')
     return $install_payment;
 }
 
- /**
-  * Customers Payment
-  *
-  * @author    r23 <info@r23.de>
-  * @copyright 2003 r23
-  * @param     $customers_payment
-  * @return    string
-  */
+/**
+ * Customers Payment
+ *
+ * @author    r23 <info@r23.de>
+ * @copyright 2003 r23
+ * @param     $customers_payment
+ * @return    string
+ */
 function oos_customers_payment($customers_payment = '')
 {
     global $aLang;

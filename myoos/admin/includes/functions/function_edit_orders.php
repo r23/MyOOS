@@ -30,18 +30,18 @@
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
- /**
-  * Return the country_id based on the country's name
-  *
-  * @param  $country_name string
-  * @return integer
-  */
+/**
+ * Return the country_id based on the country's name
+ *
+ * @param  $country_name string
+ * @return integer
+ */
 function oos_get_country_id($country_name)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
     $query = "SELECT countries_id
               FROM " . $oostable['countries'] . " 
               WHERE countries_name = '" . oos_db_input($country_name) . "'";
@@ -65,8 +65,8 @@ function oos_get_country_isocode2($country_id)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
     $query = "SELECT countries_iso_code_2
               FROM " . $oostable['countries'] . "
               WHERE countries_id = '" . intval($country_id) . "'";
@@ -91,8 +91,8 @@ function oos_get_zone_id($country_id, $zone_name)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
     $query = "SELECT zone_id
               FROM " . $oostable['zones'] . "
               WHERE zone_country_id = '" . intval($country_id) . "'
@@ -107,18 +107,18 @@ function oos_get_zone_id($country_id, $zone_name)
     return $zone_id;
 }
 
- /**
-  * Return result of check the existence of a database field
-  *
-  * @param  $table string
-  * @param  $field string
-  * @return boolean
-  */
+/**
+ * Return result of check the existence of a database field
+ *
+ * @param  $table string
+ * @param  $field string
+ * @return boolean
+ */
 function oos_field_exists($table, $field)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
+    $dbconn = & oosDBGetConn();
     $describe_result = $dbconn->Execute("describe $table");
     while ($d_row = $describe_result->fields) {
         if ($d_row["field"] == "$field") {

@@ -36,7 +36,7 @@ $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
 switch ($action) {
-       case 'setflag':
+    case 'setflag':
         if (($_GET['loginflag'] == '0') || ($_GET['loginflag'] == '1')) {
             if (isset($_GET['cID'])) {
                 oos_set_customer_login($_GET['cID'], $_GET['loginflag']);
@@ -141,15 +141,15 @@ switch ($action) {
             }
         }
         break;
-      case 'set2fa':
-            if (isset($_GET['2faflag']) && ($_GET['2faflag'] == '0')) {
-                $sKey = '';
-                $sql_data_array = ['customers_2fa' => $sKey, 'customers_2fa_active' => 0];
-                oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($_GET['cID']) . "'");
-            }
+    case 'set2fa':
+        if (isset($_GET['2faflag']) && ($_GET['2faflag'] == '0')) {
+            $sKey = '';
+            $sql_data_array = ['customers_2fa' => $sKey, 'customers_2fa_active' => 0];
+            oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($_GET['cID']) . "'");
+        }
         break;
-      case 'statusconfirm':
-		$customers_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
+    case 'statusconfirm':
+        $customers_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
         $pdm_status = isset($_POST['pdm_status']) ? intval($_POST['pdm_status']) : 1;
         $customer_notified = isset($_POST['customer_notified']) ? intval($_POST['customer_notified']) : 0;
 
@@ -179,7 +179,7 @@ switch ($action) {
                                                        '" . oos_db_input($customer_notified) . "')");
         }
         break;
-      case 'update':
+    case 'update':
         $customers_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
 
         $customers_firstname = isset($_POST['customers_firstname']) ? oos_db_prepare_input($_POST['customers_firstname']) : '';
@@ -241,7 +241,7 @@ switch ($action) {
 
         oos_redirect_admin(oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID', 'action']) . 'cID=' . $customers_id));
         break;
-      case 'deleteconfirm':
+    case 'deleteconfirm':
         $customers_id = oos_db_prepare_input($_GET['cID']);
 
         if (isset($_POST['delete_reviews']) && ($_POST['delete_reviews'] == 'on')) {
@@ -275,7 +275,7 @@ switch ($action) {
 require 'includes/header.php';
 
 if ($action == 'edit') {
-      ?>
+    ?>
 <script nonce="<?php echo NONCE; ?>">
 function resetStateText(theForm) {
   theForm.entry_state.value = '';
@@ -319,9 +319,9 @@ function check_form() {
   if (ACCOUNT_COMPANY == 'true') {
       echo 'let entry_company = document.customers.entry_company.value;' . "\n";
   }
-      if (ACCOUNT_DOB == 'true') {
-          echo 'let customers_dob = document.customers.customers_dob.value;' . "\n";
-      } ?>
+    if (ACCOUNT_DOB == 'true') {
+        echo 'let customers_dob = document.customers.customers_dob.value;' . "\n";
+    } ?>
   let customers_email_address = document.customers.customers_email_address.value;  
   let entry_street_address = document.customers.entry_street_address.value;
   let entry_postcode = document.customers.entry_postcode.value;
@@ -403,7 +403,7 @@ function check_form() {
 }
 </script>
 <?php
-  }
+}
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -709,12 +709,12 @@ function check_form() {
 <?php
     $search = '';
       if (isset($_GET['search']) && oos_is_not_null($_GET['search'])) {
-		  $keywords = filter_string_polyfill(filter_input(INPUT_GET, 'search'));
+          $keywords = filter_string_polyfill(filter_input(INPUT_GET, 'search'));
           $search = "WHERE c.customers_lastname like '%" . $keywords . "%' or c.customers_firstname like '%" . oos_db_input($keywords) . "%' or c.customers_email_address like '%" . oos_db_input($keywords) . "'";
       }
       if (isset($_GET['status'])) {
-		  $status = filter_string_polyfill(filter_input(INPUT_GET, 'status'));
-          $search ="WHERE c.customers_status = '". oos_db_input($status) . "'";
+          $status = filter_string_polyfill(filter_input(INPUT_GET, 'status'));
+          $search = "WHERE c.customers_status = '". oos_db_input($status) . "'";
       }
 
       $customerstable = $oostable['customers'];
@@ -745,7 +745,7 @@ function check_form() {
               $countriestable = $oostable['countries'];
               $country_result = $dbconn->Execute("SELECT countries_name
                                             FROM $countriestable
-                                            WHERE countries_id = '" . intval($customers['entry_country_id']) . "'");	
+                                            WHERE countries_id = '" . intval($customers['entry_country_id']) . "'");
               $country = $country_result->fields;
 
               $reviewstable = $oostable['reviews'];
@@ -754,10 +754,10 @@ function check_form() {
                                             WHERE customers_id = '" . intval($customers['customers_id']) . "'");
               $reviews = $reviews_result->fields;
 
-				$customer_info = array_merge($country, $info, $reviews);
+              $customer_info = array_merge($country, $info, $reviews);
 
-				$cInfo_array = array_merge($customers, $customer_info);
-				$cInfo = new objectInfo($cInfo_array);
+              $cInfo_array = array_merge($customers, $customer_info);
+              $cInfo = new objectInfo($cInfo_array);
           }
 
           if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id)) {
@@ -785,14 +785,14 @@ function check_form() {
 
                 <td class="text-right"><?php echo oos_date_short($info['date_account_created']); ?></td>
                 <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id)) {
-          echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-      } else {
-          echo '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID']) . 'cID=' . $customers['customers_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-      } ?>&nbsp;</td>
+                    echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+                } else {
+                    echo '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID']) . 'cID=' . $customers['customers_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+                } ?>&nbsp;</td>
               </tr>
 <?php
-      // Move that ADOdb pointer!
-      $customers_result->MoveNext();
+                // Move that ADOdb pointer!
+                $customers_result->MoveNext();
       } ?>
               <tr>
                 <td colspan="8"><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -816,83 +816,83 @@ function check_form() {
       $contents = [];
 
       switch ($action) {
-    case 'confirm':
-      $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_CUSTOMER . '</b>'];
+          case 'confirm':
+              $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_CUSTOMER . '</b>'];
 
-      $contents = ['form' => oos_draw_form('id', 'customers', $aContents['customers'], oos_get_all_get_params(['cID', 'action']) . 'cID=' . $cInfo->customers_id . '&action=deleteconfirm', 'post', false)];
-      $contents[] = ['text' => TEXT_DELETE_INTRO . '<br><br><b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>'];
-      if ($cInfo->number_of_reviews > 0) {
-          $contents[] = ['text' => '<br>' . oos_draw_checkbox_field('delete_reviews', 'on', true) . ' ' . sprintf(TEXT_DELETE_REVIEWS, $cInfo->number_of_reviews)];
-      }
-      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID', 'action']) . 'cID=' . $cInfo->customers_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
+              $contents = ['form' => oos_draw_form('id', 'customers', $aContents['customers'], oos_get_all_get_params(['cID', 'action']) . 'cID=' . $cInfo->customers_id . '&action=deleteconfirm', 'post', false)];
+              $contents[] = ['text' => TEXT_DELETE_INTRO . '<br><br><b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>'];
+              if ($cInfo->number_of_reviews > 0) {
+                  $contents[] = ['text' => '<br>' . oos_draw_checkbox_field('delete_reviews', 'on', true) . ' ' . sprintf(TEXT_DELETE_REVIEWS, $cInfo->number_of_reviews)];
+              }
+              $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID', 'action']) . 'cID=' . $cInfo->customers_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
-      break;
+              break;
 
-    case 'editstatus':
-        $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_STATUS_CUSTOMER . '</b>'];
-        $contents = ['form' => oos_draw_form('id', 'customers', $aContents['customers'], oos_get_all_get_params(['cID', 'action']) . 'cID=' . $cInfo->customers_id . '&action=statusconfirm', 'post', false)];
-        $contents[] = ['text' => '<br>' . oos_draw_pull_down_menu('pdm_status', '', array_merge([['id' => '0', 'text' => PULL_DOWN_DEFAULT]], $customers_statuses_array), $cInfo->customers_status)];
-        $contents[] = ['text' => '<table border="0" cellspacing="0" cellpadding="5"><tr><td class="smallText" align="center">' . TABLE_HEADING_NEW_VALUE .' </td><td class="smallText" align="center">' . TABLE_HEADING_DATE_ADDED];
+          case 'editstatus':
+              $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_STATUS_CUSTOMER . '</b>'];
+              $contents = ['form' => oos_draw_form('id', 'customers', $aContents['customers'], oos_get_all_get_params(['cID', 'action']) . 'cID=' . $cInfo->customers_id . '&action=statusconfirm', 'post', false)];
+              $contents[] = ['text' => '<br>' . oos_draw_pull_down_menu('pdm_status', '', array_merge([['id' => '0', 'text' => PULL_DOWN_DEFAULT]], $customers_statuses_array), $cInfo->customers_status)];
+              $contents[] = ['text' => '<table border="0" cellspacing="0" cellpadding="5"><tr><td class="smallText" align="center">' . TABLE_HEADING_NEW_VALUE .' </td><td class="smallText" align="center">' . TABLE_HEADING_DATE_ADDED];
 
-        if (isset($_GET['cID'])) {
-			$customers_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
+              if (isset($_GET['cID'])) {
+                  $customers_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
 
-            $customers_status_historytable = $oostable['customers_status_history'];
-            $customers_history_sql = "SELECT new_value, old_value, date_added, customer_notified 
+                  $customers_status_historytable = $oostable['customers_status_history'];
+                  $customers_history_sql = "SELECT new_value, old_value, date_added, customer_notified 
                                 FROM $customers_status_historytable
                                 WHERE customers_id = '" . intval($customers_id) . "'
                                 ORDER BY customers_status_history_id DESC";
-            $customers_history_result = $dbconn->Execute($customers_history_sql);
-            if ($customers_history_result->RecordCount()) {
-                while ($customers_history = $customers_history_result->fields) {
-                    $contents[] = ['text' =>  $customers_statuses_array[$customers_history['new_value']]['text'] . '</td>' . "\n" . '<td class="smallText" align="center">' . oos_datetime_short($customers_history['date_added'])  . "\n"];
+                  $customers_history_result = $dbconn->Execute($customers_history_sql);
+                  if ($customers_history_result->RecordCount()) {
+                      while ($customers_history = $customers_history_result->fields) {
+                          $contents[] = ['text' =>  $customers_statuses_array[$customers_history['new_value']]['text'] . '</td>' . "\n" . '<td class="smallText" align="center">' . oos_datetime_short($customers_history['date_added'])  . "\n"];
 
-                    // Move that ADOdb pointer!
-                    $customers_history_result->MoveNext();
-                }
-            } else {
-                $contents[] = ['text' => '<tr>' . "\n" . ' <td class="smallText" colspan="2">' . TEXT_NO_CUSTOMER_HISTORY . '</td>' . "\n" . ' </tr>' . "\n"];
-            }
-        }
-        $contents[] = ['text' => '</table>'];
-        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID', 'action']) . 'cID=' . $cInfo->customers_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
+                          // Move that ADOdb pointer!
+                          $customers_history_result->MoveNext();
+                      }
+                  } else {
+                      $contents[] = ['text' => '<tr>' . "\n" . ' <td class="smallText" colspan="2">' . TEXT_NO_CUSTOMER_HISTORY . '</td>' . "\n" . ' </tr>' . "\n"];
+                  }
+              }
+              $contents[] = ['text' => '</table>'];
+              $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID', 'action']) . 'cID=' . $cInfo->customers_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
-      break;
+              break;
 
-    default:
+          default:
 
-      if (isset($cInfo) && is_object($cInfo)) {
-          $heading[] = ['text' => '<b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>'];
+              if (isset($cInfo) && is_object($cInfo)) {
+                  $heading[] = ['text' => '<b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>'];
 
-          $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID', 'action']) . 'cID=' . $cInfo->customers_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID', 'action']) . 'cID=' . $cInfo->customers_id . '&action=confirm') . '">' . oos_button(BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], 'cID=' . $cInfo->customers_id) . '">' . oos_button(IMAGE_ORDERS) . '</a> <a href="' . oos_href_link_admin($aContents['mail'], 'selected_box=tools&customer=' . $cInfo->customers_email_address) . '">' . oos_button(IMAGE_EMAIL) . '</a>'];
-          $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID', 'action']) . 'cID=' . $cInfo->customers_id . '&action=editstatus') . '">' . oos_button(IMAGE_STATUS) . '</a>'];
+                  $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID', 'action']) . 'cID=' . $cInfo->customers_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID', 'action']) . 'cID=' . $cInfo->customers_id . '&action=confirm') . '">' . oos_button(BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], 'cID=' . $cInfo->customers_id) . '">' . oos_button(IMAGE_ORDERS) . '</a> <a href="' . oos_href_link_admin($aContents['mail'], 'selected_box=tools&customer=' . $cInfo->customers_email_address) . '">' . oos_button(IMAGE_EMAIL) . '</a>'];
+                  $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID', 'action']) . 'cID=' . $cInfo->customers_id . '&action=editstatus') . '">' . oos_button(IMAGE_STATUS) . '</a>'];
 
 
-          $manual_infotable = $oostable['manual_info'];
-          $sql = "SELECT man_info_id, man_key, status
+                  $manual_infotable = $oostable['manual_info'];
+                  $sql = "SELECT man_info_id, man_key, status
                 FROM $manual_infotable
                 WHERE man_info_id = '1'";
-          $login_result = $dbconn->Execute($sql);
-          $login = $login_result->fields;
-          if ($login['status'] != '0') {
-              if (!empty($cInfo->customers_email_address)) {
-                  $contents[] = ['align' => 'center', 'text' => oos_draw_login_form('login', $aCatalog['login_admin'], 'action=login_admin', 'POST') . oos_draw_hidden_field('verif_key', $login['man_key']) . oos_draw_hidden_field('email_address', $cInfo->customers_email_address) . oos_submit_button(IMAGE_LOGIN) . '</form>'];
+                  $login_result = $dbconn->Execute($sql);
+                  $login = $login_result->fields;
+                  if ($login['status'] != '0') {
+                      if (!empty($cInfo->customers_email_address)) {
+                          $contents[] = ['align' => 'center', 'text' => oos_draw_login_form('login', $aCatalog['login_admin'], 'action=login_admin', 'POST') . oos_draw_hidden_field('verif_key', $login['man_key']) . oos_draw_hidden_field('email_address', $cInfo->customers_email_address) . oos_submit_button(IMAGE_LOGIN) . '</form>'];
+                      }
+                  }
+
+
+                  $customer_status = oos_get_customers_status($cInfo->customers_id);
+                  $contents[] = ['text' => '<br>'  . oos_customers_payment($customer_status['customers_status_payment'])];
+
+                  $contents[] = ['text' => '<br>' . TEXT_DATE_ACCOUNT_CREATED . ' ' . oos_date_short($cInfo->date_account_created)];
+                  $contents[] = ['text' => '<br>' . TEXT_DATE_ACCOUNT_LAST_MODIFIED . ' ' . oos_date_short($cInfo->date_account_last_modified)];
+                  $contents[] = ['text' => '<br>' . TEXT_INFO_DATE_LAST_LOGON . ' '  . oos_date_short($cInfo->date_last_logon)];
+                  $contents[] = ['text' => '<br>' . TEXT_INFO_NUMBER_OF_LOGONS . ' ' . $cInfo->number_of_logons];
+                  $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY . ' ' . $cInfo->countries_name];
+                  $contents[] = ['text' => '<br>' . TEXT_INFO_NUMBER_OF_REVIEWS . ' ' . $cInfo->number_of_reviews];
               }
-          }
-
-
-          $customer_status = oos_get_customers_status($cInfo->customers_id);
-          $contents[] = ['text' => '<br>'  . oos_customers_payment($customer_status['customers_status_payment'])];
-
-          $contents[] = ['text' => '<br>' . TEXT_DATE_ACCOUNT_CREATED . ' ' . oos_date_short($cInfo->date_account_created)];
-          $contents[] = ['text' => '<br>' . TEXT_DATE_ACCOUNT_LAST_MODIFIED . ' ' . oos_date_short($cInfo->date_account_last_modified)];
-          $contents[] = ['text' => '<br>' . TEXT_INFO_DATE_LAST_LOGON . ' '  . oos_date_short($cInfo->date_last_logon)];
-          $contents[] = ['text' => '<br>' . TEXT_INFO_NUMBER_OF_LOGONS . ' ' . $cInfo->number_of_logons];
-          $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY . ' ' . $cInfo->countries_name];
-          $contents[] = ['text' => '<br>' . TEXT_INFO_NUMBER_OF_REVIEWS . ' ' . $cInfo->number_of_reviews];
+              break;
       }
-      break;
-  }
 
       if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
           ?>
@@ -929,5 +929,5 @@ function check_form() {
 
 <?php
     require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/nice_exit.php';
 ?>

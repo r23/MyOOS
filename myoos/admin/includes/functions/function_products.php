@@ -33,8 +33,8 @@ function oos_get_product_path($products_id)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_to_categoriestable = $oostable['products_to_categories'];
     $sql = "SELECT categories_id

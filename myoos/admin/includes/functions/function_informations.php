@@ -21,8 +21,8 @@ function oos_get_informations_name($informations_id, $language_id = '')
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     if (empty($language_id) || !is_numeric($language_id)) {
         $language_id = intval($_SESSION['language_id']);
@@ -50,8 +50,8 @@ function oos_get_informations_description($informations_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $information_descriptiontable = $oostable['information_description'];
     $query = "SELECT information_description
@@ -73,8 +73,8 @@ function oos_get_informations_heading_title($informations_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $information_descriptiontable = $oostable['information_description'];
     $query = "SELECT information_heading_title

@@ -42,13 +42,13 @@ function oos_get_path($current_category_id = '')
             $cPath_new = '';
 
             // Get database information
-            $dbconn =& oosDBGetConn();
-            $oostable =& oosDBGetTables();
+            $dbconn = & oosDBGetConn();
+            $oostable = & oosDBGetTables();
 
             $categoriestable = $oostable['categories'];
             $query = "SELECT parent_id
                   FROM $categoriestable
-                  WHERE categories_id = '" . intval($cPath_array[(count($cPath_array)-1)]) . "'";
+                  WHERE categories_id = '" . intval($cPath_array[(count($cPath_array) - 1)]) . "'";
             $last_category_result = $dbconn->Execute($query);
             $last_category = $last_category_result->fields;
 
@@ -93,8 +93,8 @@ function oos_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     if ($include_itself) {
         $categories_descriptiontable = $oostable['categories_description'];
@@ -142,8 +142,8 @@ function oos_get_category_name($category_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_name
@@ -166,8 +166,8 @@ function oos_get_categories_page_title($category_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_page_title
@@ -189,8 +189,8 @@ function oos_get_products_description($product_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_description
@@ -212,8 +212,8 @@ function oos_get_products_short_description($product_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_short_description
@@ -237,8 +237,8 @@ function oos_get_products_essential_characteristicsn($product_id, $language_id =
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_essential_characteristics
@@ -261,8 +261,8 @@ function oos_get_products_description_meta($product_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_description_meta
@@ -284,8 +284,8 @@ function oos_get_products_old_electrical_equipment_description($product_id, $lan
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_old_electrical_equipment_description
@@ -308,8 +308,8 @@ function oos_get_products_used_goods_description($product_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_used_goods_description
@@ -334,8 +334,8 @@ function oos_get_products_facebook_title($product_id, $language_id)
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_facebook_title
@@ -356,8 +356,8 @@ function oos_get_products_facebook_description($product_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_facebook_description
@@ -378,8 +378,8 @@ function oos_get_products_twitter_title($product_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_twitter_title
@@ -400,8 +400,8 @@ function oos_get_products_twitter_description($product_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_twitter_description
@@ -428,8 +428,8 @@ function oos_get_categories_facebook_title($category_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_facebook_title
@@ -451,8 +451,8 @@ function oos_get_categories_facebook_description($category_id, $language_id = ''
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_facebook_description
@@ -474,8 +474,8 @@ function oos_get_categories_twitter_title($category_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_twitter_title
@@ -498,8 +498,8 @@ function oos_get_categories_twitter_description($category_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_twitter_description
@@ -522,8 +522,8 @@ function oos_get_products_url($product_id, $language_id)
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_url
@@ -543,8 +543,8 @@ function oos_products_in_category_count($categories_id, $include_deactivated = f
     $products_count = 0;
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $productstable = $oostable['products'];
     $products_to_categoriestable = $oostable['products_to_categories'];
@@ -593,8 +593,8 @@ function oos_childs_in_category_count($categories_id)
     $categories_count = 0;
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categoriestable = $oostable['categories'];
     $query = "SELECT categories_id
@@ -618,8 +618,8 @@ function oos_set_categories_status($categories_id, $status)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categoriestable = $oostable['categories'];
     if ($status == '1') {
@@ -658,8 +658,8 @@ function oos_set_product_status($products_id, $status)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $productstable = $oostable['products'];
     $query = "UPDATE $productstable
@@ -676,8 +676,8 @@ function product_move_to_trash($products_id)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $productstable = $oostable['products'];
     $query = "UPDATE $productstable
@@ -694,8 +694,8 @@ function category_move_to_trash($categories_id)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categoriestable = $oostable['categories'];
     $query = "UPDATE $categoriestable
@@ -715,8 +715,8 @@ function oos_generate_category_path($id, $from = 'category', $categories_array =
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_to_categoriestable = $oostable['products_to_categories'];
     $categoriestable = $oostable['categories'];
@@ -858,8 +858,8 @@ function oos_remove_category($category_id)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categoriestable = $oostable['categories'];
     $category_image_query = "SELECT categories_image
@@ -927,8 +927,8 @@ function oos_get_category_heading_title($category_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_heading_title
@@ -949,8 +949,8 @@ function oos_get_category_description($category_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_description
@@ -972,8 +972,8 @@ function oos_get_category_description_meta($category_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_description_meta
@@ -992,8 +992,8 @@ function oos_duplicate_product_image_check($image)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $productstable = $oostable['products'];
     $query = "SELECT COUNT(*) AS total
@@ -1030,8 +1030,8 @@ function oos_remove_products_model($model)
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_modelstable = $oostable['products_models'];
     $product_models_query = "SELECT models_id
@@ -1062,8 +1062,8 @@ function oos_remove_model_usds($model)
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_model_viewertable = $oostable['products_model_viewer'];
     $product_models_query = "SELECT model_viewer_id
@@ -1086,8 +1086,8 @@ function oos_remove_products_video($video_files)
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'video/';
     $products_videotable = $oostable['products_video'];
@@ -1158,8 +1158,8 @@ function oos_get_manufacturers_name($product_id)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $manufacturerstable = $oostable['manufacturers'];
     $manufacturers_infotable = $oostable['manufacturers_info'];
@@ -1189,8 +1189,8 @@ function oos_get_products_special_price($nProductID)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $specialstable = $oostable['specials'];
     $query = "SELECT specials_new_products_price
@@ -1216,8 +1216,8 @@ function oos_get_categories_name($who_am_i, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_name
@@ -1233,13 +1233,13 @@ function oos_get_categories_name($who_am_i, $language_id = '')
 }
 
 
- /**
-  * Return 3D Model Name
-  *
-  * @param  $model_id
-  * @param  $language
-  * @return string
-  */
+/**
+ * Return 3D Model Name
+ *
+ * @param  $model_id
+ * @param  $language
+ * @return string
+ */
 function oos_get_models_name($model_id, $language_id = '')
 {
     if (empty($language_id) || !is_numeric($language_id)) {
@@ -1247,8 +1247,8 @@ function oos_get_models_name($model_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_models_descriptiontable = $oostable['products_models_description'];
     $query = "SELECT models_name
@@ -1264,13 +1264,13 @@ function oos_get_models_name($model_id, $language_id = '')
 
 
 
- /**
-  * Return 3D Model Page Title for SEO
-  *
-  * @param  $model_id
-  * @param  $language
-  * @return string
-  */
+/**
+ * Return 3D Model Page Title for SEO
+ *
+ * @param  $model_id
+ * @param  $language
+ * @return string
+ */
 function oos_get_models_title($model_id, $language_id = '')
 {
     if (empty($language_id) || !is_numeric($language_id)) {
@@ -1278,8 +1278,8 @@ function oos_get_models_title($model_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_models_descriptiontable = $oostable['products_models_description'];
     $query = "SELECT models_title
@@ -1299,8 +1299,8 @@ function oos_get_models_description_meta($model_id, $language_id = '')
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     if (empty($language_id) || !is_numeric($language_id)) {
         $language_id = intval($_SESSION['language_id']);
@@ -1320,13 +1320,13 @@ function oos_get_models_description_meta($model_id, $language_id = '')
 
 
 
- /**
-  * Return Panorama Name
-  *
-  * @param  $panorama_id
-  * @param  $language
-  * @return string
-  */
+/**
+ * Return Panorama Name
+ *
+ * @param  $panorama_id
+ * @param  $language
+ * @return string
+ */
 function oos_get_panorama_name($panorama_id, $language_id = '')
 {
     if (empty($language_id) || !is_numeric($language_id)) {
@@ -1334,8 +1334,8 @@ function oos_get_panorama_name($panorama_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categories_panorama_descriptiontable = $oostable['categories_panorama_description'];
     $query = "SELECT panorama_name
@@ -1351,13 +1351,13 @@ function oos_get_panorama_name($panorama_id, $language_id = '')
 
 
 
- /**
-  * Return Panorama Title for SEO
-  *
-  * @param  $panorama_id
-  * @param  $language
-  * @return string
-  */
+/**
+ * Return Panorama Title for SEO
+ *
+ * @param  $panorama_id
+ * @param  $language
+ * @return string
+ */
 function oos_get_panorama_title($panorama_id, $language_id = '')
 {
     if (empty($language_id) || !is_numeric($language_id)) {
@@ -1365,8 +1365,8 @@ function oos_get_panorama_title($panorama_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categories_panorama_descriptiontable = $oostable['categories_panorama_description'];
     $query = "SELECT panorama_title
@@ -1389,8 +1389,8 @@ function oos_get_panorama_description_meta($panorama_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categories_panorama_descriptiontable = $oostable['categories_panorama_description'];
     $query = "SELECT panorama_description_meta
@@ -1405,13 +1405,13 @@ function oos_get_panorama_description_meta($panorama_id, $language_id = '')
 }
 
 
- /**
-  * Return 3D Model Page for ALT-TAG
-  *
-  * @param  $model_viewer_id
-  * @param  $language
-  * @return string
-  */
+/**
+ * Return 3D Model Page for ALT-TAG
+ *
+ * @param  $model_viewer_id
+ * @param  $language
+ * @return string
+ */
 function oos_get_model_viewer_title($model_viewer_id, $language_id = '')
 {
     if (empty($model_viewer_id) || !is_numeric($model_viewer_id)) {
@@ -1423,8 +1423,8 @@ function oos_get_model_viewer_title($model_viewer_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_model_viewer_descriptiontable = $oostable['products_model_viewer_description'];
     $query = "SELECT model_viewer_title
@@ -1446,8 +1446,8 @@ function oos_get_model_viewer_description($model_viewer_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_model_viewer_descriptiontable = $oostable['products_model_viewer_description'];
     $query = "SELECT model_viewer_description
@@ -1463,13 +1463,13 @@ function oos_get_model_viewer_description($model_viewer_id, $language_id = '')
 
 
 
- /**
-  * Return Hotspot Text
-  *
-  * @param  $hotspot_id
-  * @param  $language
-  * @return string
-  */
+/**
+ * Return Hotspot Text
+ *
+ * @param  $hotspot_id
+ * @param  $language
+ * @return string
+ */
 function oos_get_hotspot_text($hotspot_id, $language_id = '')
 {
     if (empty($language_id) || !is_numeric($language_id)) {
@@ -1477,8 +1477,8 @@ function oos_get_hotspot_text($hotspot_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categories_panorama_scene_hotspot_texttable = $oostable['categories_panorama_scene_hotspot_text'];
     $query = "SELECT hotspot_text
@@ -1497,8 +1497,8 @@ function oos_remove_panorama($panorama_id)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categoriestable = $oostable['categories_panorama'];
     $panorama_preview_query = "SELECT panorama_preview
@@ -1539,13 +1539,13 @@ function oos_remove_panorama($panorama_id)
 }
 
 
- /**
-  * Return Video Title
-  *
-  * @param  $video_id
-  * @param  $language
-  * @return string
-  */
+/**
+ * Return Video Title
+ *
+ * @param  $video_id
+ * @param  $language
+ * @return string
+ */
 function oos_get_video_title($video_id, $language_id = '')
 {
     if (empty($video_id) || !is_numeric($video_id)) {
@@ -1557,8 +1557,8 @@ function oos_get_video_title($video_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_video_descriptiontable = $oostable['products_video_description'];
     $query = "SELECT video_title
@@ -1573,13 +1573,13 @@ function oos_get_video_title($video_id, $language_id = '')
 }
 
 
- /**
-  * Return Video Description
-  *
-  * @param  $video_id
-  * @param  $language
-  * @return string
-  */
+/**
+ * Return Video Description
+ *
+ * @param  $video_id
+ * @param  $language
+ * @return string
+ */
 function oos_get_video_description($video_id, $language_id = '')
 {
     if (empty($language_id) || !is_numeric($language_id)) {
@@ -1587,8 +1587,8 @@ function oos_get_video_description($video_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_video_descriptiontable = $oostable['products_video_description'];
     $query = "SELECT video_description

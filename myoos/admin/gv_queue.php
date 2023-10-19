@@ -47,7 +47,7 @@ if ($action == 'confirmrelease' && isset($_GET['gid'])) {
             $message .= TEXT_REDEEM_COUPON_MESSAGE_FOOTER;
 
             // Instantiate a new mail object
-			$send_mail = new PHPMailer\PHPMailer\PHPMailer();    
+            $send_mail = new PHPMailer\PHPMailer\PHPMailer();
 
             $sLang = ($_SESSION['iso_639_1'] ?? DEFAULT_LANGUAGE_CODE);
             $send_mail->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/language/');
@@ -62,40 +62,40 @@ if ($action == 'confirmrelease' && isset($_GET['gid'])) {
             $send_mail->Mailer = EMAIL_TRANSPORT;
 
             // Add smtp values if needed
-			if (EMAIL_TRANSPORT == 'smtp') {
-				$send_mail->IsSMTP(); // set mailer to use SMTP
+            if (EMAIL_TRANSPORT == 'smtp') {
+                $send_mail->IsSMTP(); // set mailer to use SMTP
 
-				// $send_mail->SMTPDebug = PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
-        
-				$send_mail->Host     = OOS_SMTPHOST; // specify main and backup server        
-				$send_mail->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
-				$send_mail->Username = OOS_SMTPUSER; // SMTP username
-				$send_mail->Password = OOS_SMTPPASS; // SMTP password
-        
-        
-				// Set the encryption mechanism to use:
-				// - SMTPS (implicit TLS on port 465) or
-				// - STARTTLS (explicit TLS on port 587)
-				if (OOS_SMTPPORT == '465') {
-					$send_mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
-				} elseif (OOS_SMTPPORT == '587') {
-					$send_mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
-				}
+                // $send_mail->SMTPDebug = PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
 
-				// Set the SMTP port number:
-				// - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or
-				// - 587 for SMTP+STARTTLS
-				$send_mail->Port = OOS_SMTPPORT;         
-        
-			} else {
-				// Set sendmail path
-				if (EMAIL_TRANSPORT == 'sendmail') {
-					if (!oos_empty(OOS_SENDMAIL)) {
-						$send_mail->Sendmail = OOS_SENDMAIL;
-						$send_mail->IsSendmail();
-					}
-				}
-			}
+                $send_mail->Host     = OOS_SMTPHOST; // specify main and backup server
+                $send_mail->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
+                $send_mail->Username = OOS_SMTPUSER; // SMTP username
+                $send_mail->Password = OOS_SMTPPASS; // SMTP password
+
+
+                // Set the encryption mechanism to use:
+                // - SMTPS (implicit TLS on port 465) or
+                // - STARTTLS (explicit TLS on port 587)
+                if (OOS_SMTPPORT == '465') {
+                    $send_mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+                } elseif (OOS_SMTPPORT == '587') {
+                    $send_mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+                }
+
+                // Set the SMTP port number:
+                // - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or
+                // - 587 for SMTP+STARTTLS
+                $send_mail->Port = OOS_SMTPPORT;
+
+            } else {
+                // Set sendmail path
+                if (EMAIL_TRANSPORT == 'sendmail') {
+                    if (!oos_empty(OOS_SENDMAIL)) {
+                        $send_mail->Sendmail = OOS_SENDMAIL;
+                        $send_mail->IsSendmail();
+                    }
+                }
+            }
 
             $send_mail->Subject = TEXT_REDEEM_COUPON_SUBJECT;
             $send_mail->Body = $message;
@@ -111,10 +111,10 @@ if ($action == 'confirmrelease' && isset($_GET['gid'])) {
             $customer_gv = false;
             $total_gv_amount = 0;
             if ($gv_result = $gv_result->fields) {
-                $total_gv_amount=$gv_result['amount'];
+                $total_gv_amount = $gv_result['amount'];
                 $customer_gv = true;
             }
-            $total_gv_amount=$total_gv_amount+$gv_amount;
+            $total_gv_amount = $total_gv_amount + $gv_amount;
             if ($customer_gv) {
                 $coupon_gv_customertable = $oostable['coupon_gv_customer'];
                 $gv_update = $dbconn->Execute("UPDATE $coupon_gv_customertable SET amount='".$total_gv_amount."' WHERE customer_id='".$gv_resulta['customer_id']."'");
@@ -190,14 +190,14 @@ require 'includes/header.php';
                     </thead>
 <?php
   $customerstable = $oostable['customers'];
-  $coupon_gv_queuetable = $oostable['coupon_gv_queue'];
-  $gv_result_raw = "SELECT c.customers_firstname, c.customers_lastname, gv.unique_id,
+$coupon_gv_queuetable = $oostable['coupon_gv_queue'];
+$gv_result_raw = "SELECT c.customers_firstname, c.customers_lastname, gv.unique_id,
                            gv.date_created, gv.amount, gv.order_id
                     FROM $customerstable c,
                          $coupon_gv_queuetable gv
                    WHERE (gv.customer_id = c.customers_id AND gv.release_flag = 'N')";
-  $gv_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $gv_result_raw, $gv_result_numrows);
-  $gv_result = $dbconn->Execute($gv_result_raw);
+$gv_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $gv_result_raw, $gv_result_numrows);
+$gv_result = $dbconn->Execute($gv_result_raw);
 while ($gv_list = $gv_result->fields) {
     if ((!isset($_GET['gid']) || (isset($_GET['gid']) && ($_GET['gid'] == $gv_list['unique_id']))) && !isset($gInfo)) {
         $gInfo = new objectInfo($gv_list);
@@ -212,14 +212,14 @@ while ($gv_list = $gv_result->fields) {
                 <td class="text-right"><?php echo $currencies->format($gv_list['amount']); ?></td>
                 <td class="text-right"><?php echo oos_datetime_short($gv_list['date_created']); ?></td>
                 <td class="text-right"><?php if (isset($gInfo) && is_object($gInfo) && ($gv_list['unique_id'] == $gInfo->unique_id)) {
-        echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-    } else {
-        echo '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'page=' . $nPage . '&gid=' . $gv_list['unique_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-    } ?>&nbsp;</td>
+                    echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+                } else {
+                    echo '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'page=' . $nPage . '&gid=' . $gv_list['unique_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+                } ?>&nbsp;</td>
               </tr>
     <?php
-    // Move that ADOdb pointer!
-    $gv_result->MoveNext();
+                // Move that ADOdb pointer!
+                $gv_result->MoveNext();
 }
 ?>
               <tr>
@@ -233,37 +233,37 @@ while ($gv_list = $gv_result->fields) {
             </table></td>
 <?php
     $unique_id = $gInfo->unique_id ?? '';
-    $date_created = $gInfo->date_created ?? '';
-    $amount = $gInfo->amount ?? 0;
+$date_created = $gInfo->date_created ?? '';
+$amount = $gInfo->amount ?? 0;
 
-  $heading = [];
-  $contents = [];
-  switch ($action) {
-case 'release':
-    $heading[] = ['text' => '[' . $unique_id . '] ' . oos_datetime_short($date_created) . ' ' . $currencies->format($amount)];
+$heading = [];
+$contents = [];
+switch ($action) {
+    case 'release':
+        $heading[] = ['text' => '[' . $unique_id . '] ' . oos_datetime_short($date_created) . ' ' . $currencies->format($amount)];
 
-    $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'action=confirmrelease&gid=' . $unique_id) . '">'.oos_button(BUTTON_CONFIRM) . '</a> <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['gv_queue'], 'action=cancel&gid=' . $unique_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
-    break;
+        $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'action=confirmrelease&gid=' . $unique_id) . '">'.oos_button(BUTTON_CONFIRM) . '</a> <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['gv_queue'], 'action=cancel&gid=' . $unique_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
+        break;
 
-default:
-    $heading[] = ['text' => '[' . $unique_id . '] ' . oos_datetime_short($date_created) . ' ' . $currencies->format($amount)];
+    default:
+        $heading[] = ['text' => '[' . $unique_id . '] ' . oos_datetime_short($date_created) . ' ' . $currencies->format($amount)];
 
-    $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'action=release&gid=' . $unique_id) . '">' . oos_button(IMAGE_RELEASE) . '</a>'];
-    break;
-  }
+        $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'action=release&gid=' . $unique_id) . '">' . oos_button(IMAGE_RELEASE) . '</a>'];
+        break;
+}
 
-  if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
-      ?>
+if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+    ?>
     <td class="w-25" valign="top">
         <table class="table table-striped">
       <?php
-        $box = new box();
-      echo $box->infoBox($heading, $contents); ?>
+      $box = new box();
+    echo $box->infoBox($heading, $contents); ?>
         </table> 
     </td> 
       <?php
-  }
-    ?>
+}
+?>
           </tr>
         </table>
     </div>
@@ -282,6 +282,6 @@ default:
 </div>
 
 <?php
-    require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/bottom.php';
+require 'includes/nice_exit.php';
 ?>

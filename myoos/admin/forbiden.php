@@ -20,10 +20,10 @@
    ----------------------------------------------------------------------
  */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
-  require 'includes/header.php';
+require 'includes/header.php';
 ?>
 <div class="wrapper">
     <!-- Header //-->

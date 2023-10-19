@@ -21,10 +21,10 @@
    ----------------------------------------------------------------------
  */
 
-  /**
-   * ensure this file is being included by a parent file
-   */
-  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+/**
+ * ensure this file is being included by a parent file
+ */
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 class currencies
 {
@@ -34,8 +34,8 @@ class currencies
     public function __construct()
     {
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $query = "SELECT code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value 
                 FROM " . $oostable['currencies'];

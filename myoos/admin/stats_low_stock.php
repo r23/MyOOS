@@ -92,8 +92,8 @@ if (isset($nPage) && ($nPage > 1)) {
 }
 
   $productstable = $oostable['products'];
-  $products_descriptiontable = $oostable['products_description'];
-  $products_result_raw = "SELECT p.products_id, p.products_quantity, p.products_reorder_level, pd.products_name
+$products_descriptiontable = $oostable['products_description'];
+$products_result_raw = "SELECT p.products_id, p.products_quantity, p.products_reorder_level, pd.products_name
                             FROM $productstable p,
                                  $products_descriptiontable pd
                            WHERE p.products_id = pd.products_id
@@ -101,8 +101,8 @@ if (isset($nPage) && ($nPage > 1)) {
                              AND p.products_quantity <= p.products_reorder_level
                            GROUP BY pd.products_id
                            ORDER BY pd.products_name ASC";
-  $products_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_result_raw, $products_result_numrows);
-  $products_result = $dbconn->Execute($products_result_raw);
+$products_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_result_raw, $products_result_numrows);
+$products_result = $dbconn->Execute($products_result_raw);
 while ($products = $products_result->fields) {
     $rows++;
 
@@ -148,5 +148,5 @@ while ($products = $products_result->fields) {
 
 <?php
     require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/nice_exit.php';
 ?>

@@ -26,8 +26,8 @@ function oos_set_featured_status($featured_id, $status)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
 
     if ($status == '1') {
@@ -49,39 +49,39 @@ $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default'
 $fID = filter_input(INPUT_GET, 'fID', FILTER_VALIDATE_INT);
 
 switch ($action) {
-case 'setflag':
-    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-        oos_set_featured_status($_GET['id'], $_GET['flag']);
-    }
+    case 'setflag':
+        if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+            oos_set_featured_status($_GET['id'], $_GET['flag']);
+        }
 
-    oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'fID=' . intval($_GET['id']) . '&page=' . $nPage));
-    break;
+        oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'fID=' . intval($_GET['id']) . '&page=' . $nPage));
+        break;
 
-case 'insert':
-    $expires_date = oos_db_prepare_input($_POST['expires_date']);
+    case 'insert':
+        $expires_date = oos_db_prepare_input($_POST['expires_date']);
 
-    $featuredtable = $oostable['featured'];
-    $dbconn->Execute("INSERT INTO $featuredtable (products_id, featured_date_added, expires_date, status) VALUES ('" . intval($_POST['products_id']) . "', now(), '" . oos_db_input($expires_date) . "', '1')");
-    oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage));
-    break;
+        $featuredtable = $oostable['featured'];
+        $dbconn->Execute("INSERT INTO $featuredtable (products_id, featured_date_added, expires_date, status) VALUES ('" . intval($_POST['products_id']) . "', now(), '" . oos_db_input($expires_date) . "', '1')");
+        oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage));
+        break;
 
-case 'update':
-    $featured_id = oos_db_prepare_input($_POST['featured_id']);
-    $expires_date = oos_db_prepare_input($_POST['expires_date']);
+    case 'update':
+        $featured_id = oos_db_prepare_input($_POST['featured_id']);
+        $expires_date = oos_db_prepare_input($_POST['expires_date']);
 
-    $featuredtable = $oostable['featured'];
-    $dbconn->Execute("UPDATE $featuredtable SET featured_last_modified = now(), expires_date = '" . oos_db_input($expires_date) . "' WHERE featured_id = '" . intval($featured_id) . "'");
-    oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . intval($featured_id)));
-    break;
+        $featuredtable = $oostable['featured'];
+        $dbconn->Execute("UPDATE $featuredtable SET featured_last_modified = now(), expires_date = '" . oos_db_input($expires_date) . "' WHERE featured_id = '" . intval($featured_id) . "'");
+        oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . intval($featured_id)));
+        break;
 
-case 'deleteconfirm':
-    $featured_id = oos_db_prepare_input($_GET['fID']);
+    case 'deleteconfirm':
+        $featured_id = oos_db_prepare_input($_GET['fID']);
 
-    $featuredtable = $oostable['featured'];
-    $dbconn->Execute("DELETE FROM $featuredtable WHERE featured_id = '" . oos_db_input($featured_id) . "'");
+        $featuredtable = $oostable['featured'];
+        $dbconn->Execute("DELETE FROM $featuredtable WHERE featured_id = '" . oos_db_input($featured_id) . "'");
 
-    oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage));
-    break;
+        oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage));
+        break;
 }
 
 require 'includes/header.php';
@@ -249,13 +249,13 @@ if (($action == 'new') || ($action == 'edit')) {
                         </tr>    
                     </thead>
     <?php
-	$rows = 0;
-	$aDocument = [];
+    $rows = 0;
+    $aDocument = [];
     $featured_result_raw = "SELECT p.products_id, pd.products_name, s.featured_id, s.featured_date_added, s.featured_last_modified, s.expires_date, s.date_status_change, s.status FROM " . $oostable['products'] . " p, " . $oostable['featured'] . " s, " . $oostable['products_description'] . " pd WHERE p.products_id = pd.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND p.products_id = s.products_id ORDER BY pd.products_name";
     $featured_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $featured_result_raw, $featured_result_numrows);
     $featured_result = $dbconn->Execute($featured_result_raw);
     while ($featured = $featured_result->fields) {
-		$rows++;
+        $rows++;
         if ((!isset($_GET['fID']) || (isset($_GET['fID']) && ($_GET['fID'] == $featured['featured_id']))) && !isset($sInfo)) {
             $productstable = $oostable['products'];
             $products_result = $dbconn->Execute("SELECT products_image FROM " . $oostable['products'] . " WHERE products_id = '" . $featured['products_id'] . "'");
@@ -265,13 +265,13 @@ if (($action == 'new') || ($action == 'edit')) {
         }
 
         if (isset($sInfo) && is_object($sInfo) && ($featured['featured_id'] == $sInfo->featured_id)) {
-				$aDocument[] = ['id' => $rows,
-								'link' => oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit')];
-				echo ' <tr id="row-' . $rows .'">' . "\n";			
+            $aDocument[] = ['id' => $rows,
+                            'link' => oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit')];
+            echo ' <tr id="row-' . $rows .'">' . "\n";
         } else {
-				$aDocument[] = ['id' => $rows,
-								'link' => oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id'])];
-				echo ' <tr id="row-' . $rows .'">' . "\n";			
+            $aDocument[] = ['id' => $rows,
+                            'link' => oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id'])];
+            echo ' <tr id="row-' . $rows .'">' . "\n";
         } ?>
                 <td><?php echo $featured['products_name']; ?></td>
                 <td  align="right">&nbsp;</td>
@@ -317,44 +317,44 @@ if (($action == 'new') || ($action == 'edit')) {
             </table></td>
     <?php
     $heading = [];
-        $contents = [];
+    $contents = [];
 
-        switch ($action) {
-    case 'delete':
-        $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_FEATURED . '</b>'];
+    switch ($action) {
+        case 'delete':
+            $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_FEATURED . '</b>'];
 
-        $contents = ['form' => oos_draw_form('id', 'featured', $aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=deleteconfirm', 'post', false)];
-        $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
-        $contents[] = ['text' => '<br><b>' . $sInfo->products_name . '</b>'];
-        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
+            $contents = ['form' => oos_draw_form('id', 'featured', $aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=deleteconfirm', 'post', false)];
+            $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
+            $contents[] = ['text' => '<br><b>' . $sInfo->products_name . '</b>'];
+            $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
-        break;
+            break;
 
-    default:
-        if (isset($sInfo) && is_object($sInfo)) {
-            $heading[] = ['text' => '<b>' . $sInfo->products_name . '</b>'];
+        default:
+            if (isset($sInfo) && is_object($sInfo)) {
+                $heading[] = ['text' => '<b>' . $sInfo->products_name . '</b>'];
 
-            $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
-            $contents[] = ['text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($sInfo->featured_date_added)];
-            $contents[] = ['text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($sInfo->featured_last_modified)];
-            $contents[] = ['align' => 'center', 'text' => '<br>' . product_info_image($sInfo->products_image, $sInfo->products_name)];
-            $contents[] = ['text' => '<br>' . TEXT_INFO_EXPIRES_DATE . ' <b>' . oos_date_short($sInfo->expires_date) . '</b>'];
-            $contents[] = ['text' => '' . TEXT_INFO_STATUS_CHANGE . ' ' . oos_date_short($sInfo->date_status_change)];
-        }
-        break;
-        }
+                $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
+                $contents[] = ['text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($sInfo->featured_date_added)];
+                $contents[] = ['text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($sInfo->featured_last_modified)];
+                $contents[] = ['align' => 'center', 'text' => '<br>' . product_info_image($sInfo->products_image, $sInfo->products_name)];
+                $contents[] = ['text' => '<br>' . TEXT_INFO_EXPIRES_DATE . ' <b>' . oos_date_short($sInfo->expires_date) . '</b>'];
+                $contents[] = ['text' => '' . TEXT_INFO_STATUS_CHANGE . ' ' . oos_date_short($sInfo->date_status_change)];
+            }
+            break;
+    }
 
-        if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
-            ?>
+    if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+        ?>
     <td class="w-25" valign="top">
         <table class="table table-striped">
             <?php
-            $box = new box();
-            echo $box->infoBox($heading, $contents); ?>
+        $box = new box();
+        echo $box->infoBox($heading, $contents); ?>
         </table> 
     </td> 
             <?php
-        } ?>
+    } ?>
           </tr>
         </table>
     </div>
@@ -379,15 +379,14 @@ if (($action == 'new') || ($action == 'edit')) {
 require 'includes/bottom.php';
 
 if (isset($aDocument) || !empty($aDocument)) {
-	echo '<script nonce="' . NONCE . '">' . "\n";
-	$nDocument = is_countable($aDocument) ? count($aDocument) : 0;
-	for ($i = 0, $n = $nDocument; $i < $n; $i++) {
-		echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
-		echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
-		echo '});' . "\n";
-	}
-	echo '</script>' . "\n";
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
 }
 
 require 'includes/nice_exit.php';
-

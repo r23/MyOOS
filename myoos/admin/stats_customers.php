@@ -93,9 +93,9 @@ if (isset($nPage) && ($nPage > 1)) {
     $rows = $nPage * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
 }
   $customerstable = $oostable['customers'];
-  $orders_productstable = $oostable['orders_products'];
-  $orderstable = $oostable['orders'];
-  $customers_sql_raw = "SELECT c.customers_firstname, c.customers_lastname,
+$orders_productstable = $oostable['orders_products'];
+$orderstable = $oostable['orders'];
+$customers_sql_raw = "SELECT c.customers_firstname, c.customers_lastname,
                                sum(op.products_quantity * op.final_price) AS ordersum
                           FROM $customerstable c,
                                $orders_productstable op,
@@ -104,17 +104,17 @@ if (isset($nPage) && ($nPage > 1)) {
                            AND o.orders_id = op.orders_id
                          GROUP BY c.customers_firstname, c.customers_lastname
                          ORDER BY ordersum DESC";
-  $customers_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $customers_sql_raw, $customers_result_numrows);
+$customers_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $customers_sql_raw, $customers_result_numrows);
 // fix counted customers
-  $orderstable = $oostable['orders'];
+$orderstable = $oostable['orders'];
 $customers_result_numrows = $dbconn->Execute(
     "SELECT customers_id
                                                 FROM $orderstable
                                                GROUP BY customers_id"
 );
-  $customers_result_numrows = $customers_result_numrows->RecordCount();
+$customers_result_numrows = $customers_result_numrows->RecordCount();
 
-  $customers_result = $dbconn->Execute($customers_sql_raw);
+$customers_result = $dbconn->Execute($customers_sql_raw);
 while ($customers = $customers_result->fields) {
     $rows++;
 
@@ -160,5 +160,5 @@ while ($customers = $customers_result->fields) {
 
 <?php
     require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/nice_exit.php';
 ?>

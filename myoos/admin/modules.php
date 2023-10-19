@@ -57,68 +57,68 @@ switch ($set) {
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
 switch ($action) {
-        case 'save':
+    case 'save':
 
-            $aKeys = [];
+        $aKeys = [];
 
-            if (defined('MODULE_SHIPPING_TABLE_STATUS') && (MODULE_SHIPPING_TABLE_STATUS == 'true')) {
-                $aKeys[] = 'MODULE_SHIPPING_TABLE_HANDLING';
+        if (defined('MODULE_SHIPPING_TABLE_STATUS') && (MODULE_SHIPPING_TABLE_STATUS == 'true')) {
+            $aKeys[] = 'MODULE_SHIPPING_TABLE_HANDLING';
+        }
+
+        if (defined('MODULE_SHIPPING_WEIGHT_STATUS') && (MODULE_SHIPPING_WEIGHT_STATUS == 'true')) {
+            $aKeys[] = 'MODULE_SHIPPING_WEIGHT_HANDLING';
+        }
+
+        if (defined('MODULE_SHIPPING_ZONES_STATUS') && (MODULE_SHIPPING_ZONES_STATUS == 'true')) {
+            $num_zones = (defined('MODULE_SHIPPING_ZONES_NUM_ZONES') ? MODULE_SHIPPING_ZONES_NUM_ZONES : 2);
+            for ($i = 1; $i <= $num_zones; $i++) {
+                $aKeys[] = 'MODULE_SHIPPING_ZONES_HANDLING_' . $i;
+            }
+        }
+
+        foreach ($_POST['configuration'] as $key => $value) {
+            $configurationtable = $oostable['configuration'];
+
+            // todo
+            if (in_array($key, $aKeys)) {
+                $value = oos_tofloat($value);
             }
 
-            if (defined('MODULE_SHIPPING_WEIGHT_STATUS') && (MODULE_SHIPPING_WEIGHT_STATUS == 'true')) {
-                $aKeys[] = 'MODULE_SHIPPING_WEIGHT_HANDLING';
-            }
+            $dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . oos_db_input($value) . "' WHERE configuration_key = '" . oos_db_input($key) . "'");
+        }
 
-            if (defined('MODULE_SHIPPING_ZONES_STATUS') && (MODULE_SHIPPING_ZONES_STATUS == 'true')) {
-                $num_zones = (defined('MODULE_SHIPPING_ZONES_NUM_ZONES') ? MODULE_SHIPPING_ZONES_NUM_ZONES : 2);
-                for ($i=1; $i<=$num_zones; $i++) {
-                    $aKeys[] = 'MODULE_SHIPPING_ZONES_HANDLING_' . $i;
+        if (isset($_POST['default']) && ($_POST['default'] == 'on')) {
+            $code = oos_db_prepare_input($_POST['code']);
+            $dbconn->Execute("UPDATE " . $oostable['configuration'] . " SET configuration_value = '" . oos_db_input($code) . "' WHERE configuration_key = 'DEFAULT_SHIPPING_METHOD'");
+        }
+
+
+        oos_redirect_admin(oos_href_link_admin($aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $_GET['module']));
+        break;
+
+    case 'install':
+    case 'remove':
+        $php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
+        $file_extension = oos_db_prepare_input(substr($php_self, strrpos($php_self, '.')));
+        $class = oos_db_prepare_input(basename((string) $_GET['module']));
+
+        if (file_exists($module_directory . $class . $file_extension)) {
+            include OOS_ABSOLUTE_PATH . 'includes/languages/' . $_SESSION['language'] . '/modules/' . $module_type . '/' . $class . $file_extension;
+            include $module_directory . $class . $file_extension;
+
+            $module = new $class();
+            if ($action == 'install') {
+                $module->install();
+            } elseif ($action == 'remove') {
+                if ($class == DEFAULT_SHIPPING_METHOD) {
+                    $messageStack->add_session(ERROR_REMOVE_DEFAULT_SHIPPING, 'error');
+                } else {
+                    $module->remove();
                 }
             }
-
-            foreach ($_POST['configuration'] as $key => $value) {
-                $configurationtable = $oostable['configuration'];
-
-                // todo
-                if (in_array($key, $aKeys)) {
-                    $value = oos_tofloat($value);
-                }
-
-                $dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . oos_db_input($value) . "' WHERE configuration_key = '" . oos_db_input($key) . "'");
-            }
-
-            if (isset($_POST['default']) && ($_POST['default'] == 'on')) {
-                $code = oos_db_prepare_input($_POST['code']);
-                $dbconn->Execute("UPDATE " . $oostable['configuration'] . " SET configuration_value = '" . oos_db_input($code) . "' WHERE configuration_key = 'DEFAULT_SHIPPING_METHOD'");
-            }
-
-
-            oos_redirect_admin(oos_href_link_admin($aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $_GET['module']));
-            break;
-
-        case 'install':
-        case 'remove':
-			$php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
-            $file_extension = oos_db_prepare_input(substr($php_self, strrpos($php_self, '.')));
-            $class = oos_db_prepare_input(basename((string) $_GET['module']));
-
-            if (file_exists($module_directory . $class . $file_extension)) {
-                include OOS_ABSOLUTE_PATH . 'includes/languages/' . $_SESSION['language'] . '/modules/' . $module_type . '/' . $class . $file_extension;
-                include $module_directory . $class . $file_extension;
-
-                $module = new $class();
-                if ($action == 'install') {
-                    $module->install();
-                } elseif ($action == 'remove') {
-                    if ($class == DEFAULT_SHIPPING_METHOD) {
-                        $messageStack->add_session(ERROR_REMOVE_DEFAULT_SHIPPING, 'error');
-                    } else {
-                        $module->remove();
-                    }
-                }
-            }
-            oos_redirect_admin(oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class));
-            break;
+        }
+        oos_redirect_admin(oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class));
+        break;
 }
 
 require 'includes/header.php';
@@ -181,109 +181,109 @@ require 'includes/header.php';
 						</tr>	
 					</thead>
 <?php
-	$php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
-    $file_extension = substr($php_self, strrpos($php_self, '.'));
-    $directory_array = [];
-    if ($oDir = @dir($module_directory)) {
-        while ($file = $oDir->read()) {
-            if (!is_dir($module_directory . $file)) {
-                if (substr($file, strrpos($file, '.')) == $file_extension) {
-                    $directory_array[] = $file;
-                }
+    $php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
+$file_extension = substr($php_self, strrpos($php_self, '.'));
+$directory_array = [];
+if ($oDir = @dir($module_directory)) {
+    while ($file = $oDir->read()) {
+        if (!is_dir($module_directory . $file)) {
+            if (substr($file, strrpos($file, '.')) == $file_extension) {
+                $directory_array[] = $file;
             }
         }
-        sort($directory_array);
-        $oDir->close();
     }
+    sort($directory_array);
+    $oDir->close();
+}
 
-    $installed_modules = [];
-    for ($i = 0, $n = count($directory_array); $i < $n; $i++) {
-        $file = $directory_array[$i];
+$installed_modules = [];
+for ($i = 0, $n = count($directory_array); $i < $n; $i++) {
+    $file = $directory_array[$i];
 
-        include OOS_ABSOLUTE_PATH . 'includes/languages/' . $_SESSION['language'] . '/modules/' . $module_type . '/' . $file;
-        include $module_directory . $file;
+    include OOS_ABSOLUTE_PATH . 'includes/languages/' . $_SESSION['language'] . '/modules/' . $module_type . '/' . $file;
+    include $module_directory . $file;
 
-        $class = substr($file, 0, strrpos($file, '.'));
-        if (oos_class_exits($class)) {
-            $module = new $class();
+    $class = substr($file, 0, strrpos($file, '.'));
+    if (oos_class_exits($class)) {
+        $module = new $class();
+        if ($module->check() > 0) {
+            if ($module->sort_order > 0) {
+                $installed_modules[$module->sort_order] = $file;
+            } else {
+                $installed_modules[] = $file;
+            }
+        }
+
+        if ((!isset($_GET['module']) || (isset($_GET['module']) && ($_GET['module'] == $class))) && !isset($mInfo)) {
+            $module_info = ['code' => $module->code, 'title' => $module->title, 'description' => $module->description, 'status' => $module->check()];
+
+            $module_keys = $module->keys();
+
+            $keys_extra = [];
+            for ($j = 0, $k = is_countable($module_keys) ? count($module_keys) : 0; $j < $k; $j++) {
+                $key_value_result = $dbconn->Execute("SELECT configuration_value, use_function, set_function FROM " . $oostable['configuration'] . " WHERE configuration_key = '" . $module_keys[$j] . "'");
+                $key_value = $key_value_result->fields;
+
+                $keys_extra[$module_keys[$j]]['title'] = constant(strtoupper($module_keys[$j] . '_TITLE'));
+                $keys_extra[$module_keys[$j]]['value'] = $key_value['configuration_value'] ?? '';
+                $keys_extra[$module_keys[$j]]['description'] = constant(strtoupper($module_keys[$j] . '_DESC'));
+                $keys_extra[$module_keys[$j]]['use_function'] = $key_value['use_function'] ?? '';
+                $keys_extra[$module_keys[$j]]['set_function'] = $key_value['set_function'] ?? '';
+            }
+
+            $module_info['keys'] = $keys_extra;
+
+            $mInfo = new objectInfo($module_info);
+        }
+
+        if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code)) {
             if ($module->check() > 0) {
-                if ($module->sort_order > 0) {
-                    $installed_modules[$module->sort_order] = $file;
-                } else {
-                    $installed_modules[] = $file;
-                }
-            }
-
-            if ((!isset($_GET['module']) || (isset($_GET['module']) && ($_GET['module'] == $class))) && !isset($mInfo)) {
-                $module_info = ['code' => $module->code, 'title' => $module->title, 'description' => $module->description, 'status' => $module->check()];
-
-                $module_keys = $module->keys();
-
-                $keys_extra = [];
-                for ($j = 0, $k = is_countable($module_keys) ? count($module_keys) : 0; $j < $k; $j++) {
-                    $key_value_result = $dbconn->Execute("SELECT configuration_value, use_function, set_function FROM " . $oostable['configuration'] . " WHERE configuration_key = '" . $module_keys[$j] . "'");
-                    $key_value = $key_value_result->fields;
-
-                    $keys_extra[$module_keys[$j]]['title'] = constant(strtoupper($module_keys[$j] . '_TITLE'));
-                    $keys_extra[$module_keys[$j]]['value'] = $key_value['configuration_value'] ?? '';
-                    $keys_extra[$module_keys[$j]]['description'] = constant(strtoupper($module_keys[$j] . '_DESC'));
-                    $keys_extra[$module_keys[$j]]['use_function'] = $key_value['use_function'] ?? '';
-                    $keys_extra[$module_keys[$j]]['set_function'] = $key_value['set_function'] ?? '';
-                }
-
-                $module_info['keys'] = $keys_extra;
-
-                $mInfo = new objectInfo($module_info);
-            }
-
-            if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code)) {
-                if ($module->check() > 0) {
-                    echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=edit') . '\'">' . "\n";
-                } else {
-                    echo '              <tr class="dataTableRowSelected">' . "\n";
-                }
+                echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=edit') . '\'">' . "\n";
             } else {
-                echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class) . '\'">' . "\n";
+                echo '              <tr class="dataTableRowSelected">' . "\n";
             }
+        } else {
+            echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class) . '\'">' . "\n";
+        }
 
-            if (DEFAULT_SHIPPING_METHOD == $module->code) {
-                echo '                <td><b>' . $module->title . ' (' . TEXT_DEFAULT . ')</b></td>' . "\n";
-            } else {
-                echo '                <td>' . $module->title . '</td>' . "\n";
-            } ?>
+        if (DEFAULT_SHIPPING_METHOD == $module->code) {
+            echo '                <td><b>' . $module->title . ' (' . TEXT_DEFAULT . ')</b></td>' . "\n";
+        } else {
+            echo '                <td>' . $module->title . '</td>' . "\n";
+        } ?>
                 <td class="text-right"><?php if (is_numeric($module->sort_order)) {
-                echo $module->sort_order;
-            } ?></td>
+                    echo $module->sort_order;
+                } ?></td>
                 <td class="text-right">
 <?php
-            if ($module->check() > 0) {
-                echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=remove') . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10) . '</a>';
-            } else {
-                echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=install') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10) . '</a>';
-            } ?></td>
+                if ($module->check() > 0) {
+                    echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=remove') . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10) . '</a>';
+                } else {
+                    echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=install') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10) . '</a>';
+                } ?></td>
                 <td class="text-right"><?php if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code)) {
-                echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-            } else {
-                echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-            } ?>&nbsp;</td>
+                    echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+                } else {
+                    echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+                } ?>&nbsp;</td>
               </tr>
 <?php
-        }
     }
+}
 
-    ksort($installed_modules);
-    $configurationtable = $oostable['configuration'];
-    $check_result = $dbconn->Execute("SELECT configuration_value FROM $configurationtable WHERE configuration_key = '" . oos_db_input($module_key) . "'");
-    if ($check_result->RecordCount()) {
-        $check = $check_result->fields;
-        if ($check['configuration_value'] != implode(';', $installed_modules)) {
-            $configurationtable = $oostable['configuration'];
-            $dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . oos_db_input(implode(';', $installed_modules)) . "', last_modified = now() WHERE configuration_key = '" . oos_db_input($module_key). "'");
-        }
-    } else {
+ksort($installed_modules);
+$configurationtable = $oostable['configuration'];
+$check_result = $dbconn->Execute("SELECT configuration_value FROM $configurationtable WHERE configuration_key = '" . oos_db_input($module_key) . "'");
+if ($check_result->RecordCount()) {
+    $check = $check_result->fields;
+    if ($check['configuration_value'] != implode(';', $installed_modules)) {
         $configurationtable = $oostable['configuration'];
-        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('" . oos_db_input($module_key) . "', '" . oos_db_input(implode(';', $installed_modules)) . "', '6', '0', now())");
+        $dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . oos_db_input(implode(';', $installed_modules)) . "', last_modified = now() WHERE configuration_key = '" . oos_db_input($module_key). "'");
     }
+} else {
+    $configurationtable = $oostable['configuration'];
+    $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('" . oos_db_input($module_key) . "', '" . oos_db_input(implode(';', $installed_modules)) . "', '6', '0', now())");
+}
 ?>
               <tr>
                 <td colspan="4" class="smallText"><?php echo TEXT_MODULE_DIRECTORY . ' ' . $module_directory; ?></td>
@@ -354,20 +354,20 @@ switch ($action) {
         } else {
             $contents[] = ['text' => $mInfo->description];
         }
-    break;
+        break;
 }
 
-    if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
-        ?>
+if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+    ?>
 	<td class="w-25" valign="top">
 		<table class="table table-striped">
 <?php
-        $box = new box();
-        echo $box->infoBox($heading, $contents); ?>
+    $box = new box();
+    echo $box->infoBox($heading, $contents); ?>
 		</table> 
 	</td> 
 <?php
-    }
+}
 ?>
           </tr>
         </table>
@@ -388,5 +388,5 @@ switch ($action) {
 
 <?php
     require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/nice_exit.php';
 ?>

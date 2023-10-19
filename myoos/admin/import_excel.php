@@ -51,8 +51,8 @@ function walk($item1)
 
 
 
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $tax_ratestable = $oostable['tax_rates'];
         $query = "SELECT tax_rate FROM $tax_ratestable WHERE tax_class_id = '" . intval($products_tax_class_id) . "'";
@@ -60,7 +60,7 @@ function walk($item1)
 
 
         if (($products_net_price = 0) || ($products_net_price = '') || empty($products_net_price)) {
-            $products_net_price = ($products_gross_price/($tax+100)*100);
+            $products_net_price = ($products_gross_price / ($tax + 100) * 100);
             $products_net_price = oos_round($products_net_price, 4);
         }
 
@@ -125,7 +125,7 @@ function walk($item1)
         $epsilon = 0.00001;
 
         // https://www.php.net/manual/en/language.types.float.php#language.types.float.casting
-        if (abs($old_products_price-$new_products_price) > $epsilon) {
+        if (abs($old_products_price - $new_products_price) > $epsilon) {
             $sql_price_array = ['products_id' => intval($products_id), 'products_price' => oos_db_input($products_net_price), 'date_added' => 'now()'];
             oos_db_perform($oostable['products_price_history'], $sql_price_array);
         }
@@ -272,5 +272,5 @@ if (isset($_FILES['usrfl'])) {
 
 <?php
     require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/nice_exit.php';
 ?>

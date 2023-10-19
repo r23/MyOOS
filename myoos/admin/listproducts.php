@@ -48,10 +48,10 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
 </tr>
 <?php
    $coupon_get = $dbconn->Execute("SELECT restrict_to_products,restrict_to_categories FROM " . $oostable['coupons'] . "  WHERE coupon_id='".$_GET['cid']."'");
-   $get_result = $coupon_get->fields;
+$get_result = $coupon_get->fields;
 
-    echo "<tr><th>Product ID</th><th>Product Name</th><th>Product Size</th></tr><tr>";
-    $pr_ids = preg_split("/[,]/", (string) $get_result['restrict_to_products']);
+echo "<tr><th>Product ID</th><th>Product Name</th><th>Product Size</th></tr><tr>";
+$pr_ids = preg_split("/[,]/", (string) $get_result['restrict_to_products']);
 for ($i = 0; $i < (is_countable($pr_ids) ? count($pr_ids) : 0); $i++) {
     $sql = "SELECT 
                 p.products_id, p.products_model, p.products_status, pd.products_name
@@ -71,7 +71,7 @@ for ($i = 0; $i < (is_countable($pr_ids) ? count($pr_ids) : 0); $i++) {
         echo "</tr>\n";
     }
 }
-      echo "</table>\n";
+echo "</table>\n";
 ?>
 <br>
 <table width="550" border="0" cellspacing="1">

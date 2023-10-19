@@ -30,7 +30,7 @@ $oID = oos_db_prepare_input($_GET['oID']);
 
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
 $order = new order($oID);
-  
+
 ?><!DOCTYPE html>
 <html lang="<?php echo $_SESSION['iso_639_1']; ?>">
 <head>
@@ -82,7 +82,7 @@ $order = new order($oID);
                 if (!isset($order->delivery['name'])) {
                     echo oos_address_format($order->delivery['format_id'], $order->delivery, 1, '&nbsp;', '<br>');
                 }
-                ?></td>
+?></td>
           </tr>
         </table></td>
       </tr>
@@ -114,7 +114,7 @@ $order = new order($oID);
                     </thead>
 <?php
 for ($i = 0, $n = is_countable($order->products) ? count($order->products) : 0; $i < $n; $i++) {
-                    echo '      <tr class="dataTableRow">' . "\n" .
+    echo '      <tr class="dataTableRow">' . "\n" .
        '        <td class="dataTableContent" valign="top" align="right">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
        '        <td class="dataTableContent" valign="top">' . $order->products[$i]['name'];
 
@@ -124,13 +124,13 @@ for ($i = 0, $n = is_countable($order->products) ? count($order->products) : 0; 
             echo '</i></small></nobr>';
         }
     }
-                    echo '        </td>' . "\n";
+    echo '        </td>' . "\n";
 
-                    $serial_number = "";
+    $serial_number = "";
     if (oos_is_not_null($order->products[$i]['serial_number'])) {
         $serial_number = $order->products[$i]['serial_number'];
     }
-                    echo '        <td class="dataTableContent" valign="top">' . $serial_number . '</td>' . "\n" .
+    echo '        <td class="dataTableContent" valign="top">' . $serial_number . '</td>' . "\n" .
        '        <td class="dataTableContent" valign="top">' . $order->products[$i]['model'] . '</td>' . "\n" .
        '      </tr>' . "\n";
 }

@@ -19,13 +19,13 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
- /**
-  * Return Page Type Name
-  *
-  * @param  $page_type_id
-  * @param  $language
-  * @return string
-  */
+/**
+ * Return Page Type Name
+ *
+ * @param  $page_type_id
+ * @param  $language
+ * @return string
+ */
 function oosGetPageTypeName($page_type_id, $language_id = '')
 {
     if (empty($language_id) || !is_numeric($language_id)) {
@@ -33,8 +33,8 @@ function oosGetPageTypeName($page_type_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $page_type_sql = "SELECT page_type_name 
                       FROM " . $oostable['page_type'] . " 
@@ -46,18 +46,18 @@ function oosGetPageTypeName($page_type_id, $language_id = '')
 }
 
 
- /**
-  * Return Page Type
-  *
-  * @return array
-  */
+/**
+ * Return Page Type
+ *
+ * @return array
+ */
 function oosGetPageType()
 {
     $page_type_array = [];
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $page_type_sql = "SELECT page_type_id, page_type_name 
                       FROM " . $oostable['page_type'] . " 
@@ -79,7 +79,7 @@ $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default'
 switch ($action) {
     case 'insert':
     case 'save':
-		$page_type_id = filter_input(INPUT_GET, 'ptID', FILTER_VALIDATE_INT);
+        $page_type_id = filter_input(INPUT_GET, 'ptID', FILTER_VALIDATE_INT);
 
         $languages = oos_get_languages();
         for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
@@ -107,8 +107,8 @@ switch ($action) {
         break;
 
     case 'deleteconfirm':
-		$ptID = filter_input(INPUT_GET, 'ptID', FILTER_VALIDATE_INT);
-		
+        $ptID = filter_input(INPUT_GET, 'ptID', FILTER_VALIDATE_INT);
+
         $dbconn->Execute("DELETE FROM " . $oostable['page_type'] . " WHERE page_type_id = '" . oos_db_input($ptID) . "'");
 
         oos_redirect_admin(oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage));
@@ -194,8 +194,8 @@ require 'includes/header.php';
                                   page_type_languages_id = '" . intval($_SESSION['language_id']) . "' 
                               ORDER BY 
                                   page_type_id";
-  $page_type_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $page_type_result_raw, $page_type_result_numrows);
-  $page_type_result = $dbconn->Execute($page_type_result_raw);
+$page_type_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $page_type_result_raw, $page_type_result_numrows);
+$page_type_result = $dbconn->Execute($page_type_result_raw);
 while ($page_type = $page_type_result->fields) {
     if ((!isset($_GET['ptID']) || (isset($_GET['ptID']) && ($_GET['ptID'] == $page_type['page_type_id']))) && !isset($oInfo) && (!str_starts_with((string) $action, 'new'))) {
         $oInfo = new objectInfo($page_type);
@@ -209,14 +209,14 @@ while ($page_type = $page_type_result->fields) {
 
     echo '                <td class="dataTableContent">' . $page_type['page_type_name'] . '</td>' . "\n"; ?>
                 <td class="dataTableContent" align="right"><?php if (isset($oInfo) && is_object($oInfo) && ($page_type['page_type_id'] == $oInfo->page_type_id)) {
-        echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-    } else {
-        echo '<a href="' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $page_type['page_type_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-    } ?>&nbsp;</td>
+                    echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+                } else {
+                    echo '<a href="' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $page_type['page_type_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+                } ?>&nbsp;</td>
               </tr>
     <?php
-    // Move that ADOdb pointer!
-    $page_type_result->MoveNext();
+                // Move that ADOdb pointer!
+                $page_type_result->MoveNext();
 }
 ?>
               <tr>
@@ -227,95 +227,95 @@ while ($page_type = $page_type_result->fields) {
                   </tr>
 <?php
  if ($action == 'default') {
-    ?>
+     ?>
                   <tr>
                     <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&action=new') . '">' . oos_button(BUTTON_INSERT) . '</a>'; ?></td>
                   </tr>
     <?php
-}
+ }
 ?>
                 </table></td>
               </tr>
             </table></td>
 <?php
   $heading = [];
-  $contents = [];
+$contents = [];
 
-  switch ($action) {
-case 'new':
-    $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_NEW_PAGE_TYPE . '</b>'];
+switch ($action) {
+    case 'new':
+        $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_NEW_PAGE_TYPE . '</b>'];
 
-    $contents = ['form' => oos_draw_form('id', 'status', $aContents['content_page_type'], 'page=' . $nPage . '&action=insert', 'post', false)];
-    $contents[] = ['text' => TEXT_INFO_INSERT_INTRO];
-
-    $page_type_inputs_string = '';
-    $languages = oos_get_languages();
-    for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
-        $page_type_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('page_type_name[' . $languages[$i]['id'] . ']');
-    }
-
-        $contents[] = ['text' => '<br>' . TEXT_INFO_PAGE_TYPE_NAME . $page_type_inputs_string];
-        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
-
-    break;
-case 'edit':
-    $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_EDIT_PAGE_TYPE . '</b>'];
-
-    $contents = ['form' => oos_draw_form('id', 'status', $aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $oInfo->page_type_id  . '&action=save', 'post', false)];
-    $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
-
-    $page_type_inputs_string = '';
-    $languages = oos_get_languages();
-    for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
-        $page_type_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('page_type_name[' . $languages[$i]['id'] . ']', oosGetPageTypeName($oInfo->page_type_id, $languages[$i]['id']));
-    }
-
-        $contents[] = ['text' => '<br>' . TEXT_INFO_PAGE_TYPE_NAME . $page_type_inputs_string];
-        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $oInfo->page_type_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
-
-    break;
-
-case 'delete':
-    $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_PAGE_TYPE . '</b>'];
-
-    $contents = ['form' => oos_draw_form('id', 'status', $aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $oInfo->page_type_id  . '&action=deleteconfirm', 'post', false)];
-    $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
-    $contents[] = ['text' => '<br><b>' . $oInfo->page_type_name . '</b>'];
-    if ($remove_status) {
-        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $oInfo->page_type_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
-    }
-
-    break;
-
-default:
-    if (isset($oInfo) && is_object($oInfo)) {
-        $heading[] = ['text' => '<b>' . $oInfo->page_type_name . '</b>'];
-
-        $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $oInfo->page_type_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $oInfo->page_type_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
+        $contents = ['form' => oos_draw_form('id', 'status', $aContents['content_page_type'], 'page=' . $nPage . '&action=insert', 'post', false)];
+        $contents[] = ['text' => TEXT_INFO_INSERT_INTRO];
 
         $page_type_inputs_string = '';
         $languages = oos_get_languages();
         for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
-            $page_type_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oosGetPageTypeName($oInfo->page_type_id, $languages[$i]['id']);
+            $page_type_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('page_type_name[' . $languages[$i]['id'] . ']');
         }
 
-        $contents[] = ['text' => $page_type_inputs_string];
-    }
-    break;
-  }
+        $contents[] = ['text' => '<br>' . TEXT_INFO_PAGE_TYPE_NAME . $page_type_inputs_string];
+        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
-  if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
-      ?>
+        break;
+    case 'edit':
+        $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_EDIT_PAGE_TYPE . '</b>'];
+
+        $contents = ['form' => oos_draw_form('id', 'status', $aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $oInfo->page_type_id  . '&action=save', 'post', false)];
+        $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
+
+        $page_type_inputs_string = '';
+        $languages = oos_get_languages();
+        for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
+            $page_type_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('page_type_name[' . $languages[$i]['id'] . ']', oosGetPageTypeName($oInfo->page_type_id, $languages[$i]['id']));
+        }
+
+        $contents[] = ['text' => '<br>' . TEXT_INFO_PAGE_TYPE_NAME . $page_type_inputs_string];
+        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $oInfo->page_type_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
+
+        break;
+
+    case 'delete':
+        $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_PAGE_TYPE . '</b>'];
+
+        $contents = ['form' => oos_draw_form('id', 'status', $aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $oInfo->page_type_id  . '&action=deleteconfirm', 'post', false)];
+        $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
+        $contents[] = ['text' => '<br><b>' . $oInfo->page_type_name . '</b>'];
+        if ($remove_status) {
+            $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $oInfo->page_type_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
+        }
+
+        break;
+
+    default:
+        if (isset($oInfo) && is_object($oInfo)) {
+            $heading[] = ['text' => '<b>' . $oInfo->page_type_name . '</b>'];
+
+            $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $oInfo->page_type_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $oInfo->page_type_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
+
+            $page_type_inputs_string = '';
+            $languages = oos_get_languages();
+            for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
+                $page_type_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oosGetPageTypeName($oInfo->page_type_id, $languages[$i]['id']);
+            }
+
+            $contents[] = ['text' => $page_type_inputs_string];
+        }
+        break;
+}
+
+if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+    ?>
     <td class="w-25" valign="top">
         <table class="table table-striped">
       <?php
-        $box = new box();
-      echo $box->infoBox($heading, $contents); ?>
+      $box = new box();
+    echo $box->infoBox($heading, $contents); ?>
         </table> 
     </td> 
       <?php
-  }
-    ?>
+}
+?>
           </tr>
         </table>
     </div>
@@ -335,6 +335,6 @@ default:
 
 
 <?php
-    require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/bottom.php';
+require 'includes/nice_exit.php';
 ?>

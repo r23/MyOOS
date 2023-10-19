@@ -102,19 +102,19 @@ $products_result_raw = "SELECT pd.products_id, pd.products_name, p.products_date
 $products_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_result_raw, $products_result_numrows);
 $products_result = $dbconn->Execute($products_result_raw);
 while ($products = $products_result->fields) {
-	$rows++;
+    $rows++;
     if ((!isset($_GET['pID']) || (isset($_GET['pID']) && ($_GET['pID'] == $products['products_id']))) && !isset($pInfo)) {
         $pInfo = new objectInfo($products);
     }
 
     if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id)) {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['products'], 'pID=' . $products['products_id'] . '&action=new_product')];
-		echo '                  <tr id="row-' . $rows .'">' . "\n";			
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['products'], 'pID=' . $products['products_id'] . '&action=new_product')];
+        echo '                  <tr id="row-' . $rows .'">' . "\n";
     } else {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['products'], 'pID=' . $products['products_id'] . '&action=new_product')];
-		echo '                  <tr id="row-' . $rows .'">' . "\n";	
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['products'], 'pID=' . $products['products_id'] . '&action=new_product')];
+        echo '                  <tr id="row-' . $rows .'">' . "\n";
     } ?>
                 <td><?php echo '<a href="' . oos_catalog_link($aCatalog['product_info'], 'products_id=' . $products['products_id']) . '" target="_blank" rel="noopener"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . '#' . $products['products_id'] . ' ' . $products['products_name']; ?></td>
                 <td><?php echo $products['products_name']; ?></td>
@@ -160,14 +160,14 @@ while ($products = $products_result->fields) {
 require 'includes/bottom.php';
 
 if (isset($aDocument) || !empty($aDocument)) {
-	echo '<script nonce="' . NONCE . '">' . "\n";
-	$nDocument = is_countable($aDocument) ? count($aDocument) : 0;
-	for ($i = 0, $n = $nDocument; $i < $n; $i++) {
-		echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
-		echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
-		echo '});' . "\n";
-	}
-	echo '</script>' . "\n";
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
 }
 
 require 'includes/nice_exit.php';

@@ -48,16 +48,16 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
 </tr>
 <?php
     echo "<tr><th>" . TEXT_VALID_CATEGORIES_ID . "</th><th>" . TEXT_VALID_CATEGORIES_NAME . "</th></tr>";
-    $categoriestable = $oostable['categories'];
-    $categories_descriptiontable = $oostable['categories_description'];
-    $sql = "SELECT c.categories_id, c.categories_status, cd.categories_name
+$categoriestable = $oostable['categories'];
+$categories_descriptiontable = $oostable['categories_description'];
+$sql = "SELECT c.categories_id, c.categories_status, cd.categories_name
             FROM $categoriestable c,
                  $categories_descriptiontable cd
             WHERE c.categories_status = 2
               AND c.categories_id = cd.categories_id
               AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "'
             ORDER BY categories_id";
-    $result = $dbconn->Execute($sql);
+$result = $dbconn->Execute($sql);
 while ($row = $result->fields) {
     echo '<tr>' . "\n";
     echo '<td>' . $row['categories_id']. '</td>' . "\n";

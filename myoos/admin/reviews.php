@@ -26,7 +26,7 @@ $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
 switch ($action) {
-      case 'update':
+    case 'update':
         $reviews_id = oos_db_prepare_input($_GET['rID']);
 
         $reviews_rating = oos_db_prepare_input($_POST['reviews_rating']);
@@ -41,7 +41,7 @@ switch ($action) {
         oos_redirect_admin(oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews_id));
         break;
 
-      case 'deleteconfirm':
+    case 'deleteconfirm':
         $reviews_id = oos_db_prepare_input($_GET['rID']);
 
         $reviewstable = $oostable['reviews'];
@@ -52,7 +52,7 @@ switch ($action) {
         oos_redirect_admin(oos_href_link_admin($aContents['reviews'], 'page=' . $nPage));
         break;
 
-      case 'setflag':
+    case 'setflag':
         if (($_GET['flag'] == '0') || ($_GET['flag'] == '1')) {
             if (isset($_GET['rID']) && is_numeric($_GET['rID'])) {
                 oos_set_review_status($_GET['rID'], $_GET['flag']);
@@ -158,9 +158,9 @@ require 'includes/header.php';
         <td></td>
       </tr>
       <tr>
-        <td class="main"><b><?php echo ENTRY_RATING; ?></b>&nbsp;<?php echo TEXT_BAD; ?>&nbsp;<?php for ($i=1; $i<=5; $i++) {
-        echo oos_draw_radio_field('reviews_rating', $i, '', $rInfo->reviews_rating) . '&nbsp;';
-    }
+        <td class="main"><b><?php echo ENTRY_RATING; ?></b>&nbsp;<?php echo TEXT_BAD; ?>&nbsp;<?php for ($i = 1; $i <= 5; $i++) {
+            echo oos_draw_radio_field('reviews_rating', $i, '', $rInfo->reviews_rating) . '&nbsp;';
+        }
       echo TEXT_GOOD; ?></td>
       </tr>
           <tr>
@@ -262,16 +262,16 @@ require 'includes/header.php';
 						</tr>	
 					</thead>
 <?php
-	$rows = 0;
-	$aDocument = [];
-    $reviewstable = $oostable['reviews'];
+    $rows = 0;
+      $aDocument = [];
+      $reviewstable = $oostable['reviews'];
       $reviews_result_raw = "SELECT reviews_id, products_id, date_added, last_modified, reviews_rating, reviews_status
                            FROM $reviewstable
                            ORDER BY date_added DESC";
       $reviews_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $reviews_result_raw, $reviews_result_numrows);
       $reviews_result = $dbconn->Execute($reviews_result_raw);
       while ($reviews = $reviews_result->fields) {
-		  $rows++;
+          $rows++;
           if ((!isset($_GET['rID']) || (isset($_GET['rID']) && ($_GET['rID'] == $reviews['reviews_id']))) && !isset($rInfo)) {
               $reviewstable = $oostable['reviews'];
               $reviews_descriptiontable = $oostable['reviews_description'];
@@ -296,13 +296,13 @@ require 'includes/header.php';
           }
 
           if (isset($rInfo) && is_object($rInfo) && ($reviews['reviews_id'] == $rInfo->reviews_id)) {
-			$aDocument[] = ['id' => $rows,
-							'link' => oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=preview') ];
-			echo '                  <tr id="row-' . $rows .'">' . "\n";				  
+              $aDocument[] = ['id' => $rows,
+                              'link' => oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=preview') ];
+              echo '                  <tr id="row-' . $rows .'">' . "\n";
           } else {
-			$aDocument[] = ['id' => $rows,
-							'link' => oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id'])];
-			echo '                  <tr id="row-' . $rows .'">' . "\n";				  
+              $aDocument[] = ['id' => $rows,
+                              'link' => oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id'])];
+              echo '                  <tr id="row-' . $rows .'">' . "\n";
           } ?>
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id'] . '&action=preview') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . oos_get_products_name($reviews['products_id']); ?></td>
                 <td class="text-right"><?php echo $reviews['reviews_rating']; ?></td>
@@ -315,10 +315,10 @@ require 'includes/header.php';
         } ?></td>				
                 <td class="text-right"><?php echo oos_date_short($reviews['date_added']); ?></td>
                 <td class="text-right"><?php if (isset($rInfo) && is_object($rInfo) && ($reviews['reviews_id'] == $rInfo->reviews_id)) {
-            echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-        } else {
-            echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-        } ?>&nbsp;</td>
+                    echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+                } else {
+                    echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+                } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -338,33 +338,33 @@ require 'includes/header.php';
       $contents = [];
 
       switch ($action) {
-      case 'delete':
-        $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_REVIEW . '</b>'];
+          case 'delete':
+              $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_REVIEW . '</b>'];
 
-        $contents = ['form' => oos_draw_form('id', 'reviews', $aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=deleteconfirm', 'post', false)];
-        $contents[] = ['text' => TEXT_INFO_DELETE_REVIEW_INTRO];
-        $contents[] = ['text' => '<br><b>' . $rInfo->products_name . '</b>'];
-        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
-        break;
+              $contents = ['form' => oos_draw_form('id', 'reviews', $aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=deleteconfirm', 'post', false)];
+              $contents[] = ['text' => TEXT_INFO_DELETE_REVIEW_INTRO];
+              $contents[] = ['text' => '<br><b>' . $rInfo->products_name . '</b>'];
+              $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
+              break;
 
-      default:
-      if (isset($rInfo) && is_object($rInfo)) {
-          $heading[] = ['text' => '<b>' . $rInfo->products_name . '</b>'];
+          default:
+              if (isset($rInfo) && is_object($rInfo)) {
+                  $heading[] = ['text' => '<b>' . $rInfo->products_name . '</b>'];
 
-          $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
-          $contents[] = ['text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($rInfo->date_added)];
-          if (oos_is_not_null($rInfo->last_modified)) {
-              $contents[] = ['text' => TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($rInfo->last_modified)];
-          }
-          $contents[] = ['text' => '<br>' . product_info_image($rInfo->products_image, $rInfo->products_name)];
-          $contents[] = ['text' => '<br>' . TEXT_INFO_REVIEW_AUTHOR . ' ' . $rInfo->customers_name];
-          $contents[] = ['text' => TEXT_INFO_REVIEW_RATING . ' ' . oos_image(OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'stars_' . $rInfo->reviews_rating . '.gif')];
-          $contents[] = ['text' => TEXT_INFO_REVIEW_READ . ' ' . $rInfo->reviews_read];
-          $contents[] = ['text' => '<br>' . TEXT_INFO_REVIEW_SIZE . ' ' . $rInfo->reviews_text_size . ' bytes'];
-          $contents[] = ['text' => '<br>' . TEXT_INFO_PRODUCTS_AVERAGE_RATING . ' ' . number_format($rInfo->average_rating, 2) . '%'];
+                  $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
+                  $contents[] = ['text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($rInfo->date_added)];
+                  if (oos_is_not_null($rInfo->last_modified)) {
+                      $contents[] = ['text' => TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($rInfo->last_modified)];
+                  }
+                  $contents[] = ['text' => '<br>' . product_info_image($rInfo->products_image, $rInfo->products_name)];
+                  $contents[] = ['text' => '<br>' . TEXT_INFO_REVIEW_AUTHOR . ' ' . $rInfo->customers_name];
+                  $contents[] = ['text' => TEXT_INFO_REVIEW_RATING . ' ' . oos_image(OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'stars_' . $rInfo->reviews_rating . '.gif')];
+                  $contents[] = ['text' => TEXT_INFO_REVIEW_READ . ' ' . $rInfo->reviews_read];
+                  $contents[] = ['text' => '<br>' . TEXT_INFO_REVIEW_SIZE . ' ' . $rInfo->reviews_text_size . ' bytes'];
+                  $contents[] = ['text' => '<br>' . TEXT_INFO_PRODUCTS_AVERAGE_RATING . ' ' . number_format($rInfo->average_rating, 2) . '%'];
+              }
+              break;
       }
-        break;
-    }
 
       if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
           ?>
@@ -401,14 +401,14 @@ require 'includes/header.php';
 require 'includes/bottom.php';
 
 if (isset($aDocument) || !empty($aDocument)) {
-	echo '<script nonce="' . NONCE . '">' . "\n";
-	$nDocument = is_countable($aDocument) ? count($aDocument) : 0;
-	for ($i = 0, $n = $nDocument; $i < $n; $i++) {
-		echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
-		echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
-		echo '});' . "\n";
-	}
-	echo '</script>' . "\n";
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
 }
 
 require 'includes/nice_exit.php';

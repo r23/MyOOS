@@ -26,14 +26,14 @@
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
- /**
-  * The HTML href link wrapper function
-  *
-  * @param  $page
-  * @param  $parameters
-  * @param  $connection
-  * @return string
-  */
+/**
+ * The HTML href link wrapper function
+ *
+ * @param  $page
+ * @param  $parameters
+ * @param  $connection
+ * @return string
+ */
 function oos_href_link_admin($page = '', $parameters = '', $connection = 'SSL', $add_session_id = true)
 {
     $page = oos_output_string($page);
@@ -58,15 +58,15 @@ function oos_href_link_admin($page = '', $parameters = '', $connection = 'SSL', 
 }
 
 
- /**
-  * The HTML catalog href link wrapper function
-  *
-  * @param  $modul
-  * @param  $page
-  * @param  $parameters
-  * @param  $connection
-  * @return string
-  */
+/**
+ * The HTML catalog href link wrapper function
+ *
+ * @param  $modul
+ * @param  $page
+ * @param  $parameters
+ * @param  $connection
+ * @return string
+ */
 function oos_catalog_link($page = '', $parameters = '')
 {
     $page = oos_output_string($page);
@@ -92,16 +92,16 @@ function oos_catalog_link($page = '', $parameters = '')
 }
 
 
- /**
-  * The HTML catalog href link wrapper function
-  *
-  * @param  $src
-  * @param  $alt
-  * @param  $width
-  * @param  $height
-  * @param  $params
-  * @return string
-  */
+/**
+ * The HTML catalog href link wrapper function
+ *
+ * @param  $src
+ * @param  $alt
+ * @param  $width
+ * @param  $height
+ * @param  $params
+ * @return string
+ */
 function oos_image($src, $alt = '', $width = '', $height = '', $params = '')
 {
     $image = '<img src="' . oos_output_string($src) . '" border="0" alt="' . oos_output_string($alt) . '"';
@@ -149,9 +149,9 @@ function oos_info_image($image, $alt, $width = '', $height = '')
 }
 
 
- /**
-  * Draw a 1 pixel black line
-  */
+/**
+ * Draw a 1 pixel black line
+ */
 function oos_black_line()
 {
     return oos_image(OOS_IMAGES . 'pixel_black.gif', '', '100%');
@@ -227,20 +227,20 @@ function oos_back_button($title = '')
     return '<button class="btn btn-sm btn-primary mb-20"><strong><i class="fa fa-chevron-left"></i> ' . $title . '</strong></button>';
 }
 
- /**
-  * javascript to dynamically update the states/provinces list when the country is changed
-  *
-  * @param  $country
-  * @param  $form
-  * @param  $field
-  * @return string
-  */
+/**
+ * javascript to dynamically update the states/provinces list when the country is changed
+ *
+ * @param  $country
+ * @param  $form
+ * @param  $field
+ * @return string
+ */
 function oos_is_zone_list($country, $form, $field)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $countries_query = "SELECT distinct zone_country_id
                         FROM " . $oostable['zones'] . "
@@ -286,19 +286,19 @@ function oos_is_zone_list($country, $form, $field)
 }
 
 
- /**
-  * Output a form
-  *
-  * @param  $name
-  * @param  $action
-  * @param  $parameters
-  * @param  $method
-  * @param  $params
-  * @return string
-  */
+/**
+ * Output a form
+ *
+ * @param  $name
+ * @param  $action
+ * @param  $parameters
+ * @param  $method
+ * @param  $params
+ * @return string
+ */
 function oos_draw_form($id, $name, $action, $parameters = '', $method = 'post', $parsley_validate = true, $params = '')
 {
-    
+
     $form = '<form name="' . oos_output_string($name) . '" action="';
     if (oos_is_not_null($parameters)) {
         $form .= oos_href_link_admin($action, $parameters);
@@ -320,18 +320,18 @@ function oos_draw_form($id, $name, $action, $parameters = '', $method = 'post', 
 }
 
 
- /**
-  * Output a form input field
-  *
-  * @param  $name
-  * @param  $value
-  * @param  $parameters
-  * @param  $required
-  * @param  $type
-  * @param  $reinsert_value
-  * @param  $placeholder
-  * @return string
-  */
+/**
+ * Output a form input field
+ *
+ * @param  $name
+ * @param  $value
+ * @param  $parameters
+ * @param  $required
+ * @param  $type
+ * @param  $reinsert_value
+ * @param  $placeholder
+ * @return string
+ */
 function oos_draw_input_field($name, $value = '', $parameters = '', $required = false, $type = 'text', $reinsert_value = true, $disabled = false, $placeholder = '', $id = '')
 {
     $field = '<input id="' . $id . '" class="form-control" type="' . $type . '" name="' . $name . '"';
@@ -369,14 +369,14 @@ function oos_draw_input_field($name, $value = '', $parameters = '', $required = 
 }
 
 
- /**
-  * Output a form password field
-  *
-  * @param  $name
-  * @param  $value
-  * @param  $required
-  * @return string
-  */
+/**
+ * Output a form password field
+ *
+ * @param  $name
+ * @param  $value
+ * @param  $required
+ * @return string
+ */
 function oos_draw_password_field($name, $value = '', $parameters = 'maxlength="40"', $required = false)
 {
     $field = oos_draw_input_field($name, $value, $parameters, $required, 'password');
@@ -385,13 +385,13 @@ function oos_draw_password_field($name, $value = '', $parameters = 'maxlength="4
 }
 
 
- /**
-  * Output a form filefield
-  *
-  * @param  $name
-  * @param  $required
-  * @return string
-  */
+/**
+ * Output a form filefield
+ *
+ * @param  $name
+ * @param  $required
+ * @return string
+ */
 function oos_draw_file_field($name, $required = false)
 {
     $field = '<div class="fileinput fileinput-new" data-provides="fileinput">' . "\n" .
@@ -408,17 +408,17 @@ function oos_draw_file_field($name, $required = false)
 }
 
 
- /**
-  * Output a selection field - alias function for oos_draw_checkbox_field() and oos_draw_radio_field()
-  *
-  * @param  $name
-  * @param  $type
-  * @param  $value
-  * @param  $checked
-  * @param  $compare
-  * @param  $parameter
-  * @return string
-  */
+/**
+ * Output a selection field - alias function for oos_draw_checkbox_field() and oos_draw_radio_field()
+ *
+ * @param  $name
+ * @param  $type
+ * @param  $value
+ * @param  $checked
+ * @param  $compare
+ * @param  $parameter
+ * @return string
+ */
 function oos_draw_selection_field($name, $type, $value = '', $checked = false, $compare = '', $parameter = '')
 {
     $selection = '<input type="' . $type . '" name="' . $name . '"';
@@ -437,50 +437,50 @@ function oos_draw_selection_field($name, $type, $value = '', $checked = false, $
 }
 
 
- /**
-  * Output a form checkbox field
-  *
-  * @param  $name
-  * @param  $value
-  * @param  $checked
-  * @param  $compare
-  * @param  $parameter
-  * @return string
-  */
+/**
+ * Output a form checkbox field
+ *
+ * @param  $name
+ * @param  $value
+ * @param  $checked
+ * @param  $compare
+ * @param  $parameter
+ * @return string
+ */
 function oos_draw_checkbox_field($name, $value = '', $checked = false, $compare = '', $parameter = '')
 {
     return oos_draw_selection_field($name, 'checkbox', $value, $checked, $compare, $parameter);
 }
 
 
- /**
-  * Output a form radio field
-  *
-  * @param  $name
-  * @param  $value
-  * @param  $checked
-  * @param  $compare
-  * @param  $parameter
-  * @return string
-  */
+/**
+ * Output a form radio field
+ *
+ * @param  $name
+ * @param  $value
+ * @param  $checked
+ * @param  $compare
+ * @param  $parameter
+ * @return string
+ */
 function oos_draw_radio_field($name, $value = '', $checked = false, $compare = '', $parameter = '')
 {
     return oos_draw_selection_field($name, 'radio', $value, $checked, $compare, $parameter);
 }
 
 
- /**
-  * Output a form textarea field
-  *
-  * @param  $name
-  * @param  $wrap
-  * @param  $width
-  * @param  $height
-  * @param  $text
-  * @param  $params
-  * @param  $reinsert_value
-  * @return string
-  */
+/**
+ * Output a form textarea field
+ *
+ * @param  $name
+ * @param  $wrap
+ * @param  $width
+ * @param  $height
+ * @param  $text
+ * @param  $params
+ * @param  $reinsert_value
+ * @return string
+ */
 function oos_draw_textarea_field($name, $wrap, $width, $height, $text = '', $params = '', $reinsert_value = true)
 {
     $field = '<textarea class="form-control" name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '"';
@@ -512,18 +512,18 @@ function oos_draw_textarea_field($name, $wrap, $width, $height, $text = '', $par
     return $field;
 }
 
- /**
-  * Output a form textarea field
-  *
-  * @param  $name
-  * @param  $wrap
-  * @param  $width
-  * @param  $height
-  * @param  $text
-  * @param  $params
-  * @param  $reinsert_value
-  * @return string
-  */
+/**
+ * Output a form textarea field
+ *
+ * @param  $name
+ * @param  $wrap
+ * @param  $width
+ * @param  $height
+ * @param  $text
+ * @param  $params
+ * @param  $reinsert_value
+ * @return string
+ */
 function oos_draw_editor_field($name, $wrap, $width, $height, $text = '', $params = '', $reinsert_value = true)
 {
     $field = '<textarea name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '"';
@@ -547,13 +547,13 @@ function oos_draw_editor_field($name, $wrap, $width, $height, $text = '', $param
     return $field;
 }
 
- /**
-  * Output a form hidden field
-  *
-  * @param  $name
-  * @param  $value
-  * @return string
-  */
+/**
+ * Output a form hidden field
+ *
+ * @param  $name
+ * @param  $value
+ * @return string
+ */
 function oos_draw_hidden_field($name, $value = '')
 {
     $field = '<input type="hidden" name="' . $name . '"';
@@ -573,9 +573,9 @@ function oos_draw_hidden_field($name, $value = '')
     return $field;
 }
 
- /**
-  * Hide form elements
-  */
+/**
+ * Hide form elements
+ */
 function oos_hide_session_id()
 {
     if (defined('SID') && oos_is_not_null(SID)) {
@@ -584,17 +584,17 @@ function oos_hide_session_id()
 }
 
 
- /**
-  * Output a login form
-  *
-  * @param  $name
-  * @param  $modul
-  * @param  $page
-  * @param  $parameters
-  * @param  $method
-  * @param  $params
-  * @return string
-  */
+/**
+ * Output a login form
+ *
+ * @param  $name
+ * @param  $modul
+ * @param  $page
+ * @param  $parameters
+ * @param  $method
+ * @param  $params
+ * @return string
+ */
 function oos_draw_login_form($name, $page, $parameters = '', $method = 'post', $params = '')
 {
     $loginform = '<form name="' . oos_output_string($name) . '" action="';
@@ -614,16 +614,16 @@ function oos_draw_login_form($name, $page, $parameters = '', $method = 'post', $
 }
 
 
- /**
-  * Output a form pull down menu
-  *
-  * @param  $name
-  * @param  $values
-  * @param  $default
-  * @param  $params
-  * @param  $required
-  * @return string
-  */
+/**
+ * Output a form pull down menu
+ *
+ * @param  $name
+ * @param  $values
+ * @param  $default
+ * @param  $params
+ * @param  $required
+ * @return string
+ */
 function oos_draw_pull_down_menu($name, $id, $values, $default = '', $params = '', $required = false)
 {
     $field = '<select class="form-control" name="' . $name . '" id="' . $id . '"';
@@ -641,7 +641,7 @@ function oos_draw_pull_down_menu($name, $id, $values, $default = '', $params = '
     }
 
     $n = is_countable($values) ? count($values) : 0;
-    for ($i=0, $n; $i<$n; $i++) {
+    for ($i = 0, $n; $i < $n; $i++) {
         $field .= '<option value="' . $values[$i]['id'] . '"';
         if ($default == $values[$i]['id']) {
             $field .= ' selected="selected"';
@@ -659,16 +659,16 @@ function oos_draw_pull_down_menu($name, $id, $values, $default = '', $params = '
 }
 
 
- /**
-  * Output a form pull down menu
-  *
-  * @param  $name
-  * @param  $values
-  * @param  $default
-  * @param  $params
-  * @param  $required
-  * @return string
-  */
+/**
+ * Output a form pull down menu
+ *
+ * @param  $name
+ * @param  $values
+ * @param  $default
+ * @param  $params
+ * @param  $required
+ * @return string
+ */
 function oos_draw_select_menu($name, $values, $default = '', $params = '', $required = false)
 {
     $field = '<select class="form-control" name="' . $name . '"';
@@ -686,7 +686,7 @@ function oos_draw_select_menu($name, $values, $default = '', $params = '', $requ
     }
 
     $n = is_countable($values) ? count($values) : 0;
-    for ($i=0, $n; $i<$n; $i++) {
+    for ($i = 0, $n; $i < $n; $i++) {
         $field .= '<option value="' . $values[$i] . '"';
         if ($default == $values[$i]) {
             $field .= ' selected="selected"';
@@ -707,16 +707,16 @@ function oos_draw_select_menu($name, $values, $default = '', $params = '', $requ
 
 
 
- /**
-  * Output a form pull down menu
-  *
-  * @param  $name
-  * @param  $values
-  * @param  $default
-  * @param  $params
-  * @param  $required
-  * @return string
-  */
+/**
+ * Output a form pull down menu
+ *
+ * @param  $name
+ * @param  $values
+ * @param  $default
+ * @param  $params
+ * @param  $required
+ * @return string
+ */
 function oos_draw_extensions_menu($name, $values, $default = '', $params = '', $required = false)
 {
     $field = '<select class="form-control" name="' . $name . '"';
@@ -734,7 +734,7 @@ function oos_draw_extensions_menu($name, $values, $default = '', $params = '', $
     }
 
     $n = is_countable($values) ? count($values) : 0;
-    for ($i=0, $n; $i<$n; $i++) {
+    for ($i = 0, $n; $i < $n; $i++) {
         $field .= '<option value="' . $values[$i] . '"';
         if ($default == $values[$i]) {
             $field .= ' selected="selected"';
@@ -773,8 +773,8 @@ function oos_draw_products_pull_down($name, $exclude, $default = null, $id = 1)
 
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $productstable = $oostable['products'];
     $products_descriptiontable = $oostable['products_description'];
@@ -798,12 +798,12 @@ function oos_draw_products_pull_down($name, $exclude, $default = null, $id = 1)
 
 
 
- /**
-  * Output a flag-icon
-  *
-  * @param $name
-  * @param $iso_3166_1
-  */
+/**
+ * Output a flag-icon
+ *
+ * @param $name
+ * @param $iso_3166_1
+ */
 function oos_flag_icon($aLanguages)
 {
     if (empty($aLanguages['name'])) {

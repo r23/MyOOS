@@ -29,30 +29,30 @@
    ----------------------------------------------------------------------
  */
 
- /**
-  * look in your $PATH_LOCALE/locale directory for available locales..
-  * on RedHat try 'en_US'
-  * on FreeBSD try 'en_US.ISO_8859-1'
-  * on Windows try 'en', or 'English'
-  */
-  define('THE_LOCALE', 'en_US');
-  define('LANG', 'en');
-  define('DATE_FORMAT_SHORT', '%m/%d/%Y');  // this is used for strftime()
-  define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
-  define('DATE_FORMAT', 'm/d/Y'); // this is used for date()
-  define('PHP_DATE_TIME_FORMAT', 'm/d/Y H:i:s'); // this is used for date()
-  define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
+/**
+ * look in your $PATH_LOCALE/locale directory for available locales..
+ * on RedHat try 'en_US'
+ * on FreeBSD try 'en_US.ISO_8859-1'
+ * on Windows try 'en', or 'English'
+ */
+define('THE_LOCALE', 'en_US');
+define('LANG', 'en');
+define('DATE_FORMAT_SHORT', '%m/%d/%Y');  // this is used for strftime()
+define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
+define('DATE_FORMAT', 'm/d/Y'); // this is used for date()
+define('PHP_DATE_TIME_FORMAT', 'm/d/Y H:i:s'); // this is used for date()
+define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
 
 
- /**
-  * Return date in raw format
-  * $date should be in format mm/dd/yyyy
-  * raw date is in format YYYYMMDD, or DDMMYYYY
-  *
-  * @param  $date
-  * @param  $reverse
-  * @return string
-  */
+/**
+ * Return date in raw format
+ * $date should be in format mm/dd/yyyy
+ * raw date is in format YYYYMMDD, or DDMMYYYY
+ *
+ * @param  $date
+ * @param  $reverse
+ * @return string
+ */
 function oos_date_raw($date, $reverse = false)
 {
     if ($reverse) {

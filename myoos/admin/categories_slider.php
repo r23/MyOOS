@@ -26,8 +26,8 @@ function oos_set_slider_status($slider_id, $status)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
 
     if ($status == '1') {
@@ -49,122 +49,122 @@ $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default'
 $sID = filter_input(INPUT_GET, 'sID', FILTER_VALIDATE_INT);
 
 switch ($action) {
-case 'setflag':
-    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-        oos_set_slider_status($_GET['id'], $_GET['flag']);
-    }
-    $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-    oos_redirect_admin(oos_href_link_admin($aContents['categories_slider'], 'sID=' . intval($id) . '&page=' . $nPage));
-    break;
+    case 'setflag':
+        if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+            oos_set_slider_status($_GET['id'], $_GET['flag']);
+        }
+        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        oos_redirect_admin(oos_href_link_admin($aContents['categories_slider'], 'sID=' . intval($id) . '&page=' . $nPage));
+        break;
 
-case 'insert':
-case 'update':
-    if (isset($_SESSION['formid']) && isset($_POST['formid']) && ($_SESSION['formid'] == $_POST['formid'])) {
-        $products_id = intval($_POST['products_id']);
-        $expires_date = oos_db_prepare_input($_POST['expires_date']);
+    case 'insert':
+    case 'update':
+        if (isset($_SESSION['formid']) && isset($_POST['formid']) && ($_SESSION['formid'] == $_POST['formid'])) {
+            $products_id = intval($_POST['products_id']);
+            $expires_date = oos_db_prepare_input($_POST['expires_date']);
 
-        if (isset($_FILES['files'])) {
-            foreach ($_FILES['files']['name'] as $key => $name) {
-                if (empty($name)) {
-                    // purge empty slots
-                    unset($_FILES['files']['name'][$key]);
-                    unset($_FILES['files']['type'][$key]);
-                    unset($_FILES['files']['tmp_name'][$key]);
-                    unset($_FILES['files']['error'][$key]);
-                    unset($_FILES['files']['size'][$key]);
+            if (isset($_FILES['files'])) {
+                foreach ($_FILES['files']['name'] as $key => $name) {
+                    if (empty($name)) {
+                        // purge empty slots
+                        unset($_FILES['files']['name'][$key]);
+                        unset($_FILES['files']['type'][$key]);
+                        unset($_FILES['files']['tmp_name'][$key]);
+                        unset($_FILES['files']['error'][$key]);
+                        unset($_FILES['files']['size'][$key]);
+                    }
                 }
             }
-        }
 
-        $sql_data_array = ['products_id' => intval($products_id),
-                           'expires_date' => oos_db_prepare_input($expires_date),
-                           'status'       => '1'];
+            $sql_data_array = ['products_id' => intval($products_id),
+                               'expires_date' => oos_db_prepare_input($expires_date),
+                               'status'       => '1'];
 
-        if ($action == 'insert') {
-            $insert_sql_data = ['slider_date_added' => 'now()'];
+            if ($action == 'insert') {
+                $insert_sql_data = ['slider_date_added' => 'now()'];
 
-            $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
+                $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
 
-            oos_db_perform($oostable['categories_slider'], $sql_data_array);
-            $slider_id = $dbconn->Insert_ID();
-        } elseif ($action == 'update') {
-            $update_sql_data = ['slider_last_modified' => 'now()'];
-            $slider_id = intval($_POST['slider_id']);
+                oos_db_perform($oostable['categories_slider'], $sql_data_array);
+                $slider_id = $dbconn->Insert_ID();
+            } elseif ($action == 'update') {
+                $update_sql_data = ['slider_last_modified' => 'now()'];
+                $slider_id = intval($_POST['slider_id']);
 
-            $sql_data_array = [...$sql_data_array, ...$update_sql_data];
+                $sql_data_array = [...$sql_data_array, ...$update_sql_data];
 
-            oos_db_perform($oostable['categories_slider'], $sql_data_array, 'UPDATE', 'slider_id = \'' . intval($slider_id) . '\'');
-        }
+                oos_db_perform($oostable['categories_slider'], $sql_data_array, 'UPDATE', 'slider_id = \'' . intval($slider_id) . '\'');
+            }
 
-        if ((isset($_POST['slider_image']) && ($_POST['slider_image'] == 'yes')) && (isset($_POST['slider_preview_image']))) {
-            $slider_preview_image = oos_db_prepare_input($_POST['slider_preview_image']);
+            if ((isset($_POST['slider_image']) && ($_POST['slider_image'] == 'yes')) && (isset($_POST['slider_preview_image']))) {
+                $slider_preview_image = oos_db_prepare_input($_POST['slider_preview_image']);
 
-            $categories_slidertable = $oostable['categories_slider'];
-            $dbconn->Execute(
-                "UPDATE $categories_slidertable
+                $categories_slidertable = $oostable['categories_slider'];
+                $dbconn->Execute(
+                    "UPDATE $categories_slidertable
 								SET slider_image = NULL
 								WHERE slider_id = '" . intval($slider_id) . "'"
-            );
+                );
 
-            // todo remove file
-            //oos_remove_slider_image($slider_preview_image);
-        }
-
-        if (isset($_FILES['slider_image'])) {
-            if ($_FILES["slider_image"]["error"] == UPLOAD_ERR_OK) {
-                $filename = oos_db_prepare_input($_FILES['slider_image']['name']);
-                $source = $_FILES['slider_image']['tmp_name'];
-                $type = oos_db_prepare_input($_FILES['slider_image']['type']);
-
-                if (is_image($filename)) {
-                    $dir_fs_slider = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'slider/';
-                    $filename = pathinfo((string) $_FILES['slider_image']['name'], PATHINFO_FILENAME);
-                    $extension = strtolower(pathinfo((string) $_FILES['slider_image']['name'], PATHINFO_EXTENSION));
-
-                    $slider_image = $filename.'.'.$extension;
-                    $new_path = $dir_fs_slider.$slider_image;
-
-                    //New file name if the file already exists
-                    if (file_exists($new_path)) {
-                        $id = 1;
-                        do {
-                            // If file exists, append a number to the file name
-                            $slider_image = $filename.'_'.$id.'.'.$extension;
-                            $new_path = $dir_fs_slider.$slider_image;
-                            $id++;
-                        } while (file_exists($new_path));
-                    }
-
-                    move_uploaded_file($source, $new_path);
-
-                    $messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED, 'success');
-
-
-                    $sql_data_array = [];
-                    $sql_data_array = ['slider_image' => oos_db_prepare_input($slider_image)];
-
-                    oos_db_perform($oostable['categories_slider'], $sql_data_array, 'UPDATE', 'slider_id = \'' .  intval($slider_id) . '\'');
-                }
-            } else {
-                $messageStack->add_session(ERROR_NO_IMAGE_FILE, 'error');
+                // todo remove file
+                //oos_remove_slider_image($slider_preview_image);
             }
+
+            if (isset($_FILES['slider_image'])) {
+                if ($_FILES["slider_image"]["error"] == UPLOAD_ERR_OK) {
+                    $filename = oos_db_prepare_input($_FILES['slider_image']['name']);
+                    $source = $_FILES['slider_image']['tmp_name'];
+                    $type = oos_db_prepare_input($_FILES['slider_image']['type']);
+
+                    if (is_image($filename)) {
+                        $dir_fs_slider = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'slider/';
+                        $filename = pathinfo((string) $_FILES['slider_image']['name'], PATHINFO_FILENAME);
+                        $extension = strtolower(pathinfo((string) $_FILES['slider_image']['name'], PATHINFO_EXTENSION));
+
+                        $slider_image = $filename.'.'.$extension;
+                        $new_path = $dir_fs_slider.$slider_image;
+
+                        //New file name if the file already exists
+                        if (file_exists($new_path)) {
+                            $id = 1;
+                            do {
+                                // If file exists, append a number to the file name
+                                $slider_image = $filename.'_'.$id.'.'.$extension;
+                                $new_path = $dir_fs_slider.$slider_image;
+                                $id++;
+                            } while (file_exists($new_path));
+                        }
+
+                        move_uploaded_file($source, $new_path);
+
+                        $messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED, 'success');
+
+
+                        $sql_data_array = [];
+                        $sql_data_array = ['slider_image' => oos_db_prepare_input($slider_image)];
+
+                        oos_db_perform($oostable['categories_slider'], $sql_data_array, 'UPDATE', 'slider_id = \'' .  intval($slider_id) . '\'');
+                    }
+                } else {
+                    $messageStack->add_session(ERROR_NO_IMAGE_FILE, 'error');
+                }
+            }
+
+
+            oos_redirect_admin(oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . intval($slider_id)));
         }
 
+        oos_redirect_admin(oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage));
+        break;
 
-        oos_redirect_admin(oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . intval($slider_id)));
-    }
+    case 'deleteconfirm':
+        $slider_id = oos_db_prepare_input($_GET['sID']);
 
-    oos_redirect_admin(oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage));
-    break;
+        $slidertable = $oostable['categories_slider'];
+        $dbconn->Execute("DELETE FROM $slidertable WHERE slider_id = '" . oos_db_input($slider_id) . "'");
 
-case 'deleteconfirm':
-    $slider_id = oos_db_prepare_input($_GET['sID']);
-
-    $slidertable = $oostable['categories_slider'];
-    $dbconn->Execute("DELETE FROM $slidertable WHERE slider_id = '" . oos_db_input($slider_id) . "'");
-
-    oos_redirect_admin(oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage));
-    break;
+        oos_redirect_admin(oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage));
+        break;
 }
 
 require 'includes/header.php';
@@ -385,13 +385,13 @@ if (($action == 'new') || ($action == 'edit')) {
                         </tr>    
                     </thead>
     <?php
-	$rows = 0;
-	$aDocument = [];
+    $rows = 0;
+    $aDocument = [];
     $slider_result_raw = "SELECT p.products_id, pd.products_name, s.slider_id, s.slider_date_added, s.slider_last_modified, s.expires_date, s.date_status_change, s.status FROM " . $oostable['products'] . " p, " . $oostable['categories_slider'] . " s, " . $oostable['products_description'] . " pd WHERE p.products_id = pd.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND p.products_id = s.products_id ORDER BY pd.products_name";
     $slider_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $slider_result_raw, $slider_result_numrows);
     $slider_result = $dbconn->Execute($slider_result_raw);
     while ($slider = $slider_result->fields) {
-		$rows++;
+        $rows++;
         if ((!isset($_GET['sID']) || (isset($_GET['sID']) && ($_GET['sID'] == $slider['slider_id']))) && !isset($sInfo)) {
             $productstable = $oostable['products'];
             $products_result = $dbconn->Execute("SELECT products_image FROM " . $oostable['products'] . " WHERE products_id = '" . $slider['products_id'] . "'");
@@ -401,13 +401,13 @@ if (($action == 'new') || ($action == 'edit')) {
         }
 
         if (isset($sInfo) && is_object($sInfo) && ($slider['slider_id'] == $sInfo->slider_id)) {
-			$aDocument[] = ['id' => $rows,
-							'link' => oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $sInfo->slider_id . '&action=edit')];
-			echo '                  <tr id="row-' . $rows .'">' . "\n";	
+            $aDocument[] = ['id' => $rows,
+                            'link' => oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $sInfo->slider_id . '&action=edit')];
+            echo '                  <tr id="row-' . $rows .'">' . "\n";
         } else {
-			$aDocument[] = ['id' => $rows,
-							'link' => oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $slider['slider_id'])];
-			echo '                  <tr id="row-' . $rows .'">' . "\n";				
+            $aDocument[] = ['id' => $rows,
+                            'link' => oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $slider['slider_id'])];
+            echo '                  <tr id="row-' . $rows .'">' . "\n";
         } ?>
                 <td><?php echo $slider['products_name']; ?></td>
                 <td  align="right">&nbsp;</td>
@@ -453,44 +453,44 @@ if (($action == 'new') || ($action == 'edit')) {
             </table></td>
     <?php
     $heading = [];
-            $contents = [];
+    $contents = [];
 
-            switch ($action) {
-    case 'delete':
-        $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_SLIDER . '</b>'];
+    switch ($action) {
+        case 'delete':
+            $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_SLIDER . '</b>'];
 
-        $contents = ['form' => oos_draw_form('id', 'categories_slider', $aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $sInfo->slider_id . '&action=deleteconfirm', 'post', false)];
-        $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
-        $contents[] = ['text' => '<br><b>' . $sInfo->products_name . '</b>'];
-        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $sInfo->slider_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
+            $contents = ['form' => oos_draw_form('id', 'categories_slider', $aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $sInfo->slider_id . '&action=deleteconfirm', 'post', false)];
+            $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
+            $contents[] = ['text' => '<br><b>' . $sInfo->products_name . '</b>'];
+            $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $sInfo->slider_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
-        break;
+            break;
 
-    default:
-        if (isset($sInfo) && is_object($sInfo)) {
-            $heading[] = ['text' => '<b>' . $sInfo->products_name . '</b>'];
+        default:
+            if (isset($sInfo) && is_object($sInfo)) {
+                $heading[] = ['text' => '<b>' . $sInfo->products_name . '</b>'];
 
-            $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $sInfo->slider_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $sInfo->slider_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
-            $contents[] = ['text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($sInfo->slider_date_added)];
-            $contents[] = ['text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($sInfo->slider_last_modified)];
-            $contents[] = ['align' => 'center', 'text' => '<br>' . product_info_image($sInfo->products_image, $sInfo->products_name)];
-            $contents[] = ['text' => '<br>' . TEXT_INFO_EXPIRES_DATE . ' <b>' . oos_date_short($sInfo->expires_date) . '</b>'];
-            $contents[] = ['text' => '' . TEXT_INFO_STATUS_CHANGE . ' ' . oos_date_short($sInfo->date_status_change)];
-        }
-        break;
+                $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $sInfo->slider_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $sInfo->slider_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
+                $contents[] = ['text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($sInfo->slider_date_added)];
+                $contents[] = ['text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($sInfo->slider_last_modified)];
+                $contents[] = ['align' => 'center', 'text' => '<br>' . product_info_image($sInfo->products_image, $sInfo->products_name)];
+                $contents[] = ['text' => '<br>' . TEXT_INFO_EXPIRES_DATE . ' <b>' . oos_date_short($sInfo->expires_date) . '</b>'];
+                $contents[] = ['text' => '' . TEXT_INFO_STATUS_CHANGE . ' ' . oos_date_short($sInfo->date_status_change)];
             }
+            break;
+    }
 
-            if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
-                ?>
+    if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+        ?>
     <td class="w-25" valign="top">
         <table class="table table-striped">
                 <?php
-                $box = new box();
-                echo $box->infoBox($heading, $contents); ?>
+        $box = new box();
+        echo $box->infoBox($heading, $contents); ?>
         </table> 
     </td> 
                 <?php
-            } ?>
+    } ?>
           </tr>
         </table>
     </div>
@@ -515,14 +515,14 @@ if (($action == 'new') || ($action == 'edit')) {
 require 'includes/bottom.php';
 
 if (isset($aDocument) || !empty($aDocument)) {
-	echo '<script nonce="' . NONCE . '">' . "\n";
-	$nDocument = is_countable($aDocument) ? count($aDocument) : 0;
-	for ($i = 0, $n = $nDocument; $i < $n; $i++) {
-		echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
-		echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
-		echo '});' . "\n";
-	}
-	echo '</script>' . "\n";
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
 }
 
 require 'includes/nice_exit.php';

@@ -29,8 +29,8 @@ function oos_admin_check_login()
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $aContents = oos_get_content();
 
@@ -73,12 +73,12 @@ function oos_check_is_access_protected()
 }
 
 
-function oos_admin_check_boxes($filename, $boxes ='')
+function oos_admin_check_boxes($filename, $boxes = '')
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $is_boxes = 1;
     if ($boxes == 'sub_boxes') {
@@ -106,8 +106,8 @@ function oos_admin_files_boxes($filename, $parameters)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $aContents = oos_get_content();
 
@@ -154,8 +154,8 @@ function oos_customers_name($customers_id)
     $sName = '';
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $customerstable = $oostable['customers'];
     $query = "SELECT customers_firstname, customers_lastname
@@ -277,8 +277,8 @@ function oos_output_string($sStr, $aTranslate = null)
 
 function oos_address_format($address_format_id, $address, $html, $boln, $eoln)
 {
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $address_formattable = $oostable['address_format'];
     $query = "SELECT address_format as format
@@ -349,8 +349,8 @@ function oos_get_zone_code($country, $zone, $def_state)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $zonestable = $oostable['zones'];
     $query = "SELECT zone_code
@@ -368,8 +368,8 @@ function oos_get_country_name($country_id)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $countriestable = $oostable['countries'];
     $query = "SELECT countries_name
@@ -405,8 +405,8 @@ function oos_get_languages()
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $aLanguages = [];
 
@@ -427,13 +427,13 @@ function oos_get_languages()
     return $aLanguages;
 }
 
- /**
-  * Return Products Name
-  *
-  * @param  $product_id
-  * @param  $language
-  * @return string
-  */
+/**
+ * Return Products Name
+ *
+ * @param  $product_id
+ * @param  $language
+ * @return string
+ */
 function oos_get_products_name($product_id, $language_id = '')
 {
     if (empty($language_id) || !is_numeric($language_id)) {
@@ -441,8 +441,8 @@ function oos_get_products_name($product_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_name
@@ -457,13 +457,13 @@ function oos_get_products_name($product_id, $language_id = '')
 }
 
 
- /**
-  * Return Products Page Title for SEO
-  *
-  * @param  $product_id
-  * @param  $language
-  * @return string
-  */
+/**
+ * Return Products Page Title for SEO
+ *
+ * @param  $product_id
+ * @param  $language
+ * @return string
+ */
 function oos_get_products_title($product_id, $language_id = '')
 {
     if (empty($language_id) || !is_numeric($language_id)) {
@@ -471,8 +471,8 @@ function oos_get_products_title($product_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_title
@@ -496,8 +496,8 @@ function oos_get_countries($default = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $countriestable = $oostable['countries'];
     $query = "SELECT countries_id, countries_name
@@ -521,8 +521,8 @@ function oos_get_country_zones($country_id)
     $zones_array = [];
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $zonestable = $oostable['zones'];
     $query = "SELECT zone_id, zone_name
@@ -547,7 +547,7 @@ function oos_prepare_country_zones_pull_down($country_id = '')
     // preset the width of the drop-down for Netscape
     $pre = '';
     if ((!oos_browser_detect('MSIE')) && (oos_browser_detect('Mozilla/4'))) {
-        for ($i=0; $i<45; $i++) {
+        for ($i = 0; $i < 45; $i++) {
             $pre .= '&nbsp;';
         }
     }
@@ -561,7 +561,7 @@ function oos_prepare_country_zones_pull_down($country_id = '')
         $zones = [['id' => '', 'text' => TYPE_BELOW]];
         // create dummy options for Netscape to preset the height of the drop-down
         if ((!oos_browser_detect('MSIE')) && (oos_browser_detect('Mozilla/4'))) {
-            for ($i=0; $i<9; $i++) {
+            for ($i = 0; $i < 9; $i++) {
                 $zones[] = ['id' => '', 'text' => $pre];
             }
         }
@@ -599,8 +599,8 @@ function oos_remove_product($product_id)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $productstable = $oostable['products'];
     $product_image_query = "SELECT products_image
@@ -789,7 +789,7 @@ function oos_tofloat($num)
 
     return floatval(
         preg_replace("/[^0-9]/", "", substr((string) $num, 0, $sep)) . '.' .
-        preg_replace("/[^0-9]/", "", substr((string) $num, $sep+1, strlen((string) $num)))
+        preg_replace("/[^0-9]/", "", substr((string) $num, $sep + 1, strlen((string) $num)))
     );
 }
 
@@ -799,12 +799,12 @@ function oos_tofloat($num)
  */
 function oos_round($number, $precision)
 {
-    if (strpos((string) $number, '.') && (strlen(substr((string) $number, strpos((string) $number, '.')+1)) > $precision)) {
+    if (strpos((string) $number, '.') && (strlen(substr((string) $number, strpos((string) $number, '.') + 1)) > $precision)) {
         $number = substr((string) $number, 0, strpos((string) $number, '.') + 1 + $precision + 1);
 
         if (substr($number, -1) >= 5) {
             if ($precision > 1) {
-                $number = substr($number, 0, -1) + ('0.' . str_repeat(0, $precision-1) . '1');
+                $number = substr($number, 0, -1) + ('0.' . str_repeat(0, $precision - 1) . '1');
             } elseif ($precision == 1) {
                 $number = substr($number, 0, -1) + 0.1;
             } else {
@@ -843,13 +843,13 @@ function oos_display_tax_value($value, $padding = TAX_DECIMAL_PLACES)
 
     if ($padding > 0) {
         if ($decimal_pos = strpos((string) $value, '.')) {
-            $decimals = strlen(substr((string) $value, ($decimal_pos+1)));
-            for ($i=$decimals; $i<$padding; $i++) {
+            $decimals = strlen(substr((string) $value, ($decimal_pos + 1)));
+            for ($i = $decimals; $i < $padding; $i++) {
                 $value .= '0';
             }
         } else {
             $value .= '.';
-            for ($i=0; $i<$padding; $i++) {
+            for ($i = 0; $i < $padding; $i++) {
                 $value .= '0';
             }
         }
@@ -871,13 +871,13 @@ function oos_add_tax($price, $tax)
 }
 
 
- /**
-  * Returns the tax rate for a zone / class
-  *
-  * @param $class_id
-  * @param $country_id
-  * @param $zone_id
-  */
+/**
+ * Returns the tax rate for a zone / class
+ *
+ * @param $class_id
+ * @param $country_id
+ * @param $zone_id
+ */
 function oos_get_tax_rate($class_id, $country_id = -1, $zone_id = -1)
 {
     if (($country_id == -1) && ($zone_id == -1)) {
@@ -890,8 +890,8 @@ function oos_get_tax_rate($class_id, $country_id = -1, $zone_id = -1)
 
     if (!isset($tax_rates[$class_id][$country_id][$zone_id]['rate'])) {
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $tax_ratestable = $oostable['tax_rates'];
         $zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
@@ -950,34 +950,34 @@ function oos_get_serialized_variable(&$serialization_data, $variable_name, $vari
     $serialized_variable = '';
 
     switch ($variable_type) {
-    case 'string':
-        $start_position = strpos((string) $serialization_data, $variable_name . '|s');
+        case 'string':
+            $start_position = strpos((string) $serialization_data, $variable_name . '|s');
 
-        $serialized_variable = substr((string) $serialization_data, strpos((string) $serialization_data, '|', $start_position) + 1, strpos((string) $serialization_data, '|', $start_position) - 1);
-        break;
+            $serialized_variable = substr((string) $serialization_data, strpos((string) $serialization_data, '|', $start_position) + 1, strpos((string) $serialization_data, '|', $start_position) - 1);
+            break;
 
-    case 'array':
-    case 'object':
-        if ($variable_type == 'array') {
-            $start_position = strpos((string) $serialization_data, $variable_name . '|a');
-        } else {
-            $start_position = strpos((string) $serialization_data, $variable_name . '|O');
-        }
-
-        $tag = 0;
-
-        for ($i=$start_position, $n=sizeof($serialization_data); $i<$n; $i++) {
-            if ($serialization_data[$i] == '{') {
-                $tag++;
-            } elseif ($serialization_data[$i] == '}') {
-                $tag--;
-            } elseif ($tag < 1) {
-                break;
+        case 'array':
+        case 'object':
+            if ($variable_type == 'array') {
+                $start_position = strpos((string) $serialization_data, $variable_name . '|a');
+            } else {
+                $start_position = strpos((string) $serialization_data, $variable_name . '|O');
             }
-        }
 
-        $serialized_variable = substr((string) $serialization_data, strpos((string) $serialization_data, '|', $start_position) + 1, $i - strpos((string) $serialization_data, '|', $start_position) - 1);
-        break;
+            $tag = 0;
+
+            for ($i = $start_position, $n = sizeof($serialization_data); $i < $n; $i++) {
+                if ($serialization_data[$i] == '{') {
+                    $tag++;
+                } elseif ($serialization_data[$i] == '}') {
+                    $tag--;
+                } elseif ($tag < 1) {
+                    break;
+                }
+            }
+
+            $serialized_variable = substr((string) $serialization_data, strpos((string) $serialization_data, '|', $start_position) + 1, $i - strpos((string) $serialization_data, '|', $start_position) - 1);
+            break;
     }
 
     return $serialized_variable;
@@ -1049,8 +1049,8 @@ function oos_set_review_status($reviews_id, $status)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $reviewstable = $oostable['reviews'];
     $query = "UPDATE $reviewstable
@@ -1161,15 +1161,15 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
     // Add smtp values if needed
     if (EMAIL_TRANSPORT == 'smtp') {
         $phpmailer->IsSMTP(); // set mailer to use SMTP
-        
+
         // $phpmailer->SMTPDebug = PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
-        
-        $phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server        
+
+        $phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server
         $phpmailer->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
         $phpmailer->Username = OOS_SMTPUSER; // SMTP username
         $phpmailer->Password = OOS_SMTPPASS; // SMTP password
-        
-        
+
+
         // Set the encryption mechanism to use:
         // - SMTPS (implicit TLS on port 465) or
         // - STARTTLS (explicit TLS on port 587)
@@ -1179,8 +1179,8 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
         // Set the SMTP port number:
         // - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or
         // - 587 for SMTP+STARTTLS
-        $phpmailer->Port = OOS_SMTPPORT;         
-        
+        $phpmailer->Port = OOS_SMTPPORT;
+
     } else {
         // Set sendmail path
         if (EMAIL_TRANSPORT == 'sendmail') {

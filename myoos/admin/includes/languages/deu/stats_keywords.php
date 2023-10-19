@@ -35,7 +35,7 @@ define('SIDEBAR_INFO_2', 'Um <b>ALLE</b> Suchworte aus der Datanebank zu lösche
 define('SIDEBAR_INFO_3', '<b>Ersetzen von Suchwörtern und Begriffen</b><br><br>Klicken Sie hier um falsche Suchwörter anzuzeigen oder zu editieren:');
 
 // define('BUTTON_VIEW_WORD_LIST', 'Zeige Wortliste');
- define('BUTTON_VIEW_WORD_LIST', 'View word/phrase list');
+define('BUTTON_VIEW_WORD_LIST', 'View word/phrase list');
 
 define('BUTTON_UPDATE_WORD_LIST', 'Update von der Datenbank');
 define('BUTTON_SORT_NAME', 'Sortierung nach Namen');

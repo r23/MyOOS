@@ -24,13 +24,13 @@
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
- /**
-  * Return Block Side (left right)
-  *
-  * @param  $block_id
-  * @param  $language
-  * @return string
-  */
+/**
+ * Return Block Side (left right)
+ *
+ * @param  $block_id
+ * @param  $language
+ * @return string
+ */
 function oos_block_select_option($select_array, $key_value)
 {
     for ($i = 0, $n = is_countable($select_array) ? count($select_array) : 0; $i < $n; $i++) {
@@ -44,13 +44,13 @@ function oos_block_select_option($select_array, $key_value)
     return $string;
 }
 
- /**
-  * Return Block Name
-  *
-  * @param  $block_id
-  * @param  $language
-  * @return string
-  */
+/**
+ * Return Block Name
+ *
+ * @param  $block_id
+ * @param  $language
+ * @return string
+ */
 function oos_get_block_name($block_id, $language_id = '')
 {
     if (empty($language_id) || !is_numeric($language_id)) {
@@ -58,8 +58,8 @@ function oos_get_block_name($block_id, $language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $block_infotable = $oostable['block_info'];
     $query = "SELECT block_name
@@ -73,13 +73,13 @@ function oos_get_block_name($block_id, $language_id = '')
     return $block_name;
 }
 
- /**
-  * Return Block To Page
-  *
-  * @param  $block_id
-  * @param  $language
-  * @return string
-  */
+/**
+ * Return Block To Page
+ *
+ * @param  $block_id
+ * @param  $language
+ * @return string
+ */
 function oos_show_block_to_page($block_id = '', $language_id = '')
 {
     $select_page_type = '';
@@ -90,8 +90,8 @@ function oos_show_block_to_page($block_id = '', $language_id = '')
         $type_array = [];
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $page_typetable = $oostable['page_type'];
         $query = "SELECT page_type_id, page_type_name
@@ -134,13 +134,13 @@ function oos_show_block_to_page($block_id = '', $language_id = '')
     return $select_page_type;
 }
 
- /**
-  * Return Select Block To Page
-  *
-  * @param  $block_id
-  * @param  $language
-  * @return string
-  */
+/**
+ * Return Select Block To Page
+ *
+ * @param  $block_id
+ * @param  $language
+ * @return string
+ */
 function oos_select_block_to_page($language_id = '')
 {
     $select_page_type = '';
@@ -149,8 +149,8 @@ function oos_select_block_to_page($language_id = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $page_typetable = $oostable['page_type'];
     $query = "SELECT page_type_id, page_type_name
@@ -169,13 +169,13 @@ function oos_select_block_to_page($language_id = '')
 }
 
 
- /**
-  * Return Info Block To Page
-  *
-  * @param  $block_id
-  * @param  $language
-  * @return string
-  */
+/**
+ * Return Info Block To Page
+ *
+ * @param  $block_id
+ * @param  $language
+ * @return string
+ */
 function oos_info_block_to_page($block_id = '', $language_id = '')
 {
     $info = '';
@@ -186,8 +186,8 @@ function oos_info_block_to_page($block_id = '', $language_id = '')
         $type_array = [];
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $block_to_page_typetable = $oostable['block_to_page_type'];
         $page_typetable = $oostable['page_type'];

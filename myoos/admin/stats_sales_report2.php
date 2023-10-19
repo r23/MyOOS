@@ -47,26 +47,26 @@
 
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
-  use Carbon\Carbon;
+use Carbon\Carbon;
 
-  Carbon::setLocale(LANG);
+Carbon::setLocale(LANG);
 
-  require 'includes/classes/class_currencies.php';
-  $currencies = new currencies();
+require 'includes/classes/class_currencies.php';
+$currencies = new currencies();
 
-  // default detail no detail
-  $srDefaultDetail = 0;
-  // default view (daily)
-  $srDefaultView = 2;
-  // default export
-  $srDefaultExp = 0;
-  // default sort
-  $srDefaultSort = 4;
+// default detail no detail
+$srDefaultDetail = 0;
+// default view (daily)
+$srDefaultView = 2;
+// default export
+$srDefaultExp = 0;
+// default sort
+$srDefaultSort = 4;
 
-  // report views (1: yearly 2: monthly 3: weekly 4: daily)
+// report views (1: yearly 2: monthly 3: weekly 4: daily)
 if (isset($_GET['report']) && is_numeric($_GET['report'])) {
     $srView = intval($_GET['report']);
 }
@@ -74,7 +74,7 @@ if (!isset($srView) || $srView < 1 || $srView > 4) {
     $srView = $srDefaultView;
 }
 
-  // detail
+// detail
 if (isset($_GET['detail']) && is_numeric($_GET['detail'])) {
     $srDetail = intval($_GET['detail']);
 }
@@ -82,7 +82,7 @@ if (!isset($srDetail) || $srDetail < 0 || $srDetail > 2) {
     $srDetail = $srDefaultDetail;
 }
 
-  // report views (1: yearly 2: monthly 3: weekly 4: daily)
+// report views (1: yearly 2: monthly 3: weekly 4: daily)
 if (isset($_GET['export']) && is_numeric($_GET['export'])) {
     $srExp = intval($_GET['export']);
 }
@@ -90,7 +90,7 @@ if (!isset($srExp) || $srExp < 0 || $srExp > 2) {
     $srExp = $srDefaultExp;
 }
 
-  // item_level
+// item_level
 if (isset($_GET['max']) && is_numeric($_GET['max'])) {
     $srMax = intval($_GET['max']);
 }
@@ -98,7 +98,7 @@ if (!isset($srMax)) {
     $srMax = 0;
 }
 
-  // order status
+// order status
 if (isset($_GET['status']) && is_numeric($_GET['status'])) {
     $srStatus = intval($_GET['status']);
 }
@@ -106,7 +106,7 @@ if (!isset($srStatus)) {
     $srStatus = 0;
 }
 
-  // sort
+// sort
 if (isset($_GET['sort']) && is_numeric($_GET['sort'])) {
     $srSort = $_GET['sort'];
 }
@@ -114,9 +114,9 @@ if (!isset($srSort) ||  $srSort < 1 || $srSort > 6) {
     $srSort = $srDefaultSort;
 }
 
-  // check start and end Date
-  $startDate = "";
-  $startDateG = 0;
+// check start and end Date
+$startDate = "";
+$startDateG = 0;
 if (isset($_GET['startD']) && oos_is_not_null($_GET['startD'])) {
     $sDay = $_GET['startD'];
     $startDateG = 1;
@@ -141,8 +141,8 @@ if ($startDateG) {
     $startDate = mktime(0, 0, 0, date("m"), 1, date("Y"));
 }
 
-  $endDate = "";
-  $endDateG = 0;
+$endDate = "";
+$endDateG = 0;
 if (isset($_GET['endD']) && oos_is_not_null($_GET['endD'])) {
     $eDay = $_GET['endD'];
     $endDateG = 1;
@@ -167,10 +167,10 @@ if ($endDateG) {
     $endDate = mktime(0, 0, 0, date("m"), date("d") + 1, date("Y"));
 }
 
-  require 'includes/classes/class_sales_report2.php';
-  $sr = new sales_report($srView, $startDate, $endDate, $srSort, $srStatus);
-  $startDate = $sr->startDate;
-  $endDate = $sr->endDate;
+require 'includes/classes/class_sales_report2.php';
+$sr = new sales_report($srView, $startDate, $endDate, $srSort, $srStatus);
+$startDate = $sr->startDate;
+$endDate = $sr->endDate;
 
 if ($srExp < 2) {
     // not for csv export
@@ -240,100 +240,100 @@ if ($srExp < 2) {
                 <tr>
                   <td align="left" rowspan="2" class="menuBoxHeading">
                     <input type="radio" name="report" value="1" <?php if ($srView == 1) {
-            echo "checked";
-        } ?>><?php echo REPORT_TYPE_YEARLY; ?><br>
+                        echo "checked";
+                    } ?>><?php echo REPORT_TYPE_YEARLY; ?><br>
                     <input type="radio" name="report" value="2" <?php if ($srView == 2) {
-            echo "checked";
-        } ?>><?php echo REPORT_TYPE_MONTHLY; ?><br>
+                        echo "checked";
+                    } ?>><?php echo REPORT_TYPE_MONTHLY; ?><br>
                     <input type="radio" name="report" value="3" <?php if ($srView == 3) {
-            echo "checked";
-        } ?>><?php echo REPORT_TYPE_WEEKLY; ?><br>
+                        echo "checked";
+                    } ?>><?php echo REPORT_TYPE_WEEKLY; ?><br>
                     <input type="radio" name="report" value="4" <?php if ($srView == 4) {
-            echo "checked";
-        } ?>><?php echo REPORT_TYPE_DAILY; ?><br>
+                        echo "checked";
+                    } ?>><?php echo REPORT_TYPE_DAILY; ?><br>
                   </td>
                   <td class="menuBoxHeading">
         <?php echo REPORT_START_DATE; ?><br>
                     <select name="startD" size="1">
         <?php
-        if ($startDate) {
-            $j = date("j", $startDate);
-        } else {
-            $j = 1;
-        }
-        for ($i = 1; $i < 32; $i++) {
-            ?>
+                    if ($startDate) {
+                        $j = date("j", $startDate);
+                    } else {
+                        $j = 1;
+                    }
+                    for ($i = 1; $i < 32; $i++) {
+                        ?>
                         <option<?php if ($j == $i) {
-                echo ' selected="selected"';
-            } ?>><?php echo $i; ?></option>
+                            echo ' selected="selected"';
+                        } ?>><?php echo $i; ?></option>
             <?php
-        } ?>
+                    } ?>
                     </select>
                     <select name="startM" size="1">
         <?php
-        if ($startDate) {
-            $m = date("n", $startDate);
-        } else {
-            $m = 1;
-        }
-        for ($i = 1; $i < 13; $i++) {
-            $monthName = (new Carbon())->setMonth($i)->isoFormat('MMMM'); ?>
+                    if ($startDate) {
+                        $m = date("n", $startDate);
+                    } else {
+                        $m = 1;
+                    }
+                    for ($i = 1; $i < 13; $i++) {
+                        $monthName = (new Carbon())->setMonth($i)->isoFormat('MMMM'); ?>
                       <option<?php if ($m == $i) {
-                echo ' selected="selected"';
-            } ?> value="<?php echo $i; ?>"><?php echo $monthName; ?></option>
+                          echo ' selected="selected"';
+                      } ?> value="<?php echo $i; ?>"><?php echo $monthName; ?></option>
             <?php
-        } ?>
+                    } ?>
                     </select>
                     <select name="startY" size="1">
         <?php
-        if ($startDate) {
-            $y = date("Y") - date("Y", $startDate);
-        } else {
-            $y = 0;
-        }
-        for ($i = 10; $i >= 0; $i--) {
-            ?>
+                    if ($startDate) {
+                        $y = date("Y") - date("Y", $startDate);
+                    } else {
+                        $y = 0;
+                    }
+                    for ($i = 10; $i >= 0; $i--) {
+                        ?>
                       <option<?php if ($y == $i) {
-                echo ' selected="selected"';
-            } ?>><?php echo date("Y") - $i; ?></option>
+                          echo ' selected="selected"';
+                      } ?>><?php echo date("Y") - $i; ?></option>
             <?php
-        } ?>
+                    } ?>
                     </select>
                   </td>
                   <td rowspan="2" align="left" class="menuBoxHeading">
                     <?php echo REPORT_DETAIL; ?><br>
                     <select name="detail" size="1">
                       <option value="0"<?php if ($srDetail == 0) {
-            echo ' selected="selected"';
-        } ?>><?php echo DET_HEAD_ONLY; ?></option>
+                          echo ' selected="selected"';
+                      } ?>><?php echo DET_HEAD_ONLY; ?></option>
                       <option value="1"<?php if ($srDetail == 1) {
-            echo ' selected="selected"';
-        } ?>><?php echo DET_DETAIL; ?></option>
+                          echo ' selected="selected"';
+                      } ?>><?php echo DET_DETAIL; ?></option>
                       <option value="2"<?php if ($srDetail == 2) {
-            echo ' selected="selected"';
-        } ?>><?php echo DET_DETAIL_ONLY; ?></option>
+                          echo ' selected="selected"';
+                      } ?>><?php echo DET_DETAIL_ONLY; ?></option>
                     </select><br>
         <?php echo REPORT_MAX; ?><br>
                     <select name="max" size="1">
                       <option value="0"><?php echo REPORT_ALL; ?></option>
                       <option<?php if ($srMax == 1) {
-            echo ' selected="selected"';
-        } ?>>1</option>
+                          echo ' selected="selected"';
+                      } ?>>1</option>
                       <option<?php if ($srMax == 3) {
-            echo ' selected="selected"';
-        } ?>>3</option>
+                          echo ' selected="selected"';
+                      } ?>>3</option>
                       <option<?php if ($srMax == 5) {
-            echo ' selected="selected"';
-        } ?>>5</option>
+                          echo ' selected="selected"';
+                      } ?>>5</option>
                       <option<?php if ($srMax == 10) {
-            echo ' selected="selected"';
-        } ?>>10</option>
+                          echo ' selected="selected"';
+                      } ?>>10</option>
                       <option<?php if ($srMax == 25) {
-            echo ' selected="selected"';
-        } ?>>25</option>
+                          echo ' selected="selected"';
+                      } ?>>25</option>
                       <option<?php if ($srMax == 50) {
-            echo ' selected="selected"';
-        } ?>>50</option>
+                          echo ' selected="selected"';
+                      } ?>>50</option>
                     </select>
                   </td>
                   <td rowspan="2" align="left" class="menuBoxHeading">
@@ -341,13 +341,13 @@ if ($srExp < 2) {
                     <select name="status" size="1">
                       <option value="0"><?php echo REPORT_ALL; ?></option>
         <?php
-        foreach ($sr->status as $value) {
-            ?>
+                      foreach ($sr->status as $value) {
+                          ?>
                       <option value="<?php echo $value["orders_status_id"]?>"<?php if ($srStatus == $value["orders_status_id"]) {
-                echo ' selected="selected"';
-            } ?>><?php echo $value["orders_status_name"] ; ?></option>
+                          echo ' selected="selected"';
+                      } ?>><?php echo $value["orders_status_name"] ; ?></option>
             <?php
-        } ?>
+                      } ?>
                     </select><br>
                   </td>
                   <td rowspan="2" align="left" class="menuBoxHeading">
@@ -360,26 +360,26 @@ if ($srExp < 2) {
                     <?php echo REPORT_SORT; ?><br>
                     <select name="sort" size="1">
                       <option value="0"<?php if ($srSort == 0) {
-            echo ' selected="selected"';
-        } ?>><?php echo SORT_VAL0; ?></option>
+                          echo ' selected="selected"';
+                      } ?>><?php echo SORT_VAL0; ?></option>
                       <option value="1"<?php if ($srSort == 1) {
-            echo ' selected="selected"';
-        } ?>><?php echo SORT_VAL1; ?></option>
+                          echo ' selected="selected"';
+                      } ?>><?php echo SORT_VAL1; ?></option>
                       <option value="2"<?php if ($srSort == 2) {
-            echo ' selected="selected"';
-        } ?>><?php echo SORT_VAL2; ?></option>
+                          echo ' selected="selected"';
+                      } ?>><?php echo SORT_VAL2; ?></option>
                       <option value="3"<?php if ($srSort == 3) {
-            echo ' selected="selected"';
-        } ?>><?php echo SORT_VAL3; ?></option>
+                          echo ' selected="selected"';
+                      } ?>><?php echo SORT_VAL3; ?></option>
                       <option value="4"<?php if ($srSort == 4) {
-            echo ' selected="selected"';
-        } ?>><?php echo SORT_VAL4; ?></option>
+                          echo ' selected="selected"';
+                      } ?>><?php echo SORT_VAL4; ?></option>
                       <option value="5"<?php if ($srSort == 5) {
-            echo ' selected="selected"';
-        } ?>><?php echo SORT_VAL5; ?></option>
+                          echo ' selected="selected"';
+                      } ?>><?php echo SORT_VAL5; ?></option>
                       <option value="6"<?php if ($srSort == 6) {
-            echo ' selected="selected"';
-        } ?>><?php echo SORT_VAL6; ?></option>
+                          echo ' selected="selected"';
+                      } ?>><?php echo SORT_VAL6; ?></option>
                     </select><br>
                   </td>
                 </tr>
@@ -388,48 +388,48 @@ if ($srExp < 2) {
         <?php echo REPORT_END_DATE; ?><br>
                     <select name="endD" size="1">
         <?php
-        if ($endDate) {
-            $j = date("j", $endDate - 60* 60 * 24);
-        } else {
-            $j = date("j");
-        }
-        for ($i = 1; $i < 32; $i++) {
-            ?>
+                      if ($endDate) {
+                          $j = date("j", $endDate - 60 * 60 * 24);
+                      } else {
+                          $j = date("j");
+                      }
+                      for ($i = 1; $i < 32; $i++) {
+                          ?>
                       <option<?php if ($j == $i) {
-                echo ' selected="selected"';
-            } ?>><?php echo $i; ?></option>
+                          echo ' selected="selected"';
+                      } ?>><?php echo $i; ?></option>
             <?php
-        } ?>
+                      } ?>
                     </select>
                     <select name="endM" size="1">
         <?php
-        if ($endDate) {
-            $m = date("n", $endDate - 60* 60 * 24);
-        } else {
-            $m = date("n");
-        }
-        for ($i = 1; $i < 13; $i++) {
-            $monthName = (new Carbon())->setMonth($i)->isoFormat('MMMM'); ?>
+                      if ($endDate) {
+                          $m = date("n", $endDate - 60 * 60 * 24);
+                      } else {
+                          $m = date("n");
+                      }
+                      for ($i = 1; $i < 13; $i++) {
+                          $monthName = (new Carbon())->setMonth($i)->isoFormat('MMMM'); ?>
                       <option<?php if ($m == $i) {
-                echo ' selected="selected"';
-            } ?> value="<?php echo $i; ?>"><?php echo $monthName; ?></option>
+                          echo ' selected="selected"';
+                      } ?> value="<?php echo $i; ?>"><?php echo $monthName; ?></option>
             <?php
-        } ?>
+                      } ?>
                     </select>
                     <select name="endY" size="1">
         <?php
-        if ($endDate) {
-            $y = date("Y") - date("Y", $endDate - 60* 60 * 24);
-        } else {
-            $y = 0;
-        }
-        for ($i = 10; $i >= 0; $i--) {
-            ?>
+                      if ($endDate) {
+                          $y = date("Y") - date("Y", $endDate - 60 * 60 * 24);
+                      } else {
+                          $y = 0;
+                      }
+                      for ($i = 10; $i >= 0; $i--) {
+                          ?>
                       <option<?php if ($y == $i) {
-                echo ' selected="selected"';
-            } ?>><?php echo date("Y") - $i; ?></option>
+                          echo ' selected="selected"';
+                      } ?>><?php echo date("Y") - $i; ?></option>
             <?php
-        } ?>
+                      } ?>
                     </select>
                   </td>
                 </tr>
@@ -468,18 +468,18 @@ while ($sr->actDate < $sr->endDate) {
                     <tr>
         <?php
         switch ($srView) {
-        case '3':
-            ?>
+            case '3':
+                ?>
                       <td class="text-right"><?php echo oos_date_long(date("Y-m-d\ H:i:s", $sr->showDate)) . " - " . oos_date_short(date("Y-m-d\ H:i:s", $sr->showDateEnd)); ?></td>
             <?php
-            break;
-        case '4':
-            ?>
+                break;
+            case '4':
+                ?>
                       <td class="text-right"><?php echo oos_date_long(date("Y-m-d\ H:i:s", $sr->showDate)); ?></td>
             <?php
-            break;
-        default:
-            ?>
+                break;
+            default:
+                ?>
                       <td class="text-right"><?php echo oos_date_short(date("Y-m-d\ H:i:s", $sr->showDate)) . " - " . oos_date_short(date("Y-m-d\ H:i:s", $sr->showDateEnd)); ?></td>
             <?php
         } ?>

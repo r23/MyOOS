@@ -93,14 +93,14 @@ require 'includes/header.php';
                     </thead>
 <?php
   $couponstable = $oostable['coupons'];
-  $coupon_email_tracktable = $oostable['coupon_email_track'];
-  $gv_result_raw = "SELECT c.coupon_amount, c.coupon_code, c.coupon_id, et.sent_firstname, et.sent_lastname,
+$coupon_email_tracktable = $oostable['coupon_email_track'];
+$gv_result_raw = "SELECT c.coupon_amount, c.coupon_code, c.coupon_id, et.sent_firstname, et.sent_lastname,
                            et.customer_id_sent, et.emailed_to, et.date_sent, c.coupon_id
                     FROM $couponstable c,
                          $coupon_email_tracktable et
                     WHERE c.coupon_id = et.coupon_id";
-  $gv_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $gv_result_raw, $gv_result_numrows);
-  $gv_result = $dbconn->Execute($gv_result_raw);
+$gv_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $gv_result_raw, $gv_result_numrows);
+$gv_result = $dbconn->Execute($gv_result_raw);
 while ($gv_list = $gv_result->fields) {
     if ((!isset($_GET['gid']) || (isset($_GET['gid']) && ($_GET['gid'] == $gv_list['coupon_id']))) && !isset($gInfo)) {
         $gInfo = new objectInfo($gv_list);
@@ -115,14 +115,14 @@ while ($gv_list = $gv_result->fields) {
                 <td class="text-center"><?php echo $gv_list['coupon_code']; ?></td>
                 <td class="text-right"><?php echo oos_date_short($gv_list['date_sent']); ?></td>
                 <td class="text-right"><?php if (isset($gInfo) && is_object($gInfo) && ($gv_list['coupon_id'] == $gInfo->coupon_id)) {
-        echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-    } else {
-        echo '<a href="' . oos_href_link_admin($aContents['gv_sent'], 'page=' . $nPage . '&gid=' . $gv_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-    } ?>&nbsp;</td>
+                    echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+                } else {
+                    echo '<a href="' . oos_href_link_admin($aContents['gv_sent'], 'page=' . $nPage . '&gid=' . $gv_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+                } ?>&nbsp;</td>
               </tr>
     <?php
-    // Move that ADOdb pointer!
-    $gv_result->MoveNext();
+                // Move that ADOdb pointer!
+                $gv_result->MoveNext();
 }
 ?>
               <tr>
@@ -136,27 +136,27 @@ while ($gv_list = $gv_result->fields) {
             </table></td>
 <?php
     $coupon_id = $gInfo->coupon_id ?? '';
-    $coupon_amount = $gInfo->coupon_amount ?? 0;
-    $customer_id_sent = $gInfo->customer_id_sent ?? '';
-    $date_sent = $gInfo->date_sent ?? '';
-    $coupon_code = $gInfo->coupon_code ?? '';
-    $emailed_to = $gInfo->emailed_to ?? '';
+$coupon_amount = $gInfo->coupon_amount ?? 0;
+$customer_id_sent = $gInfo->customer_id_sent ?? '';
+$date_sent = $gInfo->date_sent ?? '';
+$coupon_code = $gInfo->coupon_code ?? '';
+$emailed_to = $gInfo->emailed_to ?? '';
 
- $heading = [];
-  $contents = [];
+$heading = [];
+$contents = [];
 
-  $heading[] = ['text' => '[' . $coupon_id . '] ' . ' ' . $currencies->format($coupon_amount)];
-  $redeem_result = $dbconn->Execute("SELECT * FROM " . $oostable['coupon_redeem_track'] . " WHERE coupon_id = '" . intval($coupon_id) . "'");
-  $redeemed = 'No';
+$heading[] = ['text' => '[' . $coupon_id . '] ' . ' ' . $currencies->format($coupon_amount)];
+$redeem_result = $dbconn->Execute("SELECT * FROM " . $oostable['coupon_redeem_track'] . " WHERE coupon_id = '" . intval($coupon_id) . "'");
+$redeemed = 'No';
 if ($redeem_result->RecordCount() > 0) {
     $redeemed = 'Yes';
 }
-  $contents[] = ['text' => TEXT_INFO_SENDERS_ID . ' ' . $customer_id_sent];
-  $contents[] = ['text' => TEXT_INFO_AMOUNT_SENT . ' ' . $currencies->format($coupon_amount)];
-  $contents[] = ['text' => TEXT_INFO_DATE_SENT . ' ' . oos_date_short($date_sent)];
-  $contents[] = ['text' => TEXT_INFO_VOUCHER_CODE . ' ' . $coupon_code];
-  $contents[] = ['text' => TEXT_INFO_EMAIL_ADDRESS . ' ' . $emailed_to];
-if ($redeemed=='Yes') {
+$contents[] = ['text' => TEXT_INFO_SENDERS_ID . ' ' . $customer_id_sent];
+$contents[] = ['text' => TEXT_INFO_AMOUNT_SENT . ' ' . $currencies->format($coupon_amount)];
+$contents[] = ['text' => TEXT_INFO_DATE_SENT . ' ' . oos_date_short($date_sent)];
+$contents[] = ['text' => TEXT_INFO_VOUCHER_CODE . ' ' . $coupon_code];
+$contents[] = ['text' => TEXT_INFO_EMAIL_ADDRESS . ' ' . $emailed_to];
+if ($redeemed == 'Yes') {
     $redeem = $redeem_result->fields;
     $contents[] = ['text' => '<br>' . TEXT_INFO_DATE_REDEEMED . ' ' . oos_date_short($redeem['redeem_date'])];
     $contents[] = ['text' => TEXT_INFO_IP_ADDRESS . ' ' . $redeem['redeem_ip']];
@@ -197,5 +197,5 @@ if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
 
 <?php
     require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/nice_exit.php';
 ?>

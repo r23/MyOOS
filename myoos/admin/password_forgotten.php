@@ -180,5 +180,5 @@ if (isset($_SESSION['password_forgotten'])) {
 
 <?php
     require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/nice_exit.php';
 ?>

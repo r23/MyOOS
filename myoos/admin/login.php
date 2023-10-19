@@ -142,5 +142,5 @@ if (isset($login) && $login == 'fail') {
 
 <?php
     require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/nice_exit.php';
 ?>

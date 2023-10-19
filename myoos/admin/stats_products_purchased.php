@@ -91,8 +91,8 @@ if (isset($nPage) && ($nPage > 1)) {
 }
 
   $productstable = $oostable['products'];
-  $products_dscriptiontable = $oostable['products_description'];
-  $products_sql_raw = "SELECT p.products_id, p.products_ordered, pd.products_name
+$products_dscriptiontable = $oostable['products_description'];
+$products_sql_raw = "SELECT p.products_id, p.products_ordered, pd.products_name
                          FROM $productstable p,
                               $products_dscriptiontable pd
                         WHERE pd.products_id = p.products_id
@@ -100,8 +100,8 @@ if (isset($nPage) && ($nPage > 1)) {
                           AND p.products_ordered > 0
                         GROUP BY pd.products_id
                         ORDER BY p.products_ordered DESC, pd.products_name";
-  $products_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_sql_raw, $products_numrows);
-  $products_result = $dbconn->Execute($products_sql_raw);
+$products_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_sql_raw, $products_numrows);
+$products_result = $dbconn->Execute($products_sql_raw);
 while ($products = $products_result->fields) {
     $rows++;
 
@@ -148,5 +148,5 @@ while ($products = $products_result->fields) {
 
 <?php
     require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/nice_exit.php';
 ?>

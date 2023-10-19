@@ -78,7 +78,7 @@ function oos_set_login_status($man_info_id, $status)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
+    $dbconn = & oosDBGetConn();
     $oostable = oosDBGetTables();
 
     $passwordLength = 24 ;
@@ -160,8 +160,8 @@ require 'includes/header.php';
                     </thead>
 <?php
     $payment_dai_result_raw = "SELECT man_info_id, man_name, status, manual_date_added, manual_last_modified, date_status_change FROM " . $oostable['manual_info'] . "";
-    $payment_dai_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $payment_dai_result_raw, $payment_dai_result_numrows);
-    $payment_dai_result = $dbconn->Execute($payment_dai_result_raw);
+$payment_dai_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $payment_dai_result_raw, $payment_dai_result_numrows);
+$payment_dai_result = $dbconn->Execute($payment_dai_result_raw);
 while ($palm_doa = $payment_dai_result->fields) {
     if ((!isset($_GET['sID']) || (isset($_GET['sID']) && ($_GET['sID'] == $palm_doa['man_info_id']))) && !isset($sInfo)) {
         $sInfo = new objectInfo($palm_doa);
@@ -176,14 +176,14 @@ while ($palm_doa = $payment_dai_result->fields) {
         echo '&nbsp;<a href="' . oos_href_link_admin($aContents['manual_loging'], 'action=setflag&flag=1&id=' . $palm_doa['man_info_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10) . '</a>';
     } ?></td>
                 <td class="text-right"><?php if (isset($sInfo) && is_object($sInfo) && ($palm_doa['man_info_id'] == $sInfo->man_info_id)) {
-        echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-    } else {
-        echo '<a href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $palm_doa['man_info_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-    } ?>&nbsp;</td>
+                    echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+                } else {
+                    echo '<a href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $palm_doa['man_info_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+                } ?>&nbsp;</td>
       </tr>
     <?php
-    // Move that ADOdb pointer!
-    $payment_dai_result->MoveNext();
+                // Move that ADOdb pointer!
+                $payment_dai_result->MoveNext();
 }
 ?>              <tr>
                 <td colspan="4"><table border="0" width="100%" cellpadding="0" cellspacing="2">
@@ -193,49 +193,49 @@ while ($palm_doa = $payment_dai_result->fields) {
                   </tr>
 <?php
  if ($action == 'default') {
-    ?>
+     ?>
                   <tr><td colspan="2" align="right">&nbsp;</td></tr>
     <?php
-}
+ }
 ?>
                </table></td></tr>
            </table></td>
 <?php
   $heading = [];
-  $contents = [];
+$contents = [];
 
-  switch ($action) {
-case 'delete':
-    $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_OVERSTOCK . '</b>'];
-    $contents = ['form' => oos_draw_form('id', 'palm_daily', $aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $sInfo->man_info_id . '&action=deleteconfirm', 'post', false)];
-    $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
-    $contents[] = ['text' => '<br><b>' . $sInfo->contact_info_name . '</b>'];
-    $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $sInfo->man_info_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
+switch ($action) {
+    case 'delete':
+        $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_OVERSTOCK . '</b>'];
+        $contents = ['form' => oos_draw_form('id', 'palm_daily', $aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $sInfo->man_info_id . '&action=deleteconfirm', 'post', false)];
+        $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
+        $contents[] = ['text' => '<br><b>' . $sInfo->contact_info_name . '</b>'];
+        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $sInfo->man_info_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
-    break;
-default:
-    if (isset($sInfo) && is_object($sInfo)) {
-        $heading[] = ['text' => '<b>' . $sInfo->man_name . '</b>'];
-        $contents[] = ['align' => 'center', 'text' => ''];
-        $contents[] = ['text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($sInfo->manual_date_added)];
-        $contents[] = ['text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($sInfo->manual_last_modified)];
-        $contents[] = ['text' => '' . TEXT_INFO_STATUS_CHANGE . ' ' . oos_date_short($sInfo->date_status_change)];
-    }
-    break;
-  }
+        break;
+    default:
+        if (isset($sInfo) && is_object($sInfo)) {
+            $heading[] = ['text' => '<b>' . $sInfo->man_name . '</b>'];
+            $contents[] = ['align' => 'center', 'text' => ''];
+            $contents[] = ['text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($sInfo->manual_date_added)];
+            $contents[] = ['text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($sInfo->manual_last_modified)];
+            $contents[] = ['text' => '' . TEXT_INFO_STATUS_CHANGE . ' ' . oos_date_short($sInfo->date_status_change)];
+        }
+        break;
+}
 
-  if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
-      ?>
+if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+    ?>
     <td class="w-25" valign="top">
         <table class="table table-striped">
       <?php
-        $box = new box();
-      echo $box->infoBox($heading, $contents); ?>
+      $box = new box();
+    echo $box->infoBox($heading, $contents); ?>
         </table>
     </td>
       <?php
-  }
-    ?>
+}
+?>
           </tr>
         </table>
     </div>
@@ -255,6 +255,6 @@ default:
 </div>
 
 <?php
-    require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/bottom.php';
+require 'includes/nice_exit.php';
 ?>

@@ -31,185 +31,187 @@ $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_c
 $pID = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT) ?: 0;
 
 switch ($action) {
-case 'insert_model':
-case 'update_model':
+    case 'insert_model':
+    case 'update_model':
 
-    if (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) {
-        $products_id = intval($_POST['products_id']);
+        if (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) {
+            $products_id = intval($_POST['products_id']);
 
-        if (isset($_FILES['files'])) {
-            foreach ($_FILES['files']['name'] as $key => $name) {
-                if (empty($name)) {
-                    // purge empty slots
-                    unset($_FILES['files']['name'][$key]);
-                    unset($_FILES['files']['type'][$key]);
-                    unset($_FILES['files']['tmp_name'][$key]);
-                    unset($_FILES['files']['error'][$key]);
-                    unset($_FILES['files']['size'][$key]);
-                }
-            }
-        }
-
-        $nModelCounter = (!isset($_POST['model_counter']) || !is_numeric($_POST['model_counter'])) ? 0 : intval($_POST['model_counter']);
-
-        for ($i = 0, $n = $nModelCounter; $i < $n; $i++) {
-            $action = (!isset($_POST['models_id'][$i]) || !is_numeric($_POST['models_id'][$i])) ? 'insert_model' : 'update_model';
-
-
-            $models_hdr = (isset($_POST['models_hdr'][$i]) ? oos_db_prepare_input($_POST['models_hdr'][$i]) : '');
-            $models_object_scalar = (isset($_POST['models_object_scalar'][$i]) ? oos_db_prepare_input($_POST['models_object_scalar'][$i]) : '150');
-
-            $models_hdr_name = '';
-            $models_hdr_url = '';
-            $models_hdr_author = '';
-            $models_hdr_author_url = '';
-
-
-            if (!empty($models_hdr)) {
-                switch ($models_hdr) {
-                case 'venetian_crossroads_2k.hdr':
-                    $models_hdr_name = 'Venetian Crossroads';
-                    $models_hdr_url = 'https://polyhaven.com/a/venetian_crossroads';
-                    $models_hdr_author = 'Greg Zaal';
-                    $models_hdr_author_url = 'https://polyhaven.com/all?a=Greg%20Zaal';
-                    break;
-
-                case 'vignaioli_2k.hdr':
-                    $models_hdr_name = 'Vignaioli';
-                    $models_hdr_url = 'https://polyhaven.com/a/vignaioli';
-                    $models_hdr_author = 'Greg Zaal';;
-                    $models_hdr_author_url = 'https://polyhaven.com/all?a=Greg%20Zaal';
-                    break;
-
-
-                case 'venice_sunset_2k.hdr':
-                    $models_hdr_name = 'Venice Sunset';
-                    $models_hdr_url = 'https://polyhaven.com/a/venice_sunset';
-                    $models_hdr_author = 'Greg Zaal';;
-                    $models_hdr_author_url = 'https://polyhaven.com/all?a=Greg%20Zaal';
-                    break;
-
-                case 'canary_wharf_2k.hdr':
-                    $models_hdr_name = 'Canary Wharf';
-                    $models_hdr_url = 'https://polyhaven.com/a/canary_wharf';
-                    $models_hdr_author = 'Andreas Mischok';
-                    $models_hdr_author_url = 'https://polyhaven.com/all?a=Andreas%20Mischok';
-                    break;
-                }
-            }
-
-            $sql_data_array = ['products_id' => intval($products_id), 'models_author' => oos_db_prepare_input($_POST['models_author'][$i]), 'models_author_url' => oos_db_prepare_input($_POST['models_author_url'][$i]), 'models_camera_pos' => oos_db_prepare_input($_POST['models_camera_pos'][$i]), 'models_object_rotation' => oos_db_prepare_input($_POST['models_object_rotation'][$i]), 'models_object_scalar' => oos_db_prepare_input($models_object_scalar), 'models_hdr' => oos_db_prepare_input($_POST['models_hdr'][$i]), 'models_hdr_name' => oos_db_prepare_input($models_hdr_name), 'models_hdr_url' => oos_db_prepare_input($models_hdr_url), 'models_hdr_author' => oos_db_prepare_input($models_hdr_author), 'models_hdr_author_url' => oos_db_prepare_input($models_hdr_author_url), 'models_add_lights' => oos_db_prepare_input($_POST['models_add_lights'][$i]), 'models_add_ground' => oos_db_prepare_input($_POST['models_add_ground'][$i]), 'models_shadows' => oos_db_prepare_input($_POST['models_shadows'][$i]), 'models_add_env_map' => oos_db_prepare_input($_POST['models_add_env_map'][$i]), 'models_extensions' => oos_db_prepare_input($_POST['models_extensions'][$i])];
-
-            if ($action == 'insert_model') {
-                $insert_sql_data = ['models_date_added' => 'now()'];
-
-                $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
-
-                oos_db_perform($oostable['products_models'], $sql_data_array);
-                $models_id = $dbconn->Insert_ID();
-            } elseif ($action == 'update_model') {
-                $update_sql_data = ['models_last_modified' => 'now()'];
-                $models_id = intval($_POST['models_id'][$i]);
-
-                $sql_data_array = [...$sql_data_array, ...$update_sql_data];
-
-                oos_db_perform($oostable['products_models'], $sql_data_array, 'UPDATE', 'models_id = \'' . intval($models_id) . '\'');
-            }
-
-            $aLanguages = oos_get_languages();
-            $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
-
-            for ($li = 0, $l = $nLanguages; $li < $l; $li++) {
-                $language_id = $aLanguages[$li]['id'];
-
-                $sql_data_array = ['models_name' => oos_db_prepare_input($_POST['models_name'][$i][$language_id]), 'models_title' => oos_db_prepare_input($_POST['models_title'][$i][$language_id]), 'models_description_meta' => oos_db_prepare_input($_POST['models_description_meta_'. $i . '_'  . $aLanguages[$li]['id']])];
-
-                if ($action == 'insert_model') {
-                    $insert_sql_data = ['models_id' => $models_id, 'models_languages_id' => $language_id];
-
-                    $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
-
-                    oos_db_perform($oostable['products_models_description'], $sql_data_array);
-                } elseif ($action == 'update_model') {
-                    oos_db_perform($oostable['products_models_description'], $sql_data_array, 'UPDATE', 'models_id = \'' . intval($models_id) . '\' AND models_languages_id = \'' . intval($language_id) . '\'');
-                }
-            }
-
-
-            if (isset($_POST['remove_products_model'][$i]) && ($_POST['remove_products_model'][$i] == 'yes') && (isset($_POST['models_webgl_gltf'][$i]))) {
-                $models_webgl_gltf = oos_db_prepare_input($_POST['models_webgl_gltf'][$i]);
-
-                $dbconn->Execute("DELETE FROM " . $oostable['products_models'] . " WHERE models_id = '" . intval($_POST['models_id'][$i]) . "'");
-
-                oos_remove_products_model($models_webgl_gltf);
-            }
-
-
-            if (isset($_FILES['zip_file'])) {
-                if ($_FILES["zip_file"]["error"] == UPLOAD_ERR_OK) {
-                    $filename = oos_db_prepare_input($_FILES['zip_file']['name']);
-                    $source = $_FILES['zip_file']['tmp_name'];
-                    $type = oos_db_prepare_input($_FILES['zip_file']['type']);
-
-
-                    if (is_zip($filename)) {
-                        $name = oos_strip_suffix($filename);
-                        $models_extensions = oos_db_prepare_input($_POST['models_extensions'][$i]);
-
-                        $check =  OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . oos_var_prep_for_os($name);
-                        if (is_dir($check)) {
-                            oos_remove($check);
-                        }
-
-                        $path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . oos_var_prep_for_os($name) . '/' . oos_var_prep_for_os($models_extensions) . '/';
-                        $targetdir = $path;  // target directory
-                        $targetzip = $path . $filename; // target zip file
-
-                        mkdir($check, 0755);
-                        mkdir($targetdir, 0755);
-
-                        if (move_uploaded_file($source, $targetzip)) {
-                            $zip = new ZipArchive();
-                            $x = $zip->open($targetzip);  // open the zip file to extract
-                            if ($x === true) {
-                                $zip->extractTo($targetdir); // place in the directory with same name
-                                $zip->close();
-
-                                unlink($targetzip);
-                            }
-                            $messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED, 'success');
-
-                            $folder = opendir($targetdir);
-                            while ($file = readdir($folder)) {
-                                if ($file == '.' || $file == '..' || $file == 'CVS') {
-                                    continue;
-                                }
-
-                                $ext = oos_get_suffix($file);
-                                switch ($ext) {
-                                case 'glb':
-                                case 'gltf':
-                                    $models_webgl_gltf = $file;
-                                    break;
-                                }
-                            }
-
-                            $sql_data_array = ['models_webgl_gltf' => oos_db_prepare_input($models_webgl_gltf)];
-
-                            oos_db_perform($oostable['products_models'], $sql_data_array, 'UPDATE', 'models_id = \'' . intval($models_id) . '\'');
-                        } else {
-                            $messageStack->add_session(ERROR_PROBLEM_WITH_ZIP_FILE, 'error');
-                        }
-                    } else {
-                        $messageStack->add_session(ERROR_NO_ZIP_FILE, 'error');
+            if (isset($_FILES['files'])) {
+                foreach ($_FILES['files']['name'] as $key => $name) {
+                    if (empty($name)) {
+                        // purge empty slots
+                        unset($_FILES['files']['name'][$key]);
+                        unset($_FILES['files']['type'][$key]);
+                        unset($_FILES['files']['tmp_name'][$key]);
+                        unset($_FILES['files']['error'][$key]);
+                        unset($_FILES['files']['size'][$key]);
                     }
                 }
             }
-        }
 
-        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products_id));
-    }
-    break;
+            $nModelCounter = (!isset($_POST['model_counter']) || !is_numeric($_POST['model_counter'])) ? 0 : intval($_POST['model_counter']);
+
+            for ($i = 0, $n = $nModelCounter; $i < $n; $i++) {
+                $action = (!isset($_POST['models_id'][$i]) || !is_numeric($_POST['models_id'][$i])) ? 'insert_model' : 'update_model';
+
+
+                $models_hdr = (isset($_POST['models_hdr'][$i]) ? oos_db_prepare_input($_POST['models_hdr'][$i]) : '');
+                $models_object_scalar = (isset($_POST['models_object_scalar'][$i]) ? oos_db_prepare_input($_POST['models_object_scalar'][$i]) : '150');
+
+                $models_hdr_name = '';
+                $models_hdr_url = '';
+                $models_hdr_author = '';
+                $models_hdr_author_url = '';
+
+
+                if (!empty($models_hdr)) {
+                    switch ($models_hdr) {
+                        case 'venetian_crossroads_2k.hdr':
+                            $models_hdr_name = 'Venetian Crossroads';
+                            $models_hdr_url = 'https://polyhaven.com/a/venetian_crossroads';
+                            $models_hdr_author = 'Greg Zaal';
+                            $models_hdr_author_url = 'https://polyhaven.com/all?a=Greg%20Zaal';
+                            break;
+
+                        case 'vignaioli_2k.hdr':
+                            $models_hdr_name = 'Vignaioli';
+                            $models_hdr_url = 'https://polyhaven.com/a/vignaioli';
+                            $models_hdr_author = 'Greg Zaal';
+                            ;
+                            $models_hdr_author_url = 'https://polyhaven.com/all?a=Greg%20Zaal';
+                            break;
+
+
+                        case 'venice_sunset_2k.hdr':
+                            $models_hdr_name = 'Venice Sunset';
+                            $models_hdr_url = 'https://polyhaven.com/a/venice_sunset';
+                            $models_hdr_author = 'Greg Zaal';
+                            ;
+                            $models_hdr_author_url = 'https://polyhaven.com/all?a=Greg%20Zaal';
+                            break;
+
+                        case 'canary_wharf_2k.hdr':
+                            $models_hdr_name = 'Canary Wharf';
+                            $models_hdr_url = 'https://polyhaven.com/a/canary_wharf';
+                            $models_hdr_author = 'Andreas Mischok';
+                            $models_hdr_author_url = 'https://polyhaven.com/all?a=Andreas%20Mischok';
+                            break;
+                    }
+                }
+
+                $sql_data_array = ['products_id' => intval($products_id), 'models_author' => oos_db_prepare_input($_POST['models_author'][$i]), 'models_author_url' => oos_db_prepare_input($_POST['models_author_url'][$i]), 'models_camera_pos' => oos_db_prepare_input($_POST['models_camera_pos'][$i]), 'models_object_rotation' => oos_db_prepare_input($_POST['models_object_rotation'][$i]), 'models_object_scalar' => oos_db_prepare_input($models_object_scalar), 'models_hdr' => oos_db_prepare_input($_POST['models_hdr'][$i]), 'models_hdr_name' => oos_db_prepare_input($models_hdr_name), 'models_hdr_url' => oos_db_prepare_input($models_hdr_url), 'models_hdr_author' => oos_db_prepare_input($models_hdr_author), 'models_hdr_author_url' => oos_db_prepare_input($models_hdr_author_url), 'models_add_lights' => oos_db_prepare_input($_POST['models_add_lights'][$i]), 'models_add_ground' => oos_db_prepare_input($_POST['models_add_ground'][$i]), 'models_shadows' => oos_db_prepare_input($_POST['models_shadows'][$i]), 'models_add_env_map' => oos_db_prepare_input($_POST['models_add_env_map'][$i]), 'models_extensions' => oos_db_prepare_input($_POST['models_extensions'][$i])];
+
+                if ($action == 'insert_model') {
+                    $insert_sql_data = ['models_date_added' => 'now()'];
+
+                    $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
+
+                    oos_db_perform($oostable['products_models'], $sql_data_array);
+                    $models_id = $dbconn->Insert_ID();
+                } elseif ($action == 'update_model') {
+                    $update_sql_data = ['models_last_modified' => 'now()'];
+                    $models_id = intval($_POST['models_id'][$i]);
+
+                    $sql_data_array = [...$sql_data_array, ...$update_sql_data];
+
+                    oos_db_perform($oostable['products_models'], $sql_data_array, 'UPDATE', 'models_id = \'' . intval($models_id) . '\'');
+                }
+
+                $aLanguages = oos_get_languages();
+                $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
+
+                for ($li = 0, $l = $nLanguages; $li < $l; $li++) {
+                    $language_id = $aLanguages[$li]['id'];
+
+                    $sql_data_array = ['models_name' => oos_db_prepare_input($_POST['models_name'][$i][$language_id]), 'models_title' => oos_db_prepare_input($_POST['models_title'][$i][$language_id]), 'models_description_meta' => oos_db_prepare_input($_POST['models_description_meta_'. $i . '_'  . $aLanguages[$li]['id']])];
+
+                    if ($action == 'insert_model') {
+                        $insert_sql_data = ['models_id' => $models_id, 'models_languages_id' => $language_id];
+
+                        $sql_data_array = [...$sql_data_array, ...$insert_sql_data];
+
+                        oos_db_perform($oostable['products_models_description'], $sql_data_array);
+                    } elseif ($action == 'update_model') {
+                        oos_db_perform($oostable['products_models_description'], $sql_data_array, 'UPDATE', 'models_id = \'' . intval($models_id) . '\' AND models_languages_id = \'' . intval($language_id) . '\'');
+                    }
+                }
+
+
+                if (isset($_POST['remove_products_model'][$i]) && ($_POST['remove_products_model'][$i] == 'yes') && (isset($_POST['models_webgl_gltf'][$i]))) {
+                    $models_webgl_gltf = oos_db_prepare_input($_POST['models_webgl_gltf'][$i]);
+
+                    $dbconn->Execute("DELETE FROM " . $oostable['products_models'] . " WHERE models_id = '" . intval($_POST['models_id'][$i]) . "'");
+
+                    oos_remove_products_model($models_webgl_gltf);
+                }
+
+
+                if (isset($_FILES['zip_file'])) {
+                    if ($_FILES["zip_file"]["error"] == UPLOAD_ERR_OK) {
+                        $filename = oos_db_prepare_input($_FILES['zip_file']['name']);
+                        $source = $_FILES['zip_file']['tmp_name'];
+                        $type = oos_db_prepare_input($_FILES['zip_file']['type']);
+
+
+                        if (is_zip($filename)) {
+                            $name = oos_strip_suffix($filename);
+                            $models_extensions = oos_db_prepare_input($_POST['models_extensions'][$i]);
+
+                            $check =  OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . oos_var_prep_for_os($name);
+                            if (is_dir($check)) {
+                                oos_remove($check);
+                            }
+
+                            $path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . oos_var_prep_for_os($name) . '/' . oos_var_prep_for_os($models_extensions) . '/';
+                            $targetdir = $path;  // target directory
+                            $targetzip = $path . $filename; // target zip file
+
+                            mkdir($check, 0755);
+                            mkdir($targetdir, 0755);
+
+                            if (move_uploaded_file($source, $targetzip)) {
+                                $zip = new ZipArchive();
+                                $x = $zip->open($targetzip);  // open the zip file to extract
+                                if ($x === true) {
+                                    $zip->extractTo($targetdir); // place in the directory with same name
+                                    $zip->close();
+
+                                    unlink($targetzip);
+                                }
+                                $messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED, 'success');
+
+                                $folder = opendir($targetdir);
+                                while ($file = readdir($folder)) {
+                                    if ($file == '.' || $file == '..' || $file == 'CVS') {
+                                        continue;
+                                    }
+
+                                    $ext = oos_get_suffix($file);
+                                    switch ($ext) {
+                                        case 'glb':
+                                        case 'gltf':
+                                            $models_webgl_gltf = $file;
+                                            break;
+                                    }
+                                }
+
+                                $sql_data_array = ['models_webgl_gltf' => oos_db_prepare_input($models_webgl_gltf)];
+
+                                oos_db_perform($oostable['products_models'], $sql_data_array, 'UPDATE', 'models_id = \'' . intval($models_id) . '\'');
+                            } else {
+                                $messageStack->add_session(ERROR_PROBLEM_WITH_ZIP_FILE, 'error');
+                            }
+                        } else {
+                            $messageStack->add_session(ERROR_NO_ZIP_FILE, 'error');
+                        }
+                    }
+                }
+            }
+
+            oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products_id));
+        }
+        break;
 }
 
 require 'includes/header.php';
@@ -392,8 +394,8 @@ if ($action == 'edit_3d') {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                    echo TEXT_MODELS_NAME;
-                                                                     } ?></label>
+                                  echo TEXT_MODELS_NAME;
+                              } ?></label>
                 <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
@@ -409,8 +411,8 @@ if ($action == 'edit_3d') {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                    echo TEXT_MODELS_TITLE;
-                                                                     } ?></label>
+                                  echo TEXT_MODELS_TITLE;
+                              } ?></label>
                 <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
@@ -427,7 +429,7 @@ if ($action == 'edit_3d') {
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
                                 echo TEXT_MODELS_DESCRIPTION_META;
-                                                                   } ?></label>
+                            } ?></label>
                 <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
@@ -619,5 +621,5 @@ if ($action == 'edit_3d') {
 
 <?php
     require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/nice_exit.php';
 ?>

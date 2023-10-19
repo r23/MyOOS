@@ -773,8 +773,8 @@ require 'includes/header.php';
   $languages_result_raw = "SELECT languages_id, name, iso_639_2, iso_639_1, iso_3166_1, status, sort_order 
                           FROM " . $oostable['languages'] . "
                           ORDER BY sort_order";
-  $languages_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $languages_result_raw, $languages_result_numrows);
-  $languages_result = $dbconn->Execute($languages_result_raw);
+$languages_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $languages_result_raw, $languages_result_numrows);
+$languages_result = $dbconn->Execute($languages_result_raw);
 
 while ($languages = $languages_result->fields) {
     if ((!isset($_GET['lID']) || (isset($_GET['lID']) && ($_GET['lID'] == $languages['languages_id']))) && !isset($lInfo) && (!str_starts_with((string) $action, 'new'))) {
@@ -805,9 +805,9 @@ while ($languages = $languages_result->fields) {
 
                 <td class="text-right"><?php if (isset($lInfo) && is_object($lInfo) && ($languages['languages_id'] == $lInfo->languages_id)) {
                     echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-} else {
-                                           echo '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $languages['languages_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-                                       } ?>&nbsp;</td>
+                } else {
+                    echo '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $languages['languages_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+                } ?>&nbsp;</td>
               </tr>
     <?php
     // Move that ADOdb pointer!
@@ -822,88 +822,88 @@ while ($languages = $languages_result->fields) {
                   </tr>
 <?php
  if ($action == 'default') {
-    ?>
+     ?>
                   <tr>
                     <td align="right" colspan="2"><?php echo '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=new') . '">' . oos_button(IMAGE_NEW_LANGUAGE) . '</a>'; ?></td>
                   </tr>
     <?php
-}
+ }
 ?>
                 </table></td>
               </tr>
             </table></td>
 <?php
   $heading = [];
-  $contents = [];
+$contents = [];
 
-  switch ($action) {
-case 'new':
-    $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_NEW_LANGUAGE . '</b>'];
+switch ($action) {
+    case 'new':
+        $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_NEW_LANGUAGE . '</b>'];
 
-    $contents = ['form' => oos_draw_form('id', 'languages', $aContents['languages'], 'action=insert', 'post', false)];
-    $contents[] = ['text' => TEXT_INFO_INSERT_INTRO];
-    $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_NAME . '<br>' . oos_draw_input_field('name')];
-    $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_639_2 . '<br>' . oos_draw_input_field('iso_639_2')];
-    $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_639_1 . '<br>' . oos_draw_input_field('iso_639_1')];
-    $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_3166_1 . '<br>' . oos_draw_input_field('iso_3166_1')];
-    $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $_GET['lID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
+        $contents = ['form' => oos_draw_form('id', 'languages', $aContents['languages'], 'action=insert', 'post', false)];
+        $contents[] = ['text' => TEXT_INFO_INSERT_INTRO];
+        $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_NAME . '<br>' . oos_draw_input_field('name')];
+        $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_639_2 . '<br>' . oos_draw_input_field('iso_639_2')];
+        $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_639_1 . '<br>' . oos_draw_input_field('iso_639_1')];
+        $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_3166_1 . '<br>' . oos_draw_input_field('iso_3166_1')];
+        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $_GET['lID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
-    break;
+        break;
 
-case 'edit':
-    $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_EDIT_LANGUAGE . '</b>'];
+    case 'edit':
+        $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_EDIT_LANGUAGE . '</b>'];
 
-    $contents = ['form' => oos_draw_form('id', 'languages', $aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=save', 'post', false)];
-    $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
-    $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_NAME . '<br>' . oos_draw_input_field('name', $lInfo->name)];
-    $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_639_2 . '<br>' . oos_draw_input_field('iso_639_2', $lInfo->iso_639_2)];
-    $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_639_1 . '<br>' . oos_draw_input_field('iso_639_1', $lInfo->iso_639_1)];
-    $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_3166_1 . '<br>' . oos_draw_input_field('iso_3166_1', $lInfo->iso_3166_1)];
-    $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_SORT_ORDER . '<br>' . oos_draw_input_field('sort_order', $lInfo->sort_order)];
-    if (DEFAULT_LANGUAGE != $lInfo->iso_639_2 && $lInfo->status == '1') {
-        $contents[] = ['text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT];
-    }
+        $contents = ['form' => oos_draw_form('id', 'languages', $aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=save', 'post', false)];
+        $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
+        $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_NAME . '<br>' . oos_draw_input_field('name', $lInfo->name)];
+        $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_639_2 . '<br>' . oos_draw_input_field('iso_639_2', $lInfo->iso_639_2)];
+        $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_639_1 . '<br>' . oos_draw_input_field('iso_639_1', $lInfo->iso_639_1)];
+        $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_3166_1 . '<br>' . oos_draw_input_field('iso_3166_1', $lInfo->iso_3166_1)];
+        $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_SORT_ORDER . '<br>' . oos_draw_input_field('sort_order', $lInfo->sort_order)];
+        if (DEFAULT_LANGUAGE != $lInfo->iso_639_2 && $lInfo->status == '1') {
+            $contents[] = ['text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT];
+        }
         $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
-    break;
+        break;
 
-case 'delete':
-    $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_LANGUAGE . '</b>'];
+    case 'delete':
+        $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_LANGUAGE . '</b>'];
 
-    $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
-    $contents[] = ['text' => '<br><b>' . $lInfo->name . '</b>'];
-    $contents[] = ['align' => 'center', 'text' => '<br>' . (($remove_language) ? '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=deleteconfirm') . '">' . oos_button(BUTTON_DELETE) . '</a>' : '') . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
+        $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
+        $contents[] = ['text' => '<br><b>' . $lInfo->name . '</b>'];
+        $contents[] = ['align' => 'center', 'text' => '<br>' . (($remove_language) ? '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=deleteconfirm') . '">' . oos_button(BUTTON_DELETE) . '</a>' : '') . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
-    break;
+        break;
 
-default:
-    if (isset($lInfo) && is_object($lInfo)) {
-        $heading[] = ['text' => '<b>' . $lInfo->name . '</b>'];
+    default:
+        if (isset($lInfo) && is_object($lInfo)) {
+            $heading[] = ['text' => '<b>' . $lInfo->name . '</b>'];
 
-        $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
-        $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_NAME . ' ' . $lInfo->name];
-        $contents[] = ['text' => TEXT_INFO_LANGUAGE_ISO_639_2 . ' ' . $lInfo->iso_639_2];
-        $contents[] = ['text' => TEXT_INFO_LANGUAGE_ISO_639_1 . ' ' . $lInfo->iso_639_1];
-        $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_3166_1 . ' ' . $lInfo->iso_3166_1];
-        $contents[] = ['text' => '<div class="flag flag-icon flag-icon-' . $lInfo->iso_3166_1 . ' width-full"></div>'];
-        $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_DIRECTORY . '<br>' . OOS_SHOP . 'includes/languages/<b>' . $lInfo->iso_639_2 . '</b>'];
-        $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_SORT_ORDER . ' ' . $lInfo->sort_order];
-    }
-    break;
-  }
+            $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
+            $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_NAME . ' ' . $lInfo->name];
+            $contents[] = ['text' => TEXT_INFO_LANGUAGE_ISO_639_2 . ' ' . $lInfo->iso_639_2];
+            $contents[] = ['text' => TEXT_INFO_LANGUAGE_ISO_639_1 . ' ' . $lInfo->iso_639_1];
+            $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_3166_1 . ' ' . $lInfo->iso_3166_1];
+            $contents[] = ['text' => '<div class="flag flag-icon flag-icon-' . $lInfo->iso_3166_1 . ' width-full"></div>'];
+            $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_DIRECTORY . '<br>' . OOS_SHOP . 'includes/languages/<b>' . $lInfo->iso_639_2 . '</b>'];
+            $contents[] = ['text' => '<br>' . TEXT_INFO_LANGUAGE_SORT_ORDER . ' ' . $lInfo->sort_order];
+        }
+        break;
+}
 
-  if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
-        ?>
+if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+    ?>
     <td class="w-25" valign="top">
         <table class="table table-striped">
       <?php
-        $box = new box();
-        echo $box->infoBox($heading, $contents); ?>
+    $box = new box();
+    echo $box->infoBox($heading, $contents); ?>
         </table> 
     </td> 
       <?php
-  }
-    ?>
+}
+?>
           </tr>
         </table>
     </div>
@@ -923,6 +923,6 @@ default:
 
 
 <?php
-    require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/bottom.php';
+require 'includes/nice_exit.php';
 ?>

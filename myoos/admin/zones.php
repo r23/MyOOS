@@ -37,7 +37,7 @@ if (!empty($action)) {
             break;
 
         case 'save':
-			$zone_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
+            $zone_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
 
             $zonestable = $oostable['zones'];
             $dbconn->Execute("UPDATE $zonestable SET zone_country_id = '" . oos_db_input($zone_country_id) . "', zone_code = '" . oos_db_input($zone_code) . "', zone_name = '" . oos_db_input($zone_name) . "' WHERE zone_id = '" . oos_db_input($zone_id) . "'");
@@ -114,38 +114,38 @@ require 'includes/header.php';
 					</thead>	
 <?php
   $zonestable = $oostable['zones'];
-  $countriestable = $oostable['countries'];
-  $zones_query_raw = "SELECT z.zone_id, c.countries_id, c.countries_name, z.zone_name, z.zone_code, z.zone_country_id 
+$countriestable = $oostable['countries'];
+$zones_query_raw = "SELECT z.zone_id, c.countries_id, c.countries_name, z.zone_name, z.zone_code, z.zone_country_id 
                       FROM $zonestable z,
                            $countriestable c
                       WHERE z.zone_country_id = c.countries_id 
                       ORDER BY c.countries_name, z.zone_name";
-  $zones_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $zones_query_raw, $zones_result_numrows);
-  $zones_result = $dbconn->Execute($zones_query_raw);
+$zones_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $zones_query_raw, $zones_result_numrows);
+$zones_result = $dbconn->Execute($zones_query_raw);
 
-  while ($zones = $zones_result->fields) {
-      if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $zones['zone_id']))) && !isset($cInfo) && (!str_starts_with((string) $action, 'new'))) {
-          $cInfo = new objectInfo($zones);
-      }
+while ($zones = $zones_result->fields) {
+    if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $zones['zone_id']))) && !isset($cInfo) && (!str_starts_with((string) $action, 'new'))) {
+        $cInfo = new objectInfo($zones);
+    }
 
-      if (isset($cInfo) && is_object($cInfo) && ($zones['zone_id'] == $cInfo->zone_id)) {
-          echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id . '&action=edit') . '\'">' . "\n";
-      } else {
-          echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $zones['zone_id']) . '\'">' . "\n";
-      } ?>
+    if (isset($cInfo) && is_object($cInfo) && ($zones['zone_id'] == $cInfo->zone_id)) {
+        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id . '&action=edit') . '\'">' . "\n";
+    } else {
+        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $zones['zone_id']) . '\'">' . "\n";
+    } ?>
                 <td><?php echo $zones['countries_name']; ?></td>
                 <td><?php echo $zones['zone_name']; ?></td>
                 <td class="text-center"><?php echo $zones['zone_code']; ?></td>
                 <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($zones['zone_id'] == $cInfo->zone_id)) {
-          echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-      } else {
-          echo '<a href="' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $zones['zone_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-      } ?>&nbsp;</td>
+                    echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+                } else {
+                    echo '<a href="' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $zones['zone_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+                } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
     $zones_result->MoveNext();
-  }
+}
 
 ?>
               <tr>
@@ -156,74 +156,74 @@ require 'includes/header.php';
                   </tr>
 <?php
    if ($action == 'default') {
-      ?>
+       ?>
                   <tr>
                     <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&action=new') . '">' . oos_button(IMAGE_NEW_ZONE) . '</a>'; ?></td>
                   </tr>
 <?php
-  }
+   }
 ?>
                 </table></td>
               </tr>
             </table></td>
 <?php
   $heading = [];
-  $contents = [];
+$contents = [];
 
-  switch ($action) {
+switch ($action) {
     case 'new':
-      $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_NEW_ZONE . '</b>'];
+        $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_NEW_ZONE . '</b>'];
 
-      $contents = ['form' => oos_draw_form('id', 'zones', $aContents['zones'], 'page=' . $nPage . '&action=insert', 'post', false)];
-      $contents[] = ['text' => TEXT_INFO_INSERT_INTRO];
-      $contents[] = ['text' => '<br>' . TEXT_INFO_ZONES_NAME . '<br>' . oos_draw_input_field('zone_name')];
-      $contents[] = ['text' => '<br>' . TEXT_INFO_ZONES_CODE . '<br>' . oos_draw_input_field('zone_code')];
-      $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_NAME . '<br>' . oos_draw_pull_down_menu('zone_country_id', '', oos_get_countries())];
-      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
-      break;
+        $contents = ['form' => oos_draw_form('id', 'zones', $aContents['zones'], 'page=' . $nPage . '&action=insert', 'post', false)];
+        $contents[] = ['text' => TEXT_INFO_INSERT_INTRO];
+        $contents[] = ['text' => '<br>' . TEXT_INFO_ZONES_NAME . '<br>' . oos_draw_input_field('zone_name')];
+        $contents[] = ['text' => '<br>' . TEXT_INFO_ZONES_CODE . '<br>' . oos_draw_input_field('zone_code')];
+        $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_NAME . '<br>' . oos_draw_pull_down_menu('zone_country_id', '', oos_get_countries())];
+        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
+        break;
 
     case 'edit':
-      $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_EDIT_ZONE . '</b>'];
+        $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_EDIT_ZONE . '</b>'];
 
-      $contents = ['form' => oos_draw_form('id', 'zones', $aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id . '&action=save', 'post', false)];
-      $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
-      $contents[] = ['text' => '<br>' . TEXT_INFO_ZONES_NAME . '<br>' . oos_draw_input_field('zone_name', $cInfo->zone_name)];
-      $contents[] = ['text' => '<br>' . TEXT_INFO_ZONES_CODE . '<br>' . oos_draw_input_field('zone_code', $cInfo->zone_code)];
-      $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_NAME . '<br>' . oos_draw_pull_down_menu('zone_country_id', '', oos_get_countries(), $cInfo->countries_id)];
-      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
-      break;
+        $contents = ['form' => oos_draw_form('id', 'zones', $aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id . '&action=save', 'post', false)];
+        $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
+        $contents[] = ['text' => '<br>' . TEXT_INFO_ZONES_NAME . '<br>' . oos_draw_input_field('zone_name', $cInfo->zone_name)];
+        $contents[] = ['text' => '<br>' . TEXT_INFO_ZONES_CODE . '<br>' . oos_draw_input_field('zone_code', $cInfo->zone_code)];
+        $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_NAME . '<br>' . oos_draw_pull_down_menu('zone_country_id', '', oos_get_countries(), $cInfo->countries_id)];
+        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
+        break;
 
     case 'delete':
-      $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_ZONE . '</b>'];
+        $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_ZONE . '</b>'];
 
-      $contents = ['form' => oos_draw_form('id', 'zones', $aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id . '&action=deleteconfirm', 'post', false)];
-      $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
-      $contents[] = ['text' => '<br><b>' . $cInfo->zone_name . '</b>'];
-      $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
-      break;
+        $contents = ['form' => oos_draw_form('id', 'zones', $aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id . '&action=deleteconfirm', 'post', false)];
+        $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
+        $contents[] = ['text' => '<br><b>' . $cInfo->zone_name . '</b>'];
+        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
+        break;
 
     default:
-      if (isset($cInfo) && is_object($cInfo)) {
-          $heading[] = ['text' => '<b>' . $cInfo->zone_name . '</b>'];
+        if (isset($cInfo) && is_object($cInfo)) {
+            $heading[] = ['text' => '<b>' . $cInfo->zone_name . '</b>'];
 
-          $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
-          $contents[] = ['text' => '<br>' . TEXT_INFO_ZONES_NAME . '<br>' . $cInfo->zone_name . ' (' . $cInfo->zone_code . ')'];
-          $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_NAME . ' ' . $cInfo->countries_name];
-      }
-      break;
-  }
+            $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
+            $contents[] = ['text' => '<br>' . TEXT_INFO_ZONES_NAME . '<br>' . $cInfo->zone_name . ' (' . $cInfo->zone_code . ')'];
+            $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_NAME . ' ' . $cInfo->countries_name];
+        }
+        break;
+}
 
-    if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
-        ?>
+if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+    ?>
 	<td class="w-25" valign="top">
 		<table class="table table-striped">
 <?php
-        $box = new box();
-        echo $box->infoBox($heading, $contents); ?>
+    $box = new box();
+    echo $box->infoBox($heading, $contents); ?>
 		</table> 
 	</td> 
 <?php
-    }
+}
 ?>
           </tr>
         </table>
@@ -244,5 +244,5 @@ require 'includes/header.php';
 
 <?php
     require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/nice_exit.php';
 ?>

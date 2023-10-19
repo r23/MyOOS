@@ -17,7 +17,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('OOS_VALID_MOD', 'yes');
@@ -34,8 +34,8 @@ function oos_remove_order($order_id, $restock = false)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     if (is_numeric($order_id)) {
         if ($restock == 'on') {
@@ -74,8 +74,8 @@ function oos_remove_order($order_id, $restock = false)
 
 function oos_get_languages_id($iso_639_2)
 {
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $languagestable = $oostable['languages'];
     $languages_result = $dbconn->Execute("SELECT languages_id, iso_639_2 FROM $languagestable WHERE iso_639_2 = '" . oos_db_input($iso_639_2) . "'");
@@ -108,18 +108,18 @@ $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
 switch ($action) {
-case 'update_order':
-    $oID = oos_db_prepare_input($_GET['oID']);
-    $comments = isset($_POST['comments']) ? oos_db_prepare_input($_POST['comments']) : '';
-    $status = isset($_POST['status']) ? oos_db_prepare_input($_POST['status']) : '';
+    case 'update_order':
+        $oID = oos_db_prepare_input($_GET['oID']);
+        $comments = isset($_POST['comments']) ? oos_db_prepare_input($_POST['comments']) : '';
+        $status = isset($_POST['status']) ? oos_db_prepare_input($_POST['status']) : '';
 
-    $order_updated = false;
+        $order_updated = false;
 
-    $orderstable = $oostable['orders'];
-    $check_status_result = $dbconn->Execute("SELECT customers_name, customers_email_address, orders_status, date_purchased, orders_language FROM $orderstable WHERE orders_id = '" . oos_db_input($oID) . "'");
-    $check_status = $check_status_result->fields;
+        $orderstable = $oostable['orders'];
+        $check_status_result = $dbconn->Execute("SELECT customers_name, customers_email_address, orders_status, date_purchased, orders_language FROM $orderstable WHERE orders_id = '" . oos_db_input($oID) . "'");
+        $check_status = $check_status_result->fields;
 
-    if ($check_status['orders_status'] != $status || $comments != '') {
+        if ($check_status['orders_status'] != $status || $comments != '') {
             $orderstable = $oostable['orders'];
             $dbconn->Execute("UPDATE $orderstable SET orders_status = '" . oos_db_input($status) . "', last_modified = now() WHERE orders_id = '" . oos_db_input($oID) . "'");
 
@@ -132,81 +132,81 @@ case 'update_order':
 
             $customer_notified = '0';
 
-        if (isset($_POST['notify']) && ($_POST['notify'] == 'on')) {
-            if (oos_is_not_null($check_status['orders_language'])) {
-                include 'includes/languages/' . $check_status['orders_language'] . '/email_orders.php';
-                $nLangID = oos_get_languages_id($check_status['orders_language']);
-                $orders_statustable = $oostable['orders_status'];
-                $orders_status_result = $dbconn->Execute("SELECT orders_status_id, orders_status_name FROM $orders_statustable WHERE orders_languages_id = '" . intval($nLangID) . "'");
-            } else {
-                $orders_statustable = $oostable['orders_status'];
-                include 'includes/languages/' . $_SESSION['language'] . '/email_orders.php';
-                $orders_status_result = $dbconn->Execute("SELECT orders_status_id, orders_status_name FROM $orders_statustable WHERE orders_languages_id = '" . intval($_SESSION['language_id']) . "'");
-            }
-
-            $orders_statuses = [];
-            $orders_status_array = [];
-            while ($orders_status = $orders_status_result->fields) {
-                $orders_statuses[] = ['id' => $orders_status['orders_status_id'], 'text' => $orders_status['orders_status_name']];
-                $orders_status_array[$orders_status['orders_status_id']] = $orders_status['orders_status_name'];
-                // Move that ADOdb pointer!
-                $orders_status_result->MoveNext();
-            }
-
-            // status query
-            $orders_statustable = $oostable['orders_status'];
-            $orders_status_result = $dbconn->Execute("SELECT orders_status_name FROM $orders_statustable WHERE orders_languages_id = '" . intval($_SESSION['language_id']) . "' AND orders_status_id = '" . oos_db_input($status) . "'");
-            $o_status = $orders_status_result->fields;
-            $o_status = $o_status['orders_status_name'];
-
-            $notify_comments = '';
-            if (isset($_POST['notify_comments']) && ($_POST['notify_comments'] == 'on')) {
-                if (isset($comments)) {
-                    $notify_comments = sprintf(EMAIL_TEXT_COMMENTS_UPDATE, $comments) . "\n\n";
+            if (isset($_POST['notify']) && ($_POST['notify'] == 'on')) {
+                if (oos_is_not_null($check_status['orders_language'])) {
+                    include 'includes/languages/' . $check_status['orders_language'] . '/email_orders.php';
+                    $nLangID = oos_get_languages_id($check_status['orders_language']);
+                    $orders_statustable = $oostable['orders_status'];
+                    $orders_status_result = $dbconn->Execute("SELECT orders_status_id, orders_status_name FROM $orders_statustable WHERE orders_languages_id = '" . intval($nLangID) . "'");
+                } else {
+                    $orders_statustable = $oostable['orders_status'];
+                    include 'includes/languages/' . $_SESSION['language'] . '/email_orders.php';
+                    $orders_status_result = $dbconn->Execute("SELECT orders_status_id, orders_status_name FROM $orders_statustable WHERE orders_languages_id = '" . intval($_SESSION['language_id']) . "'");
                 }
+
+                $orders_statuses = [];
+                $orders_status_array = [];
+                while ($orders_status = $orders_status_result->fields) {
+                    $orders_statuses[] = ['id' => $orders_status['orders_status_id'], 'text' => $orders_status['orders_status_name']];
+                    $orders_status_array[$orders_status['orders_status_id']] = $orders_status['orders_status_name'];
+                    // Move that ADOdb pointer!
+                    $orders_status_result->MoveNext();
+                }
+
+                // status query
+                $orders_statustable = $oostable['orders_status'];
+                $orders_status_result = $dbconn->Execute("SELECT orders_status_name FROM $orders_statustable WHERE orders_languages_id = '" . intval($_SESSION['language_id']) . "' AND orders_status_id = '" . oos_db_input($status) . "'");
+                $o_status = $orders_status_result->fields;
+                $o_status = $o_status['orders_status_name'];
+
+                $notify_comments = '';
+                if (isset($_POST['notify_comments']) && ($_POST['notify_comments'] == 'on')) {
+                    if (isset($comments)) {
+                        $notify_comments = sprintf(EMAIL_TEXT_COMMENTS_UPDATE, $comments) . "\n\n";
+                    }
+                }
+                $email = STORE_NAME . "\n" . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $oID . "\n" . EMAIL_TEXT_INVOICE_URL . ' ' . oos_catalog_link($aCatalog['account_history_info'], 'order_id=' . $oID) . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . oos_date_long($check_status['date_purchased']) . "\n\n" . $notify_comments . sprintf(EMAIL_TEXT_STATUS_UPDATE, $orders_status_array[$status]);
+                oos_mail($check_status['customers_name'], $check_status['customers_email_address'], EMAIL_TEXT_SUBJECT, nl2br($email), nl2br($email), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+                $customer_notified = '1';
             }
-            $email = STORE_NAME . "\n" . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $oID . "\n" . EMAIL_TEXT_INVOICE_URL . ' ' . oos_catalog_link($aCatalog['account_history_info'], 'order_id=' . $oID) . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . oos_date_long($check_status['date_purchased']) . "\n\n" . $notify_comments . sprintf(EMAIL_TEXT_STATUS_UPDATE, $orders_status_array[$status]);
-            oos_mail($check_status['customers_name'], $check_status['customers_email_address'], EMAIL_TEXT_SUBJECT, nl2br($email), nl2br($email), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
-            $customer_notified = '1';
-        }
 
             $orders_status_historytable = $oostable['orders_status_history'];
             $dbconn->Execute("INSERT INTO $orders_status_historytable (orders_id, orders_status_id, date_added, customer_notified, comments) VALUES ('" . oos_db_input($oID) . "', '" . oos_db_input($status) . "', now(), '" . $customer_notified . "', '" . oos_db_input($comments)  . "')");
 
             $order_updated = true;
-    }
+        }
 
-    if ($order_updated) {
-              $messageStack->add_session(SUCCESS_ORDER_UPDATED, 'success');
-    } else {
-        $messageStack->add_session(WARNING_ORDER_NOT_UPDATED, 'warning');
-    }
+        if ($order_updated) {
+            $messageStack->add_session(SUCCESS_ORDER_UPDATED, 'success');
+        } else {
+            $messageStack->add_session(WARNING_ORDER_NOT_UPDATED, 'warning');
+        }
 
-          oos_redirect_admin(oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['action']) . 'action=edit'));
-    break;
+        oos_redirect_admin(oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['action']) . 'action=edit'));
+        break;
 
-case 'update_serial':
-    $oID = oos_db_prepare_input($_GET['oID']);
+    case 'update_serial':
+        $oID = oos_db_prepare_input($_GET['oID']);
 
-    $serial_number = oos_db_prepare_input($_POST['serial_number']);
-    $serial = oos_db_prepare_input($_GET['serial']);
+        $serial_number = oos_db_prepare_input($_POST['serial_number']);
+        $serial = oos_db_prepare_input($_GET['serial']);
 
-    $orders_productstable = $oostable['orders_products'];
-    $query = "UPDATE $orders_productstable SET products_serial_number = '" . oos_db_input($serial_number) . "' WHERE orders_id = '" . oos_db_input($oID) . "' AND products_id = '" . oos_db_input($serial) . "'";
-    $dbconn->Execute($query);
-        
-    $messageStack->add_session(SUCCESS_ORDER_UPDATED, 'success');
+        $orders_productstable = $oostable['orders_products'];
+        $query = "UPDATE $orders_productstable SET products_serial_number = '" . oos_db_input($serial_number) . "' WHERE orders_id = '" . oos_db_input($oID) . "' AND products_id = '" . oos_db_input($serial) . "'";
+        $dbconn->Execute($query);
 
-    oos_redirect_admin(oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['action']) . 'action=edit&serial_updated=1'));
-    break;
+        $messageStack->add_session(SUCCESS_ORDER_UPDATED, 'success');
 
-case 'deleteconfirm':
-    $oID = oos_db_prepare_input($_GET['oID']);
+        oos_redirect_admin(oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['action']) . 'action=edit&serial_updated=1'));
+        break;
 
-    oos_remove_order($oID, $_POST['restock']);
+    case 'deleteconfirm':
+        $oID = oos_db_prepare_input($_GET['oID']);
 
-    oos_redirect_admin(oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action'])));
-    break;
+        oos_remove_order($oID, $_POST['restock']);
+
+        oos_redirect_admin(oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action'])));
+        break;
 }
 
 if (($action == 'edit') && isset($_GET['oID'])) {
@@ -626,9 +626,9 @@ if (($action == 'edit') && ($order_exists == true)) {
                 <td class="text-right"><?php echo $orders['orders_status_name']; ?></td>
                 <td class="text-right"><?php if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id)) {
                     echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-} else {
-                                           echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID']) . 'oID=' . $orders['orders_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-                                       } ?>&nbsp;</td>
+                } else {
+                    echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID']) . 'oID=' . $orders['orders_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+                } ?>&nbsp;</td>
               </tr>
         <?php
         // Move that ADOdb pointer!
@@ -649,29 +649,29 @@ if (($action == 'edit') && ($order_exists == true)) {
     $contents = [];
 
     switch ($action) {
-    case 'delete':
-        $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_ORDER . '</b>'];
+        case 'delete':
+            $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_ORDER . '</b>'];
 
-        $contents = ['form' => oos_draw_form('id', 'orders', $aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $oInfo->orders_id . '&action=deleteconfirm', 'post', false)];
-        $contents[] = ['text' => TEXT_INFO_DELETE_INTRO . '<br><br><b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>'];
-        $contents[] = ['text' => '<br>' . oos_draw_checkbox_field('restock') . ' ' . TEXT_INFO_RESTOCK_PRODUCT_QUANTITY];
-        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $oInfo->orders_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
-        break;
+            $contents = ['form' => oos_draw_form('id', 'orders', $aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $oInfo->orders_id . '&action=deleteconfirm', 'post', false)];
+            $contents[] = ['text' => TEXT_INFO_DELETE_INTRO . '<br><br><b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>'];
+            $contents[] = ['text' => '<br>' . oos_draw_checkbox_field('restock') . ' ' . TEXT_INFO_RESTOCK_PRODUCT_QUANTITY];
+            $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $oInfo->orders_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
+            break;
 
-    default:
-        if (isset($oInfo) && is_object($oInfo)) {
-            $heading[] = ['text' => '<b>[' . $oInfo->orders_id . ']&nbsp;&nbsp;' . oos_datetime_short($oInfo->date_purchased) . '</b>'];
+        default:
+            if (isset($oInfo) && is_object($oInfo)) {
+                $heading[] = ['text' => '<b>[' . $oInfo->orders_id . ']&nbsp;&nbsp;' . oos_datetime_short($oInfo->date_purchased) . '</b>'];
 
-            $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $oInfo->orders_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $oInfo->orders_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
-            $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['invoice'], 'oID=' . $oInfo->orders_id) . '" TARGET="_blank">' . oos_button(IMAGE_ORDERS_INVOICE) . '</a> <a href="' . oos_href_link_admin($aContents['packingslip'], 'oID=' . $oInfo->orders_id) . '" TARGET="_blank">' . oos_button(IMAGE_ORDERS_PACKINGSLIP) . '</a>'];
+                $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $oInfo->orders_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $oInfo->orders_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
+                $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['invoice'], 'oID=' . $oInfo->orders_id) . '" TARGET="_blank">' . oos_button(IMAGE_ORDERS_INVOICE) . '</a> <a href="' . oos_href_link_admin($aContents['packingslip'], 'oID=' . $oInfo->orders_id) . '" TARGET="_blank">' . oos_button(IMAGE_ORDERS_PACKINGSLIP) . '</a>'];
 
-            $contents[] = ['text' => '<br>' . TEXT_DATE_ORDER_CREATED . ' ' . oos_date_short($oInfo->date_purchased)];
-            if (oos_is_not_null($oInfo->last_modified)) {
-                $contents[] = ['text' => TEXT_DATE_ORDER_LAST_MODIFIED . ' ' . oos_date_short($oInfo->last_modified)];
+                $contents[] = ['text' => '<br>' . TEXT_DATE_ORDER_CREATED . ' ' . oos_date_short($oInfo->date_purchased)];
+                if (oos_is_not_null($oInfo->last_modified)) {
+                    $contents[] = ['text' => TEXT_DATE_ORDER_LAST_MODIFIED . ' ' . oos_date_short($oInfo->last_modified)];
+                }
+                $contents[] = ['text' => '<br>' . TEXT_INFO_PAYMENT_METHOD . ' '  . $oInfo->payment_method];
             }
-            $contents[] = ['text' => '<br>' . TEXT_INFO_PAYMENT_METHOD . ' '  . $oInfo->payment_method];
-        }
-        break;
+            break;
     }
 
     if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
@@ -708,5 +708,5 @@ if (($action == 'edit') && ($order_exists == true)) {
 
 <?php
     require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
+require 'includes/nice_exit.php';
 ?>

@@ -38,20 +38,20 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
  * @param  $length
  * @return string
  */
-function oos_create_coupon_code($salt="secret", $length=SECURITY_CODE_LENGTH)
+function oos_create_coupon_code($salt = "secret", $length = SECURITY_CODE_LENGTH)
 {
     $ccid = md5(uniqid("", "salt"));
     $ccid .= md5(uniqid("", "salt"));
     $ccid .= md5(uniqid("", "salt"));
     $ccid .= md5(uniqid("", "salt"));
 
-    mt_srand((float)microtime()*1_000_000); // seed the random number generator
-    $random_start = @random_int(0, (128-$length));
+    mt_srand((float)microtime() * 1_000_000); // seed the random number generator
+    $random_start = @random_int(0, (128 - $length));
     $good_result = 0;
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     while ($good_result == 0) {
         $coupon_code = substr($ccid, $random_start, $length);
@@ -69,18 +69,18 @@ function oos_create_coupon_code($salt="secret", $length=SECURITY_CODE_LENGTH)
 }
 
 
- /**
-  * Update the Customers GV account
-  *
-  * @param $customer_id
-  * @param $gv_id
-  */
+/**
+ * Update the Customers GV account
+ *
+ * @param $customer_id
+ * @param $gv_id
+ */
 function oos_gv_account_update($customer_id, $gv_id)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $coupon_gv_query = "SELECT coupon_amount
                         FROM " . $oostable['coupons'] . "
@@ -108,54 +108,54 @@ function oos_gv_account_update($customer_id, $gv_id)
 }
 
 
- /**
-  * Output a day/month/year dropdown selector
-  *
-  * @param  $prefix
-  * @param  $date
-  * @return string
-  */
-function oos_draw_date_selector($prefix, $date='')
+/**
+ * Output a day/month/year dropdown selector
+ *
+ * @param  $prefix
+ * @param  $date
+ * @return string
+ */
+function oos_draw_date_selector($prefix, $date = '')
 {
     $month_array = [];
-    $month_array[1] =_JANUARY;
-    $month_array[2] =_FEBRUARY;
-    $month_array[3] =_MARCH;
-    $month_array[4] =_APRIL;
-    $month_array[5] =_MAY;
-    $month_array[6] =_JUNE;
-    $month_array[7] =_JULY;
-    $month_array[8] =_AUGUST;
-    $month_array[9] =_SEPTEMBER;
-    $month_array[10] =_OCTOBER;
-    $month_array[11] =_NOVEMBER;
-    $month_array[12] =_DECEMBER;
+    $month_array[1] = _JANUARY;
+    $month_array[2] = _FEBRUARY;
+    $month_array[3] = _MARCH;
+    $month_array[4] = _APRIL;
+    $month_array[5] = _MAY;
+    $month_array[6] = _JUNE;
+    $month_array[7] = _JULY;
+    $month_array[8] = _AUGUST;
+    $month_array[9] = _SEPTEMBER;
+    $month_array[10] = _OCTOBER;
+    $month_array[11] = _NOVEMBER;
+    $month_array[12] = _DECEMBER;
     $usedate = getdate($date);
     $day = $usedate['mday'];
     $month = $usedate['mon'];
     $year = $usedate['year'];
     $date_selector = '<select name="'. $prefix .'_day">';
-    for ($i=1;$i<32;$i++) {
+    for ($i = 1;$i < 32;$i++) {
         $date_selector .= '<option value="' . $i . '"';
-        if ($i==$day) {
+        if ($i == $day) {
             $date_selector .= ' selected="selected"';
         }
         $date_selector .= '>' . $i . '</option>';
     }
     $date_selector .= '</select>';
     $date_selector .= '<select name="'. $prefix .'_month">';
-    for ($i=1;$i<13;$i++) {
+    for ($i = 1;$i < 13;$i++) {
         $date_selector .= '<option value="' . $i . '"';
-        if ($i==$month) {
+        if ($i == $month) {
             $date_selector .= ' selected="selected"';
         }
         $date_selector .= '>' . $month_array[$i] . '</option>';
     }
     $date_selector .= '</select>';
     $date_selector .= '<select name="'. $prefix .'_year">';
-    for ($i=2021;$i<2029;$i++) {
+    for ($i = 2021;$i < 2029;$i++) {
         $date_selector .= '<option value="' . $i . '"';
-        if ($i==$year) {
+        if ($i == $year) {
             $date_selector .= ' selected="selected"';
         }
         $date_selector .= '>' . $i . '</option>';
