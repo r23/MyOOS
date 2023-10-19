@@ -167,6 +167,19 @@ $aDate = [];
 $aData = [];
 
 $products_price_historytable = $oostable['products_price_history'];
+$sql = "SELECT products_price AS previous_price 
+		FROM $products_price_historytable 
+		WHERE products_id = '" . $nProductsID . "' 
+		  AND date_added <= '" . date("Y-m-d\TH:i:s", $startDate). "'
+		ORDER BY date_added DESC LIMIT 1";	   
+$previous_price_result = $dbconn->Execute($sql);
+$prev_price = $previous_price_result->fields;
+$previous_price = $oCurrencies->schema_price($prev_price['previous_price'], oos_get_tax_rate($product_info['products_tax_class_id']), 1, false);
+
+$aDate[] = oos_date_short(date("Y-m-d\TH:i:s", $startDate));
+$aData[] = $previous_price;
+
+$products_price_historytable = $oostable['products_price_history'];
 $sql = "SELECT products_price, date_added
           FROM $products_price_historytable
 	     WHERE products_id = '" . intval($nProductsID) . "'
@@ -174,19 +187,14 @@ $sql = "SELECT products_price, date_added
 		   AND date_added < '" . oos_db_input(date("Y-m-d\TH:i:s", $endDate)) . "'
       ORDER BY date_added ASC";
 $price_history_result = $dbconn->Execute($sql);
-if ($price_history_result->RecordCount() >= 2) {
-    while ($price_history = $price_history_result->fields) {
-        $history_price = $oCurrencies->schema_price($price_history['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']), 1, false);
+while ($price_history = $price_history_result->fields) {
+	$history_price = $oCurrencies->schema_price($price_history['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']), 1, false);
 
-        $aDate[] = oos_date_short($price_history['date_added']);
-        $aData[] = $history_price;
+	$aDate[] = oos_date_short($price_history['date_added']);
+	$aData[] = $history_price;
 
-        // Move that ADOdb pointer!
-        $price_history_result->MoveNext();
-    }
-} else {
-    $aDate[] = oos_date_short(date("Y-m-d\TH:i:s", $startDate));
-    $aData[] = $schema_product_price;
+	// Move that ADOdb pointer!
+	$price_history_result->MoveNext();
 }
 
 // current price with date
