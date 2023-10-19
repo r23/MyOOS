@@ -59,7 +59,6 @@ case 'setflag':
 
 case 'insert':
 case 'update':
-
     if (isset($_SESSION['formid']) && isset($_POST['formid']) && ($_SESSION['formid'] == $_POST['formid'])) {
         $products_id = intval($_POST['products_id']);
         $expires_date = oos_db_prepare_input($_POST['expires_date']);
@@ -386,10 +385,13 @@ if (($action == 'new') || ($action == 'edit')) {
                         </tr>    
                     </thead>
     <?php
+	$rows = 0;
+	$aDocument = [];
     $slider_result_raw = "SELECT p.products_id, pd.products_name, s.slider_id, s.slider_date_added, s.slider_last_modified, s.expires_date, s.date_status_change, s.status FROM " . $oostable['products'] . " p, " . $oostable['categories_slider'] . " s, " . $oostable['products_description'] . " pd WHERE p.products_id = pd.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND p.products_id = s.products_id ORDER BY pd.products_name";
-            $slider_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $slider_result_raw, $slider_result_numrows);
-            $slider_result = $dbconn->Execute($slider_result_raw);
+    $slider_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $slider_result_raw, $slider_result_numrows);
+    $slider_result = $dbconn->Execute($slider_result_raw);
     while ($slider = $slider_result->fields) {
+		$rows++;
         if ((!isset($_GET['sID']) || (isset($_GET['sID']) && ($_GET['sID'] == $slider['slider_id']))) && !isset($sInfo)) {
             $productstable = $oostable['products'];
             $products_result = $dbconn->Execute("SELECT products_image FROM " . $oostable['products'] . " WHERE products_id = '" . $slider['products_id'] . "'");
@@ -399,9 +401,13 @@ if (($action == 'new') || ($action == 'edit')) {
         }
 
         if (isset($sInfo) && is_object($sInfo) && ($slider['slider_id'] == $sInfo->slider_id)) {
-            echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $sInfo->slider_id . '&action=edit') . '\'">' . "\n";
+			$aDocument[] = ['id' => $rows,
+							'link' => oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $sInfo->slider_id . '&action=edit')];
+			echo '                  <tr id="row-' . $rows .'">' . "\n";	
         } else {
-            echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $slider['slider_id']) . '\'">' . "\n";
+			$aDocument[] = ['id' => $rows,
+							'link' => oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $slider['slider_id'])];
+			echo '                  <tr id="row-' . $rows .'">' . "\n";				
         } ?>
                 <td><?php echo $slider['products_name']; ?></td>
                 <td  align="right">&nbsp;</td>
@@ -506,6 +512,17 @@ if (($action == 'new') || ($action == 'edit')) {
 
 
 <?php
-    require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
-?>
+require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+	echo '<script nonce="' . NONCE . '">' . "\n";
+	$nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+	for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+		echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+		echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+		echo '});' . "\n";
+	}
+	echo '</script>' . "\n";
+}
+
+require 'includes/nice_exit.php';

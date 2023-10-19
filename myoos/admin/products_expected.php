@@ -26,10 +26,10 @@ require 'includes/functions/function_products.php';
 
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 
-  $productstable = $oostable['products'];
-  $dbconn->Execute("UPDATE $productstable SET products_date_available = '' WHERE to_days(now()) > to_days(products_date_available)");
+$productstable = $oostable['products'];
+$dbconn->Execute("UPDATE $productstable SET products_date_available = '' WHERE to_days(now()) > to_days(products_date_available)");
 
-  require 'includes/header.php';
+require 'includes/header.php';
 ?>
 <div class="wrapper">
     <!-- Header //-->
@@ -88,26 +88,33 @@ $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
                         </tr>    
                     </thead>
 <?php
-  $productstable = $oostable['products'];
-  $products_descriptiontable = $oostable['products_description'];
-  $products_result_raw = "SELECT pd.products_id, pd.products_name, p.products_date_available
+$rows = 0;
+$aDocument = [];
+$productstable = $oostable['products'];
+$products_descriptiontable = $oostable['products_description'];
+$products_result_raw = "SELECT pd.products_id, pd.products_name, p.products_date_available
                          FROM $products_descriptiontable pd,
                               $productstable p
                          WHERE p.products_id = pd.products_id AND
                                p.products_date_available != '' AND
                                pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'
                          ORDER BY p.products_date_available DESC";
-  $products_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_result_raw, $products_result_numrows);
-  $products_result = $dbconn->Execute($products_result_raw);
+$products_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_result_raw, $products_result_numrows);
+$products_result = $dbconn->Execute($products_result_raw);
 while ($products = $products_result->fields) {
+	$rows++;
     if ((!isset($_GET['pID']) || (isset($_GET['pID']) && ($_GET['pID'] == $products['products_id']))) && !isset($pInfo)) {
         $pInfo = new objectInfo($products);
     }
 
     if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id)) {
-        echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'pID=' . $products['products_id'] . '&action=new_product') . '\'">' . "\n";
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin($aContents['products'], 'pID=' . $products['products_id'] . '&action=new_product')];
+		echo '                  <tr id="row-' . $rows .'">' . "\n";			
     } else {
-        echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['products_expected'], 'page=' . $nPage . '&pID=' . $products['products_id']) . '\'">' . "\n";
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin($aContents['products'], 'pID=' . $products['products_id'] . '&action=new_product')];
+		echo '                  <tr id="row-' . $rows .'">' . "\n";	
     } ?>
                 <td><?php echo '<a href="' . oos_catalog_link($aCatalog['product_info'], 'products_id=' . $products['products_id']) . '" target="_blank" rel="noopener"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . '#' . $products['products_id'] . ' ' . $products['products_name']; ?></td>
                 <td><?php echo $products['products_name']; ?></td>
@@ -150,6 +157,17 @@ while ($products = $products_result->fields) {
 
 
 <?php
-    require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
-?>
+require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+	echo '<script nonce="' . NONCE . '">' . "\n";
+	$nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+	for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+		echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+		echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+		echo '});' . "\n";
+	}
+	echo '</script>' . "\n";
+}
+
+require 'includes/nice_exit.php';
