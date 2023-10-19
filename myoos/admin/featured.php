@@ -268,12 +268,10 @@ if (($action == 'new') || ($action == 'edit')) {
 				$aDocument[] = ['id' => $rows,
 								'link' => oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit')];
 				echo ' <tr id="row-' . $rows .'">' . "\n";			
-#            echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '\'">' . "\n";
         } else {
 				$aDocument[] = ['id' => $rows,
 								'link' => oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id'])];
 				echo ' <tr id="row-' . $rows .'">' . "\n";			
- #           echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id']) . '\'">' . "\n";
         } ?>
                 <td><?php echo $featured['products_name']; ?></td>
                 <td  align="right">&nbsp;</td>

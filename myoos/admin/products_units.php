@@ -200,32 +200,39 @@ require 'includes/header.php';
 					</thead>		
 			
 <?php
-  $products_unitstable = $oostable['products_units'];
-  $products_units_result_raw = "SELECT products_units_id, products_unit_name, unit_of_measure
+$rows = 0;
+$aDocument = [];
+$products_unitstable = $oostable['products_units'];
+$products_units_result_raw = "SELECT products_units_id, products_unit_name, unit_of_measure
                                 FROM $products_unitstable
                                 WHERE languages_id = '" . intval($_SESSION['language_id']) . "'
                                 ORDER BY products_units_id";
-  $products_units_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_units_result_raw, $products_units_result_numrows);
-  $products_units_result = $dbconn->Execute($products_units_result_raw);
-  while ($products_units = $products_units_result->fields) {
-      if ((!isset($_GET['uID']) || (isset($_GET['uID']) && ($_GET['uID'] == $products_units['products_units_id']))) && !isset($oInfo) && (!str_starts_with((string) $action, 'new'))) {
-          $oInfo = new objectInfo($products_units);
-      }
+$products_units_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_units_result_raw, $products_units_result_numrows);
+$products_units_result = $dbconn->Execute($products_units_result_raw);
+while ($products_units = $products_units_result->fields) {
+	$rows++;
+	if ((!isset($_GET['uID']) || (isset($_GET['uID']) && ($_GET['uID'] == $products_units['products_units_id']))) && !isset($oInfo) && (!str_starts_with((string) $action, 'new'))) {
+		$oInfo = new objectInfo($products_units);
+	}
 
-      if (isset($oInfo) && is_object($oInfo) && ($products_units['products_units_id'] == $oInfo->products_units_id)) {
-          echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $oInfo->products_units_id . '&action=edit') . '\'">' . "\n";
-      } else {
-          echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $products_units['products_units_id']) . '\'">' . "\n";
-      }
+	if (isset($oInfo) && is_object($oInfo) && ($products_units['products_units_id'] == $oInfo->products_units_id)) {
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $oInfo->products_units_id . '&action=edit')];
+		echo '                  <tr id="row-' . $rows .'">' . "\n";	
+	} else {
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $products_units['products_units_id'])];
+		echo '                  <tr id="row-' . $rows .'">' . "\n";	
+	}
 
-      echo '                <td>' . $products_units['products_unit_name'] . '</td>' . "\n";
-      echo '                <td>' . $products_units['unit_of_measure'] . '</td>' . "\n"; ?>
+	echo '                <td>' . $products_units['products_unit_name'] . '</td>' . "\n";
+	echo '                <td>' . $products_units['unit_of_measure'] . '</td>' . "\n"; ?>
 
                 <td class="text-right"><?php if (isset($oInfo) && is_object($oInfo) && ($products_units['products_units_id'] == $oInfo->products_units_id)) {
-          echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-      } else {
-          echo '<a href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $products_units['products_units_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-      } ?>&nbsp;</td>
+		echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+	} else {
+		echo '<a href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $products_units['products_units_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+	} ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -355,6 +362,17 @@ require 'includes/header.php';
 </div>
 
 <?php
-    require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
-?>
+require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+	echo '<script nonce="' . NONCE . '">' . "\n";
+	$nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+	for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+		echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+		echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+		echo '});' . "\n";
+	}
+	echo '</script>' . "\n";
+}
+
+require 'includes/nice_exit.php';

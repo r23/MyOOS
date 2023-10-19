@@ -243,13 +243,16 @@ require 'includes/header.php';
                         </tr>    
                     </thead>
 <?php
-  $manufacturerstable = $oostable['manufacturers'];
-  $manufacturers_result_raw = "SELECT manufacturers_id, manufacturers_name, manufacturers_image, date_added, last_modified
+$rows = 0;
+$aDocument = [];
+$manufacturerstable = $oostable['manufacturers'];
+$manufacturers_result_raw = "SELECT manufacturers_id, manufacturers_name, manufacturers_image, date_added, last_modified
                                FROM $manufacturerstable
                                ORDER BY manufacturers_name";
-  $manufacturers_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $manufacturers_result_raw, $manufacturers_result_numrows);
-  $manufacturers_result = $dbconn->Execute($manufacturers_result_raw);
+$manufacturers_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $manufacturers_result_raw, $manufacturers_result_numrows);
+$manufacturers_result = $dbconn->Execute($manufacturers_result_raw);
 while ($manufacturers = $manufacturers_result->fields) {
+	$rows++;
     if ((!isset($_GET['mID']) || (isset($_GET['mID']) && ($_GET['mID'] == $manufacturers['manufacturers_id']))) && !isset($mInfo) && (!str_starts_with((string) $action, 'new'))) {
         $manufacturer_products_result = $dbconn->Execute("SELECT COUNT(*) AS products_count FROM " . $oostable['products'] . " WHERE manufacturers_id = '" . $manufacturers['manufacturers_id'] . "'");
         $manufacturer_products = $manufacturer_products_result->fields;
@@ -259,9 +262,13 @@ while ($manufacturers = $manufacturers_result->fields) {
     }
 
     if (isset($mInfo) && is_object($mInfo) && ($manufacturers['manufacturers_id'] == $mInfo->manufacturers_id)) {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $manufacturers['manufacturers_id'] . '&action=edit') . '\'">' . "\n";
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $manufacturers['manufacturers_id'] . '&action=edit')];
+		echo '                  <tr id="row-' . $rows .'">' . "\n";	
     } else {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $manufacturers['manufacturers_id']) . '\'">' . "\n";
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $manufacturers['manufacturers_id'])];
+		echo '                  <tr id="row-' . $rows .'">' . "\n";	
     } ?>
                 <td><?php echo $manufacturers['manufacturers_name']; ?></td>
                 <td class="text-right"><?php if (isset($mInfo) && is_object($mInfo) && ($manufacturers['manufacturers_id'] == $mInfo->manufacturers_id)) {
@@ -403,6 +410,17 @@ default:
 </div>
 
 <?php
-    require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
-?>
+require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+	echo '<script nonce="' . NONCE . '">' . "\n";
+	$nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+	for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+		echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+		echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+		echo '});' . "\n";
+	}
+	echo '</script>' . "\n";
+}
+
+require 'includes/nice_exit.php';

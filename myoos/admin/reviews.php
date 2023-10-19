@@ -262,6 +262,8 @@ require 'includes/header.php';
 						</tr>	
 					</thead>
 <?php
+	$rows = 0;
+	$aDocument = [];
     $reviewstable = $oostable['reviews'];
       $reviews_result_raw = "SELECT reviews_id, products_id, date_added, last_modified, reviews_rating, reviews_status
                            FROM $reviewstable
@@ -269,6 +271,7 @@ require 'includes/header.php';
       $reviews_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $reviews_result_raw, $reviews_result_numrows);
       $reviews_result = $dbconn->Execute($reviews_result_raw);
       while ($reviews = $reviews_result->fields) {
+		  $rows++;
           if ((!isset($_GET['rID']) || (isset($_GET['rID']) && ($_GET['rID'] == $reviews['reviews_id']))) && !isset($rInfo)) {
               $reviewstable = $oostable['reviews'];
               $reviews_descriptiontable = $oostable['reviews_description'];
@@ -293,9 +296,13 @@ require 'includes/header.php';
           }
 
           if (isset($rInfo) && is_object($rInfo) && ($reviews['reviews_id'] == $rInfo->reviews_id)) {
-              echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=preview') . '\'">' . "\n";
+			$aDocument[] = ['id' => $rows,
+							'link' => oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=preview') ];
+			echo '                  <tr id="row-' . $rows .'">' . "\n";				  
           } else {
-              echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id']) . '\'">' . "\n";
+			$aDocument[] = ['id' => $rows,
+							'link' => oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id'])];
+			echo '                  <tr id="row-' . $rows .'">' . "\n";				  
           } ?>
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id'] . '&action=preview') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . oos_get_products_name($reviews['products_id']); ?></td>
                 <td class="text-right"><?php echo $reviews['reviews_rating']; ?></td>
@@ -391,6 +398,17 @@ require 'includes/header.php';
 </div>
 
 <?php
-    require 'includes/bottom.php';
-    require 'includes/nice_exit.php';
-?>
+require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+	echo '<script nonce="' . NONCE . '">' . "\n";
+	$nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+	for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+		echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+		echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+		echo '});' . "\n";
+	}
+	echo '</script>' . "\n";
+}
+
+require 'includes/nice_exit.php';
