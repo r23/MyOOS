@@ -108,9 +108,9 @@ $products_result = $dbconn->Execute($products_result_raw);
 while ($products = $products_result->fields) {
     $rows++;
 
-	$aDocument[] = ['id' => $rows,
-					'link' => oos_href_link_admin($aContents['products'], 'action=new_product_preview&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_viewed'] . '?page=' . $nPage)];
-	echo '              <tr id="row-' . $rows .'">' . "\n";	
+    $aDocument[] = ['id' => $rows,
+                    'link' => oos_href_link_admin($aContents['products'], 'action=new_product_preview&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_viewed'] . '?page=' . $nPage)];
+    echo '              <tr id="row-' . $rows .'">' . "\n";
 
     if (strlen($rows) < 2) {
         $rows = '0' . $rows;

@@ -1596,9 +1596,9 @@ if ($action == 'new_category' || $action == 'edit_category') {
         if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id)) {
             echo '              <tr>' . "\n";
         } else {
-			$aDocument[] = ['id' => $rows,
-							'link' => oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products['products_id'])];
-			echo '                  <tr id="row-' . $rows .'">' . "\n";				
+            $aDocument[] = ['id' => $rows,
+                            'link' => oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products['products_id'])];
+            echo '                  <tr id="row-' . $rows .'">' . "\n";
         } ?>
                 <td><?php echo '<a href="' . oos_catalog_link($aCatalog['product_info'], 'products_id=' . $products['products_id']) . '" target="_blank" rel="noopener"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . '#' . $products['products_id'] . ' ' . $products['products_name']; ?></td>
                 <td><?php echo oos_get_manufacturers_name($products['products_id']) ?></td>

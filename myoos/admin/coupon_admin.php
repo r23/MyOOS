@@ -1128,7 +1128,7 @@ switch ($action) {
 
 <?php
 
-		$heading = [];
+        $heading = [];
         $contents = [];
 
         switch ($action) {

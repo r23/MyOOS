@@ -247,9 +247,9 @@ while ($products = $products_result->fields) {
     if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id)) {
         echo '              <tr>' . "\n";
     } else {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['wastebasket'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products['products_id'])];
-		echo '                  <tr id="row-' . $rows .'">' . "\n";		
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['wastebasket'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products['products_id'])];
+        echo '                  <tr id="row-' . $rows .'">' . "\n";
     } ?>
                 <td><?php echo '#' . $products['products_id'] . ' ' . $products['products_name']; ?></td>
                 <td><?php echo oos_get_manufacturers_name($products['products_id']) ?></td>
