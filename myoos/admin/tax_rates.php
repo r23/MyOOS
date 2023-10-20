@@ -330,5 +330,13 @@ if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
 
 <?php
     require 'includes/bottom.php';
-require 'includes/nice_exit.php';
 ?>
+<script nonce="<?php echo NONCE; ?>">
+// Add an event listener to the select element
+document.getElementById('page').addEventListener('change', function() { 
+	// Submit the form 
+	this.form.submit(); 
+}); 
+</script>
+<?php
+require 'includes/nice_exit.php';

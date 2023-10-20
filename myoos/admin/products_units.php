@@ -375,4 +375,13 @@ if (isset($aDocument) || !empty($aDocument)) {
     echo '</script>' . "\n";
 }
 
+?>
+<script nonce="<?php echo NONCE; ?>">
+// Add an event listener to the select element
+document.getElementById('page').addEventListener('change', function() { 
+	// Submit the form 
+	this.form.submit(); 
+}); 
+</script>
+<?php
 require 'includes/nice_exit.php';

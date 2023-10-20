@@ -232,7 +232,7 @@ while ($gv_list = $gv_result->fields) {
               </tr>
             </table></td>
 <?php
-    $unique_id = $gInfo->unique_id ?? '';
+$unique_id = $gInfo->unique_id ?? '';
 $date_created = $gInfo->date_created ?? '';
 $amount = $gInfo->amount ?? 0;
 
@@ -283,5 +283,13 @@ if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
 
 <?php
 require 'includes/bottom.php';
-require 'includes/nice_exit.php';
 ?>
+<script nonce="<?php echo NONCE; ?>">
+// Add an event listener to the select element
+document.getElementById('page').addEventListener('change', function() { 
+	// Submit the form 
+	this.form.submit(); 
+}); 
+</script>
+<?php
+require 'includes/nice_exit.php';

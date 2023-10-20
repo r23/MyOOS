@@ -181,7 +181,7 @@ require 'includes/header.php';
                         </tr>
                     </thead>
 <?php
-    $categories_count = 0;
+$categories_count = 0;
 $rows = 0;
 if (isset($_GET['search'])) {
     $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.categories_id = cd.categories_id AND c.categories_status = 0 AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' AND cd.categories_name like '%" . oos_db_input($_GET['search']) . "%' ORDER BY c.sort_order, cd.categories_name");
@@ -219,6 +219,8 @@ while ($categories = $categories_result->fields) {
 }
 
 $products_count = 0;
+$rows = 0;
+$aDocument = [];
 if (isset($_GET['search'])) {
     $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, p.products_quantity, p.products_reorder_level, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_tax_class_id, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_setting, p2c.categories_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_max, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd WHERE p.products_setting = '0' AND p.products_id = pd.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND pd.products_name like '%" . oos_db_input($_GET['search']) . "%' OR p.products_model like '%" . oos_db_input($_GET['search']) . "%' ORDER BY pd.products_name");
 } else {
@@ -245,7 +247,9 @@ while ($products = $products_result->fields) {
     if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id)) {
         echo '              <tr>' . "\n";
     } else {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products['products_id']) . '\'">' . "\n";
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin($aContents['wastebasket'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products['products_id'])];
+		echo '                  <tr id="row-' . $rows .'">' . "\n";		
     } ?>
                 <td><?php echo '#' . $products['products_id'] . ' ' . $products['products_name']; ?></td>
                 <td><?php echo oos_get_manufacturers_name($products['products_id']) ?></td>
@@ -267,7 +271,7 @@ while ($products = $products_result->fields) {
 
             </table></td>
 <?php
-    $heading = [];
+$heading = [];
 $contents = [];
 
 switch ($action) {
@@ -375,5 +379,16 @@ if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
 
 <?php
 require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
+}
+
 require 'includes/nice_exit.php';
-?>

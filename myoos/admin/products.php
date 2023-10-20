@@ -1094,10 +1094,6 @@ updateWithTax();
 					</fieldset>
 <?php
     } ?>
-
-
-
-						
                      </div>
 					 
 					 
@@ -1606,6 +1602,6 @@ if ($q1 < $q0) {
 </div>
 
 <?php
-    require 'includes/bottom.php';
+require 'includes/bottom.php';
+
 require 'includes/nice_exit.php';
-?>

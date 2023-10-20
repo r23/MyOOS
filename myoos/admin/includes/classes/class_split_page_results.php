@@ -106,7 +106,7 @@ class splitPageResults
                 $display_links .= PREVNEXT_BUTTON_PREV . '&nbsp;&nbsp;';
             }
 
-            $display_links .= sprintf(TEXT_RESULT_PAGE, oos_draw_pull_down_menu($page_name, '', $pages_array, '', 'onChange="this.form.submit();"'), $num_pages);
+            $display_links .= sprintf(TEXT_RESULT_PAGE, oos_draw_pull_down_menu($page_name, 'page', $pages_array, ''), $num_pages);
 
             if (($current_page_number < $num_pages) && ($num_pages != 1)) {
                 $display_links .= '&nbsp;&nbsp;<a href="' . oos_href_link_admin(basename($php_self), $parameters . $page_name . '=' . ($current_page_number + 1)) . '" class="splitPageLink">' . PREVNEXT_BUTTON_NEXT . '</a>';

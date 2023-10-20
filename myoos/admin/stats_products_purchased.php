@@ -90,7 +90,8 @@ if (isset($nPage) && ($nPage > 1)) {
     $rows = $nPage * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
 }
 
-  $productstable = $oostable['products'];
+$aDocument = [];
+$productstable = $oostable['products'];
 $products_dscriptiontable = $oostable['products_description'];
 $products_sql_raw = "SELECT p.products_id, p.products_ordered, pd.products_name
                          FROM $productstable p,
@@ -105,10 +106,14 @@ $products_result = $dbconn->Execute($products_sql_raw);
 while ($products = $products_result->fields) {
     $rows++;
 
+	$aDocument[] = ['id' => $rows,
+					'link' => oos_href_link_admin($aContents['products'], 'action=new_product_preview&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_purchased'] . '?page=' . $nPage)];
+	echo '              <tr id="row-' . $rows .'">' . "\n";	
+
+
     if (strlen($rows) < 2) {
         $rows = '0' . $rows;
     } ?>
-              <tr onclick="document.location.href='<?php echo oos_href_link_admin($aContents['products'], 'action=new_product_preview&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_purchased'] . '?page=' . $nPage); ?>'">
                 <td class="dataTableContent"><?php echo $rows; ?>.</td>
                 <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'action=new_product_preview&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_purchased'] . '?page=' . $nPage) . '">' . $products['products_name'] . '</a>'; ?></td>
                 <td class="dataTableContent" align="center"><?php echo $products['products_ordered']; ?>&nbsp;</td>
@@ -147,6 +152,26 @@ while ($products = $products_result->fields) {
 
 
 <?php
-    require 'includes/bottom.php';
-require 'includes/nice_exit.php';
+require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
+}
+
 ?>
+<script nonce="<?php echo NONCE; ?>">
+// Add an event listener to the select element
+document.getElementById('page').addEventListener('change', function() { 
+	// Submit the form 
+	this.form.submit(); 
+}); 
+</script>
+<?php
+require 'includes/nice_exit.php';
