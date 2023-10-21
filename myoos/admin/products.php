@@ -37,6 +37,7 @@ $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 switch ($action) {
     case 'insert_product':
     case 'update_product':
+	
         $_POST['products_price'] = str_replace(',', '.', (string) $_POST['products_price']);
         $_POST['products_price_list'] = str_replace(',', '.', (string) $_POST['products_price_list']);
         $_POST['products_discount1'] = str_replace(',', '.', (string) $_POST['products_discount1']);
@@ -602,7 +603,9 @@ function calcBasePriceFactor() {
 	</div>
 	<!-- END Breadcrumbs //-->
 
-	<?php echo oos_draw_form('id', 'new_product', $aContents['products'], 'cPath=' . oos_prepare_input($cPath) . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=' . $form_action, 'post', false, 'enctype="multipart/form-data"'); ?>
+	<?php
+
+	echo oos_draw_form('id', 'new_product', $aContents['products'], 'cPath=' . oos_prepare_input($cPath) . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=' . $form_action, 'post', false, 'enctype="multipart/form-data"'); ?>
 		<?php echo oos_draw_hidden_field('products_date_added', ($pInfo->products_date_added ?: date('Y-m-d')));
     echo oos_hide_session_id(); ?>
                <div role="tabpanel">
@@ -1453,7 +1456,7 @@ if ($q1 < $q0) {
               </tr>
               <tr>
 <?php
-  echo '      <td class="DiscountPriceQty" align="center">';
+    echo '      <td class="DiscountPriceQty" align="center">';
     echo(($q1 - 1) > $q0 ? $q0 . '-' . ($q1 - 1) : $q0);
     echo '      </td>';
 

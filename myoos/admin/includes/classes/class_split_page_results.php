@@ -98,7 +98,7 @@ class splitPageResults
 
         $php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
         if ($num_pages > 1) {
-            $display_links = oos_draw_form('id', 'pages', basename($php_self), '', 'get', false);
+            $display_links = oos_draw_form('pages', 'pages', basename($php_self), '', 'get', false);
 
             if ($current_page_number > 1) {
                 $display_links .= '<a href="' . oos_href_link_admin(basename($php_self), $parameters . $page_name . '=' . ($current_page_number - 1)) . '" class="splitPageLink">' . PREVNEXT_BUTTON_PREV . '</a>&nbsp;&nbsp;';

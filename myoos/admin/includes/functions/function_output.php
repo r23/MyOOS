@@ -299,7 +299,7 @@ function oos_is_zone_list($country, $form, $field)
 function oos_draw_form($id, $name, $action, $parameters = '', $method = 'post', $parsley_validate = true, $params = '')
 {
 
-    $form = '<form name="' . oos_output_string($name) . '" action="';
+    $form = '<form id="' . oos_output_string($id) . '" name="' . oos_output_string($name) . '" action="';
     if (oos_is_not_null($parameters)) {
         $form .= oos_href_link_admin($action, $parameters);
     } else {
