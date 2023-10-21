@@ -461,12 +461,15 @@ if ($action == 'new') {
 require 'includes/bottom.php';
 ?>
 <script nonce="<?php echo NONCE; ?>">
-var form = document.getElementById('pages'); 
-var select = document.getElementById('page'); 
+let element = document.getElementById('page');
+if (element) {
 
-select.addEventListener('change', function() { 
-	form.submit(); 
-});
+	let form = document.getElementById('pages'); 
+
+	element.addEventListener('change', function() { 
+		form.submit(); 
+	});
+}
 </script>
 <?php
 
