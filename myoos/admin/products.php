@@ -1382,14 +1382,13 @@ updateWithTax();
 
     $pInfo = new objectInfo($product);
     $products_image_name = $pInfo->products_image;
-
     $aLanguages = oos_get_languages();
     $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
 
     for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-        $pInfo->products_name = oos_get_products_name($pInfo->products_id);
-        $pInfo->products_description = oos_get_products_description($pInfo->products_id, $aLanguages[$i]['id']);
-        $pInfo->products_description_meta = oos_get_products_description_meta($pInfo->products_id, $aLanguages[$i]['id']);
+        $pInfo->products_name = oos_get_products_name($pID);
+        $pInfo->products_description = oos_get_products_description($pID, $aLanguages[$i]['id']);
+        $pInfo->products_description_meta = oos_get_products_description_meta($pID, $aLanguages[$i]['id']);
         $pInfo->products_url = oos_get_products_url($pInfo->products_id, $aLanguages[$i]['id']);
     } ?>
 <!-- body_text //-->

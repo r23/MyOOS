@@ -1536,6 +1536,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
             $cInfo_array = array_merge($categories, $category_childs, $category_products);
             $cInfo = new objectInfo($cInfo_array);
         }
+
         if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id)) {
             $aDocument[] = ['id' => $rows,
                             'link' => oos_href_link_admin($aContents['categories'], oos_get_path($categories['categories_id']))	];
@@ -1568,8 +1569,6 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
 
     $products_count = 0;
-    $rows = 0;
-    $aDocument = [];
     if (isset($_GET['search'])) {
         $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, p.products_quantity, p.products_reorder_level, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_tax_class_id, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_setting, p2c.categories_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_max, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd, " . $oostable['products_to_categories'] . " p2c WHERE p.products_id = pd.products_id AND products_setting != 0 AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND p.products_id = p2c.products_id AND pd.products_name like '%" . oos_db_input($_GET['search']) . "%' OR p.products_model like '%" . oos_db_input($_GET['search']) . "%' ORDER BY pd.products_name");
     } else {
