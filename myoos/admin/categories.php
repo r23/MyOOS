@@ -1916,6 +1916,7 @@ if (isset($aDocument) || !empty($aDocument)) {
     }
     echo '</script>' . "\n";
 }
+
 ?>
 <script nonce="<?php echo NONCE; ?>">
 // Add an event listener to the select element

@@ -531,7 +531,7 @@ if (($action == 'edit') && ($order_exists == true)) {
                         <?php echo oos_draw_form('id', 'status', $aContents['orders'], '', 'get', false, 'class="form-inline"'); ?>
                             <div class="dataTables_filter">            
                                 <label><?php echo HEADING_TITLE_STATUS; ?></label>
-                                <?php echo oos_draw_pull_down_menu('status', '', [['id' => '', 'text' => TEXT_ALL_ORDERS], ...$orders_statuses], '', 'onChange="this.form.submit();"'); ?>
+                                <?php echo oos_draw_pull_down_menu('status', 'orders-status', [['id' => '', 'text' => TEXT_ALL_ORDERS], ...$orders_statuses], ''); ?>
                             </div>                            
                         </form>                
                     </div>
@@ -559,8 +559,12 @@ if (($action == 'edit') && ($order_exists == true)) {
                     <tbody>
           
     <?php
+	$rows = 0;
+	$aDocument = [];
     if (isset($_GET['cID'])) {
-        $cID = oos_db_prepare_input($_GET['cID']);
+
+
+		$cID = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);		
 
         $orderstable = $oostable['orders'];
         $orders_totaltable = $oostable['orders_total'];
@@ -611,14 +615,20 @@ if (($action == 'edit') && ($order_exists == true)) {
     $orders_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $orders_result_raw, $orders_result_numrows);
     $orders_result = $dbconn->Execute($orders_result_raw);
     while ($orders = $orders_result->fields) {
+		$rows++;
+		
         if ((!isset($_GET['oID']) || (isset($_GET['oID']) && ($_GET['oID'] == $orders['orders_id']))) && !isset($oInfo)) {
             $oInfo = new objectInfo($orders);
         }
 
         if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id)) {
-            echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $oInfo->orders_id . '&action=edit') . '\'">' . "\n";
+			$aDocument[] = ['id' => $rows,
+							'link' => oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $oInfo->orders_id . '&action=edit') ];
+			echo '              <tr id="row-' . $rows .'">' . "\n";		
         } else {
-            echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID']) . 'oID=' . $orders['orders_id']) . '\'">' . "\n";
+			$aDocument[] = ['id' => $rows,
+							'link' => oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID']) . 'oID=' . $orders['orders_id'])];
+			echo '              <tr id="row-' . $rows .'">' . "\n";				
         } ?>
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $orders['orders_id'] . '&action=edit') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . $orders['customers_name']; ?></td>
                 <td class="text-right"><?php echo strip_tags((string) $orders['order_total']); ?></td>
@@ -709,6 +719,18 @@ if (($action == 'edit') && ($order_exists == true)) {
 <?php
 
 require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
+}
+
 ?>
 <script nonce="<?php echo NONCE; ?>">
 let element = document.getElementById('page');
@@ -720,6 +742,13 @@ if (element) {
 		form.submit(); 
 	});
 }
+
+// Add an event listener to the select element
+document.getElementById('orders-status').addEventListener('change', function() { 
+	// Submit the form 
+	this.form.submit(); 
+}); 
+
 </script>
 <?php
 

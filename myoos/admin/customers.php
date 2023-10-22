@@ -678,8 +678,7 @@ function check_form() {
 						<?php echo oos_draw_form('id', 'status', $aContents['customers'], '', 'get', false, 'class="form-inline"'); ?>
 							<div class="dataTables_filter">			
 								<label><?php echo HEADING_TITLE_STATUS; ?></label>
-								<?php echo oos_draw_pull_down_menu('status', '', array_merge([['id' => '0', 'text' => TEXT_ALL_CUSTOMERS]], $customers_statuses_array), '0', 'onChange="this.form.submit();"'); ?>
-
+								<?php echo oos_draw_pull_down_menu('status', 'customers-status', array_merge([['id' => '0', 'text' => TEXT_ALL_CUSTOMERS]], $customers_statuses_array), '0'); ?>
 							</div>							
 						</form>				
 					</div>
@@ -707,7 +706,10 @@ function check_form() {
 						</tr>	
 					</thead>
 <?php
-    $search = '';
+	$rows = 0;
+	$aDocument = [];
+
+      $search = '';
       if (isset($_GET['search']) && oos_is_not_null($_GET['search'])) {
           $keywords = filter_string_polyfill(filter_input(INPUT_GET, 'search'));
           $search = "WHERE c.customers_lastname like '%" . $keywords . "%' or c.customers_firstname like '%" . oos_db_input($keywords) . "%' or c.customers_email_address like '%" . oos_db_input($keywords) . "'";
@@ -732,6 +734,7 @@ function check_form() {
       $customers_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $customers_result_raw, $customers_result_numrows);
       $customers_result = $dbconn->Execute($customers_result_raw);
       while ($customers = $customers_result->fields) {
+		  $rows++;
           $customers_infotable = $oostable['customers_info'];
           $info_result = $dbconn->Execute("SELECT customers_info_date_account_created AS date_account_created,
                                               customers_info_date_account_last_modified AS date_account_last_modified,
@@ -761,9 +764,13 @@ function check_form() {
           }
 
           if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id)) {
-              echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID', 'action']) . 'cID=' . $cInfo->customers_id . '&action=edit') . '\'">' . "\n";
+				$aDocument[] = ['id' => $rows,
+								'link' => oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID', 'action']) . 'cID=' . $cInfo->customers_id . '&action=edit')];
+				echo '              <tr id="row-' . $rows .'">' . "\n";
           } else {
-              echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID']) . 'cID=' . $customers['customers_id']) . '\'">' . "\n";
+				$aDocument[] = ['id' => $rows,
+								'link' => oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID']) . 'cID=' . $customers['customers_id'])];
+				echo '              <tr id="row-' . $rows .'">' . "\n";
           } ?>
                 <td><?php echo $customers['customers_lastname']; ?></td>
                 <td><?php echo $customers['customers_firstname']; ?></td>
@@ -812,7 +819,7 @@ function check_form() {
               </tr>
             </table></td>
 <?php
-  $heading = [];
+      $heading = [];
       $contents = [];
 
       switch ($action) {
@@ -930,6 +937,18 @@ function check_form() {
 <?php
 
 require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
+}
+
 ?>
 <script nonce="<?php echo NONCE; ?>">
 let element = document.getElementById('page');
@@ -941,6 +960,13 @@ if (element) {
 		form.submit(); 
 	});
 }
+
+// Add an event listener to the select element
+document.getElementById('customers-status').addEventListener('change', function() { 
+	// Submit the form 
+	this.form.submit(); 
+}); 
+
 </script>
 <?php
 

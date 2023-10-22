@@ -92,7 +92,9 @@ require 'includes/header.php';
 if (isset($nPage) && ($nPage > 1)) {
     $rows = $nPage * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
 }
-  $customerstable = $oostable['customers'];
+$aDocument = [];
+
+$customerstable = $oostable['customers'];
 $orders_productstable = $oostable['orders_products'];
 $orderstable = $oostable['orders'];
 $customers_sql_raw = "SELECT c.customers_firstname, c.customers_lastname,
@@ -118,10 +120,13 @@ $customers_result = $dbconn->Execute($customers_sql_raw);
 while ($customers = $customers_result->fields) {
     $rows++;
 
+    $aDocument[] = ['id' => $rows,
+                    'link' => oos_href_link_admin($aContents['customers'], 'search=' . $customers['customers_lastname'])];
+    echo '              <tr id="row-' . $rows .'">' . "\n";
+
     if (strlen($rows) < 2) {
         $rows = '0' . $rows;
     } ?>
-              <tr onclick="document.location.href='<?php echo oos_href_link_admin($aContents['customers'], 'search=' . $customers['customers_lastname']); ?>'">
                 <td><?php echo $rows; ?>.</td>
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['customers'], 'search=' . $customers['customers_lastname']) . '">' . $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . '</a>'; ?></td>
                 <td class="text-right"><?php echo $currencies->format($customers['ordersum']); ?>&nbsp;</td>
@@ -161,6 +166,18 @@ while ($customers = $customers_result->fields) {
 <?php
 
 require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
+}
+
 ?>
 <script nonce="<?php echo NONCE; ?>">
 let element = document.getElementById('page');
