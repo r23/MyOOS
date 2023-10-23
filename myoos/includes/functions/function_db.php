@@ -184,7 +184,7 @@ function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '')
         foreach (array_keys($data) as $columns) {
             $query .= $columns . ', ';
         }
-        $query = substr($query, 0, -2) . ') values (';
+        $query = substr($query, 0, -2) . ') VALUES (';
         reset($data);
         foreach ($data as $value) {
             switch ((string)$value) {
@@ -193,7 +193,7 @@ function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '')
                 break;
 
             case 'null':
-                $query .= 'null, ';
+                $query .= 'NULL, ';
                 break;
 
             default:
@@ -204,7 +204,7 @@ function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '')
         }
         $query = substr($query, 0, -2) . ')';
     } elseif ($action == 'UPDATE') {
-        $query = 'UPDATE ' . $table . ' set ';
+        $query = 'UPDATE ' . $table . ' SET ';
         foreach ($data as $columns => $value) {
             switch ((string)$value) {
             case 'now()':
@@ -212,7 +212,7 @@ function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '')
                 break;
 
             case 'null':
-                $query .= $columns .= ' = null, ';
+                $query .= $columns .= ' = NULL, ';
                 break;
 
             default:
@@ -221,7 +221,7 @@ function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '')
                 break;
             }
         }
-        $query = substr($query, 0, -2) . ' where ' . $parameters;
+        $query = substr($query, 0, -2) . ' WHERE ' . $parameters;
     }
 
     return $dbconn->Execute($query);

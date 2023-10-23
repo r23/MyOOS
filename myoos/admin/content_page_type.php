@@ -103,6 +103,7 @@ switch ($action) {
                 oos_db_perform($oostable['page_type'], $sql_data_array, 'UPDATE', "page_type_id = '" . oos_db_input($page_type_id) . "' and page_type_languages_id = '" . intval($language_id) . "'");
             }
         }
+
         oos_redirect_admin(oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $page_type_id));
         break;
 

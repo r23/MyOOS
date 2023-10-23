@@ -714,7 +714,7 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "page_type (page_type_id
 $result = $db->Execute("INSERT INTO " . $prefix_table . "page_type (page_type_id, page_type_languages_id, page_type_name) VALUES (8, 2, 'Account')") or die("<b>".NOTUPDATED . $prefix_table . "page_type</b>");
 
 $result = $db->Execute("INSERT INTO " . $prefix_table . "page_type (page_type_id, page_type_languages_id, page_type_name) VALUES (9, 1, 'Meinungen: Produkte')") or die("<b>".NOTUPDATED . $prefix_table . "page_type</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "page_type (page_type_id, page_type_languages_id, page_type_name) VALUES (9, 6, 'Reviews: Products')") or die("<b>".NOTUPDATED . $prefix_table . "page_type</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "page_type (page_type_id, page_type_languages_id, page_type_name) VALUES (9, 2, 'Reviews: Products')") or die("<b>".NOTUPDATED . $prefix_table . "page_type</b>");
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "page_type " . UPDATED .'</font>';
 
