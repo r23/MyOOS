@@ -181,7 +181,11 @@ require 'includes/header.php';
 						</tr>
 					</thead>
 <?php
-   $blocktable = $oostable['block'];
+
+$rows = 0;
+$aDocument = [];
+
+$blocktable = $oostable['block'];
 $block_infotable = $oostable['block_info'];
 $block_content_result_raw = "SELECT b.block_id, bi.block_name, b.block_side, b.block_file, b.block_sort_order,
                                        b.block_status, b.block_login_flag, b.block_cache, b.date_added,
@@ -194,10 +198,21 @@ $block_content_result_raw = "SELECT b.block_id, bi.block_name, b.block_side, b.b
 $block_content_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $block_content_result_raw, $block_content_result_numrows);
 $block_content_result = $dbconn->Execute($block_content_result_raw);
 while ($block = $block_content_result->fields) {
+	$rows++;
     if ((!isset($_GET['bID']) || (isset($_GET['bID']) && ($_GET['bID'] == $block['block_id']))) && !isset($bInfo) && (!str_starts_with((string) $action, 'new'))) {
         $bInfo = new objectInfo($block);
-    } ?>
-			<tr>
+    } 
+	
+	
+    if (isset($bInfo) && is_object($bInfo) && ($block['block_id'] == $bInfo->block_id)) {
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id . '&action=edit')];
+		echo '              <tr id="row-' . $rows .'">' . "\n";		
+    } else {
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $block['block_id'])];
+		echo '              <tr id="row-' . $rows .'">' . "\n";			
+    } ?>	
                 <td><?php echo $block['block_name']; ?></td>
                 <td class="text-center"><?php echo $block['block_side']; ?></td>
                 <td class="text-center"><?php echo $block['block_sort_order']; ?></td>
@@ -245,7 +260,8 @@ while ($block = $block_content_result->fields) {
 ?>
             </table></td>
 <?php
-  $heading = [];
+
+$heading = [];
 $contents = [];
 
 $block_status_array = [];
@@ -291,18 +307,7 @@ switch ($action) {
             $block_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('block_name[' . $languages[$i]['id'] . ']', oos_get_block_name($bInfo->block_id, $languages[$i]['id']));
         }
 
-        // Allowed values for $bInfo->set_function
-        $whitelist = ['oos_cfg_select_option', 'oos_cfg_pull_down_order_statuses', 'oos_cfg_get_order_status_name', 'oos_cfg_pull_down_zone_classes', 'pull_down_country_list'];
-
-        // Check if $bInfo->set_function is in the whitelist
-        if (in_array($bInfo->set_function, $whitelist)) {
-            // Evaluation of the code
-            eval('$value_field = ' . $bInfo->set_function . '"' . htmlspecialchars((string)$bInfo->block_side, ENT_QUOTES, 'UTF-8') . '");');
-        } else {
-            die('Invalid value for $cInfo->set_function: '.$bInfo->set_function);
-        }
-
-        # eval('$value_field = ' . $bInfo->set_function . '"' . htmlspecialchars((string)$bInfo->block_side, ENT_QUOTES, 'UTF-8') . '");');
+        eval('$value_field = ' . $bInfo->set_function . '"' . htmlspecialchars((string)$bInfo->block_side, ENT_QUOTES, 'UTF-8') . '");');
 
         $contents[] = ['text' => '<br>' . TEXT_BLOCK_NAME . $block_inputs_string];
         $contents[] = ['text' => '<br><b>' . TEXT_BLOCK_FUNCTION . ':</b><br>' . oos_draw_input_field('function', $bInfo->block_file)];
@@ -376,6 +381,18 @@ if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
 <?php
 
 require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
+}
+
 ?>
 <script nonce="<?php echo NONCE; ?>">
 let element = document.getElementById('page');

@@ -216,7 +216,11 @@ require 'includes/header.php';
                         </tr>    
                     </thead>    
 <?php
-  $orders_statustable = $oostable['orders_status'];
+
+$rows = 0;
+$aDocument = [];
+
+$orders_statustable = $oostable['orders_status'];
 $orders_status_result_raw = "SELECT orders_status_id, orders_status_name
                                FROM $orders_statustable
                               WHERE orders_languages_id = '" . intval($_SESSION['language_id']) . "'
@@ -224,14 +228,19 @@ $orders_status_result_raw = "SELECT orders_status_id, orders_status_name
 $orders_status_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $orders_status_result_raw, $orders_status_result_numrows);
 $orders_status_result = $dbconn->Execute($orders_status_result_raw);
 while ($orders_status = $orders_status_result->fields) {
+	$rows++;
     if ((!isset($_GET['oID']) || (isset($_GET['oID']) && ($_GET['oID'] == $orders_status['orders_status_id']))) && !isset($oInfo) && (!str_starts_with((string) $action, 'new'))) {
         $oInfo = new objectInfo($orders_status);
     }
 
     if (isset($oInfo) && is_object($oInfo) && ($orders_status['orders_status_id'] == $oInfo->orders_status_id)) {
-        echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['orders_status'], 'page=' . $nPage . '&oID=' . $oInfo->orders_status_id . '&action=edit') . '\'">' . "\n";
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin($aContents['orders_status'], 'page=' . $nPage . '&oID=' . $oInfo->orders_status_id . '&action=edit')];
+		echo '              <tr id="row-' . $rows .'">' . "\n";		
     } else {
-        echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['orders_status'], 'page=' . $nPage . '&oID=' . $orders_status['orders_status_id']) . '\'">' . "\n";
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin($aContents['orders_status'], 'page=' . $nPage . '&oID=' . $orders_status['orders_status_id'])];
+		echo '              <tr id="row-' . $rows .'">' . "\n";	
     }
 
     if (DEFAULT_ORDERS_STATUS_ID == $orders_status['orders_status_id']) {
@@ -373,6 +382,18 @@ if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
 <?php
 
 require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
+}
+
 ?>
 <script nonce="<?php echo NONCE; ?>">
 let element = document.getElementById('page');
