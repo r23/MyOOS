@@ -216,7 +216,11 @@ require 'includes/header.php';
 						</tr>	
 					</thead>			
 <?php
+  $rows = 0;
+  $aDocument = [];
+
   foreach ($aDirectory as $sName) {
+	  $rows++;
       if (isset($_SESSION['language']) &&  file_exists(OOS_ABSOLUTE_PATH . 'includes/plugins/' . $sName . '/lang/' . $_SESSION['language'] . '.php')) {
           include OOS_ABSOLUTE_PATH . 'includes/plugins/' .  $sName . '/lang/' . $_SESSION['language'] . '.php';
       } elseif (file_exists(OOS_ABSOLUTE_PATH . 'includes/plugins/' .  $sName . '/lang/' . DEFAULT_LANGUAGE . '.php')) {
@@ -258,7 +262,9 @@ require 'includes/header.php';
       if (isset($pInfo) && is_object($pInfo) && ($sInstance == $pInfo->instance)) {
           echo '              <tr class="dataTableRowSelected">' . "\n";
       } else {
-          echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $sInstance) . '\'">' . "\n";
+			$aDocument[] = ['id' => $rows,
+							'link' => oos_href_link_admin($aContents['plugins'], 'plugin=' . $sInstance)];
+			echo '              <tr id="row-' . $rows .'">' . "\n";
       } ?>
 
                 <td><?php echo $oPlugin->name; ?></td>
@@ -289,7 +295,8 @@ require 'includes/header.php';
             </table></td>
 
 <?php
-  $heading = [];
+
+$heading = [];
 $contents = [];
 
 switch ($action) {
@@ -407,6 +414,18 @@ if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
 </div>
 
 <?php
-    require 'includes/bottom.php';
+require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
+}
+
 require 'includes/nice_exit.php';
-?>
+

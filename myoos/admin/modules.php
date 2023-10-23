@@ -181,7 +181,8 @@ require 'includes/header.php';
 						</tr>	
 					</thead>
 <?php
-    $php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
+
+$php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
 $file_extension = substr($php_self, strrpos($php_self, '.'));
 $directory_array = [];
 if ($oDir = @dir($module_directory)) {
@@ -197,7 +198,10 @@ if ($oDir = @dir($module_directory)) {
 }
 
 $installed_modules = [];
+$rows = 0;
+$aDocument = [];
 for ($i = 0, $n = count($directory_array); $i < $n; $i++) {
+	$rows = $i;
     $file = $directory_array[$i];
 
     include OOS_ABSOLUTE_PATH . 'includes/languages/' . $_SESSION['language'] . '/modules/' . $module_type . '/' . $file;
@@ -238,12 +242,16 @@ for ($i = 0, $n = count($directory_array); $i < $n; $i++) {
 
         if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code)) {
             if ($module->check() > 0) {
-                echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=edit') . '\'">' . "\n";
+				$aDocument[] = ['id' => $rows,
+								'link' => oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=edit')];
+				echo '              <tr id="row-' . $rows .'">' . "\n";				
             } else {
                 echo '              <tr class="dataTableRowSelected">' . "\n";
             }
         } else {
-            echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class) . '\'">' . "\n";
+			$aDocument[] = ['id' => $rows,
+							'link' => oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class)];
+			echo '              <tr id="row-' . $rows .'">' . "\n";			
         }
 
         if (DEFAULT_SHIPPING_METHOD == $module->code) {
@@ -387,6 +395,17 @@ if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
 </div>
 
 <?php
-    require 'includes/bottom.php';
+require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
+}
+
 require 'includes/nice_exit.php';
-?>
