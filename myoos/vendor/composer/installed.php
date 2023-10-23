@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'b95822dc7587434a25e4b6d9b573b278ed169de3',
+        'reference' => '67bcf32e5ef64bc2cfc4baed5d2ad1f5c3b9a144',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -202,7 +202,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'b95822dc7587434a25e4b6d9b573b278ed169de3',
+            'reference' => '67bcf32e5ef64bc2cfc4baed5d2ad1f5c3b9a144',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -260,9 +260,9 @@
             'dev_requirement' => false,
         ),
         'php-amqplib/php-amqplib' => array(
-            'pretty_version' => 'v3.5.4',
-            'version' => '3.5.4.0',
-            'reference' => '1aecbd182b35eb039667c50d7d92d71f105be779',
+            'pretty_version' => 'v3.6.0',
+            'version' => '3.6.0.0',
+            'reference' => 'fb84e99589de0904a25861451b0552f806284ee5',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php-amqplib/php-amqplib',
             'aliases' => array(),
@@ -1095,7 +1095,7 @@
         'videlalvaro/php-amqplib' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v3.5.4',
+                0 => 'v3.6.0',
             ),
         ),
         'willdurand/negotiation' => array(

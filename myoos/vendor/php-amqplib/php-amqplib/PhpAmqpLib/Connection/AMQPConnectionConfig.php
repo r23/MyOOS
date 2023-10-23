@@ -70,7 +70,10 @@ final class AMQPConnectionConfig
     /** @var bool */
     private $isSecure = false;
 
-    /** @var string */
+    /**
+     * @deprecated Use sslCryptoMethod
+     * @var string
+     */
     private $networkProtocol = 'tcp';
 
     /** @var resource|null */
@@ -119,6 +122,9 @@ final class AMQPConnectionConfig
 
     /** @var int|null */
     private $sslSecurityLevel;
+
+    /** @var int|null */
+    private $sslCryptoMethod;
 
     /** @var string */
     private $connectionName = '';
@@ -333,13 +339,27 @@ final class AMQPConnectionConfig
     public function setIsSecure(bool $isSecure): void
     {
         $this->isSecure = $isSecure;
+
+        if ($this->isSecure) {
+            $this->networkProtocol = 'tls';
+            $this->sslCryptoMethod = STREAM_CRYPTO_METHOD_ANY_CLIENT;
+        } else {
+            $this->networkProtocol = 'tcp';
+            $this->sslCryptoMethod = null;
+        }
     }
 
+    /**
+     * @deprecated Use getSslCryptoMethod()
+     */
     public function getNetworkProtocol(): string
     {
         return $this->networkProtocol;
     }
 
+    /**
+     * @deprecated Use setIsSecure() and setSslCryptoMethod()
+     */
     public function setNetworkProtocol(string $networkProtocol): void
     {
         self::assertStringNotEmpty($networkProtocol, 'network protocol');
@@ -472,6 +492,10 @@ final class AMQPConnectionConfig
     public function setSslVerify(?bool $sslVerify): void
     {
         $this->sslVerify = $sslVerify;
+
+        if (!$this->sslVerify) {
+            $this->setSslVerifyName(false);
+        }
     }
 
     public function getSslVerifyName(): ?bool
@@ -512,6 +536,16 @@ final class AMQPConnectionConfig
     public function setSslSecurityLevel(?int $sslSecurityLevel): void
     {
         $this->sslSecurityLevel = $sslSecurityLevel;
+    }
+
+    public function getSslCryptoMethod(): ?int
+    {
+        return $this->sslCryptoMethod;
+    }
+
+    public function setSslCryptoMethod(?int $sslCryptoMethod): void
+    {
+        $this->sslCryptoMethod = $sslCryptoMethod;
     }
 
     public function isDebugPackets(): bool

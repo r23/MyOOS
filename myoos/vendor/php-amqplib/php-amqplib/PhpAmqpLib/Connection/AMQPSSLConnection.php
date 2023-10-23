@@ -12,7 +12,6 @@ class AMQPSSLConnection extends AMQPStreamConnection
      * @param string $vhost
      * @param array $ssl_options
      * @param array $options
-     * @param string $ssl_protocol
      * @param AMQPConnectionConfig|null $config
      * @throws \Exception
      */
@@ -24,7 +23,6 @@ class AMQPSSLConnection extends AMQPStreamConnection
         $vhost = '/',
         $ssl_options = array(),
         $options = array(),
-        $ssl_protocol = 'ssl',
         ?AMQPConnectionConfig $config = null
     ) {
         if (empty($ssl_options)) {
@@ -33,6 +31,7 @@ class AMQPSSLConnection extends AMQPStreamConnection
         } else {
             $ssl_context = $this->createSslContext($ssl_options);
         }
+
         parent::__construct(
             $host,
             $port,
@@ -49,7 +48,6 @@ class AMQPSSLConnection extends AMQPStreamConnection
             isset($options['keepalive']) ? $options['keepalive'] : false,
             isset($options['heartbeat']) ? $options['heartbeat'] : 0,
             isset($options['channel_rpc_timeout']) ? $options['channel_rpc_timeout'] : 0.0,
-            $ssl_protocol,
             $config
         );
     }
@@ -72,6 +70,8 @@ class AMQPSSLConnection extends AMQPStreamConnection
     {
         $ssl_context = stream_context_create();
         foreach ($options as $k => $v) {
+            // Note: 'ssl' applies to 'tls' as well
+            // https://www.php.net/manual/en/context.ssl.php
             stream_context_set_option($ssl_context, 'ssl', $k, $v);
         }
 
