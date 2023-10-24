@@ -115,20 +115,28 @@ require 'includes/header.php';
 						</tr>	
 					</thead>
 <?php
-  $countries_result_raw = "SELECT countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id 
+
+$rows = 0;
+$aDocument = [];
+$countries_result_raw = "SELECT countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id 
                           FROM " . $oostable['countries'] . " 
                           ORDER BY countries_name";
 $countries_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $countries_result_raw, $countries_result_numrows);
 $countries_result = $dbconn->Execute($countries_result_raw);
 while ($countries = $countries_result->fields) {
+	$rows++;
     if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $countries['countries_id']))) && !isset($cInfo) && (!str_starts_with((string) $action, 'new'))) {
         $cInfo = new objectInfo($countries);
     }
 
     if (isset($cInfo) && is_object($cInfo) && ($countries['countries_id'] == $cInfo->countries_id)) {
-        echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['countries'], 'page=' . $nPage . '&cID=' . $cInfo->countries_id . '&action=edit') . '\'">' . "\n";
+		$aDocument[] = ['id' => $rows,
+					'link' => oos_href_link_admin($aContents['countries'], 'page=' . $nPage . '&cID=' . $cInfo->countries_id . '&action=edit')];
+		echo '              <tr id="row-' . $rows .'">' . "\n";
     } else {
-        echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['countries'], 'page=' . $nPage . '&cID=' . $countries['countries_id']) . '\'">' . "\n";
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin($aContents['countries'], 'page=' . $nPage . '&cID=' . $countries['countries_id'])];
+		echo '              <tr id="row-' . $rows .'">' . "\n"; 
     } ?>
                 <td><?php echo $countries['countries_name']; ?></td>
                 <td align="center" width="40"><?php echo $countries['countries_iso_code_2']; ?></td>
@@ -250,6 +258,18 @@ if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
 <?php
 
 require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
+}
+
 ?>
 <script nonce="<?php echo NONCE; ?>">
 let element = document.getElementById('page');

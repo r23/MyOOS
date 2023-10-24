@@ -278,20 +278,27 @@ if (empty($saction)) {
 						</tr>	
 					</thead>
 <?php
-    $geo_zonestable = $oostable['geo_zones'];
+	  $rows = 0;
+	  $aDocument = [];
+	  $geo_zonestable = $oostable['geo_zones'];
       $zones_result_raw = "SELECT geo_zone_id, geo_zone_name, geo_zone_description, last_modified, date_added 
                         FROM $geo_zonestable
                         ORDER BY geo_zone_name";
       $zones_split = new splitPageResults($nzPage, MAX_DISPLAY_SEARCH_RESULTS, $zones_result_raw, $zones_result_numrows);
       $zones_result = $dbconn->Execute($zones_result_raw);
       while ($zones = $zones_result->fields) {
+		  $rows++;
           if ((!isset($_GET['zID']) || (isset($_GET['zID']) && ($_GET['zID'] == $zones['geo_zone_id']))) && !isset($zInfo) && (!str_starts_with((string) $action, 'new'))) {
               $zInfo = new objectInfo($zones);
           }
           if (isset($zInfo) && is_object($zInfo) && ($zones['geo_zone_id'] == $zInfo->geo_zone_id)) {
-              echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zInfo->geo_zone_id . '&action=list') . '\'">' . "\n";
+              $aDocument[] = ['id' => $rows,
+							'link' => oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zInfo->geo_zone_id . '&action=list')];
+              echo '              <tr id="row-' . $rows .'">' . "\n";
           } else {
-              echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zones['geo_zone_id']) . '\'">' . "\n";
+              $aDocument[] = ['id' => $rows,
+							'link' => oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zones['geo_zone_id'])];
+              echo '              <tr id="row-' . $rows .'">' . "\n";
           } ?>
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zones['geo_zone_id'] . '&action=list') . '"><i class="fa fa-folder"></i></button></a>&nbsp;' . $zones['geo_zone_name']; ?></td>
                 <td class="text-right"><?php if (isset($zInfo) && is_object($zInfo) && ($zones['geo_zone_id'] == $zInfo->geo_zone_id)) {
@@ -456,6 +463,18 @@ if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
 <?php
 
 require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
+}
+
 ?>
 <script nonce="<?php echo NONCE; ?>">
 let element = document.getElementById('page');
