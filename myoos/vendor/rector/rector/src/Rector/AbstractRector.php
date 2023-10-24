@@ -85,7 +85,7 @@ CODE_SAMPLE;
     /**
      * @var \Rector\Skipper\Skipper\Skipper
      */
-    private $skipper;
+    protected $skipper;
     /**
      * @var \Rector\Core\Provider\CurrentFileProvider
      */
@@ -242,7 +242,7 @@ CODE_SAMPLE;
     }
     /**
      * @param Node|Node[] $nodes
-     * @param callable(Node $node): (Node|null|int) $callable
+     * @param callable(Node): (int|Node|null|Node[]) $callable
      */
     protected function traverseNodesWithCallable($nodes, callable $callable) : void
     {

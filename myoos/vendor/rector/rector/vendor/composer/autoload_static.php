@@ -4,12 +4,11 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit46a0b0ac2ea1371bb06be09a20f71c2b
+class ComposerStaticInit18ad0e678efbbb500e116f7c54cccdd4
 {
     public static $files = array (
         'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '4508688f3cab21375725e8d11ca194a2' => __DIR__ . '/../..' . '/src/constants.php',
         '30bca7fff093e8069bed7c55247e2bf8' => __DIR__ . '/../..' . '/src/functions/node_helper.php',
     );
 
@@ -1284,6 +1283,7 @@ class ComposerStaticInit46a0b0ac2ea1371bb06be09a20f71c2b
         'Rector\\CodeQuality\\Rector\\Identical\\SimplifyConditionsRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/Identical/SimplifyConditionsRector.php',
         'Rector\\CodeQuality\\Rector\\Identical\\StrlenZeroToIdenticalEmptyStringRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/Identical/StrlenZeroToIdenticalEmptyStringRector.php',
         'Rector\\CodeQuality\\Rector\\If_\\CombineIfRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/If_/CombineIfRector.php',
+        'Rector\\CodeQuality\\Rector\\If_\\CompleteMissingIfElseBracketRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/If_/CompleteMissingIfElseBracketRector.php',
         'Rector\\CodeQuality\\Rector\\If_\\ConsecutiveNullCompareReturnsToNullCoalesceQueueRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/If_/ConsecutiveNullCompareReturnsToNullCoalesceQueueRector.php',
         'Rector\\CodeQuality\\Rector\\If_\\ExplicitBoolCompareRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/If_/ExplicitBoolCompareRector.php',
         'Rector\\CodeQuality\\Rector\\If_\\ShortenElseIfRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/If_/ShortenElseIfRector.php',
@@ -1455,7 +1455,6 @@ class ComposerStaticInit46a0b0ac2ea1371bb06be09a20f71c2b
         'Rector\\Core\\PHPStan\\NodeVisitor\\UnreachableStatementNodeVisitor' => __DIR__ . '/../..' . '/src/PHPStan/NodeVisitor/UnreachableStatementNodeVisitor.php',
         'Rector\\Core\\PHPStan\\NodeVisitor\\WrappedNodeRestoringNodeVisitor' => __DIR__ . '/../..' . '/src/PHPStan/NodeVisitor/WrappedNodeRestoringNodeVisitor.php',
         'Rector\\Core\\PhpParser\\AstResolver' => __DIR__ . '/../..' . '/src/PhpParser/AstResolver.php',
-        'Rector\\Core\\PhpParser\\ClassLikeAstResolver' => __DIR__ . '/../..' . '/src/PhpParser/ClassLikeAstResolver.php',
         'Rector\\Core\\PhpParser\\Comparing\\NodeComparator' => __DIR__ . '/../..' . '/src/PhpParser/Comparing/NodeComparator.php',
         'Rector\\Core\\PhpParser\\NodeFinder\\LocalMethodCallFinder' => __DIR__ . '/../..' . '/src/PhpParser/NodeFinder/LocalMethodCallFinder.php',
         'Rector\\Core\\PhpParser\\NodeFinder\\PropertyFetchFinder' => __DIR__ . '/../..' . '/src/PhpParser/NodeFinder/PropertyFetchFinder.php',
@@ -1541,6 +1540,7 @@ class ComposerStaticInit46a0b0ac2ea1371bb06be09a20f71c2b
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedPrivateMethodRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedPrivateMethodRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedPromotedPropertyRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedPromotedPropertyRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUselessParamTagRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUselessParamTagRector.php',
+        'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUselessReturnExprInConstructRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUselessReturnExprInConstructRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUselessReturnTagRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUselessReturnTagRector.php',
         'Rector\\DeadCode\\Rector\\Concat\\RemoveConcatAutocastRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Concat/RemoveConcatAutocastRector.php',
         'Rector\\DeadCode\\Rector\\ConstFetch\\RemovePhpVersionIdCheckRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ConstFetch/RemovePhpVersionIdCheckRector.php',
@@ -1692,6 +1692,7 @@ class ComposerStaticInit46a0b0ac2ea1371bb06be09a20f71c2b
         'Rector\\DowngradePhp81\\Rector\\ClassConst\\DowngradeFinalizePublicClassConstantRector' => __DIR__ . '/..' . '/rector/rector-downgrade-php/rules/DowngradePhp81/Rector/ClassConst/DowngradeFinalizePublicClassConstantRector.php',
         'Rector\\DowngradePhp81\\Rector\\FuncCall\\DowngradeArrayIsListRector' => __DIR__ . '/..' . '/rector/rector-downgrade-php/rules/DowngradePhp81/Rector/FuncCall/DowngradeArrayIsListRector.php',
         'Rector\\DowngradePhp81\\Rector\\FuncCall\\DowngradeFirstClassCallableSyntaxRector' => __DIR__ . '/..' . '/rector/rector-downgrade-php/rules/DowngradePhp81/Rector/FuncCall/DowngradeFirstClassCallableSyntaxRector.php',
+        'Rector\\DowngradePhp81\\Rector\\FuncCall\\DowngradeHashAlgorithmXxHashRector' => __DIR__ . '/..' . '/rector/rector-downgrade-php/rules/DowngradePhp81/Rector/FuncCall/DowngradeHashAlgorithmXxHashRector.php',
         'Rector\\DowngradePhp81\\Rector\\FunctionLike\\DowngradeNeverTypeDeclarationRector' => __DIR__ . '/..' . '/rector/rector-downgrade-php/rules/DowngradePhp81/Rector/FunctionLike/DowngradeNeverTypeDeclarationRector.php',
         'Rector\\DowngradePhp81\\Rector\\FunctionLike\\DowngradeNewInInitializerRector' => __DIR__ . '/..' . '/rector/rector-downgrade-php/rules/DowngradePhp81/Rector/FunctionLike/DowngradeNewInInitializerRector.php',
         'Rector\\DowngradePhp81\\Rector\\FunctionLike\\DowngradePureIntersectionTypeRector' => __DIR__ . '/..' . '/rector/rector-downgrade-php/rules/DowngradePhp81/Rector/FunctionLike/DowngradePureIntersectionTypeRector.php',
@@ -1850,7 +1851,6 @@ class ComposerStaticInit46a0b0ac2ea1371bb06be09a20f71c2b
         'Rector\\PHPStanStaticTypeMapper\\DoctrineTypeAnalyzer' => __DIR__ . '/../..' . '/packages/PHPStanStaticTypeMapper/DoctrineTypeAnalyzer.php',
         'Rector\\PHPStanStaticTypeMapper\\Enum\\TypeKind' => __DIR__ . '/../..' . '/packages/PHPStanStaticTypeMapper/Enum/TypeKind.php',
         'Rector\\PHPStanStaticTypeMapper\\PHPStanStaticTypeMapper' => __DIR__ . '/../..' . '/packages/PHPStanStaticTypeMapper/PHPStanStaticTypeMapper.php',
-        'Rector\\PHPStanStaticTypeMapper\\TypeAnalyzer\\BoolUnionTypeAnalyzer' => __DIR__ . '/../..' . '/packages/PHPStanStaticTypeMapper/TypeAnalyzer/BoolUnionTypeAnalyzer.php',
         'Rector\\PHPStanStaticTypeMapper\\TypeAnalyzer\\UnionTypeAnalyzer' => __DIR__ . '/../..' . '/packages/PHPStanStaticTypeMapper/TypeAnalyzer/UnionTypeAnalyzer.php',
         'Rector\\PHPStanStaticTypeMapper\\TypeAnalyzer\\UnionTypeCommonTypeNarrower' => __DIR__ . '/../..' . '/packages/PHPStanStaticTypeMapper/TypeAnalyzer/UnionTypeCommonTypeNarrower.php',
         'Rector\\PHPStanStaticTypeMapper\\TypeMapper\\AccessoryLiteralStringTypeMapper' => __DIR__ . '/../..' . '/packages/PHPStanStaticTypeMapper/TypeMapper/AccessoryLiteralStringTypeMapper.php',
@@ -1907,6 +1907,7 @@ class ComposerStaticInit46a0b0ac2ea1371bb06be09a20f71c2b
         'Rector\\PHPUnit\\CodeQuality\\Rector\\Foreach_\\SimplifyForeachInstanceOfRector' => __DIR__ . '/..' . '/rector/rector-phpunit/rules/CodeQuality/Rector/Foreach_/SimplifyForeachInstanceOfRector.php',
         'Rector\\PHPUnit\\CodeQuality\\Rector\\MethodCall\\AssertCompareToSpecificMethodRector' => __DIR__ . '/..' . '/rector/rector-phpunit/rules/CodeQuality/Rector/MethodCall/AssertCompareToSpecificMethodRector.php',
         'Rector\\PHPUnit\\CodeQuality\\Rector\\MethodCall\\AssertComparisonToSpecificMethodRector' => __DIR__ . '/..' . '/rector/rector-phpunit/rules/CodeQuality/Rector/MethodCall/AssertComparisonToSpecificMethodRector.php',
+        'Rector\\PHPUnit\\CodeQuality\\Rector\\MethodCall\\AssertEmptyNullableObjectToAssertInstanceofRector' => __DIR__ . '/..' . '/rector/rector-phpunit/rules/CodeQuality/Rector/MethodCall/AssertEmptyNullableObjectToAssertInstanceofRector.php',
         'Rector\\PHPUnit\\CodeQuality\\Rector\\MethodCall\\AssertEqualsToSameRector' => __DIR__ . '/..' . '/rector/rector-phpunit/rules/CodeQuality/Rector/MethodCall/AssertEqualsToSameRector.php',
         'Rector\\PHPUnit\\CodeQuality\\Rector\\MethodCall\\AssertFalseStrposToContainsRector' => __DIR__ . '/..' . '/rector/rector-phpunit/rules/CodeQuality/Rector/MethodCall/AssertFalseStrposToContainsRector.php',
         'Rector\\PHPUnit\\CodeQuality\\Rector\\MethodCall\\AssertInstanceOfComparisonRector' => __DIR__ . '/..' . '/rector/rector-phpunit/rules/CodeQuality/Rector/MethodCall/AssertInstanceOfComparisonRector.php',
@@ -2272,6 +2273,7 @@ class ComposerStaticInit46a0b0ac2ea1371bb06be09a20f71c2b
         'Rector\\Symfony\\CodeQuality\\Rector\\Class_\\LoadValidatorMetadataToAnnotationRector' => __DIR__ . '/..' . '/rector/rector-symfony/rules/CodeQuality/Rector/Class_/LoadValidatorMetadataToAnnotationRector.php',
         'Rector\\Symfony\\CodeQuality\\Rector\\Class_\\MakeCommandLazyRector' => __DIR__ . '/..' . '/rector/rector-symfony/rules/CodeQuality/Rector/Class_/MakeCommandLazyRector.php',
         'Rector\\Symfony\\CodeQuality\\Rector\\Closure\\StringExtensionToConfigBuilderRector' => __DIR__ . '/..' . '/rector/rector-symfony/rules/CodeQuality/Rector/Closure/StringExtensionToConfigBuilderRector.php',
+        'Rector\\Symfony\\CodeQuality\\Rector\\MethodCall\\AssertSameResponseCodeWithDebugContentsRector' => __DIR__ . '/..' . '/rector/rector-symfony/rules/CodeQuality/Rector/MethodCall/AssertSameResponseCodeWithDebugContentsRector.php',
         'Rector\\Symfony\\CodeQuality\\Rector\\MethodCall\\LiteralGetToRequestClassConstantRector' => __DIR__ . '/..' . '/rector/rector-symfony/rules/CodeQuality/Rector/MethodCall/LiteralGetToRequestClassConstantRector.php',
         'Rector\\Symfony\\Configs\\Rector\\ClassMethod\\AddRouteAnnotationRector' => __DIR__ . '/..' . '/rector/rector-symfony/rules/Configs/Rector/ClassMethod/AddRouteAnnotationRector.php',
         'Rector\\Symfony\\Configs\\Rector\\Closure\\ServiceArgsToServiceNamedArgRector' => __DIR__ . '/..' . '/rector/rector-symfony/rules/Configs/Rector/Closure/ServiceArgsToServiceNamedArgRector.php',
@@ -2597,9 +2599,9 @@ class ComposerStaticInit46a0b0ac2ea1371bb06be09a20f71c2b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit46a0b0ac2ea1371bb06be09a20f71c2b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit46a0b0ac2ea1371bb06be09a20f71c2b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit46a0b0ac2ea1371bb06be09a20f71c2b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit18ad0e678efbbb500e116f7c54cccdd4::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit18ad0e678efbbb500e116f7c54cccdd4::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit18ad0e678efbbb500e116f7c54cccdd4::$classMap;
 
         }, null, ClassLoader::class);
     }

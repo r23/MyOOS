@@ -187,6 +187,16 @@ final class BreakingVariableRenameGuard
     }
     private function isGenerator(Param $param) : bool
     {
-        return $this->nodeTypeResolver->isObjectType($param, new ObjectType('Symfony\\Component\\DependencyInjection\\Argument\\RewindableGenerator'));
+        if (!$param->type instanceof Node) {
+            return \false;
+        }
+        $paramType = $this->nodeTypeResolver->getType($param);
+        if (!$paramType instanceof ObjectType) {
+            return \false;
+        }
+        if (\substr_compare($paramType->getClassName(), 'Generator', -\strlen('Generator')) === 0 || \substr_compare($paramType->getClassName(), 'Iterator', -\strlen('Iterator')) === 0) {
+            return \true;
+        }
+        return $paramType->isInstanceOf('Symfony\\Component\\DependencyInjection\\Argument\\RewindableGenerator')->yes();
     }
 }

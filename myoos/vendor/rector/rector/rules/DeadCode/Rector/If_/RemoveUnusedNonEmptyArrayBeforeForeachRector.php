@@ -5,6 +5,7 @@ namespace Rector\DeadCode\Rector\If_;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt;
@@ -115,18 +116,15 @@ CODE_SAMPLE
         /** @var Foreach_ $foreach */
         $foreach = $if->stmts[0];
         $foreachExpr = $foreach->expr;
-        if ($foreachExpr instanceof Variable) {
-            $variableName = $this->nodeNameResolver->getName($foreachExpr);
-            if (\is_string($variableName) && $this->reservedKeywordAnalyzer->isNativeVariable($variableName)) {
-                return \false;
-            }
+        if ($this->shouldSkipForeachExpr($foreachExpr, $scope)) {
+            return \false;
         }
         $ifCond = $if->cond;
         if ($ifCond instanceof BooleanAnd) {
             return $this->isUselessBooleanAnd($ifCond, $foreachExpr);
         }
         if (($ifCond instanceof Variable || $this->propertyFetchAnalyzer->isPropertyFetch($ifCond)) && $this->nodeComparator->areNodesEqual($ifCond, $foreachExpr)) {
-            $ifType = $scope->getType($ifCond);
+            $ifType = $scope->getNativeType($ifCond);
             return $ifType->isArray()->yes();
         }
         if ($this->uselessIfCondBeforeForeachDetector->isMatchingNotIdenticalEmptyArray($if, $foreachExpr)) {
@@ -185,5 +183,26 @@ CODE_SAMPLE
         $comments = \array_merge($ifComments, $stmtComments);
         $stmt->setAttribute(AttributeKey::COMMENTS, $comments);
         return $stmt;
+    }
+    private function shouldSkipForeachExpr(Expr $foreachExpr, Scope $scope) : bool
+    {
+        if ($foreachExpr instanceof ArrayDimFetch && $foreachExpr->dim !== null) {
+            $exprType = $this->nodeTypeResolver->getNativeType($foreachExpr->var);
+            $dimType = $this->nodeTypeResolver->getNativeType($foreachExpr->dim);
+            if (!$exprType->hasOffsetValueType($dimType)->yes()) {
+                return \true;
+            }
+        }
+        if ($foreachExpr instanceof Variable) {
+            $variableName = $this->nodeNameResolver->getName($foreachExpr);
+            if (\is_string($variableName) && $this->reservedKeywordAnalyzer->isNativeVariable($variableName)) {
+                return \true;
+            }
+            $ifType = $scope->getNativeType($foreachExpr);
+            if (!$ifType->isArray()->yes()) {
+                return \true;
+            }
+        }
+        return \false;
     }
 }

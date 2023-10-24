@@ -22,20 +22,22 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Return_;
+use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\BooleanType;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
-use Rector\Core\Rector\AbstractRector;
+use Rector\Core\Rector\AbstractScopeAwareRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\TypeDeclaration\NodeAnalyzer\ReturnAnalyzer;
+use Rector\VendorLocker\NodeVendorLocker\ClassMethodReturnTypeOverrideGuard;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Tests\TypeDeclaration\Rector\ClassMethod\BoolReturnTypeFromStrictScalarReturnsRector\BoolReturnTypeFromStrictScalarReturnsRectorTest
  */
-final class BoolReturnTypeFromStrictScalarReturnsRector extends AbstractRector implements MinPhpVersionInterface
+final class BoolReturnTypeFromStrictScalarReturnsRector extends AbstractScopeAwareRector implements MinPhpVersionInterface
 {
     /**
      * @readonly
@@ -57,12 +59,18 @@ final class BoolReturnTypeFromStrictScalarReturnsRector extends AbstractRector i
      * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
      */
     private $betterNodeFinder;
-    public function __construct(ReturnAnalyzer $returnAnalyzer, ReflectionProvider $reflectionProvider, ValueResolver $valueResolver, BetterNodeFinder $betterNodeFinder)
+    /**
+     * @readonly
+     * @var \Rector\VendorLocker\NodeVendorLocker\ClassMethodReturnTypeOverrideGuard
+     */
+    private $classMethodReturnTypeOverrideGuard;
+    public function __construct(ReturnAnalyzer $returnAnalyzer, ReflectionProvider $reflectionProvider, ValueResolver $valueResolver, BetterNodeFinder $betterNodeFinder, ClassMethodReturnTypeOverrideGuard $classMethodReturnTypeOverrideGuard)
     {
         $this->returnAnalyzer = $returnAnalyzer;
         $this->reflectionProvider = $reflectionProvider;
         $this->valueResolver = $valueResolver;
         $this->betterNodeFinder = $betterNodeFinder;
+        $this->classMethodReturnTypeOverrideGuard = $classMethodReturnTypeOverrideGuard;
     }
     public function getRuleDefinition() : RuleDefinition
     {
@@ -104,9 +112,9 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_|Closure $node
      */
-    public function refactor(Node $node) : ?Node
+    public function refactorWithScope(Node $node, Scope $scope) : ?Node
     {
-        if ($node->returnType instanceof Node) {
+        if ($this->shouldSkip($node, $scope)) {
             return null;
         }
         $returns = $this->betterNodeFinder->findInstancesOfInFunctionLikeScoped($node, Return_::class);
@@ -119,6 +127,16 @@ CODE_SAMPLE
     public function provideMinPhpVersion() : int
     {
         return PhpVersionFeature::SCALAR_TYPES;
+    }
+    /**
+     * @param ClassMethod|Function_|Closure $node
+     */
+    private function shouldSkip(Node $node, Scope $scope) : bool
+    {
+        if ($node->returnType instanceof Node) {
+            return \true;
+        }
+        return $node instanceof ClassMethod && $this->classMethodReturnTypeOverrideGuard->shouldSkipClassMethod($node, $scope);
     }
     /**
      * @param Return_[] $returns

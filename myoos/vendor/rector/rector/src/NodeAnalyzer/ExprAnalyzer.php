@@ -8,6 +8,8 @@ use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\ConstFetch;
+use PhpParser\Node\Expr\UnaryMinus;
+use PhpParser\Node\Expr\UnaryPlus;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
@@ -44,14 +46,18 @@ final class ExprAnalyzer
     }
     public function isDynamicExpr(Expr $expr) : bool
     {
-        if (!$expr instanceof Array_) {
-            if ($expr instanceof Scalar) {
-                // string interpolation is true, otherwise false
-                return $expr instanceof Encapsed;
-            }
-            return !$this->isAllowedConstFetchOrClassConstFetch($expr);
+        // Unwrap UnaryPlus and UnaryMinus
+        if ($expr instanceof UnaryPlus || $expr instanceof UnaryMinus) {
+            $expr = $expr->expr;
         }
-        return $this->isDynamicArray($expr);
+        if ($expr instanceof Array_) {
+            return $this->isDynamicArray($expr);
+        }
+        if ($expr instanceof Scalar) {
+            // string interpolation is true, otherwise false
+            return $expr instanceof Encapsed;
+        }
+        return !$this->isAllowedConstFetchOrClassConstFetch($expr);
     }
     public function isDynamicArray(Array_ $array) : bool
     {

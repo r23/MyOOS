@@ -14,11 +14,15 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\MatchArm;
 use PhpParser\Node\Scalar\LNumber;
+use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Return_;
+use PhpParser\NodeTraverser;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
+use Rector\PhpDocParser\NodeTraverser\SimpleCallableNodeTraverser;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -38,14 +42,20 @@ final class WithConsecutiveRector extends AbstractRector implements MinPhpVersio
      * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
      */
     private $betterNodeFinder;
-    public function __construct(TestsNodeAnalyzer $testsNodeAnalyzer, BetterNodeFinder $betterNodeFinder)
+    /**
+     * @readonly
+     * @var \Rector\PhpDocParser\NodeTraverser\SimpleCallableNodeTraverser
+     */
+    private $simpleCallableNodeTraverser;
+    public function __construct(TestsNodeAnalyzer $testsNodeAnalyzer, BetterNodeFinder $betterNodeFinder, SimpleCallableNodeTraverser $simpleCallableNodeTraverser)
     {
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
         $this->betterNodeFinder = $betterNodeFinder;
+        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
     }
     public function getRuleDefinition() : RuleDefinition
     {
-        return new RuleDefinition('Refactor "withConsecutive()" to ', [new CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Refactor deprecated withConsecutive() to willReturnCallback() structure', [new CodeSample(<<<'CODE_SAMPLE'
 use PHPUnit\Framework\TestCase;
 
 final class SomeTest extends TestCase
@@ -98,16 +108,7 @@ CODE_SAMPLE
         if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
         }
-        if (!$node->expr instanceof MethodCall) {
-            return null;
-        }
-        /** @var MethodCall|null $withConsecutiveMethodCall */
-        $withConsecutiveMethodCall = $this->betterNodeFinder->findFirst($node->expr, function (Node $node) : bool {
-            if (!$node instanceof MethodCall) {
-                return \false;
-            }
-            return $this->isName($node->name, 'withConsecutive');
-        });
+        $withConsecutiveMethodCall = $this->findWithConsecutiveMethodCall($node);
         if (!$withConsecutiveMethodCall instanceof MethodCall) {
             return null;
         }
@@ -125,15 +126,38 @@ CODE_SAMPLE
     {
         return PhpVersionFeature::MATCH_EXPRESSION;
     }
+    /**
+     * @template T of Node
+     * @param Node|Node[] $node
+     * @param class-string<T> $type
+     * @return T[]
+     */
+    public function findInstancesOfScoped($node, string $type) : array
+    {
+        /** @var T[] $foundNodes */
+        $foundNodes = [];
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($node, static function (Node $subNode) use($type, &$foundNodes) : ?int {
+            if ($subNode instanceof Class_ || $subNode instanceof Function_ || $subNode instanceof Closure) {
+                return NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
+            }
+            if ($subNode instanceof $type) {
+                $foundNodes[] = $subNode;
+                return null;
+            }
+            return null;
+        });
+        return $foundNodes;
+    }
     private function createClosure(MethodCall $expectsMethodCall) : Closure
     {
         $closure = new Closure();
         $matcherVariable = new Variable('matcher');
         $closure->uses[] = new ClosureUse($matcherVariable);
-        $match = new Match_(new MethodCall($matcherVariable, new Identifier('numberOfInvocations')));
-        foreach ($expectsMethodCall->getArgs() as $key => $arg) {
-            $match->arms[] = new MatchArm([new LNumber($key + 1)], $arg->value);
+        $usedVariables = $this->resolveUniqueUsedVariables($expectsMethodCall);
+        foreach ($usedVariables as $usedVariable) {
+            $closure->uses[] = new ClosureUse($usedVariable);
         }
+        $match = $this->createMatch($matcherVariable, $expectsMethodCall);
         $closure->stmts[] = new Return_($match);
         return $closure;
     }
@@ -162,5 +186,45 @@ CODE_SAMPLE
             return $node;
         });
         return $exactlyMethodCall;
+    }
+    private function findWithConsecutiveMethodCall(Expression $expression) : ?MethodCall
+    {
+        if (!$expression->expr instanceof MethodCall) {
+            return null;
+        }
+        /** @var MethodCall|null $withConsecutiveMethodCall */
+        $withConsecutiveMethodCall = $this->betterNodeFinder->findFirst($expression->expr, function (Node $node) : bool {
+            if (!$node instanceof MethodCall) {
+                return \false;
+            }
+            return $this->isName($node->name, 'withConsecutive');
+        });
+        return $withConsecutiveMethodCall;
+    }
+    private function createMatch(Variable $matcherVariable, MethodCall $expectsMethodCall) : Match_
+    {
+        $numberOfInvocationsMethodCall = new MethodCall($matcherVariable, new Identifier('numberOfInvocations'));
+        $matchArms = [];
+        foreach ($expectsMethodCall->getArgs() as $key => $arg) {
+            $matchArms[] = new MatchArm([new LNumber($key + 1)], $arg->value);
+        }
+        return new Match_($numberOfInvocationsMethodCall, $matchArms);
+    }
+    /**
+     * @return Variable[]
+     */
+    private function resolveUniqueUsedVariables(MethodCall $expectsMethodCall) : array
+    {
+        /** @var Variable[] $usedVariables */
+        $usedVariables = $this->findInstancesOfScoped($expectsMethodCall->getArgs(), Variable::class);
+        $uniqueUsedVariables = [];
+        foreach ($usedVariables as $usedVariable) {
+            if ($this->isName($usedVariable, 'this')) {
+                continue;
+            }
+            $usedVariableName = $this->getName($usedVariable);
+            $uniqueUsedVariables[$usedVariableName] = $usedVariable;
+        }
+        return $uniqueUsedVariables;
     }
 }
