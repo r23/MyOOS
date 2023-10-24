@@ -5,6 +5,9 @@ WP-Cache Config Sample File
 See wp-cache.php for author details.
 */
 
+$cache_page_secret = 'dd25071dcee56169623f32be043c3882';
+$cache_time_interval = 600;
+
 if ( ! defined('WPCACHEHOME') )
 	define( 'WPCACHEHOME', WP_PLUGIN_DIR . '/wp-super-cache/' );
 
