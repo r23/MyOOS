@@ -220,7 +220,7 @@ function update_zone(theForm) {
 						</tr>	
 					</thead>
 <?php
-    $rows = 0;
+      $rows = 0;
       $zones_result_raw = "SELECT a.association_id, a.zone_country_id, c.countries_name, a.zone_id, a.geo_zone_id, a.last_modified, a.date_added, z.zone_name FROM " . $oostable['zones_to_geo_zones'] . " a left join " . $oostable['countries'] . " c on a.zone_country_id = c.countries_id left join " . $oostable['zones'] . " z on a.zone_id = z.zone_id WHERE a.geo_zone_id = " . intval($_GET['zID']) . " ORDER BY association_id";
       $zones_split = new splitPageResults($nsPage, MAX_DISPLAY_SEARCH_RESULTS, $zones_result_raw, $zones_result_numrows);
       $zones_result = $dbconn->Execute($zones_result_raw);
@@ -229,10 +229,15 @@ function update_zone(theForm) {
           if ((!isset($_GET['sID']) || (isset($_GET['sID']) && ($_GET['sID'] == $zones['association_id']))) && !isset($sInfo) && (!str_starts_with((string) $saction, 'new'))) {
               $sInfo = new objectInfo($zones);
           }
+		  
           if (isset($sInfo) && is_object($sInfo) && ($zones['association_id'] == $sInfo->association_id)) {
-              echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $sInfo->association_id . '&saction=edit') . '\'">' . "\n";
+				$aDocument[] = ['id' => $rows,
+								'link' => oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $sInfo->association_id . '&saction=edit')];
+				echo '              <tr id="row-' . $rows .'">' . "\n";			  
           } else {
-              echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $zones['association_id']) . '\'">' . "\n";
+				$aDocument[] = ['id' => $rows,
+							'link' => oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $zones['association_id'])];
+				echo '              <tr id="row-' . $rows .'">' . "\n";
           } ?>
                 <td><?php echo($zones['countries_name'] ?: TEXT_ALL_COUNTRIES); ?></td>
                 <td><?php echo(($zones['zone_id']) ? $zones['zone_name'] : PLEASE_SELECT); ?></td>
@@ -340,9 +345,9 @@ if ($action == 'list') {
             $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_NEW_SUB_ZONE . '</b>'];
 
 
-            $contents = ['form' => oos_draw_form('id', 'zones', $aContents['geo_zones'], 'zpage=' . $nzPage . (isset($_GET['zID']) ? '&zID=' . intval($_GET['zID']) : '') . '&action=list&spage=' . $nsPage . (isset($_GET['sID']) ? '&sID=' . intval($_GET['sID']) : '') . '&saction=insert_sub', 'post', false)];
+            $contents = ['form' => oos_draw_form('zones', 'zones', $aContents['geo_zones'], 'zpage=' . $nzPage . (isset($_GET['zID']) ? '&zID=' . intval($_GET['zID']) : '') . '&action=list&spage=' . $nsPage . (isset($_GET['sID']) ? '&sID=' . intval($_GET['sID']) : '') . '&saction=insert_sub', 'post', false)];
             $contents[] = ['text' => TEXT_INFO_NEW_SUB_ZONE_INTRO];
-            $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY . '<br>' . oos_draw_pull_down_menu('zone_country_id', '', oos_get_countries(TEXT_ALL_COUNTRIES), '', 'onChange="update_zone(this.form);"')];
+            $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY . '<br>' . oos_draw_pull_down_menu('zone_country_id', 'update_zone', oos_get_countries(TEXT_ALL_COUNTRIES), '')];
             $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_ZONE . '<br>' . oos_draw_pull_down_menu('zone_id', '', oos_prepare_country_zones_pull_down())];
             $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . (isset($_GET['sID']) ? '&sID=' . intval($_GET['sID']) : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
@@ -353,9 +358,9 @@ if ($action == 'list') {
 
             $sID = (empty($sInfo->association_id) ? '' : '&sID=' . $sInfo->association_id);
 
-            $contents = ['form' => oos_draw_form('id', 'zones', $aContents['geo_zones'], 'zpage=' . $nzPage . (isset($_GET['zID']) ? '&zID=' . intval($_GET['zID']) : '') . '&action=list&spage=' . $nsPage . $sID . '&saction=save_sub', 'post', false)];
+            $contents = ['form' => oos_draw_form('zones', 'zones', $aContents['geo_zones'], 'zpage=' . $nzPage . (isset($_GET['zID']) ? '&zID=' . intval($_GET['zID']) : '') . '&action=list&spage=' . $nsPage . $sID . '&saction=save_sub', 'post', false)];
             $contents[] = ['text' => TEXT_INFO_EDIT_SUB_ZONE_INTRO];
-            $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY . '<br>' . oos_draw_pull_down_menu('zone_country_id', '', oos_get_countries(TEXT_ALL_COUNTRIES), $sInfo->zone_country_id, 'onChange="update_zone(this.form);"')];
+            $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY . '<br>' . oos_draw_pull_down_menu('zone_country_id', 'update_zone', oos_get_countries(TEXT_ALL_COUNTRIES), $sInfo->zone_country_id)];
             $contents[] = ['text' => '<br>' . TEXT_INFO_COUNTRY_ZONE . '<br>' . oos_draw_pull_down_menu('zone_id', '', oos_prepare_country_zones_pull_down($sInfo->zone_country_id), $sInfo->zone_id)];
             $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $sInfo->association_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
 
@@ -486,6 +491,17 @@ if (element) {
 		form.submit(); 
 	});
 }
+
+let zoneElement = document.getElementById('zones');
+if (zoneElement) {
+
+	let form = document.getElementById('update_zone'); 
+
+	zoneElement.addEventListener('change', function() { 
+		form.submit(); 
+	});
+}
+
 </script>
 <?php
 
