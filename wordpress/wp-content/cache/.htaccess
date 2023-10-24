@@ -1,0 +1,7 @@
+
+# BEGIN INDEX
+# Die Anweisungen (Zeilen) zwischen „BEGIN INDEX“ und „END INDEX“ sind
+# dynamisch generiert und sollten nur über WordPress-Filter geändert werden.
+# Alle Änderungen an den Anweisungen zwischen diesen Markierungen werden überschrieben.
+Options -Indexes
+# END INDEX
