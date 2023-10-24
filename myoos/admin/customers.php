@@ -706,8 +706,8 @@ function check_form() {
 						</tr>	
 					</thead>
 <?php
-	$rows = 0;
-	$aDocument = [];
+    $rows = 0;
+      $aDocument = [];
 
       $search = '';
       if (isset($_GET['search']) && oos_is_not_null($_GET['search'])) {
@@ -734,7 +734,7 @@ function check_form() {
       $customers_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $customers_result_raw, $customers_result_numrows);
       $customers_result = $dbconn->Execute($customers_result_raw);
       while ($customers = $customers_result->fields) {
-		  $rows++;
+          $rows++;
           $customers_infotable = $oostable['customers_info'];
           $info_result = $dbconn->Execute("SELECT customers_info_date_account_created AS date_account_created,
                                               customers_info_date_account_last_modified AS date_account_last_modified,
@@ -764,13 +764,13 @@ function check_form() {
           }
 
           if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id)) {
-				$aDocument[] = ['id' => $rows,
-								'link' => oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID', 'action']) . 'cID=' . $cInfo->customers_id . '&action=edit')];
-				echo '              <tr id="row-' . $rows .'">' . "\n";
+              $aDocument[] = ['id' => $rows,
+                              'link' => oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID', 'action']) . 'cID=' . $cInfo->customers_id . '&action=edit')];
+              echo '              <tr id="row-' . $rows .'">' . "\n";
           } else {
-				$aDocument[] = ['id' => $rows,
-								'link' => oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID']) . 'cID=' . $customers['customers_id'])];
-				echo '              <tr id="row-' . $rows .'">' . "\n";
+              $aDocument[] = ['id' => $rows,
+                              'link' => oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID']) . 'cID=' . $customers['customers_id'])];
+              echo '              <tr id="row-' . $rows .'">' . "\n";
           } ?>
                 <td><?php echo $customers['customers_lastname']; ?></td>
                 <td><?php echo $customers['customers_firstname']; ?></td>

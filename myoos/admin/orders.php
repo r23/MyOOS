@@ -559,12 +559,12 @@ if (($action == 'edit') && ($order_exists == true)) {
                     <tbody>
           
     <?php
-	$rows = 0;
-	$aDocument = [];
+    $rows = 0;
+    $aDocument = [];
     if (isset($_GET['cID'])) {
 
 
-		$cID = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);		
+        $cID = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
 
         $orderstable = $oostable['orders'];
         $orders_totaltable = $oostable['orders_total'];
@@ -615,20 +615,20 @@ if (($action == 'edit') && ($order_exists == true)) {
     $orders_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $orders_result_raw, $orders_result_numrows);
     $orders_result = $dbconn->Execute($orders_result_raw);
     while ($orders = $orders_result->fields) {
-		$rows++;
-		
+        $rows++;
+
         if ((!isset($_GET['oID']) || (isset($_GET['oID']) && ($_GET['oID'] == $orders['orders_id']))) && !isset($oInfo)) {
             $oInfo = new objectInfo($orders);
         }
 
         if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id)) {
-			$aDocument[] = ['id' => $rows,
-							'link' => oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $oInfo->orders_id . '&action=edit') ];
-			echo '              <tr id="row-' . $rows .'">' . "\n";		
+            $aDocument[] = ['id' => $rows,
+                            'link' => oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $oInfo->orders_id . '&action=edit') ];
+            echo '              <tr id="row-' . $rows .'">' . "\n";
         } else {
-			$aDocument[] = ['id' => $rows,
-							'link' => oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID']) . 'oID=' . $orders['orders_id'])];
-			echo '              <tr id="row-' . $rows .'">' . "\n";				
+            $aDocument[] = ['id' => $rows,
+                            'link' => oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID']) . 'oID=' . $orders['orders_id'])];
+            echo '              <tr id="row-' . $rows .'">' . "\n";
         } ?>
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $orders['orders_id'] . '&action=edit') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . $orders['customers_name']; ?></td>
                 <td class="text-right"><?php echo strip_tags((string) $orders['order_total']); ?></td>

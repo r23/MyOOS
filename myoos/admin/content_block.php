@@ -198,20 +198,20 @@ $block_content_result_raw = "SELECT b.block_id, bi.block_name, b.block_side, b.b
 $block_content_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $block_content_result_raw, $block_content_result_numrows);
 $block_content_result = $dbconn->Execute($block_content_result_raw);
 while ($block = $block_content_result->fields) {
-	$rows++;
+    $rows++;
     if ((!isset($_GET['bID']) || (isset($_GET['bID']) && ($_GET['bID'] == $block['block_id']))) && !isset($bInfo) && (!str_starts_with((string) $action, 'new'))) {
         $bInfo = new objectInfo($block);
-    } 
-	
-	
+    }
+
+
     if (isset($bInfo) && is_object($bInfo) && ($block['block_id'] == $bInfo->block_id)) {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id . '&action=edit')];
-		echo '              <tr id="row-' . $rows .'">' . "\n";		
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id . '&action=edit')];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     } else {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $block['block_id'])];
-		echo '              <tr id="row-' . $rows .'">' . "\n";			
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $block['block_id'])];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     } ?>	
                 <td><?php echo $block['block_name']; ?></td>
                 <td class="text-center"><?php echo $block['block_side']; ?></td>

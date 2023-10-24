@@ -540,4 +540,3 @@ if (element) {
 <?php
 
 require 'includes/nice_exit.php';
-

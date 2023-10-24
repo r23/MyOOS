@@ -201,19 +201,19 @@ $page_type_result_raw = "SELECT
 $page_type_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $page_type_result_raw, $page_type_result_numrows);
 $page_type_result = $dbconn->Execute($page_type_result_raw);
 while ($page_type = $page_type_result->fields) {
-	$rows++;
+    $rows++;
     if ((!isset($_GET['ptID']) || (isset($_GET['ptID']) && ($_GET['ptID'] == $page_type['page_type_id']))) && !isset($oInfo) && (!str_starts_with((string) $action, 'new'))) {
         $oInfo = new objectInfo($page_type);
     }
 
     if (isset($oInfo) && is_object($oInfo) && ($page_type['page_type_id'] == $oInfo->page_type_id)) {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $oInfo->page_type_id . '&action=edit')];
-		echo '              <tr id="row-' . $rows .'">' . "\n";	
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $oInfo->page_type_id . '&action=edit')];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     } else {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $page_type['page_type_id'])];
-		echo '              <tr id="row-' . $rows .'">' . "\n";	
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $page_type['page_type_id'])];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     }
 
     echo '                <td class="dataTableContent">' . $page_type['page_type_name'] . '</td>' . "\n"; ?>

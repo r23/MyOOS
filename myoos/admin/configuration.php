@@ -267,7 +267,7 @@ $aDocument = [];
 $configuration_result = $dbconn->Execute("SELECT configuration_id, configuration_key, configuration_value, use_function FROM " . $oostable['configuration'] . " WHERE configuration_group_id = '" . intval($_GET['gID']) . "' ORDER BY sort_order");
 
 while ($configuration = $configuration_result->fields) {
-	$rows++;	
+    $rows++;
     if (oos_is_not_null($configuration['use_function'])) {
         $use_function = $configuration['use_function'];
         if (preg_match('/->/', (string) $use_function)) {
@@ -296,13 +296,13 @@ while ($configuration = $configuration_result->fields) {
 
 
     if (isset($cInfo) && is_object($cInfo) && ($configuration['configuration_id'] == $cInfo->configuration_id)) {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=edit')];
-		echo '              <tr id="row-' . $rows .'">' . "\n";			
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=edit')];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     } else {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $configuration['configuration_id'])];
-		echo '              <tr id="row-' . $rows .'">' . "\n";	
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $configuration['configuration_id'])];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     } ?>
                 <td><?php echo constant(strtoupper($configuration['configuration_key'] . '_TITLE')); ?></td>
                 <td><?php echo htmlspecialchars((string)$cfgValue, ENT_QUOTES, 'UTF-8'); ?></td>

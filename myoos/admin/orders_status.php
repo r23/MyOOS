@@ -228,19 +228,19 @@ $orders_status_result_raw = "SELECT orders_status_id, orders_status_name
 $orders_status_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $orders_status_result_raw, $orders_status_result_numrows);
 $orders_status_result = $dbconn->Execute($orders_status_result_raw);
 while ($orders_status = $orders_status_result->fields) {
-	$rows++;
+    $rows++;
     if ((!isset($_GET['oID']) || (isset($_GET['oID']) && ($_GET['oID'] == $orders_status['orders_status_id']))) && !isset($oInfo) && (!str_starts_with((string) $action, 'new'))) {
         $oInfo = new objectInfo($orders_status);
     }
 
     if (isset($oInfo) && is_object($oInfo) && ($orders_status['orders_status_id'] == $oInfo->orders_status_id)) {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['orders_status'], 'page=' . $nPage . '&oID=' . $oInfo->orders_status_id . '&action=edit')];
-		echo '              <tr id="row-' . $rows .'">' . "\n";		
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['orders_status'], 'page=' . $nPage . '&oID=' . $oInfo->orders_status_id . '&action=edit')];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     } else {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['orders_status'], 'page=' . $nPage . '&oID=' . $orders_status['orders_status_id'])];
-		echo '              <tr id="row-' . $rows .'">' . "\n";	
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['orders_status'], 'page=' . $nPage . '&oID=' . $orders_status['orders_status_id'])];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     }
 
     if (DEFAULT_ORDERS_STATUS_ID == $orders_status['orders_status_id']) {

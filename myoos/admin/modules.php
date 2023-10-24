@@ -201,7 +201,7 @@ $installed_modules = [];
 $rows = 0;
 $aDocument = [];
 for ($i = 0, $n = count($directory_array); $i < $n; $i++) {
-	$rows = $i;
+    $rows = $i;
     $file = $directory_array[$i];
 
     include OOS_ABSOLUTE_PATH . 'includes/languages/' . $_SESSION['language'] . '/modules/' . $module_type . '/' . $file;
@@ -242,16 +242,16 @@ for ($i = 0, $n = count($directory_array); $i < $n; $i++) {
 
         if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code)) {
             if ($module->check() > 0) {
-				$aDocument[] = ['id' => $rows,
-								'link' => oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=edit')];
-				echo '              <tr id="row-' . $rows .'">' . "\n";				
+                $aDocument[] = ['id' => $rows,
+                                'link' => oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=edit')];
+                echo '              <tr id="row-' . $rows .'">' . "\n";
             } else {
                 echo '              <tr class="dataTableRowSelected">' . "\n";
             }
         } else {
-			$aDocument[] = ['id' => $rows,
-							'link' => oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class)];
-			echo '              <tr id="row-' . $rows .'">' . "\n";			
+            $aDocument[] = ['id' => $rows,
+                            'link' => oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class)];
+            echo '              <tr id="row-' . $rows .'">' . "\n";
         }
 
         if (DEFAULT_SHIPPING_METHOD == $module->code) {

@@ -124,19 +124,19 @@ $countries_result_raw = "SELECT countries_id, countries_name, countries_iso_code
 $countries_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $countries_result_raw, $countries_result_numrows);
 $countries_result = $dbconn->Execute($countries_result_raw);
 while ($countries = $countries_result->fields) {
-	$rows++;
+    $rows++;
     if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $countries['countries_id']))) && !isset($cInfo) && (!str_starts_with((string) $action, 'new'))) {
         $cInfo = new objectInfo($countries);
     }
 
     if (isset($cInfo) && is_object($cInfo) && ($countries['countries_id'] == $cInfo->countries_id)) {
-		$aDocument[] = ['id' => $rows,
-					'link' => oos_href_link_admin($aContents['countries'], 'page=' . $nPage . '&cID=' . $cInfo->countries_id . '&action=edit')];
-		echo '              <tr id="row-' . $rows .'">' . "\n";
+        $aDocument[] = ['id' => $rows,
+                    'link' => oos_href_link_admin($aContents['countries'], 'page=' . $nPage . '&cID=' . $cInfo->countries_id . '&action=edit')];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     } else {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['countries'], 'page=' . $nPage . '&cID=' . $countries['countries_id'])];
-		echo '              <tr id="row-' . $rows .'">' . "\n"; 
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['countries'], 'page=' . $nPage . '&cID=' . $countries['countries_id'])];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     } ?>
                 <td><?php echo $countries['countries_name']; ?></td>
                 <td align="center" width="40"><?php echo $countries['countries_iso_code_2']; ?></td>

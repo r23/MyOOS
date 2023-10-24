@@ -25,31 +25,31 @@ $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
 switch ($action) {
-	case 'insert':
-		$zone_country_id = oos_db_prepare_input($_POST['zone_country_id']);
-		$zone_code = oos_db_prepare_input($_POST['zone_code']);
-		$zone_name = oos_db_prepare_input($_POST['zone_name']);
-		$zonestable = $oostable['zones'];
+    case 'insert':
+        $zone_country_id = oos_db_prepare_input($_POST['zone_country_id']);
+        $zone_code = oos_db_prepare_input($_POST['zone_code']);
+        $zone_name = oos_db_prepare_input($_POST['zone_name']);
+        $zonestable = $oostable['zones'];
 
-		$dbconn->Execute("INSERT INTO $zonestable (zone_country_id, zone_code, zone_name) VALUES ('" . oos_db_input($zone_country_id) . "', '" . oos_db_input($zone_code) . "', '" . oos_db_input($zone_name) . "')");
-		oos_redirect_admin(oos_href_link_admin($aContents['zones']));
-		break;
+        $dbconn->Execute("INSERT INTO $zonestable (zone_country_id, zone_code, zone_name) VALUES ('" . oos_db_input($zone_country_id) . "', '" . oos_db_input($zone_code) . "', '" . oos_db_input($zone_name) . "')");
+        oos_redirect_admin(oos_href_link_admin($aContents['zones']));
+        break;
 
-	case 'save':
-		$zone_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
+    case 'save':
+        $zone_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
 
-		$zonestable = $oostable['zones'];
-		$dbconn->Execute("UPDATE $zonestable SET zone_country_id = '" . oos_db_input($zone_country_id) . "', zone_code = '" . oos_db_input($zone_code) . "', zone_name = '" . oos_db_input($zone_name) . "' WHERE zone_id = '" . oos_db_input($zone_id) . "'");
-		oos_redirect_admin(oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $zone_id));
-		break;
+        $zonestable = $oostable['zones'];
+        $dbconn->Execute("UPDATE $zonestable SET zone_country_id = '" . oos_db_input($zone_country_id) . "', zone_code = '" . oos_db_input($zone_code) . "', zone_name = '" . oos_db_input($zone_name) . "' WHERE zone_id = '" . oos_db_input($zone_id) . "'");
+        oos_redirect_admin(oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $zone_id));
+        break;
 
-	case 'deleteconfirm':
-		$zone_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
+    case 'deleteconfirm':
+        $zone_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
 
-		$zonestable = $oostable['zones'];
-		$dbconn->Execute("DELETE FROM $zonestable WHERE zone_id = '" . oos_db_input($zone_id) . "'");
-		oos_redirect_admin(oos_href_link_admin($aContents['zones'], 'page=' . $nPage));
-		break;
+        $zonestable = $oostable['zones'];
+        $dbconn->Execute("DELETE FROM $zonestable WHERE zone_id = '" . oos_db_input($zone_id) . "'");
+        oos_redirect_admin(oos_href_link_admin($aContents['zones'], 'page=' . $nPage));
+        break;
 }
 
 require 'includes/header.php';
@@ -125,19 +125,19 @@ $zones_query_raw = "SELECT z.zone_id, c.countries_id, c.countries_name, z.zone_n
 $zones_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $zones_query_raw, $zones_result_numrows);
 $zones_result = $dbconn->Execute($zones_query_raw);
 while ($zones = $zones_result->fields) {
-	$rows++;
+    $rows++;
     if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $zones['zone_id']))) && !isset($cInfo) && (!str_starts_with((string) $action, 'new'))) {
         $cInfo = new objectInfo($zones);
     }
 
     if (isset($cInfo) && is_object($cInfo) && ($zones['zone_id'] == $cInfo->zone_id)) {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id . '&action=edit')];
-		echo '              <tr id="row-' . $rows .'">' . "\n";
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id . '&action=edit')];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     } else {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $zones['zone_id'])];
-		echo '              <tr id="row-' . $rows .'">' . "\n";
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $zones['zone_id'])];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     } ?>
                 <td><?php echo $zones['countries_name']; ?></td>
                 <td><?php echo $zones['zone_name']; ?></td>

@@ -217,55 +217,55 @@ require 'includes/header.php';
 					</thead>			
 <?php
   $rows = 0;
-  $aDocument = [];
+$aDocument = [];
 
-  foreach ($aDirectory as $sName) {
-	  $rows++;
-      if (isset($_SESSION['language']) &&  file_exists(OOS_ABSOLUTE_PATH . 'includes/plugins/' . $sName . '/lang/' . $_SESSION['language'] . '.php')) {
-          include OOS_ABSOLUTE_PATH . 'includes/plugins/' .  $sName . '/lang/' . $_SESSION['language'] . '.php';
-      } elseif (file_exists(OOS_ABSOLUTE_PATH . 'includes/plugins/' .  $sName . '/lang/' . DEFAULT_LANGUAGE . '.php')) {
-          include  OOS_ABSOLUTE_PATH . 'includes/plugins/' .  $sName . '/lang/' . DEFAULT_LANGUAGE . '.php';
-      }
-      include OOS_ABSOLUTE_PATH . 'includes/plugins/' .  $sName . '/' . $sName . '.php';
+foreach ($aDirectory as $sName) {
+    $rows++;
+    if (isset($_SESSION['language']) &&  file_exists(OOS_ABSOLUTE_PATH . 'includes/plugins/' . $sName . '/lang/' . $_SESSION['language'] . '.php')) {
+        include OOS_ABSOLUTE_PATH . 'includes/plugins/' .  $sName . '/lang/' . $_SESSION['language'] . '.php';
+    } elseif (file_exists(OOS_ABSOLUTE_PATH . 'includes/plugins/' .  $sName . '/lang/' . DEFAULT_LANGUAGE . '.php')) {
+        include  OOS_ABSOLUTE_PATH . 'includes/plugins/' .  $sName . '/lang/' . DEFAULT_LANGUAGE . '.php';
+    }
+    include OOS_ABSOLUTE_PATH . 'includes/plugins/' .  $sName . '/' . $sName . '.php';
 
-      $sInstance = strstr($sName, '_event_');
-      $sInstance = substr($sInstance, 7);
+    $sInstance = strstr($sName, '_event_');
+    $sInstance = substr($sInstance, 7);
 
-      $class = $sName;
-      $oPlugin = new $class();
+    $class = $sName;
+    $oPlugin = new $class();
 
-      if ((!isset($_GET['plugin']) || (isset($_GET['plugin']) && ($_GET['plugin'] == $sInstance))) && !isset($pInfo)) {
-          $plugin_info = ['instance' => $sInstance, 'name' => $oPlugin->name, 'description' => $oPlugin->description, 'status' => in_array($sInstance, $installed), 'uninstallable' => $oPlugin->uninstallable, 'preceeds' => $oPlugin->preceeds, 'preceeds' => $oPlugin->preceeds];
+    if ((!isset($_GET['plugin']) || (isset($_GET['plugin']) && ($_GET['plugin'] == $sInstance))) && !isset($pInfo)) {
+        $plugin_info = ['instance' => $sInstance, 'name' => $oPlugin->name, 'description' => $oPlugin->description, 'status' => in_array($sInstance, $installed), 'uninstallable' => $oPlugin->uninstallable, 'preceeds' => $oPlugin->preceeds, 'preceeds' => $oPlugin->preceeds];
 
-          $plugin_keys = $oPlugin->config_item();
-          $keys_extra = [];
+        $plugin_keys = $oPlugin->config_item();
+        $keys_extra = [];
 
-          if (is_array($plugin_keys) && (sizeof($plugin_keys) > 0)) {
-              foreach ($plugin_keys as $key) {
-                  $configurationtable = $oostable['configuration'];
-                  $key_value_result = $dbconn->Execute("SELECT configuration_value, use_function, set_function FROM $configurationtable WHERE configuration_key = '" . oos_db_input($key) . "'");
-                  $key_value = $key_value_result->fields;
+        if (is_array($plugin_keys) && (sizeof($plugin_keys) > 0)) {
+            foreach ($plugin_keys as $key) {
+                $configurationtable = $oostable['configuration'];
+                $key_value_result = $dbconn->Execute("SELECT configuration_value, use_function, set_function FROM $configurationtable WHERE configuration_key = '" . oos_db_input($key) . "'");
+                $key_value = $key_value_result->fields;
 
-                  $keys_extra[$key]['title'] = constant(strtoupper($key . '_TITLE'));
-                  $keys_extra[$key]['value'] = ($key_value['configuration_value'] ?? '');
-                  $keys_extra[$key]['description'] = constant(strtoupper($key . '_DESC'));
-                  $keys_extra[$key]['use_function'] = ($key_value['use_function'] ?? '');
-                  $keys_extra[$key]['set_function'] = ($key_value['set_function'] ?? '');
-              }
-          }
+                $keys_extra[$key]['title'] = constant(strtoupper($key . '_TITLE'));
+                $keys_extra[$key]['value'] = ($key_value['configuration_value'] ?? '');
+                $keys_extra[$key]['description'] = constant(strtoupper($key . '_DESC'));
+                $keys_extra[$key]['use_function'] = ($key_value['use_function'] ?? '');
+                $keys_extra[$key]['set_function'] = ($key_value['set_function'] ?? '');
+            }
+        }
 
-          $plugin_info['keys'] = $keys_extra;
+        $plugin_info['keys'] = $keys_extra;
 
-          $pInfo = new objectInfo($plugin_info);
-      }
+        $pInfo = new objectInfo($plugin_info);
+    }
 
-      if (isset($pInfo) && is_object($pInfo) && ($sInstance == $pInfo->instance)) {
-          echo '              <tr class="dataTableRowSelected">' . "\n";
-      } else {
-			$aDocument[] = ['id' => $rows,
-							'link' => oos_href_link_admin($aContents['plugins'], 'plugin=' . $sInstance)];
-			echo '              <tr id="row-' . $rows .'">' . "\n";
-      } ?>
+    if (isset($pInfo) && is_object($pInfo) && ($sInstance == $pInfo->instance)) {
+        echo '              <tr class="dataTableRowSelected">' . "\n";
+    } else {
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['plugins'], 'plugin=' . $sInstance)];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
+    } ?>
 
                 <td><?php echo $oPlugin->name; ?></td>
                 <td class="text-right">
@@ -287,7 +287,7 @@ require 'includes/header.php';
               </tr>
 
 <?php
-  }
+}
 ?>
               <tr>
                 <td colspan="4" class="smallText"><?php echo TEXT_PLUGINS_DIRECTORY . ' ' . $sLocaleDir; ?></td>
@@ -428,4 +428,3 @@ if (isset($aDocument) || !empty($aDocument)) {
 }
 
 require 'includes/nice_exit.php';
-
