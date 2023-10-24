@@ -110,21 +110,30 @@ require 'includes/header.php';
                         </tr>    
                     </thead>
 <?php
-  $tax_classtable = $oostable['tax_class'];
+
+$rows = 0;
+$aDocument = [];
+
+$tax_classtable = $oostable['tax_class'];
 $classes_result_raw = "SELECT tax_class_id, tax_class_title, tax_class_description, last_modified, date_added
                          FROM $tax_classtable
                          ORDER BY  tax_class_title";
 $classes_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $classes_result_raw, $classes_result_numrows);
 $classes_result = $dbconn->Execute($classes_result_raw);
 while ($classes = $classes_result->fields) {
+	$rows++;
     if ((!isset($_GET['tID']) || (isset($_GET['tID']) && ($_GET['tID'] == $classes['tax_class_id']))) && !isset($tcInfo) && (!str_starts_with((string) $action, 'new'))) {
         $tcInfo = new objectInfo($classes);
     }
 
     if (isset($tcInfo) && is_object($tcInfo) && ($classes['tax_class_id'] == $tcInfo->tax_class_id)) {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id . '&action=edit') . '\'">' . "\n";
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id . '&action=edit')];
+		echo '              <tr id="row-' . $rows .'">' . "\n";
     } else {
-        echo'              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $classes['tax_class_id']) . '\'">' . "\n";
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $classes['tax_class_id'])];
+		echo '              <tr id="row-' . $rows .'">' . "\n";
     } ?>
                 <td><?php echo $classes['tax_class_title']; ?></td>
                 <td class="text-right"><?php if (isset($tcInfo) && is_object($tcInfo) && ($classes['tax_class_id'] == $tcInfo->tax_class_id)) {
@@ -138,7 +147,6 @@ while ($classes = $classes_result->fields) {
                 $classes_result->MoveNext();
 }
 
-
 ?>
               <tr>
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -147,7 +155,7 @@ while ($classes = $classes_result->fields) {
                     <td class="smallText" align="right"><?php echo $classes_split->display_links($classes_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
                   </tr>
 <?php
- if ($action == 'default') {
+if ($action == 'default') {
      ?>
                   <tr>
                     <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&action=new') . '">' . oos_button(IMAGE_NEW_TAX_CLASS) . '</a>'; ?></td>
@@ -159,7 +167,8 @@ while ($classes = $classes_result->fields) {
               </tr>
             </table></td>
 <?php
-  $heading = [];
+
+$heading = [];
 $contents = [];
 
 switch ($action) {
@@ -236,5 +245,16 @@ if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
 
 <?php
 require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
+}
+
 require 'includes/nice_exit.php';
-?>

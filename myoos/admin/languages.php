@@ -770,21 +770,30 @@ require 'includes/header.php';
                         </tr>    
                     </thead>
 <?php
-  $languages_result_raw = "SELECT languages_id, name, iso_639_2, iso_639_1, iso_3166_1, status, sort_order 
+
+$rows = 0;
+$aDocument = [];
+
+$languages_result_raw = "SELECT languages_id, name, iso_639_2, iso_639_1, iso_3166_1, status, sort_order 
                           FROM " . $oostable['languages'] . "
                           ORDER BY sort_order";
 $languages_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $languages_result_raw, $languages_result_numrows);
 $languages_result = $dbconn->Execute($languages_result_raw);
 
 while ($languages = $languages_result->fields) {
+	$rows++;
     if ((!isset($_GET['lID']) || (isset($_GET['lID']) && ($_GET['lID'] == $languages['languages_id']))) && !isset($lInfo) && (!str_starts_with((string) $action, 'new'))) {
         $lInfo = new objectInfo($languages);
     }
 
     if (isset($lInfo) && is_object($lInfo) && ($languages['languages_id'] == $lInfo->languages_id)) {
-        echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=edit') . '\'">' . "\n";
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=edit')];
+		echo '              <tr id="row-' . $rows .'">' . "\n";
     } else {
-        echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $languages['languages_id']) . '\'">' . "\n";
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $languages['languages_id'])];
+		echo '              <tr id="row-' . $rows .'">' . "\n"; 
     }
 
     if (DEFAULT_LANGUAGE == $languages['iso_639_2']) {
@@ -925,6 +934,18 @@ if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
 <?php
 
 require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
+}
+
 ?>
 <script nonce="<?php echo NONCE; ?>">
 let element = document.getElementById('page');

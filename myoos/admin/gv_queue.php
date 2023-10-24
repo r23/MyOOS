@@ -189,7 +189,11 @@ require 'includes/header.php';
                         </tr>    
                     </thead>
 <?php
-  $customerstable = $oostable['customers'];
+
+$rows = 0;
+$aDocument = [];
+
+$customerstable = $oostable['customers'];
 $coupon_gv_queuetable = $oostable['coupon_gv_queue'];
 $gv_result_raw = "SELECT c.customers_firstname, c.customers_lastname, gv.unique_id,
                            gv.date_created, gv.amount, gv.order_id
@@ -198,14 +202,21 @@ $gv_result_raw = "SELECT c.customers_firstname, c.customers_lastname, gv.unique_
                    WHERE (gv.customer_id = c.customers_id AND gv.release_flag = 'N')";
 $gv_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $gv_result_raw, $gv_result_numrows);
 $gv_result = $dbconn->Execute($gv_result_raw);
+
 while ($gv_list = $gv_result->fields) {
+	$rows++;
     if ((!isset($_GET['gid']) || (isset($_GET['gid']) && ($_GET['gid'] == $gv_list['unique_id']))) && !isset($gInfo)) {
         $gInfo = new objectInfo($gv_list);
     }
     if (isset($gInfo) && is_object($gInfo) && ($gv_list['unique_id'] == $gInfo->unique_id)) {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['gv_queue'], oos_get_all_get_params(['gid', 'action']) . 'gid=' . $gInfo->unique_id . '&action=edit') . '\'">' . "\n";
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin($aContents['gv_queue'], oos_get_all_get_params(['gid', 'action']) . 'gid=' . $gInfo->unique_id . '&action=edit')];
+		echo '              <tr id="row-' . $rows .'">' . "\n";
+
     } else {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['gv_queue'], oos_get_all_get_params(['gid', 'action']) . 'gid=' . $gv_list['unique_id']) . '\'">' . "\n";
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin($aContents['gv_queue'], oos_get_all_get_params(['gid', 'action']) . 'gid=' . $gv_list['unique_id'])];
+		echo '              <tr id="row-' . $rows .'">' . "\n";
     } ?>
                 <td><?php echo $gv_list['customers_firstname'] . ' ' . $gv_list['customers_lastname']; ?></td>
                 <td class="text-center"><?php echo $gv_list['order_id']; ?></td>
@@ -284,6 +295,18 @@ if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
 <?php
 
 require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
+}
+
 ?>
 <script nonce="<?php echo NONCE; ?>">
 let element = document.getElementById('page');

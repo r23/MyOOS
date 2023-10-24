@@ -194,7 +194,11 @@ require 'includes/header.php';
 						</tr>	
 					</thead>	
 <?php
-  $tax_classtable = $oostable['tax_class'];
+
+$rows = 0;
+$aDocument = [];
+
+$tax_classtable = $oostable['tax_class'];
 $tax_ratestable = $oostable['tax_rates'];
 $geo_zonestable = $oostable['geo_zones'];
 $rates_result_raw = "SELECT r.tax_rates_id, z.geo_zone_id, z.geo_zone_name, tc.tax_class_title, tc.tax_class_id,
@@ -208,14 +212,19 @@ $rates_result_raw = "SELECT r.tax_rates_id, z.geo_zone_id, z.geo_zone_name, tc.t
 $rates_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $rates_result_raw, $rates_result_numrows);
 $rates_result = $dbconn->Execute($rates_result_raw);
 while ($rates = $rates_result->fields) {
+	$rows++;
     if ((!isset($_GET['tID']) || (isset($_GET['tID']) && ($_GET['tID'] == $rates['tax_rates_id']))) && !isset($trInfo) && (!str_starts_with((string) $action, 'new'))) {
         $trInfo = new objectInfo($rates);
     }
 
     if (isset($trInfo) && is_object($trInfo) && ($rates['tax_rates_id'] == $trInfo->tax_rates_id)) {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id . '&action=edit') . '\'">' . "\n";
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id . '&action=edit') ];
+		echo '              <tr id="row-' . $rows .'">' . "\n";
     } else {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $rates['tax_rates_id']) . '\'">' . "\n";
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $rates['tax_rates_id'])];
+		echo '              <tr id="row-' . $rows .'">' . "\n";
     } ?>
 				<td><?php echo $rates['geo_zone_name']; ?></td>
                 <td><?php echo $rates['tax_class_title']; ?></td>
@@ -331,6 +340,18 @@ if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
 <?php
 
 require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
+}
+
 ?>
 <script nonce="<?php echo NONCE; ?>">
 let element = document.getElementById('page');

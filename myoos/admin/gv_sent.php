@@ -92,7 +92,11 @@ require 'includes/header.php';
                         </tr>    
                     </thead>
 <?php
-  $couponstable = $oostable['coupons'];
+
+$rows = 0;
+$aDocument = [];
+
+$couponstable = $oostable['coupons'];
 $coupon_email_tracktable = $oostable['coupon_email_track'];
 $gv_result_raw = "SELECT c.coupon_amount, c.coupon_code, c.coupon_id, et.sent_firstname, et.sent_lastname,
                            et.customer_id_sent, et.emailed_to, et.date_sent, c.coupon_id
@@ -106,9 +110,13 @@ while ($gv_list = $gv_result->fields) {
         $gInfo = new objectInfo($gv_list);
     }
     if (isset($gInfo) && is_object($gInfo) && ($gv_list['coupon_id'] == $gInfo->coupon_id)) {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin('gv_sent.php', oos_get_all_get_params(['gid', 'action']) . 'gid=' . $gInfo->coupon_id . '&action=edit') . '\'">' . "\n";
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin('gv_sent.php', oos_get_all_get_params(['gid', 'action']) . 'gid=' . $gInfo->coupon_id . '&action=edit')];
+		echo '              <tr id="row-' . $rows .'">' . "\n";		
     } else {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin('gv_sent.php', oos_get_all_get_params(['gid', 'action']) . 'gid=' . $gv_list['coupon_id']) . '\'">' . "\n";
+		$aDocument[] = ['id' => $rows,
+						'link' => oos_href_link_admin('gv_sent.php', oos_get_all_get_params(['gid', 'action']) . 'gid=' . $gv_list['coupon_id']) ];
+		echo '              <tr id="row-' . $rows .'">' . "\n";
     } ?>
                 <td><?php echo $gv_list['sent_firstname'] . ' ' . $gv_list['sent_lastname']; ?></td>
                 <td class="text-center"><?php echo $currencies->format($gv_list['coupon_amount']); ?></td>
@@ -198,6 +206,18 @@ if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
 <?php
 
 require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
+}
+
 ?>
 <script nonce="<?php echo NONCE; ?>">
 let element = document.getElementById('page');

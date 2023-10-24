@@ -774,7 +774,7 @@ switch ($action) {
         <td class="text-left"><?php echo $finish_date; ?></td>
       </tr>
 <?php
-            $languages = oos_get_languages();
+		$languages = oos_get_languages();
         for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
             $language_id = $languages[$i]['id'];
             echo oos_draw_hidden_field('coupon_name[' . $languages[$i]['id'] . ']', $_POST['coupon_name'][$language_id]);
@@ -1028,7 +1028,7 @@ switch ($action) {
 		<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"></td>
-            <td class="main"><?php echo oos_draw_form('id', 'status', $aContents['coupon_admin'], '', 'get', false); ?>
+            <td class="main"><?php echo oos_draw_form('coupon', 'status', $aContents['coupon_admin'], '', 'get', false); ?>
 <?php
         $status_array[] = ['id' => 'Y', 'text' => TEXT_COUPON_ACTIVE];
         $status_array[] = ['id' => 'N', 'text' => TEXT_COUPON_INACTIVE];
@@ -1036,7 +1036,7 @@ switch ($action) {
 
         $status = isset($_GET['status']) ? oos_db_prepare_input($_GET['status']) : 'Y';
 
-        echo HEADING_TITLE_STATUS . ' ' . oos_draw_pull_down_menu('status', '', $status_array, $status, 'onChange="this.form.submit();"');
+        echo HEADING_TITLE_STATUS . ' ' . oos_draw_pull_down_menu('status', 'coupon-status', $status_array, $status);
         ?>
               </form>
            </td>
@@ -1247,6 +1247,17 @@ if (element) {
 		form.submit(); 
 	});
 }
+
+let couponElement = document.getElementById('coupon');
+if (couponElement) {
+
+	let form = document.getElementById('coupon'); 
+
+	couponElement.addEventListener('change', function() { 
+		form.submit(); 
+	});
+}
+
 </script>
 <?php
 
