@@ -52,6 +52,6 @@ define('TEXT_INFO_HEADING_NEW_FILE', 'Store Files');
 
 define('TEXT_INFO_DEFAULT_FILE_INTRO', 'Klicken Sie den <b>Dateien ablegen</b> Button um die neue Datei in dem Bereich abzulegen: ');
 define('TEXT_INFO_DELETE_FILE_INTRO', 'Entferne <font color="red"><b>%s</b></font> von <b>%s</b> Bereich? ');
-define('TEXT_INFO_NEW_FILE_INTRO', 'Überprüfen Sie das <font color="red"><b>linke Menü</b></font> um sicherzustellen das Sie die richtigen Dateien entfernt haben.');
+define('TEXT_INFO_NEW_FILE_INTRO', 'Überprüfen Sie im Menü auf der linken Seite, ob Sie die richtigen Dateien entfernt haben.');
 
 define('TEXT_INFO_NEW_FILE_BOX', 'Momentaner Bereich: ');
