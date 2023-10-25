@@ -229,15 +229,15 @@ function update_zone(theForm) {
           if ((!isset($_GET['sID']) || (isset($_GET['sID']) && ($_GET['sID'] == $zones['association_id']))) && !isset($sInfo) && (!str_starts_with((string) $saction, 'new'))) {
               $sInfo = new objectInfo($zones);
           }
-		  
+
           if (isset($sInfo) && is_object($sInfo) && ($zones['association_id'] == $sInfo->association_id)) {
-				$aDocument[] = ['id' => $rows,
-								'link' => oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $sInfo->association_id . '&saction=edit')];
-				echo '              <tr id="row-' . $rows .'">' . "\n";			  
+              $aDocument[] = ['id' => $rows,
+                              'link' => oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $sInfo->association_id . '&saction=edit')];
+              echo '              <tr id="row-' . $rows .'">' . "\n";
           } else {
-				$aDocument[] = ['id' => $rows,
-							'link' => oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $zones['association_id'])];
-				echo '              <tr id="row-' . $rows .'">' . "\n";
+              $aDocument[] = ['id' => $rows,
+                          'link' => oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $zones['association_id'])];
+              echo '              <tr id="row-' . $rows .'">' . "\n";
           } ?>
                 <td><?php echo($zones['countries_name'] ?: TEXT_ALL_COUNTRIES); ?></td>
                 <td><?php echo(($zones['zone_id']) ? $zones['zone_name'] : PLEASE_SELECT); ?></td>

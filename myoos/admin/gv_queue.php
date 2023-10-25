@@ -204,19 +204,19 @@ $gv_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $gv_result_
 $gv_result = $dbconn->Execute($gv_result_raw);
 
 while ($gv_list = $gv_result->fields) {
-	$rows++;
+    $rows++;
     if ((!isset($_GET['gid']) || (isset($_GET['gid']) && ($_GET['gid'] == $gv_list['unique_id']))) && !isset($gInfo)) {
         $gInfo = new objectInfo($gv_list);
     }
     if (isset($gInfo) && is_object($gInfo) && ($gv_list['unique_id'] == $gInfo->unique_id)) {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['gv_queue'], oos_get_all_get_params(['gid', 'action']) . 'gid=' . $gInfo->unique_id . '&action=edit')];
-		echo '              <tr id="row-' . $rows .'">' . "\n";
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['gv_queue'], oos_get_all_get_params(['gid', 'action']) . 'gid=' . $gInfo->unique_id . '&action=edit')];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
 
     } else {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['gv_queue'], oos_get_all_get_params(['gid', 'action']) . 'gid=' . $gv_list['unique_id'])];
-		echo '              <tr id="row-' . $rows .'">' . "\n";
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['gv_queue'], oos_get_all_get_params(['gid', 'action']) . 'gid=' . $gv_list['unique_id'])];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     } ?>
                 <td><?php echo $gv_list['customers_firstname'] . ' ' . $gv_list['customers_lastname']; ?></td>
                 <td class="text-center"><?php echo $gv_list['order_id']; ?></td>

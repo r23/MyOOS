@@ -193,19 +193,19 @@ $currency_result_raw = "SELECT currencies_id, title, code, symbol_left, symbol_r
 $currency_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $currency_result_raw, $currency_result_numrows);
 $currency_result = $dbconn->Execute($currency_result_raw);
 while ($currency = $currency_result->fields) {
-	$rows++;
+    $rows++;
     if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $currency['currencies_id']))) && !isset($cInfo) && (!str_starts_with((string) $action, 'new'))) {
         $cInfo = new objectInfo($currency);
     }
 
     if (isset($cInfo) && is_object($cInfo) && ($currency['currencies_id'] == $cInfo->currencies_id)) {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=edit')];
-		echo '              <tr id="row-' . $rows .'">' . "\n";
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=edit')];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     } else {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $currency['currencies_id'])];
-		echo '              <tr id="row-' . $rows .'">' . "\n";
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $currency['currencies_id'])];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     }
 
     if (DEFAULT_CURRENCY == $currency['code']) {

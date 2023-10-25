@@ -15,113 +15,113 @@ require 'includes/main.php';
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
 switch ($action) {
-	case 'make_file_now':
-		$excel_file = 'db_export-' . date('YmdHis') . '.cvs';
-		$fp = fopen(OOS_EXPORT_PATH . $excel_file, 'w');
+    case 'make_file_now':
+        $excel_file = 'db_export-' . date('YmdHis') . '.cvs';
+        $fp = fopen(OOS_EXPORT_PATH . $excel_file, 'w');
 
-		$schema = '';
-		$schema .= 'id | Model | Name | tax_class_id | Status |  Net Price | Gross Price ' .  "\n";
+        $schema = '';
+        $schema .= 'id | Model | Name | tax_class_id | Status |  Net Price | Gross Price ' .  "\n";
 
-		$nLanguageID = intval($_SESSION['language_id']);
+        $nLanguageID = intval($_SESSION['language_id']);
 
-		$productstable = $oostable['products'];
-		$products_descriptiontable = $oostable['products_description'];
-		$sql = "SELECT p.products_id, p.products_model, p.products_price, p.products_tax_class_id, p.products_status, pd.products_name
+        $productstable = $oostable['products'];
+        $products_descriptiontable = $oostable['products_description'];
+        $sql = "SELECT p.products_id, p.products_model, p.products_price, p.products_tax_class_id, p.products_status, pd.products_name
 			FROM $productstable p,
 				 $products_descriptiontable pd
 			WHERE p.products_id = pd.products_id
 			  AND pd.products_languages_id = '" . intval($nLanguageID) . "'";
-		$products_result = $dbconn->Execute($sql);
+        $products_result = $dbconn->Execute($sql);
 
-		$rows = 0;
-		while ($products = $products_result->fields) {
-			$rows++;
+        $rows = 0;
+        while ($products = $products_result->fields) {
+            $rows++;
 
-			$name = $products['products_name'];
-			$name = str_replace('|', ' ', (string) $name);
-			$name = strip_tags($name);
+            $name = $products['products_name'];
+            $name = str_replace('|', ' ', (string) $name);
+            $name = strip_tags($name);
 
-			$price = $products['products_price'];
-			$tax = (100 + oos_get_tax_rate($products['products_tax_class_id'])) / 100;
-			$price = number_format(oos_round($price * $tax, 2), 2, '.', '');
+            $price = $products['products_price'];
+            $tax = (100 + oos_get_tax_rate($products['products_tax_class_id'])) / 100;
+            $price = number_format(oos_round($price * $tax, 2), 2, '.', '');
 
-			$schema .= $products['products_id']. '|'  . $products['products_model'] . '|' . $name . '|' . $products['products_tax_class_id'] . '|' . $products['products_status'] . '|' . $products['products_price'] . '|' . $price . "\n";
+            $schema .= $products['products_id']. '|'  . $products['products_model'] . '|' . $name . '|' . $products['products_tax_class_id'] . '|' . $products['products_status'] . '|' . $products['products_price'] . '|' . $price . "\n";
 
-			// Move that ADOdb pointer!
-			$products_result->MoveNext();
-		}
+            // Move that ADOdb pointer!
+            $products_result->MoveNext();
+        }
 
 
-		fputs($fp, $schema);
-		fclose($fp);
+        fputs($fp, $schema);
+        fclose($fp);
 
-		if (isset($_POST['download']) && ($_POST['download'] == 'yes')) {
-			# todo
-			/*
-				switch ($_POST['compress']) {
-				case 'gzip':
-				  exec(LOCAL_EXE_GZIP . ' ' . OOS_EXPORT_PATH . $excel_file);
-				  $excel_file .= '.gz';
-				  break;
+        if (isset($_POST['download']) && ($_POST['download'] == 'yes')) {
+            # todo
+            /*
+                switch ($_POST['compress']) {
+                case 'gzip':
+                  exec(LOCAL_EXE_GZIP . ' ' . OOS_EXPORT_PATH . $excel_file);
+                  $excel_file .= '.gz';
+                  break;
 
-				case 'zip':
-				  exec(LOCAL_EXE_ZIP . ' -j ' . OOS_EXPORT_PATH . $excel_file . '.zip ' . OOS_EXPORT_PATH . $excel_file);
-				  @unlink(OOS_EXPORT_PATH . $excel_file);
-				  $excel_file .= '.zip';
-			  }
-			*/
-			header('Content-type: application/x-octet-stream');
-			header('Content-disposition: attachment; filename=' . $excel_file);
+                case 'zip':
+                  exec(LOCAL_EXE_ZIP . ' -j ' . OOS_EXPORT_PATH . $excel_file . '.zip ' . OOS_EXPORT_PATH . $excel_file);
+                  @unlink(OOS_EXPORT_PATH . $excel_file);
+                  $excel_file .= '.zip';
+              }
+            */
+            header('Content-type: application/x-octet-stream');
+            header('Content-disposition: attachment; filename=' . $excel_file);
 
-			readfile(OOS_EXPORT_PATH . $excel_file);
-			@unlink(OOS_EXPORT_PATH . $excel_file);
+            readfile(OOS_EXPORT_PATH . $excel_file);
+            @unlink(OOS_EXPORT_PATH . $excel_file);
 
-			exit;
-		} else {
-			# todo
-			/*
-			switch ($_POST['compress']) {
-			case 'gzip':
-			  exec(LOCAL_EXE_GZIP . ' ' . $excel_file);
-			  break;
+            exit;
+        } else {
+            # todo
+            /*
+            switch ($_POST['compress']) {
+            case 'gzip':
+              exec(LOCAL_EXE_GZIP . ' ' . $excel_file);
+              break;
 
-			case 'zip':
-			  exec(LOCAL_EXE_ZIP . ' -j ' . $excel_file . '.zip ' . $excel_file);
-			  unlink(OOS_EXPORT_PATH . $excel_file);
-	  }
-				  */
-			$messageStack->add_session(SUCCESS_DATABASE_SAVED, 'success');
-		}
-		oos_redirect_admin(oos_href_link_admin($aContents['export_excel']));
-		break;
+            case 'zip':
+              exec(LOCAL_EXE_ZIP . ' -j ' . $excel_file . '.zip ' . $excel_file);
+              unlink(OOS_EXPORT_PATH . $excel_file);
+      }
+                  */
+            $messageStack->add_session(SUCCESS_DATABASE_SAVED, 'success');
+        }
+        oos_redirect_admin(oos_href_link_admin($aContents['export_excel']));
+        break;
 
-	case 'download':
-		$sFile = oos_db_prepare_input($_GET['file']);
-		$extension = substr((string) $_GET['file'], -3);
-		if (($extension == 'zip') || ($extension == '.gz') || ($extension == 'cvs')) {
-			if ($fp = fopen(OOS_EXPORT_PATH . $sFile, 'rb')) {
-				$buffer = fread($fp, filesize(OOS_EXPORT_PATH . $sFile));
-				fclose($fp);
-				header('Content-type: application/x-octet-stream');
-				header('Content-disposition: attachment; filename=' . $sFile);
-				echo $buffer;
-				exit;
-			}
-		} else {
-			$messageStack->add(ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE, 'error');
-		}
-		break;
-	case 'deleteconfirm':
-		if (strstr((string) $_GET['file'], '..')) {
-			oos_redirect_admin(oos_href_link_admin($aContents['export_excel']));
-		}
+    case 'download':
+        $sFile = oos_db_prepare_input($_GET['file']);
+        $extension = substr((string) $_GET['file'], -3);
+        if (($extension == 'zip') || ($extension == '.gz') || ($extension == 'cvs')) {
+            if ($fp = fopen(OOS_EXPORT_PATH . $sFile, 'rb')) {
+                $buffer = fread($fp, filesize(OOS_EXPORT_PATH . $sFile));
+                fclose($fp);
+                header('Content-type: application/x-octet-stream');
+                header('Content-disposition: attachment; filename=' . $sFile);
+                echo $buffer;
+                exit;
+            }
+        } else {
+            $messageStack->add(ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE, 'error');
+        }
+        break;
+    case 'deleteconfirm':
+        if (strstr((string) $_GET['file'], '..')) {
+            oos_redirect_admin(oos_href_link_admin($aContents['export_excel']));
+        }
 
-		oos_remove(OOS_EXPORT_PATH . '/' . oos_db_prepare_input($_GET['file']));
-		if (!$oos_remove_error) {
-			$messageStack->add_session(SUCCESS_EXPORT_DELETED, 'success');
-			oos_redirect_admin(oos_href_link_admin($aContents['export_excel']));
-		}
-		break;
+        oos_remove(OOS_EXPORT_PATH . '/' . oos_db_prepare_input($_GET['file']));
+        if (!$oos_remove_error) {
+            $messageStack->add_session(SUCCESS_EXPORT_DELETED, 'success');
+            oos_redirect_admin(oos_href_link_admin($aContents['export_excel']));
+        }
+        break;
 }
 
 
@@ -208,11 +208,11 @@ if ($dir_ok) {
     }
     rsort($contents);
 
-	$rows = 0;
-	$aDocument = [];
+    $rows = 0;
+    $aDocument = [];
 
     for ($files = 0, $count = count($contents); $files < $count; $files++) {
-		$rows = $files;
+        $rows = $files;
         $entry = $contents[$files];
 
         $check = 0;
@@ -231,15 +231,15 @@ if ($dir_ok) {
             $buInfo = new objectInfo($file_array);
         }
 
-		$onclick_link = 'file=' . $entry;
-		if (isset($buInfo) && is_object($buInfo) && ($entry == $buInfo->file)) {
-			echo '              <tr id="row-' . $rows .'">' . "\n";				
-		} else {
-			$aDocument[] = ['id' => $rows,
-							'link' => oos_href_link_admin($aContents['export_excel'], $onclick_link)];
-			echo '              <tr id="row-' . $rows .'">' . "\n";	
-		}
-			?>
+        $onclick_link = 'file=' . $entry;
+        if (isset($buInfo) && is_object($buInfo) && ($entry == $buInfo->file)) {
+            echo '              <tr id="row-' . $rows .'">' . "\n";
+        } else {
+            $aDocument[] = ['id' => $rows,
+                            'link' => oos_href_link_admin($aContents['export_excel'], $onclick_link)];
+            echo '              <tr id="row-' . $rows .'">' . "\n";
+        }
+        ?>
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['export_excel'], 'action=download&file=' . $entry) . '"><button class="btn btn-default" type="button"><i class="fa fa-download" title="' . ICON_FILE_DOWNLOAD . '" aria-hidden="true"></i></button></a>&nbsp;' . $entry; ?></td>
                 <td align="center"><?php echo date(PHP_DATE_TIME_FORMAT, filemtime(OOS_EXPORT_PATH . $entry)); ?></td>
                 <td align="right"><?php echo number_format(filesize(OOS_EXPORT_PATH . $entry)); ?> bytes</td>

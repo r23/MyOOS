@@ -110,13 +110,13 @@ while ($gv_list = $gv_result->fields) {
         $gInfo = new objectInfo($gv_list);
     }
     if (isset($gInfo) && is_object($gInfo) && ($gv_list['coupon_id'] == $gInfo->coupon_id)) {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin('gv_sent.php', oos_get_all_get_params(['gid', 'action']) . 'gid=' . $gInfo->coupon_id . '&action=edit')];
-		echo '              <tr id="row-' . $rows .'">' . "\n";		
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin('gv_sent.php', oos_get_all_get_params(['gid', 'action']) . 'gid=' . $gInfo->coupon_id . '&action=edit')];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     } else {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin('gv_sent.php', oos_get_all_get_params(['gid', 'action']) . 'gid=' . $gv_list['coupon_id']) ];
-		echo '              <tr id="row-' . $rows .'">' . "\n";
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin('gv_sent.php', oos_get_all_get_params(['gid', 'action']) . 'gid=' . $gv_list['coupon_id']) ];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     } ?>
                 <td><?php echo $gv_list['sent_firstname'] . ' ' . $gv_list['sent_lastname']; ?></td>
                 <td class="text-center"><?php echo $currencies->format($gv_list['coupon_amount']); ?></td>

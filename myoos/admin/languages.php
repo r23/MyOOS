@@ -781,19 +781,19 @@ $languages_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $lan
 $languages_result = $dbconn->Execute($languages_result_raw);
 
 while ($languages = $languages_result->fields) {
-	$rows++;
+    $rows++;
     if ((!isset($_GET['lID']) || (isset($_GET['lID']) && ($_GET['lID'] == $languages['languages_id']))) && !isset($lInfo) && (!str_starts_with((string) $action, 'new'))) {
         $lInfo = new objectInfo($languages);
     }
 
     if (isset($lInfo) && is_object($lInfo) && ($languages['languages_id'] == $lInfo->languages_id)) {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=edit')];
-		echo '              <tr id="row-' . $rows .'">' . "\n";
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=edit')];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     } else {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $languages['languages_id'])];
-		echo '              <tr id="row-' . $rows .'">' . "\n"; 
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $languages['languages_id'])];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     }
 
     if (DEFAULT_LANGUAGE == $languages['iso_639_2']) {

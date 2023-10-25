@@ -271,7 +271,7 @@ if (isset($_GET['gPath']) && ($_GET['gPath'])) {
     $db_boxes_query = "SELECT admin_files_id as admin_boxes_id, admin_files_name as admin_boxes_name, admin_groups_id as boxes_group_id FROM $admin_filestable WHERE admin_files_is_boxes = '1' ORDER BY admin_files_name";
     $db_boxes_result = $dbconn->Execute($db_boxes_query);
     while ($group_boxes = $db_boxes_result->fields) {
-		
+
         $admin_filestable = $oostable['admin_files'];
         $group_boxes_files_query = "SELECT admin_files_id, admin_files_name, admin_groups_id FROM $admin_filestable WHERE admin_files_is_boxes = '0' and admin_files_to_boxes = '" . intval($group_boxes['admin_boxes_id']) . "' ORDER BY admin_files_name";
         $group_boxes_files_result = $dbconn->Execute($group_boxes_files_query);
@@ -363,20 +363,20 @@ if (isset($_GET['gPath']) && ($_GET['gPath'])) {
     $del_groups_prepare = '\'0\'' ;
     $count_groups = 0;
     while ($groups = $db_groups_result->fields) {
-		$rows++;
+        $rows++;
         $add_groups_prepare .= ',\'' . $groups['admin_groups_id'] . '\'' ;
         if (((!$_GET['gID']) || ($_GET['gID'] == $groups['admin_groups_id']) || ($_GET['gID'] == 'groups')) && (!$gInfo)) {
             $gInfo = new objectInfo($groups);
         }
 
         if (isset($gInfo) && is_object($gInfo) && ($groups['admin_groups_id'] == $gInfo->admin_groups_id)) {
-			$aDocument[] = ['id' => $rows,
-							'link' => oos_href_link_admin($aContents['admin_members'], 'gID=' . $groups['admin_groups_id'] . '&action=edit_group')];
-			echo '              <tr id="row-' . $rows .'">' . "\n";	
+            $aDocument[] = ['id' => $rows,
+                            'link' => oos_href_link_admin($aContents['admin_members'], 'gID=' . $groups['admin_groups_id'] . '&action=edit_group')];
+            echo '              <tr id="row-' . $rows .'">' . "\n";
         } else {
-			$aDocument[] = ['id' => $rows,
-							'link' => oos_href_link_admin($aContents['admin_members'], 'gID=' . $groups['admin_groups_id'])];
-			echo '              <tr id="row-' . $rows .'">' . "\n";	
+            $aDocument[] = ['id' => $rows,
+                            'link' => oos_href_link_admin($aContents['admin_members'], 'gID=' . $groups['admin_groups_id'])];
+            echo '              <tr id="row-' . $rows .'">' . "\n";
             $del_groups_prepare .= ',\'' . $groups['admin_groups_id'] . '\'' ;
         } ?>
                 <td>&nbsp;<b><?php echo $groups['admin_groups_name']; ?></b></td>
@@ -420,7 +420,7 @@ if (isset($_GET['gPath']) && ($_GET['gPath'])) {
     $db_admin_result = $dbconn->Execute($db_admin_result_raw);
 
     while ($admin = $db_admin_result->fields) {
-		$rows++;
+        $rows++;
         $admin_group_query = "SELECT admin_groups_name FROM ". $oostable['admin_groups'] . " WHERE admin_groups_id = '" . intval($admin['admin_groups_id']) . "'";
         $admin_group_result = $dbconn->Execute($admin_group_query);
         $admin_group = $admin_group_result->fields;
@@ -430,13 +430,13 @@ if (isset($_GET['gPath']) && ($_GET['gPath'])) {
         }
 
         if (isset($mInfo) && is_object($mInfo) && ($admin['admin_id'] == $mInfo->admin_id)) {
-			$aDocument[] = ['id' => $rows,
-							'link' => oos_href_link_admin($aContents['admin_members'], 'page=' . $nPage . '&mID=' . $admin['admin_id'] . '&action=edit_member')];
-			echo '              <tr id="row-' . $rows .'">' . "\n";	
+            $aDocument[] = ['id' => $rows,
+                            'link' => oos_href_link_admin($aContents['admin_members'], 'page=' . $nPage . '&mID=' . $admin['admin_id'] . '&action=edit_member')];
+            echo '              <tr id="row-' . $rows .'">' . "\n";
         } else {
-			$aDocument[] = ['id' => $rows,
-							'link' => oos_href_link_admin($aContents['admin_members'], 'page=' . $nPage . '&mID=' . $admin['admin_id'])];
-			echo '              <tr id="row-' . $rows .'">' . "\n";	
+            $aDocument[] = ['id' => $rows,
+                            'link' => oos_href_link_admin($aContents['admin_members'], 'page=' . $nPage . '&mID=' . $admin['admin_id'])];
+            echo '              <tr id="row-' . $rows .'">' . "\n";
         } ?>
                 <td>&nbsp;<?php echo $admin['admin_firstname']; ?>&nbsp;<?php echo $admin['admin_lastname']; ?></td>
                 <td><?php echo $admin['admin_email_address']; ?></td>

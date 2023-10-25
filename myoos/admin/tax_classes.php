@@ -121,19 +121,19 @@ $classes_result_raw = "SELECT tax_class_id, tax_class_title, tax_class_descripti
 $classes_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $classes_result_raw, $classes_result_numrows);
 $classes_result = $dbconn->Execute($classes_result_raw);
 while ($classes = $classes_result->fields) {
-	$rows++;
+    $rows++;
     if ((!isset($_GET['tID']) || (isset($_GET['tID']) && ($_GET['tID'] == $classes['tax_class_id']))) && !isset($tcInfo) && (!str_starts_with((string) $action, 'new'))) {
         $tcInfo = new objectInfo($classes);
     }
 
     if (isset($tcInfo) && is_object($tcInfo) && ($classes['tax_class_id'] == $tcInfo->tax_class_id)) {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id . '&action=edit')];
-		echo '              <tr id="row-' . $rows .'">' . "\n";
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id . '&action=edit')];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     } else {
-		$aDocument[] = ['id' => $rows,
-						'link' => oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $classes['tax_class_id'])];
-		echo '              <tr id="row-' . $rows .'">' . "\n";
+        $aDocument[] = ['id' => $rows,
+                        'link' => oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $classes['tax_class_id'])];
+        echo '              <tr id="row-' . $rows .'">' . "\n";
     } ?>
                 <td><?php echo $classes['tax_class_title']; ?></td>
                 <td class="text-right"><?php if (isset($tcInfo) && is_object($tcInfo) && ($classes['tax_class_id'] == $tcInfo->tax_class_id)) {
@@ -156,12 +156,12 @@ while ($classes = $classes_result->fields) {
                   </tr>
 <?php
 if ($action == 'default') {
-     ?>
+    ?>
                   <tr>
                     <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&action=new') . '">' . oos_button(IMAGE_NEW_TAX_CLASS) . '</a>'; ?></td>
                   </tr>
     <?php
- }
+}
 ?>
                 </table></td>
               </tr>

@@ -774,7 +774,7 @@ switch ($action) {
         <td class="text-left"><?php echo $finish_date; ?></td>
       </tr>
 <?php
-		$languages = oos_get_languages();
+        $languages = oos_get_languages();
         for ($i = 0, $n = is_countable($languages) ? count($languages) : 0; $i < $n; $i++) {
             $language_id = $languages[$i]['id'];
             echo oos_draw_hidden_field('coupon_name[' . $languages[$i]['id'] . ']', $_POST['coupon_name'][$language_id]);

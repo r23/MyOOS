@@ -118,7 +118,7 @@ require 'includes/header.php';
 
 $rows = 0;
 $aDocument = [];
-	
+
 if (isset($_GET['fID']) || isset($_GET['cPath'])) {
     $admin_filestable = $oostable['admin_files'];
     $current_box_query = "SELECT admin_files_name as admin_box_name 
@@ -142,7 +142,7 @@ if (isset($_GET['fID']) || isset($_GET['cPath'])) {
     $file_count = 0;
 
     while ($files = $db_file_result->fields) {
-		$rows++;
+        $rows++;
         $file_count++;
 
         if (((!isset($_GET['fID'])) || ($_GET['fID'] == $files['admin_files_id'])) && !isset($fInfo)) {
@@ -150,13 +150,13 @@ if (isset($_GET['fID']) || isset($_GET['cPath'])) {
         }
 
         if (isset($fInfo) && is_object($fInfo) && ($files['admin_files_id'] == $fInfo->admin_files_id)) {
-			$aDocument[] = ['id' => $rows,
-							'link' => oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id'] . '&action=edit_file')];
-			echo '              <tr id="row-' . $rows .'">' . "\n";	
+            $aDocument[] = ['id' => $rows,
+                            'link' => oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id'] . '&action=edit_file')];
+            echo '              <tr id="row-' . $rows .'">' . "\n";
         } else {
-			$aDocument[] = ['id' => $rows,
-							'link' => oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id'])];
-			echo '              <tr id="row-' . $rows .'">' . "\n";				
+            $aDocument[] = ['id' => $rows,
+                            'link' => oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id'])];
+            echo '              <tr id="row-' . $rows .'">' . "\n";
         } ?>
                 <td><?php echo $files['admin_files_name']; ?></td>
                 <td class="text-right"><?php if (isset($fInfo) && is_object($fInfo) && ($files['admin_files_id'] == $fInfo->admin_files_id)) {
@@ -229,25 +229,25 @@ if (isset($_GET['fID']) || isset($_GET['cPath'])) {
     $boxnum = count($boxes);
     $i = 0;
     while ($i < $boxnum) {
-		$rows++;
+        $rows++;
         if ((!isset($_GET['cID']) || (isset($_GET['none']) &&  $_GET['none'] == $boxes[$i]['admin_boxes_id']) || ($_GET['cID'] == $boxes[$i]['admin_boxes_id'])) && !isset($cInfo)) {
             $cInfo = new objectInfo($boxes[$i]);
         }
 
         if (isset($cInfo) && is_object($cInfo) && ($boxes[$i]['admin_boxes_id'] == $cInfo->admin_boxes_id)) {
             if (str_starts_with("$cInfo->admin_boxes_id", 'b')) {
-				$aDocument[] = ['id' => $rows,
-								'link' => oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id'])];
-				echo '              <tr id="row-' . $rows .'">' . "\n";	 
-			} else {
-				$aDocument[] = ['id' => $rows,
-								'link' => oos_href_link_admin($aContents['admin_files'], 'cPath=' . $boxes[$i]['admin_boxes_id'] . '&action=store_file')];
-				echo '              <tr id="row-' . $rows .'">' . "\n";	
+                $aDocument[] = ['id' => $rows,
+                                'link' => oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id'])];
+                echo '              <tr id="row-' . $rows .'">' . "\n";
+            } else {
+                $aDocument[] = ['id' => $rows,
+                                'link' => oos_href_link_admin($aContents['admin_files'], 'cPath=' . $boxes[$i]['admin_boxes_id'] . '&action=store_file')];
+                echo '              <tr id="row-' . $rows .'">' . "\n";
             }
         } else {
-			$aDocument[] = ['id' => $rows,
-							'link' => oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id'])];
-			echo '              <tr id="row-' . $rows .'">' . "\n";	
+            $aDocument[] = ['id' => $rows,
+                            'link' => oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id'])];
+            echo '              <tr id="row-' . $rows .'">' . "\n";
         } ?>
                 <td><?php echo '<i class="fa fa-folder text-navy"></i> <b>' . ucfirst(substr_replace($boxes[$i]['admin_boxes_name'], '', -4)) . '</b>'; ?></td>
                 <td class="text-center">
@@ -261,9 +261,9 @@ if (isset($_GET['fID']) || isset($_GET['cPath'])) {
             }
         } else {
             if (str_starts_with((string) $boxes[$i]['admin_boxes_id'], 'b')) {
-				echo '<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>&nbsp;<i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i>';
+                echo '<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>&nbsp;<i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i>';
             } else {
-				echo '<i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i>&nbsp;<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>';
+                echo '<i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i>&nbsp;<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>';
             }
         } ?>
                 </td>
@@ -423,4 +423,3 @@ if (isset($aDocument) || !empty($aDocument)) {
 }
 
 require 'includes/nice_exit.php';
-
