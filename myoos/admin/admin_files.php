@@ -115,6 +115,10 @@ require 'includes/header.php';
           <tr>
             <td valign="top">
 <?php
+
+$rows = 0;
+$aDocument = [];
+	
 if (isset($_GET['fID']) || isset($_GET['cPath'])) {
     $admin_filestable = $oostable['admin_files'];
     $current_box_query = "SELECT admin_files_name as admin_box_name 
@@ -138,6 +142,7 @@ if (isset($_GET['fID']) || isset($_GET['cPath'])) {
     $file_count = 0;
 
     while ($files = $db_file_result->fields) {
+		$rows++;
         $file_count++;
 
         if (((!isset($_GET['fID'])) || ($_GET['fID'] == $files['admin_files_id'])) && !isset($fInfo)) {
@@ -145,9 +150,13 @@ if (isset($_GET['fID']) || isset($_GET['cPath'])) {
         }
 
         if (isset($fInfo) && is_object($fInfo) && ($files['admin_files_id'] == $fInfo->admin_files_id)) {
-            echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id'] . '&action=edit_file') . '\'">' . "\n";
+			$aDocument[] = ['id' => $rows,
+							'link' => oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id'] . '&action=edit_file')];
+			echo '              <tr id="row-' . $rows .'">' . "\n";	
         } else {
-            echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id']) . '\'">' . "\n";
+			$aDocument[] = ['id' => $rows,
+							'link' => oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id'])];
+			echo '              <tr id="row-' . $rows .'">' . "\n";				
         } ?>
                 <td><?php echo $files['admin_files_name']; ?></td>
                 <td class="text-right"><?php if (isset($fInfo) && is_object($fInfo) && ($files['admin_files_id'] == $fInfo->admin_files_id)) {
@@ -220,18 +229,25 @@ if (isset($_GET['fID']) || isset($_GET['cPath'])) {
     $boxnum = count($boxes);
     $i = 0;
     while ($i < $boxnum) {
+		$rows++;
         if ((!isset($_GET['cID']) || (isset($_GET['none']) &&  $_GET['none'] == $boxes[$i]['admin_boxes_id']) || ($_GET['cID'] == $boxes[$i]['admin_boxes_id'])) && !isset($cInfo)) {
             $cInfo = new objectInfo($boxes[$i]);
         }
 
         if (isset($cInfo) && is_object($cInfo) && ($boxes[$i]['admin_boxes_id'] == $cInfo->admin_boxes_id)) {
             if (str_starts_with("$cInfo->admin_boxes_id", 'b')) {
-                echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id']) . '\'">' . "\n";
-            } else {
-                echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $boxes[$i]['admin_boxes_id'] . '&action=store_file') . '\'">' . "\n";
+				$aDocument[] = ['id' => $rows,
+								'link' => oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id'])];
+				echo '              <tr id="row-' . $rows .'">' . "\n";	 
+			} else {
+				$aDocument[] = ['id' => $rows,
+								'link' => oos_href_link_admin($aContents['admin_files'], 'cPath=' . $boxes[$i]['admin_boxes_id'] . '&action=store_file')];
+				echo '              <tr id="row-' . $rows .'">' . "\n";	
             }
         } else {
-            echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id']) . '\'">' . "\n";
+			$aDocument[] = ['id' => $rows,
+							'link' => oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id'])];
+			echo '              <tr id="row-' . $rows .'">' . "\n";	
         } ?>
                 <td><?php echo '<i class="fa fa-folder text-navy"></i> <b>' . ucfirst(substr_replace($boxes[$i]['admin_boxes_name'], '', -4)) . '</b>'; ?></td>
                 <td class="text-center">
@@ -239,15 +255,15 @@ if (isset($_GET['fID']) || isset($_GET['cPath'])) {
 
         if (isset($cInfo) && is_object($cInfo) && (isset($_GET['cID']) && ($_GET['cID'] == $boxes[$i]['admin_boxes_id']))) {
             if (str_starts_with((string) $boxes[$i]['admin_boxes_id'], 'b')) {
-                echo oos_image(OOS_IMAGES . 'icon_status_red.gif', STATUS_BOX_NOT_INSTALLED, 10) . '&nbsp;<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id'] . '&box=' . $boxes[$i]['admin_boxes_name'] . '&action=box_store') . '">' . oos_image(OOS_IMAGES . 'icon_status_green_light.gif', STATUS_BOX_INSTALL, 10) . '</a>';
+                echo '<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id'] . '&box=' . $boxes[$i]['admin_boxes_name'] . '&action=box_store') . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>';
             } else {
-                echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $_GET['cID'] . '&action=box_remove') . '">' . oos_image(OOS_IMAGES . 'icon_status_red_light.gif', STATUS_BOX_REMOVE, 10) . '</a>&nbsp;' . oos_image(OOS_IMAGES . 'icon_status_green.gif', STATUS_BOX_INSTALLED, 10);
+                echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $_GET['cID'] . '&action=box_remove') . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>';
             }
         } else {
             if (str_starts_with((string) $boxes[$i]['admin_boxes_id'], 'b')) {
-                echo oos_image(OOS_IMAGES . 'icon_status_red.gif', '', 10) . '&nbsp;' . oos_image(OOS_IMAGES . 'icon_status_green_light.gif', '', 10) . '</a>';
+				echo '<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>&nbsp;<i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i>';
             } else {
-                echo oos_image(OOS_IMAGES . 'icon_status_red_light.gif', '', 10) . '</a>&nbsp;' . oos_image(OOS_IMAGES . 'icon_status_green.gif', '', 10);
+				echo '<i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i>&nbsp;<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>';
             }
         } ?>
                 </td>
@@ -274,7 +290,8 @@ if (isset($_GET['fID']) || isset($_GET['cPath'])) {
 ?>
             </td>
 <?php
-  $heading = [];
+
+$heading = [];
 $contents = [];
 
 switch ($action) {
@@ -391,6 +408,19 @@ if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
 
 
 <?php
+
 require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
+}
+
 require 'includes/nice_exit.php';
-?>
+
