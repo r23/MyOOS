@@ -344,6 +344,10 @@ if ($action == 'new' || $action == 'edit') {
                         </tr>    
                     </thead>
     <?php
+	
+	$rows = 0;
+	$aDocument = [];
+	
     $informationtable = $oostable['information'];
     $information_descriptiontable = $oostable['information_description'];
     $information_result_raw = "SELECT i.information_id, id.information_name, i.sort_order, i.date_added, i.last_modified, status 
@@ -354,16 +358,22 @@ if ($action == 'new' || $action == 'edit') {
                               ORDER BY i.sort_order, id.information_name";
     $information_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $information_result_raw, $information_result_numrows);
     $information_result = $dbconn->Execute($information_result_raw);
+
     while ($information = $information_result->fields) {
+		$rows++;
         if ((!isset($_GET['iID']) || (isset($_GET['iID']) && ($_GET['iID'] == $information['information_id']))) && !isset($iInfo) && (!str_starts_with((string) $action, 'new'))) {
             $iInfo_array = array_merge($information);
             $iInfo = new objectInfo($iInfo_array);
         }
 
         if (isset($iInfo) && is_object($iInfo) && ($information['information_id'] == $iInfo->information_id)) {
-            echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $information['information_id'] . '&action=edit') . '\'">' . "\n";
+			$aDocument[] = ['id' => $rows,
+							'link' => oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $information['information_id'] . '&action=edit')];
+			echo '              <tr id="row-' . $rows .'">' . "\n";	
         } else {
-            echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $information['information_id']) . '\'">' . "\n";
+			$aDocument[] = ['id' => $rows,
+							'link' => oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $information['information_id'])];
+			echo '              <tr id="row-' . $rows .'">' . "\n";	
         } ?>
                 <td><?php echo $information['information_name']; ?></td>
                 <td>
@@ -467,6 +477,18 @@ if ($action == 'new' || $action == 'edit') {
 <?php
 
 require 'includes/bottom.php';
+
+if (isset($aDocument) || !empty($aDocument)) {
+    echo '<script nonce="' . NONCE . '">' . "\n";
+    $nDocument = is_countable($aDocument) ? count($aDocument) : 0;
+    for ($i = 0, $n = $nDocument; $i < $n; $i++) {
+        echo 'document.getElementById(\'row-'. $aDocument[$i]['id'] . '\').addEventListener(\'click\', function() { ' . "\n";
+        echo 'document.location.href = "' . $aDocument[$i]['link'] . '";' . "\n";
+        echo '});' . "\n";
+    }
+    echo '</script>' . "\n";
+}
+
 ?>
 <script nonce="<?php echo NONCE; ?>">
 let element = document.getElementById('page');
