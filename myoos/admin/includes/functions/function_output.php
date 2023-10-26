@@ -526,7 +526,7 @@ function oos_draw_textarea_field($name, $wrap, $width, $height, $text = '', $par
  */
 function oos_draw_editor_field($name, $wrap, $width, $height, $text = '', $params = '', $reinsert_value = true)
 {
-    $field = '<textarea name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '"';
+    $field = '<textarea id="' . $name . '" name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '"';
     if (oos_is_not_null($params)) {
         $field .= ' ' . $params;
     }
