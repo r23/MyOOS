@@ -1487,7 +1487,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                             <?php echo oos_draw_input_field('search', $sSearch); ?>
                         </div>
                     </form>
-                    <?php echo oos_draw_form('id', 'goto', $aContents['categories'], '', 'get', false, 'class="form-inline"'); ?>
+                    <?php echo oos_draw_form('category-goto', 'goto', $aContents['categories'], '', 'get', false, 'class="form-inline"'); ?>
                         <div class="dataTables_filter">
                             <label><?php echo HEADING_TITLE_GOTO; ?></label>
                             <?php echo oos_draw_pull_down_menu('cPath', 'category-select', oos_get_category_tree(), $current_category_id); ?>
@@ -1922,11 +1922,16 @@ if (isset($aDocument) || !empty($aDocument)) {
 
 ?>
 <script nonce="<?php echo NONCE; ?>">
-// Add an event listener to the select element
-document.getElementById('category-select').addEventListener('change', function() { 
-	// Submit the form 
-	this.form.submit(); 
-}); 
+
+let categoryElement = document.getElementById('category-goto');
+if (categoryElement) {
+
+	let form = document.getElementById('category-goto'); 
+
+	categoryElement.addEventListener('change', function() { 
+		form.submit(); 
+	});
+}
 </script>
 <?php
 
