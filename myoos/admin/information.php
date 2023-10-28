@@ -162,8 +162,7 @@ if ($action == 'new' || $action == 'edit') {
 
     $form_action = (isset($_GET['iID'])) ? 'save' : 'insert';
     $text_new_or_edit = ($action == 'new') ? TEXT_HEADING_NEW_INFORMATION : TEXT_HEADING_EDIT_INFORMATION; ?>
-<script nonce="<?php echo NONCE; ?>" src="js/ckeditor/ckeditor.js"></script>
-
+<script nonce="<?php echo NONCE; ?>" src="js/tinymce/tinymce.min.js"></script>
 
     <div class="content-heading">
         <div class="col-lg-12">
@@ -252,13 +251,17 @@ if ($action == 'new' || $action == 'edit') {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
                             <div class="col-lg-9">
-                                <?php echo oos_draw_editor_field('information_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '55', ((isset($information_description[$aLanguages[$i]['id']])) ? stripslashes((string) $information_description[$aLanguages[$i]['id']]) : oos_get_informations_description($iInfo->information_id, $aLanguages[$i]['id']))); ?>
+                                <?php echo oos_draw_editor_field('description' . $aLanguages[$i]['id'], 'information_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '33', ((isset($information_description[$aLanguages[$i]['id']])) ? stripslashes((string) $information_description[$aLanguages[$i]['id']]) : oos_get_informations_description($iInfo->information_id, $aLanguages[$i]['id']))); ?>
                             </div>
                         </div>
                     </fieldset>
-            <script nonce="<?php echo NONCE; ?>">
-                CKEDITOR.replace( 'information_description[<?php echo $aLanguages[$i]['id']; ?>]');
-            </script>
+			<script nonce="<?php echo NONCE; ?>">
+				tinymce.init({
+						selector: '#description<?php echo $aLanguages[$i]['id']; ?>',
+						promotion: false,
+						language: 'de'
+				});
+			</script>
         <?php
     } ?>
                      </div>

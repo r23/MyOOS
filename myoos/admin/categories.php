@@ -899,10 +899,9 @@ if ($action == 'new_category' || $action == 'edit_category') {
             $back_url_params .= '&cID=' . $cInfo->categories_id;
         }
     } 
-	
-// <script src="js/tinymce/tinymce.min.js"></script>	
+		
 	?>
-<script nonce="<?php echo NONCE; ?>" src="js/ckeditor/ckeditor.js"></script>
+<script nonce="<?php echo NONCE; ?>" src="js/tinymce/tinymce.min.js"></script>
     <!-- Breadcrumbs //-->
     <div class="content-heading">
         <div class="col-lg-12">
@@ -1018,13 +1017,17 @@ if ($action == 'new_category' || $action == 'edit_category') {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
                             <div class="col-lg-9">
-                                <?php echo oos_draw_editor_field('categories_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '15', (empty($cInfo->categories_id) ? '' : oos_get_category_description($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
+                                <?php echo oos_draw_editor_field('description' . $aLanguages[$i]['id'], 'categories_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '15', (empty($cInfo->categories_id) ? '' : oos_get_category_description($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
                             </div>
                         </div>
                     </fieldset>
-            <script nonce="<?php echo NONCE; ?>">
-                CKEDITOR.replace( 'categories_description[<?php echo $aLanguages[$i]['id']; ?>]');
-            </script>
+			<script nonce="<?php echo NONCE; ?>">
+				tinymce.init({
+						selector: '#description<?php echo $aLanguages[$i]['id']; ?>',
+						language: '<?php echo LANG; ?>',
+						promotion: false
+				});
+			</script>
         <?php
     }
     for ($i = 0; $i < (is_countable($aLanguages) ? count($aLanguages) : 0); $i++) {
