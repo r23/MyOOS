@@ -485,7 +485,7 @@ if ($action == 'new_product' || $action == 'edit_product') {
             $back_url_params .= '&pID=' . $pInfo->products_id;
         }
     } ?>
-<script nonce="<?php echo NONCE; ?>" src="js/ckeditor/ckeditor.js"></script>
+<script nonce="<?php echo NONCE; ?>" src="js/tinymce/tinymce.min.js"></script>
 
 <script nonce="<?php echo NONCE; ?>">
 let tax_rates = new Array();
@@ -714,13 +714,17 @@ function calcBasePriceFactor() {
 							  } ?>
                               <div class="col-lg-9">
 <?php
-       echo oos_draw_textarea_field('products_description_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['products_description_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_description_' .$aLanguages[$i]['id']]) : oos_get_products_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+       echo oos_draw_textarea_field('description' . $aLanguages[$i]['id'], 'products_description_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['products_description_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_description_' .$aLanguages[$i]['id']]) : oos_get_products_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
                         </fieldset>
-		<script nonce="<?php echo NONCE; ?>">
-			CKEDITOR.replace( 'products_description_<?php echo $aLanguages[$i]['id']; ?>');
-		</script>
+			<script nonce="<?php echo NONCE; ?>">
+				tinymce.init({
+						selector: '#description<?php echo $aLanguages[$i]['id']; ?>',
+						language: '<?php echo LANG; ?>',
+						promotion: false
+				});
+			</script>
 
 <?php
     }
@@ -736,13 +740,17 @@ function calcBasePriceFactor() {
 							  } ?>
                               <div class="col-lg-9">
 <?php
-       echo oos_draw_textarea_field('products_short_description_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['products_short_description_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_short_description_' .$aLanguages[$i]['id']]) : oos_get_products_short_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+       echo oos_draw_textarea_field('short'. $aLanguages[$i]['id'], 'products_short_description_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['products_short_description_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_short_description_' .$aLanguages[$i]['id']]) : oos_get_products_short_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
                         </fieldset>
-		<script nonce="<?php echo NONCE; ?>">
-			CKEDITOR.replace( 'products_short_description_<?php echo $aLanguages[$i]['id']; ?>');
-		</script>
+			<script nonce="<?php echo NONCE; ?>">
+				tinymce.init({
+						selector: '#short<?php echo $aLanguages[$i]['id']; ?>',
+						language: '<?php echo LANG; ?>',
+						promotion: false
+				});
+			</script>
 
 <?php
     }
@@ -758,13 +766,17 @@ function calcBasePriceFactor() {
 							  } ?>
                               <div class="col-lg-9">
 <?php
-       echo oos_draw_textarea_field('products_essential_characteristics_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['products_essential_characteristics_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_essential_characteristics_' .$aLanguages[$i]['id']]) : oos_get_products_essential_characteristicsn($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+       echo oos_draw_textarea_field('essential'. $aLanguages[$i]['id'], 'products_essential_characteristics_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['products_essential_characteristics_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_essential_characteristics_' .$aLanguages[$i]['id']]) : oos_get_products_essential_characteristicsn($pInfo->products_id, $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
                         </fieldset>
-		<script nonce="<?php echo NONCE; ?>">
-			CKEDITOR.replace( 'products_essential_characteristics_<?php echo $aLanguages[$i]['id']; ?>');
-		</script>
+			<script nonce="<?php echo NONCE; ?>">
+				tinymce.init({
+						selector: '#essential<?php echo $aLanguages[$i]['id']; ?>',
+						language: '<?php echo LANG; ?>',
+						promotion: false
+				});
+			</script>
 
 <?php
     }
@@ -779,7 +791,7 @@ function calcBasePriceFactor() {
 							    echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
 							} ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_textarea_field('products_description_meta_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['products_description_meta_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_description_meta_' .$aLanguages[$i]['id']]) : oos_get_products_description_meta($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_textarea_field('', 'products_description_meta_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['products_description_meta_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_description_meta_' .$aLanguages[$i]['id']]) : oos_get_products_description_meta($pInfo->products_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -1065,7 +1077,7 @@ updateWithTax();
 							    echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
 							} ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_textarea_field('products_old_electrical_equipment_description_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['products_old_electrical_equipment_description_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_old_electrical_equipment_description_' .$aLanguages[$i]['id']]) : oos_get_products_old_electrical_equipment_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_textarea_field('', 'products_old_electrical_equipment_description_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['products_old_electrical_equipment_description_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_old_electrical_equipment_description_' .$aLanguages[$i]['id']]) : oos_get_products_old_electrical_equipment_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -1091,7 +1103,7 @@ updateWithTax();
 							    echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
 							} ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_textarea_field('products_used_goods_description_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['products_used_goods_description_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_used_goods_description_' .$aLanguages[$i]['id']]) : oos_get_products_used_goods_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_textarea_field('', 'products_used_goods_description_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['products_used_goods_description_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_used_goods_description_' .$aLanguages[$i]['id']]) : oos_get_products_used_goods_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -1136,7 +1148,7 @@ updateWithTax();
 							    echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
 							} ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_textarea_field('products_facebook_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (empty($pInfo->products_id) ? '' : oos_get_products_facebook_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_textarea_field('', 'products_facebook_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (empty($pInfo->products_id) ? '' : oos_get_products_facebook_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -1195,7 +1207,7 @@ updateWithTax();
 							    echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
 							} ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_textarea_field('products_twitter_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (empty($pInfo->products_id) ? '' : oos_get_products_twitter_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_textarea_field('', 'products_twitter_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (empty($pInfo->products_id) ? '' : oos_get_products_twitter_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>

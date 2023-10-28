@@ -321,7 +321,7 @@ if ($action == 'edit_3d') {
     <?php echo oos_draw_form('id', 'new_product', $aContents['product_webgl_gltf'], 'cPath=' . oos_prepare_input($cPath) . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=' . $form_action, 'post', false, 'enctype="multipart/form-data"'); ?>
     <?php
 
-                $sFormid = md5(uniqid(random_int(0, mt_getrandmax()), true));
+	$sFormid = md5(uniqid(random_int(0, mt_getrandmax()), true));
     $_SESSION['formid'] = $sFormid;
     echo oos_draw_hidden_field('formid', $sFormid);
     echo oos_draw_hidden_field('products_id', $pInfo->products_id);
@@ -434,7 +434,7 @@ if ($action == 'edit_3d') {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
                             <div class="col-lg-9">
-                <?php echo oos_draw_textarea_field('models_description_meta_'. $nCounter . '_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['models_description_meta_'. $nCounter . '_' . $aLanguages[$i]['id']]) ? stripslashes((string) $_POST['models_description_meta_'. $nCounter . '_' .$aLanguages[$i]['id']]) : oos_get_models_description_meta($models_id, $aLanguages[$i]['id']))); ?>
+                <?php echo oos_draw_textarea_field('', 'models_description_meta_'. $nCounter . '_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['models_description_meta_'. $nCounter . '_' . $aLanguages[$i]['id']]) ? stripslashes((string) $_POST['models_description_meta_'. $nCounter . '_' .$aLanguages[$i]['id']]) : oos_get_models_description_meta($models_id, $aLanguages[$i]['id']))); ?>
                             </div>
                         </div>
                     </fieldset>

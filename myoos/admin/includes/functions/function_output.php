@@ -481,9 +481,9 @@ function oos_draw_radio_field($name, $value = '', $checked = false, $compare = '
  * @param  $reinsert_value
  * @return string
  */
-function oos_draw_textarea_field($name, $wrap, $width, $height, $text = '', $params = '', $reinsert_value = true)
+function oos_draw_textarea_field($id, $name, $wrap, $width, $height, $text = '', $params = '', $reinsert_value = true)
 {
-    $field = '<textarea class="form-control" name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '"';
+    $field = '<textarea class="form-control" id="' . $id .'" name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '"';
 
     if (oos_is_not_null($params)) {
         $field .= ' ' . $params;

@@ -189,7 +189,8 @@ switch ($action) {
 
 require 'includes/header.php';
 ?>
-<script nonce="<?php echo NONCE; ?>" src="js/ckeditor/ckeditor.js"></script>
+<script nonce="<?php echo NONCE; ?>" src="js/tinymce/tinymce.min.js"></script>
+
 <!-- body //-->
 <div class="wrapper">
     <!-- Header //-->
@@ -399,13 +400,17 @@ if ($action == 'edit_video') {
                 } ?>
                               <div class="col-lg-9">
                 <?php
-                echo oos_draw_textarea_field('video_description_'. $nCounter . '_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['video_description' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['video_description' .$aLanguages[$i]['id']]) : oos_get_video_description($video_id, $aLanguages[$i]['id']))); ?>
+                echo oos_draw_textarea_field('description' . $aLanguages[$i]['id'], 'video_description_'. $nCounter . '_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['video_description' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['video_description' .$aLanguages[$i]['id']]) : oos_get_video_description($video_id, $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
                         </fieldset>
-        <script nonce="<?php echo NONCE; ?>">
-            CKEDITOR.replace( 'video_description_<?php echo  $nCounter . '_' . $aLanguages[$i]['id']; ?>');
-        </script>
+			<script nonce="<?php echo NONCE; ?>">
+				tinymce.init({
+						selector: '#description<?php echo $aLanguages[$i]['id']; ?>',
+						language: '<?php echo LANG; ?>',
+						promotion: false
+				});
+			</script>
                 <?php
             } ?>
 

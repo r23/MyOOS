@@ -31,7 +31,7 @@ $nonce = bin2hex(random_bytes(16));
 define('NONCE', $nonce);
 
 // Send the CSP header with the nonce RANDOM_VALUE
-header("Content-Security-Policy: script-src 'nonce-" . NONCE . "' 'unsafe-eval' 'strict-dynamic' 'unsafe-inline'; object-src 'none'; base-uri 'self'");
+# header("Content-Security-Policy: script-src 'nonce-" . NONCE . "' 'unsafe-eval' 'strict-dynamic' 'unsafe-inline'; object-src 'none'; base-uri 'self'");
 # header("Content-Security-Policy: script-src 'self' 'unsafe-inline' 'unsafe-eval' 9; object-src 'none'; base-uri 'self'; style-src 'self' 'unsafe-inline'; img-src * data:; frame-src *");
 
 ?><!DOCTYPE html>

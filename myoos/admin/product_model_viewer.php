@@ -181,7 +181,7 @@ switch ($action) {
 
 require 'includes/header.php';
 ?>
-<script nonce="<?php echo NONCE; ?>" src="js/ckeditor/ckeditor.js"></script>
+<script nonce="<?php echo NONCE; ?>" src="js/tinymce/tinymce.min.js"></script>
 <!-- body //-->
 <div class="wrapper">
     <!-- Header //-->
@@ -392,13 +392,17 @@ if ($action == 'edit_3d') {
                 } ?>
                               <div class="col-lg-9">
                 <?php
-                echo oos_draw_textarea_field('model_viewer_description_'. $nCounter . '_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['model_viewer_description' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['model_viewer_description' .$aLanguages[$i]['id']]) : oos_get_model_viewer_description($model_viewer_id, $aLanguages[$i]['id']))); ?>
+                echo oos_draw_textarea_field('description' $nCounter . '_' . $aLanguages[$i]['id'], 'model_viewer_description_'. $nCounter . '_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['model_viewer_description' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['model_viewer_description' .$aLanguages[$i]['id']]) : oos_get_model_viewer_description($model_viewer_id, $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
                         </fieldset>
-        <script nonce="<?php echo NONCE; ?>">
-            CKEDITOR.replace( 'model_viewer_description_<?php echo  $nCounter . '_' . $aLanguages[$i]['id']; ?>');
-        </script>
+			<script nonce="<?php echo NONCE; ?>">
+				tinymce.init({
+						selector: '#description<?php echo $nCounter . '_' . $aLanguages[$i]['id']; ?>',
+						language: '<?php echo LANG; ?>',
+						promotion: false
+				});
+			</script>						
                 <?php
             } ?>
 

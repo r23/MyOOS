@@ -147,7 +147,7 @@ require 'includes/header.php';
       <tr>
         <td><table witdh="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="main" valign="top"><b><?php echo ENTRY_REVIEW; ?></b><br><br><?php echo oos_draw_textarea_field('reviews_text', 'soft', '60', '15', $rInfo->reviews_text); ?></td>
+            <td class="main" valign="top"><b><?php echo ENTRY_REVIEW; ?></b><br><br><?php echo oos_draw_textarea_field('', 'reviews_text', 'soft', '60', '15', $rInfo->reviews_text); ?></td>
           </tr>
           <tr>
             <td class="smallText" align="right"><?php echo ENTRY_REVIEW_TEXT; ?></td>

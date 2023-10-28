@@ -470,7 +470,7 @@ if (($action == 'edit') && ($order_exists == true)) {
         <td></td>
       </tr>
       <tr><?php echo oos_draw_form('id', 'status', $aContents['orders'], oos_get_all_get_params(['action']) . 'action=update_order', 'post', false); ?>
-        <td class="main"><?php echo oos_draw_textarea_field('comments', 'soft', '60', '5'); ?></td>
+        <td class="main"><?php echo oos_draw_textarea_field('', 'comments', 'soft', '60', '5'); ?></td>
       </tr>
       <tr>
         <td></td>
