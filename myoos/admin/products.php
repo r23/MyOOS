@@ -1543,7 +1543,7 @@ if ($q1 < $q0) {
       <tr>
         <td class="main">
 <?php
-    echo(($products_image_name) ? oos_image(OOS_SHOP_IMAGES . $products_image_name, $pInfo->products_name, '') : '');
+    echo(($products_image_name) ? oos_image(OOS_SHOP_IMAGES . 'product/large/' . $products_image_name, $pInfo->products_name, '') : '');
     echo $pInfo->products_description; ?></td>
       </tr>
 <?php
