@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-10-18 12:55:38+0000\n"
+"PO-Revision-Date: 2023-11-01 17:35:08+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-alpha.10\n"
+"X-Generator: GlotPress/4.0.0-alpha.11\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO - Stable (latest release)\n"
 
@@ -496,54 +496,54 @@ msgstr "Standard-Ton"
 msgid "Content AI tailors keyword research to the target country for highly relevant suggestions. You can override this in individual posts/pages/CPTs."
 msgstr "Inhalt-KI schneidet die Schlüsselwort-Recherche auf das Zielland zu und liefert hochrelevante Vorschläge. Du kannst dies in einzelnen Beiträgen/Seiten/CPTs außer Kraft setzen."
 
-#: includes/modules/content-ai/class-content-ai-page.php:274
+#: includes/modules/content-ai/class-content-ai-page.php:275
 msgid "Content AI History"
 msgstr "Inhalt-KI Historie"
 
-#: includes/modules/content-ai/class-content-ai-page.php:268
+#: includes/modules/content-ai/class-content-ai-page.php:269
 msgid "Content AI Chat"
 msgstr "Inhalt-KI Chat"
 
-#: includes/modules/content-ai/class-content-ai-page.php:266
+#: includes/modules/content-ai/class-content-ai-page.php:267
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 msgid "Chat"
 msgstr "Chat"
 
-#: includes/modules/content-ai/class-content-ai-page.php:262
+#: includes/modules/content-ai/class-content-ai-page.php:263
 msgid "Content AI Editor"
 msgstr "Inhalt-KI Editor"
 
-#: includes/modules/content-ai/class-content-ai-page.php:260
+#: includes/modules/content-ai/class-content-ai-page.php:261
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 msgid "Content Editor"
 msgstr "Inhalt Editor"
 
-#: includes/modules/content-ai/class-content-ai-page.php:256
+#: includes/modules/content-ai/class-content-ai-page.php:257
 msgid "Content AI Tools"
 msgstr "Inhalt-KI Werkzeuge"
 
-#: includes/modules/content-ai/class-content-ai-page.php:254
+#: includes/modules/content-ai/class-content-ai-page.php:255
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 msgid "AI Tools"
 msgstr "KI-Werkzeuge"
 
-#: includes/modules/content-ai/class-content-ai-page.php:194
+#: includes/modules/content-ai/class-content-ai-page.php:195
 msgid "Another bulk editing process is already running. Please try again later after the existing process is complete."
 msgstr "Ein weiterer Massenbearbeitungsprozess läuft bereits. Bitte versuche es später noch einmal, nachdem der bestehende Vorgang abgeschlossen ist."
 
-#: includes/modules/content-ai/class-content-ai-page.php:173
+#: includes/modules/content-ai/class-content-ai-page.php:174
 msgid "Write SEO Title & Description with AI"
 msgstr "Schreibe SEO-Titel & Beschreibung mit KI"
 
-#: includes/modules/content-ai/class-content-ai-page.php:172
+#: includes/modules/content-ai/class-content-ai-page.php:173
 msgid "Write SEO Description with AI"
 msgstr "Schreibe eine SEO-Beschreibung mit KI"
 
-#: includes/modules/content-ai/class-content-ai-page.php:171
+#: includes/modules/content-ai/class-content-ai-page.php:172
 msgid "Write SEO Title with AI"
 msgstr "Schreibe SEO-Titel mit KI"
 
-#: includes/modules/content-ai/class-content-ai-page.php:170
+#: includes/modules/content-ai/class-content-ai-page.php:171
 msgid "&#8595; Rank Math Content AI"
 msgstr "&#8595; Rank Math Inhalt-KI"
 
@@ -572,39 +572,39 @@ msgstr[1] "SEO-Meta in %d Beiträgen erfolgreich aktualisiert."
 msgid "Bulk editing SEO meta started. It might take few minutes to complete the process."
 msgstr "Die Massenbearbeitung von SEO-Meta hat begonnen. Es kann einige Minuten dauern, bis der Vorgang abgeschlossen ist."
 
-#: includes/helpers/class-content-ai.php:431
+#: includes/helpers/class-content-ai.php:435
 msgid "Could not generate. Please try again later."
 msgstr "Konnte nicht generiert werden. Bitte versuche es später noch einmal."
 
-#: includes/helpers/class-content-ai.php:430
+#: includes/helpers/class-content-ai.php:434
 msgid "The output was stopped as it was identified as potentially unsafe by the content filter."
 msgstr "Die Ausgabe wurde gestoppt, da sie vom Inhaltsfilter als potenziell unsicher eingestuft wurde."
 
-#: includes/helpers/class-content-ai.php:429
+#: includes/helpers/class-content-ai.php:433
 msgid "Please revise the entered values in the fields as they are not secure. Make the required adjustments and try again."
 msgstr "Bitte überarbeite die eingegebenen Werte in den Feldern, da diese nicht sicher sind. Nehme die erforderlichen Anpassungen vor und versuche es erneut."
 
-#: includes/helpers/class-content-ai.php:428
+#: includes/helpers/class-content-ai.php:432
 msgid "You've used up all available credits from the connected account."
 msgstr "Du hast alle verfügbaren Guthaben des verbundenen Kontos aufgebraucht."
 
-#: includes/helpers/class-content-ai.php:427
+#: includes/helpers/class-content-ai.php:431
 msgid "You've used up all available credits for this domain."
 msgstr "Du hast alle verfügbaren Guthaben für diese Domain aufgebraucht."
 
-#: includes/helpers/class-content-ai.php:426
+#: includes/helpers/class-content-ai.php:430
 msgid "Oops! Too many requests in a short time. Please try again after some time."
 msgstr "Hoppla! Zu viele Anfragen in kurzer Zeit. Bitte versuche es nach einiger Zeit erneut."
 
-#: includes/helpers/class-content-ai.php:425
+#: includes/helpers/class-content-ai.php:429
 msgid "This feature is only available for Content AI subscribers."
 msgstr "Diese Funktion ist nur für Inhalt-KI Abonnenten verfügbar."
 
-#: includes/helpers/class-content-ai.php:424
+#: includes/helpers/class-content-ai.php:428
 msgid "Please update the Rank Math SEO plugin to the latest version to use this feature."
 msgstr "Bitte aktualisiere das Rank Math SEO-Plugin auf die neueste Version, um diese Funktion nutzen zu können."
 
-#: includes/helpers/class-content-ai.php:423
+#: includes/helpers/class-content-ai.php:427
 msgid "Please connect your account to use the Content AI."
 msgstr "Bitte verbinde dein Konto, um die Inhalt-KI zu nutzen."
 
@@ -1494,26 +1494,26 @@ msgid "Insert URLs to send to the IndexNow API (one per line, up to 10,000):"
 msgstr "Füge URLs ein, die an die IndexNow API gesendet werden sollen (eine pro Zeile, bis zu 10.000):"
 
 #. Translators: placeholder is human-readable time, e.g. "1 hour".
-#: includes/modules/instant-indexing/class-rest.php:154
+#: includes/modules/instant-indexing/class-rest.php:155
 msgid "%s ago"
 msgstr "Vor %s"
 
 #. Translators: %s is the number of URLs submitted.
-#: includes/modules/instant-indexing/class-rest.php:128
+#: includes/modules/instant-indexing/class-rest.php:129
 msgid "Successfully submitted %s URL."
 msgid_plural "Successfully submitted %s URLs."
 msgstr[0] "%s URL erfolgreich übermittelt."
 msgstr[1] "%s URLs erfolgreich übermittelt."
 
-#: includes/modules/instant-indexing/class-rest.php:119
+#: includes/modules/instant-indexing/class-rest.php:120
 msgid "Failed to submit URLs. See details in the History tab."
 msgstr "URLs konnten nicht übermittelt werden. Siehe Details im Verlauf-Tab."
 
-#: includes/modules/instant-indexing/class-rest.php:114
+#: includes/modules/instant-indexing/class-rest.php:115
 msgid "Invalid URLs provided."
 msgstr "Ungültige URLs angegeben."
 
-#: includes/modules/instant-indexing/class-rest.php:107
+#: includes/modules/instant-indexing/class-rest.php:108
 msgid "No URLs provided."
 msgstr "Keine URLs angegeben."
 
@@ -1548,7 +1548,7 @@ msgstr "Bei der Übermittlung der URL ist ein Fehler aufgetreten."
 msgid "The last 100 IndexNow API requests."
 msgstr "Die letzten 100 Anfragen an die IndexNow-API."
 
-#: includes/modules/content-ai/class-content-ai-page.php:272
+#: includes/modules/content-ai/class-content-ai-page.php:273
 #: includes/modules/instant-indexing/class-instant-indexing.php:223
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 msgid "History"
@@ -1756,7 +1756,7 @@ msgstr "Erhalte ausgefeilte KI-Vorschläge für verwandte Schlüsselwörter, Fra
 
 #: includes/module/class-manager.php:176
 #: includes/modules/content-ai/class-content-ai-page.php:124
-#: includes/modules/content-ai/class-content-ai-page.php:246
+#: includes/modules/content-ai/class-content-ai-page.php:247
 #: includes/modules/content-ai/class-content-ai.php:110
 #: includes/modules/content-ai/class-content-ai.php:134
 #: includes/modules/role-manager/class-capability-manager.php:70
@@ -4230,7 +4230,7 @@ msgstr "Die Variable $id ist erforderlich."
 msgid "Post Excerpt Only"
 msgstr "Nur Beitrag Auszug"
 
-#: includes/modules/status/class-status.php:140
+#: includes/modules/status/class-status.php:142
 msgid "System Status"
 msgstr "Systemstatus"
 
@@ -6557,7 +6557,7 @@ msgid "Redirection Debugger"
 msgstr "Umleitungs-Fehlersuche"
 
 #. translators: 1. url to new screen, 2. old trashed post permalink
-#: includes/modules/redirections/class-watcher.php:359
+#: includes/modules/redirections/class-watcher.php:360
 msgid "<strong>SEO Notice:</strong> A previously published %1$s has been moved to trash. You may redirect <code>%2$s</code> to <a href=\"%3$s\">a new url</a>."
 msgstr "<strong> SEO-Hinweis:</strong> Ein zuvor veröffentlichter Beitrag %1$s wurde in den Papierkorb verschoben. Du kannst ihn umleiten <code>%2$s</code> an <a href=\"%3$s\">Neue URL</a>."
 
@@ -7623,23 +7623,23 @@ msgstr "Wert des individuellen Feldes."
 msgid "Custom Field (advanced)"
 msgstr "Individuelles Feld (erweitert)"
 
-#: includes/replace-variables/class-advanced-variables.php:137
+#: includes/replace-variables/class-advanced-variables.php:138
 msgid "Products"
 msgstr "Produkte"
 
-#: includes/replace-variables/class-advanced-variables.php:135
+#: includes/replace-variables/class-advanced-variables.php:136
 msgid "Name of current post type (plural)"
 msgstr "Name des aktuellen Beitragstyp (Plural)"
 
-#: includes/replace-variables/class-advanced-variables.php:134
+#: includes/replace-variables/class-advanced-variables.php:135
 msgid "Post Type Name Plural"
 msgstr "Beitragstyp Name Plural"
 
-#: includes/replace-variables/class-advanced-variables.php:124
+#: includes/replace-variables/class-advanced-variables.php:125
 msgid "Name of current post type (singular)"
 msgstr "Name des aktuellen Beitragstyp (Singular)"
 
-#: includes/replace-variables/class-advanced-variables.php:123
+#: includes/replace-variables/class-advanced-variables.php:124
 msgid "Post Type Name Singular"
 msgstr "Beitragstyp Name Singulär"
 
@@ -7683,29 +7683,29 @@ msgstr "Aktuelle Serverzeit"
 msgid "Current Time"
 msgstr "Aktuelle Zeit"
 
-#: includes/replace-variables/class-advanced-variables.php:97
+#: includes/replace-variables/class-advanced-variables.php:98
 msgid "Current page number"
 msgstr "Aktuelle Seitenzahl"
 
-#: includes/replace-variables/class-advanced-variables.php:96
+#: includes/replace-variables/class-advanced-variables.php:97
 msgid "Page Number"
 msgstr "Seitenzahl"
 
-#: includes/replace-variables/class-advanced-variables.php:108
+#: includes/replace-variables/class-advanced-variables.php:109
 msgid "Max pages number"
 msgstr "Maximale Seitenzahl"
 
-#: includes/replace-variables/class-advanced-variables.php:107
+#: includes/replace-variables/class-advanced-variables.php:108
 msgid "Max Pages"
 msgstr "Maximale Seiten"
 
-#: includes/replace-variables/class-advanced-variables.php:86
+#: includes/replace-variables/class-advanced-variables.php:87
 msgid "Page number with context (i.e. page 2 of 4). Only displayed on page 2 and above."
 msgstr "Seitennummer mit Kontext (z.B. Seite 2 von 4). Wird nur auf Seite 2 und höher angezeigt."
 
 #: includes/modules/sitemap/settings/html-sitemap.php:31
 #: includes/modules/sitemap/settings/html-sitemap.php:76
-#: includes/replace-variables/class-advanced-variables.php:85
+#: includes/replace-variables/class-advanced-variables.php:86
 msgid "Page"
 msgstr "Seite"
 
@@ -7926,7 +7926,7 @@ msgid "Post Title"
 msgstr "Beitragstitel"
 
 #. translators: %1$d: current page number, %2$d: max pages.
-#: includes/replace-variables/class-advanced-variables.php:209
+#: includes/replace-variables/class-advanced-variables.php:210
 msgid "Page %1$d of %2$d"
 msgstr "Seite %1$d von %2$d"
 
@@ -8745,7 +8745,7 @@ msgstr "Standard Rich-Snippet, das beim Erstellen eines neuen Beitrag dieses Typ
 
 #: includes/admin/wizard/class-schema-markup.php:162
 #: includes/helpers/class-choices.php:442
-#: includes/replace-variables/class-advanced-variables.php:126
+#: includes/replace-variables/class-advanced-variables.php:127
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Product"
@@ -9197,6 +9197,18 @@ msgstr "Alle Änderungen speichern"
 msgid "Bulk Edit This Field"
 msgstr "Massenbearbeitung dieses Feldes"
 
+#: includes/admin/class-page.php:126
+msgid "$title variable required"
+msgstr "$title Variable erforderlich"
+
+#: includes/admin/class-page.php:122 includes/admin/class-page.php:126
+msgid "Variable Required"
+msgstr "Variable erforderlich"
+
+#: includes/admin/class-page.php:122
+msgid "$id variable required"
+msgstr "$id Variable erforderlich"
+
 #: includes/admin/views/import-export/import-export-panel.php:59
 #: includes/modules/role-manager/class-capability-manager.php:58
 #: includes/modules/sitemap/class-admin.php:114
@@ -9261,6 +9273,10 @@ msgstr "Rank Math SEO"
 #: includes/admin/metabox/class-post-screen.php:132
 msgid "The featured image should be at least 200 by 200 pixels to be picked up by Facebook and other social media sites."
 msgstr "Das angezeigte Beitragsbild sollte mindestens 200x200 px groß sein, damit Facebook und andere Social-Media-Websites es übernehmen."
+
+#: includes/admin/class-list-table.php:34
+msgid "No items found."
+msgstr "Keine Elemente gefunden."
 
 #: includes/admin/class-import-export.php:367
 msgid "No settings found to be imported."
@@ -9340,7 +9356,7 @@ msgstr "Bist du sicher, dass du die Einstellungen in Rank Math importieren möch
 #: includes/admin/class-admin-helper.php:97
 #: includes/admin/class-cmb2-fields.php:281
 #: includes/admin/wizard/class-schema-markup.php:161
-#: includes/helpers/class-taxonomy.php:152
+#: includes/helpers/class-taxonomy.php:151
 #: includes/modules/schema/blocks/views/options-general.php:31
 #: includes/settings/titles/post-types.php:135
 #: includes/settings/titles/post-types.php:166 assets/admin/js/blocks.js:1
