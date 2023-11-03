@@ -3193,12 +3193,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "a21ad4bc3052f3f1fd5fa2e2f215d655cd472021"
+                "reference": "2f42c940aab53728fa307ebd78c42494fcd663d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/a21ad4bc3052f3f1fd5fa2e2f215d655cd472021",
-                "reference": "a21ad4bc3052f3f1fd5fa2e2f215d655cd472021",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/2f42c940aab53728fa307ebd78c42494fcd663d1",
+                "reference": "2f42c940aab53728fa307ebd78c42494fcd663d1",
                 "shasum": ""
             },
             "conflict": {
@@ -3361,6 +3361,7 @@
                 "fluidtypo3/vhs": "<5.1.1",
                 "fof/byobu": ">=0.3.0.0-beta2,<1.1.7",
                 "fof/upload": "<1.2.3",
+                "foodcoopshop/foodcoopshop": "<3.6.1",
                 "fooman/tcpdf": "<6.2.22",
                 "forkcms/forkcms": "<5.11.1",
                 "fossar/tcpdf-parser": "<6.2.22",
@@ -3835,7 +3836,7 @@
                 "zfr/zfr-oauth2-server-module": "<0.1.2",
                 "zoujingli/thinkadmin": "<6.0.22"
             },
-            "time": "2023-11-02T10:04:43+00:00",
+            "time": "2023-11-02T21:04:20+00:00",
             "default-branch": true,
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
