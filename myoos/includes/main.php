@@ -82,6 +82,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_navigation_history.ph
 
 
 // require the database functions
+require_once MYOOS_INCLUDE_PATH . '/vendor/adodb/adodb-php/adodb-exceptions.inc.php'; // loads the ADOdb exception handling
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_db.php';
 
 // make a connection to the database... now
