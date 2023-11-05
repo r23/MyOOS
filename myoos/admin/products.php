@@ -720,7 +720,7 @@ function calcBasePriceFactor() {
                         </fieldset>
 			<script nonce="<?php echo NONCE; ?>">
 				tinymce.init({
-						selector: '#description<?php echo $aLanguages[$i]['id']; ?>',
+						selector: 'textarea#description<?php echo $aLanguages[$i]['id']; ?>',
 						language: '<?php echo LANG; ?>',
 						promotion: false
 				});
@@ -746,7 +746,7 @@ function calcBasePriceFactor() {
                         </fieldset>
 			<script nonce="<?php echo NONCE; ?>">
 				tinymce.init({
-						selector: '#short<?php echo $aLanguages[$i]['id']; ?>',
+						selector: 'textarea#short<?php echo $aLanguages[$i]['id']; ?>',
 						language: '<?php echo LANG; ?>',
 						promotion: false
 				});
@@ -772,7 +772,7 @@ function calcBasePriceFactor() {
                         </fieldset>
 			<script nonce="<?php echo NONCE; ?>">
 				tinymce.init({
-						selector: '#essential<?php echo $aLanguages[$i]['id']; ?>',
+						selector: 'textarea#essential<?php echo $aLanguages[$i]['id']; ?>',
 						language: '<?php echo LANG; ?>',
 						promotion: false
 				});

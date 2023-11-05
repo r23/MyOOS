@@ -635,6 +635,14 @@ abstract class driver implements driver_interface
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	public function sql_nextid()
+	{
+		return $this->sql_last_inserted_id();
+	}
+
+	/**
 	* {@inheritDoc}
 	*/
 	function cast_expr_to_string($expression)
@@ -1236,5 +1244,22 @@ abstract class driver implements driver_interface
 		$this->sql_freeresult($result);
 
 		return $rows_total;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function clean_query_id($query_id)
+	{
+		// Some DBMS functions accept/return objects and/or resources instead if identifiers
+		// Attempting to use objects/resources as array keys will throw error, hence correctly handle all cases
+		if (is_resource($query_id))
+		{
+			return function_exists('get_resource_id') ? get_resource_id($query_id) : (int) $query_id;
+		}
+		else
+		{
+			return is_object($query_id) ? spl_object_id($query_id) : $query_id;
+		}
 	}
 }

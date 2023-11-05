@@ -2084,7 +2084,7 @@
                 ""
             ],
             "field_validation": [
-                "VCHAR_UNI:64",
+                "VCHAR_UNI:128",
                 ""
             ],
             "field_required": [

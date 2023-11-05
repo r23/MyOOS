@@ -16,7 +16,7 @@ namespace phpbb\viglink;
 class ext extends \phpbb\extension\base
 {
 	/**
-	 * Check whether or not the extension can be enabled.
+	 * Check whether the extension can be enabled.
 	 * The current phpBB version should meet or exceed
 	 * the minimum version required by this extension:
 	 *
