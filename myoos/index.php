@@ -38,11 +38,6 @@ if (function_exists('ini_set')) {
 
 use Symfony\Component\HttpFoundation\Request;
 
-//Import PHPMailer classes into the global namespace
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
 //Load Composer's autoloader
 require 'vendor/autoload.php';
 

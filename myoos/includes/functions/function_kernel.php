@@ -1742,7 +1742,13 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
         $attachments = explode("\n", str_replace("\r\n", "\n", (string) $attachments));
     }
 
-    $phpmailer = new PHPMailer\PHPMailer\PHPMailer();    
+    // (Re)create it, if it's gone missing.
+    if (! ( $phpmailer instanceof PHPMailer\PHPMailer\PHPMailer ) ) {
+        include_once MOD_INCLUDE_PATH . '/vendor/phpmailer/phpmailer/src/Exception.php';
+        include_once MOD_INCLUDE_PATH . '/vendor/phpmailer/phpmailer/src/PHPMailer.php';
+        include_once MOD_INCLUDE_PATH . '/vendor/phpmailer/phpmailer/src/SMTP.php';    
+        $phpmailer = new PHPMailer\PHPMailer\PHPMailer(true);
+    }
 
     // load the appropriate language version
     $sLang = ($_SESSION['iso_639_1'] ?? DEFAULT_LANGUAGE_CODE);
