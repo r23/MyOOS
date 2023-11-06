@@ -55,6 +55,8 @@ define('NONCE', $nonce);
     <link href="css/plugins/flag-icon/css/flag-icon.min.css" rel="stylesheet" />
     <link href="css/pannellum.min.css" rel="stylesheet" />
 
+	<!-- JS GLOBAL Compulsory -->      
+	<script nonce="<?php echo NONCE; ?>" src="js/jquery/jquery.min.js"></script>
     <script nonce="<?php echo NONCE; ?>" src="js/pannellum/pannellum.min.js"></script>
     <script nonce="<?php echo NONCE; ?>" src="js/pannellum/libpannellum.min.js"></script>
 </head>

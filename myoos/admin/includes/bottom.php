@@ -29,7 +29,6 @@ if (isset($bForm) && ($bForm == true)) {
 ?>
 
 <!-- JS GLOBAL Compulsory -->      
-<script nonce="<?php echo NONCE; ?>" src="js/jquery/jquery.min.js"></script>
 <script nonce="<?php echo NONCE; ?>" src="js/plugins/popper/dist/umd/popper.min.js"></script>
 <script nonce="<?php echo NONCE; ?>" src="js/bootstrap/bootstrap.min.js"></script>
 <script nonce="<?php echo NONCE; ?>" src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
@@ -44,17 +43,17 @@ if (isset($bForm) && ($bForm == true)) {
 <script nonce="<?php echo NONCE; ?>" src="js/general.js"></script>
 
 <script nonce="<?php echo NONCE; ?>">
-// Eine Funktion definieren, die den Portwert basierend auf der Verschlüsselung ändert
+// Define a function that changes the port value based on the encryption
 function changePort() {
-  // Das ausgewählte Optionsfeld finden
+  // Find the selected radio button
   let encryption = document.querySelector('input.OOS_SMTPENCRYPTION:checked');
-  // Den entsprechenden Portwert zuweisen
+  // Assign the corresponding port value
   let port = encryption.value === "SSL" ? 465 : encryption.value === "TLS" ? 587 : 25;
-  // Den Wert des Port-Eingabefeldes aktualisieren
+  // Update the value of the port input field
   document.querySelector('input#OOS_SMTPPORT').value = port;
 }
 
-// Einen Event-Listener hinzufügen, der die Funktion aufruft, wenn sich ein Optionsfeld ändert
+// Add an event listener that calls the function when an option field changes
 let radios = document.querySelectorAll('input.OOS_SMTPENCRYPTION');
 for (let i = 0; i < radios.length; i++) {
   radios[i].addEventListener('change', changePort);

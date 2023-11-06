@@ -486,7 +486,9 @@ if ($action == 'new_product' || $action == 'edit_product') {
         }
     } ?>
 <script nonce="<?php echo NONCE; ?>" src="js/tinymce/tinymce.min.js"></script>
-
+<script nonce="<?php echo NONCE; ?>">
+    var $j = jQuery.noConflict();
+  </script>
 <script nonce="<?php echo NONCE; ?>">
 let tax_rates = new Array();
 <?php
@@ -640,8 +642,6 @@ function calcBasePriceFactor() {
                               <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('products_setting', '', $aSetting, $pInfo->products_setting); ?></div>
                            </div>
                         </fieldset>
-
-
 <?php
     for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
         ?>
