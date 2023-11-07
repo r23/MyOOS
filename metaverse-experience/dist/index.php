@@ -56,7 +56,7 @@ $nonce = bin2hex(random_bytes(16));
    	<script nonce="<?php echo $nonce; ?>" src="static/js/264.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/232.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/477.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/main.js"></script>	
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/main.js"></script>
 	
 <style>
 body, html {
