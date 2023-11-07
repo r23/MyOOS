@@ -487,9 +487,6 @@ if ($action == 'new_product' || $action == 'edit_product') {
     } ?>
 <script nonce="<?php echo NONCE; ?>" src="js/tinymce/tinymce.min.js"></script>
 <script nonce="<?php echo NONCE; ?>">
-    var $j = jQuery.noConflict();
-  </script>
-<script nonce="<?php echo NONCE; ?>">
 let tax_rates = new Array();
 <?php
     $n = is_countable($tax_class_array) ? count($tax_class_array) : 0;
@@ -713,14 +710,13 @@ function calcBasePriceFactor() {
 							      echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
 							  } ?>
                               <div class="col-lg-9">
-<?php
-       echo oos_draw_textarea_field('description' . $aLanguages[$i]['id'], 'products_description_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['products_description_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_description_' .$aLanguages[$i]['id']]) : oos_get_products_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_textarea_field('description' . $aLanguages[$i]['id'], 'products_description_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['products_description_' .$aLanguages[$i]['id']]) ? stripslashes((string) $_POST['products_description_' .$aLanguages[$i]['id']]) : oos_get_products_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
                         </fieldset>
 			<script nonce="<?php echo NONCE; ?>">
 				tinymce.init({
-						selector: 'textarea#description<?php echo $aLanguages[$i]['id']; ?>',
+						selector: '#description<?php echo $aLanguages[$i]['id']; ?>',
 						language: '<?php echo LANG; ?>',
 						promotion: false
 				});
@@ -746,7 +742,7 @@ function calcBasePriceFactor() {
                         </fieldset>
 			<script nonce="<?php echo NONCE; ?>">
 				tinymce.init({
-						selector: 'textarea#short<?php echo $aLanguages[$i]['id']; ?>',
+						selector: '#short<?php echo $aLanguages[$i]['id']; ?>',
 						language: '<?php echo LANG; ?>',
 						promotion: false
 				});
@@ -772,7 +768,7 @@ function calcBasePriceFactor() {
                         </fieldset>
 			<script nonce="<?php echo NONCE; ?>">
 				tinymce.init({
-						selector: 'textarea#essential<?php echo $aLanguages[$i]['id']; ?>',
+						selector: '#essential<?php echo $aLanguages[$i]['id']; ?>',
 						language: '<?php echo LANG; ?>',
 						promotion: false
 				});
