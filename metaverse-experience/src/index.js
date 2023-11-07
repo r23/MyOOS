@@ -3,8 +3,7 @@ import * as AFRAME from 'aframe';
 require('aframe-extras');
 require('aframe-blink-controls');
 require('super-hands');
-require('aframe-event-set-component');
-require('aframe-physics-system');
+require('@c-frame/aframe-physics-system');
 
 // On click, send the NPC to the target location.
 AFRAME.registerComponent('nav-pointer', {

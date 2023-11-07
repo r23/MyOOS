@@ -4,20 +4,20 @@
   "private": true,
   "dependencies": {
     "@babel/plugin-transform-class-properties": "^7.22.5",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/user-event": "^13.5.0",
+    "@c-frame/aframe-physics-system": "^4.2.2",
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/user-event": "^14.5.1",
     "aframe": "^1.4.2",
     "aframe-animation-component": "^5.1.2",
     "aframe-blink-controls": "^0.4.3",
     "aframe-environment-component": "^1.3.3",
-    "aframe-event-set-component": "^5.0.0",
-    "aframe-extras": "^7.0.0",
-    "aframe-physics-system": "^4.0.2",
-    "ecctrl": "^1.0.10",
+    "aframe-extras": "^7.1.0",
+    "ecctrl": "^1.0.40",
     "super-hands": "^3.0.4",
-    "three": "^0.155.0",
+    "three": "^0.158.0",
     "three-pathfinding": "^1.2.0",
-    "web-vitals": "^2.1.4",
+    "three-to-cannon": "^4.3.0",
+    "web-vitals": "^3.5.0",
     "webworkify-webpack": "^2.1.5"
   },
   "scripts": {
@@ -45,17 +45,15 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.22.9",
-    "@babel/preset-env": "^7.22.9",
-    "@babel/preset-react": "^7.22.15",
+    "@babel/core": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
     "babel-loader": "^9.1.3",
-    "webpack": "^5.88.2",
+    "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4"
   },
   "babel": {
     "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react"
+      "@babel/preset-env"
     ]
   }
 }

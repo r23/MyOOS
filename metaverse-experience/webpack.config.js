@@ -12,7 +12,7 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
-                include: [path.resolve(__dirname, 'src'), require.resolve('aframe-physics-system') ],
+                include: [path.resolve(__dirname, 'src'), require.resolve('@c-frame/aframe-physics-system') ],
                 use: {
                   loader: 'babel-loader', // or whatever loader you're using to parse modules
                   options: {}
