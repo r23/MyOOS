@@ -180,7 +180,7 @@ function amp_init() {
 
 	add_action(
 		'rest_api_init',
-		static function() {
+		static function () {
 			$reader_themes = new ReaderThemes();
 
 			$reader_theme_controller = new AMP_Reader_Theme_REST_Controller( $reader_themes );
@@ -914,32 +914,6 @@ function amp_add_generator_metadata() {
 }
 
 /**
- * Determine whether the use of Bento components is enabled.
- *
- * When Bento is enabled, newer experimental versions of AMP components are used which incorporate the next generation
- * of the component framework.
- *
- * @since 2.2
- * @link https://blog.amp.dev/2021/01/28/bento/
- *
- * @return bool Whether Bento components are enabled.
- */
-function amp_is_bento_enabled() {
-	/**
-	 * Filters whether the use of Bento components is enabled.
-	 *
-	 * When Bento is enabled, newer experimental versions of AMP components are used which incorporate the next generation
-	 * of the component framework.
-	 *
-	 * @since 2.2
-	 * @link https://blog.amp.dev/2021/01/28/bento/
-	 *
-	 * @param bool $enabled Enabled.
-	 */
-	return apply_filters( 'amp_bento_enabled', false );
-}
-
-/**
  * Register default scripts for AMP components.
  *
  * @internal
@@ -990,12 +964,13 @@ function amp_register_default_scripts( $wp_scripts ) {
 		$extension_specs['amp-carousel']['latest'] = '0.2';
 	}
 
-	$bento_enabled = amp_is_bento_enabled();
 	foreach ( $extension_specs as $extension_name => $extension_spec ) {
-		if ( $bento_enabled && ! empty( $extension_spec['bento'] ) ) {
-			$version = $extension_spec['bento']['version'];
-		} else {
-			$version = $extension_spec['latest'];
+		$version = $extension_spec['latest'];
+
+		// Skip registering the amp-gfycat extension, as gfycat have been sunset.
+		// @TODO: Remove this once the amp-gfycat extension is removed from spec.
+		if ( 'amp-gfycat' === $extension_name ) {
+			continue;
 		}
 
 		$src = sprintf(
@@ -1007,7 +982,7 @@ function amp_register_default_scripts( $wp_scripts ) {
 		$wp_scripts->add(
 			$extension_name,
 			$src,
-			[ 'amp-runtime' ], // @todo Eventually this will not be present for Bento.
+			[ 'amp-runtime' ],
 			null
 		);
 	}
@@ -1037,28 +1012,6 @@ function amp_register_default_styles( WP_Styles $styles ) {
 		AMP__VERSION
 	);
 	$styles->add_data( 'amp-icons', 'rtl', 'replace' );
-
-	// These are registered exclusively for non-AMP pages that manually enqueue them. They aren't needed on
-	// AMP pages due to the runtime style being present and because the styles are inlined in the scripts already.
-	if ( amp_is_bento_enabled() ) {
-		foreach ( AMP_Allowed_Tags_Generated::get_extension_specs() as $extension_name => $extension_spec ) {
-			if ( empty( $extension_spec['bento']['has_css'] ) ) {
-				continue;
-			}
-
-			$src = sprintf(
-				'https://cdn.ampproject.org/v0/%s-%s.css',
-				$extension_name,
-				$extension_spec['bento']['version']
-			);
-			$styles->add(
-				$extension_name,
-				$src,
-				[],
-				null
-			);
-		}
-	}
 }
 
 /**
@@ -1408,7 +1361,6 @@ function amp_get_content_embed_handlers( $post = null ) {
 			AMP_TikTok_Embed_Handler::class       => [],
 			AMP_Tumblr_Embed_Handler::class       => [],
 			AMP_Gallery_Embed_Handler::class      => [],
-			AMP_Gfycat_Embed_Handler::class       => [],
 			AMP_Imgur_Embed_Handler::class        => [],
 			AMP_Scribd_Embed_Handler::class       => [],
 			AMP_WordPress_Embed_Handler::class    => [],
@@ -1555,8 +1507,6 @@ function amp_get_content_sanitizers( $post = null ) {
 			'comments_live_list' => ! empty( $theme_support_args['comments_live_list'] ),
 		],
 
-		AMP_Bento_Sanitizer::class                 => [],
-
 		// The AMP_PWA_Script_Sanitizer run before AMP_Script_Sanitizer, to prevent the script tags
 		// from getting removed in PWA plugin offline/500 templates.
 		AMP_PWA_Script_Sanitizer::class            => [],
@@ -1601,7 +1551,6 @@ function amp_get_content_sanitizers( $post = null ) {
 		AMP_Accessibility_Sanitizer::class         => [],
 		// Note: This validating sanitizer must come at the end to clean up any remaining issues the other sanitizers didn't catch.
 		AMP_Tag_And_Attribute_Sanitizer::class     => [
-			'prefer_bento'                  => amp_is_bento_enabled(),
 			'allow_localhost_http_protocol' => $is_dev_mode,
 		],
 	];
@@ -1738,7 +1687,6 @@ function amp_get_content_sanitizers( $post = null ) {
 	$expected_final_sanitizer_order = [
 		AMP_Auto_Lightbox_Disable_Sanitizer::class,
 		AMP_Core_Theme_Sanitizer::class, // Must come before script sanitizer since onclick attributes are removed.
-		AMP_Bento_Sanitizer::class, // Bento scripts may be preserved here.
 		AMP_PWA_Script_Sanitizer::class, // Must come before script sanitizer since PWA offline page scripts are removed.
 		AMP_GTag_Script_Sanitizer::class, // Must come before script sanitizer since gtag.js is removed.
 		AMP_Script_Sanitizer::class, // Must come before sanitizers for images, videos, audios, comments, forms, and styles.
@@ -1922,13 +1870,8 @@ function amp_get_schemaorg_metadata() {
 
 	$queried_object = get_queried_object();
 	if ( $queried_object instanceof WP_Post ) {
-		if ( version_compare( strtok( get_bloginfo( 'version' ), '-' ), '5.3', '>=' ) ) {
-			$date_published = mysql2date( 'c', $queried_object->post_date, false );
-			$date_modified  = mysql2date( 'c', $queried_object->post_modified, false );
-		} else {
-			$date_published = mysql2date( 'c', $queried_object->post_date_gmt, false );
-			$date_modified  = mysql2date( 'c', $queried_object->post_modified_gmt, false );
-		}
+		$date_published = mysql2date( 'c', $queried_object->post_date, false );
+		$date_modified  = mysql2date( 'c', $queried_object->post_modified, false );
 
 		$metadata = array_merge(
 			$metadata,

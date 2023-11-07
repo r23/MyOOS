@@ -45,6 +45,7 @@ class AMP_Tag_And_Attribute_Sanitizer extends AMP_Base_Sanitizer {
 	const DISALLOWED_CHILD_TAG                 = 'DISALLOWED_CHILD_TAG';
 	const DISALLOWED_DESCENDANT_TAG            = 'DISALLOWED_DESCENDANT_TAG';
 	const DISALLOWED_FIRST_CHILD_TAG           = 'DISALLOWED_FIRST_CHILD_TAG';
+	const DISALLOWED_SIBLING_TAG               = 'DISALLOWED_SIBLING_TAG';
 	const DISALLOWED_PROCESSING_INSTRUCTION    = 'DISALLOWED_PROCESSING_INSTRUCTION';
 	const DISALLOWED_PROPERTY_IN_ATTR_VALUE    = 'DISALLOWED_PROPERTY_IN_ATTR_VALUE';
 	const DISALLOWED_RELATIVE_URL              = 'DISALLOWED_RELATIVE_URL';
@@ -190,7 +191,6 @@ class AMP_Tag_And_Attribute_Sanitizer extends AMP_Base_Sanitizer {
 			'amp_allowed_tags'                => AMP_Allowed_Tags_Generated::get_allowed_tags(),
 			'amp_globally_allowed_attributes' => AMP_Allowed_Tags_Generated::get_allowed_attributes(),
 			'amp_layout_allowed_attributes'   => AMP_Allowed_Tags_Generated::get_layout_attributes(),
-			'prefer_bento'                    => false,
 			'allow_localhost_http_protocol'   => false,
 		];
 
@@ -443,18 +443,8 @@ class AMP_Tag_And_Attribute_Sanitizer extends AMP_Base_Sanitizer {
 		$validation_errors          = [];
 		$rule_spec_list             = $this->allowed_tags[ $node->nodeName ];
 		foreach ( $rule_spec_list as $id => $rule_spec ) {
-			// When there are multiple versions of a rule spec, with one specifically for Bento and another for
-			// non-Bento make sure that only the preferred version is considered. Otherwise, the wrong requires_extension
-			// constraint may be applied.
-			if (
-				isset( $rule_spec['tag_spec']['bento'] )
-				&&
-				$this->args['prefer_bento'] !== $rule_spec['tag_spec']['bento']
-			) {
-				continue;
-			}
-
 			$validity = $this->validate_tag_spec_for_node( $node, $rule_spec[ AMP_Rule_Spec::TAG_SPEC ] );
+
 			if ( true === $validity ) {
 				$rule_spec_list_to_validate[ $id ] = $this->get_rule_spec_list_to_validate( $node, $rule_spec );
 			} else {
@@ -747,6 +737,11 @@ class AMP_Tag_And_Attribute_Sanitizer extends AMP_Base_Sanitizer {
 			if ( ! empty( $allowed_tags ) ) {
 				$this->remove_disallowed_descendants( $node, $allowed_tags, $this->get_spec_name( $node, $tag_spec ) );
 			}
+		}
+
+		// If the node disallows any siblings, remove them.
+		if ( ! empty( $tag_spec[ AMP_Rule_Spec::SIBLINGS_DISALLOWED ] ) ) {
+			$this->remove_disallowed_siblings( $node, $this->get_spec_name( $node, $tag_spec ) );
 		}
 
 		// After attributes have been sanitized (and potentially removed), if mandatory attribute(s) are missing, remove the element.
@@ -2450,6 +2445,46 @@ class AMP_Tag_And_Attribute_Sanitizer extends AMP_Base_Sanitizer {
 			} else {
 				$this->remove_disallowed_descendants( $child_element, $allowed_descendants, $spec_name );
 			}
+		}
+	}
+
+	/**
+	 * Loop through node's siblings and remove them.
+	 *
+	 * @param DOMElement $node      Node.
+	 * @param string     $spec_name Spec name.
+	 */
+	private function remove_disallowed_siblings( DOMElement $node, $spec_name ) {
+		$prev_sibling = $node->previousSibling;
+		while ( null !== $prev_sibling ) {
+			$prev_prev_sibling = $prev_sibling->previousSibling;
+			if ( $prev_sibling instanceof Element ) {
+				$this->remove_invalid_child(
+					$prev_sibling,
+					[
+						'code'      => self::DISALLOWED_SIBLING_TAG,
+						'sibling'   => $node->nodeName,
+						'spec_name' => $spec_name,
+					]
+				);
+			}
+			$prev_sibling = $prev_prev_sibling;
+		}
+
+		$next_sibling = $node->nextSibling;
+		while ( null !== $next_sibling ) {
+			$next_next_sibling = $next_sibling->nextSibling;
+			if ( $next_sibling instanceof Element ) {
+				$this->remove_invalid_child(
+					$next_sibling,
+					[
+						'code'      => self::DISALLOWED_SIBLING_TAG,
+						'sibling'   => $node->nodeName,
+						'spec_name' => $spec_name,
+					]
+				);
+			}
+			$next_sibling = $next_next_sibling;
 		}
 	}
 

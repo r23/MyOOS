@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2a1baf90b33f510f0618d577bd91acc9
+class ComposerStaticInitfce7eaa51eae83b212188c83fb02faa9
 {
     public static $files = array (
         '356506e5d3d2f49e680971cd925046fa' => __DIR__ . '/..' . '/ampproject/amp-toolbox/include/compatibility-fixes.php',
@@ -78,7 +78,6 @@ class ComposerStaticInit2a1baf90b33f510f0618d577bd91acc9
         'AMP_GTag_Script_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-gtag-script-sanitizer.php',
         'AMP_Gallery_Block_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-gallery-block-sanitizer.php',
         'AMP_Gallery_Embed_Handler' => __DIR__ . '/../..' . '/includes/embeds/class-amp-gallery-embed-handler.php',
-        'AMP_Gfycat_Embed_Handler' => __DIR__ . '/../..' . '/includes/embeds/class-amp-gfycat-embed-handler.php',
         'AMP_HTML_Utils' => __DIR__ . '/../..' . '/includes/utils/class-amp-html-utils.php',
         'AMP_HTTP' => __DIR__ . '/../..' . '/includes/class-amp-http.php',
         'AMP_Iframe_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-iframe-sanitizer.php',
@@ -1432,9 +1431,9 @@ class ComposerStaticInit2a1baf90b33f510f0618d577bd91acc9
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2a1baf90b33f510f0618d577bd91acc9::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2a1baf90b33f510f0618d577bd91acc9::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2a1baf90b33f510f0618d577bd91acc9::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitfce7eaa51eae83b212188c83fb02faa9::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitfce7eaa51eae83b212188c83fb02faa9::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitfce7eaa51eae83b212188c83fb02faa9::$classMap;
 
         }, null, ClassLoader::class);
     }

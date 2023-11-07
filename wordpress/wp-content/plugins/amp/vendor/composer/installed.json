@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "ampproject/amp-toolbox",
-            "version": "0.11.3",
-            "version_normalized": "0.11.3.0",
+            "version": "0.11.4",
+            "version_normalized": "0.11.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ampproject/amp-toolbox-php.git",
-                "reference": "56c812508f5ebe538036d75cf0c21de094b316d3"
+                "reference": "c79a0fe558a3c042aee4789bbf33376cca7a733d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ampproject/amp-toolbox-php/zipball/56c812508f5ebe538036d75cf0c21de094b316d3",
-                "reference": "56c812508f5ebe538036d75cf0c21de094b316d3",
+                "url": "https://api.github.com/repos/ampproject/amp-toolbox-php/zipball/c79a0fe558a3c042aee4789bbf33376cca7a733d",
+                "reference": "c79a0fe558a3c042aee4789bbf33376cca7a733d",
                 "shasum": ""
             },
             "require": {
@@ -43,7 +43,7 @@
                 "mck89/peast": "Needed to minify the AMP script.",
                 "nette/php-generator": "Needed to generate the validator spec PHP classes and interfaces."
             },
-            "time": "2023-02-07T23:27:03+00:00",
+            "time": "2023-10-24T22:47:58+00:00",
             "bin": [
                 "bin/amp"
             ],
@@ -73,7 +73,7 @@
             "description": "A collection of AMP tools making it easier to publish and host AMP pages with PHP.",
             "support": {
                 "issues": "https://github.com/ampproject/amp-toolbox-php/issues",
-                "source": "https://github.com/ampproject/amp-toolbox-php/tree/0.11.3"
+                "source": "https://github.com/ampproject/amp-toolbox-php/tree/0.11.4"
             },
             "install-path": "../ampproject/amp-toolbox"
         },

@@ -154,9 +154,9 @@ class ParserState
 
             if (
                 ! (
-                    preg_match("/^-([-${sNameStartCodePoint}]|${sEscapeCode})/isSu", $this->peek(3)) ||
-                    preg_match("/^${sNameStartCodePoint}/isSu", $this->peek()) ||
-                    preg_match("/^${sEscapeCode}/isS", $this->peek(2))
+                    preg_match("/^-([-{$sNameStartCodePoint}]|{$sEscapeCode})/isSu", $this->peek(3)) ||
+                    preg_match("/^{$sNameStartCodePoint}/isSu", $this->peek()) ||
+                    preg_match("/^{$sEscapeCode}/isS", $this->peek(2))
                 )
             ) {
                 $bCanParseCharacter = false;

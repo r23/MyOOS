@@ -1225,12 +1225,21 @@ class AMP_Theme_Support {
 		} else {
 			$header_callback = '_admin_bar_bump_cb';
 		}
-		remove_action( 'wp_head', $header_callback );
+
+		// @see <https://core.trac.wordpress.org/ticket/58775>.
+		if ( ! function_exists( 'wp_enqueue_admin_bar_header_styles' ) ) {
+			remove_action( 'wp_head', $header_callback );
+		}
+
 		if ( '__return_false' !== $header_callback ) {
-			ob_start();
-			$header_callback();
-			$style = ob_get_clean();
-			$data  = trim( preg_replace( '#<style[^>]*>(.*)</style>#is', '$1', $style ) ); // See wp_add_inline_style().
+			if ( ! function_exists( 'wp_enqueue_admin_bar_header_styles' ) ) {
+				ob_start();
+				$header_callback();
+				$style = ob_get_clean();
+				$data  = trim( preg_replace( '#<style[^>]*>(.*)</style>#is', '$1', $style ) ); // See wp_add_inline_style().
+			} else {
+				$data = '';
+			}
 
 			// Override AMP's position:relative on the body for the sake of the AMP viewer, which is not relevant an an Admin Bar context.
 			if ( amp_is_dev_mode() ) {
@@ -1547,47 +1556,6 @@ class AMP_Theme_Support {
 		foreach ( $superfluous_script_handles as $superfluous_script_handle ) {
 			if ( ! empty( $extension_specs[ $superfluous_script_handle ]['requires_usage'] ) ) {
 				unset( $amp_scripts[ $superfluous_script_handle ] );
-			}
-		}
-
-		// Make sure that Bento versions are used when required, either by explicitly requesting Bento or when the document is non-valid AMP.
-		$is_using_bento = (
-			array_key_exists( AMP_Tag_And_Attribute_Sanitizer::class, $sanitizers )
-			&&
-			$sanitizers[ AMP_Tag_And_Attribute_Sanitizer::class ]->get_arg( 'prefer_bento' )
-		);
-		if ( $is_using_bento ) {
-			$bento_extension_count = 0;
-
-			// Override all required scripts with the available Bento versions.
-			foreach ( $amp_scripts as $extension_name => $script_element ) {
-				if ( ! empty( $extension_specs[ $extension_name ]['bento']['version'] ) ) {
-					$script_element->setAttribute(
-						Attribute::SRC,
-						sprintf(
-							'https://cdn.ampproject.org/v0/%s-%s.js',
-							$extension_name,
-							$extension_specs[ $extension_name ]['bento']['version']
-						)
-					);
-					$bento_extension_count++;
-				}
-			}
-
-			// Enable Bento experiment per <https://amp.dev/documentation/guides-and-tutorials/start/bento_guide/?format=websites#enable-bento-experiment>.
-			// @todo Remove this once Bento no longer requires an experiment to opt-in.
-			if ( $bento_extension_count > 0 ) {
-				$bento_experiment_script = $dom->createElement( Tag::SCRIPT );
-				$bento_experiment_script->appendChild(
-					$dom->createTextNode( '(self.AMP = self.AMP || []).push(function (AMP) { AMP.toggleExperiment("bento", true); });' )
-				);
-
-				ValidationExemption::mark_node_as_px_verified( $bento_experiment_script );
-				if ( DevMode::isActiveForDocument( $dom ) ) {
-					$bento_experiment_script->setAttributeNode( $dom->createAttribute( Attribute::DATA_AMPDEVMODE ) );
-				}
-
-				$dom->head->appendChild( $bento_experiment_script );
 			}
 		}
 
