@@ -1,7 +1,3 @@
-import React from "react";
-import { render } from "react-dom";
-import { Scene } from "aframe-react";
-import { Canvas } from "react-three-fiber";
 import * as AFRAME from 'aframe';
 
 require('aframe-extras');
