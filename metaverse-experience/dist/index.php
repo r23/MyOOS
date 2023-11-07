@@ -37,25 +37,26 @@ $nonce = bin2hex(random_bytes(16));
 	<!-- Virtual Experiences JS Dependencies -->
    	<script nonce="<?php echo $nonce; ?>" src="static/js/runtime-main.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/572.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/995.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/734.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/203.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/434.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/454.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/861.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/58.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/710.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/223.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/850.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/848.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/918.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/378.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/9.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/569.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/783.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/824.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/736.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/555.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/687.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/694.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/928.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/403.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/406.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/264.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/232.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/477.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/main.js"></script>	
-
 	
 <style>
 body, html {
@@ -283,8 +284,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 50);
     });
 });
-
-
 </script>
 
 </body>
