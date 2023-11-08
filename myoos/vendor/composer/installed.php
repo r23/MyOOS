@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '92ca5c3162f17c571246afc20c836ee19c65e773',
+        'reference' => '58e1ea674c6eaed50c6d03b2b1661dbba9c1fe24',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -191,9 +191,9 @@
             'dev_requirement' => false,
         ),
         'mobiledetect/mobiledetectlib' => array(
-            'pretty_version' => '2.8.43',
-            'version' => '2.8.43.0',
-            'reference' => 'fa96dd52859f03ee2dea002ddd75f8e4e7e9c9da',
+            'pretty_version' => '2.8.45',
+            'version' => '2.8.45.0',
+            'reference' => '96aaebcf4f50d3d2692ab81d2c5132e425bca266',
             'type' => 'library',
             'install_path' => __DIR__ . '/../mobiledetect/mobiledetectlib',
             'aliases' => array(),
@@ -202,7 +202,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '92ca5c3162f17c571246afc20c836ee19c65e773',
+            'reference' => '58e1ea674c6eaed50c6d03b2b1661dbba9c1fe24',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -493,7 +493,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => 'acf687d343a847d98f175a9ce4e16483848246fd',
+            'reference' => '2d574cf552057b828c7c0d3b50d8690177727827',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
