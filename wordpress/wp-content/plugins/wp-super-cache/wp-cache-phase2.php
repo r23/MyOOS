@@ -388,6 +388,10 @@ function wp_cache_get_legacy_cache( $cache_file ) {
 
 function wp_cache_postload() {
 	global $cache_enabled, $wp_super_cache_late_init;
+	global $wp_cache_request_uri;
+
+	// have to sanitize here because formatting.php is loaded after wp_cache_request_uri is set
+	$wp_cache_request_uri = esc_url_raw( wp_unslash( $wp_cache_request_uri ) );
 
 	if ( ! $cache_enabled ) {
 		return true;
@@ -505,13 +509,14 @@ function wpsc_get_accept_header() {
 	static $accept = 'N/A';
 
 	if ( $accept === 'N/A' ) {
-		$json_list = array( 'application/json', 'application/activity+json', 'application/ld+json' );
+		$accept_headers = apply_filters( 'wpsc_accept_headers', array( 'application/json', 'application/activity+json', 'application/ld+json' ) );
+		$accept_headers = array_map( 'strtolower', $accept_headers );
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- $accept is checked and set below.
 		$accept = isset( $_SERVER['HTTP_ACCEPT'] ) ? strtolower( filter_var( $_SERVER['HTTP_ACCEPT'] ) ) : '';
 
-		foreach ( $json_list as $header ) {
-			if ( strpos( $accept, $header ) ) {
+		foreach ( $accept_headers as $header ) {
+			if ( strpos( $accept, $header ) !== false ) {
 				$accept = 'application/json';
 			}
 		}

@@ -2,27 +2,27 @@
     "packages": [
         {
             "name": "automattic/jetpack-device-detection",
-            "version": "v1.4.26",
-            "version_normalized": "1.4.26.0",
+            "version": "v1.4.27",
+            "version_normalized": "1.4.27.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-device-detection.git",
-                "reference": "303b06e76ef7976aef7e41423573b53d6860b1df"
+                "reference": "5fa2add941f3a7933b34bc3f57b4649e887c3976"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-device-detection/zipball/303b06e76ef7976aef7e41423573b53d6860b1df",
-                "reference": "303b06e76ef7976aef7e41423573b53d6860b1df",
+                "url": "https://api.github.com/repos/Automattic/jetpack-device-detection/zipball/5fa2add941f3a7933b34bc3f57b4649e887c3976",
+                "reference": "5fa2add941f3a7933b34bc3f57b4649e887c3976",
                 "shasum": ""
             },
             "require-dev": {
-                "automattic/jetpack-changelogger": "^3.3.4",
-                "yoast/phpunit-polyfills": "1.0.4"
+                "automattic/jetpack-changelogger": "^3.3.8",
+                "yoast/phpunit-polyfills": "1.1.0"
             },
             "suggest": {
                 "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
             },
-            "time": "2023-06-12T18:42:09+00:00",
+            "time": "2023-08-23T17:56:41+00:00",
             "type": "jetpack-library",
             "extra": {
                 "autotagger": true,
@@ -46,7 +46,7 @@
             ],
             "description": "A way to detect device types based on User-Agent header.",
             "support": {
-                "source": "https://github.com/Automattic/jetpack-device-detection/tree/v1.4.26"
+                "source": "https://github.com/Automattic/jetpack-device-detection/tree/v1.4.27"
             },
             "install-path": "../automattic/jetpack-device-detection"
         }
