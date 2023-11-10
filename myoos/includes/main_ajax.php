@@ -115,7 +115,7 @@ if (isset($_POST[$sSid]) && !empty($_POST[$sSid])) {
 
 
 
-// set the language 
+// set the language
 $sLanguage = isset($_SESSION['language']) ? oos_var_prep_for_os($_SESSION['language']) : DEFAULT_LANGUAGE;
 $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
 $sLanguageCode = isset($_SESSION['iso_639_1']) ? oos_var_prep_for_os($_SESSION['iso_639_1']) : DEFAULT_LANGUAGE_CODE;
@@ -197,7 +197,7 @@ if ($session->hasStarted() === true) {
     }
 
     // verify the browser user agent
-    $http_user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? oos_var_prep_for_os($_SERVER['HTTP_USER_AGENT']) : '';
+    $http_user_agent = filter_string_polyfill(filter_input(INPUT_SERVER, 'HTTP_USER_AGENT'));
 
     if (!isset($_SESSION['session_user_agent'])) {
         $_SESSION['session_user_agent'] = $http_user_agent;
