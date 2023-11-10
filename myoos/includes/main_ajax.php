@@ -57,6 +57,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/tables.php';
 
 // define general functions used application-wide
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_global.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_norector.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_kernel.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_input.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_output.php';
@@ -71,7 +72,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_navigation_history.ph
 
 
 // require the database functions
+require_once MYOOS_INCLUDE_PATH . '/vendor/adodb/adodb-php/adodb-exceptions.inc.php'; // loads the ADOdb exception handling
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_db.php';
+
 
 // make a connection to the database... now
 if (!oosDBInit()) {
@@ -110,11 +113,9 @@ if (isset($_POST[$sSid]) && !empty($_POST[$sSid])) {
     $session->start();
 }
 
-// Cross-Site Scripting attack defense
-// oos_secure_input();
 
 
-// set the language
+// set the language 
 $sLanguage = isset($_SESSION['language']) ? oos_var_prep_for_os($_SESSION['language']) : DEFAULT_LANGUAGE;
 $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
 $sLanguageCode = isset($_SESSION['iso_639_1']) ? oos_var_prep_for_os($_SESSION['iso_639_1']) : DEFAULT_LANGUAGE_CODE;

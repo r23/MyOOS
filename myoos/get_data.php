@@ -32,16 +32,21 @@ if (function_exists('ini_set')) {
     ini_set('url_rewriter.tags', '');
     ini_set('xdebug.show_exception_trace', 0);
     ini_set('magic_quotes_runtime', 0);
-    // ini_set('display_errors', true);
+    ini_set('display_errors', false);
 }
+
 
 use Symfony\Component\HttpFoundation\Request;
 
-$autoloader = include_once __DIR__ . '/vendor/autoload.php';
+//Load Composer's autoloader
+require 'vendor/autoload.php';
+
 $request = Request::createFromGlobals();
 
 define('MYOOS_INCLUDE_PATH', __DIR__=='/' ? '' : __DIR__);
+
 define('OOS_VALID_MOD', true);
+
 
 // Ajax request
 if ($request->isXmlHttpRequest()) {
