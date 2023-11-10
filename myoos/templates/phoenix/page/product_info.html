@@ -200,9 +200,9 @@
 						<div class="cart clearfix mb-15 d-flex align-items-center">
 						{if $myUser.show_price eq 1}
                             <div class="quantity">
-                                <span class="qty-minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                <span id="minus-button" class="qty-minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
                                 <input type="number" class="qty-text" id="qty" step="{$product_info.products_quantity_order_units|quantity}" min="{$product_info.products_quantity_order_min|quantity}" max="{$product_info.products_quantity_order_max|quantity}" name="cart_quantity" value="{$product_info.products_quantity_order_min}">
-                                <span class="qty-plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                <span id="plus-button" class="qty-plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
                             </div>
 						{/if}
                             <button type="submit" class="btn btn-primary ml-2"><i class="fa fa-shopping-basket" aria-hidden="true"></i> {$lang.button_in_cart}</button>

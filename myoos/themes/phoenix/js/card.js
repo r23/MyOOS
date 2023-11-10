@@ -16,6 +16,10 @@ function decreaseQty() {
   return false;
 }
 
-// Event listener for the <span> elements
-document.querySelector(".qty-minus").addEventListener("click", decreaseQty);
-document.querySelector(".qty-plus").addEventListener("click", increaseQty);
+
+
+if ($("#minus-button").length > 0) {
+  // Event listener for the <span> elements
+  document.getElementById("minus-button").addEventListener("click", decreaseQty);
+  document.getElementById("plus-button").addEventListener("click", increaseQty);
+}
