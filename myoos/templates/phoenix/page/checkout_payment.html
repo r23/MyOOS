@@ -101,14 +101,14 @@
 								<tbody>					
 					{section name=i loop=$selection}
 									<tr>
-										<td width="75%" colspan="3"><strong>{$selection[i].module}</strong></td>
-										<td align="right">
+										<td width="75%"><strong>{$selection[i].module}</strong></td>
+										<td align="text-right">
 											<div class="form-check">
 						{if sizeof($selection) > 1 }
 							{if $selection[i].id eq $smarty.session.payment}
-												<input required class="form-check-input" type="radio" name="payment" value="{$selection[i].id}" checked>
+												<input required class="form-check-input form-check-input-right" type="radio" name="payment" value="{$selection[i].id}" checked>
 							{else}
-												<input required class="form-check-input" type="radio" name="payment" value="{$selection[i].id}">
+												<input required class="form-check-input form-check-input-right " type="radio" name="payment" value="{$selection[i].id}">
 							{/if}  
 						{else}
 												<input type="hidden" name="payment" value="{$selection[i].id}">
@@ -118,7 +118,7 @@
 									</tr>
 						{if isset($selection[i].error)}
 										<tr>
-											<td colspan="4">
+											<td colspan="2">
 												<div class="alert alert-danger" role="alert">
 													{$selection[i].error}
 												</div>
