@@ -194,9 +194,12 @@ $aLang = [
 'page_blog'                       => 'Blog',
 'page_phpb3'                      => 'Support Forum',
 
-
+'review_text'                     => 'Die Rezension muss mindestens aus ' . REVIEW_TEXT_MIN_LENGTH . ' Buchstaben bestehen.',
+'review_rating'                   => 'Geben Sie Ihre Bewertung ein.',
+'review_headline'                 => 'Die Überschrift muss mindestens aus 10 Buchstaben bestehen.',
 'form_error'                      => '<strong>Notwendige Angaben fehlen!</strong> Bitte richtig ausfüllen.',
 
+	
 // javascript messages
 'js_error'                        => 'Notwendige Angaben fehlen!\nBitte richtig ausfüllen.\n\n',
 'js_gender'                       => '* Anredeform festlegen.\n',
@@ -522,11 +525,3 @@ $aLang = [
 
 
 ];
-
-if (defined('TEST')) {
-    $aLang = [
-    'review_text'                     => 'Die Rezension muss mindestens aus ' . REVIEW_TEXT_MIN_LENGTH . ' Buchstaben bestehen.',
-    'review_rating'                   => 'Geben Sie Ihre Bewertung ein.',
-    'review_headline'                 => 'Die Überschrift muss mindestens aus 10 Buchstaben bestehen.',
-    ];
-}

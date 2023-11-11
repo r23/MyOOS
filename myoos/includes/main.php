@@ -289,6 +289,10 @@ $aInfoMessage = [];
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_message_stack.php';
 $oMessage = new messageStack();
 
+$oMessage->add($aLang['entry_last_name_error']);
+$oMessage->add($aLang['entry_last_name_error']);
+$oMessage->add($aLang['entry_last_name_error'], 'danger');
+
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
 
 // Shopping cart actions

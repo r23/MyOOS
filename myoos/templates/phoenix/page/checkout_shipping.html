@@ -146,9 +146,9 @@
 											<td align="right">
 												<div class="form-check">
 										{if $quotes[i].methods[n].id eq $sess_method }
-													<input required class="form-check-input" type="radio" name="shipping" id="shipping" value="{$quotes[i].id}_{$quotes[i].methods[n].id}" checked>
+													<input required class="form-check-input form-check-input-right" type="radio" name="shipping" id="shipping" value="{$quotes[i].id}_{$quotes[i].methods[n].id}" checked>
 										{else}
-													<input required class="form-check-input" type="radio" name="shipping" id="shipping" value="{$quotes[i].id}_{$quotes[i].methods[n].id}">
+													<input required class="form-check-input form-check-input-right" type="radio" name="shipping" id="shipping" value="{$quotes[i].id}_{$quotes[i].methods[n].id}">
 										{/if}		   
 												</div>									
 											</td>			   

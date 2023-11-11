@@ -77,7 +77,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
 
     if (strlen($code ?? '') < 6) {
         $bError = true;
-        $oMessage->add('danger', $aLang['entry_code_error']);
+        $oMessage->add($aLang['entry_code_error']);
     }
 
     $window = 8; // 8 keys (respectively 4 minutes) past and future
@@ -86,7 +86,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
 
     if (!$valid) {
         $bError = true;
-        $oMessage->add('danger', $aLang['entry_code_error']);
+        $oMessage->add($aLang['entry_code_error']);
     }
 
     if ($bError == false) {

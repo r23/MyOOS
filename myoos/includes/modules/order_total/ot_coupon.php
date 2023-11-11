@@ -144,7 +144,7 @@ class ot_coupon
             $coupon_query = $dbconn->Execute($sql);
 
             if ($coupon_query->RecordCount() == 0) {
-                $oMessage->add_session('danger', $aLang['error_no_invalid_redeem_coupon']);
+                $oMessage->add_session($aLang['error_no_invalid_redeem_coupon']);
                 oos_redirect(oos_href_link($aContents['checkout_payment']));
             } else {
                 $coupon_result = $coupon_query->fields;
@@ -157,7 +157,7 @@ class ot_coupon
 						AND   coupon_code= '" . oos_db_input($gv_redeem_code) . "'";
                     $date_query = $dbconn->Execute($sql);
                     if ($date_query->RecordCount() == 0) {
-                        $oMessage->add_session('danger', $aLang['error_invalid_startdate_coupon']);
+                        $oMessage->add_session($aLang['error_invalid_startdate_coupon']);
                     }
                 }
 
@@ -169,7 +169,7 @@ class ot_coupon
 						AND   coupon_code= '" . oos_db_input($gv_redeem_code) . "'";
                 $date_query = $dbconn->Execute($sql);
                 if ($date_query->RecordCount() == 0) {
-                    $oMessage->add_session('danger', $aLang['error_invalid_finisdate_coupon']);
+                    $oMessage->add_session($aLang['error_invalid_finisdate_coupon']);
                 }
 
 
@@ -186,7 +186,7 @@ class ot_coupon
 								SET coupon_active = 'N'
 								WHERE coupon_code = '" . oos_db_input($gv_redeem_code). "'"
                     );
-                    $oMessage->add_session('danger', sprintf($aLang['error_invalid_uses_coupon'], $coupon_result['uses_per_coupon']));
+                    $oMessage->add_session(sprintf($aLang['error_invalid_uses_coupon'], $coupon_result['uses_per_coupon']));
                 }
 
 
@@ -214,7 +214,7 @@ class ot_coupon
                     $coupon_minimum_order =    $oCurrencies->format($coupon_result['coupon_minimum_order'], true, $currency, $currency_value);
                     $coupon_missing = $oCurrencies->format($missing, true, $currency, $currency_value);
 
-                    $oMessage->add('danger', sprintf($aLang['error_coupon_minimum_order'], $coupon_minimum_order, $coupon_missing));
+                    $oMessage->add(sprintf($aLang['error_coupon_minimum_order'], $coupon_minimum_order, $coupon_missing));
                 }
 
                 if ($oMessage->size('danger') == 0) {
@@ -255,7 +255,7 @@ class ot_coupon
             $coupon_query = $dbconn->Execute($sql);
 
             if ($coupon_query->RecordCount() == 0) {
-                $oMessage->add('danger', $aLang['error_no_invalid_redeem_coupon']);
+                $oMessage->add($aLang['error_no_invalid_redeem_coupon']);
             } else {
                 $coupon_result = $coupon_query->fields;
 
@@ -267,7 +267,7 @@ class ot_coupon
 						AND   coupon_code= '" . oos_db_input($gv_redeem_code) . "'";
                     $date_query = $dbconn->Execute($sql);
                     if ($date_query->RecordCount() == 0) {
-                        $oMessage->add('danger', $aLang['error_invalid_startdate_coupon']);
+                        $oMessage->add($aLang['error_invalid_startdate_coupon']);
                     }
                 }
 
@@ -279,7 +279,7 @@ class ot_coupon
 						AND   coupon_code= '" . oos_db_input($gv_redeem_code) . "'";
                 $date_query = $dbconn->Execute($sql);
                 if ($date_query->RecordCount() == 0) {
-                    $oMessage->add('danger', $aLang['error_invalid_finisdate_coupon']);
+                    $oMessage->add($aLang['error_invalid_finisdate_coupon']);
                 }
 
 
@@ -296,7 +296,7 @@ class ot_coupon
 														SET coupon_active = 'N'
 														WHERE coupon_code = '" . oos_db_input($gv_redeem_code). "'"
                     );
-                    $oMessage->add('danger', sprintf($aLang['error_invalid_uses_coupon'], $coupon_result['uses_per_coupon']));
+                    $oMessage->add(sprintf($aLang['error_invalid_uses_coupon'], $coupon_result['uses_per_coupon']));
                 }
 
                 /*
@@ -309,7 +309,7 @@ class ot_coupon
                                 $coupon_count_customer = $dbconn->Execute($sql);
 
                                 if ($coupon_count_customer->RecordCount()>=$coupon_result['uses_per_user'] && $coupon_result['uses_per_user'] > 0) {
-                                    $oMessage->add('danger', sprintf($aLang['error_invalid_uses_user_coupon'], $coupon_result['uses_per_coupon']));
+                                    $oMessage->add(sprintf($aLang['error_invalid_uses_user_coupon'], $coupon_result['uses_per_coupon']));
                                 }
                 */
 
@@ -324,7 +324,7 @@ class ot_coupon
                     $coupon_minimum_order =    $oCurrencies->format($coupon_result['coupon_minimum_order'], true, $currency, $currency_value);
                     $coupon_missing = $oCurrencies->format($missing, true, $currency, $currency_value);
 
-                    $oMessage->add('danger', sprintf($aLang['error_coupon_minimum_order'], $coupon_minimum_order, $coupon_missing));
+                    $oMessage->add(sprintf($aLang['error_coupon_minimum_order'], $coupon_minimum_order, $coupon_missing));
                 }
 
                 if ($oMessage->size('danger') == 0) {

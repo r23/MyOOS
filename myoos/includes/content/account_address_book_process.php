@@ -54,7 +54,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'deleteconfirm') && isset($_
     $entry_id = oos_db_prepare_input($_POST['entry_id']);
 
     if ($entry_id == $_SESSION['customer_default_address_id']) {
-        $oMessage->add_session('warning', $aLang['warning_primary_address_deletion']);
+        $oMessage->add_session($aLang['warning_primary_address_deletion'], 'warning');
     } else {
         $address_booktable = $oostable['address_book'];
         $query = "DELETE FROM $address_booktable
@@ -62,7 +62,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'deleteconfirm') && isset($_
 					AND	customers_id = '" . intval($_SESSION['customer_id']) . "'";
         $dbconn->Execute($query);
 
-        $oMessage->add_session('success', $aLang['success_address_book_entry_deleted']);
+        $oMessage->add_session($aLang['success_address_book_entry_deleted'], 'success');
     }
 
     oos_redirect(oos_href_link($aContents['account_address_book']));
@@ -113,25 +113,25 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['actio
     if (ACCOUNT_GENDER == 'true') {
         if (($gender != 'm') && ($gender != 'f') && ($gender != 'd')) {
             $bError = true;
-            $oMessage->add_session('danger', $aLang['entry_gender_error']);
+            $oMessage->add_session($aLang['entry_gender_error']);
         }
     }
 
     if (strlen($firstname ?? '') < ENTRY_FIRST_NAME_MIN_LENGTH) {
         $bError = true;
-        $oMessage->add_session('danger', $aLang['entry_first_name_error']);
+        $oMessage->add_session($aLang['entry_first_name_error']);
     }
 
     if (strlen($lastname ?? '') < ENTRY_LAST_NAME_MIN_LENGTH) {
         $bError = true;
-        $oMessage->add_session('danger', $aLang['entry_last_name_error']);
+        $oMessage->add_session($aLang['entry_last_name_error']);
     }
 
 
     if (ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') {
         if (!empty($vat_id) && (!oos_validate_is_vatid($vat_id))) {
             $bError = true;
-            $oMessage->add_session('danger', $aLang['entry_vat_id_error']);
+            $oMessage->add_session($aLang['entry_vat_id_error']);
         } else {
             $vatid_check_error = false;
         }
@@ -139,22 +139,22 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['actio
 
     if (strlen($street_address ?? '') < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
         $bError = true;
-        $oMessage->add_session('danger', $aLang['entry_street_address_error']);
+        $oMessage->add_session($aLang['entry_street_address_error']);
     }
 
     if (strlen($postcode ?? '') < ENTRY_POSTCODE_MIN_LENGTH) {
         $bError = true;
-        $oMessage->add_session('danger', $aLang['entry_post_code_error']);
+        $oMessage->add_session($aLang['entry_post_code_error']);
     }
 
     if (strlen($city ?? '') < ENTRY_CITY_MIN_LENGTH) {
         $bError = true;
-        $oMessage->add_session('danger', $aLang['entry_city_error']);
+        $oMessage->add_session($aLang['entry_city_error']);
     }
 
     if (is_numeric($country) == false) {
         $bError = true;
-        $oMessage->add_session('danger', $aLang['entry_country_error']);
+        $oMessage->add_session($aLang['entry_country_error']);
     }
 
     if (ACCOUNT_STATE == 'true') {
@@ -178,12 +178,12 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['actio
                 $zone_id = $zone['zone_id'];
             } else {
                 $bError = true;
-                $oMessage->add_session('danger', $aLang['entry_state_error_select']);
+                $oMessage->add_session($aLang['entry_state_error_select']);
             }
         } else {
             if (strlen($state ?? '') < ENTRY_STATE_MIN_LENGTH) {
                 $bError = true;
-                $oMessage->add_session('danger', $aLang['entry_state_error']);
+                $oMessage->add_session($aLang['entry_state_error']);
             }
         }
     }
@@ -292,7 +292,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['actio
                 $dbconn->Execute($update_info_sql);
             }
         }
-        $oMessage->add_session('success', $aLang['success_address_book_entry_updated']);
+        $oMessage->add_session($aLang['success_address_book_entry_updated'], 'success');
         oos_redirect(oos_href_link($aContents['account_address_book']));
     }
 }
@@ -309,7 +309,7 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
     $entry_result = $dbconn->Execute($address_sql);
 
     if (!$entry_result->RecordCount()) {
-        $oMessage->add_session('danger', $aLang['error_nonexisting_address_book_entry']);
+        $oMessage->add_session($aLang['error_nonexisting_address_book_entry']);
 
         oos_redirect(oos_href_link($aContents['account_address_book']));
     }
@@ -318,7 +318,7 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
 } elseif (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     $entry_id = filter_input(INPUT_GET, 'delete', FILTER_VALIDATE_INT);
     if ($entry_id == $_SESSION['customer_default_address_id']) {
-        $oMessage->add_session('warning', $aLang['warning_primary_address_deletion']);
+        $oMessage->add_session($aLang['warning_primary_address_deletion'], 'warning');
 
         oos_redirect(oos_href_link($aContents['account_address_book']));
     } else {
@@ -327,7 +327,7 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
         $check_result = $dbconn->Execute($check_query);
 
         if ($check_result->fields['total'] < 1) {
-            $oMessage->add_session('danger', $aLang['error_nonexisting_address_book_entry']);
+            $oMessage->add_session($aLang['error_nonexisting_address_book_entry']);
 
             oos_redirect(oos_href_link($aContents['account_address_book']));
         }
@@ -338,7 +338,7 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
 
 if (!isset($_GET['delete']) && !isset($_GET['edit'])) {
     if (oos_count_customer_address_book_entries() >= MAX_ADDRESS_BOOK_ENTRIES) {
-        $oMessage->add_session('danger', $aLang['error_address_book_full']);
+        $oMessage->add_session($aLang['error_address_book_full']);
 
         oos_redirect(oos_href_link($aContents['account_address_book']));
     }

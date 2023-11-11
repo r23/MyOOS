@@ -49,7 +49,7 @@ if (isset($_SESSION)) {
             ) {
                 $country = oos_db_prepare_input($_POST['country']);
                 if (is_numeric($country) == false) {
-                    $oMessage->add('danger', $aLang['entry_country_error']);
+                    $oMessage->add($aLang['entry_country_error']);
                 } else {
                     $_SESSION['delivery_country_id'] = intval($country);
 
@@ -64,7 +64,7 @@ if (isset($_SESSION)) {
                     $postcode = strtoupper((string) $postcode);
                     /* todo: postcode
                     if (strlen($postcode ?? '') < ENTRY_POSTCODE_MIN_LENGTH) {
-                        $oMessage->add('danger', $aLang['entry_post_code_error']);
+                        $oMessage->add($aLang['entry_post_code_error']);
                     }
                     */
                 }
@@ -74,7 +74,7 @@ if (isset($_SESSION)) {
                     $city = oos_remove_shouting($city);
                     /* todo: city
                     if (strlen($city ?? '') < ENTRY_CITY_MIN_LENGTH) {
-                        $oMessage->add('danger', $aLang['entry_city_error']);
+                        $oMessage->add($aLang['entry_city_error']);
                     }
                     */
                 }
@@ -147,7 +147,7 @@ if (isset($_SESSION)) {
                 $minimum_order_value = str_replace(',', '.', (string) MINIMUM_ORDER_VALUE);
 
                 if ($subtotal < $minimum_order_value) {
-                    $oMessage->add('danger', sprintf($aLang['warning_minimum_order_value'], $oCurrencies->format($minimum_order_value)));
+                    $oMessage->add(sprintf($aLang['warning_minimum_order_value'], $oCurrencies->format($minimum_order_value)));
                 }
             }
 
@@ -177,7 +177,7 @@ if (isset($_SESSION)) {
 
                 if (($products[$i]['old_electrical_equipment'] == 1) && ($products[$i]['return_free_of_charge'] == '') && ($nError == 0)) {
                     $nError = 1;
-                    $oMessage->add('danger', $aLang['text_error']);
+                    $oMessage->add($aLang['text_error']);
                 }
 
                 // Push all attributes information in an array

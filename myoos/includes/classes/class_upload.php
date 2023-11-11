@@ -72,9 +72,9 @@ class upload
         if (isset($file['tmp_name']) && oos_is_not_null($file['tmp_name']) && ($file['tmp_name'] != 'none') && is_uploaded_file($file['tmp_name'])) {
             if (oos_is_not_null($file['size']) and ($file['size'] > 2_048_000)) {
                 if ($this->message_location == 'direct') {
-                    $oMessage->add('upload', $aLang['error_file_too_big'], 'error');
+                    $oMessage->add($aLang['error_file_too_big'], 'error');
                 } else {
-                    $oMessage->add_session('upload', $aLang['error_file_too_big'], 'error');
+                    $oMessage->add_session($aLang['error_file_too_big'], 'error');
                 }
                 return false;
             }
@@ -82,9 +82,9 @@ class upload
             if (sizeof($this->extensions) > 0) {
                 if (!in_array(strtolower(substr((string) $file['name'], strrpos((string) $file['name'], '.')+1)), $this->extensions)) {
                     if ($this->message_location == 'direct') {
-                        $oMessage->add('upload', $aLang['error_filetype_not_allowed'], 'error');
+                        $oMessage->add($aLang['error_filetype_not_allowed'], 'error');
                     } else {
-                        $oMessage->add_session('upload', $aLang['error_filetype_not_allowed'], 'error');
+                        $oMessage->add_session($aLang['error_filetype_not_allowed'], 'error');
                     }
                     return false;
                 }
@@ -97,9 +97,9 @@ class upload
             return $this->check_destination();
         } else {
             if ($this->message_location == 'direct') {
-                $oMessage->add('upload', $aLang['warning_no_file_uploaded'], 'warning');
+                $oMessage->add($aLang['warning_no_file_uploaded'], 'warning');
             } else {
-                $oMessage->add_session('upload', $aLang['warning_no_file_uploaded'], 'warning');
+                $oMessage->add_session($aLang['warning_no_file_uploaded'], 'warning');
             }
             return false;
         }
@@ -116,14 +116,14 @@ class upload
         if (move_uploaded_file($this->file['tmp_name'], $this->destination . $this->filename)) {
             chmod($this->destination . $this->filename, $this->permissions);
 
-            $oMessage->add_session('upload', $aLang['success_file_saved_successfully'], 'success');
+            $oMessage->add_session($aLang['success_file_saved_successfully'], 'success');
 
             return true;
         } else {
             if ($this->message_location == 'direct') {
-                $oMessage->add('upload', $aLang['error_file_not_saved'], 'error');
+                $oMessage->add($aLang['error_file_not_saved'], 'error');
             } else {
-                $oMessage->add_session('upload', $aLang['error_file_not_saved'], 'error');
+                $oMessage->add_session($aLang['error_file_not_saved'], 'error');
             }
 
             return false;
@@ -175,15 +175,15 @@ class upload
         if (!is_writeable($this->destination)) {
             if (is_dir($this->destination)) {
                 if ($this->message_location == 'direct') {
-                    $oMessage->add('upload', $aLang['error_destination_not_writeable'], 'error');
+                    $oMessage->add($aLang['error_destination_not_writeable'], 'error');
                 } else {
-                    $oMessage->add_session('upload', $aLang['error_destination_not_writeable'], 'error');
+                    $oMessage->add_session($aLang['error_destination_not_writeable'], 'error');
                 }
             } else {
                 if ($this->message_location == 'direct') {
-                    $oMessage->add('upload', $aLang['error_destination_does_not_exist'], 'error');
+                    $oMessage->add($aLang['error_destination_does_not_exist'], 'error');
                 } else {
-                    $oMessage->add_session('upload', $aLang['error_destination_does_not_exist'], 'error');
+                    $oMessage->add_session($aLang['error_destination_does_not_exist'], 'error');
                 }
             }
 

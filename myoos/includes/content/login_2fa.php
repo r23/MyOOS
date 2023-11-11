@@ -61,7 +61,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
 
     if (strlen($code ?? '') < 6) {
         $bError = true;
-        $oMessage->add('danger', $aLang['entry_code_error']);
+        $oMessage->add($aLang['entry_code_error']);
     }
 
     $bError = false; // reset error flag
@@ -98,7 +98,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
                 $_SESSION['google2fa_count'] ++;
             }
 
-            $oMessage->add('danger', $aLang['text_code_error']);
+            $oMessage->add($aLang['text_code_error']);
         }
     }
 }

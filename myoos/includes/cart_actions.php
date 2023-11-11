@@ -76,10 +76,10 @@ case 'update_product':
                     $free_redemption  = (isset($_POST['free_redemption'][$i])) && is_numeric($_POST['free_redemption'][$i]) ? intval($_POST['free_redemption'][$i]) : '';
                     $_SESSION['cart']->add_cart($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $attributes, $free_redemption, false, $_POST['to_wl_id'][$i]);
                 } else {
-                    $oMessage->add_session('danger', oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_units_invalid'] . ' ' . oos_prepare_input($_POST['cart_quantity'][$i]) . ' - ' . $aLang['products_order_qty_unit_text_cart'] . ' ' . $products_order_units);
+                    $oMessage->add_session(oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_units_invalid'] . ' ' . oos_prepare_input($_POST['cart_quantity'][$i]) . ' - ' . $aLang['products_order_qty_unit_text_cart'] . ' ' . $products_order_units);
                 }
             } else {
-                $oMessage->add_session('danger', $aLang['error_products_quantity_order_min_text'] . ' ' . oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_quantity_invalid'] . ' ' . oos_prepare_input($_POST['cart_quantity'][$i]) . ' - ' . $aLang['products_order_qty_min_text_cart'] . ' ' . $products_order_min);
+                $oMessage->add_session($aLang['error_products_quantity_order_min_text'] . ' ' . oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_quantity_invalid'] . ' ' . oos_prepare_input($_POST['cart_quantity'][$i]) . ' - ' . $aLang['products_order_qty_min_text_cart'] . ' ' . $products_order_min);
             }
         }
     }
@@ -187,7 +187,7 @@ case 'add_product':
 
                 if ((oos_is_the_product_b_ware($nProductsID)) && (!isset($_POST['used_goods']))) {
                     // check if is chopped
-                    $oMessage->add_session('danger', $aLang['error_product_information_used_goods']);
+                    $oMessage->add_session($aLang['error_product_information_used_goods']);
                 } else {
                     $cart_quantity = filter_input(INPUT_POST, 'cart_quantity', FILTER_VALIDATE_INT);
 
@@ -201,10 +201,10 @@ case 'add_product':
                         if (($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min)) {
                             $_SESSION['cart']->add_cart($nProductsID, $news_qty, $real_ids);
                         } else {
-                            $oMessage->add_session('danger', $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units);
+                            $oMessage->add_session($aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units);
                         }
                     } else {
-                        $oMessage->add_session('danger', $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min);
+                        $oMessage->add_session($aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min);
                     }
                 }
 
@@ -278,11 +278,11 @@ case 'buy_now':
         }
 
         if (oos_has_product_attributes($sProductsId)) {
-            $oMessage->add_session('danger', $aLang['error_product_has_attributes']);
+            $oMessage->add_session($aLang['error_product_has_attributes']);
         } elseif (oos_has_product_information_obligation($sProductsId)) {
-            $oMessage->add_session('danger', $aLang['error_product_information_obligation']);
+            $oMessage->add_session($aLang['error_product_information_obligation']);
         } elseif (oos_is_the_product_b_ware($nProductsID)) {
-            $oMessage->add_session('danger', $aLang['error_product_information_used_goods']);
+            $oMessage->add_session($aLang['error_product_information_used_goods']);
         } else {
             if (isset($_GET['cart_quantity']) && is_numeric($_GET['cart_quantity'])) {
                 $cart_quantity = filter_input(INPUT_GET, 'cart_quantity', FILTER_VALIDATE_INT) ?: 1;
@@ -300,10 +300,10 @@ case 'buy_now':
                 if (($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min)) {
                     $_SESSION['cart']->add_cart($sProductsId, $news_qty);
                 } else {
-                    $oMessage->add_session('danger', $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units);
+                    $oMessage->add_session($aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units);
                 }
             } else {
-                $oMessage->add_session('danger', $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min);
+                $oMessage->add_session($aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min);
             }
         }
 
@@ -335,9 +335,9 @@ case 'buy_slave':
         }
 
         if (oos_has_product_attributes($slave_id)) {
-            $oMessage->add_session('danger', $aLang['error_product_has_attributes']);
+            $oMessage->add_session($aLang['error_product_has_attributes']);
         } elseif (oos_has_product_information_obligation($slave_id)) {
-            $oMessage->add_session('danger', $aLang['error_product_information_obligation']);
+            $oMessage->add_session($aLang['error_product_information_obligation']);
         } else {
             $cart_quantity = isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity']) ? oos_prepare_input($_POST['cart_quantity']) : 1;
             $cart_qty = $_SESSION['cart']->get_quantity($slave_id);
@@ -350,10 +350,10 @@ case 'buy_slave':
                 if (($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min)) {
                     $_SESSION['cart']->add_cart($slave_id, $news_qty);
                 } else {
-                    $oMessage->add_session('danger', $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units);
+                    $oMessage->add_session($aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units);
                 }
             } else {
-                $oMessage->add_session('danger', $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min);
+                $oMessage->add_session($aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min);
             }
         }
 
@@ -534,9 +534,9 @@ case 'wishlist_add_product':
         }
 
         if (oos_has_product_information_obligation($sProductsId)) {
-            $oMessage->add_session('danger', $aLang['error_product_information_obligation']);
+            $oMessage->add_session($aLang['error_product_information_obligation']);
         } elseif (oos_is_the_product_b_ware($nProductsID)) {
-            $oMessage->add_session('danger', $aLang['error_product_information_used_goods']);
+            $oMessage->add_session($aLang['error_product_information_used_goods']);
         } else {
             $cart_qty = $_SESSION['cart']->get_quantity(oos_get_uprid($sProductsId, $_POST['id']));
             $news_qty = $cart_qty + $cart_quantity;
@@ -549,10 +549,10 @@ case 'wishlist_add_product':
                     $free_redemption  = (isset($_POST['free_redemption'])) && is_numeric($_POST['free_redemption']) ? intval($_POST['free_redemption']) : '';
                     $_SESSION['cart']->add_cart($sProductsId, $news_qty, $_POST['id'], $free_redemption, true, $_POST['wl_products_id']);
                 } else {
-                    $oMessage->add_session('danger', $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units);
+                    $oMessage->add_session($aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units);
                 }
             } else {
-                $oMessage->add_session('danger', $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min);
+                $oMessage->add_session($aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min);
             }
         }
 

@@ -108,7 +108,7 @@
 							{if $selection[i].id eq $smarty.session.payment}
 												<input required class="form-check-input form-check-input-right" type="radio" name="payment" value="{$selection[i].id}" checked>
 							{else}
-												<input required class="form-check-input form-check-input-right " type="radio" name="payment" value="{$selection[i].id}">
+												<input required class="form-check-input form-check-input-right" type="radio" name="payment" value="{$selection[i].id}">
 							{/if}  
 						{else}
 												<input type="hidden" name="payment" value="{$selection[i].id}">

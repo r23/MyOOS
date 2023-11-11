@@ -53,7 +53,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'send')) {
         oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $subject, $email_text, $email_text, $name, $email_address);
         oos_redirect(oos_href_link($aContents['contact_us'], 'action=success'));
     } else {
-        $oMessage->add('danger', $aLang['error_email_address']);
+        $oMessage->add($aLang['error_email_address']);
         $bError = true;
     }
 }

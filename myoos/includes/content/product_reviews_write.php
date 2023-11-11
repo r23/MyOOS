@@ -36,7 +36,7 @@ if ($bNecessary === false) {
 
 
 if (isset($_GET['products_id'])) {
-       $products_id = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
+    $products_id = filter_string_polyfill(filter_input(INPUT_GET, 'products_id'));
     $nProductsID = oos_get_product_id($products_id);
 } elseif (isset($_POST['products_id'])) {
     $products_id = filter_string_polyfill(filter_input(INPUT_POST, 'products_id'));
@@ -61,7 +61,7 @@ if (!isset($_SESSION['customer_id'])) {
     $_SESSION['navigation']->set_snapshot();
     $_SESSION['guest_login'] = 'off';
 
-    $oMessage->add_session('danger', $aLang['error_login_for_rating']);
+    $oMessage->add_session($aLang['error_login_for_rating']);
 
     oos_redirect(oos_href_link($aContents['login']));
 }
@@ -88,19 +88,20 @@ if (isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process')
     $rating = filter_string_polyfill(filter_input(INPUT_POST, 'rating'));
     $headline = filter_string_polyfill(filter_input(INPUT_POST, 'headline'));
 
+
     $bError = false;
     if (strlen($review ?? '') < REVIEW_TEXT_MIN_LENGTH) {
-        $oMessage->add('danger', $aLang['review_text']);
+        $oMessage->add($aLang['review_text']);
         $bError = true;
     }
 
     if (!isset($_POST['rating'])) {
-        $oMessage->add('danger', $aLang['review_rating']);
+        $oMessage->add($aLang['review_rating']);
         $bError = true;
     }
 
     if (strlen($headline ?? '') < 10) {
-        $oMessage->add('danger', $aLang['review_headline']);
+        $oMessage->add($aLang['review_headline']);
         $bError = true;
     }
 
@@ -185,7 +186,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process')
         $smarty = new myOOS_Smarty();
         $smarty->clearCache(null, $sTheme.'|products|reviews');
 
-        $oMessage->add_session('success', $aLang['info_review_waiting']);
+        $oMessage->add_session($aLang['info_review_waiting'], 'success');
 
         oos_redirect(oos_href_link($aContents['product_reviews'], 'products_id=' . intval($nProductsID)));
     }

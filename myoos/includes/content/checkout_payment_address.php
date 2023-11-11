@@ -98,25 +98,25 @@ if (isset($_POST['action']) && ($_POST['action'] == 'submit')
         if (ACCOUNT_GENDER == 'true') {
             if (($gender != 'm') && ($gender != 'f') && ($gender != 'd')) {
                 $bError = true;
-                $oMessage->add('danger', $aLang['entry_gender_error']);
+                $oMessage->add($aLang['entry_gender_error']);
             }
         }
 
         if (strlen($firstname ?? '') < ENTRY_FIRST_NAME_MIN_LENGTH) {
             $bError = true;
-            $oMessage->add('danger', $aLang['entry_first_name_error']);
+            $oMessage->add($aLang['entry_first_name_error']);
         }
 
         if (strlen($lastname ?? '') < ENTRY_LAST_NAME_MIN_LENGTH) {
             $bError = true;
-            $oMessage->add('danger', $aLang['entry_last_name_error']);
+            $oMessage->add($aLang['entry_last_name_error']);
         }
 
 
         if (ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') {
             if (!empty($vat_id) && (!oos_validate_is_vatid($vat_id))) {
                 $bError = true;
-                $oMessage->add('danger', $aLang['entry_vat_id_error']);
+                $oMessage->add($aLang['entry_vat_id_error']);
             } else {
                 $vatid_check_error = false;
             }
@@ -124,22 +124,22 @@ if (isset($_POST['action']) && ($_POST['action'] == 'submit')
 
         if (strlen($street_address ?? '') < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
             $bError = true;
-            $oMessage->add('danger', $aLang['entry_street_address_error']);
+            $oMessage->add($aLang['entry_street_address_error']);
         }
 
         if (strlen($postcode ?? '') < ENTRY_POSTCODE_MIN_LENGTH) {
             $bError = true;
-            $oMessage->add('danger', $aLang['entry_post_code_error']);
+            $oMessage->add($aLang['entry_post_code_error']);
         }
 
         if (strlen($city ?? '') < ENTRY_CITY_MIN_LENGTH) {
             $bError = true;
-            $oMessage->add('danger', $aLang['entry_city_error']);
+            $oMessage->add($aLang['entry_city_error']);
         }
 
         if (is_numeric($country) == false) {
             $bError = true;
-            $oMessage->add('danger', $aLang['entry_country_error']);
+            $oMessage->add($aLang['entry_country_error']);
         }
 
 
@@ -164,12 +164,12 @@ if (isset($_POST['action']) && ($_POST['action'] == 'submit')
                     $zone_id = $zone['zone_id'];
                 } else {
                     $bError = true;
-                    $oMessage->add('danger', $aLang['entry_state_error_select']);
+                    $oMessage->add($aLang['entry_state_error_select']);
                 }
             } else {
                 if (strlen($state ?? '') < ENTRY_STATE_MIN_LENGTH) {
                     $bError = true;
-                    $oMessage->add('danger', $aLang['entry_state_error']);
+                    $oMessage->add($aLang['entry_state_error']);
                 }
             }
         }
