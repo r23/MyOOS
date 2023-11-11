@@ -321,10 +321,10 @@ class shoppingCart
 
             if (isset($_SESSION['customer_id'])) {
                 $customers_baskettable = $oostable['customers_basket'];
-                $dbconn->Execute(
+				$dbconn->Execute(
                     "UPDATE $customers_baskettable
                             SET customers_basket_quantity = '" . oos_db_input($nQuantity) . "',
-								free_redemption = '" . oos_db_input($free_redemption) . "',
+								free_redemption = '" . oos_db_input($free_redemption) . "'
                             WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' AND
                                   products_id = '" . oos_db_input($sProductsId) . "'"
                 );

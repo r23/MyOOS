@@ -79,8 +79,8 @@ if (isset($_POST['action']) && ($_POST['action'] == 'update_notifications')
         $customers_infotable = $oostable['customers_info'];
         $dbconn->Execute(
             "UPDATE $customers_infotable
-                        SET global_product_notifications = '1'
-                        WHERE customers_info_id = '" . intval($_SESSION['customer_id']) . "'"
+            SET global_product_notifications = '1'
+            WHERE customers_info_id = '" . intval($_SESSION['customer_id']) . "'"
         );
     } else {
         $customers_infotable   = $oostable['customers_info'];

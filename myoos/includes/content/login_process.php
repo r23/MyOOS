@@ -98,8 +98,8 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')
                 $customerstable = $oostable['customers'];
                 $dbconn->Execute(
                     "UPDATE $customerstable
-									SET customers_language = '" . oos_db_input($sLanguage) . "'
-								WHERE customers_id = '" . intval($check_customer['customers_id']) . "'"
+					SET customers_language = '" . oos_db_input($sLanguage) . "'
+					WHERE customers_id = '" . intval($check_customer['customers_id']) . "'"
                 );
             }
 
