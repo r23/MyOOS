@@ -45,10 +45,16 @@ function chartLine($xAxisData, $seriesData, $title = '')
     $title && $chart->title->text = $title;
     $chart->color = $color;
     $chart->tooltip->trigger = 'axis';
+	$chart->tooltip->formatter = '{b} <br>{a} <b>{c}€</b>';
+	# $chart->tooltip->backgroundColor = '#BFBBB8'; // eine feste Farbe
+
 
     $chart->toolbox->show = true;
     $chart->toolbox->feature->dataZoom->yAxisIndex = 'none';
+
     $chart->toolbox->feature->dataView->readOnly = true;
+    $chart->toolbox->feature->magicType->type = ['line', 'bar'];
+	
     $chart->toolbox->feature->saveAsImage = [];
 
     $sCurrency = ($_SESSION['currency'] ?? DEFAULT_CURRENCY);
@@ -75,6 +81,15 @@ function chartLine($xAxisData, $seriesData, $title = '')
         $series->type = 'line';
         $series->step = 'end';
         $series->data = $ser['data'];
+		$series->label = [
+			'show' => true,
+			'formatter' => "
+				function (params)
+				{
+					return params.value + ' " . $symbol_left . $symbol_right . "'
+				}
+			"
+		];	
         $chart->addSeries($series);
     }
 
