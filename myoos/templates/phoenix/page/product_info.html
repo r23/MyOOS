@@ -115,7 +115,7 @@
 {if $myUser.show_price eq 1}
 
 	{if (!empty($info_product_special_price))}
-		<span class="price-desc">{$info_product_only_until}</span><br>
+		<span class="price-desc">{$info_product_only_until}</span><br>{$info_product_only_until}
 	
 		{if $cross_out_price > 0}
 			<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$cross_out_price}</span></span><br>

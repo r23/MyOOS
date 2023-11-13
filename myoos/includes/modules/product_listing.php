@@ -107,7 +107,7 @@ if ($listing_split->number_of_rows > 0) {
 
         $aListing[] = ['products_id' => $listing['products_id'],
                         'products_image' => $listing['products_image'],
-                        'products_name' => $listing['products_name'],
+                        'products_name' => $listing['products_name'] . $listing['products_base_unit'],
                         'products_model' => $listing['products_model'],
                         'products_short_description' => $listing['products_short_description'],
                         'manufacturers_id' => $listing['manufacturers_id'],
