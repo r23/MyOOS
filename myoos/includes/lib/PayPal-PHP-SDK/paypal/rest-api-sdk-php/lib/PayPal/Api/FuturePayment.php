@@ -12,7 +12,6 @@ use PayPal\Transport\PayPalRestCall;
  */
 class FuturePayment extends Payment
 {
-
     /**
      * Extends the Payment object to create future payments
      *

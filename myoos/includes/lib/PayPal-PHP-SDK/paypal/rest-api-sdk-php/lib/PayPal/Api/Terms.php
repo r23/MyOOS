@@ -24,7 +24,7 @@ class Terms extends PayPalModel
      * Identifier of the terms. 128 characters max.
      *
      * @param string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -47,7 +47,7 @@ class Terms extends PayPalModel
      * Term type. Allowed values: `MONTHLY`, `WEEKLY`, `YEARLY`.
      *
      * @param string $type
-     * 
+     *
      * @return $this
      */
     public function setType($type)
@@ -70,7 +70,7 @@ class Terms extends PayPalModel
      * Max Amount associated with this term.
      *
      * @param \PayPal\Api\Currency $max_billing_amount
-     * 
+     *
      * @return $this
      */
     public function setMaxBillingAmount($max_billing_amount)
@@ -93,7 +93,7 @@ class Terms extends PayPalModel
      * How many times money can be pulled during this term.
      *
      * @param string $occurrences
-     * 
+     *
      * @return $this
      */
     public function setOccurrences($occurrences)
@@ -116,7 +116,7 @@ class Terms extends PayPalModel
      * Amount_range associated with this term.
      *
      * @param \PayPal\Api\Currency $amount_range
-     * 
+     *
      * @return $this
      */
     public function setAmountRange($amount_range)
@@ -139,7 +139,7 @@ class Terms extends PayPalModel
      * Buyer's ability to edit the amount in this term.
      *
      * @param string $buyer_editable
-     * 
+     *
      * @return $this
      */
     public function setBuyerEditable($buyer_editable)

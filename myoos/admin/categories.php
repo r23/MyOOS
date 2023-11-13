@@ -898,9 +898,9 @@ if ($action == 'new_category' || $action == 'edit_category') {
         if (oos_is_not_null($cInfo->categories_id)) {
             $back_url_params .= '&cID=' . $cInfo->categories_id;
         }
-    } 
-		
-	?>
+    }
+
+    ?>
 <script nonce="<?php echo NONCE; ?>" src="js/tinymce/tinymce.min.js"></script>
     <!-- Breadcrumbs //-->
     <div class="content-heading">

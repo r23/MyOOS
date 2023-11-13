@@ -53,8 +53,8 @@ class shoppingCart
             reset($this->contents);
 
             // Get database information
-            $dbconn =& oosDBGetConn();
-            $oostable =& oosDBGetTables();
+            $dbconn = & oosDBGetConn();
+            $oostable = & oosDBGetTables();
 
             foreach (array_keys($this->contents) as $products_id) {
                 $qty = $this->contents[$products_id]['qty'];
@@ -183,8 +183,8 @@ class shoppingCart
         $this->content_type = false;
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         if (isset($_SESSION['customer_id']) && ($reset_database == true)) {
             $customers_baskettable = $oostable['customers_basket'];
@@ -205,8 +205,8 @@ class shoppingCart
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $sProductsId = oos_get_uprid($products_id, $attributes);
         $nProductsID = oos_get_product_id($sProductsId);
@@ -310,8 +310,8 @@ class shoppingCart
         if (is_numeric($nProductsID) && isset($this->contents[$sProductsId]) && is_numeric($nQuantity)) {
 
             // Get database information
-            $dbconn =& oosDBGetConn();
-            $oostable =& oosDBGetTables();
+            $dbconn = & oosDBGetConn();
+            $oostable = & oosDBGetTables();
 
             $nQuantity = intval($nQuantity);
 
@@ -321,7 +321,7 @@ class shoppingCart
 
             if (isset($_SESSION['customer_id'])) {
                 $customers_baskettable = $oostable['customers_basket'];
-				$dbconn->Execute(
+                $dbconn->Execute(
                     "UPDATE $customers_baskettable
                             SET customers_basket_quantity = '" . oos_db_input($nQuantity) . "',
 								free_redemption = '" . oos_db_input($free_redemption) . "'
@@ -373,8 +373,8 @@ class shoppingCart
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $check_quantity = 1;
 
@@ -435,8 +435,8 @@ class shoppingCart
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         unset($this->contents[$products_id]);
         // remove from database
@@ -500,8 +500,8 @@ class shoppingCart
         }
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $currency_type = ($_SESSION['currency'] ?? DEFAULT_CURRENCY);
         $decimal_places = $oCurrencies->get_decimal_places($currency_type);
@@ -575,7 +575,7 @@ class shoppingCart
                 $this->info['total'] +=  $nPrice;
 
                 // tax
-                if ($aUser['price_with_tax'] == 1) {                    
+                if ($aUser['price_with_tax'] == 1) {
                     $this->info['tax'] += $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', (string) $products_tax) : "1." . str_replace('.', '', (string) $products_tax)));
                     $nPriceNet = oos_round(($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', (string) $products_tax) : "1." . str_replace('.', '', (string) $products_tax))), $decimal_places);
                     if (isset($this->info['tax_groups']["$products_tax"])) {
@@ -594,11 +594,11 @@ class shoppingCart
                         $this->info['tax_groups']["$products_tax"] = oos_round(($products_tax / 100) * $nPrice, $decimal_places);
                         $this->info['net_total']["$products_tax"] = $nPrice;
                     }
-                }            
+                }
             }
         }
     }
-        
+
     public function products_price_actual($product_id, $actual_price, $products_qty)
     {
         $new_price = $actual_price;
@@ -618,8 +618,8 @@ class shoppingCart
             reset($this->contents[$products_id]['attributes']);
 
             // Get database information
-            $dbconn =& oosDBGetConn();
-            $oostable =& oosDBGetTables();
+            $dbconn = & oosDBGetConn();
+            $oostable = & oosDBGetTables();
 
             foreach ($this->contents[$products_id]['attributes'] as $option => $value) {
                 $products_attributestable = $oostable['products_attributes'];
@@ -649,8 +649,8 @@ class shoppingCart
             reset($this->contents[$products_id]['attributes']);
 
             // Get database information
-            $dbconn =& oosDBGetConn();
-            $oostable =& oosDBGetTables();
+            $dbconn = & oosDBGetConn();
+            $oostable = & oosDBGetTables();
 
             foreach ($this->contents[$products_id]['attributes'] as $option => $value) {
                 $products_attributestable = $oostable['products_attributes'];
@@ -679,8 +679,8 @@ class shoppingCart
             reset($this->contents[$products_id]['attributes']);
 
             // Get database information
-            $dbconn =& oosDBGetConn();
-            $oostable =& oosDBGetTables();
+            $dbconn = & oosDBGetConn();
+            $oostable = & oosDBGetTables();
 
             foreach ($this->contents[$products_id]['attributes'] as $option => $value) {
                 $products_attributestable = $oostable['products_attributes'];
@@ -710,8 +710,8 @@ class shoppingCart
         }
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
 
@@ -886,8 +886,8 @@ class shoppingCart
         $this->content_type = false;
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         if ((DOWNLOAD_ENABLED == 'true') && ($this->count_contents() > 0)) {
             reset($this->contents);
@@ -904,14 +904,14 @@ class shoppingCart
 
                 if ($virtual_check['total'] > 0) {
                     switch ($this->content_type) {
-                    case 'physical':
-                        $this->content_type = 'mixed';
+                        case 'physical':
+                            $this->content_type = 'mixed';
 
-                        return $this->content_type;
+                            return $this->content_type;
                             break;
-                    default:
+                        default:
                             $this->content_type = 'virtual';
-                        break;
+                            break;
                     }
                 } elseif ($this->show_weight() == 0) {
                     $productstable = $oostable['products'];
@@ -923,37 +923,37 @@ class shoppingCart
 
                     if ($virtual_check['products_weight'] == 0) {
                         switch ($this->content_type) {
-                        case 'physical':
+                            case 'physical':
                                 $this->content_type = 'mixed';
 
-                            return $this->content_type;
-                                    break;
-                        default:
+                                return $this->content_type;
+                                break;
+                            default:
                                 $this->content_type = 'virtual_weight';
-                            break;
+                                break;
                         }
                     } else {
                         switch ($this->content_type) {
-                        case 'virtual':
+                            case 'virtual':
                                 $this->content_type = 'mixed';
 
-                            return $this->content_type;
-                                    break;
-                        default:
+                                return $this->content_type;
+                                break;
+                            default:
                                 $this->content_type = 'physical';
-                            break;
+                                break;
                         }
                     }
                 } else {
                     switch ($this->content_type) {
-                    case 'virtual':
+                        case 'virtual':
                             $this->content_type = 'mixed';
 
-                        return $this->content_type;
-                                break;
-                    default:
+                            return $this->content_type;
+                            break;
+                        default:
                             $this->content_type = 'physical';
-                        break;
+                            break;
                     }
                 }
             }
@@ -975,8 +975,8 @@ class shoppingCart
         // get total number of items in cart disregard gift vouchers
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $total_items = 0;
         if (is_array($this->contents)) {

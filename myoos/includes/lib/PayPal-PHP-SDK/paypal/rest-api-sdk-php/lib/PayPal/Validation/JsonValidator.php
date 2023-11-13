@@ -9,7 +9,6 @@ namespace PayPal\Validation;
  */
 class JsonValidator
 {
-
     /**
      * Helper method for validating if string provided is a valid json.
      *

@@ -22,7 +22,7 @@ class PlanList extends PayPalModel
      * Array of billing plans.
      *
      * @param \PayPal\Api\Plan[] $plans
-     * 
+     *
      * @return $this
      */
     public function setPlans($plans)
@@ -75,7 +75,7 @@ class PlanList extends PayPalModel
      * Total number of items.
      *
      * @param string $total_items
-     * 
+     *
      * @return $this
      */
     public function setTotalItems($total_items)
@@ -98,7 +98,7 @@ class PlanList extends PayPalModel
      * Total number of pages.
      *
      * @param string $total_pages
-     * 
+     *
      * @return $this
      */
     public function setTotalPages($total_pages)
@@ -121,7 +121,7 @@ class PlanList extends PayPalModel
      * Sets Links
      *
      * @param \PayPal\Api\Links[] $links
-     * 
+     *
      * @return $this
      */
     public function setLinks($links)

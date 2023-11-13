@@ -26,13 +26,13 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 
 
 /**
- * Filter a string value by removing null bytes and HTML tags and encoding quotes and 
+ * Filter a string value by removing null bytes and HTML tags and encoding quotes and
  * special characters.
  *
- * This function mimics the behavior of the deprecated FILTER_SANITIZE_STRING filter, 
- * which was used to sanitize strings by removing HTML tags and encoding quotes and 
- * certain special characters. This filter was unclear in its purpose and behavior 
- * and was therefore deprecated as of PHP 8.1.0. It is recommended to use 
+ * This function mimics the behavior of the deprecated FILTER_SANITIZE_STRING filter,
+ * which was used to sanitize strings by removing HTML tags and encoding quotes and
+ * certain special characters. This filter was unclear in its purpose and behavior
+ * and was therefore deprecated as of PHP 8.1.0. It is recommended to use
  * htmlspecialchars () instead.
  *
  * @param  mixed $string The value to be filtered. If it is not a string, null is returned.
@@ -215,7 +215,7 @@ function oos_rand($min = null, $max = null)
     static $seeded;
 
     if (!isset($seeded)) {
-        mt_srand((float)microtime()*1_000_000);
+        mt_srand((float)microtime() * 1_000_000);
         $seeded = true;
     }
 

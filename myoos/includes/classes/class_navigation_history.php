@@ -72,7 +72,7 @@ class navigationHistory
 
     public function set_path_as_snapshot($history = 0)
     {
-        $pos = ((is_countable($this->path) ? count($this->path) : 0)-1-$history);
+        $pos = ((is_countable($this->path) ? count($this->path) : 0) - 1 - $history);
         $this->snapshot = ['content' => $this->path[$pos]['content'], 'get' => $this->path[$pos]['get']];
     }
 
@@ -80,7 +80,7 @@ class navigationHistory
     public function debug()
     {
         $n = is_countable($this->path) ? count($this->path) : 0;
-        for ($i=0, $n; $i<$n; $i++) {
+        for ($i = 0, $n; $i < $n; $i++) {
             echo $this->path[$i]['content'] . '&' . $this->path[$i]['get'] . '<br />';
             echo '<br />';
         }

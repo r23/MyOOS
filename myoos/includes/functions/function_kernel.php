@@ -61,18 +61,18 @@ function oos_redirect($sUrl)
 }
 
 
- /**
-  * Return a random row from a database query
-  *
-  * @param  $query
-  * @param  $limit
-  * @return string
-  */
+/**
+ * Return a random row from a database query
+ *
+ * @param  $query
+ * @param  $limit
+ * @return string
+ */
 function oos_random_select($query, $limit = '')
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
+    $dbconn = & oosDBGetConn();
 
     $random_product = '';
     if (oos_is_not_null($limit)) {
@@ -122,18 +122,18 @@ function oos_sanitize_string($sStr)
 }
 
 
- /**
-  * strip slashes
-  *
-  * stripslashes on multidimensional arrays.
-  * Used in conjunction with pnVarCleanFromInput
-  *
-  * @author    PostNuke Content Management System
-  * @copyright Copyright (C) 2001 by the Post-Nuke Development Team.
-  * @version   Revision: 2.0  - changed by Author: r23  on Date: 2004/01/12 06:02:08
-  * @access    private
-  * @param     any variables or arrays to be stripslashed
-  */
+/**
+ * strip slashes
+ *
+ * stripslashes on multidimensional arrays.
+ * Used in conjunction with pnVarCleanFromInput
+ *
+ * @author    PostNuke Content Management System
+ * @copyright Copyright (C) 2001 by the Post-Nuke Development Team.
+ * @version   Revision: 2.0  - changed by Author: r23  on Date: 2004/01/12 06:02:08
+ * @access    private
+ * @param     any variables or arrays to be stripslashed
+ */
 function oos_stripslashes(&$value)
 {
     if (!is_array($value)) {
@@ -144,18 +144,18 @@ function oos_stripslashes(&$value)
 }
 
 
- /**
-  * Return Product's Name
-  *
-  * @param  $nProductID
-  * @return string
-  */
+/**
+ * Return Product's Name
+ *
+ * @param  $nProductID
+ * @return string
+ */
 function oos_get_products_name($nProductID)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
 
@@ -179,8 +179,8 @@ function oos_get_products_status($nProductID)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $productstable = $oostable['products'];
     $query = "SELECT products_status
@@ -192,26 +192,26 @@ function oos_get_products_status($nProductID)
 }
 
 
- /**
-  * Create a Wishlist Code. length may be between 1 and 16 Characters
-  *
-  * @param  $salt
-  * @param  $length
-  * @return string
-  */
+/**
+ * Create a Wishlist Code. length may be between 1 and 16 Characters
+ *
+ * @param  $salt
+ * @param  $length
+ * @return string
+ */
 function oos_create_wishlist_code($salt = "secret", $length = SECURITY_CODE_LENGTH)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $ccid = md5(uniqid("", "salt"));
     $ccid .= md5(uniqid("", "salt"));
     $ccid .= md5(uniqid("", "salt"));
     $ccid .= md5(uniqid("", "salt"));
-    mt_srand((float)microtime()*1_000_000); // seed the random number generator
-    $random_start = @random_int(0, (128-$length));
+    mt_srand((float)microtime() * 1_000_000); // seed the random number generator
+    $random_start = @random_int(0, (128 - $length));
     $good_result = 0;
     while ($good_result == 0) {
         $id1 = substr($ccid, $random_start, $length);
@@ -227,18 +227,18 @@ function oos_create_wishlist_code($salt = "secret", $length = SECURITY_CODE_LENG
     return $id1;
 }
 
- /**
-  * Return Wishlist Customer Name
-  *
-  * @param  $wlid
-  * @return string
-  */
+/**
+ * Return Wishlist Customer Name
+ *
+ * @param  $wlid
+ * @return string
+ */
 function oos_get_wishlist_name($wlid)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $customerstable = $oostable['customers'];
     $query = "SELECT customers_firstname, customers_lastname
@@ -252,18 +252,18 @@ function oos_get_wishlist_name($wlid)
 }
 
 
- /**
-  * Return Products Special Price
-  *
-  * @param  $nProductID
-  * @return string
-  */
+/**
+ * Return Products Special Price
+ *
+ * @param  $nProductID
+ * @return string
+ */
 function oos_get_products_special_price($nProductID)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $specialstable = $oostable['specials'];
     $query = "SELECT specials_new_products_price
@@ -287,8 +287,8 @@ function oos_get_products_special($nProductID)
     $aSpecial = [];
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $specialstable = $oostable['specials'];
     $query = "SELECT specials_new_products_price, specials_cross_out_price, expires_date
@@ -301,20 +301,20 @@ function oos_get_products_special($nProductID)
 }
 
 
- /**
-  * Return Products Quantity
-  *
-  * @param  $sProductsId
-  * @return string
-  */
+/**
+ * Return Products Quantity
+ *
+ * @param  $sProductsId
+ * @return string
+ */
 // todo remove
 function oos_get_products_stock($sProductsId)
 {
     $nProductID = oos_get_product_id($sProductsId);
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $productstable = $oostable['products'];
     $query = "SELECT products_quantity
@@ -326,19 +326,19 @@ function oos_get_products_stock($sProductsId)
 }
 
 
- /**
-  * Return a product's minimum quantity
-  *
-  * @param  $sProductsId
-  * @return string
-  */
+/**
+ * Return a product's minimum quantity
+ *
+ * @param  $sProductsId
+ * @return string
+ */
 function oos_get_products_quantity_order_min($sProductsId)
 {
     $nProductID = oos_get_product_id($sProductsId);
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $productstable = $oostable['products'];
     $query = "SELECT products_quantity_order_min
@@ -350,19 +350,19 @@ function oos_get_products_quantity_order_min($sProductsId)
 }
 
 
- /**
-  * Return a product's minimum unit order
-  *
-  * @param  $sProductsId
-  * @return string
-  */
+/**
+ * Return a product's minimum unit order
+ *
+ * @param  $sProductsId
+ * @return string
+ */
 function oos_get_products_quantity_order_units($sProductsId)
 {
     $nProductID = oos_get_product_id($sProductsId);
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $productstable = $oostable['products'];
     $query = "SELECT products_quantity_order_units
@@ -384,20 +384,20 @@ function oos_get_products_quantity_order_units($sProductsId)
 }
 
 
- /**
-  * Find quantity discount
-  *
-  * @param  $product_id
-  * @param  $qty
-  * @param  $current_price
-  * @return string
-  */
+/**
+ * Find quantity discount
+ *
+ * @param  $product_id
+ * @param  $qty
+ * @param  $current_price
+ * @return string
+ */
 function oos_get_product_qty_dis_price($product_id, $qty, $current_price = false)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $productstable = $oostable['products'];
     $query = "SELECT products_price, products_discount1, products_discount2, products_discount3,
@@ -408,51 +408,51 @@ function oos_get_product_qty_dis_price($product_id, $qty, $current_price = false
     $product_discounts = $dbconn->GetRow($query);
 
     switch (true) {
-    case ($qty==1 or ($product_discounts['products_discount4_qty'] == 0 and $product_discounts['products_discount3_qty'] == 0 and $product_discounts['products_discount2_qty'] == 0 and $product_discounts['products_discount1_qty'] == 0)):
-        if ($current_price) {
-            $the_discount_price = $current_price;
-        } else {
-            $the_discount_price = $product_discounts['products_price'];
-        }
-        break;
+        case ($qty == 1 or ($product_discounts['products_discount4_qty'] == 0 and $product_discounts['products_discount3_qty'] == 0 and $product_discounts['products_discount2_qty'] == 0 and $product_discounts['products_discount1_qty'] == 0)):
+            if ($current_price) {
+                $the_discount_price = $current_price;
+            } else {
+                $the_discount_price = $product_discounts['products_price'];
+            }
+            break;
 
-    case ($qty >= $product_discounts['products_discount4_qty'] and $product_discounts['products_discount4_qty'] !=0):
-        $the_discount_price = $product_discounts['products_discount4'];
-        break;
+        case ($qty >= $product_discounts['products_discount4_qty'] and $product_discounts['products_discount4_qty'] != 0):
+            $the_discount_price = $product_discounts['products_discount4'];
+            break;
 
-    case ($qty >= $product_discounts['products_discount3_qty'] and $product_discounts['products_discount3_qty'] !=0):
-        $the_discount_price = $product_discounts['products_discount3'];
-        break;
+        case ($qty >= $product_discounts['products_discount3_qty'] and $product_discounts['products_discount3_qty'] != 0):
+            $the_discount_price = $product_discounts['products_discount3'];
+            break;
 
-    case ($qty >= $product_discounts['products_discount2_qty'] and $product_discounts['products_discount2_qty'] !=0):
-        $the_discount_price = $product_discounts['products_discount2'];
-        break;
+        case ($qty >= $product_discounts['products_discount2_qty'] and $product_discounts['products_discount2_qty'] != 0):
+            $the_discount_price = $product_discounts['products_discount2'];
+            break;
 
-    case ($qty >= $product_discounts['products_discount1_qty'] and $product_discounts['products_discount1_qty'] !=0):
-        $the_discount_price = $product_discounts['products_discount1'];
-        break;
+        case ($qty >= $product_discounts['products_discount1_qty'] and $product_discounts['products_discount1_qty'] != 0):
+            $the_discount_price = $product_discounts['products_discount1'];
+            break;
 
-    default:
-        if ($current_price) {
-            $the_discount_price = $current_price;
-        } else {
-            $the_discount_price = $product_discounts['products_price'];
-        }
-        break;
+        default:
+            if ($current_price) {
+                $the_discount_price = $current_price;
+            } else {
+                $the_discount_price = $product_discounts['products_price'];
+            }
+            break;
     }
     return $the_discount_price;
 }
 
 
 
- /**
-  * Check if the required stock is available
-  * If insufficent stock is available return an out of stock message
-  *
-  * @param  $sProductsId
-  * @param  $nProductsQuantity
-  * @return boolean
-  */
+/**
+ * Check if the required stock is available
+ * If insufficent stock is available return an out of stock message
+ *
+ * @param  $sProductsId
+ * @param  $nProductsQuantity
+ * @return boolean
+ */
 function oos_check_stock($sProductsId, $nProductsQuantity)
 {
     $stock_left = oos_get_products_stock($sProductsId) - $nProductsQuantity;
@@ -466,12 +466,12 @@ function oos_check_stock($sProductsId, $nProductsQuantity)
 }
 
 
- /**
-  * Return all GET variables, except those passed as a parameter
-  *
-  * @param  $aExclude
-  * @return string
-  */
+/**
+ * Return all GET variables, except those passed as a parameter
+ *
+ * @param  $aExclude
+ * @return string
+ */
 function oos_get_all_get_parameters($aExclude = '')
 {
     global $session;
@@ -512,12 +512,12 @@ function oos_get_all_get_parameters($aExclude = '')
 }
 
 
- /**
-  * Return all POST variables, except those passed as a parameter
-  *
-  * @param  $aExclude
-  * @return string
-  */
+/**
+ * Return all POST variables, except those passed as a parameter
+ *
+ * @param  $aExclude
+ * @return string
+ */
 function oos_get_all_post_parameters($aExclude = '')
 {
     global $session;
@@ -545,19 +545,19 @@ function oos_get_all_post_parameters($aExclude = '')
 
 
 
- /**
-  * Returns an array with countries
-  *
-  * @param  $countries_id
-  * @param  $bWithIsoCodes
-  * @return array
-  */
+/**
+ * Returns an array with countries
+ *
+ * @param  $countries_id
+ * @param  $bWithIsoCodes
+ * @return array
+ */
 function oos_get_countries($countries_id = '', $bWithIsoCodes = false)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $aCountries = [];
     if (!empty($countries_id)) {
@@ -587,18 +587,18 @@ function oos_get_countries($countries_id = '', $bWithIsoCodes = false)
 }
 
 
- /**
-  * Returns the country name
-  *
-  * @param  $country_id
-  * @return string
-  */
+/**
+ * Returns the country name
+ *
+ * @param  $country_id
+ * @return string
+ */
 function oos_get_country_name($country_id)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $countriestable = $oostable['countries'];
     $query = "SELECT countries_name
@@ -622,8 +622,8 @@ function oos_get_zone_name($country_id, $zone_id, $default_zone)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $zonesstable = $oostable['zones'];
     $query = "SELECT zone_name
@@ -666,12 +666,12 @@ function oos_get_tax_rate($class_id, $country_id = -1, $zone_id = -1)
 
     if (!isset($tax_rates[$class_id][$country_id][$zone_id]['rate'])) {
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $tax_ratestable = $oostable['tax_rates'];
         $geo_zonestable = $oostable['geo_zones'];
-        $zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];  
+        $zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
         $query = "SELECT SUM(tax_rate) AS tax_rate
               FROM  $tax_ratestable tr LEFT JOIN
                     $zones_to_geo_zonestable za
@@ -680,8 +680,8 @@ function oos_get_tax_rate($class_id, $country_id = -1, $zone_id = -1)
                   ON (tz.geo_zone_id = tr.tax_zone_id)
               WHERE za.zone_country_id = '" . intval($country_id) . "' AND
                     (za.zone_id is null or za.zone_id = '0' or za.zone_id = '" . intval($zone_id) . "') AND
-                     tr.tax_class_id = '" . intval($class_id) . "'";                     
-        $tax_result = $dbconn->Execute($query);    
+                     tr.tax_class_id = '" . intval($class_id) . "'";
+        $tax_result = $dbconn->Execute($query);
         if (!$tax_result) {
             return 0;
         }
@@ -718,8 +718,8 @@ function oos_get_tax_description($class_id, $country_id, $zone_id)
 
     if (!isset($tax_rates[$class_id][$country_id][$zone_id]['description'])) {
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $tax_ratestable = $oostable['tax_rates'];
         $geo_zonestable = $oostable['geo_zones'];
@@ -791,12 +791,12 @@ function oos_calculate_tax($price, $tax)
  */
 function oos_round($number, $precision)
 {
-    if (strpos((string) $number, '.') && (strlen(substr((string) $number, strpos((string) $number, '.')+1)) > $precision)) {
+    if (strpos((string) $number, '.') && (strlen(substr((string) $number, strpos((string) $number, '.') + 1)) > $precision)) {
         $number = substr((string) $number, 0, strpos((string) $number, '.') + 1 + $precision + 1);
 
         if (substr($number, -1) >= 5) {
             if ($precision > 1) {
-                $number = substr($number, 0, -1) + ('0.' . str_repeat(0, $precision-1) . '1');
+                $number = substr($number, 0, -1) + ('0.' . str_repeat(0, $precision - 1) . '1');
             } elseif ($precision == 1) {
                 $number = substr($number, 0, -1) + 0.1;
             } else {
@@ -819,8 +819,8 @@ function oos_get_categories($aCategories = '', $parent_id = 0, $indent = '')
     }
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
 
@@ -852,18 +852,18 @@ function oos_get_categories($aCategories = '', $parent_id = 0, $indent = '')
 }
 
 
- /**
-  * Recursively go through the categories and retreive all parent categories IDs
-  *
-  * @param $categories
-  * @param $categories_id
-  */
+/**
+ * Recursively go through the categories and retreive all parent categories IDs
+ *
+ * @param $categories
+ * @param $categories_id
+ */
 function oos_get_parent_categories(&$categories, $categories_id)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categoriestable = $oostable['categories'];
     $query = "SELECT parent_id
@@ -887,19 +887,19 @@ function oos_get_parent_categories(&$categories, $categories_id)
 }
 
 
- /**
-  * Construct a category path to the product
-  *
-  * @param  $products_id
-  * @return string
-  */
+/**
+ * Construct a category path to the product
+ *
+ * @param  $products_id
+ * @return string
+ */
 function oos_get_product_path($products_id)
 {
     $sCategory = '';
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_to_categoriestable = $oostable['products_to_categories'];
     $query = "SELECT COUNT(*) AS total
@@ -918,7 +918,7 @@ function oos_get_product_path($products_id)
 
         oos_get_parent_categories($categories, $cat_id_data['categories_id']);
 
-        $size = (is_countable($categories) ? count($categories) : 0)-1;
+        $size = (is_countable($categories) ? count($categories) : 0) - 1;
         for ($i = $size; $i >= 0; $i--) {
             if ($sCategory != '') {
                 $sCategory .= '_';
@@ -935,19 +935,19 @@ function oos_get_product_path($products_id)
 }
 
 
- /**
-  * Construct a category path to the product
-  *
-  * @param  $products_id
-  * @return array
-  */
+/**
+ * Construct a category path to the product
+ *
+ * @param  $products_id
+ * @return array
+ */
 function oos_get_category_path($nProductsId)
 {
     $aCategory = [];
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
 
@@ -963,7 +963,7 @@ function oos_get_category_path($nProductsId)
     oos_get_parent_categories($categories_arr, $cat_id_data['categories_id']);
 
     $sCategory = '';
-    $size = (is_countable($categories_arr) ? count($categories_arr) : 0)-1;
+    $size = (is_countable($categories_arr) ? count($categories_arr) : 0) - 1;
     for ($i = $size; $i >= 0; $i--) {
         if ($sCategory != '') {
             $sCategory .= '_';
@@ -992,12 +992,12 @@ function oos_get_category_path($nProductsId)
 
 
 
- /**
-  * Return string (without trailing &  &amp;)
-  *
-  * @param  $sParameters
-  * @return string
-  */
+/**
+ * Return string (without trailing &  &amp;)
+ *
+ * @param  $sParameters
+ * @return string
+ */
 function oos_remove_trailing($sParameters)
 {
     if (str_ends_with((string) $sParameters, '&amp;')) {
@@ -1012,13 +1012,13 @@ function oos_remove_trailing($sParameters)
 
 
 
- /**
-  * Return a product ID with attributes
-  *
-  * @param  $prid
-  * @param  $parameters
-  * @return string
-  */
+/**
+ * Return a product ID with attributes
+ *
+ * @param  $prid
+ * @param  $parameters
+ * @return string
+ */
 function oos_get_uprid($prid, $parameters)
 {
     if (is_numeric($prid)) {
@@ -1055,10 +1055,10 @@ function oos_get_uprid($prid, $parameters)
                 $attributes_ids = '';
 
                 // strpos()+1 to remove up to and including the first { which would create an empty array element in explode()
-                $attributes = explode('{', substr((string) $prid, strpos((string) $prid, '{')+1));
+                $attributes = explode('{', substr((string) $prid, strpos((string) $prid, '{') + 1));
 
                 $n = is_countable($attributes) ? count($attributes) : 0;
-                for ($i=0, $n; $i<$n; $i++) {
+                for ($i = 0, $n; $i < $n; $i++) {
                     $pair = explode('}', $attributes[$i]);
 
                     if (is_numeric($pair[0]) && is_numeric($pair[1])) {
@@ -1082,12 +1082,12 @@ function oos_get_uprid($prid, $parameters)
 }
 
 
- /**
-  * Return attributes ID
-  *
-  * @param  $sProductsId
-  * @return array
-  */
+/**
+ * Return attributes ID
+ *
+ * @param  $sProductsId
+ * @return array
+ */
 function oos_get_attributes($sProductsId)
 {
     $real_ids = [];
@@ -1100,10 +1100,10 @@ function oos_get_attributes($sProductsId)
             $attributes_ids = [];
 
             // strpos()+1 to remove up to and including the first { which would create an empty array element in explode()
-            $attributes = explode('{', substr((string) $sProductsId, strpos((string) $sProductsId, '{')+1));
+            $attributes = explode('{', substr((string) $sProductsId, strpos((string) $sProductsId, '{') + 1));
 
             $n = is_countable($attributes) ? count($attributes) : 0;
-            for ($i=0, $n; $i<$n; $i++) {
+            for ($i = 0, $n; $i < $n; $i++) {
                 $pair = explode('}', $attributes[$i]);
 
                 if (is_numeric($pair[0]) && is_numeric($pair[1])) {
@@ -1127,20 +1127,20 @@ function oos_get_attributes($sProductsId)
 
 
 
- /**
-  * Check if product has attributes
-  *
-  * @param  $sProductsId
-  * @return boolean
-  */
+/**
+ * Check if product has attributes
+ *
+ * @param  $sProductsId
+ * @return boolean
+ */
 function oos_has_product_attributes($sProductsId)
 {
     $nProductID = oos_get_product_id($sProductsId);
     $return_value = false;
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $products_attributestable = $oostable['products_attributes'];
     $query = "SELECT COUNT(*) AS total
@@ -1171,12 +1171,12 @@ function oos_has_product_attributes($sProductsId)
     return $return_value;
 }
 
- /**
-  * Check if product has information obligation
-  *
-  * @param  $sProductsId
-  * @return boolean
-  */
+/**
+ * Check if product has information obligation
+ *
+ * @param  $sProductsId
+ * @return boolean
+ */
 function oos_has_product_information_obligation($sProductsId)
 {
     if (TAKE_BACK_OBLIGATION != 'true') {
@@ -1186,8 +1186,8 @@ function oos_has_product_information_obligation($sProductsId)
     $nProductID = oos_get_product_id($sProductsId);
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $productstable = $oostable['products'];
     $query = "SELECT products_old_electrical_equipment
@@ -1201,12 +1201,12 @@ function oos_has_product_information_obligation($sProductsId)
     }
 }
 
- /**
-  * Check if the product is B-ware
-  *
-  * @param  $sProductsId
-  * @return boolean
-  */
+/**
+ * Check if the product is B-ware
+ *
+ * @param  $sProductsId
+ * @return boolean
+ */
 function oos_is_the_product_b_ware($sProductsId)
 {
     if (OFFER_B_WARE != 'true') {
@@ -1219,8 +1219,8 @@ function oos_is_the_product_b_ware($sProductsId)
         $nProductID = oos_get_product_id($sProductsId);
     }
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $productstable = $oostable['products'];
     $query = "SELECT products_used_goods
@@ -1235,18 +1235,18 @@ function oos_is_the_product_b_ware($sProductsId)
 }
 
 
- /**
-  * Check if product has attributes
-  *
-  * @param  $nProductsId
-  * @return boolean
-  */
+/**
+ * Check if product has attributes
+ *
+ * @param  $nProductsId
+ * @return boolean
+ */
 function get_options_values_price($nProductsId)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $ADODB_GETONE_EOF = "-1";
 
@@ -1273,7 +1273,7 @@ function oos_count_modules($modules = '')
     $aModules = explode(';', (string) $modules);
 
     $n = is_countable($aModules) ? count($aModules) : 0;
-    for ($i=0, $n; $i<$n; $i++) {
+    for ($i = 0, $n; $i < $n; $i++) {
         $class = substr($aModules[$i], 0, strrpos($aModules[$i], '.'));
 
         if (is_object($GLOBALS[$class])) {
@@ -1334,12 +1334,12 @@ function oos_output_string($sStr, $aTranslate = null)
 }
 
 
- /**
-  * Strip forbidden tags
-  *
-  * @param  string
-  * @return string
-  */
+/**
+ * Strip forbidden tags
+ *
+ * @param  string
+ * @return string
+ */
 function oos_remove_tags($sStr)
 {
     $allowedTags = '<h1><strong><i><a><ul><li><pre><hr><br><blockquote><p>';
@@ -1349,27 +1349,27 @@ function oos_remove_tags($sStr)
 }
 
 
- /**
-  * Replace international chars
-  *
-  * @param  string
-  * @return string
-  */
+/**
+ * Replace international chars
+ *
+ * @param  string
+ * @return string
+ */
 function oos_replace_chars($sStr)
 {
     return oos_make_filename($sStr);
 }
 
 
- /**
-  * Checks to see if the currency code exists as a currency
-  */
+/**
+ * Checks to see if the currency code exists as a currency
+ */
 function oos_currency_exits($code)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $currenciestable = $oostable['currencies'];
     $query = "SELECT currencies_id
@@ -1386,21 +1386,21 @@ function oos_currency_exits($code)
 
 
 
- /**
-  * Return secure string
-  *
-  * @param  $sStr
-  * @return string
-  */
+/**
+ * Return secure string
+ *
+ * @param  $sStr
+ * @return string
+ */
 function oos_string_to_int($sStr)
 {
     return intval($sStr);
 }
 
 
- /**
-  * Return $aContents
-  */
+/**
+ * Return $aContents
+ */
 function oos_get_content()
 {
     global $aContents;
@@ -1410,12 +1410,12 @@ function oos_get_content()
 
 
 
- /**
-  * Parse and secure the cPath parameter values
-  *
-  * @param  $sCategory
-  * @return array
-  */
+/**
+ * Parse and secure the cPath parameter values
+ *
+ * @param  $sCategory
+ * @return array
+ */
 function oos_parse_category_path($sCategory)
 {
     // make sure the category IDs are integers
@@ -1424,7 +1424,7 @@ function oos_parse_category_path($sCategory)
     // make sure no duplicate category IDs exist which could lock the server in a loop
     $aTmp = [];
     $n = is_countable($aCategoryPath) ? count($aCategoryPath) : 0;
-    for ($i=0, $n; $i<$n; $i++) {
+    for ($i = 0, $n; $i < $n; $i++) {
         if (!in_array($aCategoryPath[$i], $aTmp)) {
             $aTmp[] = $aCategoryPath[$i];
         }
@@ -1626,17 +1626,17 @@ function locale($locale)
 }
 
 
- /**
-  * Return File Extension
-  *
-  * @param  $filename
-  * @return string
-  */
+/**
+ * Return File Extension
+ *
+ * @param  $filename
+ * @return string
+ */
 function oos_get_extension($filename)
 {
     $filename  = strtolower((string) $filename);
     $extension = explode("[/\\.]", $filename);
-    $n = count($extension)-1;
+    $n = count($extension) - 1;
     $extension = $extension[$n];
 
     return $extension;
@@ -1743,10 +1743,10 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
     }
 
     // (Re)create it, if it's gone missing.
-    if (! ( $phpmailer instanceof PHPMailer\PHPMailer\PHPMailer ) ) {
+    if (! ($phpmailer instanceof PHPMailer\PHPMailer\PHPMailer)) {
         include_once MOD_INCLUDE_PATH . '/vendor/phpmailer/phpmailer/src/Exception.php';
         include_once MOD_INCLUDE_PATH . '/vendor/phpmailer/phpmailer/src/PHPMailer.php';
-        include_once MOD_INCLUDE_PATH . '/vendor/phpmailer/phpmailer/src/SMTP.php';    
+        include_once MOD_INCLUDE_PATH . '/vendor/phpmailer/phpmailer/src/SMTP.php';
         $phpmailer = new PHPMailer\PHPMailer\PHPMailer(true);
     }
 
@@ -1771,15 +1771,15 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
     // Add smtp values if needed
     if (EMAIL_TRANSPORT == 'smtp') {
         $phpmailer->IsSMTP(); // set mailer to use SMTP
-        
+
         // $phpmailer->SMTPDebug = PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
-        
-        $phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server        
+
+        $phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server
         $phpmailer->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
         $phpmailer->Username = OOS_SMTPUSER; // SMTP username
         $phpmailer->Password = OOS_SMTPPASS; // SMTP password
-        
-        
+
+
         // Set the encryption mechanism to use:
         // - SMTPS (implicit TLS on port 465) or
         // - STARTTLS (explicit TLS on port 587)
@@ -1792,8 +1792,8 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
         // Set the SMTP port number:
         // - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or
         // - 587 for SMTP+STARTTLS
-        $phpmailer->Port = OOS_SMTPPORT;         
-        
+        $phpmailer->Port = OOS_SMTPPORT;
+
     } else {
         // Set sendmail path
         if (EMAIL_TRANSPORT == 'sendmail') {
@@ -1837,8 +1837,8 @@ function oos_newsletter_subscribe_mail($email_address)
         $aContents = oos_get_content();
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $newsletter_recipients = $oostable['newsletter_recipients'];
         $dbconn->Execute("DELETE FROM $newsletter_recipients WHERE customers_email_address = '" . oos_db_input($email_address) . "'");

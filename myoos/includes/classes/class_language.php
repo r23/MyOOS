@@ -37,8 +37,8 @@ class language
 
     public function __construct()
     {
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $languagestable = $oostable['languages'];
         $languages_sql = "SELECT languages_id, name, iso_639_2, iso_639_1
@@ -46,7 +46,7 @@ class language
                           WHERE status = '1'
                           ORDER BY sort_order";
         if (USE_CACHE == 'true') {
-            $languages_result = $dbconn->CacheExecute(3600*24, $languages_sql);
+            $languages_result = $dbconn->CacheExecute(3600 * 24, $languages_sql);
         } else {
             $languages_result = $dbconn->Execute($languages_sql);
         }
@@ -68,8 +68,8 @@ class language
         }
 
         if (isset($_SESSION) && isset($_SESSION['customer_id'])) {
-            $dbconn =& oosDBGetConn();
-            $oostable =& oosDBGetTables();
+            $dbconn = & oosDBGetConn();
+            $oostable = & oosDBGetTables();
 
             $sLanguage = oos_var_prep_for_os($this->language['iso_639_2']);
 

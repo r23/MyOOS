@@ -25,19 +25,19 @@
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
- /**
-  * Generate a path to categories
-  *
-  * @param  $current_category_id
-  * @return string
-  */
+/**
+ * Generate a path to categories
+ *
+ * @param  $current_category_id
+ * @return string
+ */
 function oos_get_path($current_category_id = '', $parent_id = '', $gparent_id = '')
 {
     global $aCategoryPath;
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     if (!empty($current_category_id)) {
         $cp_size = count($aCategoryPath);
@@ -50,7 +50,7 @@ function oos_get_path($current_category_id = '', $parent_id = '', $gparent_id = 
                 $query = "SELECT c.parent_id, p.parent_id as gparent_id
                       FROM $categoriestable AS c,
                            $categoriestable AS p
-                     WHERE c.categories_id = '" . intval($aCategoryPath[($cp_size-1)]) . "'
+                     WHERE c.categories_id = '" . intval($aCategoryPath[($cp_size - 1)]) . "'
                        AND p.categories_id = '" . intval($current_category_id) . "'";
                 $parent_categories = $dbconn->GetRow($query);
 
@@ -58,11 +58,11 @@ function oos_get_path($current_category_id = '', $parent_id = '', $gparent_id = 
                 $parent_id = $parent_categories['parent_id'];
             }
             if ($parent_id == $gparent_id) {
-                for ($i=0; $i < ($cp_size - 1); $i++) {
+                for ($i = 0; $i < ($cp_size - 1); $i++) {
                     $sCategoryNew .= '_' . $aCategoryPath[$i];
                 }
             } else {
-                for ($i=0; $i < $cp_size; $i++) {
+                for ($i = 0; $i < $cp_size; $i++) {
                     $sCategoryNew .= '_' . $aCategoryPath[$i];
                 }
             }
@@ -81,19 +81,19 @@ function oos_get_path($current_category_id = '', $parent_id = '', $gparent_id = 
 
 
 
- /**
-  * Return the number of products in a category
-  *
-  * @param  $category_id
-  * @param  $include_inactive
-  * @return string
-  */
+/**
+ * Return the number of products in a category
+ *
+ * @param  $category_id
+ * @param  $include_inactive
+ * @return string
+ */
 function oos_total_products_in_category($category_id)
 {
     $products_count = 0;
 
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $productstable = $oostable['products'];
     $products_to_categoriestable = $oostable['products_to_categories'];

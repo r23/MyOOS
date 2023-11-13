@@ -20,27 +20,27 @@
    ----------------------------------------------------------------------
  */
 
- /**
-  * listing
-  *
-  * @link    https://www.oos-shop.de
-  * @package listing
-  * @version $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/12 16:49:27 $
-  */
+/**
+ * listing
+ *
+ * @link    https://www.oos-shop.de
+ * @package listing
+ * @version $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/12 16:49:27 $
+ */
 
-  /**
-   * ensure this file is being included by a parent file
-   */
-  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+/**
+ * ensure this file is being included by a parent file
+ */
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
- /**
-  * Return table heading with sorting capabilities
-  *
-  * @param  $sortby
-  * @param  $colnum,
-  * @param  $heading
-  * @return string
-  */
+/**
+ * Return table heading with sorting capabilities
+ *
+ * @param  $sortby
+ * @param  $colnum,
+ * @param  $heading
+ * @return string
+ */
 function oos_create_sort_heading($sortby, $colnum, $heading)
 {
     global $sContent, $aLang;

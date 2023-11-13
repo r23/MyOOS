@@ -23,15 +23,15 @@
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
- /**
-  * Sets the status of a featured product
-  */
+/**
+ * Sets the status of a featured product
+ */
 function oos_set_featured_status($nFeaturedId, $status)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $featuredtable = $oostable['featured'];
     return $dbconn->Execute(
@@ -43,15 +43,15 @@ function oos_set_featured_status($nFeaturedId, $status)
 }
 
 
- /**
-  * Auto expire featured products
-  */
+/**
+ * Auto expire featured products
+ */
 function oos_expire_featured()
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $featuredtable = $oostable['featured'];
     $sql = "SELECT featured_id

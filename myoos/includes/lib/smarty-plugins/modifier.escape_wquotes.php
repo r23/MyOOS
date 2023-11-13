@@ -22,7 +22,7 @@
 
 function smarty_modifier_escape_wquotes($text)
 {
-    $badwordchars=[chr(145), chr(146), chr(147), chr(148), chr(151)];
-    $fixedwordchars=["&acute;", "&acute;", '&quot;', '&quot;', '&mdash;'];
+    $badwordchars = [chr(145), chr(146), chr(147), chr(148), chr(151)];
+    $fixedwordchars = ["&acute;", "&acute;", '&quot;', '&quot;', '&mdash;'];
     return str_replace($badwordchars, $fixedwordchars, (string) $text);
 }

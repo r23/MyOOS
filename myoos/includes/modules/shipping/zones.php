@@ -140,7 +140,7 @@ class zones
         $dest_zone = 0;
         $error = false;
 
-        for ($i=1; $i<=$this->num_zones; $i++) {
+        for ($i = 1; $i <= $this->num_zones; $i++) {
             $countries_table = constant('MODULE_SHIPPING_ZONES_COUNTRIES_' . $i);
             $country_zones = preg_split("/[,]/", (string) $countries_table);
             if (in_array($dest_country, $country_zones)) {
@@ -158,9 +158,9 @@ class zones
 
             $zones_table = preg_split("/[:,]/", (string) $zones_cost);
             $size = is_countable($zones_table) ? count($zones_table) : 0;
-            for ($i=0; $i<$size; $i+=2) {
+            for ($i = 0; $i < $size; $i += 2) {
                 if ($shipping_weight <= $zones_table[$i]) {
-                    $shipping = $zones_table[$i+1];
+                    $shipping = $zones_table[$i + 1];
                     $shipping_method = $aLang['module_shipping_zones_text_way'] . ' ' . $dest_country . ' : ' . $shipping_weight . ' ' . $aLang['module_shipping_zones_text_units'];
                     break;
                 }
@@ -202,8 +202,8 @@ class zones
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_ZONES_STATUS', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
@@ -225,8 +225,8 @@ class zones
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");
@@ -237,7 +237,7 @@ class zones
     {
         $keys = ['MODULE_SHIPPING_ZONES_STATUS', 'MODULE_SHIPPING_ZONES_SORT_ORDER'];
 
-        for ($i=1; $i<=$this->num_zones; $i++) {
+        for ($i = 1; $i <= $this->num_zones; $i++) {
             $keys[] = 'MODULE_SHIPPING_ZONES_COUNTRIES_' . $i;
             $keys[] = 'MODULE_SHIPPING_ZONES_COST_' . $i;
             $keys[] = 'MODULE_SHIPPING_ZONES_HANDLING_' . $i;

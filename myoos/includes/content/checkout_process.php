@@ -41,7 +41,7 @@ if (!isset($_SESSION['customer_id'])) {
     if (!isset($_SESSION['navigation'])) {
         $_SESSION['navigation'] = new navigationHistory();
     }
-    $_SESSION['navigation']->set_snapshot(['content' =>$aContents['checkout_payment']]);
+    $_SESSION['navigation']->set_snapshot(['content' => $aContents['checkout_payment']]);
     oos_redirect(oos_href_link($aContents['login']));
 }
 
@@ -57,7 +57,7 @@ if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
 if (TAKE_BACK_OBLIGATION == 'true') {
     $products = $_SESSION['cart']->get_products();
     $n = is_countable($products) ? count($products) : 0;
-    for ($i=0, $n; $i<$n; $i++) {
+    for ($i = 0, $n; $i < $n; $i++) {
         if (($products[$i]['old_electrical_equipment'] == 1) && ($products[$i]['return_free_of_charge'] == '')) {
             oos_redirect(oos_href_link($aContents['shopping_cart']));
         }
@@ -111,7 +111,7 @@ oos_db_perform($oostable['orders'], $sql_data_array);
 $insert_id = $dbconn->Insert_ID();
 
 $n = is_countable($order_totals) ? count($order_totals) : 0;
-for ($i=0, $n; $i<$n; $i++) {
+for ($i = 0, $n; $i < $n; $i++) {
     $sql_data_array = ['orders_id' => $insert_id, 'title' => $order_totals[$i]['title'], 'text' => $order_totals[$i]['text'], 'value' => $order_totals[$i]['value'], 'class' => $order_totals[$i]['code'], 'sort_order' => $order_totals[$i]['sort_order']];
     oos_db_perform($oostable['orders_total'], $sql_data_array);
 }
@@ -126,7 +126,7 @@ $subtotal = 0;
 $total_tax = 0;
 
 $n = is_countable($oOrder->products) ? count($oOrder->products) : 0;
-for ($i=0, $n; $i<$n; $i++) {
+for ($i = 0, $n; $i < $n; $i++) {
     // Stock Update - Joao Correia
     if (STOCK_LIMITED == 'true') {
         if (DOWNLOAD_ENABLED == 'true') {
@@ -224,7 +224,7 @@ for ($i=0, $n; $i<$n; $i++) {
 
     if (isset($oOrder->products[$i]['attributes'])) {
         $attributes_exist = '1';
-        for ($j=0, $n2=is_countable($oOrder->products[$i]['attributes']) ? count($oOrder->products[$i]['attributes']) : 0; $j<$n2; $j++) {
+        for ($j = 0, $n2 = is_countable($oOrder->products[$i]['attributes']) ? count($oOrder->products[$i]['attributes']) : 0; $j < $n2; $j++) {
             $products_optionstable = $oostable['products_options'];
             $products_options_valuestable = $oostable['products_options_values'];
             $products_attributestable = $oostable['products_attributes'];
@@ -307,7 +307,7 @@ $email_order .= $aLang['email_text_products'] . "\n" .
                   $aLang['email_separator'] . "\n";
 
 $n = is_countable($order_totals) ? count($order_totals) : 0;
-for ($i=0, $n; $i<$n; $i++) {
+for ($i = 0, $n; $i < $n; $i++) {
     $email_order .= strip_tags((string) $order_totals[$i]['title']) . ' ' . strip_tags((string) $order_totals[$i]['text']) . "\n";
 }
 

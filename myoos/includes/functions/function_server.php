@@ -15,36 +15,36 @@
    ----------------------------------------------------------------------
  */
 
-  /**
-   * HTTP Protocol Server/Request/Response utilities
-   *
-   * @package   server
-   * @copyright (C) 2002 by the Xaraya Development Team.
-   * @license   GPL <http://www.gnu.org/licenses/gpl.html>
-   * @link      http://www.xaraya.com
-   * @author    Marco Canini <marco@xaraya.com>
-   */
+/**
+ * HTTP Protocol Server/Request/Response utilities
+ *
+ * @package   server
+ * @copyright (C) 2002 by the Xaraya Development Team.
+ * @license   GPL <http://www.gnu.org/licenses/gpl.html>
+ * @link      http://www.xaraya.com
+ * @author    Marco Canini <marco@xaraya.com>
+ */
 
-  /**
-   * ensure this file is being included by a parent file
-   */
-  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+/**
+ * ensure this file is being included by a parent file
+ */
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-  /**
-   * Gets a server variable
-   *
-   * Returns the value of $name server variable.
-   * Accepted values for $name are exactly the ones described by the
-   * {@link http://www.php.net/manual/en/reserved.variables.html#reserved.variables.server PHP manual}.
-   * If the server variable doesn't exist void is returned.
-   *
-   * Last Editor: Author: r23
-   *
-   * @author Marco Canini <marco@xaraya.com>, Michel Dalle
-   * @access public
-   * @param  name string the name of the variable
-   * @return mixed value of the variable
-   */
+/**
+ * Gets a server variable
+ *
+ * Returns the value of $name server variable.
+ * Accepted values for $name are exactly the ones described by the
+ * {@link http://www.php.net/manual/en/reserved.variables.html#reserved.variables.server PHP manual}.
+ * If the server variable doesn't exist void is returned.
+ *
+ * Last Editor: Author: r23
+ *
+ * @author Marco Canini <marco@xaraya.com>, Michel Dalle
+ * @access public
+ * @param  name string the name of the variable
+ * @return mixed value of the variable
+ */
 function oos_server_get_var($sKey)
 {
     if (isset($_SERVER[$sKey])) {
@@ -61,14 +61,14 @@ function oos_server_get_var($sKey)
 }
 
 
-  /**
-   * Has a server variable
-   *
-   * @author r23 <info@r23.de>
-   * @access public
-   * @param  string
-   * @return mixed
-   */
+/**
+ * Has a server variable
+ *
+ * @author r23 <info@r23.de>
+ * @access public
+ * @param  string
+ * @return mixed
+ */
 function oos_server_has_var($sKey)
 {
     if (isset($_SERVER[$sKey])) {
@@ -78,18 +78,18 @@ function oos_server_has_var($sKey)
 }
 
 
-  /**
-   * Gets the host name
-   *
-   * Returns the server host name fetched from HTTP headers when possible.
-   * The host name is in the canonical form (host + : + port) when the port is different than 80.
-   *
-   * Last Editor: Author: r23
-   *
-   * @author Marco Canini <marco@xaraya.com>
-   * @access public
-   * @return string HTTP host name
-   */
+/**
+ * Gets the host name
+ *
+ * Returns the server host name fetched from HTTP headers when possible.
+ * The host name is in the canonical form (host + : + port) when the port is different than 80.
+ *
+ * Last Editor: Author: r23
+ *
+ * @author Marco Canini <marco@xaraya.com>
+ * @access public
+ * @return string HTTP host name
+ */
 function oos_server_get_host()
 {
     $sServer = oos_server_get_var('HTTP_HOST');
@@ -105,17 +105,17 @@ function oos_server_get_host()
 }
 
 
-  /**
-   * Gets the current protocol
-   *
-   * Returns the HTTP protocol used by current connection, it could be 'http' or 'https'.
-   *
-   * Last Editor: Author: r23
-   *
-   * @author Marco Canini <marco@xaraya.com>
-   * @access public
-   * @return string current HTTP protocol
-   */
+/**
+ * Gets the current protocol
+ *
+ * Returns the HTTP protocol used by current connection, it could be 'http' or 'https'.
+ *
+ * Last Editor: Author: r23
+ *
+ * @author Marco Canini <marco@xaraya.com>
+ * @access public
+ * @return string current HTTP protocol
+ */
 function oos_server_get_protocol()
 {
     $sProtocol = 'http';
@@ -129,12 +129,12 @@ function oos_server_get_protocol()
 }
 
 
-  /**
-   * Get base URI for oos
-   *
-   * @access public
-   * @return string base URI for oos
-   */
+/**
+ * Get base URI for oos
+ *
+ * @access public
+ * @return string base URI for oos
+ */
 function oos_server_get_base_uri()
 {
 
@@ -169,12 +169,12 @@ function oos_server_get_base_uri()
 }
 
 
-  /**
-   * get base URL for OOS
-   *
-   * @access public
-   * @return string base URL for OOS
-   */
+/**
+ * get base URL for OOS
+ *
+ * @access public
+ * @return string base URL for OOS
+ */
 function oos_server_get_base_url()
 {
     static $sBaseurl = null;
@@ -192,16 +192,16 @@ function oos_server_get_base_url()
 }
 
 
- /**
-  * get top level domain
-  *
-  * @copyright (C) 2003 by osCommerce.
-  * @license   GPL <http://www.gnu.org/licenses/gpl.html>
-  * @link      http://www.oscommerce.com
-  * @access    public
-  * @param     $sUrl
-  * @return    mixed
-  */
+/**
+ * get top level domain
+ *
+ * @copyright (C) 2003 by osCommerce.
+ * @license   GPL <http://www.gnu.org/licenses/gpl.html>
+ * @link      http://www.oscommerce.com
+ * @access    public
+ * @param     $sUrl
+ * @return    mixed
+ */
 function oos_server_get_top_level_domain($sUrl)
 {
     if (strpos((string) $sUrl, '://')) {
@@ -213,10 +213,10 @@ function oos_server_get_top_level_domain($sUrl)
     $nDomainSize = count($aDomain);
 
     if ($nDomainSize > 1) {
-        if (is_numeric($aDomain[$nDomainSize-2]) && is_numeric($aDomain[$nDomainSize-1])) {
+        if (is_numeric($aDomain[$nDomainSize - 2]) && is_numeric($aDomain[$nDomainSize - 1])) {
             return false;
         } else {
-            return $aDomain[$nDomainSize-2] . '.' . $aDomain[$nDomainSize-1];
+            return $aDomain[$nDomainSize - 2] . '.' . $aDomain[$nDomainSize - 1];
         }
     } else {
         return false;
@@ -224,15 +224,15 @@ function oos_server_get_top_level_domain($sUrl)
 }
 
 
- /**
-  * get client ip
-  *
-  * @copyright (C) 2003 by osCommerce.
-  * @license   GPL <http://www.gnu.org/licenses/gpl.html>
-  * @link      http://www.oscommerce.com
-  * @access    public
-  * @return    string client ip
-  */
+/**
+ * get client ip
+ *
+ * @copyright (C) 2003 by osCommerce.
+ * @license   GPL <http://www.gnu.org/licenses/gpl.html>
+ * @link      http://www.oscommerce.com
+ * @access    public
+ * @return    string client ip
+ */
 function oos_server_get_remote()
 {
     if (isset($_SERVER)) {

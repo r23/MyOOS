@@ -68,8 +68,8 @@ class chp
             $check_flag = false;
 
             // Get database information
-            $dbconn =& oosDBGetConn();
-            $oostable =& oosDBGetTables();
+            $dbconn = & oosDBGetConn();
+            $oostable = & oosDBGetTables();
 
             $zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
             $check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_SHIPPING_CHP_ZONE . "' AND zone_country_id = '" . intval($oOrder->delivery['country']['id']) . "' ORDER BY zone_id");
@@ -115,7 +115,7 @@ class chp
         $dest_zone = 0;
         $error = false;
 
-        for ($j=1; $j<=$this->num_chp; $j++) {
+        for ($j = 1; $j <= $this->num_chp; $j++) {
             $countries_table = constant('MODULE_SHIPPING_CHP_COUNTRIES_' . $j);
             $country_zones = preg_split("/[:,]/", (string) $countries_table);
             if (in_array($dest_country, $country_zones)) {
@@ -137,9 +137,9 @@ class chp
             if ($chp_cost_eco != '') {
                 $chp_table_eco = preg_split("/[:,]/", (string) $chp_cost_eco);
 
-                for ($i=0; $i<(is_countable($chp_table_eco) ? count($chp_table_eco) : 0); $i+=2) {
+                for ($i = 0; $i < (is_countable($chp_table_eco) ? count($chp_table_eco) : 0); $i += 2) {
                     if ($shipping_weight <= $chp_table_eco[$i]) {
-                        $shipping_eco = $chp_table_eco[$i+1];
+                        $shipping_eco = $chp_table_eco[$i + 1];
                         break;
                     }
                 }
@@ -159,9 +159,9 @@ class chp
             if ($chp_cost_pri != '') {
                 $chp_table_pri = preg_split("/[:,]/", (string) $chp_cost_pri);
 
-                for ($i=0; $i<(is_countable($chp_table_pri) ? count($chp_table_pri) : 0); $i+=2) {
+                for ($i = 0; $i < (is_countable($chp_table_pri) ? count($chp_table_pri) : 0); $i += 2) {
                     if ($shipping_weight <= $chp_table_pri[$i]) {
-                        $shipping_pri = $chp_table_pri[$i+1];
+                        $shipping_pri = $chp_table_pri[$i + 1];
                         break;
                     }
                 }
@@ -181,9 +181,9 @@ class chp
             if ($chp_cost_urg != '') {
                 $chp_table_urg = preg_split("/[:,]/", (string) $chp_cost_urg);
 
-                for ($i=0; $i<(is_countable($chp_table_urg) ? count($chp_table_urg) : 0); $i+=2) {
+                for ($i = 0; $i < (is_countable($chp_table_urg) ? count($chp_table_urg) : 0); $i += 2) {
                     if ($shipping_weight <= $chp_table_urg[$i]) {
-                        $shipping_urg = $chp_table_urg[$i+1];
+                        $shipping_urg = $chp_table_urg[$i + 1];
                         break;
                     }
                 }
@@ -214,7 +214,7 @@ class chp
         }
 
         if ((oos_is_not_null($method)) && (isset($this->types[$method]))) {
-            for ($i=0; $i<count($methods); $i++) {
+            for ($i = 0; $i < count($methods); $i++) {
                 if ($method == $methods[$i]['id']) {
                     $methodsc = [];
                     $methodsc[] = ['id' => $methods[$i]['id'], 'title' => $methods[$i]['title'], 'cost' => $methods[$i]['cost']];
@@ -242,8 +242,8 @@ class chp
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_CHP_STATUS', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
@@ -285,8 +285,8 @@ class chp
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");
@@ -297,7 +297,7 @@ class chp
     {
         $keys = ['MODULE_SHIPPING_CHP_STATUS', 'MODULE_SHIPPING_CHP_HANDLING', 'MODULE_SHIPPING_CHP_ZONE', 'MODULE_SHIPPING_CHP_SORT_ORDER'];
 
-        for ($i=1; $i <= $this->num_chp; $i++) {
+        for ($i = 1; $i <= $this->num_chp; $i++) {
             $keys[count($keys)] = 'MODULE_SHIPPING_CHP_COUNTRIES_' . $i;
             $keys[count($keys)] = 'MODULE_SHIPPING_CHP_COST_ECO_' . $i;
             $keys[count($keys)] = 'MODULE_SHIPPING_CHP_COST_PRI_' . $i;

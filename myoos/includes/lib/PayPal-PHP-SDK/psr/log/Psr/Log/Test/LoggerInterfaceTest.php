@@ -92,7 +92,7 @@ abstract class LoggerInterfaceTest extends \PHPUnit_Framework_TestCase
         $closed = fopen('php://memory', 'r');
         fclose($closed);
 
-        $context = ['bool' => true, 'null' => null, 'string' => 'Foo', 'int' => 0, 'float' => 0.5, 'nested' => ['with object' => new DummyTest], 'object' => new \DateTime, 'resource' => fopen('php://memory', 'r'), 'closed' => $closed];
+        $context = ['bool' => true, 'null' => null, 'string' => 'Foo', 'int' => 0, 'float' => 0.5, 'nested' => ['with object' => new DummyTest()], 'object' => new \DateTime(), 'resource' => fopen('php://memory', 'r'), 'closed' => $closed];
 
         $this->getLogger()->warning('Crazy context data', $context);
 

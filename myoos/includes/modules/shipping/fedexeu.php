@@ -68,8 +68,8 @@ class fedexeu
             $check_flag = false;
 
             // Get database information
-            $dbconn =& oosDBGetConn();
-            $oostable =& oosDBGetTables();
+            $dbconn = & oosDBGetConn();
+            $oostable = & oosDBGetTables();
 
             $zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
             $check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_SHIPPING_FEDEXEU_ZONE . "' AND zone_country_id = '" . intval($oOrder->delivery['country']['id']) . "' ORDER BY zone_id");
@@ -115,7 +115,7 @@ class fedexeu
         $dest_zone = 0;
         $error = false;
 
-        for ($j=1; $j<=$this->num_fedexeu; $j++) {
+        for ($j = 1; $j <= $this->num_fedexeu; $j++) {
             $countries_table = constant('MODULE_SHIPPING_FEDEXEU_COUNTRIES_' . $j);
             $country_zones = preg_split("/[,]/", (string) $countries_table);
             if (in_array($dest_country, $country_zones)) {
@@ -136,9 +136,9 @@ class fedexeu
             if ($fedexeu_cost_pak != '') {
                 $fedexeu_table_pak = preg_split("/[:,]/", (string) $fedexeu_cost_pak);
 
-                for ($i=0; $i<(is_countable($fedexeu_table_pak) ? count($fedexeu_table_pak) : 0); $i+=2) {
+                for ($i = 0; $i < (is_countable($fedexeu_table_pak) ? count($fedexeu_table_pak) : 0); $i += 2) {
                     if ($shipping_weight <= $fedexeu_table_pak[$i]) {
-                        $shipping_pak = $fedexeu_table_pak[$i+1];
+                        $shipping_pak = $fedexeu_table_pak[$i + 1];
                         break;
                     }
                 }
@@ -158,15 +158,15 @@ class fedexeu
             if ($fedexeu_cost_box != '') {
                 $fedexeu_table_box = preg_split("/[:,]/", (string) $fedexeu_cost_box);
                 if (($shipping_weight > 10) and ($shipping_weight <= 20)) {
-                    $shipping_box = number_format((($shipping_weight - 10)* 2 + 0.5), 0) * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_' .$j) + $fedexeu_table_box[(is_countable($fedexeu_table_box) ? count($fedexeu_table_box) : 0)-1];
+                    $shipping_box = number_format((($shipping_weight - 10) * 2 + 0.5), 0) * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_' .$j) + $fedexeu_table_box[(is_countable($fedexeu_table_box) ? count($fedexeu_table_box) : 0) - 1];
                 } elseif (($shipping_weight > 20) and ($shipping_weight <= 40)) {
-                    $shipping_box = number_format((($shipping_weight - 20)* 2 + 0.5), 0) * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_' .$j) + 20 * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_' .$j) + $fedexeu_table_box[(is_countable($fedexeu_table_box) ? count($fedexeu_table_box) : 0)-1];
+                    $shipping_box = number_format((($shipping_weight - 20) * 2 + 0.5), 0) * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_' .$j) + 20 * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_' .$j) + $fedexeu_table_box[(is_countable($fedexeu_table_box) ? count($fedexeu_table_box) : 0) - 1];
                 } elseif (($shipping_weight > 40) and ($shipping_weight <= 70)) {
-                    $shipping_box = number_format((($shipping_weight - 40)* 2 + 0.5), 0) * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_' .$j) + 20 * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_' .$j) + 40 * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_' .$j) + $fedexeu_table_box[(is_countable($fedexeu_table_box) ? count($fedexeu_table_box) : 0)-1];
+                    $shipping_box = number_format((($shipping_weight - 40) * 2 + 0.5), 0) * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_' .$j) + 20 * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_' .$j) + 40 * constant('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_' .$j) + $fedexeu_table_box[(is_countable($fedexeu_table_box) ? count($fedexeu_table_box) : 0) - 1];
                 } else {
-                    for ($i=0; $i<(is_countable($fedexeu_table_box) ? count($fedexeu_table_box) : 0); $i+=2) {
+                    for ($i = 0; $i < (is_countable($fedexeu_table_box) ? count($fedexeu_table_box) : 0); $i += 2) {
                         if ($shipping_weight <= $fedexeu_table_box[$i]) {
-                            $shipping_box = $fedexeu_table_box[$i+1];
+                            $shipping_box = $fedexeu_table_box[$i + 1];
                             break;
                         }
                     }
@@ -198,7 +198,7 @@ class fedexeu
         }
 
         if ((oos_is_not_null($method)) && (isset($this->types[$method]))) {
-            for ($i=0; $i<count($methods); $i++) {
+            for ($i = 0; $i < count($methods); $i++) {
                 if ($method == $methods[$i]['id']) {
                     $methodsc = [];
                     $methodsc[] = ['id' => $methods[$i]['id'], 'title' => $methods[$i]['title'], 'cost' => $methods[$i]['cost']];
@@ -226,8 +226,8 @@ class fedexeu
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_FEDEXEU_STATUS', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
@@ -290,8 +290,8 @@ class fedexeu
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");

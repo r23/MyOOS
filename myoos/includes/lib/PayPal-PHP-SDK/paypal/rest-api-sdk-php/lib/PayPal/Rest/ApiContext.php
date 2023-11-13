@@ -14,7 +14,6 @@ use PayPal\Core\PayPalCredentialManager;
  */
 class ApiContext
 {
-
     /**
      * Construct
      *

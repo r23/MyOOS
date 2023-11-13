@@ -37,8 +37,8 @@ function oos_set_specials_status($nSpecialsId, $status)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $specialstable = $oostable['specials'];
     $query = "SELECT products_id FROM $specialstable WHERE specials_id = '" . intval($nSpecialsId) . "'";
@@ -73,8 +73,8 @@ function oos_expire_specials()
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $specialstable = $oostable['specials'];
     $query = "SELECT specials_id

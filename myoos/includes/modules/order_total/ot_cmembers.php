@@ -54,7 +54,7 @@ class ot_cmembers
         global $oOrder, $oCurrencies;
 
         $od_amount = $this->calculate_credit($this->get_order_total());
-        if ($od_amount>0) {
+        if ($od_amount > 0) {
             $this->deduction = $od_amount;
             $this->output[] = ['title' => '<span class="otDiscount">- ' . $this->title . ' ('. number_format($this->percentage, 2) .'%):</span>', 'text' => '<strong><span class="otDiscount">' . $oCurrencies->format($od_amount) . '</span></strong>', 'info' => '', 'value' => $od_amount];
             $oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
@@ -66,7 +66,7 @@ class ot_cmembers
         global $oCurrencies;
 
         $od_amount = $this->calculate_credit($this->get_order_total());
-        if ($od_amount>0) {
+        if ($od_amount > 0) {
             $this->deduction = $od_amount;
             $this->output[] = ['title' => '<span class="otDiscount">- ' . $this->title . ' ('. number_format($this->percentage, 2) .'%):</span>', 'text' => '<strong><span class="otDiscount">' . $oCurrencies->format($od_amount) . '</span></strong>', 'info' => '', 'value' => $od_amount];
             $_SESSION['cart']->info['total'] = $_SESSION['cart']->info['total'] - $od_amount;
@@ -78,20 +78,20 @@ class ot_cmembers
     {
         global $oOrder, $customer_id, $customer_status_value;
 
-        $od_amount=0;
+        $od_amount = 0;
         $od_pc = $this->percentage;
         $cart_count = $_SESSION['cart']->count_contents();
         if (MODULE_CMEMBERS_CART_COUNT < $cart_count) {
             if ($this->calculate_tax == 'true') {  // Calculate main tax reduction
-                $tod_amount = round($oOrder->info['tax']*10)/10*$od_pc/100;
+                $tod_amount = round($oOrder->info['tax'] * 10) / 10 * $od_pc / 100;
                 $oOrder->info['tax'] = $oOrder->info['tax'] - $tod_amount; // Calculate tax group deductions
                 reset($oOrder->info['tax_groups']);
                 foreach ($oOrder->info['tax_groups'] as $key => $value) {
-                    $god_amount = round($value*10)/10*$od_pc/100;
+                    $god_amount = round($value * 10) / 10 * $od_pc / 100;
                     $oOrder->info['tax_groups'][$key] = $oOrder->info['tax_groups'][$key] - $god_amount;
                 }
             }
-            $od_amount = round($amount*10)/10*$od_pc/100;
+            $od_amount = round($amount * 10) / 10 * $od_pc / 100;
             $od_amount = $od_amount + $tod_amount;
         }
         return $od_amount;
@@ -106,12 +106,12 @@ class ot_cmembers
         $order_total = $oOrder->info['total'];
         // Check if gift voucher is in cart and adjust total
         $products = $_SESSION['cart']->get_products();
-        for ($i=0; $i<(is_countable($products) ? count($products) : 0); $i++) {
+        for ($i = 0; $i < (is_countable($products) ? count($products) : 0); $i++) {
             $t_prid = oos_get_product_id($products[$i]['id']);
 
             // Get database information
-            $dbconn =& oosDBGetConn();
-            $oostable =& oosDBGetTables();
+            $dbconn = & oosDBGetConn();
+            $oostable = & oosDBGetTables();
 
             $productstable = $oostable['products'];
             $query = "SELECT products_price, products_tax_class_id, products_model
@@ -123,7 +123,7 @@ class ot_cmembers
             if (preg_match('/^GIFT/', addslashes((string) $gv_result['products_model']))) {
                 $qty = $_SESSION['cart']->get_quantity($t_prid);
                 $products_tax = oos_get_tax_rate($gv_result['products_tax_class_id']);
-                if ($this->include_tax =='false') {
+                if ($this->include_tax == 'false') {
                     $gv_amount = $gv_result['products_price'] * $qty;
                 } else {
                     $gv_amount = ($gv_result['products_price'] + oos_calculate_tax($gv_result['products_price'], $products_tax)) * $qty;
@@ -132,10 +132,10 @@ class ot_cmembers
             }
         }
         if ($this->include_tax == 'false') {
-            $order_total = $order_total-$oOrder->info['tax'];
+            $order_total = $order_total - $oOrder->info['tax'];
         }
         if ($this->include_shipping == 'false') {
-            $order_total = $order_total-$oOrder->info['shipping_cost'];
+            $order_total = $order_total - $oOrder->info['shipping_cost'];
         }
         return $order_total;
     }
@@ -159,8 +159,8 @@ class ot_cmembers
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) values ('MODULE_CMEMBERS_STATUS', 'true', '6', '1','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
@@ -176,8 +176,8 @@ class ot_cmembers
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");

@@ -1,4 +1,5 @@
 <?php
+
 namespace PayPal\Api;
 
 use PayPal\Common\PayPalResourceModel;
@@ -19,7 +20,6 @@ use PayPal\Transport\PayPalRestCall;
  */
 class OpenIdTokeninfo extends PayPalResourceModel
 {
-
     /**
      * OPTIONAL, if identical to the scope requested by the client; otherwise, REQUIRED.
      *

@@ -67,8 +67,8 @@ class ap
             $check_flag = false;
 
             // Get database information
-            $dbconn =& oosDBGetConn();
-            $oostable =& oosDBGetTables();
+            $dbconn = & oosDBGetConn();
+            $oostable = & oosDBGetTables();
 
             $zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
             $check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_SHIPPING_AP_ZONE . "' AND zone_country_id = '" . intval($oOrder->delivery['country']['id']) . "' ORDER BY zone_id");
@@ -111,7 +111,7 @@ class ap
         $dest_zone = 0;
         $error = false;
 
-        for ($i=1; $i<=$this->num_ap; $i++) {
+        for ($i = 1; $i <= $this->num_ap; $i++) {
             $countries_table = constant('MODULE_SHIPPING_AP_COUNTRIES_' . $i);
             $country_zones = explode("[,]", (string) $countries_table);
             if (in_array($dest_country, $country_zones)) {
@@ -127,9 +127,9 @@ class ap
             $ap_cost = constant('MODULE_SHIPPING_AP_COST_' . $i);
 
             $ap_table = preg_split("/[:,]/", (string) $ap_cost);
-            for ($i=0; $i<(is_countable($ap_table) ? count($ap_table) : 0); $i+=2) {
+            for ($i = 0; $i < (is_countable($ap_table) ? count($ap_table) : 0); $i += 2) {
                 if ($shipping_weight <= $ap_table[$i]) {
-                    $shipping = $ap_table[$i+1];
+                    $shipping = $ap_table[$i + 1];
                     $shipping_method = $aLang['module_shipping_ap_text_way'] . ' ' . $dest_country . ' : ' . $shipping_weight . ' ' . $aLang['module_shipping_ap_text_units'];
                     break;
                 }
@@ -167,8 +167,8 @@ class ap
 
     public function install()
     {
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_AP_STATUS', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
@@ -198,8 +198,8 @@ class ap
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");

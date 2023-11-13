@@ -46,26 +46,26 @@ function smarty_function_html_oos_image($params, &$smarty)
 
     foreach ($params as $_key => $_val) {
         switch ($_key) {
-        case 'image':
-        case 'basedir':
-            ${$_key} = $_val;
-            break;
+            case 'image':
+            case 'basedir':
+                ${$_key} = $_val;
+                break;
 
-        case 'alt':
-            if (!is_array($_val)) {
-                ${$_key} = smarty_function_escape_special_chars($_val);
-            } else {
-                throw new SmartyException("html_oos_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
-            }
-            break;
+            case 'alt':
+                if (!is_array($_val)) {
+                    ${$_key} = smarty_function_escape_special_chars($_val);
+                } else {
+                    throw new SmartyException("html_oos_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                }
+                break;
 
-        default:
-            if (!is_array($_val)) {
-                $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
-            } else {
-                throw new SmartyException("html_oos_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
-            }
-            break;
+            default:
+                if (!is_array($_val)) {
+                    $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
+                } else {
+                    throw new SmartyException("html_oos_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                }
+                break;
         }
     }
 

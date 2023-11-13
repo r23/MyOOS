@@ -19,10 +19,10 @@
    ----------------------------------------------------------------------
  */
 
-  /**
-   * ensure this file is being included by a parent file
-   */
-  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+/**
+ * ensure this file is being included by a parent file
+ */
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 class oos_event_cart
 {
@@ -50,8 +50,8 @@ class oos_event_cart
         }
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $sql = "SELECT configuration_value FROM $configurationtable WHERE configuration_key = 'CRON_CART_RUN'";
@@ -70,7 +70,7 @@ class oos_event_cart
             return false;
         }
 
-        $sd = mktime(0, 0, 0, date("m"), date("d")-AUTOMATICALLY_DELETE_DAY, date("Y"));
+        $sd = mktime(0, 0, 0, date("m"), date("d") - AUTOMATICALLY_DELETE_DAY, date("Y"));
 
         $customers_baskettable = $oostable['customers_basket'];
         $customers_basket_attributestable = $oostable['customers_basket_attributes'];
@@ -94,8 +94,8 @@ class oos_event_cart
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $today = date("Y-m-d H:i:s");
 
@@ -110,8 +110,8 @@ class oos_event_cart
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key = 'CRON_CART_RUN'");

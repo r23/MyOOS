@@ -35,7 +35,7 @@ class Agreement extends PayPalResourceModel
      * Identifier of the agreement.
      *
      * @param string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -58,7 +58,7 @@ class Agreement extends PayPalResourceModel
      * State of the agreement.
      *
      * @param string $state
-     * 
+     *
      * @return $this
      */
     public function setState($state)
@@ -81,7 +81,7 @@ class Agreement extends PayPalResourceModel
      * Name of the agreement.
      *
      * @param string $name
-     * 
+     *
      * @return $this
      */
     public function setName($name)
@@ -104,7 +104,7 @@ class Agreement extends PayPalResourceModel
      * Description of the agreement.
      *
      * @param string $description
-     * 
+     *
      * @return $this
      */
     public function setDescription($description)
@@ -127,7 +127,7 @@ class Agreement extends PayPalResourceModel
      * Start date of the agreement. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
      *
      * @param string $start_date
-     * 
+     *
      * @return $this
      */
     public function setStartDate($start_date)
@@ -150,7 +150,7 @@ class Agreement extends PayPalResourceModel
      * Details of the buyer who is enrolling in this agreement. This information is gathered from execution of the approval URL.
      *
      * @param \PayPal\Api\Payer $payer
-     * 
+     *
      * @return $this
      */
     public function setPayer($payer)
@@ -173,7 +173,7 @@ class Agreement extends PayPalResourceModel
      * Shipping address object of the agreement, which should be provided if it is different from the default address.
      *
      * @param \PayPal\Api\Address $shipping_address
-     * 
+     *
      * @return $this
      */
     public function setShippingAddress($shipping_address)
@@ -196,7 +196,7 @@ class Agreement extends PayPalResourceModel
      * Default merchant preferences from the billing plan are used, unless override preferences are provided here.
      *
      * @param \PayPal\Api\MerchantPreferences $override_merchant_preferences
-     * 
+     *
      * @return $this
      */
     public function setOverrideMerchantPreferences($override_merchant_preferences)
@@ -219,7 +219,7 @@ class Agreement extends PayPalResourceModel
      * Array of override_charge_model for this agreement if needed to change the default models from the billing plan.
      *
      * @param \PayPal\Api\OverrideChargeModel[] $override_charge_models
-     * 
+     *
      * @return $this
      */
     public function setOverrideChargeModels($override_charge_models)
@@ -272,7 +272,7 @@ class Agreement extends PayPalResourceModel
      * Plan details for this agreement.
      *
      * @param \PayPal\Api\Plan $plan
-     * 
+     *
      * @return $this
      */
     public function setPlan($plan)
@@ -295,7 +295,7 @@ class Agreement extends PayPalResourceModel
      * Date and time that this resource was created. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
      *
      * @param string $create_time
-     * 
+     *
      * @return $this
      */
     public function setCreateTime($create_time)
@@ -318,7 +318,7 @@ class Agreement extends PayPalResourceModel
      * Date and time that this resource was updated. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
      *
      * @param string $update_time
-     * 
+     *
      * @return $this
      */
     public function setUpdateTime($update_time)
@@ -341,7 +341,7 @@ class Agreement extends PayPalResourceModel
      * Agreement Details
      *
      * @param \PayPal\Api\AgreementDetails $agreement_details
-     * 
+     *
      * @return $this
      */
     public function setAgreementDetails($agreement_details)

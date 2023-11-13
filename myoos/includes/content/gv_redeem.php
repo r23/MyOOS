@@ -64,7 +64,7 @@ if ((isset($_GET['gv_no']) && !empty($_GET['gv_no']))) {
               AND c.coupon_id = et.coupon_id";
     $gv_result = $dbconn->Execute($sql);
 
-    if ($gv_result->RecordCount() >0) {
+    if ($gv_result->RecordCount() > 0) {
         $coupon = $gv_result->fields;
         $coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
         $sql = "SELECT coupon_id

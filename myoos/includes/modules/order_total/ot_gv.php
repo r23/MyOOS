@@ -125,12 +125,12 @@ class ot_gv
         global $oOrder, $insert_id;
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         if (preg_match('/^GIFT/', addslashes((string) $oOrder->products[$i]['model']))) {
             $gv_order_amount = ($oOrder->products[$i]['final_price'] * $oOrder->products[$i]['qty']);
-            if ($this->credit_tax=='true') {
+            if ($this->credit_tax == 'true') {
                 $gv_order_amount = $gv_order_amount * (100 + $oOrder->products[$i]['tax']) / 100;
             }
             $gv_order_amount = $gv_order_amount * 100 / 100;
@@ -168,7 +168,7 @@ class ot_gv
             $remote_addr = oos_server_get_remote();
 
             $coupon_gv_queuetable = $oostable['coupon_gv_queue'];
-            $gv_insert=$dbconn->Execute(
+            $gv_insert = $dbconn->Execute(
                 "INSERT INTO $coupon_gv_queuetable
                                  (customer_id,
                                   order_id,
@@ -211,8 +211,8 @@ class ot_gv
         global $oOrder;
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         if (isset($_SESSION['cot_gv']) && $_SESSION['cot_gv'] == true) {
             $coupon_gv_customertable = $oostable['coupon_gv_customer'];
@@ -236,8 +236,8 @@ class ot_gv
         global $oCurrencies, $oMessage, $aLang;
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $aContents = oos_get_content();
 
@@ -336,8 +336,8 @@ class ot_gv
         global $oCurrencies, $oMessage, $aLang;
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $aContents = oos_get_content();
 
@@ -434,8 +434,8 @@ class ot_gv
         $gv_payment_amount = 0;
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $coupon_gv_customertable = $oostable['coupon_gv_customer'];
         $query = "SELECT amount
@@ -460,39 +460,39 @@ class ot_gv
         global $oOrder;
 
         switch ($method) {
-        case 'Standard':
-            $ratio1 = round($od_amount / $amount, 2);
-            $tod_amount = 0;
-            reset($oOrder->info['tax_groups']);
-            foreach ($oOrder->info['tax_groups'] as $key => $value) {
-                $tax_rate = oos_get_tax_rate_from_desc($key);
-                $total_net += $tax_rate * $oOrder->info['tax_groups'][$key];
-            }
-            if ($od_amount > $total_net) {
-                $od_amount = $total_net;
-            }
-            reset($oOrder->info['tax_groups']);
-            foreach ($oOrder->info['tax_groups'] as $key => $value) {
-                $tax_rate = oos_get_tax_rate_from_desc($key);
-                $net = $tax_rate * $oOrder->info['tax_groups'][$key];
-                if ($net > 0) {
-                    $god_amount = $oOrder->info['tax_groups'][$key] * $ratio1;
-                    $tod_amount += $god_amount;
-                    $oOrder->info['tax_groups'][$key] = $oOrder->info['tax_groups'][$key] - $god_amount;
+            case 'Standard':
+                $ratio1 = round($od_amount / $amount, 2);
+                $tod_amount = 0;
+                reset($oOrder->info['tax_groups']);
+                foreach ($oOrder->info['tax_groups'] as $key => $value) {
+                    $tax_rate = oos_get_tax_rate_from_desc($key);
+                    $total_net += $tax_rate * $oOrder->info['tax_groups'][$key];
                 }
-            }
-            $oOrder->info['tax'] -= $tod_amount;
-            $oOrder->info['total'] -= $tod_amount;
-            break;
+                if ($od_amount > $total_net) {
+                    $od_amount = $total_net;
+                }
+                reset($oOrder->info['tax_groups']);
+                foreach ($oOrder->info['tax_groups'] as $key => $value) {
+                    $tax_rate = oos_get_tax_rate_from_desc($key);
+                    $net = $tax_rate * $oOrder->info['tax_groups'][$key];
+                    if ($net > 0) {
+                        $god_amount = $oOrder->info['tax_groups'][$key] * $ratio1;
+                        $tod_amount += $god_amount;
+                        $oOrder->info['tax_groups'][$key] = $oOrder->info['tax_groups'][$key] - $god_amount;
+                    }
+                }
+                $oOrder->info['tax'] -= $tod_amount;
+                $oOrder->info['total'] -= $tod_amount;
+                break;
 
-        case 'Credit Note':
-            $tax_rate = oos_get_tax_rate($this->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
-            $tax_desc = oos_get_tax_description($this->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
-            $tod_amount = $this->deduction / (100 + $tax_rate)* $tax_rate;
-            $oOrder->info['tax_groups'][$tax_desc] -= $tod_amount;
-            //          $oOrder->info['total'] -= $tod_amount;
-            break;
-        default:
+            case 'Credit Note':
+                $tax_rate = oos_get_tax_rate($this->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
+                $tax_desc = oos_get_tax_description($this->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
+                $tod_amount = $this->deduction / (100 + $tax_rate) * $tax_rate;
+                $oOrder->info['tax_groups'][$tax_desc] -= $tod_amount;
+                //          $oOrder->info['total'] -= $tod_amount;
+                break;
+            default:
         }
         return $tod_amount;
     }
@@ -501,8 +501,8 @@ class ot_gv
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $coupon_gv_customertable = $oostable['coupon_gv_customer'];
         $query = "SELECT amount
@@ -510,7 +510,7 @@ class ot_gv
                 WHERE customer_id = '" . oos_db_input($c_id) . "'";
         $gv_result = $dbconn->Execute($query);
 
-        if ($gv_result->fields['amount']>0) {
+        if ($gv_result->fields['amount'] > 0) {
             return true;
         }
         return false;
@@ -549,8 +549,8 @@ class ot_gv
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_GV_STATUS', 'true', '6', '1','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
@@ -560,8 +560,8 @@ class ot_gv
     public function remove()
     {
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");

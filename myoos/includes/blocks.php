@@ -82,12 +82,12 @@ $n = is_countable($aContentBlock) ? count($aContentBlock) : 0;
 for ($i = 0, $n; $i < $n; $i++) {
     switch ($aContentBlock[$i]['side']) {
 
-    case 'sidebar':
-        $smarty->append('sidebar', ['content' => $aContentBlock[$i]['block_content']]);
-        break;
+        case 'sidebar':
+            $smarty->append('sidebar', ['content' => $aContentBlock[$i]['block_content']]);
+            break;
 
-    default:
-        break;
+        default:
+            break;
 
     }
 }

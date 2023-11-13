@@ -32,7 +32,7 @@ class Capture extends PayPalResourceModel
      * The ID of the capture transaction.
      *
      * @param string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -55,7 +55,7 @@ class Capture extends PayPalResourceModel
      * The amount to capture. If the amount matches the orginally authorized amount, the state of the authorization changes to `captured`. If not, the state of the authorization changes to `partially_captured`.
      *
      * @param \PayPal\Api\Amount $amount
-     * 
+     *
      * @return $this
      */
     public function setAmount($amount)
@@ -78,7 +78,7 @@ class Capture extends PayPalResourceModel
      * Indicates whether to release all remaining funds that the authorization holds in the funding instrument. Default is `false`.
      *
      * @param bool $is_final_capture
-     * 
+     *
      * @return $this
      */
     public function setIsFinalCapture($is_final_capture)
@@ -102,7 +102,7 @@ class Capture extends PayPalResourceModel
      * Valid Values: ["pending", "completed", "refunded", "partially_refunded"]
      *
      * @param string $state
-     * 
+     *
      * @return $this
      */
     public function setState($state)
@@ -126,7 +126,7 @@ class Capture extends PayPalResourceModel
      * Valid Values: ["CHARGEBACK", "GUARANTEE", "BUYER_COMPLAINT", "REFUND", "UNCONFIRMED_SHIPPING_ADDRESS", "ECHECK", "INTERNATIONAL_WITHDRAWAL", "RECEIVING_PREFERENCE_MANDATES_MANUAL_ACTION", "PAYMENT_REVIEW", "REGULATORY_REVIEW", "UNILATERAL", "VERIFICATION_REQUIRED", "TRANSACTION_APPROVED_AWAITING_FUNDING"]
      *
      * @param string $reason_code
-     * 
+     *
      * @return $this
      */
     public function setReasonCode($reason_code)
@@ -149,7 +149,7 @@ class Capture extends PayPalResourceModel
      * The ID of the payment on which this transaction is based.
      *
      * @param string $parent_payment
-     * 
+     *
      * @return $this
      */
     public function setParentPayment($parent_payment)
@@ -172,7 +172,7 @@ class Capture extends PayPalResourceModel
      * The invoice number to track this payment.
      *
      * @param string $invoice_number
-     * 
+     *
      * @return $this
      */
     public function setInvoiceNumber($invoice_number)
@@ -195,7 +195,7 @@ class Capture extends PayPalResourceModel
      * The transaction fee for this payment.
      *
      * @param \PayPal\Api\Currency $transaction_fee
-     * 
+     *
      * @return $this
      */
     public function setTransactionFee($transaction_fee)
@@ -218,7 +218,7 @@ class Capture extends PayPalResourceModel
      * The date and time of capture, as defined in [RFC 3339 Section 5.6](http://tools.ietf.org/html/rfc3339#section-5.6).
      *
      * @param string $create_time
-     * 
+     *
      * @return $this
      */
     public function setCreateTime($create_time)
@@ -241,7 +241,7 @@ class Capture extends PayPalResourceModel
      * The date and time when the resource was last updated.
      *
      * @param string $update_time
-     * 
+     *
      * @return $this
      */
     public function setUpdateTime($update_time)

@@ -22,7 +22,7 @@ class InstallmentInfo extends PayPalModel
      * Installment id.
      *
      * @param string $installment_id
-     * 
+     *
      * @return $this
      */
     public function setInstallmentId($installment_id)
@@ -46,7 +46,7 @@ class InstallmentInfo extends PayPalModel
      * Valid Values: ["VISA", "MASTERCARD"]
      *
      * @param string $network
-     * 
+     *
      * @return $this
      */
     public function setNetwork($network)
@@ -69,7 +69,7 @@ class InstallmentInfo extends PayPalModel
      * Credit card issuer.
      *
      * @param string $issuer
-     * 
+     *
      * @return $this
      */
     public function setIssuer($issuer)
@@ -92,7 +92,7 @@ class InstallmentInfo extends PayPalModel
      * List of available installment options and the cost associated with each one.
      *
      * @param \PayPal\Api\InstallmentOption[] $installment_options
-     * 
+     *
      * @return $this
      */
     public function setInstallmentOptions($installment_options)

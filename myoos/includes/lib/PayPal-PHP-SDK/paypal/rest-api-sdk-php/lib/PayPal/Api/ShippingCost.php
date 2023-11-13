@@ -20,7 +20,7 @@ class ShippingCost extends PayPalModel
      * The shipping cost, as an amount. Valid range is from 0 to 999999.99.
      *
      * @param \PayPal\Api\Currency $amount
-     * 
+     *
      * @return $this
      */
     public function setAmount($amount)
@@ -43,7 +43,7 @@ class ShippingCost extends PayPalModel
      * The tax percentage on the shipping amount.
      *
      * @param \PayPal\Api\Tax $tax
-     * 
+     *
      * @return $this
      */
     public function setTax($tax)

@@ -26,7 +26,7 @@ class PaymentDetail extends PayPalModel
      * Valid Values: ["PAYPAL", "EXTERNAL"]
      *
      * @param string $type
-     * 
+     *
      * @return $this
      */
     public function setType($type)
@@ -49,7 +49,7 @@ class PaymentDetail extends PayPalModel
      * The PayPal payment transaction ID. Required with the `PAYPAL` payment type.
      *
      * @param string $transaction_id
-     * 
+     *
      * @return $this
      */
     public function setTransactionId($transaction_id)
@@ -73,7 +73,7 @@ class PaymentDetail extends PayPalModel
      * Valid Values: ["SALE", "AUTHORIZATION", "CAPTURE"]
      *
      * @param string $transaction_type
-     * 
+     *
      * @return $this
      */
     public function setTransactionType($transaction_type)
@@ -96,7 +96,7 @@ class PaymentDetail extends PayPalModel
      * The date when the invoice was paid. The date format is *yyyy*-*MM*-*dd* *z* as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
      *
      * @param string $date
-     * 
+     *
      * @return $this
      */
     public function setDate($date)
@@ -120,7 +120,7 @@ class PaymentDetail extends PayPalModel
      * Valid Values: ["BANK_TRANSFER", "CASH", "CHECK", "CREDIT_CARD", "DEBIT_CARD", "PAYPAL", "WIRE_TRANSFER", "OTHER"]
      *
      * @param string $method
-     * 
+     *
      * @return $this
      */
     public function setMethod($method)
@@ -143,7 +143,7 @@ class PaymentDetail extends PayPalModel
      * Optional. A note associated with the payment.
      *
      * @param string $note
-     * 
+     *
      * @return $this
      */
     public function setNote($note)
@@ -166,7 +166,7 @@ class PaymentDetail extends PayPalModel
      * The amount to record as payment against invoice. If you omit this parameter, the total invoice amount is recorded as payment.
      *
      * @param \PayPal\Api\Currency $amount
-     * 
+     *
      * @return $this
      */
     public function setAmount($amount)

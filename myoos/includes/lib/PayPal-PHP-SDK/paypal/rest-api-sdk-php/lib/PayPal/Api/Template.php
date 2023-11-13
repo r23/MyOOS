@@ -28,7 +28,7 @@ class Template extends PayPalResourceModel
      * Unique identifier id of the template.
      *
      * @param string $template_id
-     * 
+     *
      * @return $this
      */
     public function setTemplateId($template_id)
@@ -51,7 +51,7 @@ class Template extends PayPalResourceModel
      * Name of the template.
      *
      * @param string $name
-     * 
+     *
      * @return $this
      */
     public function setName($name)
@@ -74,7 +74,7 @@ class Template extends PayPalResourceModel
      * Indicates that this template is merchant's default. There can be only one template which can be a default.
      *
      * @param bool $default
-     * 
+     *
      * @return $this
      */
     public function setDefault($default)
@@ -97,7 +97,7 @@ class Template extends PayPalResourceModel
      * Customized invoice data which is saved as template
      *
      * @param \PayPal\Api\TemplateData $template_data
-     * 
+     *
      * @return $this
      */
     public function setTemplateData($template_data)
@@ -120,7 +120,7 @@ class Template extends PayPalResourceModel
      * Settings for each template
      *
      * @param \PayPal\Api\TemplateSettings[] $settings
-     * 
+     *
      * @return $this
      */
     public function setSettings($settings)
@@ -173,7 +173,7 @@ class Template extends PayPalResourceModel
      * Unit of measure for the template, possible values are Quantity, Hours, Amount.
      *
      * @param string $unit_of_measure
-     * 
+     *
      * @return $this
      */
     public function setUnitOfMeasure($unit_of_measure)
@@ -196,7 +196,7 @@ class Template extends PayPalResourceModel
      * Indicates whether this is a custom template created by the merchant. Non custom templates are system generated
      *
      * @param bool $custom
-     * 
+     *
      * @return $this
      */
     public function setCustom($custom)

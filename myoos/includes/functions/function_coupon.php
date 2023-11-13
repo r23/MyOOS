@@ -24,39 +24,39 @@
    ----------------------------------------------------------------------
  */
 
- /**
-  * Credit Class GV/Discount Coupon
-  *
-  * @link    https://www.oos-shop.de
-  * @package Credit Class GV/Discount Coupon
-  * @version $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/12 16:49:27 $
-  */
+/**
+ * Credit Class GV/Discount Coupon
+ *
+ * @link    https://www.oos-shop.de
+ * @package Credit Class GV/Discount Coupon
+ * @version $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/12 16:49:27 $
+ */
 
-  /**
-   * ensure this file is being included by a parent file
-   */
-  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+/**
+ * ensure this file is being included by a parent file
+ */
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
- /**
-  * Create a Coupon Code. length may be between 1 and 16 Characters
-  *
-  * @param  $salt
-  * @param  $length
-  * @return string
-  */
+/**
+ * Create a Coupon Code. length may be between 1 and 16 Characters
+ *
+ * @param  $salt
+ * @param  $length
+ * @return string
+ */
 function oos_create_coupon_code($salt = "secret", $length = SECURITY_CODE_LENGTH)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $ccid = md5(uniqid("", "salt"));
     $ccid .= md5(uniqid("", "salt"));
     $ccid .= md5(uniqid("", "salt"));
     $ccid .= md5(uniqid("", "salt"));
-    mt_srand((float)microtime()*1_000_000); // seed the random number generator
-    $random_start = @random_int(0, (128-$length));
+    mt_srand((float)microtime() * 1_000_000); // seed the random number generator
+    $random_start = @random_int(0, (128 - $length));
     $good_result = 0;
     while ($good_result == 0) {
         $id1 = substr($ccid, $random_start, $length);
@@ -73,18 +73,18 @@ function oos_create_coupon_code($salt = "secret", $length = SECURITY_CODE_LENGTH
 }
 
 
- /**
-  * Update the Customers GV account
-  *
-  * @param $customer_id
-  * @param $gv_id
-  */
+/**
+ * Update the Customers GV account
+ *
+ * @param $customer_id
+ * @param $gv_id
+ */
 function oos_gv_account_update($customer_id, $gv_id)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $coupon_gv_customertable = $oostable['coupon_gv_customer'];
     $sql = "SELECT amount
@@ -119,18 +119,18 @@ function oos_gv_account_update($customer_id, $gv_id)
 }
 
 
- /**
-  * Get tax rate from tax description
-  *
-  * @param  $tax_desc
-  * @return string
-  */
+/**
+ * Get tax rate from tax description
+ *
+ * @param  $tax_desc
+ * @return string
+ */
 function oos_get_tax_rate_from_desc($tax_desc)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $tax_ratestable = $oostable['tax_rates'];
     $sql = "SELECT tax_rate

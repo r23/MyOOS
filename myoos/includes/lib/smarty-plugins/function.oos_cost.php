@@ -1,27 +1,27 @@
 <?php
 
- /**
-    ----------------------------------------------------------------------
-   $Id: function.oos_cost.php,v 1.1 2007/06/08 13:34:16 r23 Exp $
-
-   MyOOS [Shopsystem]
-   https://www.oos-shop.de
-
-
-   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
+/**
    ----------------------------------------------------------------------
-   Based on:
+  $Id: function.oos_cost.php,v 1.1 2007/06/08 13:34:16 r23 Exp $
 
-   File: general.php,v 1.212 2003/02/17 07:55:54 hpdl
-   ----------------------------------------------------------------------
-   osCommerce, Open Source E-Commerce Solutions
-   http://www.oscommerce.com
+  MyOOS [Shopsystem]
+  https://www.oos-shop.de
 
-   Copyright (c) 2003 osCommerce
-   ----------------------------------------------------------------------
-   Released under the GNU General Public License
-   ----------------------------------------------------------------------
-  */
+
+  Copyright (c) 2003 - 2023 by the MyOOS Development Team.
+  ----------------------------------------------------------------------
+  Based on:
+
+  File: general.php,v 1.212 2003/02/17 07:55:54 hpdl
+  ----------------------------------------------------------------------
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
+
+  Copyright (c) 2003 osCommerce
+  ----------------------------------------------------------------------
+  Released under the GNU General Public License
+  ----------------------------------------------------------------------
+ */
 /*
  * Smarty plugin
  * -------------------------------------------------------------

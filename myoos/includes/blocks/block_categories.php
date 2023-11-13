@@ -36,8 +36,8 @@ function oos_count_products_in_category($category_id, $include_inactive = false)
 {
     $products_count = 0;
 
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $productstable = $oostable['products'];
     $products_to_categoriestable = $oostable['products_to_categories'];
@@ -72,8 +72,8 @@ function oos_count_products_in_category($category_id, $include_inactive = false)
  */
 function oos_has_category_subcategories($category_id)
 {
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categoriestable = $oostable['categories'];
     $query = "SELECT COUNT(*) AS total
@@ -226,7 +226,7 @@ if (!empty($sCategory)) {
             $new_path .= $value;
             while ($row = $categories_result->fields) {
                 $list_of_categories_ids[] = intval($row['categories_id']);
-                $aFoo[$row['categories_id']] = ['name' => $row['categories_name'], 'parent' => $row['parent_id'], 'level' => $key+1, 'path' => $new_path . '_' . $row['categories_id'], 'next_id' => false];
+                $aFoo[$row['categories_id']] = ['name' => $row['categories_name'], 'parent' => $row['parent_id'], 'level' => $key + 1, 'path' => $new_path . '_' . $row['categories_id'], 'next_id' => false];
 
                 if (isset($prev_id)) {
                     $aFoo[$prev_id]['next_id'] = $row['categories_id'];

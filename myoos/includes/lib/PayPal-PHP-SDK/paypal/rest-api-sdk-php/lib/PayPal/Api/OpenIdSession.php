@@ -1,13 +1,12 @@
 <?php
-namespace PayPal\Api;
 
+namespace PayPal\Api;
 
 use PayPal\Core\PayPalConstants;
 use PayPal\Rest\ApiContext;
 
 class OpenIdSession
 {
-
     /**
      * Returns the PayPal URL to which the user must be redirected to
      * start the authentication / authorization process.
@@ -88,12 +87,12 @@ class OpenIdSession
 
         if (array_key_exists('openid.RedirectUri', $config)) {
             return $config['openid.RedirectUri'];
-        } else if (array_key_exists('mode', $config)) {
+        } elseif (array_key_exists('mode', $config)) {
             switch (strtoupper((string) $config['mode'])) {
-            case 'SANDBOX':
-                return PayPalConstants::OPENID_REDIRECT_SANDBOX_URL;
-            case 'LIVE':
-                return PayPalConstants::OPENID_REDIRECT_LIVE_URL;
+                case 'SANDBOX':
+                    return PayPalConstants::OPENID_REDIRECT_SANDBOX_URL;
+                case 'LIVE':
+                    return PayPalConstants::OPENID_REDIRECT_LIVE_URL;
             }
         }
         return null;

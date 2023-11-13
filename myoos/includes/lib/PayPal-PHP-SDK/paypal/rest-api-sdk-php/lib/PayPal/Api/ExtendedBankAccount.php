@@ -16,7 +16,7 @@ class ExtendedBankAccount extends BankAccount
      *
      * @deprecated Not publicly available
      * @param      string $mandate_reference_number
-     * 
+     *
      * @return $this
      */
     public function setMandateReferenceNumber($mandate_reference_number)

@@ -28,7 +28,7 @@ class FundingSource extends FundingInstrument
      * Valid Values: ["INSTANT_TRANSFER", "MANUAL_BANK_TRANSFER", "DELAYED_TRANSFER", "ECHECK", "PAY_UPON_INVOICE"]
      *
      * @param string $funding_mode
-     * 
+     *
      * @return $this
      */
     public function setFundingMode($funding_mode)
@@ -52,7 +52,7 @@ class FundingSource extends FundingInstrument
      * Valid Values: ["BALANCE", "PAYMENT_CARD", "BANK_ACCOUNT", "CREDIT", "INCENTIVE", "EXTERNAL_FUNDING", "TAB"]
      *
      * @param string $funding_instrument_type
-     * 
+     *
      * @return $this
      */
     public function setFundingInstrumentType($funding_instrument_type)
@@ -75,7 +75,7 @@ class FundingSource extends FundingInstrument
      * Soft descriptor used when charging this funding source.
      *
      * @param string $soft_descriptor
-     * 
+     *
      * @return $this
      */
     public function setSoftDescriptor($soft_descriptor)
@@ -98,7 +98,7 @@ class FundingSource extends FundingInstrument
      * Total anticipated amount of money to be pulled from instrument.
      *
      * @param \PayPal\Api\Currency $amount
-     * 
+     *
      * @return $this
      */
     public function setAmount($amount)
@@ -121,7 +121,7 @@ class FundingSource extends FundingInstrument
      * Additional amount to be pulled from the instrument to recover a negative balance on the buyer's account that is owed to PayPal.
      *
      * @param \PayPal\Api\Currency $negative_balance_amount
-     * 
+     *
      * @return $this
      */
     public function setNegativeBalanceAmount($negative_balance_amount)
@@ -144,7 +144,7 @@ class FundingSource extends FundingInstrument
      * Localized legal text relevant to funding source.
      *
      * @param string $legal_text
-     * 
+     *
      * @return $this
      */
     public function setLegalText($legal_text)
@@ -167,7 +167,7 @@ class FundingSource extends FundingInstrument
      * Additional detail of the funding.
      *
      * @param \PayPal\Api\FundingDetail $funding_detail
-     * 
+     *
      * @return $this
      */
     public function setFundingDetail($funding_detail)
@@ -190,7 +190,7 @@ class FundingSource extends FundingInstrument
      * Additional text relevant to funding source.
      *
      * @param string $additional_text
-     * 
+     *
      * @return $this
      */
     public function setAdditionalText($additional_text)
@@ -240,7 +240,7 @@ class FundingSource extends FundingInstrument
      * Sets Links
      *
      * @param \PayPal\Api\Links[] $links
-     * 
+     *
      * @return $this
      */
     public function setLinks($links)

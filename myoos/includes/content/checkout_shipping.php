@@ -65,7 +65,7 @@ if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
 if (TAKE_BACK_OBLIGATION == 'true') {
     $products = $_SESSION['cart']->get_products();
     $n = is_countable($products) ? count($products) : 0;
-    for ($i=0, $n; $i<$n; $i++) {
+    for ($i = 0, $n; $i < $n; $i++) {
         if (($products[$i]['old_electrical_equipment'] == 1) && ($products[$i]['return_free_of_charge'] == '')) {
             oos_redirect(oos_href_link($aContents['shopping_cart']));
         }
@@ -130,28 +130,28 @@ if ($oOrder->delivery['country']['iso_code_2'] != '') {
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
 $shipping_modules = new shipping();
 
- // if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
+// if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
 if (defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER > 0)) {
     switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
-    case 'national':
-        if ($oOrder->delivery['country_id'] == STORE_COUNTRY) {
+        case 'national':
+            if ($oOrder->delivery['country_id'] == STORE_COUNTRY) {
+                $pass = true;
+            }
+            break;
+
+        case 'international':
+            if ($oOrder->delivery['country_id'] != STORE_COUNTRY) {
+                $pass = true;
+            }
+            break;
+
+        case 'both':
             $pass = true;
-        }
-        break;
+            break;
 
-    case 'international':
-        if ($oOrder->delivery['country_id'] != STORE_COUNTRY) {
-            $pass = true;
-        }
-        break;
-
-    case 'both':
-        $pass = true;
-        break;
-
-    default:
-        $pass = false;
-        break;
+        default:
+            $pass = false;
+            break;
     }
 
     $free_shipping = false;

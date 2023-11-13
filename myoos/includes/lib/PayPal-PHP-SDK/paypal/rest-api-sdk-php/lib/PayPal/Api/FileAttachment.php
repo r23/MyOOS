@@ -21,7 +21,7 @@ class FileAttachment extends PayPalModel
      * Name of the file attached.
      *
      * @param string $name
-     * 
+     *
      * @return $this
      */
     public function setName($name)

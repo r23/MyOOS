@@ -19,10 +19,10 @@
    ----------------------------------------------------------------------
  */
 
-  /**
-   * ensure this file is being included by a parent file
-   */
-  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+/**
+ * ensure this file is being included by a parent file
+ */
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 class oos_event_breadcrumb
 {
@@ -47,8 +47,8 @@ class oos_event_breadcrumb
     {
         global $oBreadcrumb, $session, $aLang, $sCanonical, $aCategoryPath;
 
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $aContents = oos_get_content();
 
@@ -73,8 +73,8 @@ class oos_event_breadcrumb
                              AND categories_languages_id = '" .  intval($nLanguageID) . "'";
                 $categories = $dbconn->Execute($categories_sql);
                 if ($categories->RecordCount() > 0) {
-                    $oBreadcrumb->add($categories->fields['categories_name'], oos_href_link($aContents['shop'], 'category=' . implode('_', array_slice($aCategoryPath, 0, ($i+1)))));
-                    $sCanonical = oos_href_link($aContents['shop'], 'category=' . implode('_', array_slice($aCategoryPath, 0, ($i+1))) . '&amp;page=' . $nPage, false, true);
+                    $oBreadcrumb->add($categories->fields['categories_name'], oos_href_link($aContents['shop'], 'category=' . implode('_', array_slice($aCategoryPath, 0, ($i + 1)))));
+                    $sCanonical = oos_href_link($aContents['shop'], 'category=' . implode('_', array_slice($aCategoryPath, 0, ($i + 1))) . '&amp;page=' . $nPage, false, true);
                 } else {
                     break;
                 }

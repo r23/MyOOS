@@ -95,7 +95,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['actio
     }
     $street_address = filter_string_polyfill(filter_input(INPUT_POST, 'street_address'));
     $postcode = filter_string_polyfill(filter_input(INPUT_POST, 'postcode'));
-    $city = filter_string_polyfill(filter_input(INPUT_POST, 'city'));    
+    $city = filter_string_polyfill(filter_input(INPUT_POST, 'city'));
     if (ACCOUNT_STATE == 'true') {
         $state = filter_string_polyfill(filter_input(INPUT_POST, 'state'));
         $zone_id = filter_string_polyfill(filter_input(INPUT_POST, 'zone_id'));
@@ -415,8 +415,8 @@ if ($state_has_zones == 'true') {
     $smarty->assign('state', $state);
     $smarty->assign('zone_id', $zone_id);
 }
-   $country_name = oos_get_country_name($country);
-   $smarty->assign('country_name', $country_name);
+$country_name = oos_get_country_name($country);
+$smarty->assign('country_name', $country_name);
 
 $smarty->assign('entry', $entry);
 

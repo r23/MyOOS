@@ -45,22 +45,22 @@ class ot_loworderfee
 
         if (MODULE_ORDER_TOTAL_LOWORDERFEE_LOW_ORDER_FEE == 'true') {
             switch (MODULE_ORDER_TOTAL_LOWORDERFEE_DESTINATION) {
-            case 'national':
-                if ($oOrder->delivery['country_id'] == STORE_COUNTRY) {
+                case 'national':
+                    if ($oOrder->delivery['country_id'] == STORE_COUNTRY) {
+                        $pass = true;
+                    }
+                    break;
+                case 'international':
+                    if ($oOrder->delivery['country_id'] != STORE_COUNTRY) {
+                        $pass = true;
+                    }
+                    break;
+                case 'both':
                     $pass = true;
-                }
-                break;
-            case 'international':
-                if ($oOrder->delivery['country_id'] != STORE_COUNTRY) {
-                    $pass = true;
-                }
-                break;
-            case 'both':
-                $pass = true;
-                break;
-            default:
-                $pass = false;
-                break;
+                    break;
+                default:
+                    $pass = false;
+                    break;
             }
 
             if (($pass == true) && (($oOrder->info['total'] - $oOrder->info['shipping_cost']) < MODULE_ORDER_TOTAL_LOWORDERFEE_ORDER_UNDER)) {
@@ -83,22 +83,22 @@ class ot_loworderfee
 
         if (MODULE_ORDER_TOTAL_LOWORDERFEE_LOW_ORDER_FEE == 'true') {
             switch (MODULE_ORDER_TOTAL_LOWORDERFEE_DESTINATION) {
-            case 'national':
-                if ($oOrder->delivery['country_id'] == STORE_COUNTRY) {
+                case 'national':
+                    if ($oOrder->delivery['country_id'] == STORE_COUNTRY) {
+                        $pass = true;
+                    }
+                    break;
+                case 'international':
+                    if ($oOrder->delivery['country_id'] != STORE_COUNTRY) {
+                        $pass = true;
+                    }
+                    break;
+                case 'both':
                     $pass = true;
-                }
-                break;
-            case 'international':
-                if ($oOrder->delivery['country_id'] != STORE_COUNTRY) {
-                    $pass = true;
-                }
-                break;
-            case 'both':
-                $pass = true;
-                break;
-            default:
-                $pass = false;
-                break;
+                    break;
+                default:
+                    $pass = false;
+                    break;
             }
 
             if (($pass == true) && (($_SESSION['cart']->info['total'] - $_SESSION['cart']->info['shipping_cost']) < MODULE_ORDER_TOTAL_LOWORDERFEE_ORDER_UNDER)) {
@@ -136,8 +136,8 @@ class ot_loworderfee
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_LOWORDERFEE_STATUS', 'true', '6', '1','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
@@ -153,8 +153,8 @@ class ot_loworderfee
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");

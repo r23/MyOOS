@@ -19,7 +19,7 @@ class PatchRequest extends PayPalModel
      * Placeholder for holding array of patch objects
      *
      * @param \PayPal\Api\Patch[] $patches
-     * 
+     *
      * @return $this
      */
     public function setPatches($patches)

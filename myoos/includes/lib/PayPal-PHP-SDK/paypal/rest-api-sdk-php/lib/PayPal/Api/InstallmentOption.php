@@ -22,7 +22,7 @@ class InstallmentOption extends PayPalModel
      * Number of installments
      *
      * @param int $term
-     * 
+     *
      * @return $this
      */
     public function setTerm($term)
@@ -45,7 +45,7 @@ class InstallmentOption extends PayPalModel
      * Monthly payment
      *
      * @param \PayPal\Api\Currency $monthly_payment
-     * 
+     *
      * @return $this
      */
     public function setMonthlyPayment($monthly_payment)
@@ -68,7 +68,7 @@ class InstallmentOption extends PayPalModel
      * Discount amount applied to the payment, if any
      *
      * @param \PayPal\Api\Currency $discount_amount
-     * 
+     *
      * @return $this
      */
     public function setDiscountAmount($discount_amount)
@@ -91,7 +91,7 @@ class InstallmentOption extends PayPalModel
      * Discount percentage applied to the payment, if any
      *
      * @param string $discount_percentage
-     * 
+     *
      * @return $this
      */
     public function setDiscountPercentage($discount_percentage)

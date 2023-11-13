@@ -34,7 +34,7 @@ class Order extends PayPalResourceModel
      * Identifier of the order transaction.
      *
      * @param string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -107,7 +107,7 @@ class Order extends PayPalResourceModel
      * Amount being collected.
      *
      * @param \PayPal\Api\Amount $amount
-     * 
+     *
      * @return $this
      */
     public function setAmount($amount)
@@ -131,7 +131,7 @@ class Order extends PayPalResourceModel
      * Valid Values: ["INSTANT_TRANSFER", "MANUAL_BANK_TRANSFER", "DELAYED_TRANSFER", "ECHECK"]
      *
      * @param string $payment_mode
-     * 
+     *
      * @return $this
      */
     public function setPaymentMode($payment_mode)
@@ -155,7 +155,7 @@ class Order extends PayPalResourceModel
      * Valid Values: ["pending", "completed", "voided", "authorized", "captured"]
      *
      * @param string $state
-     * 
+     *
      * @return $this
      */
     public function setState($state)
@@ -179,7 +179,7 @@ class Order extends PayPalResourceModel
      * Valid Values: ["PAYER_SHIPPING_UNCONFIRMED", "MULTI_CURRENCY", "RISK_REVIEW", "REGULATORY_REVIEW", "VERIFICATION_REQUIRED", "ORDER", "OTHER"]
      *
      * @param string $reason_code
-     * 
+     *
      * @return $this
      */
     public function setReasonCode($reason_code)
@@ -199,11 +199,11 @@ class Order extends PayPalResourceModel
     }
 
     /**
-     * [DEPRECATED] Reason code for the transaction state being Pending. Obsolete. Retained for backward compatability. Use reason_code field above instead. 
+     * [DEPRECATED] Reason code for the transaction state being Pending. Obsolete. Retained for backward compatability. Use reason_code field above instead.
      * Valid Values: ["payer_shipping_unconfirmed", "multi_currency", "risk_review", "regulatory_review", "verification_required", "order", "other"]
      *
      * @param string $pending_reason
-     * 
+     *
      * @return $this
      */
     public function setPendingReason($pending_reason)
@@ -213,7 +213,7 @@ class Order extends PayPalResourceModel
     }
 
     /**
-     * @deprecated [DEPRECATED] Reason code for the transaction state being Pending. Obsolete. Retained for backward compatability. Use reason_code field above instead. 
+     * @deprecated [DEPRECATED] Reason code for the transaction state being Pending. Obsolete. Retained for backward compatability. Use reason_code field above instead.
      *
      * @return string
      */
@@ -227,7 +227,7 @@ class Order extends PayPalResourceModel
      * Valid Values: ["ELIGIBLE", "PARTIALLY_ELIGIBLE", "INELIGIBLE"]
      *
      * @param string $protection_eligibility
-     * 
+     *
      * @return $this
      */
     public function setProtectionEligibility($protection_eligibility)
@@ -251,7 +251,7 @@ class Order extends PayPalResourceModel
      * Valid Values: ["ITEM_NOT_RECEIVED_ELIGIBLE", "UNAUTHORIZED_PAYMENT_ELIGIBLE", "ITEM_NOT_RECEIVED_ELIGIBLE,UNAUTHORIZED_PAYMENT_ELIGIBLE"]
      *
      * @param string $protection_eligibility_type
-     * 
+     *
      * @return $this
      */
     public function setProtectionEligibilityType($protection_eligibility_type)
@@ -274,7 +274,7 @@ class Order extends PayPalResourceModel
      * ID of the Payment resource that this transaction is based on.
      *
      * @param string $parent_payment
-     * 
+     *
      * @return $this
      */
     public function setParentPayment($parent_payment)
@@ -297,7 +297,7 @@ class Order extends PayPalResourceModel
      * Fraud Management Filter (FMF) details applied for the payment that could result in accept/deny/pending action.
      *
      * @param \PayPal\Api\FmfDetails $fmf_details
-     * 
+     *
      * @return $this
      */
     public function setFmfDetails($fmf_details)
@@ -320,7 +320,7 @@ class Order extends PayPalResourceModel
      * Time the resource was created in UTC ISO8601 format.
      *
      * @param string $create_time
-     * 
+     *
      * @return $this
      */
     public function setCreateTime($create_time)
@@ -343,7 +343,7 @@ class Order extends PayPalResourceModel
      * Time the resource was last updated in UTC ISO8601 format.
      *
      * @param string $update_time
-     * 
+     *
      * @return $this
      */
     public function setUpdateTime($update_time)

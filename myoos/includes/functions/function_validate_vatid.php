@@ -11,27 +11,27 @@
    ----------------------------------------------------------------------
  */
 
-  /**
-   * VALID VAT NUMBER
-   *
-   * @package VATChecker
-   * @license GPL <http://www.gnu.org/licenses/gpl.html>
-   * @link    http://www.oos-shop.de
-   */
+/**
+ * VALID VAT NUMBER
+ *
+ * @package VATChecker
+ * @license GPL <http://www.gnu.org/licenses/gpl.html>
+ * @link    http://www.oos-shop.de
+ */
 
-  /**
-   * ensure this file is being included by a parent file
-   */
-  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+/**
+ * ensure this file is being included by a parent file
+ */
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
- /**
-  * Send request to VIES site and retrieve results
-  *
-  * @access public
-  * @param  string
-  * @return mixed
-  */
+/**
+ * Send request to VIES site and retrieve results
+ *
+ * @access public
+ * @param  string
+ * @return mixed
+ */
 function load_data($url)
 {
     $url = parse_url((string) $url);
@@ -67,22 +67,22 @@ function load_data($url)
 }
 
 
- /**
-  * Send & request to VIES site and interprets results
-  *
-  * @access public
-  * @param  string
-  * @return boolean
-  */
+/**
+ * Send & request to VIES site and interprets results
+ *
+ * @access public
+ * @param  string
+ * @return boolean
+ */
 function oos_validate_is_vatid($sVatno)
 {
     $sVatno = trim((string) $sVatno);
     $sVatno = strtoupper($sVatno);
 
     $aRemove = [' ', '-', '/', '.', ':', ',', ';', '#'];
-    
+
     $n = is_countable($aRemove) ? count($aRemove) : 0;
-    for ($i=0, $n; $i<$n; $i++) {
+    for ($i = 0, $n; $i < $n; $i++) {
         $sVatno = str_replace($aRemove[$i], '', $sVatno);
     }
 

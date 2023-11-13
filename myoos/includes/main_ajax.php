@@ -81,7 +81,7 @@ if (!oosDBInit()) {
     die('Unable to connect to database server!');
 }
 
-$dbconn =& oosDBGetConn();
+$dbconn = & oosDBGetConn();
 oosDB_importTables($oostable);
 
 // set the application parameters

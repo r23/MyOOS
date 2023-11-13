@@ -22,7 +22,7 @@ class Cost extends PayPalModel
      * Cost in percent. Range of 0 to 100.
      *
      * @param string $percent
-     * 
+     *
      * @return $this
      */
     public function setPercent($percent)
@@ -47,7 +47,7 @@ class Cost extends PayPalModel
      * The cost, as an amount. Valid range is from 0 to 1,000,000.
      *
      * @param \PayPal\Api\Currency $amount
-     * 
+     *
      * @return $this
      */
     public function setAmount($amount)

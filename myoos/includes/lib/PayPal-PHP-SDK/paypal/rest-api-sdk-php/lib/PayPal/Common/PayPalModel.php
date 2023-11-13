@@ -11,7 +11,6 @@ use PayPal\Validation\JsonValidator;
  */
 class PayPalModel implements \Stringable
 {
-
     private array $_propMap = [];
 
     /**
@@ -44,16 +43,16 @@ class PayPalModel implements \Stringable
     public function __construct($data = null)
     {
         switch (gettype($data)) {
-        case "NULL":
-            break;
-        case "string":
-            JsonValidator::validate($data);
-            $this->fromJson($data);
-            break;
-        case "array":
-            $this->fromArray($data);
-            break;
-        default:
+            case "NULL":
+                break;
+            case "string":
+                JsonValidator::validate($data);
+                $this->fromJson($data);
+                break;
+            case "array":
+                $this->fromArray($data);
+                break;
+            default:
         }
     }
 
@@ -219,7 +218,7 @@ class PayPalModel implements \Stringable
                             $this->assignValue($k, $o);
                         } elseif (ArrayUtil::isAssocArray($v)) {
                             /**
- * @var self $o 
+ * @var self $o
 */
                             $o = new $clazz();
                             $o->fromArray($v);

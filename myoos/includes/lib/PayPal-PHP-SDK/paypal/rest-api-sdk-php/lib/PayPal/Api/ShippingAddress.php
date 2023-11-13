@@ -18,7 +18,7 @@ class ShippingAddress extends Address
      *
      * @deprecated Not publicly available
      * @param      string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -42,7 +42,7 @@ class ShippingAddress extends Address
      * Name of the recipient at this address.
      *
      * @param string $recipient_name
-     * 
+     *
      * @return $this
      */
     public function setRecipientName($recipient_name)
@@ -66,7 +66,7 @@ class ShippingAddress extends Address
      *
      * @deprecated Not publicly available
      * @param      bool $default_address
-     * 
+     *
      * @return $this
      */
     public function setDefaultAddress($default_address)
@@ -91,7 +91,7 @@ class ShippingAddress extends Address
      *
      * @deprecated Not publicly available
      * @param      bool $preferred_address
-     * 
+     *
      * @return $this
      */
     public function setPreferredAddress($preferred_address)

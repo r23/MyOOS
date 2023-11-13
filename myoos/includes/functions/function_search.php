@@ -20,23 +20,23 @@
    ----------------------------------------------------------------------
  */
 
-  /**
-   * ensure this file is being included by a parent file
-   */
-  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+/**
+ * ensure this file is being included by a parent file
+ */
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
- /**
-  * Return all subcategory IDs
-  *
-  * @param $aSubcategories
-  * @param $nParentId
-  */
+/**
+ * Return all subcategory IDs
+ *
+ * @param $aSubcategories
+ * @param $nParentId
+ */
 function oos_get_subcategories(&$aSubcategories, $nParentId = 0)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $categoriestable = $oostable['categories'];
     $query = "SELECT categories_id
@@ -71,7 +71,7 @@ function &oos_parse_search_string(string $sSearch = ''): array|bool
     $tmpstring = '';
     $flag = '';
 
-    for ($k=0; $k<(is_countable($pieces) ? count($pieces) : 0); $k++) {
+    for ($k = 0; $k < (is_countable($pieces) ? count($pieces) : 0); $k++) {
         while (str_starts_with($pieces[$k], '(')) {
             $objects[] = '(';
             if (strlen($pieces[$k] ?? '') > 1) {
@@ -92,11 +92,11 @@ function &oos_parse_search_string(string $sSearch = ''): array|bool
             }
         }
 
-        // Check individual words    
+        // Check individual words
         if (!str_contains($pieces[$k], '"')) {
             $objects[] = trim((string) $pieces[$k]);
 
-            for ($j=0; $j<count($post_objects); $j++) {
+            for ($j = 0; $j < count($post_objects); $j++) {
                 $objects[] = $post_objects[$j];
             }
         } else {
@@ -117,7 +117,7 @@ function &oos_parse_search_string(string $sSearch = ''): array|bool
 
                 $objects[] = trim((string) $pieces[$k]);
 
-                for ($j=0; $j<count($post_objects); $j++) {
+                for ($j = 0; $j < count($post_objects); $j++) {
                     $objects[] = $post_objects[$j];
                 }
 
@@ -166,7 +166,7 @@ function &oos_parse_search_string(string $sSearch = ''): array|bool
                     // Push the $tmpstring onto the array of stuff to search for
                     $objects[] = trim((string) $tmpstring);
 
-                    for ($j=0; $j<count($post_objects); $j++) {
+                    for ($j = 0; $j < count($post_objects); $j++) {
                         $objects[] = $post_objects[$j];
                     }
 
@@ -181,17 +181,17 @@ function &oos_parse_search_string(string $sSearch = ''): array|bool
 
     // add default logical operators if needed
     $temp = [];
-    for ($i=0; $i<(count($objects)-1); $i++) {
+    for ($i = 0; $i < (count($objects) - 1); $i++) {
         $temp[count($temp)] = $objects[$i];
 
         if (($objects[$i] != 'and')
             && ($objects[$i] != 'or')
             && ($objects[$i] != '(')
             && ($objects[$i] != ')')
-            && ($objects[$i+1] != 'and')
-            && ($objects[$i+1] != 'or')
-            && ($objects[$i+1] != '(')
-            && ($objects[$i+1] != ')')
+            && ($objects[$i + 1] != 'and')
+            && ($objects[$i + 1] != 'or')
+            && ($objects[$i + 1] != '(')
+            && ($objects[$i + 1] != ')')
         ) {
             $temp[count($temp)] = ADVANCED_SEARCH_DEFAULT_OPERATOR;
         }
@@ -202,7 +202,7 @@ function &oos_parse_search_string(string $sSearch = ''): array|bool
     $keyword_count = 0;
     $operator_count = 0;
     $balance = 0;
-    for ($i=0; $i<count($objects); $i++) {
+    for ($i = 0; $i < count($objects); $i++) {
         if ($objects[$i] == '(') {
             $balance --;
         }
@@ -224,14 +224,14 @@ function &oos_parse_search_string(string $sSearch = ''): array|bool
 }
 
 
- /**
-  * Check date
-  *
-  * @param  $date_to_check
-  * @param  $format_string
-  * @param  $date_array
-  * @return boolean
-  */
+/**
+ * Check date
+ *
+ * @param  $date_to_check
+ * @param  $format_string
+ * @param  $date_array
+ * @return boolean
+ */
 function oos_checkdate($date_to_check, $format_string, &$date_array)
 {
     $separators = ['-', ' ', '/', '.'];
@@ -245,7 +245,7 @@ function oos_checkdate($date_to_check, $format_string, &$date_array)
     }
 
     $size = count($separators);
-    for ($i=0; $i<$size; $i++) {
+    for ($i = 0; $i < $size; $i++) {
         $pos_separator = strpos((string) $date_to_check, $separators[$i]);
         if ($pos_separator != false) {
             $date_separator_idx = $i;
@@ -253,7 +253,7 @@ function oos_checkdate($date_to_check, $format_string, &$date_array)
         }
     }
 
-    for ($i=0; $i<$size; $i++) {
+    for ($i = 0; $i < $size; $i++) {
         $pos_separator = strpos($format_string, $separators[$i]);
         if ($pos_separator != false) {
             $format_separator_idx = $i;
@@ -277,7 +277,7 @@ function oos_checkdate($date_to_check, $format_string, &$date_array)
         }
 
         $size = count($format_string_array);
-        for ($i=0; $i<$size; $i++) {
+        for ($i = 0; $i < $size; $i++) {
             if ($format_string_array[$i] == 'mm' || $format_string_array[$i] == 'mmm') {
                 $month = $date_to_check_array[$i];
             }
@@ -294,7 +294,7 @@ function oos_checkdate($date_to_check, $format_string, &$date_array)
             if ($pos_month != false) {
                 $month = substr((string) $date_to_check, $pos_month, 3);
                 $size = count($month_abbr);
-                for ($i=0; $i<$size; $i++) {
+                for ($i = 0; $i < $size; $i++) {
                     if ($month == $month_abbr[$i]) {
                         $month = $i;
                         break;
@@ -341,12 +341,12 @@ function oos_checkdate($date_to_check, $format_string, &$date_array)
 }
 
 
- /**
-  * Check if year is a leap year
-  *
-  * @param  $year
-  * @return boolean
-  */
+/**
+ * Check if year is a leap year
+ *
+ * @param  $year
+ * @return boolean
+ */
 function oos_is_leap_year($year)
 {
     if ($year % 100 == 0) {

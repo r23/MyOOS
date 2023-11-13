@@ -20,7 +20,7 @@
  * @param  string
  * @return string
  */
-function smarty_modifier_gravatar($email, $default=false, $size=false, $rating=false, $border=false)
+function smarty_modifier_gravatar($email, $default = false, $size = false, $rating = false, $border = false)
 {
     $gravurl = "<img src='http://www.gravatar.com/avatar.php?gravatar_id=".md5((string) $email);
     if ($default) {

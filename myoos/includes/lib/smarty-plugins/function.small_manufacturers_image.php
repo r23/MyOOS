@@ -41,24 +41,24 @@ function smarty_function_small_manufacturers_image($params, &$smarty)
 
     foreach ($params as $_key => $_val) {
         switch ($_key) {
-        case 'image':
-        case 'basedir':
-        case 'alt':
-        case 'class':
-            if (!is_array($_val)) {
-                ${$_key} = smarty_function_escape_special_chars($_val);
-            } else {
-                throw new SmartyException("small_category_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
-            }
-            break;
+            case 'image':
+            case 'basedir':
+            case 'alt':
+            case 'class':
+                if (!is_array($_val)) {
+                    ${$_key} = smarty_function_escape_special_chars($_val);
+                } else {
+                    throw new SmartyException("small_category_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                }
+                break;
 
-        default:
-            if (!is_array($_val)) {
-                $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
-            } else {
-                throw new SmartyException("small_category_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
-            }
-            break;
+            default:
+                if (!is_array($_val)) {
+                    $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
+                } else {
+                    throw new SmartyException("small_category_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                }
+                break;
         }
     }
 

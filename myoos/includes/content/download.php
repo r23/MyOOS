@@ -20,10 +20,10 @@
    ----------------------------------------------------------------------
  */
 
-  /**
-   * ensure this file is being included by a parent file
-   */
-  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+/**
+ * ensure this file is being included by a parent file
+ */
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 if (!isset($_SESSION['customer_id'])) {
     die;
@@ -35,13 +35,13 @@ if ((isset($_GET['order']) && !is_numeric($_GET['order'])) || (isset($_GET['id']
 }
 
 
-  /**
-   * Returns a random name, 16 to 20 characters long
-   * There are more than 10^28 combinations
-   * The directory is "hidden", i.e. starts with '.'
-   *
-   * @return string
-   */
+/**
+ * Returns a random name, 16 to 20 characters long
+ * There are more than 10^28 combinations
+ * The directory is "hidden", i.e. starts with '.'
+ *
+ * @return string
+ */
 function oos_random_name()
 {
     $letters = 'abcdefghijklmnopqrstuvwxyz';
@@ -56,10 +56,10 @@ function oos_random_name()
 }
 
 
-  /**
-   * Unlinks all subdirectories and files in $dir
-   * Works only on one subdir level, will not recurse
-   */
+/**
+ * Unlinks all subdirectories and files in $dir
+ * Works only on one subdir level, will not recurse
+ */
 function oos_unlink_temp_dir($dir)
 {
     $h1 = opendir($dir);
@@ -95,7 +95,7 @@ $order = filter_input(INPUT_GET, 'order', FILTER_VALIDATE_INT);
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
 // Check that order_id, customer_id and filename match
-   $sql = "SELECT date_format(o.date_purchased, '%Y-%m-%d') AS date_purchased_day, 
+$sql = "SELECT date_format(o.date_purchased, '%Y-%m-%d') AS date_purchased_day, 
                   opd.download_maxdays, opd.download_count, opd.download_maxdays, 
                   opd.orders_products_filename 
            FROM " . $oostable['orders'] . " o, 
@@ -107,14 +107,14 @@ $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
              AND op.orders_products_id = opd.orders_products_id 
              AND opd.orders_products_download_id = '" . intval($id) . "' 
              AND opd.orders_products_filename != ''";
-  $downloads_result = $dbconn->Execute($sql);
+$downloads_result = $dbconn->Execute($sql);
 if (!$downloads_result->RecordCount()) {
     die;
 }
-  $downloads = $downloads_result->fields;
-  // MySQL 3.22 does not have INTERVAL
-  [$dt_year, $dt_month, $dt_day] = explode('-', (string) $downloads['date_purchased_day']);
-  $download_timestamp = mktime(23, 59, 59, $dt_month, $dt_day + $downloads['download_maxdays'], $dt_year);
+$downloads = $downloads_result->fields;
+// MySQL 3.22 does not have INTERVAL
+[$dt_year, $dt_month, $dt_day] = explode('-', (string) $downloads['date_purchased_day']);
+$download_timestamp = mktime(23, 59, 59, $dt_month, $dt_day + $downloads['download_maxdays'], $dt_year);
 
 
 // Die if time expired (maxdays = 0 means no time limit)
@@ -141,13 +141,13 @@ $dbconn->Execute(
 );
 
 
-  // Now send the file with header() magic
-  header("Expires: Mon, 26 Nov 1962 00:00:00 GMT");
-  header("Last-Modified: " . gmdate("D,d M Y H:i:s") . " GMT");
-  header("Cache-Control: no-cache, must-revalidate");
-  header("Pragma: no-cache");
-  header("Content-Type: Application/octet-stream");
-  header("Content-disposition: attachment; filename=" . $downloads['orders_products_filename']);
+// Now send the file with header() magic
+header("Expires: Mon, 26 Nov 1962 00:00:00 GMT");
+header("Last-Modified: " . gmdate("D,d M Y H:i:s") . " GMT");
+header("Cache-Control: no-cache, must-revalidate");
+header("Pragma: no-cache");
+header("Content-Type: Application/octet-stream");
+header("Content-disposition: attachment; filename=" . $downloads['orders_products_filename']);
 
 if (DOWNLOAD_BY_REDIRECT == 'true') {
     // This will work only on Unix/Linux hosts

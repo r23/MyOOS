@@ -18,21 +18,21 @@
    ----------------------------------------------------------------------
  */
 
-  /**
-   * ensure this file is being included by a parent file
-   */
-  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+/**
+ * ensure this file is being included by a parent file
+ */
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-  /**
-   * Class Products History
-   *
-   * @link      https://www.oos-shop.de Latest release of this class
-   * @package   Products History
-   * @copyright Copyright (c) 2003 - 2004 r23.de. All rights reserved.
-   * @author    r23 <info@r23.de>
-   * @version   $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/07 16:06:31 $
-   * @access    public
-   */
+/**
+ * Class Products History
+ *
+ * @link      https://www.oos-shop.de Latest release of this class
+ * @package   Products History
+ * @copyright Copyright (c) 2003 - 2004 r23.de. All rights reserved.
+ * @author    r23 <info@r23.de>
+ * @version   $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/07 16:06:31 $
+ * @access    public
+ */
 class oosProductsHistory
 {
     /**

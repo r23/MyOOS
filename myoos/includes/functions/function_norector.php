@@ -25,23 +25,23 @@
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
- /**
-  * ready operating system output
-  * <br>
-  * Gets a variable, cleaning it up such that any attempts
-  * to access files outside of the scope of the PostNuke
-  * system is not allowed
-  *
-  * @author    PostNuke Content Management System
-  * @copyright Copyright (C) 2001 by the Post-Nuke Development Team.
-  * @version   Revision: 2.0  - changed by Author: r23  on Date: 2004/01/12 06:02:08
-  * @access    private
-  * @param     let variable to prepare
-  * @param     ...
-  * @returns   string/array
-  * in, otherwise an array of prepared variables
-  * @noRector
-  */
+/**
+ * ready operating system output
+ * <br>
+ * Gets a variable, cleaning it up such that any attempts
+ * to access files outside of the scope of the PostNuke
+ * system is not allowed
+ *
+ * @author    PostNuke Content Management System
+ * @copyright Copyright (C) 2001 by the Post-Nuke Development Team.
+ * @version   Revision: 2.0  - changed by Author: r23  on Date: 2004/01/12 06:02:08
+ * @access    private
+ * @param     let variable to prepare
+ * @param     ...
+ * @returns   string/array
+ * in, otherwise an array of prepared variables
+ * @noRector
+ */
 function oos_var_prep_for_os(...$args)
 {
     static $search = [
@@ -57,7 +57,7 @@ function oos_var_prep_for_os(...$args)
     static $replace = ['', '', '_', '_'];
 
     $resarray = [];
-    
+
     // Pass through each argument that is passed to the function
     foreach ($args as $ourvar) {
         $ourvar = preg_replace($search, $replace, $ourvar);
@@ -76,4 +76,3 @@ function oos_var_prep_for_os(...$args)
         return $resarray;
     }
 }
-

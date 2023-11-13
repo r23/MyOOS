@@ -18,7 +18,7 @@ class InvoiceSearchResponse extends PayPalModel
      * Total number of invoices.
      *
      * @param int $total_count
-     * 
+     *
      * @return $this
      */
     public function setTotalCount($total_count)
@@ -41,7 +41,7 @@ class InvoiceSearchResponse extends PayPalModel
      * List of invoices belonging to a merchant.
      *
      * @param \PayPal\Api\Invoice[] $invoices
-     * 
+     *
      * @return $this
      */
     public function setInvoices($invoices)

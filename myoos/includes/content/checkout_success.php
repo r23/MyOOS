@@ -55,7 +55,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'notify_process')
 
         $products_notificationstable = $oostable['products_notifications'];
         $n = is_countable($notify) ? count($notify) : 0;
-        for ($i=0, $n; $i<$n; $i++) {
+        for ($i = 0, $n; $i < $n; $i++) {
             $sql = "SELECT COUNT(*) AS total
                 FROM $products_notificationstable
                 WHERE products_id = '" . intval($notify[$i]) . "'
@@ -80,12 +80,12 @@ if (isset($_POST['action']) && ($_POST['action'] == 'notify_process')
 $oBreadcrumb->add($aLang['navbar_title_1']);
 $oBreadcrumb->add($aLang['navbar_title_2']);
 
-  $customers_infotable = $oostable['customers_info'];
-  $sql = "SELECT global_product_notifications 
+$customers_infotable = $oostable['customers_info'];
+$sql = "SELECT global_product_notifications 
           FROM $customers_infotable
           WHERE customers_info_id = '" . intval($_SESSION['customer_id']) . "'";
-  $global_result = $dbconn->Execute($sql);
-  $global = $global_result->fields;
+$global_result = $dbconn->Execute($sql);
+$global = $global_result->fields;
 
 if ($global['global_product_notifications'] != '1') {
     $orderstable = $oostable['orders'];
@@ -122,7 +122,7 @@ if ($global['global_product_notifications'] != '1') {
 
     $products_displayed = [];
     $n = is_countable($products_array) ? count($products_array) : 0;
-    for ($i=0, $n; $i<$n; $i++) {
+    for ($i = 0, $n; $i < $n; $i++) {
         if (!in_array($products_array[$i]['id'], $products_displayed)) {
             $products_notify .= oos_draw_checkbox_field('notify[]', $products_array[$i]['id']) . ' ' . $products_array[$i]['text'] . '<br />';
             $products_displayed[] = $products_array[$i]['id'];

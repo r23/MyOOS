@@ -26,7 +26,7 @@ class BaseAddress extends PayPalModel
      * Line 1 of the Address (eg. number, street, etc).
      *
      * @param string $line1
-     * 
+     *
      * @return $this
      */
     public function setLine1($line1)
@@ -49,7 +49,7 @@ class BaseAddress extends PayPalModel
      * Optional line 2 of the Address (eg. suite, apt #, etc.).
      *
      * @param string $line2
-     * 
+     *
      * @return $this
      */
     public function setLine2($line2)
@@ -72,7 +72,7 @@ class BaseAddress extends PayPalModel
      * City name.
      *
      * @param string $city
-     * 
+     *
      * @return $this
      */
     public function setCity($city)
@@ -95,7 +95,7 @@ class BaseAddress extends PayPalModel
      * 2 letter country code.
      *
      * @param string $country_code
-     * 
+     *
      * @return $this
      */
     public function setCountryCode($country_code)
@@ -118,7 +118,7 @@ class BaseAddress extends PayPalModel
      * Zip code or equivalent is usually required for countries that have them. For list of countries that do not have postal codes please refer to http://en.wikipedia.org/wiki/Postal_code.
      *
      * @param string $postal_code
-     * 
+     *
      * @return $this
      */
     public function setPostalCode($postal_code)
@@ -141,7 +141,7 @@ class BaseAddress extends PayPalModel
      * 2 letter code for US states, and the equivalent for other countries.
      *
      * @param string $state
-     * 
+     *
      * @return $this
      */
     public function setState($state)

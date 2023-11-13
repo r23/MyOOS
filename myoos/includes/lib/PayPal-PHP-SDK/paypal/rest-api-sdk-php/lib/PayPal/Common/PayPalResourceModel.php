@@ -15,7 +15,6 @@ use PayPal\Transport\PayPalRestCall;
  */
 class PayPalResourceModel extends PayPalModel implements IResource
 {
-
     /**
      * Sets Links
      *

@@ -159,7 +159,7 @@ if (isset($_SESSION)) {
             $n = is_countable($products) ? count($products) : 0;
             $nError = 0;
 
-            for ($i=0, $n; $i<$n; $i++) {
+            for ($i = 0, $n; $i < $n; $i++) {
                 $hidden_field .= oos_draw_hidden_field('products_id[]', $products[$i]['id']);
 
                 // Display marker if stock quantity insufficient

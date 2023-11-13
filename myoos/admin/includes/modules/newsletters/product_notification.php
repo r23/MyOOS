@@ -21,10 +21,10 @@
    ----------------------------------------------------------------------
  */
 
-  /**
-   * ensure this file is being included by a parent file
-   */
-  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+/**
+ * ensure this file is being included by a parent file
+ */
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 class product_notification
 {
@@ -38,8 +38,8 @@ class product_notification
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $aContents = oos_get_content();
 
@@ -52,7 +52,7 @@ class product_notification
             $products_result->MoveNext();
         }
 
-        $choose_audience_string = '<script nonce="' . NONCE . '">'
+        $choose_audience_string = '<script nonce="' . NONCE . '">
 function mover(move) {
   if (move == \'remove\') {
     for (x=0; x<(document.notifications.products.length); x++) {
@@ -112,8 +112,8 @@ function selectAll(FormName, SelectBox) {
         $audience = [];
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $aContents = oos_get_content();
 
@@ -196,8 +196,8 @@ function selectAll(FormName, SelectBox) {
         $audience = [];
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         if ($_POST['GLOBAL'] == 'true') {
             $products_result = $dbconn->Execute("SELECT distinct pn.customers_id, c.customers_firstname, c.customers_lastname, c.customers_email_address FROM " . $oostable['customers'] . " c, " . $oostable['products_notifications'] . " pn WHERE c.customers_id = pn.customers_id");
@@ -234,7 +234,7 @@ function selectAll(FormName, SelectBox) {
         }
 
         // Instantiate a new mail object
-        $send_mail = new PHPMailer\PHPMailer\PHPMailer();    
+        $send_mail = new PHPMailer\PHPMailer\PHPMailer();
 
         $sLang = ($_SESSION['iso_639_1'] ?? DEFAULT_LANGUAGE_CODE);
         $send_mail->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/language/');
@@ -253,20 +253,20 @@ function selectAll(FormName, SelectBox) {
 
         $send_mail->From = STORE_OWNER_EMAIL_ADDRESS;
         $send_mail->FromName = STORE_OWNER;
- 
+
 
         // Add smtp values if needed
         if (EMAIL_TRANSPORT == 'smtp') {
             $send_mail->IsSMTP(); // set mailer to use SMTP
-        
+
             // $send_mail->SMTPDebug = PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
-        
-            $send_mail->Host     = OOS_SMTPHOST; // specify main and backup server        
+
+            $send_mail->Host     = OOS_SMTPHOST; // specify main and backup server
             $send_mail->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
             $send_mail->Username = OOS_SMTPUSER; // SMTP username
             $send_mail->Password = OOS_SMTPPASS; // SMTP password
-        
-        
+
+
             // Set the encryption mechanism to use:
             // - SMTPS (implicit TLS on port 465) or
             // - STARTTLS (explicit TLS on port 587)
@@ -279,7 +279,7 @@ function selectAll(FormName, SelectBox) {
             // Set the SMTP port number:
             // - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or
             // - 587 for SMTP+STARTTLS
-            $send_mail->Port = OOS_SMTPPORT;         
+            $send_mail->Port = OOS_SMTPPORT;
 
         } else {
             // Set sendmail path

@@ -27,7 +27,7 @@ class WebProfile extends PayPalResourceModel
      * The unique ID of the web experience profile.
      *
      * @param string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -50,7 +50,7 @@ class WebProfile extends PayPalResourceModel
      * The web experience profile name. Unique for a specified merchant's profiles.
      *
      * @param string $name
-     * 
+     *
      * @return $this
      */
     public function setName($name)
@@ -73,7 +73,7 @@ class WebProfile extends PayPalResourceModel
      * Indicates whether the profile persists for three hours or permanently. Set to `false` to persist the profile permanently. Set to `true` to persist the profile for three hours.
      *
      * @param bool $temporary
-     * 
+     *
      * @return $this
      */
     public function setTemporary($temporary)
@@ -96,7 +96,7 @@ class WebProfile extends PayPalResourceModel
      * Parameters for flow configuration.
      *
      * @param \PayPal\Api\FlowConfig $flow_config
-     * 
+     *
      * @return $this
      */
     public function setFlowConfig($flow_config)
@@ -119,7 +119,7 @@ class WebProfile extends PayPalResourceModel
      * Parameters for input fields customization.
      *
      * @param \PayPal\Api\InputFields $input_fields
-     * 
+     *
      * @return $this
      */
     public function setInputFields($input_fields)
@@ -142,7 +142,7 @@ class WebProfile extends PayPalResourceModel
      * Parameters for style and presentation.
      *
      * @param \PayPal\Api\Presentation $presentation
-     * 
+     *
      * @return $this
      */
     public function setPresentation($presentation)

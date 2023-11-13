@@ -21,7 +21,7 @@ class Billing extends PayPalModel
      * Identifier of the instrument in PayPal Wallet
      *
      * @param string $billing_agreement_id
-     * 
+     *
      * @return $this
      */
     public function setBillingAgreementId($billing_agreement_id)

@@ -21,10 +21,10 @@
  */
 
 
-  /**
-   * ensure this file is being included by a parent file
-   */
-  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+/**
+ * ensure this file is being included by a parent file
+ */
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 class upload
 {
@@ -80,7 +80,7 @@ class upload
             }
 
             if (sizeof($this->extensions) > 0) {
-                if (!in_array(strtolower(substr((string) $file['name'], strrpos((string) $file['name'], '.')+1)), $this->extensions)) {
+                if (!in_array(strtolower(substr((string) $file['name'], strrpos((string) $file['name'], '.') + 1)), $this->extensions)) {
                     if ($this->message_location == 'direct') {
                         $oMessage->add($aLang['error_filetype_not_allowed'], 'error');
                     } else {

@@ -29,7 +29,7 @@ define('MODULE_SHIPPING_ZONES_STATUS_DESC', 'Möchten Sie Versandkosten Zonenbas
 define('MODULE_SHIPPING_ZONES_SORT_ORDER_TITLE', 'Sortierreihenfolge');
 define('MODULE_SHIPPING_ZONES_SORT_ORDER_DESC', 'Reihenfolge der Anzeige');
 
-for ($j=0;$j<NUMBER_OF_ZONES;$j++) {
+for ($j = 0;$j < NUMBER_OF_ZONES;$j++) {
     define('MODULE_SHIPPING_ZONES_COUNTRIES_'.$j.'_TITLE', 'Zone '.$j.' Länder');
     define('MODULE_SHIPPING_ZONES_COUNTRIES_'.$j.'_DESC', 'Durch Komma getrennte Liste von ISO Ländercodes (2 Zeichen), welche Teil von Zone '.$j.' sind.');
 

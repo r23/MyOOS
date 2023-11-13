@@ -22,29 +22,29 @@
  */
 
 
- /**
-  * look in your $PATH_LOCALE/locale directory for available locales..
-  * on RedHat try 'de_DE'
-  * on FreeBSD try 'de_DE.ISO_8859-1'
-  * on Windows try 'de' or 'German'
-  */
-  define('THE_LOCALE', 'de_DE');
-  define('DATE_FORMAT_SHORT', '%d.%m.%Y');
-  define('DATE_FORMAT_LONG', '%A, %d. %B %Y');
-  define('DATE_FORMAT', 'd.m.Y');
-  define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
-  define('DATE_TIME_FORMAT_SHORT', '%H:%M:%S');
+/**
+ * look in your $PATH_LOCALE/locale directory for available locales..
+ * on RedHat try 'de_DE'
+ * on FreeBSD try 'de_DE.ISO_8859-1'
+ * on Windows try 'de' or 'German'
+ */
+define('THE_LOCALE', 'de_DE');
+define('DATE_FORMAT_SHORT', '%d.%m.%Y');
+define('DATE_FORMAT_LONG', '%A, %d. %B %Y');
+define('DATE_FORMAT', 'd.m.Y');
+define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
+define('DATE_TIME_FORMAT_SHORT', '%H:%M:%S');
 
 
- /**
-  * Return date in raw format
-  * $date should be in format mm/dd/yyyy
-  * raw date is in format YYYYMMDD, or DDMMYYYY
-  *
-  * @param  $date
-  * @param  $reverse
-  * @return string
-  */
+/**
+ * Return date in raw format
+ * $date should be in format mm/dd/yyyy
+ * raw date is in format YYYYMMDD, or DDMMYYYY
+ *
+ * @param  $date
+ * @param  $reverse
+ * @return string
+ */
 function oos_date_raw($date, $reverse = false)
 {
     if ($reverse) {
@@ -199,7 +199,7 @@ $aLang = [
 'review_headline'                 => 'Die Überschrift muss mindestens aus 10 Buchstaben bestehen.',
 'form_error'                      => '<strong>Notwendige Angaben fehlen!</strong> Bitte richtig ausfüllen.',
 
-	
+
 // javascript messages
 'js_error'                        => 'Notwendige Angaben fehlen!\nBitte richtig ausfüllen.\n\n',
 'js_gender'                       => '* Anredeform festlegen.\n',

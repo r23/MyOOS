@@ -62,7 +62,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
     if (ACCOUNT_DOB == 'true') {
         $dob = filter_string_polyfill(filter_input(INPUT_POST, 'dob'));
     }
-     $email_address = filter_input(INPUT_POST, 'email_address', FILTER_VALIDATE_EMAIL);
+    $email_address = filter_input(INPUT_POST, 'email_address', FILTER_VALIDATE_EMAIL);
     if (ACCOUNT_TELEPHONE  == 'true') {
         $telephone = filter_string_polyfill(filter_input(INPUT_POST, 'telephone'));
     }

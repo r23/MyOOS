@@ -19,7 +19,7 @@ class TemplateSettingsMetadata extends PayPalModel
      * Indicates whether this field should be hidden. default is false
      *
      * @param bool $hidden
-     * 
+     *
      * @return $this
      */
     public function setHidden($hidden)

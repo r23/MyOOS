@@ -39,7 +39,7 @@ class TemplateData extends PayPalModel
      * Information about the merchant who is sending the invoice.
      *
      * @param \PayPal\Api\MerchantInfo $merchant_info
-     * 
+     *
      * @return $this
      */
     public function setMerchantInfo($merchant_info)
@@ -62,7 +62,7 @@ class TemplateData extends PayPalModel
      * The required invoice recipient email address and any optional billing information. One recipient is supported.
      *
      * @param \PayPal\Api\BillingInfo[] $billing_info
-     * 
+     *
      * @return $this
      */
     public function setBillingInfo($billing_info)
@@ -115,7 +115,7 @@ class TemplateData extends PayPalModel
      * For invoices sent by email, one or more email addresses to which to send a Cc: copy of the notification. Supports only email addresses under participant.
      *
      * @param string[] $cc_info
-     * 
+     *
      * @return $this
      */
     public function setCcInfo($cc_info)
@@ -168,7 +168,7 @@ class TemplateData extends PayPalModel
      * The shipping information for entities to whom items are being shipped.
      *
      * @param \PayPal\Api\ShippingInfo $shipping_info
-     * 
+     *
      * @return $this
      */
     public function setShippingInfo($shipping_info)
@@ -191,7 +191,7 @@ class TemplateData extends PayPalModel
      * The list of items to include in the invoice. Maximum value is 100 items per invoice.
      *
      * @param \PayPal\Api\InvoiceItem[] $items
-     * 
+     *
      * @return $this
      */
     public function setItems($items)
@@ -244,7 +244,7 @@ class TemplateData extends PayPalModel
      * Optional. The payment deadline for the invoice. Value is either `term_type` or `due_date` but not both.
      *
      * @param \PayPal\Api\PaymentTerm $payment_term
-     * 
+     *
      * @return $this
      */
     public function setPaymentTerm($payment_term)
@@ -267,7 +267,7 @@ class TemplateData extends PayPalModel
      * Reference data, such as PO number, to add to the invoice. Maximum length is 60 characters.
      *
      * @param string $reference
-     * 
+     *
      * @return $this
      */
     public function setReference($reference)
@@ -290,7 +290,7 @@ class TemplateData extends PayPalModel
      * The invoice level discount, as a percent or an amount value.
      *
      * @param \PayPal\Api\Cost $discount
-     * 
+     *
      * @return $this
      */
     public function setDiscount($discount)
@@ -313,7 +313,7 @@ class TemplateData extends PayPalModel
      * The shipping cost, as a percent or an amount value.
      *
      * @param \PayPal\Api\ShippingCost $shipping_cost
-     * 
+     *
      * @return $this
      */
     public function setShippingCost($shipping_cost)
@@ -336,7 +336,7 @@ class TemplateData extends PayPalModel
      * The custom amount to apply on an invoice. If you include a label, the amount cannot be empty.
      *
      * @param \PayPal\Api\CustomAmount $custom
-     * 
+     *
      * @return $this
      */
     public function setCustom($custom)
@@ -359,7 +359,7 @@ class TemplateData extends PayPalModel
      * Indicates whether the invoice allows a partial payment. If set to `false`, invoice must be paid in full. If set to `true`, the invoice allows partial payments. Default is `false`.
      *
      * @param bool $allow_partial_payment
-     * 
+     *
      * @return $this
      */
     public function setAllowPartialPayment($allow_partial_payment)
@@ -382,7 +382,7 @@ class TemplateData extends PayPalModel
      * If `allow_partial_payment` is set to `true`, the minimum amount allowed for a partial payment.
      *
      * @param \PayPal\Api\Currency $minimum_amount_due
-     * 
+     *
      * @return $this
      */
     public function setMinimumAmountDue($minimum_amount_due)
@@ -405,7 +405,7 @@ class TemplateData extends PayPalModel
      * Indicates whether tax is calculated before or after a discount. If set to `false`, the tax is calculated before a discount. If set to `true`, the tax is calculated after a discount. Default is `false`.
      *
      * @param bool $tax_calculated_after_discount
-     * 
+     *
      * @return $this
      */
     public function setTaxCalculatedAfterDiscount($tax_calculated_after_discount)
@@ -428,7 +428,7 @@ class TemplateData extends PayPalModel
      * Indicates whether the unit price includes tax. Default is `false`.
      *
      * @param bool $tax_inclusive
-     * 
+     *
      * @return $this
      */
     public function setTaxInclusive($tax_inclusive)
@@ -451,7 +451,7 @@ class TemplateData extends PayPalModel
      * General terms of the invoice. 4000 characters max.
      *
      * @param string $terms
-     * 
+     *
      * @return $this
      */
     public function setTerms($terms)
@@ -474,7 +474,7 @@ class TemplateData extends PayPalModel
      * Note to the payer. 4000 characters max.
      *
      * @param string $note
-     * 
+     *
      * @return $this
      */
     public function setNote($note)
@@ -497,7 +497,7 @@ class TemplateData extends PayPalModel
      * A private bookkeeping memo for the merchant. Maximum length is 150 characters.
      *
      * @param string $merchant_memo
-     * 
+     *
      * @return $this
      */
     public function setMerchantMemo($merchant_memo)
@@ -544,7 +544,7 @@ class TemplateData extends PayPalModel
      * The total amount of the invoice.
      *
      * @param \PayPal\Api\Currency $total_amount
-     * 
+     *
      * @return $this
      */
     public function setTotalAmount($total_amount)
@@ -567,7 +567,7 @@ class TemplateData extends PayPalModel
      * List of files attached to the invoice.
      *
      * @param \PayPal\Api\FileAttachment[] $attachments
-     * 
+     *
      * @return $this
      */
     public function setAttachments($attachments)

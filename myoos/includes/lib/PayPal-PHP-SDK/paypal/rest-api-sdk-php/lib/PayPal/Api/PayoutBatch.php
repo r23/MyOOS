@@ -21,7 +21,7 @@ class PayoutBatch extends PayPalModel
      * A batch header. Includes the generated batch status.
      *
      * @param \PayPal\Api\PayoutBatchHeader $batch_header
-     * 
+     *
      * @return $this
      */
     public function setBatchHeader($batch_header)
@@ -44,7 +44,7 @@ class PayoutBatch extends PayPalModel
      * An array of items in a batch payout.
      *
      * @param \PayPal\Api\PayoutItemDetails[] $items
-     * 
+     *
      * @return $this
      */
     public function setItems($items)

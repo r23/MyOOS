@@ -24,7 +24,7 @@ class RefundRequest extends PayPalModel
      * Details including both refunded amount (to payer) and refunded fee (to payee).
      *
      * @param \PayPal\Api\Amount $amount
-     * 
+     *
      * @return $this
      */
     public function setAmount($amount)
@@ -47,7 +47,7 @@ class RefundRequest extends PayPalModel
      * Description of what is being refunded for. Character length and limitations: 255 single-byte alphanumeric characters.
      *
      * @param string $description
-     * 
+     *
      * @return $this
      */
     public function setDescription($description)
@@ -71,7 +71,7 @@ class RefundRequest extends PayPalModel
      * Valid Values: ["INSTANT_FUNDING_SOURCE", "ECHECK", "UNRESTRICTED"]
      *
      * @param string $refund_source
-     * 
+     *
      * @return $this
      */
     public function setRefundSource($refund_source)
@@ -94,7 +94,7 @@ class RefundRequest extends PayPalModel
      * Reason description for the Sale transaction being refunded.
      *
      * @param string $reason
-     * 
+     *
      * @return $this
      */
     public function setReason($reason)
@@ -117,7 +117,7 @@ class RefundRequest extends PayPalModel
      * The invoice number that is used to track this payment. Character length and limitations: 127 single-byte alphanumeric characters.
      *
      * @param string $invoice_number
-     * 
+     *
      * @return $this
      */
     public function setInvoiceNumber($invoice_number)
@@ -140,7 +140,7 @@ class RefundRequest extends PayPalModel
      * Flag to indicate that the buyer was already given store credit for a given transaction.
      *
      * @param bool $refund_advice
-     * 
+     *
      * @return $this
      */
     public function setRefundAdvice($refund_advice)

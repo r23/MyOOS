@@ -11,18 +11,18 @@
    ----------------------------------------------------------------------
  */
 
-  /**
-   * ensure this file is being included by a parent file
-   */
-  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+/**
+ * ensure this file is being included by a parent file
+ */
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
- /**
-  * Decode string encoded with htmlspecialchars()
-  *
-  * @param  $sStr
-  * @return string
-  */
+/**
+ * Decode string encoded with htmlspecialchars()
+ *
+ * @param  $sStr
+ * @return string
+ */
 function oos_decode_special_chars($sStr)
 {
     $sStr = str_replace('&gt;', '>', (string) $sStr);
@@ -35,12 +35,12 @@ function oos_decode_special_chars($sStr)
 }
 
 
- /**
-  * string encoded
-  *
-  * @param  $sStr
-  * @return string
-  */
+/**
+ * string encoded
+ *
+ * @param  $sStr
+ * @return string
+ */
 function oos_make_filename($sStr)
 {
     static $aFrom = [
@@ -178,12 +178,12 @@ function oos_make_filename($sStr)
     return $sStr;
 }
 
-  /**
-   * string encoded
-   *
-   * @param  $sStr
-   * @return string
-   */
+/**
+ * string encoded
+ *
+ * @param  $sStr
+ * @return string
+ */
 function oos_html_to_xml($sStr)
 {
 

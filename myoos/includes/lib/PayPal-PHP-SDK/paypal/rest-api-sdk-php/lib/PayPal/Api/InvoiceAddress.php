@@ -17,7 +17,7 @@ class InvoiceAddress extends BaseAddress
      * Phone number in E.123 format.
      *
      * @param \PayPal\Api\Phone $phone
-     * 
+     *
      * @return $this
      */
     public function setPhone($phone)

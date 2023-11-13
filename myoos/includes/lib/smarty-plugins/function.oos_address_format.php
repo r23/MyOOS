@@ -51,8 +51,8 @@ function smarty_function_oos_address_format($params, &$smarty)
         ${$_key} = smarty_function_escape_special_chars($_val);
     }
 
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $address_formattable = $oostable['address_format'];
     $query = "SELECT address_format AS format
@@ -64,12 +64,12 @@ function smarty_function_oos_address_format($params, &$smarty)
     $company = (isset($address['company'])) ? oos_db_output($address['company']) : '';
     $firstname = (isset($address['firstname'])) ? oos_db_output($address['firstname']) : '';
     $lastname = (isset($address['lastname'])) ? oos_db_output($address['lastname']) : '';
-    $street = (isset($address['street_address'])) ? oos_db_output($address['street_address']) : '';    
+    $street = (isset($address['street_address'])) ? oos_db_output($address['street_address']) : '';
     $city = (isset($address['city'])) ? oos_db_output($address['city']) : '';
     $state = (isset($address['state'])) ? oos_db_output($address['state']) : '';
     $country_id = (isset($address['country_id'])) ? intval($address['country_id']) : STORE_COUNTRY;
-    $country_id = (isset($address['country_id'])) ? intval($address['country_id']) : STORE_COUNTRY;    
-    $zone_id = (isset($address['zone_id'])) ? oos_db_output($address['zone_id']) : '';    
+    $country_id = (isset($address['country_id'])) ? intval($address['country_id']) : STORE_COUNTRY;
+    $zone_id = (isset($address['zone_id'])) ? oos_db_output($address['zone_id']) : '';
     $zip = (isset($address['postcode'])) ? oos_db_output($address['postcode']) : '';
 
     $country = oos_get_country_name($country_id);

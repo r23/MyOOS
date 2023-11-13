@@ -321,7 +321,7 @@ if ($action == 'edit_3d') {
     <?php echo oos_draw_form('id', 'new_product', $aContents['product_webgl_gltf'], 'cPath=' . oos_prepare_input($cPath) . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=' . $form_action, 'post', false, 'enctype="multipart/form-data"'); ?>
     <?php
 
-	$sFormid = md5(uniqid(random_int(0, mt_getrandmax()), true));
+    $sFormid = md5(uniqid(random_int(0, mt_getrandmax()), true));
     $_SESSION['formid'] = $sFormid;
     echo oos_draw_hidden_field('formid', $sFormid);
     echo oos_draw_hidden_field('products_id', $pInfo->products_id);

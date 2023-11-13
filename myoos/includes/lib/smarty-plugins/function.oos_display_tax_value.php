@@ -63,13 +63,13 @@ function smarty_function_oos_display_tax_value($params, &$smarty)
     }
     if ($padding > 0) {
         if ($decimal_pos = strpos($value, '.')) {
-            $decimals = strlen(substr($value, ($decimal_pos+1)));
-            for ($i=$decimals; $i<$padding; $i++) {
+            $decimals = strlen(substr($value, ($decimal_pos + 1)));
+            for ($i = $decimals; $i < $padding; $i++) {
                 $value .= '0';
             }
         } else {
             $value .= '.';
-            for ($i=0; $i<$padding; $i++) {
+            for ($i = 0; $i < $padding; $i++) {
                 $value .= '0';
             }
         }

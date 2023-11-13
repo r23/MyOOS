@@ -27,7 +27,7 @@ class PayoutBatchHeader extends PayPalModel
      * The PayPal-generated ID for a batch payout.
      *
      * @param string $payout_batch_id
-     * 
+     *
      * @return $this
      */
     public function setPayoutBatchId($payout_batch_id)
@@ -50,7 +50,7 @@ class PayoutBatchHeader extends PayPalModel
      * The PayPal-generated batch payout status. If the batch payout passes the preliminary checks, the status is `PENDING`.
      *
      * @param string $batch_status
-     * 
+     *
      * @return $this
      */
     public function setBatchStatus($batch_status)
@@ -119,7 +119,7 @@ class PayoutBatchHeader extends PayPalModel
      * The original batch header as provided by the payment sender.
      *
      * @param \PayPal\Api\PayoutSenderBatchHeader $sender_batch_header
-     * 
+     *
      * @return $this
      */
     public function setSenderBatchHeader($sender_batch_header)
@@ -211,7 +211,7 @@ class PayoutBatchHeader extends PayPalModel
      * Sets Links
      *
      * @param \PayPal\Api\Links[] $links
-     * 
+     *
      * @return $this
      */
     public function setLinks($links)

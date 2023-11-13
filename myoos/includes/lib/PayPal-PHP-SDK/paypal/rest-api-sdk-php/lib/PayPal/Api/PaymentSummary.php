@@ -20,7 +20,7 @@ class PaymentSummary extends PayPalModel
      * Total Amount paid/refunded via PayPal.
      *
      * @param \PayPal\Api\Currency $paypal
-     * 
+     *
      * @return $this
      */
     public function setPaypal($paypal)
@@ -43,7 +43,7 @@ class PaymentSummary extends PayPalModel
      * Total Amount paid/refunded via other sources.
      *
      * @param \PayPal\Api\Currency $other
-     * 
+     *
      * @return $this
      */
     public function setOther($other)

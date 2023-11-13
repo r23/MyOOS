@@ -45,8 +45,8 @@ function chartLine($xAxisData, $seriesData, $title = '')
     $title && $chart->title->text = $title;
     $chart->color = $color;
     $chart->tooltip->trigger = 'axis';
-	$chart->tooltip->formatter = '{b} <br>{a} <b>{c}€</b>';
-	# $chart->tooltip->backgroundColor = '#BFBBB8'; // eine feste Farbe
+    $chart->tooltip->formatter = '{b} <br>{a} <b>{c}€</b>';
+    # $chart->tooltip->backgroundColor = '#BFBBB8'; // eine feste Farbe
 
 
     $chart->toolbox->show = true;
@@ -54,7 +54,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
     $chart->toolbox->feature->dataView->readOnly = true;
     $chart->toolbox->feature->magicType->type = ['line', 'bar'];
-	
+
     $chart->toolbox->feature->saveAsImage = [];
 
     $sCurrency = ($_SESSION['currency'] ?? DEFAULT_CURRENCY);
@@ -81,15 +81,15 @@ function chartLine($xAxisData, $seriesData, $title = '')
         $series->type = 'line';
         $series->step = 'end';
         $series->data = $ser['data'];
-		$series->label = [
-			'show' => true,
-			'formatter' => "
+        $series->label = [
+            'show' => true,
+            'formatter' => "
 				function (params)
 				{
 					return params.value + ' " . $symbol_left . $symbol_right . "'
 				}
 			"
-		];	
+        ];
         $chart->addSeries($series);
     }
 
@@ -104,31 +104,31 @@ $startD = filter_input(INPUT_GET, 'startD', FILTER_VALIDATE_INT) ?: 2;
 
 $last_show_date = 0;
 
-$startDate_1 = mktime(0, 0, 0, date("m"), date("d")-30, date("Y"));
-$startDate_2 = mktime(0, 0, 0, date("m"), date("d")-90, date("Y"));
-$startDate_3 = mktime(0, 0, 0, date("m"), date("d")-183, date("Y"));
-$startDate_4 = mktime(0, 0, 0, date("m"), date("d")-365, date("Y"));
+$startDate_1 = mktime(0, 0, 0, date("m"), date("d") - 30, date("Y"));
+$startDate_2 = mktime(0, 0, 0, date("m"), date("d") - 90, date("Y"));
+$startDate_3 = mktime(0, 0, 0, date("m"), date("d") - 183, date("Y"));
+$startDate_4 = mktime(0, 0, 0, date("m"), date("d") - 365, date("Y"));
 
 switch ($startD) {
-case '1':
-    $startDate = $startDate_1;
-    break;
+    case '1':
+        $startDate = $startDate_1;
+        break;
 
-case '2':
-    $startDate = $startDate_2;
-    break;
+    case '2':
+        $startDate = $startDate_2;
+        break;
 
-case '3':
-    $startDate = $startDate_3;
-    break;
+    case '3':
+        $startDate = $startDate_3;
+        break;
 
-case '4':
-    $startDate = $startDate_4;
-    break;
+    case '4':
+        $startDate = $startDate_4;
+        break;
 
-default:
-    $startDate = $startDate_2;
-    break;
+    default:
+        $startDate = $startDate_2;
+        break;
 }
 
 $endDate = mktime(0, 0, 0, date("m"), date("d") + 1, date("Y"));
@@ -186,7 +186,7 @@ $sql = "SELECT products_price AS previous_price
 		FROM $products_price_historytable 
 		WHERE products_id = '" . $nProductsID . "' 
 		  AND date_added <= '" . date("Y-m-d\TH:i:s", $startDate). "'
-		ORDER BY date_added DESC LIMIT 1";	   
+		ORDER BY date_added DESC LIMIT 1";
 $previous_price_result = $dbconn->Execute($sql);
 $prev_price = $previous_price_result->fields;
 $previous_price = $oCurrencies->schema_price($prev_price['previous_price'], oos_get_tax_rate($product_info['products_tax_class_id']), 1, false);
@@ -203,13 +203,13 @@ $sql = "SELECT products_price, date_added
       ORDER BY date_added ASC";
 $price_history_result = $dbconn->Execute($sql);
 while ($price_history = $price_history_result->fields) {
-	$history_price = $oCurrencies->schema_price($price_history['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']), 1, false);
+    $history_price = $oCurrencies->schema_price($price_history['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']), 1, false);
 
-	$aDate[] = oos_date_short($price_history['date_added']);
-	$aData[] = $history_price;
+    $aDate[] = oos_date_short($price_history['date_added']);
+    $aData[] = $history_price;
 
-	// Move that ADOdb pointer!
-	$price_history_result->MoveNext();
+    // Move that ADOdb pointer!
+    $price_history_result->MoveNext();
 }
 
 // current price with date

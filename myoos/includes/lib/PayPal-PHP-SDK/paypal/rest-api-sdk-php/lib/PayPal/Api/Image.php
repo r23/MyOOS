@@ -17,7 +17,7 @@ class Image extends PayPalModel
      * List of invoices belonging to a merchant.
      *
      * @param string $imageBase64String
-     * 
+     *
      * @return $this
      */
     public function setImage($imageBase64String)

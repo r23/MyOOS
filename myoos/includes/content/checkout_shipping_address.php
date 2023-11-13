@@ -189,7 +189,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'submit')
             $next_id_result = $dbconn->Execute($sql);
             if ($next_id_result->RecordCount()) {
                 $next_id = $next_id_result->fields;
-                $entry_id = $next_id['address_book_id']+1;
+                $entry_id = $next_id['address_book_id'] + 1;
             } else {
                 $entry_id = 1;
             }

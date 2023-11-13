@@ -9,7 +9,6 @@ namespace PayPal\Exception;
  */
 class PayPalConfigurationException extends \Exception
 {
-
     /**
      * Default Constructor
      *

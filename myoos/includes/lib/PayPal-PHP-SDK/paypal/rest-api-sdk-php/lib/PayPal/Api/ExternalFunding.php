@@ -24,7 +24,7 @@ class ExternalFunding extends PayPalModel
      * Unique identifier for the external funding
      *
      * @param string $reference_id
-     * 
+     *
      * @return $this
      */
     public function setReferenceId($reference_id)
@@ -47,7 +47,7 @@ class ExternalFunding extends PayPalModel
      * Generic identifier for the external funding
      *
      * @param string $code
-     * 
+     *
      * @return $this
      */
     public function setCode($code)
@@ -70,7 +70,7 @@ class ExternalFunding extends PayPalModel
      * Encrypted PayPal Account identifier for the funding account
      *
      * @param string $funding_account_id
-     * 
+     *
      * @return $this
      */
     public function setFundingAccountId($funding_account_id)
@@ -93,7 +93,7 @@ class ExternalFunding extends PayPalModel
      * Description of the external funding being applied
      *
      * @param string $display_text
-     * 
+     *
      * @return $this
      */
     public function setDisplayText($display_text)
@@ -116,7 +116,7 @@ class ExternalFunding extends PayPalModel
      * Amount being funded by the external funding account
      *
      * @param \PayPal\Api\Amount $amount
-     * 
+     *
      * @return $this
      */
     public function setAmount($amount)

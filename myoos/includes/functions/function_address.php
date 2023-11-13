@@ -20,33 +20,33 @@
    ----------------------------------------------------------------------
  */
 
- /**
-  * address
-  *
-  * @link    https://www.oos-shop.de
-  * @package oos_address
-  * @version $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/12 16:49:27 $
-  */
+/**
+ * address
+ *
+ * @link    https://www.oos-shop.de
+ * @package oos_address
+ * @version $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/12 16:49:27 $
+ */
 
-  /**
-   * ensure this file is being included by a parent file
-   */
-  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+/**
+ * ensure this file is being included by a parent file
+ */
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
- /**
-  * Returns the zone (State/Province) code
-  *
-  * @param  $country_id
-  * @param  $zone_id
-  * @param  $default_zone
-  * @return string
-  */
+/**
+ * Returns the zone (State/Province) code
+ *
+ * @param  $country_id
+ * @param  $zone_id
+ * @param  $default_zone
+ * @return string
+ */
 function oos_get_zone_code($country_id, $zone_id, $default_zone)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $zonestable = $oostable['zones'];
     $zone = $dbconn->Execute("SELECT zone_code FROM $zonestable WHERE zone_country_id = '" . intval($country_id) . "' AND zone_id = '" . intval($zone_id) . "'");
@@ -58,18 +58,18 @@ function oos_get_zone_code($country_id, $zone_id, $default_zone)
 }
 
 
- /**
-  * Returns the address_format_id for the given country
-  *
-  * @param  $country_id
-  * @return string
-  */
+/**
+ * Returns the address_format_id for the given country
+ *
+ * @param  $country_id
+ * @return string
+ */
 function oos_get_address_format_id($country_id)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $countriestable = $oostable['countries'];
     $address_format = $dbconn->Execute("SELECT address_format_id AS format_id FROM $countriestable WHERE countries_id = '" . intval($country_id) . "'");
@@ -81,22 +81,22 @@ function oos_get_address_format_id($country_id)
 }
 
 
- /**
-  * Return a formatted address
-  *
-  * @param  $address_format_id
-  * @param  $address
-  * @param  $html
-  * @param  $boln
-  * @param  $eoln
-  * @return string
-  */
+/**
+ * Return a formatted address
+ *
+ * @param  $address_format_id
+ * @param  $address
+ * @param  $html
+ * @param  $boln
+ * @param  $eoln
+ * @return string
+ */
 function oos_address_format($address_format_id, $address, $html, $boln, $eoln)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $address_formattable = $oostable['address_format'];
     $address_format_result = $dbconn->Execute("SELECT address_format AS format FROM $address_formattable WHERE address_format_id = '" . intval($address_format_id) . "'");
@@ -159,25 +159,25 @@ function oos_address_format($address_format_id, $address, $html, $boln, $eoln)
 }
 
 
- /**
-  * Return a formatted address
-  *
-  * @param $customers_id
-  * @param $address_id
-  * @param $html
-  * @param $boln
-  * @param $eoln
-  * @param $address
-  * @param $html
-  * @param $boln
-  * @param $eoln
-  */
+/**
+ * Return a formatted address
+ *
+ * @param $customers_id
+ * @param $address_id
+ * @param $html
+ * @param $boln
+ * @param $eoln
+ * @param $address
+ * @param $html
+ * @param $boln
+ * @param $eoln
+ */
 function oos_address_label($customers_id, $address_id = 1, $html = false, $boln = '', $eoln = "\n")
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $address_booktable = $oostable['address_book'];
     $query = "SELECT entry_firstname AS firstname, entry_lastname AS lastname, entry_company AS company,
@@ -206,8 +206,8 @@ function oos_count_customer_address_book_entries($id = '', $check_session = true
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     if (is_numeric($id) == false) {
         if ($_SESSION['customer_id']) {

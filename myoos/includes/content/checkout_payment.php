@@ -72,7 +72,7 @@ if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
 if (TAKE_BACK_OBLIGATION == 'true') {
     $products = $_SESSION['cart']->get_products();
     $n = is_countable($products) ? count($products) : 0;
-    for ($i=0, $n; $i<$n; $i++) {
+    for ($i = 0, $n; $i < $n; $i++) {
         if (($products[$i]['old_electrical_equipment'] == 1) && ($products[$i]['return_free_of_charge'] == '')) {
             oos_redirect(oos_href_link($aContents['shopping_cart']));
         }
@@ -98,7 +98,7 @@ if ((STOCK_CHECK == 'true') && (STOCK_ALLOW_CHECKOUT != 'true')) {
     $products = $_SESSION['cart']->get_products();
     $any_out_of_stock = 0;
     $n = is_countable($products) ? count($products) : 0;
-    for ($i=0, $n; $i<$n; $i++) {
+    for ($i = 0, $n; $i < $n; $i++) {
         if (oos_check_stock($products[$i]['id'], $products[$i]['quantity'])) {
             $any_out_of_stock = 1;
         }

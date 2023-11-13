@@ -27,65 +27,65 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 
 switch ($_GET['action']) {
 
-case 'url':
-    if (isset($_GET['goto']) && oos_is_not_null($_GET['goto'])) {
-        $sgoto = filter_string_polyfill(filter_input(INPUT_GET, 'goto'));
+    case 'url':
+        if (isset($_GET['goto']) && oos_is_not_null($_GET['goto'])) {
+            $sgoto = filter_string_polyfill(filter_input(INPUT_GET, 'goto'));
 
-        if (empty($sgoto) || !is_string($sgoto)) {
-            oos_redirect(oos_href_link($aContents['403']));
+            if (empty($sgoto) || !is_string($sgoto)) {
+                oos_redirect(oos_href_link($aContents['403']));
+            }
+
+            $products_descriptiontable = $oostable['products_description'];
+            $check_sql = "SELECT products_url FROM $products_descriptiontable WHERE products_url = '" . oos_db_input($sgoto) . "'";
+            $check_result = $dbconn->Execute($check_sql);
+
+            if ($check_result->RecordCount() >= 1) {
+                oos_redirect('https://' . $sgoto);
+            }
         }
-
-        $products_descriptiontable = $oostable['products_description'];
-        $check_sql = "SELECT products_url FROM $products_descriptiontable WHERE products_url = '" . oos_db_input($sgoto) . "'";
-        $check_result = $dbconn->Execute($check_sql);
-
-        if ($check_result->RecordCount() >= 1) {
-            oos_redirect('https://' . $sgoto);
-        }
-    }
-    break;
+        break;
 
 
-case 'manufacturer':
-    if (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
-        $manufacturers_id = filter_input(INPUT_GET, 'manufacturers_id', FILTER_VALIDATE_INT);
+    case 'manufacturer':
+        if (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
+            $manufacturers_id = filter_input(INPUT_GET, 'manufacturers_id', FILTER_VALIDATE_INT);
 
-        $manufacturers_infotable = $oostable['manufacturers_info'];
-        $sql = "SELECT manufacturers_url
+            $manufacturers_infotable = $oostable['manufacturers_info'];
+            $sql = "SELECT manufacturers_url
 					FROM $manufacturers_infotable
                     WHERE manufacturers_id = '" . intval($manufacturers_id) . "'
                     AND manufacturers_languages_id = '" .  intval($nLanguageID) . "'";
-        $manufacturer_result = $dbconn->Execute($sql);
+            $manufacturer_result = $dbconn->Execute($sql);
 
-        if (!$manufacturer_result->RecordCount()) {
-            // no url exists for the selected language, lets use the default language then
-            $manufacturers_infotable = $oostable['manufacturers_info'];
-            $languagestable = $oostable['languages'];
-            $sql = "SELECT mi.manufacturers_languages_id, mi.manufacturers_url 
+            if (!$manufacturer_result->RecordCount()) {
+                // no url exists for the selected language, lets use the default language then
+                $manufacturers_infotable = $oostable['manufacturers_info'];
+                $languagestable = $oostable['languages'];
+                $sql = "SELECT mi.manufacturers_languages_id, mi.manufacturers_url 
 							FROM $manufacturers_infotable mi,
 								$languagestable l
 							WHERE mi.manufacturers_id = '" . intval($manufacturers_id) . "' 
 							AND mi.manufacturers_languages_id = l.iso_639_2 
                             AND l.iso_639_2 = '" . DEFAULT_LANGUAGE . "'";
-            $manufacturer_result = $dbconn->Execute($sql);
-            if (!$manufacturer_result->RecordCount()) {
-                // no url exists, return to the site
-                oos_redirect(oos_href_link($aContents['home']));
+                $manufacturer_result = $dbconn->Execute($sql);
+                if (!$manufacturer_result->RecordCount()) {
+                    // no url exists, return to the site
+                    oos_redirect(oos_href_link($aContents['home']));
+                } else {
+                    $manufacturer = $manufacturer_result->fields;
+                    $manufacturers_infotable = $oostable['manufacturers_info'];
+                    $dbconn->Execute("UPDATE $manufacturers_infotable SET url_clicked = url_clicked+1, date_last_click = now() WHERE manufacturers_id = '" . intval($manufacturers_id) . "' AND manufacturers_languages_id = '" . intval($manufacturer['manufacturers_languages_id']) . "'");
+                }
             } else {
+                // url exists in selected language
                 $manufacturer = $manufacturer_result->fields;
                 $manufacturers_infotable = $oostable['manufacturers_info'];
-                $dbconn->Execute("UPDATE $manufacturers_infotable SET url_clicked = url_clicked+1, date_last_click = now() WHERE manufacturers_id = '" . intval($manufacturers_id) . "' AND manufacturers_languages_id = '" . intval($manufacturer['manufacturers_languages_id']) . "'");
+                $dbconn->Execute("UPDATE $manufacturers_infotable SET url_clicked = url_clicked+1, date_last_click = now() WHERE manufacturers_id = '" . intval($manufacturers_id) . "' AND manufacturers_languages_id = '" .  intval($nLanguageID) . "'");
             }
-        } else {
-            // url exists in selected language
-            $manufacturer = $manufacturer_result->fields;
-            $manufacturers_infotable = $oostable['manufacturers_info'];
-            $dbconn->Execute("UPDATE $manufacturers_infotable SET url_clicked = url_clicked+1, date_last_click = now() WHERE manufacturers_id = '" . intval($manufacturers_id) . "' AND manufacturers_languages_id = '" .  intval($nLanguageID) . "'");
-        }
 
-        oos_redirect($manufacturer['manufacturers_url']);
-    }
-    break;
+            oos_redirect($manufacturer['manufacturers_url']);
+        }
+        break;
 
 }
 

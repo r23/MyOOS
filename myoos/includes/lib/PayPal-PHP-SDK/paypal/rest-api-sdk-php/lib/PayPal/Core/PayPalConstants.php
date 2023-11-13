@@ -10,7 +10,6 @@ namespace PayPal\Core;
  */
 class PayPalConstants
 {
-
     final public const SDK_NAME = 'PayPal-PHP-SDK';
     final public const SDK_VERSION = '1.14.0';
 

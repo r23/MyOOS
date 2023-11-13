@@ -31,7 +31,7 @@ function oos_get_manufacturers()
         $aManufacturers = [];
     }
 
-    $dbconn =& oosDBGetConn();
+    $dbconn = & oosDBGetConn();
     $oostable = oosDBGetTables();
 
     $manufacturers_result = $dbconn->Execute("SELECT manufacturers_id, manufacturers_name FROM " . $oostable['manufacturers'] . " ORDER BY manufacturers_name");

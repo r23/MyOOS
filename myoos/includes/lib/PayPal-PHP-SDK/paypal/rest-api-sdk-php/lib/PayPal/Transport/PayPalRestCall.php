@@ -1,4 +1,5 @@
 <?php
+
 namespace PayPal\Transport;
 
 use PayPal\Core\PayPalHttpConfig;
@@ -13,8 +14,6 @@ use PayPal\Rest\ApiContext;
  */
 class PayPalRestCall
 {
-
-
     /**
      * Paypal Logger
      *
@@ -56,7 +55,7 @@ class PayPalRestCall
         }
 
         /**
- * @var \Paypal\Handler\IPayPalHandler $handler 
+ * @var \Paypal\Handler\IPayPalHandler $handler
 */
         foreach ($handlers as $handler) {
             if (!is_object($handler)) {

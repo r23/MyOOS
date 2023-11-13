@@ -96,33 +96,33 @@ class GoogleSitemap
         }
 
         switch ($compress) {
-        case 'true':
-            $filename .= '.xml.gz';
-            if ($gz = gzopen($filename, 'wb9')) {
-                gzwrite($gz, $data);
-                gzclose($gz);
-                $this->debug['SAVE_FILE_COMPRESS'][] = ['file' => $filename, 'status' => 'success', 'file_exists' => 'true'];
-                return true;
-            } else {
-                $file_check = file_exists($filename) ? 'true' : 'false';
-                $this->debug['SAVE_FILE_COMPRESS'][] = ['file' => $filename, 'status' => 'failure', 'file_exists' => $file_check];
-                return false;
-            }
-            break;
+            case 'true':
+                $filename .= '.xml.gz';
+                if ($gz = gzopen($filename, 'wb9')) {
+                    gzwrite($gz, $data);
+                    gzclose($gz);
+                    $this->debug['SAVE_FILE_COMPRESS'][] = ['file' => $filename, 'status' => 'success', 'file_exists' => 'true'];
+                    return true;
+                } else {
+                    $file_check = file_exists($filename) ? 'true' : 'false';
+                    $this->debug['SAVE_FILE_COMPRESS'][] = ['file' => $filename, 'status' => 'failure', 'file_exists' => $file_check];
+                    return false;
+                }
+                break;
 
-        default:
-               $filename .= '.xml';
-            if ($fp = fopen($filename, 'w+')) {
-                fwrite($fp, $data);
-                fclose($fp);
-                $this->debug['SAVE_FILE_XML'][] = ['file' => $filename, 'status' => 'success', 'file_exists' => 'true'];
-                return true;
-            } else {
-                $file_check = file_exists($filename) ? 'true' : 'false';
-                $this->debug['SAVE_FILE_XML'][] = ['file' => $filename, 'status' => 'failure', 'file_exists' => $file_check];
-                return false;
-            }
-            break;
+            default:
+                $filename .= '.xml';
+                if ($fp = fopen($filename, 'w+')) {
+                    fwrite($fp, $data);
+                    fclose($fp);
+                    $this->debug['SAVE_FILE_XML'][] = ['file' => $filename, 'status' => 'success', 'file_exists' => 'true'];
+                    return true;
+                } else {
+                    $file_check = file_exists($filename) ? 'true' : 'false';
+                    $this->debug['SAVE_FILE_XML'][] = ['file' => $filename, 'status' => 'failure', 'file_exists' => $file_check];
+                    return false;
+                }
+                break;
 
         }
     }
@@ -142,7 +142,7 @@ class GoogleSitemap
         if ($gz_out = gzopen($filename, 'wb9')) {
             if ($fp_in = fopen($source, 'rb')) {
                 while (!feof($fp_in)) {
-                    gzwrite($gz_out, fread($fp_in, 1024*512));
+                    gzwrite($gz_out, fread($fp_in, 1024 * 512));
                 }
                 fclose($fp_in);
             } else {
@@ -218,8 +218,8 @@ class GoogleSitemap
      */
     public function GenerateProductSitemap()
     {
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
         $aContents = oos_get_content();
 
         $sql = "SELECT products_id as pid, products_date_added as date_added,
@@ -239,7 +239,7 @@ class GoogleSitemap
                 $location = oos_href_link($aContents['product_info'], 'products_id=' . $result['pid'], false, true);
                 $lastmod = oos_is_not_null($result['last_mod']) ? $result['last_mod'] : $result['date_added'];
                 $changefreq = GOOGLE_SITEMAP_PROD_CHANGE_FREQ;
-                $ratio = $top > 0 ? $result['products_ordered']/$top : 0;
+                $ratio = $top > 0 ? $result['products_ordered'] / $top : 0;
                 $priority = $ratio < .1 ? .1 : number_format($ratio, 1, '.', '');
 
                 $container[] = ['loc' => htmlspecialchars((string)$location, ENT_QUOTES, 'UTF-8'), 'lastmod' => date("Y-m-d", strtotime((string) $lastmod)), 'changefreq' => $changefreq, 'priority' => $priority];
@@ -271,8 +271,8 @@ class GoogleSitemap
      */
     public function GenerateCategorySitemap()
     {
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
         $aContents = oos_get_content();
 
         $sql = "SELECT categories_id as cid, date_added, last_modified as last_mod
@@ -345,8 +345,8 @@ class GoogleSitemap
      */
     public function GetParentCategories(mixed &$categories, $categories_id)
     {
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $sql = "SELECT parent_id
                FROM " . $oostable['categories'] . "

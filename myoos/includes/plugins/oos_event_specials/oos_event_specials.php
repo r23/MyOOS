@@ -55,8 +55,8 @@ class oos_event_specials
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $blocktable = $oostable['block'];
         $dbconn->Execute(
@@ -80,8 +80,8 @@ class oos_event_specials
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $blocktable = $oostable['block'];
         $dbconn->Execute("UPDATE $blocktable SET block_status = 0 WHERE block_file = 'specials'");

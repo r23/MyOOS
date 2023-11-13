@@ -41,20 +41,20 @@
  * @version $Revision: 1.2 $ - changed by $Author: r23 $ on $Date: 2008/08/15 16:28:30 $
  */
 
-  /**
-   * ensure this file is being included by a parent file
-   */
-  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+/**
+ * ensure this file is being included by a parent file
+ */
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
- /**
-  * Protects better diverse attempts of Cross-Site Scripting
-  * attacks, thanks to webmedic, Timax, larsneo.
-  *
-  * Lets validate the current php version and set globals
-  * accordingly.
-  * Do not change this value unless you know what you are
-  * doing you have been warned!
-  */
+/**
+ * Protects better diverse attempts of Cross-Site Scripting
+ * attacks, thanks to webmedic, Timax, larsneo.
+ *
+ * Lets validate the current php version and set globals
+ * accordingly.
+ * Do not change this value unless you know what you are
+ * doing you have been warned!
+ */
 function oos_secure_input()
 {
     $aContents = oos_get_content();

@@ -26,7 +26,7 @@ class AgreementDetails extends PayPalModel
      * The outstanding balance for this agreement.
      *
      * @param \PayPal\Api\Currency $outstanding_balance
-     * 
+     *
      * @return $this
      */
     public function setOutstandingBalance($outstanding_balance)
@@ -49,7 +49,7 @@ class AgreementDetails extends PayPalModel
      * Number of cycles remaining for this agreement.
      *
      * @param string $cycles_remaining
-     * 
+     *
      * @return $this
      */
     public function setCyclesRemaining($cycles_remaining)
@@ -72,7 +72,7 @@ class AgreementDetails extends PayPalModel
      * Number of cycles completed for this agreement.
      *
      * @param string $cycles_completed
-     * 
+     *
      * @return $this
      */
     public function setCyclesCompleted($cycles_completed)
@@ -95,7 +95,7 @@ class AgreementDetails extends PayPalModel
      * The next billing date for this agreement, represented as 2014-02-19T10:00:00Z format.
      *
      * @param string $next_billing_date
-     * 
+     *
      * @return $this
      */
     public function setNextBillingDate($next_billing_date)
@@ -118,7 +118,7 @@ class AgreementDetails extends PayPalModel
      * Last payment date for this agreement, represented as 2014-06-09T09:42:31Z format.
      *
      * @param string $last_payment_date
-     * 
+     *
      * @return $this
      */
     public function setLastPaymentDate($last_payment_date)
@@ -141,7 +141,7 @@ class AgreementDetails extends PayPalModel
      * Last payment amount for this agreement.
      *
      * @param \PayPal\Api\Currency $last_payment_amount
-     * 
+     *
      * @return $this
      */
     public function setLastPaymentAmount($last_payment_amount)
@@ -164,7 +164,7 @@ class AgreementDetails extends PayPalModel
      * Last payment date for this agreement, represented as 2015-02-19T10:00:00Z format.
      *
      * @param string $final_payment_date
-     * 
+     *
      * @return $this
      */
     public function setFinalPaymentDate($final_payment_date)
@@ -187,7 +187,7 @@ class AgreementDetails extends PayPalModel
      * Total number of failed payments for this agreement.
      *
      * @param string $failed_payment_count
-     * 
+     *
      * @return $this
      */
     public function setFailedPaymentCount($failed_payment_count)

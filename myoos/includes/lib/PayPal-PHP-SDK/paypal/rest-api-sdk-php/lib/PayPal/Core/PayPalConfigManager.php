@@ -12,7 +12,6 @@ namespace PayPal\Core;
  */
 class PayPalConfigManager
 {
-
     /**
      * Configuration Options
      */

@@ -18,7 +18,6 @@ use PayPal\Security\Cipher;
  */
 class OAuthTokenCredential extends PayPalResourceModel
 {
-
     public static $CACHE_PATH = '/../../../var/auth.cache';
 
     /**
@@ -69,7 +68,7 @@ class OAuthTokenCredential extends PayPalResourceModel
     public function __construct(private $clientId, private $clientSecret, /**
      * Target subject
      */
-    private $targetSubject = null)
+        private $targetSubject = null)
     {
         $this->cipher = new Cipher($this->clientSecret);
     }

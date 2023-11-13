@@ -52,7 +52,7 @@ $sCategoriesCacheID    = $sTheme . '|block|categories|' . $sLanguage . '|' . $sC
 $sModulesCacheID    = $sTheme . '|modules|' . $sLanguage . '|' . $sCurrency;
 
 
-$nManufacturersID = filter_input(INPUT_GET, 'manufacturers_id', FILTER_VALIDATE_INT) ?: 0; 
+$nManufacturersID = filter_input(INPUT_GET, 'manufacturers_id', FILTER_VALIDATE_INT) ?: 0;
 
 $sManufacturersCacheID = $sTheme . '|block|manufacturers|' . $sLanguage . '|' . $nManufacturersID;
 $sManufacturersInfoCacheID = $sTheme . '|block|manufacturer_info|' . $sLanguage . '|' . $nManufacturersID;
@@ -218,7 +218,7 @@ while ($products_unit = $products_unit_result->fields) {
     $products_units[$index] = [$products_unit['products_unit_name'], $products_unit['unit_of_measure']];
     // Move that ADOdb pointer!
     $products_unit_result->MoveNext();
-}        
+}
 
 
 // PAngV
@@ -241,7 +241,7 @@ if ($aUser['show_price'] == 1) {
 $sPAngV .= sprintf($aLang['text_shipping'], oos_href_link($aContents['information'], 'information_id=5'));
 
 $smarty->assign(
-    ['pangv' => $sPAngV, 'tax_plus_shipping' => $tax_plus_shipping, 'products_units'=> $products_units]
+    ['pangv' => $sPAngV, 'tax_plus_shipping' => $tax_plus_shipping, 'products_units' => $products_units]
 );
 
 

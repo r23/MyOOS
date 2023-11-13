@@ -29,7 +29,7 @@ define('MODULE_SHIPPING_ZONES_STATUS_DESC', 'Do you want to offer zone rate ship
 define('MODULE_SHIPPING_ZONES_SORT_ORDER_TITLE', 'Sort Order');
 define('MODULE_SHIPPING_ZONES_SORT_ORDER_DESC', 'Sort order of display.');
 
-for ($j=0;$j<NUMBER_OF_ZONES;$j++) {
+for ($j = 0;$j < NUMBER_OF_ZONES;$j++) {
     define('MODULE_SHIPPING_ZONES_COUNTRIES_'.$j.'_TITLE', 'Zone '.$j.' Countries');
     define('MODULE_SHIPPING_ZONES_COUNTRIES_'.$j.'_DESC', 'Comma separated list of two character ISO country codes that are part of Zone '.$j.'.');
 

@@ -36,7 +36,6 @@ use PayPal\Api\Transaction;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
 
-
 require MYOOS_INCLUDE_PATH  . 'includes/lib/PayPal-PHP-SDK/autoload.php';
 
 if (defined('IS_ADMIN_FLAG')) {
@@ -84,8 +83,8 @@ class paypal_api
             $check_flag = false;
 
             // Get database information
-            $dbconn =& oosDBGetConn();
-            $oostable =& oosDBGetTables();
+            $dbconn = & oosDBGetConn();
+            $oostable = & oosDBGetTables();
 
             $zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
             $check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_PAYMENT_PAYPAL_API_ZONE . "' AND zone_country_id = '" . $oOrder->billing['country']['id'] . "' ORDER BY zone_id");
@@ -177,8 +176,8 @@ class paypal_api
         if (!empty(STORE_COUNTRY)) {
 
             // Get database information
-            $dbconn =& oosDBGetConn();
-            $oostable =& oosDBGetTables();
+            $dbconn = & oosDBGetConn();
+            $oostable = & oosDBGetTables();
 
             $countriestable = $oostable['countries'];
             $query = "SELECT countries_iso_code_2
@@ -223,7 +222,7 @@ class paypal_api
 
         $itemList = new ItemList();
         $n = is_countable($oOrder->products) ? count($oOrder->products) : 0;
-        for ($i=0, $n; $i<$n; $i++) {
+        for ($i = 0, $n; $i < $n; $i++) {
             $name = html_entity_decode((string) $oOrder->products[$i]['name'], ENT_NOQUOTES, 'UTF-8');
             $sku = $oOrder->products[$i]['model'];
 
@@ -357,7 +356,7 @@ class paypal_api
             // Get the payment Object by passing paymentId
             // payment id was previously stored in session in
             // CreatePaymentUsingPayPal.php
-            $paymentId = filter_string_polyfill(filter_input(INPUT_GET, 'paymentId')); 
+            $paymentId = filter_string_polyfill(filter_input(INPUT_GET, 'paymentId'));
             $payment = Payment::get($paymentId, $apiContext);
 
             // ### Payment Execute
@@ -405,8 +404,8 @@ class paypal_api
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_PAYMENT_PAYPAL_API_STATUS', 'true', '6', '3', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
@@ -423,8 +422,8 @@ class paypal_api
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");

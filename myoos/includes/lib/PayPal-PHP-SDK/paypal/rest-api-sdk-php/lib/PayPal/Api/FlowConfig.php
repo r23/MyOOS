@@ -23,7 +23,7 @@ class FlowConfig extends PayPalModel
      * The type of landing page to display on the PayPal site for user checkout. Set to `Billing` to use the non-PayPal account landing page. Set to `Login` to use the PayPal account login landing page.
      *
      * @param string $landing_page_type
-     * 
+     *
      * @return $this
      */
     public function setLandingPageType($landing_page_type)
@@ -70,7 +70,7 @@ class FlowConfig extends PayPalModel
      * Defines whether buyers can complete purchases on the PayPal or merchant website.
      *
      * @param string $user_action
-     * 
+     *
      * @return $this
      */
     public function setUserAction($user_action)
@@ -93,7 +93,7 @@ class FlowConfig extends PayPalModel
      * Defines the HTTP method to use to redirect the user to a return URL. A valid value is `GET` or `POST`.
      *
      * @param string $return_uri_http_method
-     * 
+     *
      * @return $this
      */
     public function setReturnUriHttpMethod($return_uri_http_method)

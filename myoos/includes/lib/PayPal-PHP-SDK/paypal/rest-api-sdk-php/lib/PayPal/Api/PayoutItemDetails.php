@@ -28,7 +28,7 @@ class PayoutItemDetails extends PayPalModel
      * The ID for the payout item. Viewable when you show details for a batch payout.
      *
      * @param string $payout_item_id
-     * 
+     *
      * @return $this
      */
     public function setPayoutItemId($payout_item_id)
@@ -51,7 +51,7 @@ class PayoutItemDetails extends PayPalModel
      * The PayPal-generated ID for the transaction.
      *
      * @param string $transaction_id
-     * 
+     *
      * @return $this
      */
     public function setTransactionId($transaction_id)
@@ -74,7 +74,7 @@ class PayoutItemDetails extends PayPalModel
      * The transaction status.
      *
      * @param string $transaction_status
-     * 
+     *
      * @return $this
      */
     public function setTransactionStatus($transaction_status)
@@ -97,7 +97,7 @@ class PayoutItemDetails extends PayPalModel
      * The amount of money, in U.S. dollars, for fees.
      *
      * @param \PayPal\Api\Currency $payout_item_fee
-     * 
+     *
      * @return $this
      */
     public function setPayoutItemFee($payout_item_fee)
@@ -120,7 +120,7 @@ class PayoutItemDetails extends PayPalModel
      * The PayPal-generated ID for the batch payout.
      *
      * @param string $payout_batch_id
-     * 
+     *
      * @return $this
      */
     public function setPayoutBatchId($payout_batch_id)
@@ -143,7 +143,7 @@ class PayoutItemDetails extends PayPalModel
      * A sender-specified ID number. Tracks the batch payout in an accounting system.
      *
      * @param string $sender_batch_id
-     * 
+     *
      * @return $this
      */
     public function setSenderBatchId($sender_batch_id)
@@ -166,7 +166,7 @@ class PayoutItemDetails extends PayPalModel
      * The sender-provided information for the payout item.
      *
      * @param \PayPal\Api\PayoutItem $payout_item
-     * 
+     *
      * @return $this
      */
     public function setPayoutItem($payout_item)
@@ -189,7 +189,7 @@ class PayoutItemDetails extends PayPalModel
      * The date and time when this item was last processed.
      *
      * @param string $time_processed
-     * 
+     *
      * @return $this
      */
     public function setTimeProcessed($time_processed)
@@ -212,7 +212,7 @@ class PayoutItemDetails extends PayPalModel
      * Sets Errors
      *
      * @param \PayPal\Api\Error $errors
-     * 
+     *
      * @return $this
      */
     public function setErrors($errors)
@@ -235,7 +235,7 @@ class PayoutItemDetails extends PayPalModel
      * Sets Links
      *
      * @param \PayPal\Api\Links[] $links
-     * 
+     *
      * @return $this
      */
     public function setLinks($links)

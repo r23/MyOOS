@@ -43,27 +43,27 @@ function smarty_function_product_image($params, &$smarty)
 
     foreach ($params as $_key => $_val) {
         switch ($_key) {
-        case 'loading':
-        case 'src':
-        case 'basedir':
-        case 'dir':
-        case 'alt':
-        case 'class':
-        case 'id':
-            if (!is_array($_val)) {
-                ${$_key} = smarty_function_escape_special_chars($_val);
-            } else {
-                throw new SmartyException("small_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
-            }
-            break;
+            case 'loading':
+            case 'src':
+            case 'basedir':
+            case 'dir':
+            case 'alt':
+            case 'class':
+            case 'id':
+                if (!is_array($_val)) {
+                    ${$_key} = smarty_function_escape_special_chars($_val);
+                } else {
+                    throw new SmartyException("small_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                }
+                break;
 
-        default:
-            if (!is_array($_val)) {
-                $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
-            } else {
-                throw new SmartyException("small_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
-            }
-            break;
+            default:
+                if (!is_array($_val)) {
+                    $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
+                } else {
+                    throw new SmartyException("small_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                }
+                break;
         }
     }
 

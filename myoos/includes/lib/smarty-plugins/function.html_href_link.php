@@ -53,32 +53,32 @@ function smarty_function_html_href_link($params, &$smarty)
     foreach ($params as $_key => $_val) {
         switch ($_key) {
 
-        case 'content':
-            if (!is_array($_val)) {
-                ${$_key} = smarty_function_escape_special_chars($_val);
-            } else {
-                throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
-            }
-            break;
+            case 'content':
+                if (!is_array($_val)) {
+                    ${$_key} = smarty_function_escape_special_chars($_val);
+                } else {
+                    throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
+                }
+                break;
 
-        case 'oos_get':
-        case 'addentry_id':
-        case 'add_session_id':
-        case 'search_engine_safe':
-            ${$_key} = (string)$_val;
-            break;
+            case 'oos_get':
+            case 'addentry_id':
+            case 'add_session_id':
+            case 'search_engine_safe':
+                ${$_key} = (string)$_val;
+                break;
 
-        case 'anchor':
-            $anchor = smarty_function_escape_special_chars($_val);
-            break;
+            case 'anchor':
+                $anchor = smarty_function_escape_special_chars($_val);
+                break;
 
-        default:
-            if (!is_array($_val)) {
-                $parameters .= $_key.'='.smarty_function_escape_special_chars($_val).'&amp;';
-            } else {
-                throw new SmartyException("html_href_link: parameters '$_key' cannot be an array", E_USER_NOTICE);
-            }
-            break;
+            default:
+                if (!is_array($_val)) {
+                    $parameters .= $_key.'='.smarty_function_escape_special_chars($_val).'&amp;';
+                } else {
+                    throw new SmartyException("html_href_link: parameters '$_key' cannot be an array", E_USER_NOTICE);
+                }
+                break;
         }
     }
 

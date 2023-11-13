@@ -50,8 +50,8 @@ class weight
 
 
             // Get database information
-            $dbconn =& oosDBGetConn();
-            $oostable =& oosDBGetTables();
+            $dbconn = & oosDBGetConn();
+            $oostable = & oosDBGetTables();
 
             $check_result = $dbconn->Execute("SELECT zone_id FROM " . $oostable['zones_to_geo_zones'] . " WHERE geo_zone_id = '" . MODULE_SHIPPING_WEIGHT_ZONE . "' AND zone_country_id = '" . intval($dest_country) . "' ORDER BY zone_id");
             while ($check = $check_result->fields) {
@@ -83,12 +83,12 @@ class weight
 
         $weight_cost = preg_split("/[:,]/", (string) MODULE_SHIPPING_WEIGHT_COST);
 
-        if ($shipping_weight > $weight_cost[(is_countable($weight_cost) ? count($weight_cost) : 0)-2]) {
-            $shipping = ($shipping_weight-$weight_cost[(is_countable($weight_cost) ? count($weight_cost) : 0)-2])* MODULE_SHIPPING_WEIGHT_STEP +$weight_cost[(is_countable($weight_cost) ? count($weight_cost) : 0)-1];
+        if ($shipping_weight > $weight_cost[(is_countable($weight_cost) ? count($weight_cost) : 0) - 2]) {
+            $shipping = ($shipping_weight - $weight_cost[(is_countable($weight_cost) ? count($weight_cost) : 0) - 2]) * MODULE_SHIPPING_WEIGHT_STEP + $weight_cost[(is_countable($weight_cost) ? count($weight_cost) : 0) - 1];
         }
-        for ($i = 0; $i < (is_countable($weight_cost) ? count($weight_cost) : 0); $i+=2) {
+        for ($i = 0; $i < (is_countable($weight_cost) ? count($weight_cost) : 0); $i += 2) {
             if ($shipping_weight <= $weight_cost[$i]) {
-                $shipping = $weight_cost[$i+1];
+                $shipping = $weight_cost[$i + 1];
                 break;
             }
         }
@@ -118,8 +118,8 @@ class weight
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_STATUS', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
@@ -138,8 +138,8 @@ class weight
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");

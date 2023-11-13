@@ -10,7 +10,6 @@ namespace PayPal\Common;
  */
 class PayPalUserAgent
 {
-
     /**
      * Returns the value of the User-Agent header
      * Add environment values and php version numbers

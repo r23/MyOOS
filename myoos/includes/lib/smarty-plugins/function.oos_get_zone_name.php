@@ -48,8 +48,8 @@ function smarty_function_oos_get_zone_name($params, &$smarty)
     foreach ($params as $_key => $_val) {
         ${$_key} = smarty_function_escape_special_chars($_val);
     }
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $zone = $dbconn->Execute("SELECT zone_name FROM " . $oostable['zones'] . " WHERE zone_country_id = '" . intval($country_id) . "' AND zone_id = '" . intval($zone_id) . "'");
     if ($zone->RecordCount()) {

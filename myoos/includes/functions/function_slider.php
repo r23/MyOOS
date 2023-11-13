@@ -37,8 +37,8 @@ function oos_set_slider_status($nSliderId, $status)
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $slidertable = $oostable['categories_slider'];
     $dbconn->Execute(
@@ -59,8 +59,8 @@ function oos_expire_slider()
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
 
     $slidertable = $oostable['categories_slider'];
     $query = "SELECT slider_id

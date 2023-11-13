@@ -73,7 +73,7 @@ class breadcrumb
         if ($n > 1) {
             $link_output .= '<ol class="breadcrumb">';
 
-            for ($i=0, $n; $i<$n; $i++) {
+            for ($i = 0, $n; $i < $n; $i++) {
                 $link_output .= '<li>';
 
 
@@ -95,7 +95,7 @@ class breadcrumb
                 }
 
                 // for php 7.2
-                $nCount = $i+1;
+                $nCount = $i + 1;
                 $link_output .= '<meta property="position" content="' . $nCount . '"></span>';
 
                 $link_output .= '</span>';

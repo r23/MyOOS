@@ -39,9 +39,9 @@ foreach ($aDefineList as $column => $value) {
     }
 }
 
-  $select_column_list = '';
+$select_column_list = '';
 
-for ($col=0, $n=count($column_list); $col<$n; $col++) {
+for ($col = 0, $n = count($column_list); $col < $n; $col++) {
     if (($column_list[$col] == 'PRODUCT_SLAVE_BUY_NOW')
         || ($column_list[$col] == 'PRODUCT_LIST_PRICE')
     ) {
@@ -71,12 +71,12 @@ if (!isset($nProductsID)) {
     $nProductsID = oos_get_product_id($products_id);
 }
 
-  $productstable = $oostable['products'];
-  $products_to_mastertable = $oostable['products_to_master'];
-  $products_descriptiontable = $oostable['products_description'];
-  $manufacturerstable = $oostable['manufacturers'];
-  $specialstable = $oostable['specials'];
-  $listing_sql = "SELECT " . $select_column_list . " p.products_id, p.products_replacement_product_id, p.manufacturers_id,
+$productstable = $oostable['products'];
+$products_to_mastertable = $oostable['products_to_master'];
+$products_descriptiontable = $oostable['products_description'];
+$manufacturerstable = $oostable['manufacturers'];
+$specialstable = $oostable['specials'];
+$listing_sql = "SELECT " . $select_column_list . " p.products_id, p.products_replacement_product_id, p.manufacturers_id,
                          p.products_price, p.products_price_list, p.products_base_price, p.products_base_unit,
 						 p.products_quantity_order_min, p.products_quantity_order_max, p.products_product_quantity,
                          p.products_discount1, p.products_discount2,
@@ -100,9 +100,9 @@ if (!isset($nProductsID)) {
                       pm.master_id = '" . intval($nProductsID) . "'";
 
 if ((!isset($_GET['sort'])) || (!preg_match('/[1-8][ad]/', (string) $_GET['sort'])) || (substr((string) $_GET['sort'], 0, 1) > count($column_list))) {
-    for ($col=0, $n=count($column_list); $col<$n; $col++) {
+    for ($col = 0, $n = count($column_list); $col < $n; $col++) {
         if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
-            $_GET['sort'] = $col+1 . 'a';
+            $_GET['sort'] = $col + 1 . 'a';
             $listing_sql .= " ORDER BY pd.products_name";
             break;
         }
@@ -112,7 +112,7 @@ if ((!isset($_GET['sort'])) || (!preg_match('/[1-8][ad]/', (string) $_GET['sort'
     $sort_order = substr((string) $_GET['sort'], 1);
     $listing_sql .= ' ORDER BY ';
 
-    match ($column_list[$sort_col-1]) {
+    match ($column_list[$sort_col - 1]) {
         'PRODUCT_LIST_MODEL' => $listing_sql .= "p.products_model " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name",
         'PRODUCT_LIST_NAME' => $listing_sql .= "pd.products_name " . ($sort_order == 'd' ? 'desc' : ''),
         'PRODUCT_LIST_MANUFACTURER' => $listing_sql .= "m.manufacturers_name " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name",

@@ -89,7 +89,7 @@ abstract class AuthorizationCache
         $value = self::getConfigValue('cache.enabled', $config);
         return empty($value) ? false : ((trim($value) == true || trim($value) == 'true'));
     }
-    
+
     /**
      * Returns the cache file path
      *

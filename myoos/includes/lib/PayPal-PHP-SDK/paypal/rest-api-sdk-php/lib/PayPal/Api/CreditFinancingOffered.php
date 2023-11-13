@@ -24,7 +24,7 @@ class CreditFinancingOffered extends PayPalModel
      * This is the estimated total payment amount including interest and fees the user will pay during the lifetime of the loan.
      *
      * @param \PayPal\Api\Currency $total_cost
-     * 
+     *
      * @return $this
      */
     public function setTotalCost($total_cost)
@@ -47,7 +47,7 @@ class CreditFinancingOffered extends PayPalModel
      * Length of financing terms in month
      *
      * @param \PayPal\Api\number $term
-     * 
+     *
      * @return $this
      */
     public function setTerm($term)
@@ -70,7 +70,7 @@ class CreditFinancingOffered extends PayPalModel
      * This is the estimated amount per month that the customer will need to pay including fees and interest.
      *
      * @param \PayPal\Api\Currency $monthly_payment
-     * 
+     *
      * @return $this
      */
     public function setMonthlyPayment($monthly_payment)
@@ -93,7 +93,7 @@ class CreditFinancingOffered extends PayPalModel
      * Estimated interest or fees amount the payer will have to pay during the lifetime of the loan.
      *
      * @param \PayPal\Api\Currency $total_interest
-     * 
+     *
      * @return $this
      */
     public function setTotalInterest($total_interest)
@@ -116,7 +116,7 @@ class CreditFinancingOffered extends PayPalModel
      * Status on whether the customer ultimately was approved for and chose to make the payment using the approved installment credit.
      *
      * @param bool $payer_acceptance
-     * 
+     *
      * @return $this
      */
     public function setPayerAcceptance($payer_acceptance)
@@ -139,7 +139,7 @@ class CreditFinancingOffered extends PayPalModel
      * Indicates whether the cart amount is editable after payer's acceptance on PayPal side
      *
      * @param bool $cart_amount_immutable
-     * 
+     *
      * @return $this
      */
     public function setCartAmountImmutable($cart_amount_immutable)

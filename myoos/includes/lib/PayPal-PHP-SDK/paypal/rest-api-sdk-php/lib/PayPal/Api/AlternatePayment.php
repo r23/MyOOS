@@ -23,7 +23,7 @@ class AlternatePayment extends PayPalModel
      * The unique identifier of the alternate payment account.
      *
      * @param string $alternate_payment_account_id
-     * 
+     *
      * @return $this
      */
     public function setAlternatePaymentAccountId($alternate_payment_account_id)
@@ -46,7 +46,7 @@ class AlternatePayment extends PayPalModel
      * The unique identifier of the payer
      *
      * @param string $external_customer_id
-     * 
+     *
      * @return $this
      */
     public function setExternalCustomerId($external_customer_id)
@@ -69,7 +69,7 @@ class AlternatePayment extends PayPalModel
      * Alternate Payment provider id. This is an optional attribute needed only for certain alternate providers e.g Ideal
      *
      * @param string $alternate_payment_provider_id
-     * 
+     *
      * @return $this
      */
     public function setAlternatePaymentProviderId($alternate_payment_provider_id)

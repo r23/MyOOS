@@ -33,7 +33,7 @@ $keywords = filter_string_polyfill(filter_input(INPUT_GET, 'keywords'));
 $get_parameters .= '&keywords=' . $keywords;
 
 
-$search_in_description = filter_input(INPUT_GET, 'search_in_description', FILTER_VALIDATE_INT) ?: 0; 
+$search_in_description = filter_input(INPUT_GET, 'search_in_description', FILTER_VALIDATE_INT) ?: 0;
 $get_parameters .= '&search_in_description=' . $search_in_description;
 
 
@@ -41,7 +41,7 @@ $categories_id = filter_input(INPUT_GET, 'categories_id', FILTER_VALIDATE_INT);
 $get_parameters .= '&categories_id=' . $categories_id;
 
 
-$inc_subcat = filter_input(INPUT_GET, 'inc_subcat', FILTER_VALIDATE_INT) ?: 0; 
+$inc_subcat = filter_input(INPUT_GET, 'inc_subcat', FILTER_VALIDATE_INT) ?: 0;
 $get_parameters .= '&inc_subcat=' . $inc_subcat;
 
 
@@ -143,7 +143,7 @@ foreach ($define_list as $column => $value) {
 
 $select_column_list = '';
 
-for ($col=0, $n=count($column_list); $col<$n; $col++) {
+for ($col = 0, $n = count($column_list); $col < $n; $col++) {
     if (($column_list[$col] == 'PRODUCT_LIST_BUY_NOW')
         || ($column_list[$col] == 'PRODUCT_LIST_NAME')
         || ($column_list[$col] == 'PRODUCT_LIST_PRICE')
@@ -227,8 +227,8 @@ if (isset($categories_id) && is_numeric($categories_id)) {
                            p2c.products_id = p.products_id AND
                            p2c.products_id = pd.products_id AND
                            (p2c.categories_id = '" . intval($categories_id) . "'";
-        $n = is_countable($subcategories_array) ? count($subcategories_array) : 0;                   
-        for ($i=0, $n; $i<$n; $i++) {
+        $n = is_countable($subcategories_array) ? count($subcategories_array) : 0;
+        for ($i = 0, $n; $i < $n; $i++) {
             $where_str .= " OR p2c.categories_id = '" . intval($subcategories_array[$i]) . "'";
         }
         $where_str .= ")";
@@ -250,29 +250,29 @@ if (isset($manufacturers_id) && is_numeric($manufacturers_id)) {
 if (isset($search_keywords) && ((is_countable($search_keywords) ? count($search_keywords) : 0) > 0)) {
     $where_str .= " AND (";
     $n = is_countable($search_keywords) ? count($search_keywords) : 0;
-    for ($i=0, $n; $i<$n; $i++) {
+    for ($i = 0, $n; $i < $n; $i++) {
         switch ($search_keywords[$i]) {
-        case '(':
-        case ')':
-        case 'and':
-        case 'or':
-            $where_str .= " " . $search_keywords[$i] . " ";
-            break;
+            case '(':
+            case ')':
+            case 'and':
+            case 'or':
+                $where_str .= " " . $search_keywords[$i] . " ";
+                break;
 
-        default:
-            $keyword = oos_db_prepare_input($search_keywords[$i]);
-            $where_str .= "   (pd.products_name LIKE '%" . oos_db_input($keyword) . "%'
+            default:
+                $keyword = oos_db_prepare_input($search_keywords[$i]);
+                $where_str .= "   (pd.products_name LIKE '%" . oos_db_input($keyword) . "%'
 								OR p.products_model LIKE '%" . oos_db_input($keyword) . "%'
 								OR p.products_ean LIKE '%" . oos_db_input($keyword) . "%'
 								OR m.manufacturers_name LIKE '%" . oos_db_input($keyword) . "%'";
-            if (isset($_GET['search_in_description']) && ($_GET['search_in_description'] == '1')) {
-                $where_str .= " OR pd.products_short_description LIKE '%" . oos_db_input($keyword) . "%'";
-            }
-            if (isset($_GET['search_in_description']) && ($_GET['search_in_description'] == '1')) {
-                $where_str .= " OR pd.products_description LIKE '%" . oos_db_input($keyword) . "%'";
-            }
-            $where_str .= ')';
-            break;
+                if (isset($_GET['search_in_description']) && ($_GET['search_in_description'] == '1')) {
+                    $where_str .= " OR pd.products_short_description LIKE '%" . oos_db_input($keyword) . "%'";
+                }
+                if (isset($_GET['search_in_description']) && ($_GET['search_in_description'] == '1')) {
+                    $where_str .= " OR pd.products_description LIKE '%" . oos_db_input($keyword) . "%'";
+                }
+                $where_str .= ')';
+                break;
         }
     }
     $where_str .= " )";
@@ -313,9 +313,9 @@ if (($aUser['price_with_tax'] == 1) && ((isset($_GET['pfrom']) && oos_is_not_nul
 }
 
 if ((!isset($_GET['sort'])) || (!preg_match('/[1-8][ad]/', (string) $_GET['sort'])) || (substr((string) $_GET['sort'], 0, 1) > count($column_list))) {
-    for ($col=0, $n=count($column_list); $col<$n; $col++) {
+    for ($col = 0, $n = count($column_list); $col < $n; $col++) {
         if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
-            $sort = $col+1 . 'a';
+            $sort = $col + 1 . 'a';
             $order_str = ' ORDER BY pd.products_name';
             break;
         }
@@ -325,7 +325,7 @@ if ((!isset($_GET['sort'])) || (!preg_match('/[1-8][ad]/', (string) $_GET['sort'
     $sort_order = substr((string) $sort, 1);
     $order_str = ' ORDER BY ';
 
-    match ($column_list[$sort_col-1]) {
+    match ($column_list[$sort_col - 1]) {
         'PRODUCT_LIST_MODEL' => $order_str .= "p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name",
         'PRODUCT_LIST_NAME' => $order_str .= "pd.products_name " . ($sort_order == 'd' ? "desc" : ""),
         'PRODUCT_LIST_MANUFACTURER' => $order_str .= "m.manufacturers_name " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name",

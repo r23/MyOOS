@@ -29,7 +29,7 @@ if (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) {
         $products = $_SESSION['cart']->get_products();
 
         $n = is_countable($products) ? count($products) : 0;
-        for ($i=0, $n; $i<$n; $i++) {
+        for ($i = 0, $n; $i < $n; $i++) {
             $_SESSION['cart']->remove($products[$i]['id']);
         }
     }

@@ -24,7 +24,7 @@ class FundingOption extends PayPalModel
      * id of the funding option.
      *
      * @param string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -47,7 +47,7 @@ class FundingOption extends PayPalModel
      * List of funding sources that contributes to a payment.
      *
      * @param \PayPal\Api\FundingSource[] $funding_sources
-     * 
+     *
      * @return $this
      */
     public function setFundingSources($funding_sources)
@@ -100,7 +100,7 @@ class FundingOption extends PayPalModel
      * Backup funding instrument which will be used for payment if primary fails.
      *
      * @param \PayPal\Api\FundingInstrument $backup_funding_instrument
-     * 
+     *
      * @return $this
      */
     public function setBackupFundingInstrument($backup_funding_instrument)
@@ -123,7 +123,7 @@ class FundingOption extends PayPalModel
      * Currency conversion applicable to this funding option.
      *
      * @param \PayPal\Api\CurrencyConversion $currency_conversion
-     * 
+     *
      * @return $this
      */
     public function setCurrencyConversion($currency_conversion)
@@ -146,7 +146,7 @@ class FundingOption extends PayPalModel
      * Installment options available for a funding option.
      *
      * @param \PayPal\Api\InstallmentInfo $installment_info
-     * 
+     *
      * @return $this
      */
     public function setInstallmentInfo($installment_info)
@@ -169,7 +169,7 @@ class FundingOption extends PayPalModel
      * Sets Links
      *
      * @param \PayPal\Api\Links[] $links
-     * 
+     *
      * @return $this
      */
     public function setLinks($links)

@@ -12,7 +12,6 @@ use PayPal\Exception\PayPalConnectionException;
  */
 class PayPalHttpConnection
 {
-
     /**
      * LoggingManager
      *
@@ -74,7 +73,7 @@ class PayPalHttpConnection
         if (!str_contains($trimmedData, ":")) {
             return strlen($data);
         }
-        
+
         [$key, $value] = explode(":", $trimmedData, 2);
 
         $key = trim($key);
@@ -135,15 +134,15 @@ class PayPalHttpConnection
 
         //Determine Curl Options based on Method
         switch ($this->httpConfig->getMethod()) {
-        case 'POST':
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-            break;
-        case 'PUT':
-        case 'PATCH':
-        case 'DELETE':
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-            break;
+            case 'POST':
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+                break;
+            case 'PUT':
+            case 'PATCH':
+            case 'DELETE':
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+                break;
         }
 
         //Default Option if Method not of given types in switch case

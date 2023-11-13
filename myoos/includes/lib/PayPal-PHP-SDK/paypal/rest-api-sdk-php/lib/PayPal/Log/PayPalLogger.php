@@ -8,7 +8,6 @@ use Psr\Log\LogLevel;
 
 class PayPalLogger extends AbstractLogger
 {
-
     /**
      * @var array Indexed list of all log levels.
      */
@@ -41,8 +40,8 @@ class PayPalLogger extends AbstractLogger
      * Logger Name. Generally corresponds to class name
      *
      */
-    private $loggerName)
-    {
+        private $loggerName
+    ) {
         $this->initialize();
     }
 

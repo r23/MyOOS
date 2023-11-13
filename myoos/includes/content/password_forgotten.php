@@ -114,8 +114,8 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
         // oos_redirect(oos_href_link($aContents['password_forgotten']));
         // no info for attackers
         $_SESSION['success_message'] = $aLang['text_password_sent'];
-        oos_redirect(oos_href_link($aContents['login']));    
-        
+        oos_redirect(oos_href_link($aContents['login']));
+
     }
 } else {
 

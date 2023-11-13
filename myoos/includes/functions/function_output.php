@@ -21,29 +21,29 @@
    ----------------------------------------------------------------------
  */
 
- /**
-  * html output
-  *
-  * @link    https://www.oos-shop.de
-  * @package html output
-  * @version $Revision: 1.3 $ - changed by $Author: r23 $ on $Date: 2008/08/14 10:24:05 $
-  */
+/**
+ * html output
+ *
+ * @link    https://www.oos-shop.de
+ * @package html output
+ * @version $Revision: 1.3 $ - changed by $Author: r23 $ on $Date: 2008/08/14 10:24:05 $
+ */
 
 /**
  * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
- /**
-  * The HTML href link wrapper function
-  *
-  * @param  $modul
-  * @param  $page
-  * @param  $parameters
-  * @param  $add_session_id
-  * @param  $search_engine_safe
-  * @return string
-  */
+/**
+ * The HTML href link wrapper function
+ *
+ * @param  $modul
+ * @param  $page
+ * @param  $parameters
+ * @param  $add_session_id
+ * @param  $search_engine_safe
+ * @return string
+ */
 function oos_href_link($page = '', $parameters = '', $add_session_id = true, $search_engine_safe = true)
 {
     global $session, $oEvent, $spider_flag;
@@ -101,16 +101,16 @@ function oos_href_link($page = '', $parameters = '', $add_session_id = true, $se
     return $link;
 }
 
- /**
-  * It begets a link to get data
-  *
-  * @param  $modul
-  * @param  $page
-  * @param  $parameters
-  * @param  $add_session_id
-  * @param  $search_engine_safe
-  * @return string
-  */
+/**
+ * It begets a link to get data
+ *
+ * @param  $modul
+ * @param  $page
+ * @param  $parameters
+ * @param  $add_session_id
+ * @param  $search_engine_safe
+ * @return string
+ */
 function oos_get_data($page = '', $parameters = '', $add_session_id = true, $search_engine_safe = true)
 {
     global $session, $oEvent, $spider_flag;
@@ -169,16 +169,16 @@ function oos_get_data($page = '', $parameters = '', $add_session_id = true, $sea
 }
 
 
- /**
-  * The HTML image wrapper function
-  *
-  * @param  $src
-  * @param  $title
-  * @param  $width
-  * @param  $height
-  * @param  $parameters
-  * @return string
-  */
+/**
+ * The HTML image wrapper function
+ *
+ * @param  $src
+ * @param  $title
+ * @param  $width
+ * @param  $height
+ * @param  $parameters
+ * @return string
+ */
 function oos_image($src, $title = null, $parameters = null)
 {
     if (empty($src) || ($src == OOS_IMAGES)) {
@@ -202,16 +202,16 @@ function oos_image($src, $title = null, $parameters = null)
 
 
 
- /**
-  * Output a form input field
-  *
-  * @param  $name
-  * @param  $value
-  * @param  $parameters
-  * @param  $type
-  * @param  $reinsert_value
-  * @return string
-  */
+/**
+ * Output a form input field
+ *
+ * @param  $name
+ * @param  $value
+ * @param  $parameters
+ * @param  $type
+ * @param  $reinsert_value
+ * @return string
+ */
 function oos_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true)
 {
     $field = '<input type="' . oos_output_string($type) . '" name="' . oos_output_string($name) . '"';
@@ -276,28 +276,28 @@ function oos_draw_select_field($name, $type, $value = null, $checked = false, $p
 
 
 
- /**
-  * Output a form checkbox field
-  *
-  * @param $name
-  * @param $value
-  * @param $checked
-  * @param $parameters
-  */
+/**
+ * Output a form checkbox field
+ *
+ * @param $name
+ * @param $value
+ * @param $checked
+ * @param $parameters
+ */
 function oos_draw_checkbox_field($name, $value = '', $checked = false, $parameters = '')
 {
     return oos_draw_select_field($name, 'checkbox', $value, $checked, $parameters);
 }
 
 
- /**
-  * Output a form radio field
-  *
-  * @param $name
-  * @param $value
-  * @param $checked
-  * @param $parameters
-  */
+/**
+ * Output a form radio field
+ *
+ * @param $name
+ * @param $value
+ * @param $checked
+ * @param $parameters
+ */
 function oos_draw_radio_field($name, $value = '', $checked = false, $parameters = '')
 {
     return oos_draw_select_field($name, 'radio', $value, $checked, $parameters);
@@ -370,7 +370,7 @@ function oos_draw_pull_down_menu($name, $values, $default = null, $parameters = 
     }
 
     $n = is_countable($values) ? count($values) : 0;
-    for ($i=0, $n; $i<$n; $i++) {
+    for ($i = 0, $n; $i < $n; $i++) {
         $field .= '<option value="' . oos_output_string($values[$i]['id']) . '"';
         if ($default == $values[$i]['id']) {
             $field .= ' selected';

@@ -11,7 +11,6 @@ use PayPal\Exception\PayPalConfigurationException;
  */
 class ReflectionUtil
 {
-
     /**
      * Reflection Methods
      *
@@ -102,11 +101,11 @@ class ReflectionUtil
             throw new \RuntimeException("Property type of " . $class . "::{$propertyName} cannot be resolved");
         }
 
-        if ($annotations =& self::$propertiesType[$class][$propertyName]) {
+        if ($annotations = & self::$propertiesType[$class][$propertyName]) {
             return $annotations;
         }
 
-        if (!($refl =& self::$propertiesRefl[$class][$propertyName])) {
+        if (!($refl = & self::$propertiesRefl[$class][$propertyName])) {
             $getter = self::getter($class, $propertyName);
             $refl = new \ReflectionMethod($class, $getter);
             self::$propertiesRefl[$class][$propertyName] = $refl;

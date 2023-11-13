@@ -20,7 +20,7 @@ class PaymentOptions extends PayPalModel
      * Valid Values: ["UNRESTRICTED", "INSTANT_FUNDING_SOURCE", "IMMEDIATE_PAY"]
      *
      * @param string $allowed_payment_method
-     * 
+     *
      * @return $this
      */
     public function setAllowedPaymentMethod($allowed_payment_method)
@@ -44,7 +44,7 @@ class PaymentOptions extends PayPalModel
      *
      * @deprecated Not publicly available
      * @param      bool $recurring_flag
-     * 
+     *
      * @return $this
      */
     public function setRecurringFlag($recurring_flag)
@@ -69,7 +69,7 @@ class PaymentOptions extends PayPalModel
      *
      * @deprecated Not publicly available
      * @param      bool $skip_fmf
-     * 
+     *
      * @return $this
      */
     public function setSkipFmf($skip_fmf)

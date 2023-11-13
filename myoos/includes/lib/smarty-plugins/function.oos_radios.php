@@ -56,49 +56,49 @@ function smarty_function_oos_radios($params, &$smarty)
 
     foreach ($params as $_key => $_val) {
         switch ($_key) {
-        case 'name':
-        case 'separator':
-            ${$_key} = (string)$_val;
-            break;
+            case 'name':
+            case 'separator':
+                ${$_key} = (string)$_val;
+                break;
 
-        case 'checked':
-        case 'selected':
-            if (is_array($_val)) {
-                throw new SmartyException('oos_radios: the "' . $_key . '" attribute cannot be an array', E_USER_WARNING);
-            } else {
-                $selected = (string)$_val;
-            }
-            break;
+            case 'checked':
+            case 'selected':
+                if (is_array($_val)) {
+                    throw new SmartyException('oos_radios: the "' . $_key . '" attribute cannot be an array', E_USER_WARNING);
+                } else {
+                    $selected = (string)$_val;
+                }
+                break;
 
-        case 'labels':
-        case 'label_ids':
-            ${$_key} = (bool)$_val;
-            break;
+            case 'labels':
+            case 'label_ids':
+                ${$_key} = (bool)$_val;
+                break;
 
-        case 'options':
-            ${$_key} = (array)$_val;
-            break;
+            case 'options':
+                ${$_key} = (array)$_val;
+                break;
 
-        case 'values':
-        case 'output':
-            ${$_key} = array_values((array)$_val);
-            break;
+            case 'values':
+            case 'output':
+                ${$_key} = array_values((array)$_val);
+                break;
 
-        case 'radios':
-            throw new SmartyException('oos_radios: the use of the "radios" attribute is deprecated, use "options" instead', E_USER_WARNING);
+            case 'radios':
+                throw new SmartyException('oos_radios: the use of the "radios" attribute is deprecated, use "options" instead', E_USER_WARNING);
                 $options = (array)$_val;
                 break;
 
-        case 'assign':
-            break;
+            case 'assign':
+                break;
 
-        default:
-            if (!is_array($_val)) {
-                $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
-            } else {
-                throw new SmartyException("oos_radios: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
-            }
-            break;
+            default:
+                if (!is_array($_val)) {
+                    $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
+                } else {
+                    throw new SmartyException("oos_radios: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                }
+                break;
         }
     }
 
@@ -109,11 +109,11 @@ function smarty_function_oos_radios($params, &$smarty)
     $_html_result = [];
 
     if (isset($options)) {
-        foreach ($options as $_key=>$_val) {
+        foreach ($options as $_key => $_val) {
             $_html_result[] = oos_function_oos_radios_output($name, $_key, $_val, $selected, $extra, $separator, $labels, $label_ids);
         }
     } else {
-        foreach ($values as $_i=>$_key) {
+        foreach ($values as $_i => $_key) {
             $_val = $output[$_i] ?? '';
             $_html_result[] = oos_function_oos_radios_output($name, $_key, $_val, $selected, $extra, $separator, $labels, $label_ids);
         }
@@ -152,7 +152,7 @@ function oos_function_oos_radios_output($name, $value, $output, $selected, $extr
         $_output .= ' id="' . $_id . '"';
     }
 
-    if ((string)$value==$selected) {
+    if ((string)$value == $selected) {
         $_output .= ' checked="checked"';
     }
     $_output .= $extra . ' /><td width="23"></td>';

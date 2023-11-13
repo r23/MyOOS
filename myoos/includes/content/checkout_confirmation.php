@@ -45,7 +45,7 @@ if (!isset($_SESSION['customer_id'])) {
     if (!isset($_SESSION['navigation'])) {
         $_SESSION['navigation'] = new navigationHistory();
     }
-    $_SESSION['navigation']->set_snapshot(['content' =>$aContents['checkout_payment']]);
+    $_SESSION['navigation']->set_snapshot(['content' => $aContents['checkout_payment']]);
     oos_redirect(oos_href_link($aContents['login']));
 }
 
@@ -65,7 +65,7 @@ if (isset($_SESSION['cart']->cartID) && isset($_SESSION['cartID'])) {
 if (TAKE_BACK_OBLIGATION == 'true') {
     $products = $_SESSION['cart']->get_products();
     $n = is_countable($products) ? count($products) : 0;
-    for ($i=0, $n; $i<$n; $i++) {
+    for ($i = 0, $n; $i < $n; $i++) {
         if (($products[$i]['old_electrical_equipment'] == 1) && ($products[$i]['return_free_of_charge'] == '')) {
             oos_redirect(oos_href_link($aContents['shopping_cart']));
         }
@@ -162,7 +162,7 @@ $shipping_modules = new shipping($module);
 $any_out_of_stock = false;
 if (STOCK_CHECK == 'true') {
     $n = is_countable($oOrder->products) ? count($oOrder->products) : 0;
-    for ($i=0, $n; $i<$n; $i++) {
+    for ($i = 0, $n; $i < $n; $i++) {
         if (oos_check_stock($oOrder->products[$i]['id'], $oOrder->products[$i]['qty'])) {
             $any_out_of_stock = true;
         }

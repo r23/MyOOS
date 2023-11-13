@@ -24,7 +24,7 @@ class PaymentCardToken extends PayPalModel
      * ID of a previously saved Payment Card resource.
      *
      * @param string $payment_card_id
-     * 
+     *
      * @return $this
      */
     public function setPaymentCardId($payment_card_id)
@@ -47,7 +47,7 @@ class PaymentCardToken extends PayPalModel
      * The unique identifier of the payer used when saving this payment card.
      *
      * @param string $external_customer_id
-     * 
+     *
      * @return $this
      */
     public function setExternalCustomerId($external_customer_id)
@@ -70,7 +70,7 @@ class PaymentCardToken extends PayPalModel
      * Last 4 digits of the card number from the saved card.
      *
      * @param string $last4
-     * 
+     *
      * @return $this
      */
     public function setLast4($last4)
@@ -94,7 +94,7 @@ class PaymentCardToken extends PayPalModel
      * Valid Values: ["VISA", "AMEX", "SOLO", "JCB", "STAR", "DELTA", "DISCOVER", "SWITCH", "MAESTRO", "CB_NATIONALE", "CONFINOGA", "COFIDIS", "ELECTRON", "CETELEM", "CHINA_UNION_PAY", "MASTERCARD"]
      *
      * @param string $type
-     * 
+     *
      * @return $this
      */
     public function setType($type)
@@ -117,7 +117,7 @@ class PaymentCardToken extends PayPalModel
      * Expiry month from the saved card with value 1 - 12.
      *
      * @param int $expire_month
-     * 
+     *
      * @return $this
      */
     public function setExpireMonth($expire_month)
@@ -140,7 +140,7 @@ class PaymentCardToken extends PayPalModel
      * Four digit expiry year from the saved card, represented as YYYY format.
      *
      * @param int $expire_year
-     * 
+     *
      * @return $this
      */
     public function setExpireYear($expire_year)

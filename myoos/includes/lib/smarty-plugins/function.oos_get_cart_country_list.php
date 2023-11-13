@@ -69,9 +69,9 @@ function smarty_function_oos_get_cart_country_list($params, &$smarty)
 
     $countries_values[] = '';
     $countries_names[] = $aLang['pull_down_default'];
-    
+
     $n = is_countable($countries) ? count($countries) : 0;
-    for ($i=0, $n; $i<$n; $i++) {
+    for ($i = 0, $n; $i < $n; $i++) {
         $countries_values[] = $countries[$i]['countries_id'];
         $countries_names[] = $countries[$i]['countries_name'];
     }

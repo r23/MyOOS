@@ -40,7 +40,7 @@ class messageStack
 
         if (isset($_SESSION)) {
             $n = is_countable($_SESSION['messageToStack']) ? count($_SESSION['messageToStack']) : 0;
-            for ($i=0, $n; $i<$n; $i++) {
+            for ($i = 0, $n; $i < $n; $i++) {
                 $this->add($_SESSION['messageToStack'][$i]['text'], $_SESSION['messageToStack'][$i]['type']);
             }
             unset($_SESSION['messageToStack']);

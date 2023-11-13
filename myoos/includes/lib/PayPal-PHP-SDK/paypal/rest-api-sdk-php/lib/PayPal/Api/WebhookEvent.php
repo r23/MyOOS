@@ -32,7 +32,7 @@ class WebhookEvent extends PayPalResourceModel
      * The ID of the webhook event notification.
      *
      * @param string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -55,7 +55,7 @@ class WebhookEvent extends PayPalResourceModel
      * The date and time when the webhook event notification was created.
      *
      * @param string $create_time
-     * 
+     *
      * @return $this
      */
     public function setCreateTime($create_time)
@@ -78,7 +78,7 @@ class WebhookEvent extends PayPalResourceModel
      * The name of the resource related to the webhook notification event.
      *
      * @param string $resource_type
-     * 
+     *
      * @return $this
      */
     public function setResourceType($resource_type)
@@ -101,7 +101,7 @@ class WebhookEvent extends PayPalResourceModel
      * The version of the event.
      *
      * @param string $event_version
-     * 
+     *
      * @return $this
      */
     public function setEventVersion($event_version)
@@ -124,7 +124,7 @@ class WebhookEvent extends PayPalResourceModel
      * The event that triggered the webhook event notification.
      *
      * @param string $event_type
-     * 
+     *
      * @return $this
      */
     public function setEventType($event_type)
@@ -147,7 +147,7 @@ class WebhookEvent extends PayPalResourceModel
      * A summary description for the event notification. For example, `A payment authorization was created.`
      *
      * @param string $summary
-     * 
+     *
      * @return $this
      */
     public function setSummary($summary)
@@ -170,7 +170,7 @@ class WebhookEvent extends PayPalResourceModel
      * The resource that triggered the webhook event notification.
      *
      * @param \PayPal\Common\PayPalModel $resource
-     * 
+     *
      * @return $this
      */
     public function setResource($resource)

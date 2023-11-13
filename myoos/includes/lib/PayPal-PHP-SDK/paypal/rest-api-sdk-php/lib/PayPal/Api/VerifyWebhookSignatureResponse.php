@@ -20,7 +20,7 @@ class VerifyWebhookSignatureResponse extends PayPalModel
      * Valid Values: ["SUCCESS", "FAILURE"]
      *
      * @param string $verification_status
-     * 
+     *
      * @return $this
      */
     public function setVerificationStatus($verification_status)

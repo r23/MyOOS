@@ -22,7 +22,7 @@ class HyperSchema extends PayPalModel
      * Sets Links
      *
      * @param \PayPal\Api\Links[] $links
-     * 
+     *
      * @return $this
      */
     public function setLinks($links)
@@ -75,7 +75,7 @@ class HyperSchema extends PayPalModel
      * Sets FragmentResolution
      *
      * @param string $fragmentResolution
-     * 
+     *
      * @return $this
      */
     public function setFragmentResolution($fragmentResolution)
@@ -98,7 +98,7 @@ class HyperSchema extends PayPalModel
      * Sets Readonly
      *
      * @param bool $readonly
-     * 
+     *
      * @return $this
      */
     public function setReadonly($readonly)
@@ -121,7 +121,7 @@ class HyperSchema extends PayPalModel
      * Sets ContentEncoding
      *
      * @param string $contentEncoding
-     * 
+     *
      * @return $this
      */
     public function setContentEncoding($contentEncoding)
@@ -144,7 +144,7 @@ class HyperSchema extends PayPalModel
      * Sets PathStart
      *
      * @param string $pathStart
-     * 
+     *
      * @return $this
      */
     public function setPathStart($pathStart)
@@ -167,7 +167,7 @@ class HyperSchema extends PayPalModel
      * Sets MediaType
      *
      * @param string $mediaType
-     * 
+     *
      * @return $this
      */
     public function setMediaType($mediaType)

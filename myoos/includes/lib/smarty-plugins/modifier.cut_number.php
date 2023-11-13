@@ -25,7 +25,7 @@ function smarty_modifier_cut_number($number)
         return $aNumber[0];
     }
 
-	$aNumber[1] = rtrim($aNumber[1], "0");
+    $aNumber[1] = rtrim($aNumber[1], "0");
 
 
     return $aNumber[0] . "," . $aNumber[1];

@@ -24,7 +24,7 @@ class Tax extends PayPalModel
      * The resource ID.
      *
      * @param string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -47,7 +47,7 @@ class Tax extends PayPalModel
      * The tax name. Maximum length is 20 characters.
      *
      * @param string $name
-     * 
+     *
      * @return $this
      */
     public function setName($name)
@@ -70,7 +70,7 @@ class Tax extends PayPalModel
      * The rate of the specified tax. Valid range is from 0.001 to 99.999.
      *
      * @param string|double $percent
-     * 
+     *
      * @return $this
      */
     public function setPercent($percent)
@@ -95,7 +95,7 @@ class Tax extends PayPalModel
      * The tax as a monetary amount. Cannot be specified in a request.
      *
      * @param \PayPal\Api\Currency $amount
-     * 
+     *
      * @return $this
      */
     public function setAmount($amount)

@@ -9,7 +9,6 @@ namespace PayPal\Validation;
  */
 class NumericValidator
 {
-
     /**
      * Helper method for validating an argument if it is numeric
      *

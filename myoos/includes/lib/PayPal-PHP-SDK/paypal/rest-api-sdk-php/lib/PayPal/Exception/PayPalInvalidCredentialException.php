@@ -9,7 +9,6 @@ namespace PayPal\Exception;
  */
 class PayPalInvalidCredentialException extends \Exception
 {
-
     /**
      * Default Constructor
      *

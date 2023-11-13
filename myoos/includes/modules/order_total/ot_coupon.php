@@ -120,8 +120,8 @@ class ot_coupon
         global $oOrder, $oCurrencies, $oMessage, $aLang;
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $aContents = oos_get_content();
 
@@ -179,7 +179,7 @@ class ot_coupon
 						WHERE coupon_id = '" . $coupon_result['coupon_id']."'";
                 $coupon_count = $dbconn->Execute($sql);
 
-                if ($coupon_count->RecordCount()>=$coupon_result['uses_per_coupon'] && $coupon_result['uses_per_coupon'] > 0) {
+                if ($coupon_count->RecordCount() >= $coupon_result['uses_per_coupon'] && $coupon_result['uses_per_coupon'] > 0) {
                     $couponstable = $oostable['coupons'];
                     $gv_update = $dbconn->Execute(
                         "UPDATE $couponstable
@@ -232,14 +232,14 @@ class ot_coupon
         global $oCurrencies, $oMessage, $aLang;
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $aContents = oos_get_content();
 
         if (isset($_POST['gv_redeem_code'])) {
             $gv_redeem_code = filter_string_polyfill(filter_input(INPUT_POST, 'gv_redeem_code'));
-            
+
             if (empty($gv_redeem_code) || !is_string($gv_redeem_code)) {
                 return;
             }
@@ -289,7 +289,7 @@ class ot_coupon
 						WHERE coupon_id = '" . $coupon_result['coupon_id']."'";
                 $coupon_count = $dbconn->Execute($sql);
 
-                if ($coupon_count->RecordCount()>=$coupon_result['uses_per_coupon'] && $coupon_result['uses_per_coupon'] > 0) {
+                if ($coupon_count->RecordCount() >= $coupon_result['uses_per_coupon'] && $coupon_result['uses_per_coupon'] > 0) {
                     $couponstable = $oostable['coupons'];
                     $gv_update = $dbconn->Execute(
                         "UPDATE $couponstable
@@ -339,8 +339,8 @@ class ot_coupon
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $od_amount = 0;
 
@@ -355,7 +355,7 @@ class ot_coupon
 						AND coupon_active = 'Y'";
             $coupon_query = $dbconn->Execute($sql);
 
-            if ($coupon_query->RecordCount() !=0) {
+            if ($coupon_query->RecordCount() != 0) {
                 $coupon_result = $coupon_query->fields;
 
                 $couponstable = $oostable['coupons'];
@@ -392,14 +392,14 @@ class ot_coupon
                     if ($coupon_result['restrict_to_products'] || $coupon_result['restrict_to_categories']) {
                         $products = $_SESSION['cart']->get_products();
                         $n = is_countable($products) ? count($products) : 0;
-                        for ($i=0, $n; $i<$n; $i++) {
+                        for ($i = 0, $n; $i < $n; $i++) {
                             if ($coupon_result['restrict_to_products']) {
                                 $pr_ids = preg_split("/[,]/", (string) $coupon_result['restrict_to_products']);
                                 for ($ii = 0; $ii < (is_countable($pr_ids) ? count($pr_ids) : 0); $ii++) {
                                     if ($pr_ids[$ii] == oos_get_product_id($products[$i]['id'])) {
                                         if ($coupon_result['coupon_type'] == 'P') {
-                                            $pr_c = $products[$i]['final_price']*$products[$i]['quantity'];
-                                            $od_amount = round($pr_c*10)/10*$c_deduct/100;
+                                            $pr_c = $products[$i]['final_price'] * $products[$i]['quantity'];
+                                            $od_amount = round($pr_c * 10) / 10 * $c_deduct / 100;
                                         } else {
                                             $od_amount = $c_deduct;
                                         }
@@ -409,15 +409,15 @@ class ot_coupon
                                 $cat_ids = preg_split("/[,]/", (string) $coupon_result['restrict_to_categories']);
                                 $products = $_SESSION['cart']->get_products();
                                 $n = is_countable($products) ? count($products) : 0;
-                                for ($i=0, $n; $i<$n; $i++) {
+                                for ($i = 0, $n; $i < $n; $i++) {
                                     $my_path = oos_get_product_path(oos_get_product_id($products[$i]['id']));
                                     $sub_cat_ids = preg_split("/[_]/", $my_path);
                                     for ($iii = 0; $iii < (is_countable($sub_cat_ids) ? count($sub_cat_ids) : 0); $iii++) {
                                         for ($ii = 0; $ii < (is_countable($cat_ids) ? count($cat_ids) : 0); $ii++) {
                                             if ($sub_cat_ids[$iii] == $cat_ids[$ii]) {
                                                 if ($coupon_result['coupon_type'] == 'P') {
-                                                    $pr_c = $products[$i]['final_price']*$products[$i]['qty'];
-                                                    $od_amount = round($pr_c*10)/10*$c_deduct/100;
+                                                    $pr_c = $products[$i]['final_price'] * $products[$i]['qty'];
+                                                    $od_amount = round($pr_c * 10) / 10 * $c_deduct / 100;
                                                 } else {
                                                     $od_amount = $c_deduct;
                                                 }
@@ -428,14 +428,14 @@ class ot_coupon
                             }
                         }
                     } else {
-                        if ($coupon_result['coupon_type'] !='P') {
+                        if ($coupon_result['coupon_type'] != 'P') {
                             $od_amount = $c_deduct;
                         } else {
                             $od_amount = $amount * $coupon_result['coupon_amount'] / 100;
                         }
                     }
                 }
-                if ($od_amount>$amount) {
+                if ($od_amount > $amount) {
                     $od_amount = $amount;
                 }
             }
@@ -449,8 +449,8 @@ class ot_coupon
         global $oOrder;
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         if (isset($_SESSION['cc_id'])) {
             $cc_id = intval($_SESSION['cc_id']);
@@ -463,7 +463,7 @@ class ot_coupon
 					AND coupon_active = 'Y'";
             $coupon_query = $dbconn->Execute($sql);
 
-            if ($coupon_query->RecordCount() !=0) {
+            if ($coupon_query->RecordCount() != 0) {
                 $coupon_result = $coupon_query->fields;
 
                 $this->coupon_code = $coupon_result['coupon_code'];
@@ -500,8 +500,8 @@ class ot_coupon
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         if (isset($_SESSION['cc_id'])) {
             $cc_id = intval($_SESSION['cc_id']);
@@ -514,7 +514,7 @@ class ot_coupon
 					AND coupon_active = 'Y'";
             $coupon_query = $dbconn->Execute($sql);
 
-            if ($coupon_query->RecordCount() !=0) {
+            if ($coupon_query->RecordCount() != 0) {
                 $coupon_result = $coupon_query->fields;
 
                 $this->coupon_code = $coupon_result['coupon_code'];
@@ -695,8 +695,8 @@ class ot_coupon
             $remote_addr = oos_server_get_remote();
 
             // Get database information
-            $dbconn =& oosDBGetConn();
-            $oostable =& oosDBGetTables();
+            $dbconn = & oosDBGetConn();
+            $oostable = & oosDBGetTables();
 
             $coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
             $dbconn->Execute("INSERT INTO $coupon_redeem_tracktable (coupon_id, redeem_date, redeem_ip, customer_id, order_id) VALUES ('" . oos_db_input($cc_id) . "', now(), '" . oos_db_input($remote_addr) . "', '" . intval($_SESSION['customer_id']) . "', '" . intval($insert_id) . "')");
@@ -711,8 +711,8 @@ class ot_coupon
         global $oOrder;
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $products_id = oos_get_product_id($product_id);
         // products price
@@ -776,8 +776,8 @@ class ot_coupon
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_STATUS', 'true', '6', '1','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
@@ -789,8 +789,8 @@ class ot_coupon
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");

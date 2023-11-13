@@ -53,29 +53,29 @@
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
- /**
-  * ADODB Database Abstraction Layer API Helpers
-  *
-  * @package    database
-  * @copyright  (C) 2022 by the MyOOS Development Team.
-  * @license    GPL <http://www.gnu.org/licenses/gpl.html>
-  * @link       https://www.oos-shop.de
-  * @subpackage adodb
-  */
+/**
+ * ADODB Database Abstraction Layer API Helpers
+ *
+ * @package    database
+ * @copyright  (C) 2022 by the MyOOS Development Team.
+ * @license    GPL <http://www.gnu.org/licenses/gpl.html>
+ * @link       https://www.oos-shop.de
+ * @subpackage adodb
+ */
 
- /**
-  * Initializes the database connection.
-  *
-  * This function loads up ADODB  and starts the database
-  * connection using the required parameters then it sets
-  * the table prefixes and xartables up and returns true
-  *
-  * @access protected
-  * @global object db database connection object
-  * @global integer ADODB_FETCH_MODE array fectching by associative or numeric keyed arrays
-  * @global array oosDB_tables database tables used by MyOOS [Shopsystem]
-  * @return bool true on success, false on failure
-  */
+/**
+ * Initializes the database connection.
+ *
+ * This function loads up ADODB  and starts the database
+ * connection using the required parameters then it sets
+ * the table prefixes and xartables up and returns true
+ *
+ * @access protected
+ * @global object db database connection object
+ * @global integer ADODB_FETCH_MODE array fectching by associative or numeric keyed arrays
+ * @global array oosDB_tables database tables used by MyOOS [Shopsystem]
+ * @return bool true on success, false on failure
+ */
 function oosDBInit()
 {
     // Get database parameters
@@ -119,13 +119,13 @@ function oosDBInit()
     return true;
 }
 
- /**
-  * Get a list of database connections
-  *
-  * @access public
-  * @global array xarDB_connections array of database connection objects
-  * @return array array of database connection objects
-  */
+/**
+ * Get a list of database connections
+ *
+ * @access public
+ * @global array xarDB_connections array of database connection objects
+ * @return array array of database connection objects
+ */
 function &oosDBGetConn()
 {
 
@@ -134,24 +134,24 @@ function &oosDBGetConn()
     return $GLOBALS['oosDB_connections'][0];
 }
 
-  /**
-   * Get an array of database tables
-   *
-   * @access public
-   * @global array oosDB_tables array of database tables
-   * @return array array of database tables
-   */
+/**
+ * Get an array of database tables
+ *
+ * @access public
+ * @global array oosDB_tables array of database tables
+ * @return array array of database tables
+ */
 function &oosDBGetTables()
 {
     return $GLOBALS['oosDB_tables'];
 }
 
-  /**
-   * Import module tables in the array of known tables
-   *
-   * @access protected
-   * @global oostable array
-   */
+/**
+ * Import module tables in the array of known tables
+ *
+ * @access protected
+ * @global oostable array
+ */
 function oosDB_importTables($tables)
 {
     // assert('is_array($tables)');
@@ -163,8 +163,8 @@ function oos_db_input($sStr)
     $sStr = (string)$sStr;
 
     // Get database information
-    $dbconn =& oosDBGetConn();
- 
+    $dbconn = & oosDBGetConn();
+
     $qString = $dbconn->qStr($sStr);
     $qString = trim((string) $qString, '\"');
     $qString = trim($qString, '\'');
@@ -176,7 +176,7 @@ function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '')
 {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
+    $dbconn = & oosDBGetConn();
 
     reset($data);
     if ($action == 'INSERT') {
@@ -188,18 +188,18 @@ function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '')
         reset($data);
         foreach ($data as $value) {
             switch ((string)$value) {
-            case 'now()':
-                $query .= 'now(), ';
-                break;
+                case 'now()':
+                    $query .= 'now(), ';
+                    break;
 
-            case 'null':
-                $query .= 'NULL, ';
-                break;
+                case 'null':
+                    $query .= 'NULL, ';
+                    break;
 
-            default:
-                $qString = $dbconn->qStr($value);
-                $query .= $qString . ', ';
-                break;
+                default:
+                    $qString = $dbconn->qStr($value);
+                    $query .= $qString . ', ';
+                    break;
             }
         }
         $query = substr($query, 0, -2) . ')';
@@ -207,18 +207,18 @@ function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '')
         $query = 'UPDATE ' . $table . ' SET ';
         foreach ($data as $columns => $value) {
             switch ((string)$value) {
-            case 'now()':
-                $query .= $columns . ' = now(), ';
-                break;
+                case 'now()':
+                    $query .= $columns . ' = now(), ';
+                    break;
 
-            case 'null':
-                $query .= $columns .= ' = NULL, ';
-                break;
+                case 'null':
+                    $query .= $columns .= ' = NULL, ';
+                    break;
 
-            default:
-                $qString = $dbconn->qStr($value);
-                $query .= $columns . ' = ' . $qString . ', ';
-                break;
+                default:
+                    $qString = $dbconn->qStr($value);
+                    $query .= $columns . ' = ' . $qString . ', ';
+                    break;
             }
         }
         $query = substr($query, 0, -2) . ' WHERE ' . $parameters;
@@ -250,7 +250,7 @@ function oos_db_output($sStr)
 function dosql($table, $flds)
 {
     // Get database information
-    $dbconn =& oosDBGetConn();
+    $dbconn = & oosDBGetConn();
     $dict = NewDataDictionary($dbconn);
 
     $taboptarray = ['mysql' => 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;', 'REPLACE'];
@@ -262,7 +262,7 @@ function dosql($table, $flds)
 function idxsql($idxname, $table, $idxflds)
 {
     // Get database information
-    $dbconn =& oosDBGetConn();
+    $dbconn = & oosDBGetConn();
     $dict = NewDataDictionary($dbconn);
 
     $sqlarray = $dict->CreateIndexSQL($idxname, $table, $idxflds);

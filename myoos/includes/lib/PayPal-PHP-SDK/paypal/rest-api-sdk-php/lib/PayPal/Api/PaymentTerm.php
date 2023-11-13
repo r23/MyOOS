@@ -21,7 +21,7 @@ class PaymentTerm extends PayPalModel
      * Valid Values: ["DUE_ON_RECEIPT", "DUE_ON_DATE_SPECIFIED", "NET_10", "NET_15", "NET_30", "NET_45", "NET_60", "NET_90", "NO_DUE_DATE"]
      *
      * @param string $term_type
-     * 
+     *
      * @return $this
      */
     public function setTermType($term_type)
@@ -44,7 +44,7 @@ class PaymentTerm extends PayPalModel
      * The date when the invoice payment is due. This date must be a future date. Date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
      *
      * @param string $due_date
-     * 
+     *
      * @return $this
      */
     public function setDueDate($due_date)

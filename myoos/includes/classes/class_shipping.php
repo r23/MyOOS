@@ -58,7 +58,7 @@ class shipping
             $sLanguage = isset($_SESSION['language']) ? oos_var_prep_for_os($_SESSION['language']) : DEFAULT_LANGUAGE;
 
             $n = is_countable($include_modules) ? count($include_modules) : 0;
-            for ($i=0, $n; $i<$n; $i++) {
+            for ($i = 0, $n; $i < $n; $i++) {
                 include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/shipping/' . $include_modules[$i]['file'];
                 include_once MYOOS_INCLUDE_PATH . '/includes/modules/shipping/' . $include_modules[$i]['file'];
 
@@ -82,14 +82,14 @@ class shipping
             $shipping_weight = $total_weight;
 
             if ($total_weight > SHIPPING_MAX_WEIGHT) { // Split into many boxes
-                $shipping_num_boxes = ceil($total_weight/SHIPPING_MAX_WEIGHT);
-                $shipping_weight = $total_weight/$shipping_num_boxes;
+                $shipping_num_boxes = ceil($total_weight / SHIPPING_MAX_WEIGHT);
+                $shipping_weight = $total_weight / $shipping_num_boxes;
             }
 
-            if (SHIPPING_BOX_WEIGHT >= $shipping_weight*SHIPPING_BOX_PADDING/100) {
-                $shipping_weight = $shipping_weight+SHIPPING_BOX_WEIGHT;
+            if (SHIPPING_BOX_WEIGHT >= $shipping_weight * SHIPPING_BOX_PADDING / 100) {
+                $shipping_weight = $shipping_weight + SHIPPING_BOX_WEIGHT;
             } else {
-                $shipping_weight = $shipping_weight + ($shipping_weight*SHIPPING_BOX_PADDING/100);
+                $shipping_weight = $shipping_weight + ($shipping_weight * SHIPPING_BOX_PADDING / 100);
             }
 
             $include_quotes = [];
@@ -106,7 +106,7 @@ class shipping
             }
 
             $size = count($include_quotes);
-            for ($i=0; $i<$size; $i++) {
+            for ($i = 0; $i < $size; $i++) {
                 $quotes = $GLOBALS[$include_quotes[$i]]->quote($method);
                 if (is_array($quotes)) {
                     $quotes_array[] = $quotes;
@@ -127,7 +127,7 @@ class shipping
                 if ($GLOBALS[$class]->enabled) {
                     $quotes = $GLOBALS[$class]->quotes;
                     $size = is_countable($quotes['methods']) ? count($quotes['methods']) : 0;
-                    for ($i=0; $i<$size; $i++) {
+                    for ($i = 0; $i < $size; $i++) {
                         if ($quotes['methods'][$i]['cost']) {
                             $rates[] = ['id' => $quotes['id'] . '_' . $quotes['methods'][$i]['id'],
                                             'title' => $quotes['module'] . ' (' . $quotes['methods'][$i]['title'] . ')',
@@ -139,7 +139,7 @@ class shipping
 
             $cheapest = false;
             $size = count($rates);
-            for ($i=0; $i<$size; $i++) {
+            for ($i = 0; $i < $size; $i++) {
                 if (is_array($cheapest)) {
                     if ($rates[$i]['cost'] < $cheapest['cost']) {
                         $cheapest = $rates[$i];

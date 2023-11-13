@@ -20,10 +20,10 @@
    ----------------------------------------------------------------------
  */
 
-  /**
-   * ensure this file is being included by a parent file
-   */
-  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+/**
+ * ensure this file is being included by a parent file
+ */
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 class oosCategoryTree
 {
@@ -57,8 +57,8 @@ class oosCategoryTree
         }
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
 
@@ -96,7 +96,7 @@ class oosCategoryTree
             $this->data = [];
 
             $n = is_countable($data_array) ? count($data_array) : 0;
-            for ($i=0, $n; $i<$n; $i++) {
+            for ($i = 0, $n; $i < $n; $i++) {
                 $this->data[$data_array[$i]['parent_id']][$data_array[$i]['categories_id']] = ['name' => $data_array[$i]['categories_name'], 'count' => $data_array[$i]['categories_count']];
             }
         }
@@ -158,13 +158,13 @@ class oosCategoryTree
 
                 $result .= $this->child_end_string;
 
-                if (isset($this->data[$category_id]) && (($this->max_level == '0') || ($this->max_level > $level+1))) {
+                if (isset($this->data[$category_id]) && (($this->max_level == '0') || ($this->max_level > $level + 1))) {
                     if ($this->follow_cpath === true) {
                         if (in_array($category_id, $this->cpath_array)) {
-                            $result .= $this->buildBranch($category_id, $level+1);
+                            $result .= $this->buildBranch($category_id, $level + 1);
                         }
                     } else {
-                        $result .= $this->buildBranch($category_id, $level+1);
+                        $result .= $this->buildBranch($category_id, $level + 1);
                     }
                 }
             }
@@ -192,13 +192,13 @@ class oosCategoryTree
 
                 $result[] = ['id' => $category_link, 'title' => str_repeat((string) $this->spacer_string, $this->spacer_multiplier * $level) . $category['name']];
 
-                if (isset($this->data[$category_id]) && (($this->max_level == '0') || ($this->max_level > $level+1))) {
+                if (isset($this->data[$category_id]) && (($this->max_level == '0') || ($this->max_level > $level + 1))) {
                     if ($this->follow_cpath === true) {
                         if (in_array($category_id, $this->cpath_array)) {
-                            $result = $this->buildBranchArray($category_id, $level+1, $result);
+                            $result = $this->buildBranchArray($category_id, $level + 1, $result);
                         }
                     } else {
-                        $result = $this->buildBranchArray($category_id, $level+1, $result);
+                        $result = $this->buildBranchArray($category_id, $level + 1, $result);
                     }
                 }
             }
@@ -222,7 +222,7 @@ class oosCategoryTree
                     }
 
                     if ($parent != $this->root_category_id) {
-                        $breadcrumb = $this->buildBreadcrumb($parent, $level+1) . $breadcrumb;
+                        $breadcrumb = $this->buildBreadcrumb($parent, $level + 1) . $breadcrumb;
                     }
                 }
             }
@@ -268,8 +268,8 @@ class oosCategoryTree
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $productstable = $oostable['products'];
         $products_to_categoriestable = $oostable['products_to_categories'];

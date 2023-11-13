@@ -37,7 +37,7 @@ class Authorization extends PayPalResourceModel
      * ID of the authorization transaction.
      *
      * @param string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -60,7 +60,7 @@ class Authorization extends PayPalResourceModel
      * Amount being authorized.
      *
      * @param \PayPal\Api\Amount $amount
-     * 
+     *
      * @return $this
      */
     public function setAmount($amount)
@@ -84,7 +84,7 @@ class Authorization extends PayPalResourceModel
      * Valid Values: ["INSTANT_TRANSFER"]
      *
      * @param string $payment_mode
-     * 
+     *
      * @return $this
      */
     public function setPaymentMode($payment_mode)
@@ -108,7 +108,7 @@ class Authorization extends PayPalResourceModel
      * Valid Values: ["pending", "authorized", "partially_captured", "captured", "expired", "voided"]
      *
      * @param string $state
-     * 
+     *
      * @return $this
      */
     public function setState($state)
@@ -132,7 +132,7 @@ class Authorization extends PayPalResourceModel
      * Valid Values: ["AUTHORIZATION"]
      *
      * @param string $reason_code
-     * 
+     *
      * @return $this
      */
     public function setReasonCode($reason_code)
@@ -156,7 +156,7 @@ class Authorization extends PayPalResourceModel
      * Valid Values: ["AUTHORIZATION"]
      *
      * @param string $pending_reason
-     * 
+     *
      * @return $this
      */
     public function setPendingReason($pending_reason)
@@ -180,7 +180,7 @@ class Authorization extends PayPalResourceModel
      * Valid Values: ["ELIGIBLE", "PARTIALLY_ELIGIBLE", "INELIGIBLE"]
      *
      * @param string $protection_eligibility
-     * 
+     *
      * @return $this
      */
     public function setProtectionEligibility($protection_eligibility)
@@ -204,7 +204,7 @@ class Authorization extends PayPalResourceModel
      * Valid Values: ["ITEM_NOT_RECEIVED_ELIGIBLE", "UNAUTHORIZED_PAYMENT_ELIGIBLE", "ITEM_NOT_RECEIVED_ELIGIBLE,UNAUTHORIZED_PAYMENT_ELIGIBLE"]
      *
      * @param string $protection_eligibility_type
-     * 
+     *
      * @return $this
      */
     public function setProtectionEligibilityType($protection_eligibility_type)
@@ -227,7 +227,7 @@ class Authorization extends PayPalResourceModel
      * Fraud Management Filter (FMF) details applied for the payment that could result in accept, deny, or pending action. Returned in a payment response only if the merchant has enabled FMF in the profile settings and one of the fraud filters was triggered based on those settings. See [Fraud Management Filters Summary](https://developer.paypal.com/docs/classic/fmf/integration-guide/FMFSummary/) for more information.
      *
      * @param \PayPal\Api\FmfDetails $fmf_details
-     * 
+     *
      * @return $this
      */
     public function setFmfDetails($fmf_details)
@@ -250,7 +250,7 @@ class Authorization extends PayPalResourceModel
      * ID of the Payment resource that this transaction is based on.
      *
      * @param string $parent_payment
-     * 
+     *
      * @return $this
      */
     public function setParentPayment($parent_payment)
@@ -296,7 +296,7 @@ class Authorization extends PayPalResourceModel
      * Authorization expiration time and date as defined in [RFC 3339 Section 5.6](http://tools.ietf.org/html/rfc3339#section-5.6).
      *
      * @param string $valid_until
-     * 
+     *
      * @return $this
      */
     public function setValidUntil($valid_until)
@@ -319,7 +319,7 @@ class Authorization extends PayPalResourceModel
      * Time of authorization as defined in [RFC 3339 Section 5.6](http://tools.ietf.org/html/rfc3339#section-5.6).
      *
      * @param string $create_time
-     * 
+     *
      * @return $this
      */
     public function setCreateTime($create_time)
@@ -342,7 +342,7 @@ class Authorization extends PayPalResourceModel
      * Time that the resource was last updated.
      *
      * @param string $update_time
-     * 
+     *
      * @return $this
      */
     public function setUpdateTime($update_time)
@@ -365,7 +365,7 @@ class Authorization extends PayPalResourceModel
      * Identifier to the purchase or transaction unit corresponding to this authorization transaction.
      *
      * @param string $reference_id
-     * 
+     *
      * @return $this
      */
     public function setReferenceId($reference_id)
@@ -388,7 +388,7 @@ class Authorization extends PayPalResourceModel
      * Receipt id is 16 digit number payment identification number returned for guest users to identify the payment.
      *
      * @param string $receipt_id
-     * 
+     *
      * @return $this
      */
     public function setReceiptId($receipt_id)

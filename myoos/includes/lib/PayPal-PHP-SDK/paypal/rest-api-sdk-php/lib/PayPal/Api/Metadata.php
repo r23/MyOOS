@@ -29,7 +29,7 @@ class Metadata extends PayPalModel
      * The date and time when the resource was created.
      *
      * @param string $created_date
-     * 
+     *
      * @return $this
      */
     public function setCreatedDate($created_date)
@@ -52,7 +52,7 @@ class Metadata extends PayPalModel
      * The email address of the account that created the resource.
      *
      * @param string $created_by
-     * 
+     *
      * @return $this
      */
     public function setCreatedBy($created_by)
@@ -75,7 +75,7 @@ class Metadata extends PayPalModel
      * The date and time when the resource was cancelled.
      *
      * @param string $cancelled_date
-     * 
+     *
      * @return $this
      */
     public function setCancelledDate($cancelled_date)
@@ -98,7 +98,7 @@ class Metadata extends PayPalModel
      * The actor who cancelled the resource.
      *
      * @param string $cancelled_by
-     * 
+     *
      * @return $this
      */
     public function setCancelledBy($cancelled_by)
@@ -121,7 +121,7 @@ class Metadata extends PayPalModel
      * The date and time when the resource was last edited.
      *
      * @param string $last_updated_date
-     * 
+     *
      * @return $this
      */
     public function setLastUpdatedDate($last_updated_date)
@@ -144,7 +144,7 @@ class Metadata extends PayPalModel
      * The email address of the account that last edited the resource.
      *
      * @param string $last_updated_by
-     * 
+     *
      * @return $this
      */
     public function setLastUpdatedBy($last_updated_by)
@@ -167,7 +167,7 @@ class Metadata extends PayPalModel
      * The date and time when the resource was first sent.
      *
      * @param string $first_sent_date
-     * 
+     *
      * @return $this
      */
     public function setFirstSentDate($first_sent_date)
@@ -190,7 +190,7 @@ class Metadata extends PayPalModel
      * The date and time when the resource was last sent.
      *
      * @param string $last_sent_date
-     * 
+     *
      * @return $this
      */
     public function setLastSentDate($last_sent_date)
@@ -213,7 +213,7 @@ class Metadata extends PayPalModel
      * The email address of the account that last sent the resource.
      *
      * @param string $last_sent_by
-     * 
+     *
      * @return $this
      */
     public function setLastSentBy($last_sent_by)

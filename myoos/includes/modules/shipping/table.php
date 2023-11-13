@@ -51,8 +51,8 @@ class table
             $check_flag = false;
 
             // Get database information
-            $dbconn =& oosDBGetConn();
-            $oostable =& oosDBGetTables();
+            $dbconn = & oosDBGetConn();
+            $oostable = & oosDBGetTables();
 
             $zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
             $check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_SHIPPING_TABLE_ZONE . "' AND zone_country_id = '" . intval($dest_country) . "' ORDER BY zone_id");
@@ -88,9 +88,9 @@ class table
 
         $table_cost = preg_split("/[:,]/", (string) MODULE_SHIPPING_TABLE_COST);
         $n = is_countable($table_cost) ? count($table_cost) : 0;
-        for ($i=0, $n; $i<$n; $i+=2) {
+        for ($i = 0, $n; $i < $n; $i += 2) {
             if ($oOrder_total <= $table_cost[$i]) {
-                $shipping = $table_cost[$i+1];
+                $shipping = $table_cost[$i + 1];
                 break;
             }
         }
@@ -99,7 +99,7 @@ class table
             $shipping = $shipping * $shipping_num_boxes;
         }
 
-        $this->quotes = ['id' => $this->code, 'module' =>$aLang['module_shipping_table_text_title'], 'methods' => [['id' => $this->code, 'title' => $aLang['module_shipping_table_text_way'], 'cost' => $shipping + MODULE_SHIPPING_TABLE_HANDLING]]];
+        $this->quotes = ['id' => $this->code, 'module' => $aLang['module_shipping_table_text_title'], 'methods' => [['id' => $this->code, 'title' => $aLang['module_shipping_table_text_way'], 'cost' => $shipping + MODULE_SHIPPING_TABLE_HANDLING]]];
 
 
         if (oos_is_not_null($this->icon)) {
@@ -122,8 +122,8 @@ class table
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_TABLE_STATUS', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
@@ -139,8 +139,8 @@ class table
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");

@@ -52,12 +52,12 @@ class splitPageResults
             $page = filter_input(INPUT_GET, $page_name, FILTER_VALIDATE_INT);
         } elseif (isset($_POST[$page_name])) {
             $page = filter_input(INPUT_POST, $page_name, FILTER_VALIDATE_INT);
-        } 
+        }
 
         if ($page === null || $page === false) {
             $page = 1;
         }
-        
+
 
         $this->current_page_number = $page;
 
@@ -81,7 +81,7 @@ class splitPageResults
             $pos_to = $pos_order_by;
         }
 
-        $dbconn =& oosDBGetConn();
+        $dbconn = & oosDBGetConn();
         $sql = "SELECT COUNT(" . oos_db_input($count_key) . ") AS total " . substr($this->sql_query, $pos_from, ($pos_to - $pos_from));
         $count = $dbconn->Execute($sql);
 
@@ -102,7 +102,7 @@ class splitPageResults
         if ($offset <= 0) {
             $offset = 0;
         }
-        if ($this->current_page_number <=0) {
+        if ($this->current_page_number <= 0) {
             $this->current_page_number = 1;
         }
 

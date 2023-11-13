@@ -60,7 +60,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
     }
     $firstname = filter_string_polyfill(filter_input(INPUT_POST, 'firstname'));
     $lastname = filter_string_polyfill(filter_input(INPUT_POST, 'lastname'));
-    
+
     if (ACCOUNT_DOB == 'true') {
         $dob = filter_string_polyfill(filter_input(INPUT_POST, 'dob'));
     }
@@ -89,7 +89,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
         $telephone = filter_string_polyfill(filter_input(INPUT_POST, 'telephone'));
     }
     $password = filter_string_polyfill(filter_input(INPUT_POST, 'password'));
-    $confirmation = filter_string_polyfill(filter_input(INPUT_POST, 'confirmation'));    
+    $confirmation = filter_string_polyfill(filter_input(INPUT_POST, 'confirmation'));
     $newsletter = filter_string_polyfill(filter_input(INPUT_POST, 'newsletter'));
     $agree = filter_string_polyfill(filter_input(INPUT_POST, 'agree'));
 

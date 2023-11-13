@@ -235,7 +235,7 @@ if ($category_depth == 'nested') {
     $nManufacturersID = filter_input(INPUT_GET, 'manufacturers_id', FILTER_VALIDATE_INT);
     $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
     $nFilterID = filter_input(INPUT_GET, 'filter_id', FILTER_VALIDATE_INT) ?: 0;
-    $sSort = filter_string_polyfill(filter_input(INPUT_GET, 'sort')); 
+    $sSort = filter_string_polyfill(filter_input(INPUT_GET, 'sort'));
 
     $sGroup = trim((string) $aUser['text']);
     $sContentCacheID = $sTheme . '|shop|products|' . intval($nCurrentCategoryID) . '|' . $sCategory . '|' . $nManufacturersID . '|' . $nPage . '|' . $nFilterID . '|' . $sGroup . '|' . $sLanguage;
@@ -277,33 +277,33 @@ if ($category_depth == 'nested') {
             }
 
             switch ($aColumnList[$col]) {
-            case 'PRODUCT_LIST_MODEL':
-                $select_column_list .= 'p.products_model, ';
-                break;
+                case 'PRODUCT_LIST_MODEL':
+                    $select_column_list .= 'p.products_model, ';
+                    break;
 
-            case 'PRODUCT_LIST_NAME':
-                $select_column_list .= 'pd.products_name, ';
-                break;
+                case 'PRODUCT_LIST_NAME':
+                    $select_column_list .= 'pd.products_name, ';
+                    break;
 
-            case 'PRODUCT_LIST_MANUFACTURER':
-                $select_column_list .= 'm.manufacturers_name, ';
-                break;
+                case 'PRODUCT_LIST_MANUFACTURER':
+                    $select_column_list .= 'm.manufacturers_name, ';
+                    break;
 
-            case 'PRODUCT_LIST_QUANTITY':
-                $select_column_list .= 'p.products_quantity, ';
-                break;
+                case 'PRODUCT_LIST_QUANTITY':
+                    $select_column_list .= 'p.products_quantity, ';
+                    break;
 
-            case 'PRODUCT_LIST_IMAGE':
-                $select_column_list .= 'p.products_image, ';
-                break;
+                case 'PRODUCT_LIST_IMAGE':
+                    $select_column_list .= 'p.products_image, ';
+                    break;
 
-            case 'PRODUCT_LIST_WEIGHT':
-                $select_column_list .= 'p.products_weight, ';
-                break;
+                case 'PRODUCT_LIST_WEIGHT':
+                    $select_column_list .= 'p.products_weight, ';
+                    break;
 
-            case 'PRODUCT_LIST_SORT_ORDER':
-                $select_column_list .= 'p.products_sort_order, ';
-                break;
+                case 'PRODUCT_LIST_SORT_ORDER':
+                    $select_column_list .= 'p.products_sort_order, ';
+                    break;
             }
         }
 
@@ -462,7 +462,7 @@ if ($category_depth == 'nested') {
             $n = count($aColumnList);
             for ($col = 0, $n; $col < $n; $col++) {
                 if ($aColumnList[$col] == 'PRODUCT_LIST_NAME') {
-                    $_GET['sort'] = $i+1 . 'a';
+                    $_GET['sort'] = $i + 1 . 'a';
                     //  $_GET['sort'] = 'products_sort_order';
                     $listing_sql .= " ORDER BY p.products_sort_order asc";
                     break;
@@ -472,38 +472,38 @@ if ($category_depth == 'nested') {
             $sort_col = substr((string) $_GET['sort'], 0, 1);
             $sort_order = substr((string) $_GET['sort'], 1);
 
-            switch ($aColumnList[$sort_col-1]) {
-            case 'PRODUCT_LIST_MODEL':
-                $listing_sql .= " ORDER BY p.products_model " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
-                break;
+            switch ($aColumnList[$sort_col - 1]) {
+                case 'PRODUCT_LIST_MODEL':
+                    $listing_sql .= " ORDER BY p.products_model " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+                    break;
 
-            case 'PRODUCT_LIST_NAME':
-                $listing_sql .= " ORDER BY pd.products_name " . ($sort_order == 'd' ? 'desc' : '');
-                break;
+                case 'PRODUCT_LIST_NAME':
+                    $listing_sql .= " ORDER BY pd.products_name " . ($sort_order == 'd' ? 'desc' : '');
+                    break;
 
-            case 'PRODUCT_LIST_MANUFACTURER':
-                $listing_sql .= " ORDER BY m.manufacturers_name " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
-                break;
+                case 'PRODUCT_LIST_MANUFACTURER':
+                    $listing_sql .= " ORDER BY m.manufacturers_name " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+                    break;
 
-            case 'PRODUCT_LIST_QUANTITY':
-                $listing_sql .= " ORDER BY p.products_quantity " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
-                break;
+                case 'PRODUCT_LIST_QUANTITY':
+                    $listing_sql .= " ORDER BY p.products_quantity " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+                    break;
 
-            case 'PRODUCT_LIST_IMAGE':
-                $listing_sql .= " ORDER BY pd.products_name";
-                break;
+                case 'PRODUCT_LIST_IMAGE':
+                    $listing_sql .= " ORDER BY pd.products_name";
+                    break;
 
-            case 'PRODUCT_LIST_WEIGHT':
-                $listing_sql .= " ORDER BY p.products_weight " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
-                break;
+                case 'PRODUCT_LIST_WEIGHT':
+                    $listing_sql .= " ORDER BY p.products_weight " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+                    break;
 
-            case 'PRODUCT_LIST_PRICE':
-                $listing_sql .= " ORDER BY final_price " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
-                break;
+                case 'PRODUCT_LIST_PRICE':
+                    $listing_sql .= " ORDER BY final_price " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+                    break;
 
-            case 'PRODUCT_LIST_SORT_ORDER':
-                $listing_sql .= " ORDER BY p.products_sort_order " . ($sort_order == 'd' ? "desc" : '') . ", pd.products_name";
-                break;
+                case 'PRODUCT_LIST_SORT_ORDER':
+                    $listing_sql .= " ORDER BY p.products_sort_order " . ($sort_order == 'd' ? "desc" : '') . ", pd.products_name";
+                    break;
 
             }
         }

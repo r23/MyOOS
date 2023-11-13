@@ -58,8 +58,8 @@ class nav_menu
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
 
@@ -113,28 +113,28 @@ class nav_menu
 
 
                 switch ($level) {
-                case 0:
-                    $result .= $this->root_start_string;
-                    break;
+                    case 0:
+                        $result .= $this->root_start_string;
+                        break;
 
-                case 1:
-                    if ($submenu == 0) {
-                        $submenu++;
-                        $this->count = 0;
-                        $this->submenu = 1;
-                        $this->count_col++;
+                    case 1:
+                        if ($submenu == 0) {
+                            $submenu++;
+                            $this->count = 0;
+                            $this->submenu = 1;
+                            $this->count_col++;
 
-                        $result .= '<div class="main-nav-submenu">
+                            $result .= '<div class="main-nav-submenu">
 											<div class="row"><div class="col-md-3"><ul class="list-unstyled"><li>';
-                    } else {
-                        $this->count+2;
-                        $result .=  '<ul class="list-unstyled"><li>';
-                    }
-                    break;
+                        } else {
+                            $this->count + 2;
+                            $result .=  '<ul class="list-unstyled"><li>';
+                        }
+                        break;
 
-                case 2:
-                    $result .= $this->parent_start_string . "\n";
-                    break;
+                    case 2:
+                        $result .= $this->parent_start_string . "\n";
+                        break;
                 }
 
 
@@ -145,13 +145,13 @@ class nav_menu
                 }
 
                 switch ($category['menu_type']) {
-                case 'NEW':
-                    $result .= '<span class="badge badge-danger float-right">NEW</span>';
-                    break;
+                    case 'NEW':
+                        $result .= '<span class="badge badge-danger float-right">NEW</span>';
+                        break;
 
-                case 'PROMO':
-                    $result .= '<span class="badge badge-success float-right">PROMO</span>';
-                    break;
+                    case 'PROMO':
+                        $result .= '<span class="badge badge-success float-right">PROMO</span>';
+                        break;
                 }
 
 
@@ -180,50 +180,50 @@ class nav_menu
                     }
                 }
 
-                if (isset($this->data[$category_id]) && (($this->max_level == '0') || ($this->max_level > $level+1))) {
+                if (isset($this->data[$category_id]) && (($this->max_level == '0') || ($this->max_level > $level + 1))) {
                     if ($this->follow_cpath === true) {
                         if (in_array($category_id, $this->cpath_array)) {
-                            $result .= $this->buildBranch($category_id, $level+1);
+                            $result .= $this->buildBranch($category_id, $level + 1);
                         }
                     } else {
-                        $result .= $this->buildBranch($category_id, $level+1, $submenu);
+                        $result .= $this->buildBranch($category_id, $level + 1, $submenu);
                     }
                 }
 
                 switch ($level) {
-                case 0:
-                    if ($this->submenu > 0) {
-                        if (($this->banner_image != '') && ($this->count_col <= 3)) {
-                            if ($this->count_col == 1) {
-                                $result .= '</div><div class="col-md-9 text-right hidden-sm-down">';
-                            } elseif ($this->count_col == 2) {
-                                $result .= '</div><div class="col-md-6 text-right hidden-sm-down">';
-                            } elseif ($this->count_col == 3) {
-                                $result .= '</div><div class="col-md-6 text-right hidden-sm-down">';
-                            }
-                            $result .= '<a class="mt-15 block" href="'. $this->banner_link . '">
+                    case 0:
+                        if ($this->submenu > 0) {
+                            if (($this->banner_image != '') && ($this->count_col <= 3)) {
+                                if ($this->count_col == 1) {
+                                    $result .= '</div><div class="col-md-9 text-right hidden-sm-down">';
+                                } elseif ($this->count_col == 2) {
+                                    $result .= '</div><div class="col-md-6 text-right hidden-sm-down">';
+                                } elseif ($this->count_col == 3) {
+                                    $result .= '</div><div class="col-md-6 text-right hidden-sm-down">';
+                                }
+                                $result .= '<a class="mt-15 block" href="'. $this->banner_link . '">
 												<img class="img-fluid" src="' . $this->banner_image . '" alt="' . $this->banner_name .'">
 											</a>';
+                            }
+
+                            $result .=  '</div></div></div>'  . "\n";
                         }
+                        $this->submenu = 0;
 
-                        $result .=  '</div></div></div>'  . "\n";
-                    }
-                    $this->submenu = 0;
+                        $result .= $this->root_end_string;
+                        break;
 
-                    $result .= $this->root_end_string;
-                    break;
+                    case 1:
+                        if ($this->count > 0) {
+                            $result .=     '</ul>';
+                        }
+                        break;
 
-                case 1:
-                    if ($this->count > 0) {
-                        $result .=     '</ul>';
-                    }
-                    break;
-
-                case 2:
-                    if ($this->count > 0) {
-                        $result .=  $this->parent_end_string;
-                    }
-                    break;
+                    case 2:
+                        if ($this->count > 0) {
+                            $result .=  $this->parent_end_string;
+                        }
+                        break;
                 }
             }
         }
@@ -247,7 +247,7 @@ class nav_menu
                     }
 
                     if ($parent != $this->root_category_id) {
-                        $breadcrumb = $this->buildBreadcrumb($parent, $level+1) . $breadcrumb;
+                        $breadcrumb = $this->buildBreadcrumb($parent, $level + 1) . $breadcrumb;
                     }
                 }
             }

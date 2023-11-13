@@ -32,8 +32,8 @@ class currencies
     public function __construct()
     {
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $currenciestable = $oostable['currencies'];
         $sql = "SELECT code, title, symbol_left, symbol_right, decimal_point,

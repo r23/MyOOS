@@ -27,7 +27,7 @@ class Participant extends PayPalModel
      * The participant email address.
      *
      * @param string $email
-     * 
+     *
      * @return $this
      */
     public function setEmail($email)
@@ -50,7 +50,7 @@ class Participant extends PayPalModel
      * The participant first name.
      *
      * @param string $first_name
-     * 
+     *
      * @return $this
      */
     public function setFirstName($first_name)
@@ -73,7 +73,7 @@ class Participant extends PayPalModel
      * The participant last name.
      *
      * @param string $last_name
-     * 
+     *
      * @return $this
      */
     public function setLastName($last_name)
@@ -96,7 +96,7 @@ class Participant extends PayPalModel
      * The participant company business name.
      *
      * @param string $business_name
-     * 
+     *
      * @return $this
      */
     public function setBusinessName($business_name)
@@ -119,7 +119,7 @@ class Participant extends PayPalModel
      * The participant phone number.
      *
      * @param \PayPal\Api\Phone $phone
-     * 
+     *
      * @return $this
      */
     public function setPhone($phone)
@@ -142,7 +142,7 @@ class Participant extends PayPalModel
      * The participant fax number.
      *
      * @param \PayPal\Api\Phone $fax
-     * 
+     *
      * @return $this
      */
     public function setFax($fax)
@@ -165,7 +165,7 @@ class Participant extends PayPalModel
      * The participant website.
      *
      * @param string $website
-     * 
+     *
      * @return $this
      */
     public function setWebsite($website)
@@ -188,7 +188,7 @@ class Participant extends PayPalModel
      * Additional information, such as business hours.
      *
      * @param string $additional_info
-     * 
+     *
      * @return $this
      */
     public function setAdditionalInfo($additional_info)
@@ -211,7 +211,7 @@ class Participant extends PayPalModel
      * The participant address.
      *
      * @param \PayPal\Api\Address $address
-     * 
+     *
      * @return $this
      */
     public function setAddress($address)

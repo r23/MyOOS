@@ -58,7 +58,7 @@ class PayPalLoggingManager
         // Checks if custom factory defined, and is it an implementation of @PayPalLogFactory
         $factory = array_key_exists('log.AdapterFactory', $config) && in_array(\PayPal\Log\PayPalLogFactory::class, class_implements($config['log.AdapterFactory'])) ? $config['log.AdapterFactory'] : '\\' . \PayPal\Log\PayPalDefaultLogFactory::class;
         /**
- * @var PayPalLogFactory $factoryInstance 
+ * @var PayPalLogFactory $factoryInstance
 */
         $factoryInstance = new $factory();
         $this->logger = $factoryInstance->getLogger($loggerName);

@@ -36,7 +36,7 @@
  * @param   Smarty
  * @return  string|null
  */
-function smarty_modifier_highlight_char($string, $css_class, $tag_name="span")
+function smarty_modifier_highlight_char($string, $css_class, $tag_name = "span")
 {
     // strip whitespace off the front of the string, and make sure
     // there are characters in the string, we only return valid characters...

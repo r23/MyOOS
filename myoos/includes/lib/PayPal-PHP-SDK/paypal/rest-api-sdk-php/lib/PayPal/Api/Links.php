@@ -22,7 +22,7 @@ class Links extends PayPalModel
      * Sets Href
      *
      * @param string $href
-     * 
+     *
      * @return $this
      */
     public function setHref($href)
@@ -45,7 +45,7 @@ class Links extends PayPalModel
      * Sets Rel
      *
      * @param string $rel
-     * 
+     *
      * @return $this
      */
     public function setRel($rel)
@@ -68,7 +68,7 @@ class Links extends PayPalModel
      * Sets TargetSchema
      *
      * @param \PayPal\Api\HyperSchema $targetSchema
-     * 
+     *
      * @return $this
      */
     public function setTargetSchema($targetSchema)
@@ -91,7 +91,7 @@ class Links extends PayPalModel
      * Sets Method
      *
      * @param string $method
-     * 
+     *
      * @return $this
      */
     public function setMethod($method)
@@ -114,7 +114,7 @@ class Links extends PayPalModel
      * Sets Enctype
      *
      * @param string $enctype
-     * 
+     *
      * @return $this
      */
     public function setEnctype($enctype)
@@ -137,7 +137,7 @@ class Links extends PayPalModel
      * Sets Schema
      *
      * @param \PayPal\Api\HyperSchema $schema
-     * 
+     *
      * @return $this
      */
     public function setSchema($schema)

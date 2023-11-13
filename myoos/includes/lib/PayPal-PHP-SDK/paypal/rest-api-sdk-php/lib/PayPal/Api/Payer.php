@@ -26,7 +26,7 @@ class Payer extends PayPalModel
      * Valid Values: ["credit_card", "paypal"]
      *
      * @param string $payment_method
-     * 
+     *
      * @return $this
      */
     public function setPaymentMethod($payment_method)
@@ -50,7 +50,7 @@ class Payer extends PayPalModel
      * Valid Values: ["VERIFIED", "UNVERIFIED"]
      *
      * @param string $status
-     * 
+     *
      * @return $this
      */
     public function setStatus($status)
@@ -75,7 +75,7 @@ class Payer extends PayPalModel
      *
      * @deprecated Not publicly available
      * @param      string $account_type
-     * 
+     *
      * @return $this
      */
     public function setAccountType($account_type)
@@ -100,7 +100,7 @@ class Payer extends PayPalModel
      *
      * @deprecated Not publicly available
      * @param      string $account_age
-     * 
+     *
      * @return $this
      */
     public function setAccountAge($account_age)
@@ -124,7 +124,7 @@ class Payer extends PayPalModel
      * List of funding instruments to fund the payment. 'OneOf' funding_instruments,funding_option_id to be used to identify the specifics of payment method passed.
      *
      * @param \PayPal\Api\FundingInstrument[] $funding_instruments
-     * 
+     *
      * @return $this
      */
     public function setFundingInstruments($funding_instruments)
@@ -178,7 +178,7 @@ class Payer extends PayPalModel
      *
      * @deprecated Not publicly available
      * @param      string $funding_option_id
-     * 
+     *
      * @return $this
      */
     public function setFundingOptionId($funding_option_id)
@@ -199,11 +199,11 @@ class Payer extends PayPalModel
     }
 
     /**
-     * Default funding option available for the payment 
+     * Default funding option available for the payment
      *
      * @deprecated Not publicly available
      * @param      \PayPal\Api\FundingOption $funding_option
-     * 
+     *
      * @return $this
      */
     public function setFundingOption($funding_option)
@@ -213,7 +213,7 @@ class Payer extends PayPalModel
     }
 
     /**
-     * Default funding option available for the payment 
+     * Default funding option available for the payment
      *
      * @deprecated Not publicly available
      * @return     \PayPal\Api\FundingOption
@@ -228,7 +228,7 @@ class Payer extends PayPalModel
      * Valid Values: ["CREDIT", "PAY_UPON_INVOICE"]
      *
      * @param string $external_selected_funding_instrument_type
-     * 
+     *
      * @return $this
      */
     public function setExternalSelectedFundingInstrumentType($external_selected_funding_instrument_type)
@@ -252,7 +252,7 @@ class Payer extends PayPalModel
      *
      * @deprecated Not publicly available
      * @param      \PayPal\Api\FundingOption $related_funding_option
-     * 
+     *
      * @return $this
      */
     public function setRelatedFundingOption($related_funding_option)
@@ -273,10 +273,10 @@ class Payer extends PayPalModel
     }
 
     /**
-     * Information related to the Payer. 
+     * Information related to the Payer.
      *
      * @param \PayPal\Api\PayerInfo $payer_info
-     * 
+     *
      * @return $this
      */
     public function setPayerInfo($payer_info)
@@ -286,7 +286,7 @@ class Payer extends PayPalModel
     }
 
     /**
-     * Information related to the Payer. 
+     * Information related to the Payer.
      *
      * @return \PayPal\Api\PayerInfo
      */

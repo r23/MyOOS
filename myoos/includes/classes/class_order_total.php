@@ -63,7 +63,7 @@ class order_total
                     $GLOBALS[$class]->process();
 
                     $n = is_countable($GLOBALS[$class]->output) ? count($GLOBALS[$class]->output) : 0;
-                    for ($i=0, $n; $i<$n; $i++) {
+                    for ($i = 0, $n; $i < $n; $i++) {
                         if (oos_is_not_null($GLOBALS[$class]->output[$i]['title']) && oos_is_not_null($GLOBALS[$class]->output[$i]['text'])) {
                             $order_total_array[] = ['code' => $GLOBALS[$class]->code,
                                                         'title' => $GLOBALS[$class]->output[$i]['title'],
@@ -92,7 +92,7 @@ class order_total
                     $GLOBALS[$class]->shopping_cart_process();
 
                     $n = is_countable($GLOBALS[$class]->output) ? count($GLOBALS[$class]->output) : 0;
-                    for ($i=0, $n; $i<$n; $i++) {
+                    for ($i = 0, $n; $i < $n; $i++) {
                         if (oos_is_not_null($GLOBALS[$class]->output[$i]['title']) && oos_is_not_null($GLOBALS[$class]->output[$i]['text'])) {
                             $order_total_array[] = ['code' => $GLOBALS[$class]->code,
                                                         'title' => $GLOBALS[$class]->output[$i]['title'],
@@ -121,7 +121,7 @@ class order_total
                 $class = substr((string) $value, 0, strrpos((string) $value, '.'));
                 if ($GLOBALS[$class]->enabled) {
                     $size = is_countable($GLOBALS[$class]->output) ? count($GLOBALS[$class]->output) : 0;
-                    for ($i=0; $i<$size; $i++) {
+                    for ($i = 0; $i < $size; $i++) {
                         if ($GLOBALS[$class]->output[$i]['text'] != '') {
                             $output_string .= '              <tr>' . "\n" .
                                     '                <td align="left">' . $GLOBALS[$class]->output[$i]['title'] . '</td>' . "\n" .
@@ -172,11 +172,11 @@ class order_total
                 $class = substr((string) $value, 0, strrpos((string) $value, '.'));
                 if ($GLOBALS[$class]->enabled) {
                     if ($GLOBALS[$class]->credit_class) {
-                        if ($selection_string =='') {
+                        if ($selection_string == '') {
                             $selection_string = $GLOBALS[$class]->credit_selection();
                         }
                         $use_credit_string = $GLOBALS[$class]->use_credit_amount();
-                        if (($use_credit_string !='') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true')) {
+                        if (($use_credit_string != '') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true')) {
                             $output_string .= ' ' . $use_credit_string;
                         } elseif ((defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true')) || (defined('MODULE_ORDER_TOTAL_COUPON_STATUS') && (MODULE_ORDER_TOTAL_COUPON_STATUS == 'true'))) {
                             $output_string .= ' ';

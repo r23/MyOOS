@@ -54,7 +54,7 @@ class ot_netto
         }
 
         // subtract total tax from total invoice amount to calculate net amount:
-        $netto = $oOrder->info['total']-$tax_total;
+        $netto = $oOrder->info['total'] - $tax_total;
 
         // output net amount:
         $this->output[] = ['title' => '(' . $this->title . ':', 'text' => $oCurrencies->format($netto, true, $oOrder->info['currency'], $oOrder->info['currency_value']) . ')', 'info' => '', 'value' => $netto];
@@ -76,7 +76,7 @@ class ot_netto
         }
 
         // subtract total tax from total invoice amount to calculate net amount:
-        $netto = $_SESSION['cart']->info['total']-$tax_total;
+        $netto = $_SESSION['cart']->info['total'] - $tax_total;
 
         // output net amount:
         $currency = $_SESSION['currency'];
@@ -104,8 +104,8 @@ class ot_netto
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_NETTO_STATUS', 'true', '6', '1','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
@@ -116,8 +116,8 @@ class ot_netto
     {
 
         // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+        $dbconn = & oosDBGetConn();
+        $oostable = & oosDBGetTables();
 
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");
