@@ -245,7 +245,7 @@ final class NodeTypeResolver
     }
     public function isNumberType(Expr $expr) : bool
     {
-        $nodeType = $this->getType($expr);
+        $nodeType = $this->getNativeType($expr);
         if ($nodeType->isInteger()->yes()) {
             return \true;
         }
@@ -386,7 +386,7 @@ final class NodeTypeResolver
         if ($type instanceof ObjectWithoutClassType) {
             return $this->isMatchObjectWithoutClassType($type, $requiredObjectType);
         }
-        return $type->isSuperTypeOf($requiredObjectType)->yes();
+        return $requiredObjectType->isSuperTypeOf($type)->yes();
     }
     private function resolveByNodeTypeResolvers(Node $node) : ?Type
     {

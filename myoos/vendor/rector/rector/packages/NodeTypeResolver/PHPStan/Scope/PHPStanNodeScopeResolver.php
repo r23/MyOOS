@@ -29,6 +29,7 @@ use PhpParser\Node\IntersectionType;
 use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\Stmt;
+use PhpParser\Node\Stmt\Catch_;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Enum_;
 use PhpParser\Node\Stmt\EnumCase;
@@ -59,7 +60,7 @@ use Rector\Core\Util\Reflection\PrivatesAccessor;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PHPStan\Scope\Contract\NodeVisitor\ScopeResolverNodeVisitorInterface;
-use RectorPrefix202310\Webmozart\Assert\Assert;
+use RectorPrefix202311\Webmozart\Assert\Assert;
 /**
  * @inspired by https://github.com/silverstripe/silverstripe-upgrader/blob/532182b23e854d02e0b27e68ebc394f436de0682/src/UpgradeRule/PHP/Visitor/PHPStanScopeVisitor.php
  * - https://github.com/silverstripe/silverstripe-upgrader/pull/57/commits/e5c7cfa166ad940d9d4ff69537d9f7608e992359#diff-5e0807bb3dc03d6a8d8b6ad049abd774
@@ -168,7 +169,9 @@ final class PHPStanNodeScopeResolver
             } elseif ($node instanceof Switch_) {
                 $this->processSwitch($node, $mutatingScope);
             } elseif ($node instanceof TryCatch) {
-                $this->processTryCatch($node, $filePath, $mutatingScope);
+                $this->processTryCatch($node, $mutatingScope);
+            } elseif ($node instanceof Catch_) {
+                $this->processCatch($node, $filePath, $mutatingScope);
             } elseif ($node instanceof ArrayItem) {
                 $this->processArrayItem($node, $mutatingScope);
             } elseif ($node instanceof NullableType) {
@@ -274,16 +277,17 @@ final class PHPStanNodeScopeResolver
             $case->setAttribute(AttributeKey::SCOPE, $mutatingScope);
         }
     }
-    private function processTryCatch(TryCatch $tryCatch, string $filePath, MutatingScope $mutatingScope) : void
+    private function processCatch(Catch_ $catch, string $filePath, MutatingScope $mutatingScope) : void
     {
-        foreach ($tryCatch->catches as $catch) {
-            $varName = $catch->var instanceof Variable ? $this->nodeNameResolver->getName($catch->var) : null;
-            $type = TypeCombinator::union(...\array_map(static function (Name $name) : ObjectType {
-                return new ObjectType((string) $name);
-            }, $catch->types));
-            $catchMutatingScope = $mutatingScope->enterCatchType($type, $varName);
-            $this->processNodes($catch->stmts, $filePath, $catchMutatingScope);
-        }
+        $varName = $catch->var instanceof Variable ? $this->nodeNameResolver->getName($catch->var) : null;
+        $type = TypeCombinator::union(...\array_map(static function (Name $name) : ObjectType {
+            return new ObjectType((string) $name);
+        }, $catch->types));
+        $catchMutatingScope = $mutatingScope->enterCatchType($type, $varName);
+        $this->processNodes($catch->stmts, $filePath, $catchMutatingScope);
+    }
+    private function processTryCatch(TryCatch $tryCatch, MutatingScope $mutatingScope) : void
+    {
         if ($tryCatch->finally instanceof Finally_) {
             $tryCatch->finally->setAttribute(AttributeKey::SCOPE, $mutatingScope);
         }

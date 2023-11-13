@@ -1,19 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix202310;
+namespace RectorPrefix202311;
 
 use Rector\Config\RectorConfig;
 use Rector\PHPUnit\PHPUnit100\Rector\Class_\AddProphecyTraitRector;
 use Rector\PHPUnit\PHPUnit100\Rector\Class_\StaticDataProviderClassMethodRector;
 use Rector\PHPUnit\PHPUnit100\Rector\MethodCall\PropertyExistsWithoutAssertRector;
+use Rector\PHPUnit\PHPUnit100\Rector\MethodCall\RemoveSetMethodsMethodCallRector;
 use Rector\PHPUnit\Rector\StmtsAwareInterface\WithConsecutiveRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 return static function (RectorConfig $rectorConfig) : void {
     $rectorConfig->sets([PHPUnitSetList::ANNOTATIONS_TO_ATTRIBUTES]);
-    $rectorConfig->rules([StaticDataProviderClassMethodRector::class, PropertyExistsWithoutAssertRector::class, AddProphecyTraitRector::class, WithConsecutiveRector::class]);
+    $rectorConfig->rules([StaticDataProviderClassMethodRector::class, PropertyExistsWithoutAssertRector::class, AddProphecyTraitRector::class, WithConsecutiveRector::class, RemoveSetMethodsMethodCallRector::class]);
     $rectorConfig->ruleWithConfiguration(RenameMethodRector::class, [
         // https://github.com/sebastianbergmann/phpunit/issues/4087
         new MethodCallRename('PHPUnit\\Framework\\Assert', 'assertRegExp', 'assertMatchesRegularExpression'),
@@ -34,5 +35,16 @@ return static function (RectorConfig $rectorConfig) : void {
         new MethodCallRename('PHPUnit\\Framework\\Assert', 'assertNotIsWritable', 'assertIsNotWritable'),
         // https://github.com/sebastianbergmann/phpunit/issues/4063
         new MethodCallRename('PHPUnit\\Framework\\Assert', 'assertNotIsReadable', 'assertIsNotReadable'),
+        // https://github.com/sebastianbergmann/phpunit/pull/3687
+        new MethodCallRename('PHPUnit\\Framework\\MockObject\\MockBuilder', 'setMethods', 'onlyMethods'),
+        //https://github.com/sebastianbergmann/phpunit/issues/5062
+        new MethodCallRename('PHPUnit\\Framework\\TestCase', 'expectDeprecationMessage', 'expectExceptionMessage'),
+        new MethodCallRename('PHPUnit\\Framework\\TestCase', 'expectDeprecationMessageMatches', 'expectExceptionMessageMatches'),
+        new MethodCallRename('PHPUnit\\Framework\\TestCase', 'expectNoticeMessage', 'expectExceptionMessage'),
+        new MethodCallRename('PHPUnit\\Framework\\TestCase', 'expectNoticeMessageMatches', 'expectExceptionMessageMatches'),
+        new MethodCallRename('PHPUnit\\Framework\\TestCase', 'expectWarningMessage', 'expectExceptionMessage'),
+        new MethodCallRename('PHPUnit\\Framework\\TestCase', 'expectWarningMessageMatches', 'expectExceptionMessageMatches'),
+        new MethodCallRename('PHPUnit\\Framework\\TestCase', 'expectErrorMessage', 'expectExceptionMessage'),
+        new MethodCallRename('PHPUnit\\Framework\\TestCase', 'expectErrorMessageMatches', 'expectExceptionMessageMatches'),
     ]);
 };

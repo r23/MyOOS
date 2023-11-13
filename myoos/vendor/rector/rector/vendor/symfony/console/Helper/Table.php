@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix202310\Symfony\Component\Console\Helper;
+namespace RectorPrefix202311\Symfony\Component\Console\Helper;
 
-use RectorPrefix202310\Symfony\Component\Console\Exception\InvalidArgumentException;
-use RectorPrefix202310\Symfony\Component\Console\Exception\RuntimeException;
-use RectorPrefix202310\Symfony\Component\Console\Formatter\OutputFormatter;
-use RectorPrefix202310\Symfony\Component\Console\Formatter\WrappableOutputFormatterInterface;
-use RectorPrefix202310\Symfony\Component\Console\Output\ConsoleSectionOutput;
-use RectorPrefix202310\Symfony\Component\Console\Output\OutputInterface;
+use RectorPrefix202311\Symfony\Component\Console\Exception\InvalidArgumentException;
+use RectorPrefix202311\Symfony\Component\Console\Exception\RuntimeException;
+use RectorPrefix202311\Symfony\Component\Console\Formatter\OutputFormatter;
+use RectorPrefix202311\Symfony\Component\Console\Formatter\WrappableOutputFormatterInterface;
+use RectorPrefix202311\Symfony\Component\Console\Output\ConsoleSectionOutput;
+use RectorPrefix202311\Symfony\Component\Console\Output\OutputInterface;
 /**
  * Provides helpers to display a table.
  *
@@ -393,12 +393,12 @@ class Table
                     continue;
                 }
                 if ($isHeader && !$isHeaderSeparatorRendered) {
-                    $this->renderRowSeparator($isHeader ? self::SEPARATOR_TOP : self::SEPARATOR_TOP_BOTTOM, $hasTitle ? $this->headerTitle : null, $hasTitle ? $this->style->getHeaderTitleFormat() : null);
+                    $this->renderRowSeparator(self::SEPARATOR_TOP, $hasTitle ? $this->headerTitle : null, $hasTitle ? $this->style->getHeaderTitleFormat() : null);
                     $hasTitle = \false;
                     $isHeaderSeparatorRendered = \true;
                 }
                 if ($isFirstRow) {
-                    $this->renderRowSeparator($isHeader ? self::SEPARATOR_TOP : self::SEPARATOR_TOP_BOTTOM, $hasTitle ? $this->headerTitle : null, $hasTitle ? $this->style->getHeaderTitleFormat() : null);
+                    $this->renderRowSeparator($horizontal ? self::SEPARATOR_TOP : self::SEPARATOR_TOP_BOTTOM, $hasTitle ? $this->headerTitle : null, $hasTitle ? $this->style->getHeaderTitleFormat() : null);
                     $isFirstRow = \false;
                     $hasTitle = \false;
                 }
