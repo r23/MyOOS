@@ -35,13 +35,13 @@
    ----------------------------------------------------------------------
    Original Author of file:  Gregor J. Rothfuss
    Purpose of file: Provide common db functions for the installer.
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
-  /***
-   * Connect to Database
-   ***/
-function oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype='mysql')
+/***
+ * Connect to Database
+ ***/
+function oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype = 'mysql')
 {
     global $db;
 

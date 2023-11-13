@@ -45,7 +45,7 @@
    Purpose of file: Provide checks for the installer.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 function oosCheckPHP()
@@ -108,7 +108,7 @@ function oosCheckPHP()
 <tr>
   <td>Session save path</td>
   <td align="left">
-  <b><?php echo(($sp=ini_get('session.save_path')) ? $sp : 'Not set'); ?></b>,
+  <b><?php echo(($sp = ini_get('session.save_path')) ? $sp : 'Not set'); ?></b>,
     <?php echo is_writable($sp) ? '<b><font color="green">Writeable</font></b>' : '<b><font color="red">Unwriteable</font></b>'; ?>
   </td>
 </tr>

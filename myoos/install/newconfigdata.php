@@ -45,7 +45,7 @@
    Purpose of file:
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('STORE_NAME', 'osis online shop', 1, 1, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") or die("<b>".NOTUPDATED . $prefix_table . "configuration</b>");

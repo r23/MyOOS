@@ -43,7 +43,7 @@ require 'vendor/autoload.php';
 
 $request = Request::createFromGlobals();
 
-define('MYOOS_INCLUDE_PATH', __DIR__=='/' ? '' : __DIR__);
+define('MYOOS_INCLUDE_PATH', __DIR__ == '/' ? '' : __DIR__);
 
 define('OOS_VALID_MOD', true);
 

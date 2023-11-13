@@ -49,7 +49,7 @@ use Symfony\Component\HttpFoundation\Request;
 $autoloader = include_once __DIR__ . '/vendor/autoload.php';
 $request = Request::createFromGlobals();
 
-define('MYOOS_INCLUDE_PATH', __DIR__=='/' ? '' : __DIR__);
+define('MYOOS_INCLUDE_PATH', __DIR__ == '/' ? '' : __DIR__);
 
 define('OOS_VALID_MOD', true);
 
@@ -165,7 +165,7 @@ if ($submit) {
     //Ping Bing
     $sPingUrl = "http://www.bing.com/webmaster/ping.aspx?siteMap=" . urlencode($pingUrl);
     $pingres = MyOOS_Utilities::RemoteOpen($sPingUrl);
-    if ($pingres==null || $pingres===false || !str_contains((string) $pingres, "Thanks for submitting your sitemap")) {
+    if ($pingres == null || $pingres === false || !str_contains((string) $pingres, "Thanks for submitting your sitemap")) {
         trigger_error("Failed to ping Bing: " . htmlspecialchars(strip_tags((string)$pingres)), E_USER_NOTICE);
     }
 } else {

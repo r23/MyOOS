@@ -35,7 +35,7 @@
    ----------------------------------------------------------------------
    Original Author of file: Gregor J. Rothfuss
    Purpose of file: Provide ML functionality for the installer.
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
@@ -48,7 +48,7 @@ function installer_get_language()
     if (!isset($currentlang)) {
         $currentlang = 'de_DE';
     }
-    if (file_exists($file="locales/$currentlang.php")) {
+    if (file_exists($file = "locales/$currentlang.php")) {
         @include $file;
     }
 }
@@ -79,7 +79,7 @@ function lang_dropdown()
     asort($langlist);
 
     $selection = '<select name="alanguage" class="ow-text">';
-    foreach ($langlist as $k=>$v) {
+    foreach ($langlist as $k => $v) {
         $selection .= '<option value="' . $k . '"';
         if ($currentlang == $k) {
             $selection .= ' selected';

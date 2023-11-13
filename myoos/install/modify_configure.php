@@ -36,7 +36,7 @@
    Original Author of file: Scott Kirkwood (scott_kirkwood@bigfoot.com)
    Purpose of file: Routines to modify the configure.php file.
    General routine modify_file() is useful in it's own right.
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 // mod_file is general, give it a source file a destination.

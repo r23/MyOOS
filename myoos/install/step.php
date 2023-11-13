@@ -35,7 +35,7 @@
    ----------------------------------------------------------------------
    Original Author of file:
    Purpose of file:
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
@@ -88,16 +88,16 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 $autoloader = include_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
 
 
-  require_once 'modify_configure.php';
-  require_once 'upgrade.php';
-  require_once 'newinstall.php';
-  require_once 'gui.php';
-  require_once 'db.php';
-  require_once 'check.php';
-  require_once 'language.php';
+require_once 'modify_configure.php';
+require_once 'upgrade.php';
+require_once 'newinstall.php';
+require_once 'gui.php';
+require_once 'db.php';
+require_once 'check.php';
+require_once 'language.php';
 
 if (isset($_POST)) {
-    foreach ($_POST as $k=>$v) {
+    foreach ($_POST as $k => $v) {
         ${$k} = oos_prepare_input($v);
     }
 }
@@ -115,103 +115,103 @@ if (!empty($encoded)) {
     $dbpass = base64_decode((string) $dbpass);
 }
 
-  installer_get_language();
+installer_get_language();
 
-  require_once 'header.php';
+require_once 'header.php';
 
 /*  This starts the switch statement that filters through the form options.
  *  the @ is in front of $op to suppress error messages if $op is unset and E_ALL
  *  is on
  */
- switch (@$op) {
+switch (@$op) {
 
-case "Finish":
-    print_oosFinish();
-    break;
+    case "Finish":
+        print_oosFinish();
+        break;
 
-case 'Set Login':
-    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-    $update = isset($_POST['update']) ? oos_prepare_input($_POST['update']) : null;
-    oosInputData($gender, $firstname, $name, $pwd, $repeatpwd, $email, $phone, $prefix_table, $update);
-    oosUpdateConfigShop(true); // Scott - added
+    case 'Set Login':
+        oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+        $update = isset($_POST['update']) ? oos_prepare_input($_POST['update']) : null;
+        oosInputData($gender, $firstname, $name, $pwd, $repeatpwd, $email, $phone, $prefix_table, $update);
+        oosUpdateConfigShop(true); // Scott - added
 
-    print_SetLogin();
-    break;
+        print_SetLogin();
+        break;
 
-case 'Change Login':
-    print_ChangeLogin();
-    break;
-
-case 'Login':
-    if (($pwd == '') || ($email == '') || ($pwd != $repeatpwd)) {
+    case 'Change Login':
         print_ChangeLogin();
-    } else {
-        print_Login();
-    }
-    break;
+        break;
+
+    case 'Login':
+        if (($pwd == '') || ($email == '') || ($pwd != $repeatpwd)) {
+            print_ChangeLogin();
+        } else {
+            print_Login();
+        }
+        break;
 
 
-case 'Start':
-    $dbmake = isset($_POST['dbmake']) ? oos_prepare_input($_POST['dbmake']) : null;
-    make_db($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype, $dbmake);
-    print_Start();
-    break;
+    case 'Start':
+        $dbmake = isset($_POST['dbmake']) ? oos_prepare_input($_POST['dbmake']) : null;
+        make_db($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype, $dbmake);
+        print_Start();
+        break;
 
-case 'Admin':
-    print_Admin();
-    break;
+    case 'Admin':
+        print_Admin();
+        break;
 
-case 'Submit':
-    print_Submit();
-    break;
+    case 'Submit':
+        print_Submit();
+        break;
 
-case 'CHM_check':
-    print_CHMcheck();
-    break;
+    case 'CHM_check':
+        print_CHMcheck();
+        break;
 
-case 'ChangeServer':
-    print_ChangeServer();
-    break;
+    case 'ChangeServer':
+        print_ChangeServer();
+        break;
 
-case 'ConfigServer':
-    print_ConfigServerInfo();
-    break;
+    case 'ConfigServer':
+        print_ConfigServerInfo();
+        break;
 
-case 'Confirm':
-    print_Confirm();
-    break;
+    case 'Confirm':
+        print_Confirm();
+        break;
 
-case 'Change_Info':
-    print_ChangeInfo();
-    break;
+    case 'Change_Info':
+        print_ChangeInfo();
+        break;
 
-case 'New_Install':
-    print_NewInstall();
-    break;
+    case 'New_Install':
+        print_NewInstall();
+        break;
 
-case 'DBSubmit':
-    print_DBSubmit();
-    break;
+    case 'DBSubmit':
+        print_DBSubmit();
+        break;
 
-case 'PHP_Check':
-    if (isset($_POST['agreecheck'])) {
-        writeable_oosConfigure();
-        oosCheckPHP();
-    } else {
+    case 'PHP_Check':
+        if (isset($_POST['agreecheck'])) {
+            writeable_oosConfigure();
+            oosCheckPHP();
+        } else {
+            print_select_language();
+        }
+        break;
+
+    case 'UpgardeOrInstall':
+        print_oosUpgardeOrInstall();
+        break;
+
+    case 'Set Language':
+        print_oosDefault();
+        break;
+
+    default:
         print_select_language();
-    }
-    break;
-
-case 'UpgardeOrInstall':
-    print_oosUpgardeOrInstall();
-    break;
-
-case 'Set Language':
-    print_oosDefault();
-    break;
-
-default:
-    print_select_language();
-    break;
- }
-  require_once 'footer.php';
+        break;
+}
+require_once 'footer.php';

@@ -45,13 +45,13 @@
    Purpose of file:
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 $today = date("Y-m-d H:i:s");
 $server = $_SERVER['HTTP_HOST'];
 
-// 
+//
 // 1 - Default, 2 Latvia, 3-4 Historic, 5 - Germany, 6 - UK/GB default, 7 - USA / Austrailia, 8 - Hong Kong, 9 - Italy, 10 - Singapore, 11 - Brazil, 12 - Peru, 13 - Nigeria, 14 - Panama, 15 - Oman, 16 - Venezuela, 17 - Philippians, 18 - Vietnam, 19 - Hungary, 20 - Spain
 $address_format = '$firstname $lastname$cr$streets$cr$city, $postcode$cr$statecomma$country';
 $address_summary = 'Default $city, $postcode / $state, $country';
@@ -1361,7 +1361,7 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_class (tax_class_id
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "tax_class " . UPDATED .'</font>';
 
-if (isset($_POST['gst'])) {    
+if (isset($_POST['gst'])) {
     $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_rates (tax_rates_id, tax_zone_id, tax_class_id, tax_rate, tax_description, last_modified, date_added) VALUES(4, 2, 2, 7.0000, '', NULL, " . $db->DBTimeStamp($today) . ")") or die("<b>".NOTUPDATED . $prefix_table . "tax_rates</b>");
     $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_rates (tax_rates_id, tax_zone_id, tax_class_id, tax_rate, tax_description, last_modified, date_added) VALUES(5, 2, 1, 19.0000, '', NULL, " . $db->DBTimeStamp($today) . ")") or die("<b>".NOTUPDATED . $prefix_table . "tax_rates</b>");
     $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_rates (tax_rates_id, tax_zone_id, tax_class_id, tax_rate, tax_description, last_modified, date_added) VALUES(6, 2, 3, 0.0000, '', NULL, " . $db->DBTimeStamp($today) . ")") or die("<b>".NOTUPDATED . $prefix_table . "tax_rates</b>");

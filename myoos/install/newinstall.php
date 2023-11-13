@@ -35,12 +35,12 @@
    ----------------------------------------------------------------------
    Original Author of file: Gregor J. Rothfuss
    Purpose of file: Provide functions for a new install.
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
- /**
-  * This function creates the DB on new installs
-  */
+/**
+ * This function creates the DB on new installs
+ */
 function make_db($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype, $dbmake)
 {
     global $db;
@@ -69,9 +69,9 @@ function make_db($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype, $d
     echo '</td></tr></table>';
 }
 
-  /**
-   * This function inserts the default data on new installs
-   */
+/**
+ * This function inserts the default data on new installs
+ */
 function oosInputData($gender, $firstname, $name, $pwd, $repeatpwd, $email, $phone, $prefix_table, $update)
 {
     global $currentlang, $db, $update;
@@ -124,12 +124,12 @@ function oosInputData($gender, $firstname, $name, $pwd, $repeatpwd, $email, $pho
     $logs = 0;
     $sTime = time();
     $wishlist_link_id = '';
-    for ($x=3;$x<10;$x++) {
+    for ($x = 3;$x < 10;$x++) {
         $wishlist_link_id .= substr($sTime, $x, 1) . oos_create_random_value(1, $type = 'chars');
     }
-    
-    
-    
+
+
+
     $sql = "INSERT INTO ". $prefix_table . "customers
             (customers_firstname,
              customers_lastname,
@@ -162,11 +162,11 @@ function oosInputData($gender, $firstname, $name, $pwd, $repeatpwd, $email, $pho
     $customer_id = $db->Insert_ID();
 
     $book_id = 1;
-    $country = 81;    
+    $country = 81;
     $gender = ' ';
     $street_address  = ' ';
     $postcode = ' ';
-    $city = ' ';    
+    $city = ' ';
     $sql = "INSERT INTO ". $prefix_table . "address_book
             (customers_id,
 			entry_gender,
@@ -183,7 +183,7 @@ function oosInputData($gender, $firstname, $name, $pwd, $repeatpwd, $email, $pho
                      . $db->qstr($firstname) . ','
                      . $db->qstr($name) . ','
                       . $db->qstr($street_address) . ','
-                     . $db->qstr($postcode) . ','                 
+                     . $db->qstr($postcode) . ','
                      . $db->qstr($city) . ','
                      . $db->qstr($country) . ")";
     $result = $db->Execute($sql);

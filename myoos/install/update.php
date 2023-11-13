@@ -72,19 +72,19 @@ $autoloader = include_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_kernel.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
 
-  require 'modify_configure.php';
-  require 'upgrade.php';
+require 'modify_configure.php';
+require 'upgrade.php';
 
-  require 'gui.php';
-  require 'db.php';
-  require 'language.php';
+require 'gui.php';
+require 'db.php';
+require 'language.php';
 
-  $dbtype = OOS_DB_TYPE;
-  $dbhost = OOS_DB_SERVER;
-  $dbname = OOS_DB_DATABASE;
-  $prefix_table = OOS_DB_PREFIX;
+$dbtype = OOS_DB_TYPE;
+$dbhost = OOS_DB_SERVER;
+$dbname = OOS_DB_DATABASE;
+$prefix_table = OOS_DB_PREFIX;
 
-  // Decode encoded DB parameters
+// Decode encoded DB parameters
 if (OOS_ENCODED == '1') {
     $dbuname = base64_decode((string) OOS_DB_USERNAME);
     $dbpass = base64_decode((string) OOS_DB_PASSWORD);
@@ -94,43 +94,43 @@ if (OOS_ENCODED == '1') {
 }
 
 if (isset($_POST)) {
-    foreach ($_POST as $k=>$v) {
+    foreach ($_POST as $k => $v) {
         ${$k} = oos_prepare_input($v);
     }
 }
 
-  installer_get_language();
+installer_get_language();
 
-  require 'header.php';
+require 'header.php';
 
 /*  This starts the switch statement that filters through the form options.
  *  the @ is in front of $op to suppress error messages if $op is unset and E_ALL
  *  is on
  */
- switch (@$op) {
+switch (@$op) {
 
-case "Finish":
-    print_oosFinish();
-    break;
-
-
-case "myOOS 2.4.58":
-    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-    oosDoUpgrade2458($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-    print_Next();
-    break;
+    case "Finish":
+        print_oosFinish();
+        break;
 
 
-default:
+    case "myOOS 2.4.58":
+        oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+        oosDoUpgrade2458($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+        print_Next();
+        break;
 
-    $smarty = new myOOS_Smarty();
 
-    $smarty->force_compile   = true;
-    $smarty->clearAllCache();
-    $smarty->clearCompiledTemplate();
+    default:
 
-    print_SelectOOS();
-    break;
- }
+        $smarty = new myOOS_Smarty();
 
- require 'footer.php';
+        $smarty->force_compile   = true;
+        $smarty->clearAllCache();
+        $smarty->clearCompiledTemplate();
+
+        print_SelectOOS();
+        break;
+}
+
+require 'footer.php';
