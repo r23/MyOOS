@@ -93,6 +93,7 @@
 			{/if}
 
 			{if $wishlist[i].products_base_price != 1}
+				<br>
 				<span class="units-desc">{$lang.text_content} {$wishlist[i].product_quantity|cut_number}&nbsp;{$products_units[$wishlist[i].products_units_id].0}</span><br>
 				<span class="base_price">{$lang.text_base_price} {$products_units[$wishlist[i].products_units_id].1} = {$wishlist[i].base_product_price}</span>
 			{/if}

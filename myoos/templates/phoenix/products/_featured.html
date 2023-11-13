@@ -38,6 +38,7 @@
 						{/if}					
 
 						{if $featur.products_base_price != 1}
+							<br>
 							<span class="units-desc">{$featur.product_quantity|cut_number}&nbsp;{$products_units[$featur.products_units].0}</span>
 							<span class="base_price">({$products_units[$featur.products_units].1} = {$featur.featured_base_product_price})</span>
 						{/if}

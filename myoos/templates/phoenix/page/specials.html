@@ -90,6 +90,7 @@
 									{/if}
 
 									{if $specials[i].products_base_price != 1}
+										<br>
 										<span class="units-desc">{$specials[i].product_quantity|cut_number}&nbsp;{$products_units[$specials[i].products_units].0}</span><br>
 										<span class="base_price">({$products_units[$specials[i].products_units].1} = {$specials[i].specials_base_product_price})</span>
 									{/if}
