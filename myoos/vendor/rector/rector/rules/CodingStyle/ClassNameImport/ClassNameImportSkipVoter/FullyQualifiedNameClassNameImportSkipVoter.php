@@ -41,12 +41,12 @@ final class FullyQualifiedNameClassNameImportSkipVoter implements ClassNameImpor
         // "new X" or "X::static()"
         /** @var array<string, string> $shortNamesToFullyQualifiedNames */
         $shortNamesToFullyQualifiedNames = $this->shortNameResolver->resolveFromFile($file);
-        $removedUses = $this->renamedClassesDataCollector->getOldClasses();
         $fullyQualifiedObjectTypeShortName = $fullyQualifiedObjectType->getShortName();
         $className = $fullyQualifiedObjectType->getClassName();
+        $removedUses = $this->renamedClassesDataCollector->getOldClasses();
         foreach ($shortNamesToFullyQualifiedNames as $shortName => $fullyQualifiedName) {
             if ($fullyQualifiedObjectTypeShortName !== $shortName) {
-                $shortName = \strncmp($shortName, '\\', \strlen('\\')) === 0 ? \ltrim((string) Strings::after($shortName, '\\', -1)) : $shortName;
+                $shortName = $this->cleanShortName($shortName);
             }
             if ($fullyQualifiedObjectTypeShortName !== $shortName) {
                 continue;
@@ -55,11 +55,12 @@ final class FullyQualifiedNameClassNameImportSkipVoter implements ClassNameImpor
             if ($className === $fullyQualifiedName) {
                 return \false;
             }
-            if (\in_array($fullyQualifiedName, $removedUses, \true)) {
-                return \false;
-            }
-            return \strpos($fullyQualifiedName, '\\') !== \false;
+            return !\in_array($fullyQualifiedName, $removedUses, \true);
         }
         return \false;
+    }
+    private function cleanShortName(string $shortName) : string
+    {
+        return \strncmp($shortName, '\\', \strlen('\\')) === 0 ? \ltrim((string) Strings::after($shortName, '\\', -1)) : $shortName;
     }
 }
