@@ -40,6 +40,8 @@ $wpRoles_phpBBGroups = array_merge($wpRolesphpBBGroups,$wooAndcustom_wpRolesphpB
 ############################################
 ### START
 # Roles -> Groups switches WHEN ON --> wp_profile_update (see public static function phpbb_update_profile on class.wp.w3all-phpbb.php)
+# $uid  = $phpbbug[0]->user_id; (phpbb_update_profile on class.wp.w3all-phpbb.php)
+# $ugid = $phpbbug[0]->group_id;(phpbb_update_profile on class.wp.w3all-phpbb.php)
 # -> for the updated WP user
 # synchronous
 
@@ -117,6 +119,10 @@ if( isset($w3all_roles_to_groups_on_verify_credentials) && !isset($w3all_roles_t
     // group_id 2 = registered
     // group_id 4 = global moderator
     // group_id 5 = administrator
+
+    // logged users uid and gid
+      $ugid = $phpbb_user_session[0]->group_id;
+      $uid  = $phpbb_user_session[0]->user_id;
 
    // NoRole in WP?
      if( empty($current_user->roles) )

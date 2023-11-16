@@ -67,7 +67,7 @@ if( strlen($w3all_url_to_cms_sw) == strlen(get_option( 'w3all_url_to_cms' )) OR 
 {
   // do not rewrite value of the global $w3all_url_to_cms or it will be may appended into widgets avatars urls, so that will make it fail image loads
  $w3all_url_to_cms_sw = $w3all_url_to_cms;
- $w3all_url_to_cms_sw .= (substr($w3all_url_to_cms, -1) == '/' ? '' : '/index.php');
+ $w3all_url_to_cms_sw .= (substr($w3all_url_to_cms, -1) == '/' ? '' : '/');
 } else {  $w3all_url_to_cms_sw = $w3all_url_to_cms; }
 
 $w3all_url_to_cms_switch_phpbb_default_url = (empty($ltm['phpbb_default_url'])) ? $w3all_url_to_cms_sw : $ltm['phpbb_default_url'];
@@ -113,7 +113,7 @@ echo "<script type=\"text/javascript\">
 
    if(phpBBuid2 != 2){ // if not phpBB uid 2 or get loop for this user
        if( w3all_phpbb_u_logged == null && wp_u_logged > 1 || wp_u_logged == 0 && w3all_phpbb_u_logged != null ){
-        document.location.replace('".$w3allhomeurl."/index.php/".$wp_w3all_forum_folder_wp."/');
+        document.location.replace('".$w3allhomeurl."/".$wp_w3all_forum_folder_wp."/');
        }
     }
 

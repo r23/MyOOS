@@ -7,11 +7,11 @@
 
  function w3all_usersdata_predelete_in_phpbb_exec($id, $reassign, $user)
  {
- 	  if ( ! current_user_can( 'delete_users' ) ) { return; }
+    if ( ! current_user_can( 'delete_users' ) ) { return; }
 
     global $wpdb,$w3all_wpusers_delete_ary_once,$w3all_url_to_cms;
 
-  if( $w3all_wpusers_delete_ary_once < 1 && isset($_REQUEST['action']) && $_REQUEST['action'] == 'dodelete' && current_user_can('delete_users') )
+  if( $w3all_wpusers_delete_ary_once < 1 && isset($_REQUEST['action']) && $_REQUEST['action'] == 'dodelete' )
    {
      $wpu_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'users' : $wpdb->prefix . 'users';
 

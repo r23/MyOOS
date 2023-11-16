@@ -2,10 +2,10 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, template, user
-Stable tag: 2.7.4
+Stable tag: 2.7.5
 License: GPLv2 or later
 Requires at least: 6.0.0
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 7.2
 
 WordPress w3all phpBB integration - easy, light, secure, powerful.
@@ -38,7 +38,7 @@ It is possible to integrate a WP Multisite network, but linking the same phpBB f
 * [Shortcode to display phpBB posts on WordPress posts/pages as formatted bbcode or plain text](https://www.axew3.com/w3/2017/07/wordpress-shortcode-phpbb-posts-into-wp-post/)
 * [Shortcode to display recent phpBB Topics/Posts on WordPress posts/pages](https://www.axew3.com/w3/2017/09/wordpress-shortcode-last-phpbb-topics-posts-into-wp-post/)
 * [Check the list of others available Shortcodes on the Common How To section of the install help page](https://www.axew3.com/w3/wordpress-phpbb-integration-install/)
-* Transfer phpBB users into WordPress and vice versa
+* Users Transfer options
 * Check more options and features in the WP admin Settings -> WP_w3all (config page). More documentation can be found at the [WP w3all phpBB help page](https://www.axew3.com/w3/wordpress-phpbb-integration-install/) and into inline plugin admin page hints
 
 = WordPress phpBB integration without linking users =
@@ -56,15 +56,15 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 * Navigate to the WP w3all settings page underneath the settings tab in your WP admin dashboard.
 * Configure phpBB database connection values. This is REQUIRED.
 * Configure the url of your phpBB forums. This value is REQUIRED.
-* Navigate to the WP w3all tranfer settings page under the settings tab in your WP admin dashboard.
-* Follow the instructions to transfer all of your existing WP users over into phpBB.
+* Maybe navigate to the WP w3all tranfer settings page under the settings tab in your WP admin dashboard.
+* So follow the instructions to transfer all of your existing WP users over into phpBB.
 
 = Optionally =
-* Activate, configure and save the login and last forum topic widgets
-* Detailed instructions at [WP phpBB integration help install docs page](https://www.axew3.com/w3/cms-plugins-scripts/wordpress-plugins-scripts-docs/wordpress-phpbb-integration/)
+* Activate widgets or use shortcodes
+* Detailed instructions at [WP phpBB integration help install docs page](https://www.axew3.com/w3/wordpress-phpbb-integration-install/)
 
 == Frequently Asked Questions ==
-[Read this page at axew3.com for further helps: it contain detailed easy how to install and faq](http://www.axew3.com/w3/cms-plugins-scripts/wordpress-plugins-scripts-docs/wordpress-phpbb-integration/).
+[Read this page at axew3.com for further helps: it contain detailed easy how to install and faq](https://www.axew3.com/w3/wordpress-phpbb-integration-install/).
 
 == Screenshots ==
 1. Wp w3all phpBB integration main config
@@ -72,6 +72,12 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.7.5 =
+*Release Date - 16 Nov, 2023*
+* Fix: "fatal error due to the "wp_w3all_phpbb_login" hook not being found, happening logging in a user with the wp_signon() function (called via ajax)": see https://www.axew3.com/w3/forums/viewtopic.php?t=1805
+* Remove: the Wp_W3all Login Widget has been removed
+* Minor fixes
 
 = 2.7.4 =
 *Release Date - 30 Sep, 2023*

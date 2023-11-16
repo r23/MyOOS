@@ -219,7 +219,9 @@ private static function verify_phpbb_credentials(){
 
  // Bruteforce phpBB session keys Prevention check
  // see -> w3all Brute Force Prevention (more below) //
-
+//$w3all_bruteblock_phpbbulist[80]= 80;
+//$w3all_bruteblock_phpbbulist[150]= 150;
+//update_option( 'w3all_bruteblock_phpbbulist', $w3all_bruteblock_phpbbulist );
  // The presented cookie uid is in the black list and the wp user is not logged in?
  if( $w3all_anti_brute_force_yn == 1 && ! is_user_logged_in() && isset($w3all_bruteblock_phpbbulist[$phpbb_u]) ){
       setcookie ("w3all_set_cmsg", "phpbb_sess_brutef_error", 0, "/", $w3cookie_domain, false); // expire session, removed on phpBB_user_session_set()

@@ -7,7 +7,7 @@
  * @subpackage wp_w3all
  * @V5 JS -> https://www.axew3.com/w3/2018/12/phpbb-wordpress-template-integration-iframe-v5/
  */
-// @2022 axew3.com //
+// @2023 axew3.com //
 
 // START MAY DO NOT MODIFY
 
@@ -78,7 +78,7 @@ if( strlen($w3all_url_to_cms) == strlen(get_option( 'w3all_url_to_cms' )) OR str
 {
   // do not re-write value of the global $w3all_url_to_cms or index.php will be may appended into widgets avatars urls, so that will make it fail image loads
  $w3all_url_to_cms_sw = $w3all_url_to_cms;
- $w3all_url_to_cms_sw .= (substr($w3all_url_to_cms, -1) == '/' ? '' : '/index.php');
+ $w3all_url_to_cms_sw .= (substr($w3all_url_to_cms, -1) == '/' ? '' : '/');
 } else {  $w3all_url_to_cms_sw = $w3all_url_to_cms; }
 
 function w3all_enqueue_scripts() {
@@ -245,7 +245,7 @@ get_header();
       var w3all_phpbb_u_logged  = /#w3all_phpbb_u_logged=1/ig.exec(res);
    if(phpBBuid2 != 2){ // if not phpBB uid 2 or get loop for this user
        if( w3all_phpbb_u_logged == null && wp_u_logged > 1 || wp_u_logged == 0 && w3all_phpbb_u_logged != null ){
-        document.location.replace('".$w3allhomeurl."/index.php/".$wp_w3all_forum_folder_wp."/');
+        document.location.replace('".$w3allhomeurl."/".$wp_w3all_forum_folder_wp."/');
        }
     }
       jQuery('#w3idwloader').css(\"display\",\"none\");

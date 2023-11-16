@@ -45,7 +45,7 @@ public function form( $instance ) {
 }
 // substantially this should be renamed, since now the Login Widget do not point anymore to phpBB, but login within WP: see // w3all Login widget check credentials
 public function wp_w3all_to_phpbb_form($display_phpbb_user_info_yn = 0) {
-
+/*
       global $w3all_url_to_cms,$w3all_phpbb_usession,$w3all_custom_output_files,$wp,$w3all_last_t_avatar_dim,$w3cookie_domain;
 
     if ( is_user_logged_in() && !empty($w3all_phpbb_usession) ) { // maintain compatibility with old way for views file
@@ -65,7 +65,7 @@ if( $w3all_custom_output_files == 1 ) { // custom file include
   }
 
   include($file);
-
+*/
 }
 
 } // END CLASS
@@ -269,7 +269,7 @@ public function update( $new_instance, $old_instance ) {
 } // END CLASS
 
 function wp_w3all_register_widgets() {
-  register_widget( 'WP_w3all_widget_login' );
+  //register_widget( 'WP_w3all_widget_login' ); // Removed 2.7.5>
   register_widget( 'WP_w3all_widget_last_topics' );
   register_widget( 'WP_w3all_widget_phpbb_onlineStats' );
 }
