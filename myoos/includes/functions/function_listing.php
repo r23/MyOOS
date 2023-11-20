@@ -21,14 +21,6 @@
  */
 
 /**
- * listing
- *
- * @link    https://www.oos-shop.de
- * @package listing
- * @version $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/12 16:49:27 $
- */
-
-/**
  * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');

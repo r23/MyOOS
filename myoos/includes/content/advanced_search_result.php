@@ -151,7 +151,7 @@ for ($col = 0, $n = count($column_list); $col < $n; $col++) {
         continue;
     }
 
-    if (oos_is_not_null($select_column_list)) {
+    if (oos_is_not_NULL($select_column_list)) {
         $select_column_list .= ', ';
     }
 
@@ -165,7 +165,7 @@ for ($col = 0, $n = count($column_list); $col < $n; $col++) {
     };
 }
 
-if (oos_is_not_null($select_column_list)) {
+if (oos_is_not_NULL($select_column_list)) {
     $select_column_list .= ', ';
 }
 
@@ -175,19 +175,22 @@ $select_str = "SELECT DISTINCT " . $select_column_list . " m.manufacturers_id, p
                           p.products_discount4_qty, p.products_tax_class_id, p.products_units_id, p.products_quantity_order_min, p.products_quantity_order_max,
                           p.products_price, p.products_price_list, p.products_base_price, p.products_base_unit, p.products_product_quantity,
                           IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
-						IF(s.status, s.specials_cross_out_price, null) AS specials_cross_out_price,			   
-						IF(s.status, s.expires_date, null) AS expires_date,							  
+						IF(s.status, s.specials_cross_out_price, NULL) AS specials_cross_out_price,			   
+						IF(s.status, s.expires_date, NULL) AS expires_date,							  
                           IF(s.status, s.specials_new_products_price, s.specials_cross_out_price) AS final_price ";
 
-if (($aUser['price_with_tax'] == 1) && ((isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($pto) && oos_is_not_null($pto)))) {
+/*
+if (($aUser['price_with_tax'] == 1) && ((isset($_GET['pfrom']) && oos_is_not_NULL($_GET['pfrom'])) || (isset($pto) && oos_is_not_NULL($pto)))) {
     $select_str .= ", SUM(tr.tax_rate) AS tax_rate ";
 }
+*/
 
 $from_str = "FROM " . $oostable['products'] . " p LEFT JOIN
                       " . $oostable['manufacturers'] . " m using(manufacturers_id) LEFT JOIN
                       " . $oostable['specials'] . " s ON p.products_id = s.products_id";
 
-if (($aUser['price_with_tax'] == 1) && ((isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($pto) && oos_is_not_null($pto)))) {
+/*
+if (($aUser['price_with_tax'] == 1) && ((isset($_GET['pfrom']) && oos_is_not_NULL($_GET['pfrom'])) || (isset($pto) && oos_is_not_NULL($pto)))) {
     $nCountry_id = STORE_COUNTRY;
     $nZone_id = STORE_ZONE;
     if (isset($_SESSION)) {
@@ -202,13 +205,14 @@ if (($aUser['price_with_tax'] == 1) && ((isset($_GET['pfrom']) && oos_is_not_nul
                      ON p.products_tax_class_id = tr.tax_class_id LEFT JOIN
                         " . $oostable['zones_to_geo_zones'] . " gz
                      ON tr.tax_zone_id = gz.geo_zone_id AND
-                        (gz.zone_country_id is null OR
+                        (gz.zone_country_id is NULL OR
                          gz.zone_country_id = '0' OR
                          gz.zone_country_id = '" . intval($nCountry_id) . "') AND
-                        (gz.zone_id is null OR
+                        (gz.zone_id is NULL OR
                          gz.zone_id = '0' OR
                          gz.zone_id = '" . intval($nZone_id) . "')";
 }
+*/
 
 $from_str .= ", " . $oostable['products_description'] . " pd, " . $oostable['categories'] . " c, " . $oostable['products_to_categories'] . " p2c";
 
@@ -278,11 +282,11 @@ if (isset($search_keywords) && ((is_countable($search_keywords) ? count($search_
     $where_str .= " )";
 }
 
-if (isset($dfrom) && oos_is_not_null($dfrom) && ($dfrom != DOB_FORMAT_STRING)) {
+if (isset($dfrom) && oos_is_not_NULL($dfrom) && ($dfrom != DOB_FORMAT_STRING)) {
     $where_str .= " AND p.products_date_added >= '" . oos_date_raw($dfrom_to_check) . "'";
 }
 
-if (isset($dto) && oos_is_not_null($dto) && ($dto != DOB_FORMAT_STRING)) {
+if (isset($dto) && oos_is_not_NULL($dto) && ($dto != DOB_FORMAT_STRING)) {
     $where_str .= " AND p.products_date_added <= '" . oos_date_raw($dto_to_check) . "'";
 }
 
@@ -294,10 +298,10 @@ if ($rate) {
 
 if ($aUser['price_with_tax'] == 1) {
     if ($pfrom) {
-        $where_str .= " AND (IF(s.status, s.specials_new_products_price, p.products_price) * if(gz.geo_zone_id is null, 1, 1 + (tr.tax_rate / 100) ) >= " . oos_db_input($pfrom) . ")";
+        $where_str .= " AND (IF(s.status, s.specials_new_products_price, p.products_price) * if(gz.geo_zone_id is NULL, 1, 1 + (tr.tax_rate / 100) ) >= " . oos_db_input($pfrom) . ")";
     }
     if ($pto) {
-        $where_str .= " AND (IF(s.status, s.specials_new_products_price, p.products_price) * if(gz.geo_zone_id is null, 1, 1 + (tr.tax_rate / 100) ) <= " . oos_db_input($pto) . ")";
+        $where_str .= " AND (IF(s.status, s.specials_new_products_price, p.products_price) * if(gz.geo_zone_id is NULL, 1, 1 + (tr.tax_rate / 100) ) <= " . oos_db_input($pto) . ")";
     }
 } else {
     if ($pfrom) {
@@ -308,7 +312,7 @@ if ($aUser['price_with_tax'] == 1) {
     }
 }
 
-if (($aUser['price_with_tax'] == 1) && ((isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($_GET['pto']) && oos_is_not_null($_GET['pto'])))) {
+if (($aUser['price_with_tax'] == 1) && ((isset($_GET['pfrom']) && oos_is_not_NULL($_GET['pfrom'])) || (isset($_GET['pto']) && oos_is_not_NULL($_GET['pto'])))) {
     $where_str .= " GROUP BY p.products_id";
 }
 
