@@ -546,7 +546,7 @@ if (!$product_info_result->RecordCount()) {
 header("Content-Security-Policy: script-src 'nonce-" . NONCE . "' 'unsafe-eval' 'strict-dynamic' 'unsafe-inline'; object-src 'none'; base-uri 'self'");
 
 // register the outputfilter
-$smarty->loadFilter('output', 'trimwhitespace');
+# $smarty->loadFilter('output', 'trimwhitespace');
 
 // display the template
 $smarty->display($aTemplate['page']);
