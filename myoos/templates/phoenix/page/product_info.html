@@ -400,13 +400,13 @@
 
 <video
     id="my-player"
-    class="ratio video-js"
+    class="video-js"
     controls
     preload="{$video.video_preload}"
     poster="{$video.video_poster}"
 	allowfullscreen
-	loop="loop" muted playsinline
-    data-setup='{literal}{"fluid": true, "aspectRatio": "16:9", "fill": true'>
+	loop="loop" muted 
+    data-setup='{literal}{"fluid": true, "aspectRatio": "16:9", "fill": true}{/literal}'>
 	
 	{if $video.video_mp4}<source src="{$video.video_mp4}" type="video/mp4">{/if}
 	{if $video.video_webm}<source src="{$video.video_webm}" type="video/webm">{/if}
