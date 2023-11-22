@@ -405,12 +405,12 @@
     preload="{$video.video_preload}"
     poster="{$video.video_poster}"
 	allowfullscreen
-	autoplay loop muted playsinline
-    data-setup='{}'>
+	loop="loop" muted playsinline
+    data-setup='{literal}{"fluid": true, "aspectRatio": "16:9", "fill": true'>
 	
-	{if $video.video_mp4}<source src="{$video.video_mp4}" type="video/mp4"></source>{/if}
-	{if $video.video_webm}<source src="{$video.video_webm}" type="video/webm"></source>{/if}
-	{if $video.video_ogv}<source src="{$video.video_ogv}" type="video/ogg"></source>{/if}
+	{if $video.video_mp4}<source src="{$video.video_mp4}" type="video/mp4">{/if}
+	{if $video.video_webm}<source src="{$video.video_webm}" type="video/webm">{/if}
+	{if $video.video_ogv}<source src="{$video.video_ogv}" type="video/ogg">{/if}
   <p class="vjs-no-js">
     {$lang.text_nojs_help}
   </p>
