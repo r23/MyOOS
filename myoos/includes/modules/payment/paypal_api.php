@@ -159,8 +159,8 @@ class paypal_api
         * A URL to the logo image. A valid media type is `.gif`, `.jpg`, or `.png`. The maximum width of the image is 190 pixels.
         */
         if (!empty(STORE_LOGO)) {
-            if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . '/logo/checkout/' . STORE_LOGO)) {
-                $checkout_logo = OOS_HTTPS_SERVER . OOS_SHOP . '/logo/checkout/' . STORE_LOGO;
+            if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'logo/checkout/' . STORE_LOGO)) {
+                $checkout_logo = OOS_HTTPS_SERVER . OOS_SHOP . 'logo/checkout/' . STORE_LOGO;
                 $presentation->setLogoImage($checkout_logo);
             }
         }
