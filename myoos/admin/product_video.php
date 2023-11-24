@@ -146,7 +146,7 @@ switch ($action) {
                             } else {
                                 $messageStack->add_session(ERROR_PROBLEM_WITH_VIDEO_FILE, 'error');
                             }
-
+						/*
                             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
                                 $ffmpeg = FFMpeg\FFMpeg::create(
                                     [
@@ -161,12 +161,6 @@ switch ($action) {
                             }
 
                             $video = $ffmpeg->open($uploadfile);
-                            /*
-                            $video
-                            ->filters()
-                            ->resize(new FFMpeg\Coordinate\Dimension(320, 240))
-                            ->synchronize();
-                            */
                             $dir_video_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'video/';
                             $frame = $dir_video_images . $poster;
                             $video
@@ -176,6 +170,7 @@ switch ($action) {
                                 ->save(new FFMpeg\Format\Video\X264(), $path . $name . '-x264.mp4')
                                 ->save(new FFMpeg\Format\Video\Ogg(), $path . $name . '-ogg.ogv')
                                 ->save(new FFMpeg\Format\Video\WebM(), $path .$name . '-webm.webm');
+						*/
                         } else {
                             $messageStack->add_session(ERROR_NO_VIDEO_FILE, 'error');
                         }
