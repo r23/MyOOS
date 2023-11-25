@@ -483,17 +483,48 @@ if ($action == 'edit_video') {
 
                     <p><?php echo TEXT_VIDEO_UPLAOD_HELP; ?></p>
                     
-                </div>
-
 
                 <fieldset>
                     <div class="form-group row">
-                        <label class="col-lg-3 col-form-label"><?php echo TEXT_VIDEO_FILE; ?></label>
+                        <label class="col-lg-3 col-form-label"><?php echo TEXT_VIDEO_MP4_FILE; ?></label>
                         <div class="col-lg-9">
-                            <input type="file" name="video" />
+                            <input type="file" name="video_mp4" accept="video/mp4" />
                         </div>
                     </div>
                 </fieldset>
+
+                <fieldset>
+                    <div class="form-group row">
+                        <label class="col-lg-3 col-form-label"><?php echo TEXT_VIDEO_OGV_FILE; ?></label>
+                        <div class="col-lg-9">
+                            <input type="file" name="video_ogv" accept="video/ogg" />
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <div class="form-group row">
+                        <label class="col-lg-3 col-form-label"><?php echo TEXT_VIDEO_WEBM_FILE; ?></label>
+                        <div class="col-lg-9">
+                            <input type="file" name="video_webm" accept="video/webm" />
+                        </div>
+                    </div>
+                </fieldset>
+
+
+				<p><?php echo TEXT_POSTER_HELP; ?></p>
+
+                <fieldset>
+                    <div class="form-group row">
+                        <label class="col-lg-3 col-form-label"><?php echo TEXT_POSTER_WEBP_FILE; ?></label>
+                        <div class="col-lg-9">
+                            <input type="file" name="poster_webp" accept="image/webp" />
+                        </div>
+                    </div>
+                </fieldset>
+
+                </div>
+
 
             </div>
 
