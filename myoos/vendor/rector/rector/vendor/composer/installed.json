@@ -504,8 +504,8 @@
         },
         {
             "name": "illuminate\/container",
-            "version": "v10.32.1",
-            "version_normalized": "10.32.1.0",
+            "version": "v10.33.0",
+            "version_normalized": "10.33.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/illuminate\/container.git",
@@ -561,8 +561,8 @@
         },
         {
             "name": "illuminate\/contracts",
-            "version": "v10.32.1",
-            "version_normalized": "10.32.1.0",
+            "version": "v10.33.0",
+            "version_normalized": "10.33.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/illuminate\/contracts.git",
@@ -858,17 +858,17 @@
         },
         {
             "name": "phpstan\/phpdoc-parser",
-            "version": "1.24.2",
-            "version_normalized": "1.24.2.0",
+            "version": "1.24.4",
+            "version_normalized": "1.24.4.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/phpstan\/phpdoc-parser.git",
-                "reference": "bcad8d995980440892759db0c32acae7c8e79442"
+                "reference": "6bd0c26f3786cd9b7c359675cb789e35a8e07496"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/phpstan\/phpdoc-parser\/zipball\/bcad8d995980440892759db0c32acae7c8e79442",
-                "reference": "bcad8d995980440892759db0c32acae7c8e79442",
+                "url": "https:\/\/api.github.com\/repos\/phpstan\/phpdoc-parser\/zipball\/6bd0c26f3786cd9b7c359675cb789e35a8e07496",
+                "reference": "6bd0c26f3786cd9b7c359675cb789e35a8e07496",
                 "shasum": ""
             },
             "require": {
@@ -885,7 +885,7 @@
                 "phpunit\/phpunit": "^9.5",
                 "symfony\/process": "^5.2"
             },
-            "time": "2023-09-26T12:28:12+00:00",
+            "time": "2023-11-26T18:29:22+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -902,7 +902,7 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https:\/\/github.com\/phpstan\/phpdoc-parser\/issues",
-                "source": "https:\/\/github.com\/phpstan\/phpdoc-parser\/tree\/1.24.2"
+                "source": "https:\/\/github.com\/phpstan\/phpdoc-parser\/tree\/1.24.4"
             },
             "install-path": "..\/phpstan\/phpdoc-parser"
         },
@@ -1743,12 +1743,12 @@
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/rectorphp\/rector-downgrade-php.git",
-                "reference": "89c94de72aac045e89368088af355663b9396696"
+                "reference": "a08ccadb84cad9df0cbf6a03007710975e8f7232"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/rectorphp\/rector-downgrade-php\/zipball\/89c94de72aac045e89368088af355663b9396696",
-                "reference": "89c94de72aac045e89368088af355663b9396696",
+                "url": "https:\/\/api.github.com\/repos\/rectorphp\/rector-downgrade-php\/zipball\/a08ccadb84cad9df0cbf6a03007710975e8f7232",
+                "reference": "a08ccadb84cad9df0cbf6a03007710975e8f7232",
                 "shasum": ""
             },
             "require": {
@@ -1775,7 +1775,7 @@
                 "tomasvotruba\/unused-public": "^0.2",
                 "tracy\/tracy": "^2.10"
             },
-            "time": "2023-11-07T12:17:46+00:00",
+            "time": "2023-11-26T07:49:39+00:00",
             "default-branch": true,
             "type": "rector-extension",
             "extra": {
