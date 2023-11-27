@@ -115,66 +115,95 @@ switch ($action) {
                 }
 
                 // video
-                if (isset($_FILES['video'])) {
-                    if ($_FILES["video"]["error"] == UPLOAD_ERR_OK) {
-                        $filename = oos_db_prepare_input($_FILES['video']['name']);
-                        $source = $_FILES['video']['tmp_name'];
-                        $type = oos_db_prepare_input($_FILES['video']['type']);
+                if (isset($_FILES)) {
+					$video_mp4 = '';
+					$video_webm = '';
+					$video_ogv = '';
+					$poster = '';
 
-                        $name = oos_strip_suffix($filename);
-                        $ext = oos_get_suffix($filename);
-                        if ($ext == 'avi') {
-                            $poster = $name . '.jpg';
-                            $video_mp4 = $name . '-x264.mp4';
-                            $video_webm = $name . '-webm.webm';
-                            $video_ogv = $name . '-ogg.ogv';
+					if ($_FILES["video_mp4"]["error"] == UPLOAD_ERR_OK) {
+                        $video_mp4 = oos_db_prepare_input($_FILES['video_mp4']['name']);
+                        $source = $_FILES['video_mp4']['tmp_name'];
+                        $type = oos_db_prepare_input($_FILES['video_mp4']['type']);
 
-                            $sql_data_array = ['video_source' => oos_db_prepare_input($filename),
-                                                'video_mp4' => oos_db_prepare_input($video_mp4),
-                                                'video_webm' => oos_db_prepare_input($video_webm),
-                                                'video_ogv' => oos_db_prepare_input($video_ogv),
-                                                'video_poster' => oos_db_prepare_input($poster)];
-
-                            oos_db_perform($oostable['products_video'], $sql_data_array, 'UPDATE', 'video_id = \'' . intval($video_id) . '\'');
+                        $name = oos_strip_suffix($video_mp4);
+                        $ext = oos_get_suffix($video_mp4);
+                        if ($ext == 'mp4') {
 
                             $path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'video/';
-                            $targetdir = $path;  // target directory
-                            $uploadfile = $path . $filename; // target avi file
+                            $uploadfile = $path . $video_mp4; // target avi file	
 
-                            if (move_uploaded_file($source, $uploadfile)) {
+							if (move_uploaded_file($source, $uploadfile)) {
+								$messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_VIDEO, 'success');
+							} else {
+								$messageStack->add_session(ERROR_PROBLEM_WITH_VIDEO_FILE, 'error');
+							}
+						}
+					}
+					if ($_FILES["video_webm"]["error"] == UPLOAD_ERR_OK) {
+                        $video_webm = oos_db_prepare_input($_FILES['video_webm']['name']);
+                        $source = $_FILES['video_webm']['tmp_name'];
+                        $type = oos_db_prepare_input($_FILES['video_webm']['type']);
+
+                        $name = oos_strip_suffix($video_webm);
+                        $ext = oos_get_suffix($video_webm);
+                        if ($ext == 'webm') {
+
+                            $path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'video/';
+                            $uploadfile = $path . $video_webm; // target avi file	
+
+							if (move_uploaded_file($source, $uploadfile)) {
+								$messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_VIDEO, 'success');
+							} else {
+								$messageStack->add_session(ERROR_PROBLEM_WITH_VIDEO_FILE, 'error');
+							}
+						}
+					}
+
+					if ($_FILES["video_ogv"]["error"] == UPLOAD_ERR_OK) {						
+                        $video_ogv = oos_db_prepare_input($_FILES['video_ogv']['name']);
+                        $source = $_FILES['video_ogv']['tmp_name'];
+                        $type = oos_db_prepare_input($_FILES['video_ogv']['type']);
+
+                        $name = oos_strip_suffix($video_ogv);
+                        $ext = oos_get_suffix($video_ogv);
+                        if ($ext == 'ogv') {
+
+                            $path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'video/';
+                            $uploadfile = $path . $video_ogv; // target avi file	
+
+							if (move_uploaded_file($source, $uploadfile)) {
+								$messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_VIDEO, 'success');
+							} else {
+								$messageStack->add_session(ERROR_PROBLEM_WITH_VIDEO_FILE, 'error');
+							}
+						}						
+					}				
+					if ($_FILES["poster_webp"]["error"] == UPLOAD_ERR_OK) {
+						$poster = oos_db_prepare_input($_FILES['poster_webp']['name']);
+                        $source = $_FILES['poster_webp']['tmp_name'];
+                        $type = oos_db_prepare_input($_FILES['poster_webp']['type']);
+
+                        $name = oos_strip_suffix($poster);
+                        $ext = oos_get_suffix($poster);
+                        if ($ext == 'webp') {
+                            $dir_video_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'video/';
+                            $frame = $dir_video_images . $poster;
+							
+                            if (move_uploaded_file($source, $frame)) {
                                 $messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_VIDEO, 'success');
                             } else {
                                 $messageStack->add_session(ERROR_PROBLEM_WITH_VIDEO_FILE, 'error');
                             }
-						/*
-                            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-                                $ffmpeg = FFMpeg\FFMpeg::create(
-                                    [
-                                    'ffmpeg.binaries'  => 'C:/ffmpeg/bin/ffmpeg.exe',
-                                    'ffprobe.binaries' => 'C:/ffmpeg/bin/ffprobe.exe',
-                                    'timeout'          => 3600, // The timeout for the underlying process
-                                    'ffmpeg.threads'   => 12,   // The number of threads that FFMpeg should use
-                                    ]
-                                );
-                            } else {
-                                $ffmpeg = FFMpeg\FFMpeg::create();
-                            }
+						}
+					}
 
-                            $video = $ffmpeg->open($uploadfile);
-                            $dir_video_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'video/';
-                            $frame = $dir_video_images . $poster;
-                            $video
-                                ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(4))
-                                ->save($frame);
-                            $video
-                                ->save(new FFMpeg\Format\Video\X264(), $path . $name . '-x264.mp4')
-                                ->save(new FFMpeg\Format\Video\Ogg(), $path . $name . '-ogg.ogv')
-                                ->save(new FFMpeg\Format\Video\WebM(), $path .$name . '-webm.webm');
-						*/
-                        } else {
-                            $messageStack->add_session(ERROR_NO_VIDEO_FILE, 'error');
-                        }
-                    }
+					$sql_data_array = ['video_mp4' => oos_db_prepare_input($video_mp4),
+                                       'video_webm' => oos_db_prepare_input($video_webm),
+                                       'video_ogv' => oos_db_prepare_input($video_ogv),
+                                       'video_poster' => oos_db_prepare_input($poster)];
+
+                    oos_db_perform($oostable['products_video'], $sql_data_array, 'UPDATE', 'video_id = \'' . intval($video_id) . '\'');					
                 }
             }
             oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . '&pID=' . intval($products_id)));
