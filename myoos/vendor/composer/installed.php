@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '523892dc34695448ba9d5b68f7c3ce2cbaacda5f',
+        'reference' => '2df034626c826d1f2534cfaa5d4f90bf1d04be58',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -202,7 +202,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '523892dc34695448ba9d5b68f7c3ce2cbaacda5f',
+            'reference' => '2df034626c826d1f2534cfaa5d4f90bf1d04be58',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -326,9 +326,9 @@
             'dev_requirement' => false,
         ),
         'phpstan/phpstan' => array(
-            'pretty_version' => '1.10.45',
-            'version' => '1.10.45.0',
-            'reference' => '2f024fbb47432e2e62ad8a8032387aa2dd631c73',
+            'pretty_version' => '1.10.46',
+            'version' => '1.10.46.0',
+            'reference' => '90d3d25c5b98b8068916bbf08ce42d5cb6c54e70',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpstan/phpstan',
             'aliases' => array(),
@@ -493,7 +493,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '2b23329e299c9a6cd98a82f5137ab4909c8e506d',
+            'reference' => '5cfed3056826da5ee547ebb4b58e39bc4ca14d6e',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
