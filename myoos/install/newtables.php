@@ -1309,6 +1309,7 @@ $flds = "
   video_languages_id I NOTNULL DEFAULT '1' PRIMARY,
   video_title C(255) NULL,
   video_description X, 
+  video_vtt C(255) NULL,
   video_viewed I2 DEFAULT '0'
 ";
 dosql($table, $flds);
