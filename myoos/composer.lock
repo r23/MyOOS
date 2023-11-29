@@ -4186,16 +4186,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.4.31",
+            "version": "v5.4.32",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "adf54cdee267ad025961c41ad1c2a0681600ede3"
+                "reference": "9b2c83409f9d542e8bf05cd81d7daaa9dbe9974c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/adf54cdee267ad025961c41ad1c2a0681600ede3",
-                "reference": "adf54cdee267ad025961c41ad1c2a0681600ede3",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/9b2c83409f9d542e8bf05cd81d7daaa9dbe9974c",
+                "reference": "9b2c83409f9d542e8bf05cd81d7daaa9dbe9974c",
                 "shasum": ""
             },
             "require": {
@@ -4387,7 +4387,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/symfony/issues",
-                "source": "https://github.com/symfony/symfony/tree/v5.4.31"
+                "source": "https://github.com/symfony/symfony/tree/v5.4.32"
             },
             "funding": [
                 {
@@ -4403,7 +4403,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-10T13:39:24+00:00"
+            "time": "2023-11-29T10:13:22+00:00"
         },
         {
             "name": "tecnickcom/tcpdf",
@@ -4731,12 +4731,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "5cfed3056826da5ee547ebb4b58e39bc4ca14d6e"
+                "reference": "01fd41b19678c11355e77cfb63c2b27f6bfe3b1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/5cfed3056826da5ee547ebb4b58e39bc4ca14d6e",
-                "reference": "5cfed3056826da5ee547ebb4b58e39bc4ca14d6e",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/01fd41b19678c11355e77cfb63c2b27f6bfe3b1e",
+                "reference": "01fd41b19678c11355e77cfb63c2b27f6bfe3b1e",
                 "shasum": ""
             },
             "conflict": {
@@ -5112,7 +5112,7 @@
                 "phpmyfaq/phpmyfaq": "<=3.1.7",
                 "phpoffice/phpexcel": "<1.8",
                 "phpoffice/phpspreadsheet": "<1.16",
-                "phpseclib/phpseclib": "<2.0.31|>=3,<3.0.19",
+                "phpseclib/phpseclib": "<3.0.34",
                 "phpservermon/phpservermon": "<3.6",
                 "phpsysinfo/phpsysinfo": "<3.2.5",
                 "phpunit/phpunit": ">=4.8.19,<4.8.28|>=5,<5.6.3",
@@ -5199,11 +5199,12 @@
                 "silverstripe/userforms": "<3",
                 "silverstripe/versioned-admin": ">=1,<1.11.1",
                 "simple-updates/phpwhois": "<=1",
-                "simplesamlphp/saml2": "<1.15.4|>=2,<2.3.8|>=3,<3.1.4",
+                "simplesamlphp/saml2": "<1.15.4|>=2,<2.3.8|>=3,<3.1.4|==5.0.0.0-alpha12",
                 "simplesamlphp/simplesamlphp": "<1.18.6",
                 "simplesamlphp/simplesamlphp-module-infocard": "<1.0.1",
                 "simplesamlphp/simplesamlphp-module-openid": "<1",
                 "simplesamlphp/simplesamlphp-module-openidprovider": "<0.9",
+                "simplesamlphp/xml-security": "==1.6.11",
                 "simplito/elliptic-php": "<1.0.6",
                 "sitegeist/fluid-components": "<3.5",
                 "sjbr/sr-freecap": "<2.4.6|>=2.5,<2.5.3",
@@ -5430,7 +5431,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-28T00:14:42+00:00"
+            "time": "2023-11-28T19:04:15+00:00"
         }
     ],
     "aliases": [],
