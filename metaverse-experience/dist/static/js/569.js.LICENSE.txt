@@ -118,6 +118,8 @@ object-assign
 
 /*! ../utils/ */
 
+/*! ../utils/BufferGeometryUtils.js */
+
 /*! ../utils/WorkerPool.js */
 
 /*! ../utils/bind */
@@ -135,6 +137,8 @@ object-assign
 /*! ../vendor/starts-with-polyfill */
 
 /*! ./a-node */
+
+/*! ./anchored */
 
 /*! ./animation */
 
@@ -182,8 +186,6 @@ object-assign
 
 /*! ./cylinder.js */
 
-/*! ./daydream-controls */
-
 /*! ./debug */
 
 /*! ./device */
@@ -204,8 +206,6 @@ object-assign
 
 /*! ./forceCanvasResizeSafariMobile */
 
-/*! ./gearvr-controls */
-
 /*! ./generic-tracked-controller-controls */
 
 /*! ./geometries/index */
@@ -214,9 +214,13 @@ object-assign
 
 /*! ./gltf-model */
 
+/*! ./grabbable */
+
 /*! ./hand-controls */
 
 /*! ./hand-tracking-controls */
+
+/*! ./hand-tracking-grab-controls */
 
 /*! ./hide-on-enter-ar */
 
@@ -262,6 +266,8 @@ object-assign
 
 /*! ./msdf */
 
+/*! ./obb-collider */
+
 /*! ./obj-model */
 
 /*! ./object-pool */
@@ -275,6 +281,8 @@ object-assign
 /*! ./parse-attribs */
 
 /*! ./phong */
+
+/*! ./pico-controls */
 
 /*! ./pivot */
 
@@ -342,6 +350,8 @@ object-assign
 
 /*! ./scene/pool */
 
+/*! ./scene/real-world-meshing */
+
 /*! ./scene/reflection */
 
 /*! ./scene/scenes */
@@ -350,7 +360,7 @@ object-assign
 
 /*! ./scene/stats */
 
-/*! ./scene/vr-mode-ui */
+/*! ./scene/xr-mode-ui */
 
 /*! ./scenes */
 
@@ -452,15 +462,11 @@ object-assign
 
 /*! dtype */
 
-/*! flatten-vertex-data */
-
 /*! global/window */
 
 /*! ieee754 */
 
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
-
-/*! inherits */
 
 /*! is-buffer */
 
@@ -494,6 +500,8 @@ object-assign
 
 /*! super-three */
 
+/*! super-three/addons/math/OBB.js */
+
 /*! super-three/examples/jsm/lights/LightProbeGenerator */
 
 /*! super-three/examples/jsm/loaders/DRACOLoader */
@@ -511,8 +519,6 @@ object-assign
 /*! three */
 
 /*! three-bmfont-text */
-
-/*! three-buffer-vertex-data */
 
 /*! webvr-polyfill */
 
@@ -825,6 +831,10 @@ object-assign
   \***********************************/
 
 /*!************************************!*\
+  !*** ./src/components/anchored.js ***!
+  \************************************/
+
+/*!************************************!*\
   !*** ./src/components/geometry.js ***!
   \************************************/
 
@@ -869,6 +879,10 @@ object-assign
   \*************************************/
 
 /*!*************************************!*\
+  !*** ./src/components/grabbable.js ***!
+  \*************************************/
+
+/*!*************************************!*\
   !*** ./src/components/obj-model.js ***!
   \*************************************/
 
@@ -882,6 +896,10 @@ object-assign
 
 /*!*************************************!*\
   !*** ./src/geometries/torusKnot.js ***!
+  \*************************************/
+
+/*!*************************************!*\
+  !*** ./src/systems/obb-collider.js ***!
   \*************************************/
 
 /*!*************************************!*\
@@ -953,6 +971,10 @@ object-assign
   \****************************************/
 
 /*!****************************************!*\
+  !*** ./src/components/obb-collider.js ***!
+  \****************************************/
+
+/*!****************************************!*\
   !*** ./src/constants/keyboardevent.js ***!
   \****************************************/
 
@@ -1005,6 +1027,10 @@ object-assign
   \*****************************************/
 
 /*!*****************************************!*\
+  !*** ./src/components/pico-controls.js ***!
+  \*****************************************/
+
+/*!*****************************************!*\
   !*** ./src/components/vive-controls.js ***!
   \*****************************************/
 
@@ -1030,10 +1056,6 @@ object-assign
 
 /*!*******************************************!*\
   !*** ./node_modules/is-function/index.js ***!
-  \*******************************************/
-
-/*!*******************************************!*\
-  !*** ./src/components/gearvr-controls.js ***!
   \*******************************************/
 
 /*!*******************************************!*\
@@ -1069,7 +1091,7 @@ object-assign
   \********************************************/
 
 /*!********************************************!*\
-  !*** ./src/components/scene/vr-mode-ui.js ***!
+  !*** ./src/components/scene/xr-mode-ui.js ***!
   \********************************************/
 
 /*!********************************************!*\
@@ -1082,10 +1104,6 @@ object-assign
 
 /*!*********************************************!*\
   !*** ./node_modules/object-assign/index.js ***!
-  \*********************************************/
-
-/*!*********************************************!*\
-  !*** ./src/components/daydream-controls.js ***!
   \*********************************************/
 
 /*!*********************************************!*\
@@ -1161,14 +1179,6 @@ object-assign
   \**************************************************/
 
 /*!***************************************************!*\
-  !*** ./node_modules/flatten-vertex-data/index.js ***!
-  \***************************************************/
-
-/*!***************************************************!*\
-  !*** ./node_modules/inherits/inherits_browser.js ***!
-  \***************************************************/
-
-/*!***************************************************!*\
   !*** ./node_modules/load-bmfont/lib/is-binary.js ***!
   \***************************************************/
 
@@ -1190,6 +1200,10 @@ object-assign
 
 /*!****************************************************!*\
   !*** ./src/components/scene/keyboard-shortcuts.js ***!
+  \****************************************************/
+
+/*!****************************************************!*\
+  !*** ./src/components/scene/real-world-meshing.js ***!
   \****************************************************/
 
 /*!****************************************************!*\
@@ -1264,6 +1278,10 @@ object-assign
   !*** ./src/utils/ios-orientationchange-blank-bug.js ***!
   \******************************************************/
 
+/*!*******************************************************!*\
+  !*** ./src/components/hand-tracking-grab-controls.js ***!
+  \*******************************************************/
+
 /*!********************************************************!*\
   !*** ./node_modules/css-loader/dist/runtime/getUrl.js ***!
   \********************************************************/
@@ -1280,10 +1298,6 @@ object-assign
   !*** ./node_modules/three-bmfont-text/lib/vertices.js ***!
   \********************************************************/
 
-/*!********************************************************!*\
-  !*** ./node_modules/three-buffer-vertex-data/index.js ***!
-  \********************************************************/
-
 /*!*********************************************************!*\
   !*** ./src/extras/primitives/primitives/a-obj-model.js ***!
   \*********************************************************/
@@ -1291,6 +1305,10 @@ object-assign
 /*!**********************************************************!*\
   !*** ./src/extras/primitives/primitives/a-gltf-model.js ***!
   \**********************************************************/
+
+/*!***********************************************************!*\
+  !*** ./node_modules/super-three/examples/jsm/math/OBB.js ***!
+  \***********************************************************/
 
 /*!***********************************************************!*\
   !*** ./src/extras/primitives/primitives/a-curvedimage.js ***!
@@ -1500,7 +1518,7 @@ object-assign
 
 /**
  * @license
- * Copyright 2010-2022 Three.js Authors
+ * Copyright 2010-2023 Three.js Authors
  * SPDX-License-Identifier: MIT
  */
 
