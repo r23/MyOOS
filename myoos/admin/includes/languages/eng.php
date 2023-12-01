@@ -113,6 +113,7 @@ define('BOX_PLUGINS_EVENT', 'Event Plugins');
 define('BOX_HEADING_CATALOG', 'Catalog');
 define('BOX_CATALOG_CATEGORIES_PRODUCTS', 'Categories/Products');
 define('BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES', 'Products Attributes');
+define('BOX_CATALOG_CATEGORIES_PRODUCTS_PROPERTIES', 'Properties');
 define('BOX_CATALOG_PRODUCTS_STATUS', 'Products Status');
 define('BOX_CATALOG_PRODUCTS_UNITS', 'Packing unit');
 define('BOX_CATALOG_MANUFACTURERS', 'Manufacturers');
