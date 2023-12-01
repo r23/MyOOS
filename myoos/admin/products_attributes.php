@@ -509,476 +509,39 @@ function go_option() {
         <!-- END Sidebar (left) //-->
     </aside>
 
-    <!-- Main section //-->
-    <section>
-        <!-- Page content //-->
-        <div class="content-wrapper">
-
-                <div class="row">
-                    <div class="col-lg-12">
+	<!-- Main section //-->
+	<section>
+		<!-- Page content //-->
+		<div class="content-wrapper">
+							
+			<!-- Breadcrumbs //-->
+			<div class="content-heading">
+				<div class="col-lg-12">
+					<h2><?php echo HEADING_TITLE_ATRIB; ?></h2>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+						</li>
+						<li class="breadcrumb-item">
+							<?php echo '<a href="' . oos_href_link_admin($aContents['categories'], 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
+						</li>
+						<li class="breadcrumb-item active">
+							<strong><?php echo HEADING_TITLE_ATRIB; ?></strong>
+						</li>
+					</ol>
+				</div>
+			</div>
+			<!-- END Breadcrumbs //-->
+			
+			<div class="wrapper wrapper-content">
+				<div class="row">
+					<div class="col-lg-12">	
 <!-- body_text //-->
 
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
-<!-- options and values//-->
-      <tr>
-        <td width="100%"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td valign="top" width="50%"><table width="100%" border="0" cellspacing="0" cellpadding="2">
-<!-- options //-->
-<?php
-if ($action == 'delete_product_option') { // delete product option
-    $products_optionstable = $oostable['products_options'];
-    $options = $dbconn->Execute("SELECT products_options_id, products_options_name FROM $products_optionstable WHERE products_options_id = '" . intval($_GET['option_id']) . "' AND products_options_languages_id = '" . intval($_SESSION['language_id']) . "'");
-    $options_values = $options->fields; ?>
-              <tr>
-                <td class="pageHeading">&nbsp;<?php echo $options_values['products_options_name']; ?>&nbsp;</td>
-                <td>&nbsp;&nbsp;</td>
-              </tr>
-              <tr>
-                <td>
 
-                <table class="table table-striped table-hover w-100">
-    <?php
-    $productstable = $oostable['products'];
-    $products_options_valuestable = $oostable['products_options_values'];
-    $products_attributestable = $oostable['products_attributes'];
-    $products_descriptiontable = $oostable['products_description'];
-    $products = $dbconn->Execute("SELECT p.products_id, pd.products_name, pov.products_options_values_name FROM $productstable p, $products_options_valuestable pov, $products_attributestable pa, $products_descriptiontable pd WHERE pd.products_id = p.products_id AND pov.products_options_values_languages_id = '" . intval($_SESSION['language_id']) . "' AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND pa.products_id = p.products_id AND pa.options_id='" . intval($_GET['option_id']) . "' AND pov.products_options_values_id = pa.options_values_id ORDER BY pd.products_name");
-    if ($products->RecordCount()) {
-        ?>
-                    <thead class="thead-dark">
-                        <tr>
-                            <th class="text-center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</th>
-                            <th>&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</th>
-                            <th>&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</th>
-                        </tr>
-                    </thead>
-        <?php
-        $rows = 0;
-        while ($products_values = $products->fields) {
-            $rows++; ?>
-                  <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
-                    <td align="center" class="smallText">&nbsp;<?php echo $products_values['products_id']; ?>&nbsp;</td>
-                    <td class="smallText">&nbsp;<?php echo $products_values['products_name']; ?>&nbsp;</td>
-                    <td class="smallText">&nbsp;<?php echo $products_values['products_options_values_name']; ?>&nbsp;</td>
-                  </tr>
-            <?php
-            // Move that ADOdb pointer!
-            $products->MoveNext();
-        } ?>
-                  <tr>
-                    <td colspan="3"><?php echo oos_black_line(); ?></td>
-                  </tr>
-                  <tr>
-                    <td colspan="3" class="main"><br><?php echo TEXT_WARNING_OF_DELETE; ?></td>
-                  </tr>
-                  <tr>
-                    <td align="right" colspan="3" class="main"><br><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'value_page=' . $value_page . '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</td>
-                  </tr>
-        <?php
-    } else {
-        ?>
-                  <tr>
-                    <td class="main" colspan="3"><br><?php echo TEXT_OK_TO_DELETE; ?></td>
-                  </tr>
-                  <tr>
-                    <td class="main" align="right" colspan="3"><br><?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_option&option_id=' . intval($_GET['option_id'])) . '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], '&page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</td>
-                  </tr>
-        <?php
-    } ?>
-                </table></td>
-              </tr>
-    <?php
-} else {
-    if (isset($_GET['option_order_by'])) {
-        $option_order_by = $_GET['option_order_by'];
-    } else {
-        $option_order_by = 'products_options_id';
-    } ?>
-              <tr>
-                <td colspan="3" class="pageHeading">&nbsp;<?php echo HEADING_TITLE_OPT; ?>&nbsp;</td>
-                <td class="text-right"><br><form name="option_order_by" action="<?php echo $aContents['products_attributes']; ?>"><select name="selected" onChange="go_option()"><option value="products_options_id"<?php if ($option_order_by == 'products_options_id') {
-                    echo ' checked="checked"';
-                } ?>><?php echo TEXT_OPTION_ID; ?></option><option value="products_options_name"<?php if ($option_order_by == 'products_options_name') {
-                    echo ' checked="checked"';
-                } ?>><?php echo TEXT_OPTION_NAME; ?></option></select></form></td>
-              </tr>
-              <tr>
-                <td colspan="4" class="smallText">
-    <?php
-    $per_page = MAX_ROW_LISTS_OPTIONS;
-    $products_optionstable = $oostable['products_options'];
-    $options = "SELECT * FROM $products_optionstable WHERE products_options_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY " . $option_order_by;
-    if (!isset($option_page)) {
-        $option_page = 1;
-    }
-    $prev_option_page = $option_page - 1;
-    $next_option_page = $option_page + 1;
-
-    $option_result = $dbconn->Execute($options);
-
-    $option_page_start = ($per_page * $option_page) - $per_page;
-    $num_rows = $option_result->RecordCount();
-
-    if ($num_rows <= $per_page) {
-        $num_pages = 1;
-    } elseif (($num_rows % $per_page) == 0) {
-        $num_pages = ($num_rows / $per_page);
-    } else {
-        $num_pages = ($num_rows / $per_page) + 1;
-    }
-    $num_pages = (int) $num_pages;
-
-    $options = $options . " LIMIT $option_page_start, $per_page";
-
-    // Previous
-    if ($prev_option_page) {
-        echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'option_page=' . $prev_option_page) . '"> &lt;&lt; </a> | ';
-    }
-
-    for ($i = 1; $i <= $num_pages; $i++) {
-        if ($i != $option_page) {
-            echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'option_page=' . $i) . '">' . $i . '</a> | ';
-        } else {
-            echo '<b><font color=red>' . $i . '</font></b> | ';
-        }
-    }
-
-    // Next
-    if ($option_page != $num_pages) {
-        echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'option_page=' . $next_option_page) . '"> &gt;&gt; </a>';
-    } ?>
-                </td>
-              </tr>
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</th>
-                            <th>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</th>
-                            <th>&nbsp;<?php echo TABLE_HEADING_OPT_TYPE; ?>&nbsp;</th>
-                            <th class="text-center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
-                        </tr>
-                    </thead>
-    <?php
-    $next_id = 1;
-    $rows = 0;
-    $options = $dbconn->Execute($options);
-    while ($options_values = $options->fields) {
-        $rows++; ?>
-              <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
-        <?php
-        if (($action == 'update_option') && ($_GET['option_id'] == $options_values['products_options_id'])) {
-            echo '<form name="option" action="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_option_name') . '" method="post">';
-            $inputs = '';
-            for ($i = 0, $n = is_countable($aLanguages) ? count($aLanguages) : 0; $i < $n; $i ++) {
-                $option_name = $dbconn->Execute("SELECT products_options_name FROM " . $oostable['products_options'] . " WHERE products_options_id = '" . $options_values['products_options_id'] . "' AND  products_options_languages_id = '" . $aLanguages[$i]['id'] . "'");
-                $option_name = $option_name->fields;
-                if ($nLanguages > 1) {
-                    $inputs .= oos_flag_icon($aLanguages[$i]);
-                }
-                $inputs .= ':&nbsp;<input type="text" name="option_name[' . $aLanguages[$i]['id'] . ']" size="20" value="' . $option_name['products_options_name'] . '">&nbsp;<br>';
-            } ?>
-                <td align="center" class="smallText">&nbsp;<?php echo $options_values['products_options_id']; ?><input type="hidden" name="option_id" value="<?php echo $options_values['products_options_id']; ?>">&nbsp;</td>
-                <td class="smallText"><?php echo $inputs; ?></td>
-                <td class="smallText"><?php echo oos_draw_option_type_pull_down_menu('option_type', $options_values['products_options_type']); ?>&nbsp;</td>
-                <td class="smallText"><?php echo oos_submit_button(BUTTON_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], '') . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
-            <?php
-            echo '</form>' . "\n";
-        } else {
-            ?>
-                <td align="center" class="smallText">&nbsp;<?php echo $options_values['products_options_id']; ?>&nbsp;</td>
-                <td class="smallText">&nbsp;<?php echo $options_values['products_options_name']; ?>&nbsp;</td>
-                <td align="center" class="smallText">&nbsp;<?php echo oos_options_type_name($options_values['products_options_type']); ?>&nbsp;</td>
-                <td class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_option&option_id=' . $options_values['products_options_id'] . '&option_order_by=' . $option_order_by . '&option_page=' . $option_page) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_product_option&option_id=' . $options_values['products_options_id']) , '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
-            <?php
-        } ?>
-              </tr>
-        <?php
-        $products_optionstable = $oostable['products_options'];
-        $max_options_id_result = $dbconn->Execute("SELECT max(products_options_id) + 1 as next_id FROM $products_optionstable");
-        $max_options_id_values = $max_options_id_result->fields;
-        $next_id = $max_options_id_values['next_id'];
-
-        // Move that ADOdb pointer!
-        $options->MoveNext();
-    } ?>
-              <tr>
-                <td colspan="4"><?php echo oos_black_line(); ?></td>
-              </tr>
-    <?php
-    if ($action != 'update_option') {
-        ?>
-              <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
-        <?php
-        echo '<form name="options" action="' . oos_href_link_admin($aContents['products_attributes'], 'action=add_product_options&option_page=' . $option_page) . '" method="post"><input type="hidden" name="products_options_id" value="' . $next_id . '">';
-        $inputs = '';
-        for ($i = 0, $n = is_countable($aLanguages) ? count($aLanguages) : 0; $i < $n; $i ++) {
-            if ($nLanguages > 1) {
-                $inputs .= oos_flag_icon($aLanguages[$i]);
-            }
-            $inputs .= ':&nbsp;<input type="text" name="option_name[' . $aLanguages[$i]['id'] . ']" size="20">&nbsp;<br>';
-        } ?>
-                <td align="center" class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
-                <td class="smallText"><?php echo $inputs; ?></td>
-                <td class="smallText"><?php echo oos_draw_option_type_pull_down_menu('option_type'); ?></td>
-                <td class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_INSERT); ?>&nbsp;</td>
-        <?php
-        echo '</form>'; ?>
-              </tr>
-              <tr>
-                <td colspan="4"><?php echo oos_black_line(); ?></td>
-              </tr>
-        <?php
-    }
-}
-?>
-            </table></td>
-<!-- options eof //-->
-            <td valign="top" width="50%"><table width="100%" border="0" cellspacing="0" cellpadding="2">
-<!-- value //-->
-<?php
-if ($action == 'delete_option_value') { // delete product option value
-    $products_options_valuestable = $oostable['products_options_values'];
-    $values = $dbconn->Execute("SELECT products_options_values_id, products_options_values_name FROM $products_options_valuestable WHERE products_options_values_id = '" . intval($_GET['value_id']) . "' AND products_options_values_languages_id = '" . intval($_SESSION['language_id']) . "'");
-    $values_values = $values->fields; ?>
-              <tr>
-                <td colspan="3" class="pageHeading">&nbsp;<?php echo $values_values['products_options_values_name']; ?>&nbsp;</td>
-                <td>&nbsp;&nbsp;</td>
-              </tr>
-              <tr>
-                <td>
-
-                <table class="table table-striped table-hover w-100">
-    <?php
-    $productstable = $oostable['products'];
-    $products_attributestable = $oostable['products_attributes'];
-    $products_optionstable = $oostable['products_options'];
-    $products_descriptiontable = $oostable['products_description'];
-    $products = $dbconn->Execute("SELECT p.products_id, pd.products_name, po.products_options_name FROM $productstable p, $products_attributestable pa, $products_optionstable po, $products_descriptiontable pd WHERE pd.products_id = p.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND po.products_options_languages_id = '" . intval($_SESSION['language_id']) . "' AND pa.products_id = p.products_id AND pa.options_values_id='" . intval($_GET['value_id']) . "' AND po.products_options_id = pa.options_id ORDER BY pd.products_name");
-    if ($products->RecordCount()) {
-        ?>
-                    <thead class="thead-dark">
-                        <tr>
-                            <th class="text-center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</th>
-                            <th>&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</th>
-                            <th>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</th>
-                        </tr>
-                    </thead>
-        <?php
-        $rows = 0;
-        while ($products_values = $products->fields) {
-            $rows++; ?>
-                  <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
-                    <td align="center" class="smallText">&nbsp;<?php echo $products_values['products_id']; ?>&nbsp;</td>
-                    <td class="smallText">&nbsp;<?php echo $products_values['products_name']; ?>&nbsp;</td>
-                    <td class="smallText">&nbsp;<?php echo $products_values['products_options_name']; ?>&nbsp;</td>
-                  </tr>
-            <?php
-            // Move that ADOdb pointer!
-            $products->MoveNext();
-        } ?>
-                  <tr>
-                    <td colspan="3"><?php echo oos_black_line(); ?></td>
-                  </tr>
-                  <tr>
-                    <td class="main" colspan="3"><br><?php echo TEXT_WARNING_OF_DELETE; ?></td>
-                  </tr>
-                  <tr>
-                    <td class="main" align="right" colspan="3"><br><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'value_page=' . $value_page . '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</td>
-                  </tr>
-        <?php
-    } else {
-        ?>
-                  <tr>
-                    <td class="main" colspan="3"><br><?php echo TEXT_OK_TO_DELETE; ?></td>
-                  </tr>
-                  <tr>
-                    <td class="main" align="right" colspan="3"><br><?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_value&value_id=' . $_GET['value_id']) . '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
-                  </tr>
-        <?php
-    } ?>
-                </table></td>
-              </tr>
-    <?php
-} else {
-    ?>
-              <tr>
-                <td colspan="3" class="pageHeading">&nbsp;<?php echo HEADING_TITLE_VAL; ?>&nbsp;</td>
-                <td>&nbsp;&nbsp;</td>
-              </tr>
-              <tr>
-                <td colspan="4" class="smallText">
-    <?php
-    $per_page = MAX_ROW_LISTS_OPTIONS;
-    $products_options_valuestable = $oostable['products_options_values'];
-    $products_options_values_to_products_optionstable = $oostable['products_options_values_to_products_options'];
-    $values = "SELECT pov.products_options_values_id, pov.products_options_values_name, pov2po.products_options_id FROM $products_options_valuestable pov left join $products_options_values_to_products_optionstable pov2po on pov.products_options_values_id = pov2po.products_options_values_id WHERE pov.products_options_values_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY pov.products_options_values_id";
-
-    if (!isset($value_page)) {
-        $value_page = 1;
-    }
-    $prev_value_page = $value_page - 1;
-    $next_value_page = $value_page + 1;
-
-    $value_result = $dbconn->Execute($values);
-
-    $value_page_start = ($per_page * $value_page) - $per_page;
-    $num_rows = $value_result->RecordCount();
-
-    if ($num_rows <= $per_page) {
-        $num_pages = 1;
-    } elseif (($num_rows % $per_page) == 0) {
-        $num_pages = ($num_rows / $per_page);
-    } else {
-        $num_pages = ($num_rows / $per_page) + 1;
-    }
-    $num_pages = (int) $num_pages;
-
-    $values = $values . " LIMIT $value_page_start, $per_page";
-
-    // Previous
-    if ($prev_value_page) {
-        echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'option_order_by=' . $option_order_by . '&value_page=' . $prev_value_page) . '"> &lt;&lt; </a> | ';
-    }
-
-    for ($i = 1; $i <= $num_pages; $i++) {
-        if ($i != $value_page) {
-            echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'option_order_by=' . $option_order_by . '&value_page=' . $i) . '">' . $i . '</a> | ';
-        } else {
-            echo '<b><font color=red>' . $i . '</font></b> | ';
-        }
-    }
-
-    // Next
-    if ($value_page != $num_pages) {
-        echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'option_order_by=' . $option_order_by . '&value_page=' . $next_value_page) . '"> &gt;&gt;</a> ';
-    } ?>
-                </td>
-              </tr>
-
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</th>
-                            <th>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</th>
-                            <th>&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</th>
-                            <th class="text-center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
-                        </tr>
-                    </thead>
-    <?php
-    $next_id = 1;
-    $rows = 0;
-    $values = $dbconn->Execute($values);
-    while ($values_values = $values->fields) {
-        $options_name = oos_options_name($values_values['products_options_id']);
-        $option_id = $values_values['products_options_id'];
-        $values_name = $values_values['products_options_values_name'];
-        $rows++; ?>
-              <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
-        <?php
-        if (($action == 'update_option_value') && ($_GET['value_id'] == $values_values['products_options_values_id'])) {
-            echo '<form name="values" action="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_value') . '" method="post">';
-            $inputs = '';
-            for ($i = 0, $n = is_countable($aLanguages) ? count($aLanguages) : 0; $i < $n; $i ++) {
-                $products_options_valuestable = $oostable['products_options_values'];
-                $value_name = $dbconn->Execute("SELECT products_options_values_name FROM $products_options_valuestable WHERE products_options_values_id = '" . $values_values['products_options_values_id'] . "' AND products_options_values_languages_id= '" . $aLanguages[$i]['id'] . "'");
-                $value_name = $value_name->fields;
-                if ($nLanguages > 1) {
-                    $inputs .= oos_flag_icon($aLanguages[$i]);
-                }
-                $inputs .= ':&nbsp;<input type="text" name="value_name[' . $aLanguages[$i]['id'] . ']" size="15" value="' . $value_name['products_options_values_name'] . '">&nbsp;<br>';
-            } ?>
-                <td align="center" class="smallText">&nbsp;<?php echo $values_values['products_options_values_id']; ?><input type="hidden" name="value_id" value="<?php echo $values_values['products_options_values_id']; ?>">&nbsp;</td>
-                <td align="center" class="smallText">&nbsp;<?php echo "\n"; ?><select name="option_id">
-            <?php
-            $products_optionstable = $oostable['products_options'];
-            $options = $dbconn->Execute("SELECT products_options_id, products_options_name FROM $products_optionstable WHERE products_options_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_options_name");
-            while ($options_values = $options->fields) {
-                echo "\n" . '<option name="' . $options_values['products_options_name'] . '" value="' . $options_values['products_options_id'] . '"';
-                if ($values_values['products_options_id'] == $options_values['products_options_id']) {
-                    echo ' selected';
-                }
-                echo '>' . $options_values['products_options_name'] . '</option>';
-
-                // Move that ADOdb pointer!
-                $options->MoveNext();
-            } ?>
-                </select>&nbsp;</td>
-                <td class="smallText"><?php echo $inputs; ?></td>
-                <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], '') . '" role="button"><strong>' .  BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</td>
-            <?php
-            echo '</form>';
-        } else {
-            ?>
-                <td align="center" class="smallText">&nbsp;<?php echo $values_values["products_options_values_id"]; ?>&nbsp;</td>
-                <td align="center" class="smallText">&nbsp;<?php echo $options_name; ?>&nbsp;</td>
-                <td class="smallText">&nbsp;<?php echo $values_name; ?>&nbsp;</td>
-                <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_option_value&value_id=' . $values_values['products_options_values_id'] . '&value_page=' . $value_page) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_option_value&value_id=' . $values_values['products_options_values_id'] . '&option_id=' . $option_id) , '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
-
-            <?php
-        }
-        $products_options_valuestable = $oostable['products_options_values'];
-        $max_values_id_result = $dbconn->Execute("SELECT max(products_options_values_id) + 1 as next_id FROM $products_options_valuestable");
-        $max_values_id_values = $max_values_id_result->fields;
-        $next_id = $max_values_id_values['next_id'];
-
-        // Move that ADOdb pointer!
-        $values->MoveNext();
-    } ?>
-              </tr>
-              <tr>
-                <td colspan="4"><?php echo oos_black_line(); ?></td>
-              </tr>
-    <?php
-    if ($action != 'update_option_value') {
-        ?>
-              <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
-        <?php
-        echo '<form name="values" action="' . oos_href_link_admin($aContents['products_attributes'], 'action=add_product_option_values&value_page=' . $value_page) . '" method="post">'; ?>
-                <td align="center" class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
-                <td align="center" class="smallText">&nbsp;<select name="option_id">
-        <?php
-        $products_optionstable = $oostable['products_options'];
-        $options = $dbconn->Execute("SELECT products_options_id, products_options_name FROM $products_optionstable WHERE products_options_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_options_name");
-        while ($options_values = $options->fields) {
-            echo '<option name="' . $options_values['products_options_name'] . '" value="' . $options_values['products_options_id'] . '">' . $options_values['products_options_name'] . '</option>';
-
-            // Move that ADOdb pointer!
-            $options->MoveNext();
-        }
-
-        $inputs = '';
-        for ($i = 0, $n = is_countable($aLanguages) ? count($aLanguages) : 0; $i < $n; $i ++) {
-            if ($nLanguages > 1) {
-                $inputs .= oos_flag_icon($aLanguages[$i]);
-            }
-            $inputs .= ':&nbsp;<input type="text" name="value_name[' . $aLanguages[$i]['id'] . ']" size="15">&nbsp;<br>';
-        } ?>
-                </select>&nbsp;</td>
-                <td class="smallText"><input type="hidden" name="value_id" value="<?php echo $next_id; ?>"><?php echo $inputs; ?></td>
-                <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_INSERT); ?>&nbsp;</td>
-        <?php
-        echo '</form>'; ?>
-              </tr>
-              <tr>
-                <td colspan="4"><?php echo oos_black_line(); ?></td>
-              </tr>
-        <?php
-    }
-}
-?>
-            </table></td>
-          </tr>
-        </table></td>
-<!-- option value eof //-->
-      </tr>
 <!-- products_attributes //-->
-      <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE_ATRIB; ?>&nbsp;</td>
-            <td>&nbsp;&nbsp;</td>
-          </tr>
-        </table></td>
-      </tr>
+
       <tr>
 <?php
 if ($action == 'update_attribute') {
@@ -1010,7 +573,7 @@ function calcBasePriceFactor() {
           <tr>
             <td colspan="8" class="smallText">
 <?php
-  $per_page = MAX_ROW_LISTS_OPTIONS;
+$per_page = MAX_ROW_LISTS_OPTIONS;
 $products_attributestable = $oostable['products_attributes'];
 $products_descriptiontable = $oostable['products_description'];
 $attributes = "SELECT pa.* FROM $products_attributestable pa left join $products_descriptiontable pd on pa.products_id = pd.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY pd.products_name";
@@ -1436,8 +999,6 @@ if ($action != 'update_attribute') {
 <!-- products_attributes_eof //-->
                 </div>
             </div>
-        </div>
-
         </div>
     </section>
     <!-- Page footer //-->
