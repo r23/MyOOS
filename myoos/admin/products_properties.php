@@ -513,9 +513,29 @@ function go_option() {
     <section>
         <!-- Page content //-->
         <div class="content-wrapper">
-
-                <div class="row">
-                    <div class="col-lg-12">
+						
+			<!-- Breadcrumbs //-->
+			<div class="content-heading">
+				<div class="col-lg-12">
+					<h2><?php echo HEADING_TITLE_ATRIB; ?></h2>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+						</li>
+						<li class="breadcrumb-item">
+							<?php echo '<a href="' . oos_href_link_admin($aContents['categories'], 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
+						</li>
+						<li class="breadcrumb-item active">
+							<strong><?php echo HEADING_TITLE_ATRIB; ?></strong>
+						</li>
+					</ol>
+				</div>
+			</div>
+			<!-- END Breadcrumbs //-->
+			
+			<div class="wrapper wrapper-content">
+				<div class="row">
+					<div class="col-lg-12">	
 <!-- body_text //-->
 
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -986,5 +1006,4 @@ if ($action == 'delete_option_value') { // delete product option value
 <?php
 require 'includes/bottom.php';
 require 'includes/nice_exit.php';
-
 
