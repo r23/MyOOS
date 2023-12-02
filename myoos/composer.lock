@@ -4186,16 +4186,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.4.32",
+            "version": "v5.4.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "9b2c83409f9d542e8bf05cd81d7daaa9dbe9974c"
+                "reference": "6548b56ecd59fbbd78571669d19705180c055b7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/9b2c83409f9d542e8bf05cd81d7daaa9dbe9974c",
-                "reference": "9b2c83409f9d542e8bf05cd81d7daaa9dbe9974c",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/6548b56ecd59fbbd78571669d19705180c055b7a",
+                "reference": "6548b56ecd59fbbd78571669d19705180c055b7a",
                 "shasum": ""
             },
             "require": {
@@ -4387,7 +4387,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/symfony/issues",
-                "source": "https://github.com/symfony/symfony/tree/v5.4.32"
+                "source": "https://github.com/symfony/symfony/tree/v5.4.33"
             },
             "funding": [
                 {
@@ -4403,7 +4403,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-29T10:13:22+00:00"
+            "time": "2023-12-01T16:51:25+00:00"
         },
         {
             "name": "tecnickcom/tcpdf",
@@ -4609,16 +4609,16 @@
     "packages-dev": [
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.46",
+            "version": "1.10.47",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "90d3d25c5b98b8068916bbf08ce42d5cb6c54e70"
+                "reference": "84dbb33b520ea28b6cf5676a3941f4bae1c1ff39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/90d3d25c5b98b8068916bbf08ce42d5cb6c54e70",
-                "reference": "90d3d25c5b98b8068916bbf08ce42d5cb6c54e70",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/84dbb33b520ea28b6cf5676a3941f4bae1c1ff39",
+                "reference": "84dbb33b520ea28b6cf5676a3941f4bae1c1ff39",
                 "shasum": ""
             },
             "require": {
@@ -4667,7 +4667,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-28T14:57:26+00:00"
+            "time": "2023-12-01T15:19:17+00:00"
         },
         {
             "name": "rector/rector",
