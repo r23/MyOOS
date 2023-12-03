@@ -2,10 +2,10 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, template, user
-Stable tag: 2.7.5
+Stable tag: 2.7.6
 License: GPLv2 or later
 Requires at least: 6.0.0
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.2
 
 WordPress w3all phpBB integration - easy, light, secure, powerful.
@@ -72,6 +72,12 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.7.6 =
+*Release Date - 1 Dec, 2023*
+* Re-add: the Wp_W3all Login Widget
+* Add: Login Shortcode https://www.axew3.com/w3/2023/12/shortcode-login-widget/
+* Minor fixes
 
 = 2.7.5 =
 *Release Date - 16 Nov, 2023*

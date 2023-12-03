@@ -310,7 +310,7 @@ private static function verify_phpbb_credentials(){
     }
 
     // Fire a fake 'not matching' login for this user, so Firewall plugins will also log this event and make their job if a bruteforce feature/option exist and it is active
-   $randfpass = str_shuffle(strtoupper(substr(md5(time()), 0, rand(5,10))).bin2hex(random_bytes(5)));
+   $randfpass = str_shuffle(substr(md5(time()), 0, 12));
    $phpbb_uck = !isset($phpbb_user->username) ? '' : $phpbb_user->username;
    $ulogF = wp_signon( array('user_login' => $phpbb_uck, 'user_password' => $randfpass, 'remember' => false), is_ssl() );
 
@@ -940,12 +940,10 @@ private static function phpBB_user_session_set($wp_user_data){
 
 
 public static function w3_phpbb_ban($phpbb_uid = '', $uname = '', $uemail = ''){
+	
+	    if( defined("W3BANCKEXEC") ) { return false; }
 
     global $w3all_config,$phpbb_config,$w3all_phpbb_connection;
-
-    if( defined("W3BANCKEXEC") ) {
-      return false;
-    }
 
     if(empty($phpbb_config)){
      self::w3all_get_phpbb_config();
@@ -2060,6 +2058,26 @@ public static function wp_w3all_phpbb_unotifications_short($atts){
 public static function wp_w3all_add_iframeResizer_lib(){
 echo "<script type=\"text/javascript\" src=\"".plugins_url()."/wp-w3all-phpbb-integration/addons/resizer/iframeResizer.min.js\"></script>
 ";
+}
+
+public static function w3all_login_short($atts) {
+
+  global $w3all_url_to_cms,$w3all_custom_output_files,$w3all_phpbb_usession,$w3all_last_t_avatar_dim;
+
+   if( $w3all_custom_output_files == 1 ) {
+   $file = ABSPATH . 'wp-content/plugins/wp-w3all-custom/wp_w3all_login_form_short.php';
+   if (!file_exists($file)){
+   $file = ABSPATH . 'wp-content/plugins/wp-w3all-config/wp_w3all_login_form_short.php';// old way
+   }
+     ob_start();
+      include($file);
+     return ob_get_clean();
+    } else {
+     $file = WPW3ALL_PLUGIN_DIR . 'views/wp_w3all_login_form_short.php';
+     ob_start();
+      include( $file );
+     return ob_get_clean();
+    }
 }
 
 // wp_w3all_custom_iframe_short vers 1.0
