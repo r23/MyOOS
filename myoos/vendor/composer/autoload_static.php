@@ -125,6 +125,7 @@ class ComposerStaticInit7ce28a649252a43c31f7fa1ae7ef33d8
         'C' => 
         array (
             'Complex\\' => 8,
+            'Carbon\\Doctrine\\' => 16,
             'Carbon\\' => 7,
         ),
         'B' => 
@@ -371,6 +372,10 @@ class ComposerStaticInit7ce28a649252a43c31f7fa1ae7ef33d8
         'Complex\\' => 
         array (
             0 => __DIR__ . '/..' . '/markbaker/complex/classes/src',
+        ),
+        'Carbon\\Doctrine\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/carbonphp/carbon-doctrine-types/src/Carbon/Doctrine',
         ),
         'Carbon\\' => 
         array (
