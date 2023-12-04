@@ -572,7 +572,7 @@ function calcBasePriceFactor() {
 
         <td valign="top"><form name="attributes" action="<?php echo oos_href_link_admin($aContents['products_attributes'], 'action=' . $form_action . (isset($option_page) ? '&option_page=' . $option_page : '') . (isset($value_page) ? '&value_page=' . $value_page : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')); ?>" method="post" enctype="multipart/form-data">
 		
-		<table class="table table-striped table-hover w-100">
+		<table class="table table-hover w-100">
           <tr>
             <td colspan="11" class="smallText">
 <?php
@@ -736,10 +736,11 @@ while ($attributes_values = $attributes->fields) {
             $options_values_quantity = $attributes_values['options_values_quantity'] ?? '';
             $options_values_base_quantity = $attributes_values['options_values_base_quantity'] ?? '';
             $options_values_units_id = $attributes_values['options_values_units_id'] ?? ''; ?>
-        <tr class="<?php echo(!($rows % 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+		<tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td colspan="8"><table border="0">
+            <td>&nbsp;</td>			
+            <td colspan="8">
+              <table class="table w-100">
                 <tr>
                   <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR . '<br>' . oos_draw_input_field('options_values_base_price', $options_values_base_price); ?></td>
                   <td class="main"><br> <- </td>
@@ -756,10 +757,7 @@ while ($attributes_values = $attributes->fields) {
 
             </td>
             <td>&nbsp;</td>
-          </tr> 
-		</table>
-	</div>		  
-  <table border="0" width="100%" cellspacing="0" cellpadding="2">        
+          </tr>       
             <?php
         }
 
@@ -779,11 +777,12 @@ while ($attributes_values = $attributes->fields) {
                 $products_attributes_maxdays  = $download['products_attributes_maxdays'];
                 $products_attributes_maxcount = $download['products_attributes_maxcount'];
             } ?>
-          <tr class="<?php echo(!($rows % 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+		<tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
             <td>&nbsp;</td>
-            <td colspan="5">
-              <table>
-                <tr class="<?php echo(!($rows % 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+            <td>&nbsp;</td>
+            <td colspan="8">
+              <table class="table w-100">
+                <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
                   <td><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_FILENAME; ?></td>
                   <td class="smallText"><?php echo oos_draw_input_field('products_attributes_filename', $products_attributes_filename, 'size="15"'); ?>&nbsp;</td>
@@ -795,7 +794,7 @@ while ($attributes_values = $attributes->fields) {
               </table>
             </td>
             <td>&nbsp;</td>
-          </tr>
+          </tr>    
             <?php
         }
     } elseif (($action == 'delete_product_attribute') && ($_GET['attribute_id'] == $attributes_values['products_attributes_id'])) {
@@ -850,12 +849,12 @@ while ($attributes_values = $attributes->fields) {
             $products_attributes_filename = $download['products_attributes_filename'];
             $products_attributes_maxdays  = $download['products_attributes_maxdays'];
             $products_attributes_maxcount = $download['products_attributes_maxcount']; ?>
-          <tr class="<?php echo(!($rows % 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+          <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td colspan="8">
-              <table>
-                <tr class="<?php echo(!($rows % 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+              <table class="table w-100">
+                <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
                   <td>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_FILENAME; ?>&nbsp;</td>
                   <td class="smallText"><b><?php echo $products_attributes_filename; ?></b>&nbsp;</td>
@@ -875,12 +874,16 @@ while ($attributes_values = $attributes->fields) {
       // Move that ADOdb pointer!
       $attributes->MoveNext();
 }
+?>
+		</table>
+<?php
 
 if ($action != 'update_attribute') {
     $products_attributestable = $oostable['products_attributes'];
     $max_attributes_id_result = $dbconn->Execute("SELECT max(products_attributes_id) + 1 as next_id FROM $products_attributestable");
     $max_attributes_id_values = $max_attributes_id_result->fields;
     $next_id = $max_attributes_id_values['next_id']; ?>
+	<table class="table w-100">
           <tr>
             <td colspan="11"><?php echo oos_black_line(); ?></td>
           </tr>
