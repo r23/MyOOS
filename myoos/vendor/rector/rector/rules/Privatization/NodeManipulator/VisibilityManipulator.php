@@ -9,7 +9,7 @@ use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use Rector\Core\ValueObject\Visibility;
-use RectorPrefix202311\Webmozart\Assert\Assert;
+use RectorPrefix202312\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Tests\Privatization\NodeManipulator\VisibilityManipulatorTest
  */
@@ -116,6 +116,7 @@ final class VisibilityManipulator
         $this->addVisibilityFlag($node, Visibility::READONLY);
     }
     /**
+     * @api
      * @param \PhpParser\Node\Stmt\Class_|\PhpParser\Node\Stmt\Property|\PhpParser\Node\Param $node
      */
     public function isReadonly($node) : bool

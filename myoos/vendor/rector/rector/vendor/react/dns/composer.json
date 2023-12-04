@@ -37,18 +37,18 @@
         "react\/promise": "^3.0 || ^2.7 || ^1.2.1"
     },
     "require-dev": {
-        "phpunit\/phpunit": "^9.5 || ^4.8.35",
+        "phpunit\/phpunit": "^9.6 || ^5.7 || ^4.8.36",
         "react\/async": "^4 || ^3 || ^2",
         "react\/promise-timer": "^1.9"
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix202311\\React\\Dns\\": "src\/"
+            "RectorPrefix202312\\React\\Dns\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix202311\\React\\Tests\\Dns\\": "tests\/"
+            "RectorPrefix202312\\React\\Tests\\Dns\\": "tests\/"
         }
     }
 }

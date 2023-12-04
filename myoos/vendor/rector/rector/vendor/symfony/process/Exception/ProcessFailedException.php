@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix202311\Symfony\Component\Process\Exception;
+namespace RectorPrefix202312\Symfony\Component\Process\Exception;
 
-use RectorPrefix202311\Symfony\Component\Process\Process;
+use RectorPrefix202312\Symfony\Component\Process\Process;
 /**
  * Exception for failed processes.
  *
@@ -18,6 +18,9 @@ use RectorPrefix202311\Symfony\Component\Process\Process;
  */
 class ProcessFailedException extends RuntimeException
 {
+    /**
+     * @var \Symfony\Component\Process\Process
+     */
     private $process;
     public function __construct(Process $process)
     {

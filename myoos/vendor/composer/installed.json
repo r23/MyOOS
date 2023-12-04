@@ -3203,17 +3203,17 @@
         },
         {
             "name": "rector/rector",
-            "version": "0.18.11",
-            "version_normalized": "0.18.11.0",
+            "version": "0.18.12",
+            "version_normalized": "0.18.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "9621124c860066f56a4ab841349cb7c284edfaee"
+                "reference": "ed8d5352a3faa69e4a5e315896abffd4bc29c828"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/9621124c860066f56a4ab841349cb7c284edfaee",
-                "reference": "9621124c860066f56a4ab841349cb7c284edfaee",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/ed8d5352a3faa69e4a5e315896abffd4bc29c828",
+                "reference": "ed8d5352a3faa69e4a5e315896abffd4bc29c828",
                 "shasum": ""
             },
             "require": {
@@ -3226,7 +3226,7 @@
                 "rector/rector-phpunit": "*",
                 "rector/rector-symfony": "*"
             },
-            "time": "2023-11-27T13:27:43+00:00",
+            "time": "2023-12-04T08:47:30+00:00",
             "bin": [
                 "bin/rector"
             ],
@@ -3250,7 +3250,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/0.18.11"
+                "source": "https://github.com/rectorphp/rector/tree/0.18.12"
             },
             "funding": [
                 {

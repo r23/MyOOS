@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix202311\Symfony\Component\Console\Helper;
+namespace RectorPrefix202312\Symfony\Component\Console\Helper;
 
-use RectorPrefix202311\Symfony\Component\Console\Exception\InvalidArgumentException;
-use RectorPrefix202311\Symfony\Component\Console\Exception\RuntimeException;
-use RectorPrefix202311\Symfony\Component\Console\Formatter\OutputFormatter;
-use RectorPrefix202311\Symfony\Component\Console\Formatter\WrappableOutputFormatterInterface;
-use RectorPrefix202311\Symfony\Component\Console\Output\ConsoleSectionOutput;
-use RectorPrefix202311\Symfony\Component\Console\Output\OutputInterface;
+use RectorPrefix202312\Symfony\Component\Console\Exception\InvalidArgumentException;
+use RectorPrefix202312\Symfony\Component\Console\Exception\RuntimeException;
+use RectorPrefix202312\Symfony\Component\Console\Formatter\OutputFormatter;
+use RectorPrefix202312\Symfony\Component\Console\Formatter\WrappableOutputFormatterInterface;
+use RectorPrefix202312\Symfony\Component\Console\Output\ConsoleSectionOutput;
+use RectorPrefix202312\Symfony\Component\Console\Output\OutputInterface;
 /**
  * Provides helpers to display a table.
  *
@@ -361,10 +361,17 @@ class Table
                 $maxRows = \max(\count($headers), \count($row));
                 for ($i = 0; $i < $maxRows; ++$i) {
                     $cell = (string) ($row[$i] ?? '');
-                    if ($headers && !$containsColspan) {
-                        $rows[] = [\sprintf('<comment>%s</>: %s', \str_pad($headers[$i] ?? '', $maxHeaderLength, ' ', \STR_PAD_LEFT), $cell)];
-                    } elseif ('' !== $cell) {
-                        $rows[] = [$cell];
+                    $parts = \explode("\n", $cell);
+                    foreach ($parts as $idx => $part) {
+                        if ($headers && !$containsColspan) {
+                            if (0 === $idx) {
+                                $rows[] = [\sprintf('<comment>%s</>: %s', \str_pad($headers[$i] ?? '', $maxHeaderLength, ' ', \STR_PAD_LEFT), $part)];
+                            } else {
+                                $rows[] = [\sprintf('%s  %s', \str_pad('', $maxHeaderLength, ' ', \STR_PAD_LEFT), $part)];
+                            }
+                        } elseif ('' !== $cell) {
+                            $rows[] = [$part];
+                        }
                     }
                 }
             }

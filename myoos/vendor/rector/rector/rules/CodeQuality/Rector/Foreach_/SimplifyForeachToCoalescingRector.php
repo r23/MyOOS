@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp\Coalesce;
 use PhpParser\Node\Expr\BinaryOp\Identical;
 use PhpParser\Node\Stmt;
+use PhpParser\Node\Stmt\Else_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Foreach_;
 use PhpParser\Node\Stmt\If_;
@@ -32,14 +33,14 @@ final class SimplifyForeachToCoalescingRector extends AbstractRector implements 
         return new RuleDefinition('Changes foreach that returns set value to ??', [new CodeSample(<<<'CODE_SAMPLE'
 foreach ($this->oldToNewFunctions as $oldFunction => $newFunction) {
     if ($currentFunction === $oldFunction) {
-        innerForeachReturn $newFunction;
+        return $newFunction;
     }
 }
 
-innerForeachReturn null;
+return null;
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-innerForeachReturn $this->oldToNewFunctions[$currentFunction] ?? null;
+return $this->oldToNewFunctions[$currentFunction] ?? null;
 CODE_SAMPLE
 )]);
     }
@@ -123,6 +124,9 @@ CODE_SAMPLE
             return null;
         }
         if (\count($if->stmts) !== 1) {
+            return null;
+        }
+        if ($if->else instanceof Else_ || $if->elseifs !== []) {
             return null;
         }
         $innerStmt = $if->stmts[0];

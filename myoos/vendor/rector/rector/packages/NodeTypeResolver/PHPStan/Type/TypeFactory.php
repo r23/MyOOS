@@ -13,10 +13,12 @@ use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeUtils;
 use PHPStan\Type\UnionType;
+use Rector\NodeTypeResolver\PHPStan\ObjectWithoutClassTypeWithParentTypes;
 use Rector\NodeTypeResolver\PHPStan\TypeHasher;
 final class TypeFactory
 {
@@ -54,13 +56,29 @@ final class TypeFactory
      */
     public function uniquateTypes(array $types, bool $keepConstant = \false) : array
     {
+        $constantTypeHashes = [];
         $uniqueTypes = [];
+        $totalTypes = \count($types);
         foreach ($types as $type) {
-            if (!$keepConstant) {
-                $type = $this->removeValueFromConstantType($type);
+            if ($totalTypes > 1 && $type instanceof ObjectWithoutClassTypeWithParentTypes) {
+                $parents = $type->getParentTypes();
+                $type = new ObjectType($parents[0]->getClassName());
             }
-            $typeHash = $this->typeHasher->createTypeHash($type);
+            $removedConstantType = $this->removeValueFromConstantType($type);
+            $removedConstantTypeHash = $this->typeHasher->createTypeHash($removedConstantType);
+            if ($keepConstant && $type !== $removedConstantType) {
+                $typeHash = $this->typeHasher->createTypeHash($type);
+                $constantTypeHashes[$typeHash] = $removedConstantTypeHash;
+            } else {
+                $type = $removedConstantType;
+                $typeHash = $removedConstantTypeHash;
+            }
             $uniqueTypes[$typeHash] = $type;
+        }
+        foreach ($constantTypeHashes as $constantTypeHash => $removedConstantTypeHash) {
+            if (\array_key_exists($removedConstantTypeHash, $uniqueTypes)) {
+                unset($uniqueTypes[$constantTypeHash]);
+            }
         }
         // re-index
         return \array_values($uniqueTypes);

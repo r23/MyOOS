@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix202311\Symfony\Component\Process\Exception;
+namespace RectorPrefix202312\Symfony\Component\Process\Exception;
 
-use RectorPrefix202311\Symfony\Component\Process\Process;
+use RectorPrefix202312\Symfony\Component\Process\Process;
 /**
  * Exception that is thrown when a process times out.
  *
@@ -20,7 +20,13 @@ class ProcessTimedOutException extends RuntimeException
 {
     public const TYPE_GENERAL = 1;
     public const TYPE_IDLE = 2;
+    /**
+     * @var \Symfony\Component\Process\Process
+     */
     private $process;
+    /**
+     * @var int
+     */
     private $timeoutType;
     public function __construct(Process $process, int $timeoutType)
     {

@@ -1,12 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix202311;
+namespace RectorPrefix202312;
 
 use Rector\CodingStyle\Rector\ArrowFunction\StaticArrowFunctionRector;
 use Rector\CodingStyle\Rector\Assign\SplitDoubleAssignRector;
 use Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector;
-use Rector\CodingStyle\Rector\Class_\AddArrayDefaultToArrayPropertyRector;
 use Rector\CodingStyle\Rector\ClassConst\RemoveFinalFromConstRector;
 use Rector\CodingStyle\Rector\ClassConst\SplitGroupedClassConstantsRector;
 use Rector\CodingStyle\Rector\ClassMethod\FuncGetArgsToVariadicParamRector;
@@ -37,5 +36,5 @@ use Rector\Transform\Rector\FuncCall\FuncCallToConstFetchRector;
 use Rector\Visibility\Rector\ClassMethod\ExplicitPublicClassMethodRector;
 return static function (RectorConfig $rectorConfig) : void {
     $rectorConfig->ruleWithConfiguration(FuncCallToConstFetchRector::class, ['php_sapi_name' => 'PHP_SAPI', 'pi' => 'M_PI']);
-    $rectorConfig->rules([SeparateMultiUseImportsRector::class, PostIncDecToPreIncDecRector::class, NewlineAfterStatementRector::class, RemoveFinalFromConstRector::class, NullableCompareToNullRector::class, ConsistentImplodeRector::class, TernaryConditionVariableAssignmentRector::class, SymplifyQuoteEscapeRector::class, StringClassNameToClassConstantRector::class, CatchExceptionNameMatchingTypeRector::class, UseIncrementAssignRector::class, SplitDoubleAssignRector::class, EncapsedStringsToSprintfRector::class, WrapEncapsedVariableInCurlyBracesRector::class, NewlineBeforeNewAssignSetRector::class, AddArrayDefaultToArrayPropertyRector::class, MakeInheritedMethodVisibilitySameAsParentRector::class, CallUserFuncArrayToVariadicRector::class, VersionCompareFuncCallToConstantRector::class, StaticArrowFunctionRector::class, StaticClosureRector::class, CountArrayToEmptyArrayComparisonRector::class, CallUserFuncToMethodCallRector::class, FuncGetArgsToVariadicParamRector::class, StrictArraySearchRector::class, UseClassKeywordForClassNameResolutionRector::class, SplitGroupedPropertiesRector::class, SplitGroupedClassConstantsRector::class, ExplicitPublicClassMethodRector::class, ArraySpreadInsteadOfArrayMergeRector::class]);
+    $rectorConfig->rules([SeparateMultiUseImportsRector::class, PostIncDecToPreIncDecRector::class, NewlineAfterStatementRector::class, RemoveFinalFromConstRector::class, NullableCompareToNullRector::class, ConsistentImplodeRector::class, TernaryConditionVariableAssignmentRector::class, SymplifyQuoteEscapeRector::class, StringClassNameToClassConstantRector::class, CatchExceptionNameMatchingTypeRector::class, UseIncrementAssignRector::class, SplitDoubleAssignRector::class, EncapsedStringsToSprintfRector::class, WrapEncapsedVariableInCurlyBracesRector::class, NewlineBeforeNewAssignSetRector::class, MakeInheritedMethodVisibilitySameAsParentRector::class, CallUserFuncArrayToVariadicRector::class, VersionCompareFuncCallToConstantRector::class, StaticArrowFunctionRector::class, StaticClosureRector::class, CountArrayToEmptyArrayComparisonRector::class, CallUserFuncToMethodCallRector::class, FuncGetArgsToVariadicParamRector::class, StrictArraySearchRector::class, UseClassKeywordForClassNameResolutionRector::class, SplitGroupedPropertiesRector::class, SplitGroupedClassConstantsRector::class, ExplicitPublicClassMethodRector::class, ArraySpreadInsteadOfArrayMergeRector::class]);
 };
