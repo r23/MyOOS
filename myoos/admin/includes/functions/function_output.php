@@ -150,15 +150,6 @@ function oos_info_image($image, $alt, $width = '', $height = '')
 
 
 /**
- * Draw a 1 pixel black line
- */
-function oos_black_line()
-{
-    return oos_image(OOS_IMAGES . 'pixel_black.gif', '', '100%');
-}
-
-
-/**
  * Output a function button in the selected language
  *
  * @param  $title

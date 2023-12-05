@@ -133,7 +133,7 @@ switch ($action) {
                 $dbconn->Execute("INSERT INTO $products_options_values_to_products_optionstable (products_options_values_id, products_options_id) values ('" . PRODUCTS_OPTIONS_VALUES_TEXT_ID .  "', '" .  intval($products_options_id) .  "')");
                 break;
         }
-        oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
+        oos_redirect_admin(oos_href_link_admin($aContents['products_properties'], $page_info));
         break;
 
     case 'add_product_option_values':
@@ -146,14 +146,14 @@ switch ($action) {
 
         $products_options_values_to_products_optionstable = $oostable['products_options_values_to_products_options'];
         $dbconn->Execute("INSERT INTO $products_options_values_to_products_optionstable (products_options_id, products_options_values_id) VALUES ('" . $_POST['option_id'] . "', '" . $_POST['value_id'] . "')");
-        oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
+        oos_redirect_admin(oos_href_link_admin($aContents['products_properties'], $page_info));
         break;
 
     case 'setflag':
         if (isset($_GET['aID'])) {
             oos_set_attributes_status($_GET['aID'], $_GET['flag']);
         }
-        oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
+        oos_redirect_admin(oos_href_link_admin($aContents['products_properties'], $page_info));
         break;
 
     case 'add_product_attributes':
@@ -259,7 +259,7 @@ switch ($action) {
 								'" . oos_db_prepare_input($products_attributes_maxcount) . "')"
             );
         }
-        oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
+        oos_redirect_admin(oos_href_link_admin($aContents['products_properties'], $page_info));
         break;
 
     case 'update_option_name':
@@ -279,7 +279,7 @@ switch ($action) {
                 $products_options_values_to_products_optionstable = $oostable['products_options_values_to_products_options'];
                 $dbconn->Execute("DELETE FROM $products_options_values_to_products_optionstable WHERE products_options_values_id = '" . PRODUCTS_OPTIONS_VALUES_TEXT_ID . "'");
         }
-        oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
+        oos_redirect_admin(oos_href_link_admin($aContents['products_properties'], $page_info));
         break;
 
     case 'update_value':
@@ -294,7 +294,7 @@ switch ($action) {
         // $dbconn->Execute("UPDATE $products_options_values_to_products_optionstable SET products_options_id = '" . intval($_POST['option_id']) . "', products_options_values_id = '" . intval($_POST['value_id']) . "'  WHERE products_options_values_to_products_options_id = '" . intval($_POST['value_id']) . "'");
         $dbconn->Execute("UPDATE $products_options_values_to_products_optionstable SET products_options_id = '" . intval($_POST['option_id']) . "' WHERE products_options_values_id = '" . intval($_POST['value_id']) . "'");
 
-        oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
+        oos_redirect_admin(oos_href_link_admin($aContents['products_properties'], $page_info));
         break;
 
     case 'update_product_attribute':
@@ -417,7 +417,7 @@ switch ($action) {
                 );
             }
         }
-        oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
+        oos_redirect_admin(oos_href_link_admin($aContents['products_properties'], $page_info));
         break;
     case 'delete_option':
         $products_optionstable = $oostable['products_options'];
@@ -426,21 +426,21 @@ switch ($action) {
         $products_options_values_to_products_optionstable = $oostable['products_options_values_to_products_options'];
         //  $dbconn->Execute("DELETE FROM $products_options_values_to_products_optionstable WHERE products_options_id = '" . intval($_GET['option_id']) . "' AND products_options_values_id = '" . PRODUCTS_OPTIONS_VALUES_TEXT_ID . "'");
         $dbconn->Execute("DELETE FROM $products_options_values_to_products_optionstable WHERE products_options_id = '" . intval($_GET['option_id']) . "'");
-        oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
+        oos_redirect_admin(oos_href_link_admin($aContents['products_properties'], $page_info));
         break;
     case 'delete_value':
         $products_options_valuestable = $oostable['products_options_values'];
         $dbconn->Execute("DELETE FROM $products_options_valuestable WHERE products_options_values_id = '" . intval($_GET['value_id']) . "'");
         $products_options_values_to_products_optionstable = $oostable['products_options_values_to_products_options'];
         $dbconn->Execute("DELETE FROM $products_options_values_to_products_optionstable WHERE products_options_values_id = '" . intval($_GET['value_id']) . "'");
-        oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
+        oos_redirect_admin(oos_href_link_admin($aContents['products_properties'], $page_info));
         break;
     case 'delete_attribute':
         $products_attributestable = $oostable['products_attributes'];
         $dbconn->Execute("DELETE FROM $products_attributestable WHERE products_attributes_id = '" . intval($_GET['attribute_id']) . "'");
         $products_attributes_downloadtable = $oostable['products_attributes_download'];
         $dbconn->Execute("DELETE FROM $products_attributes_downloadtable WHERE products_attributes_id = '" . intval($_GET['attribute_id']) . "'");
-        oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
+        oos_redirect_admin(oos_href_link_admin($aContents['products_properties'], $page_info));
         break;
 }
 
@@ -488,7 +488,7 @@ require 'includes/header.php';
 <script nonce="<?php echo NONCE; ?>">
 function go_option() {
   if (document.option_order_by.selected.options[document.option_order_by.selected.selectedIndex].value != "none") {
-    location = "<?php echo oos_href_link_admin($aContents['products_attributes'], 'option_page=' . (isset($_GET['option_page']) ? intval($_GET['option_page']) : 1)); ?>&option_order_by="+document.option_order_by.selected.options[document.option_order_by.selected.selectedIndex].value;
+    location = "<?php echo oos_href_link_admin($aContents['products_properties'], 'option_page=' . (isset($_GET['option_page']) ? intval($_GET['option_page']) : 1)); ?>&option_order_by="+document.option_order_by.selected.options[document.option_order_by.selected.selectedIndex].value;
   }
 }
 </script>
@@ -535,15 +535,12 @@ function go_option() {
 			
 			<div class="wrapper wrapper-content">
 				<div class="row">
-					<div class="col-lg-12">	
-<!-- body_text //-->
-
-    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-<!-- options and values//-->
-      <tr>
-        <td width="100%"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td valign="top" width="50%"><table width="100%" border="0" cellspacing="0" cellpadding="2">
+					
+			<!-- body_text //-->
+			<div class="col-md-6">
+				<!-- options and values//-->
+				<div class="table-responsive">
+					<table class="table table-hover w-100">
 <!-- options //-->
 <?php
 if ($action == 'delete_product_option') { // delete product option
@@ -577,7 +574,7 @@ if ($action == 'delete_product_option') { // delete product option
         $rows = 0;
         while ($products_values = $products->fields) {
             $rows++; ?>
-                  <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+                  <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
                     <td align="center" class="smallText">&nbsp;<?php echo $products_values['products_id']; ?>&nbsp;</td>
                     <td class="smallText">&nbsp;<?php echo $products_values['products_name']; ?>&nbsp;</td>
                     <td class="smallText">&nbsp;<?php echo $products_values['products_options_values_name']; ?>&nbsp;</td>
@@ -587,13 +584,10 @@ if ($action == 'delete_product_option') { // delete product option
             $products->MoveNext();
         } ?>
                   <tr>
-                    <td colspan="3"><?php echo oos_black_line(); ?></td>
-                  </tr>
-                  <tr>
                     <td colspan="3" class="main"><br><?php echo TEXT_WARNING_OF_DELETE; ?></td>
                   </tr>
                   <tr>
-                    <td align="right" colspan="3" class="main"><br><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'value_page=' . $value_page . '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</td>
+                    <td align="right" colspan="3" class="main"><br><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_properties'], 'value_page=' . $value_page . '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</td>
                   </tr>
         <?php
     } else {
@@ -602,7 +596,7 @@ if ($action == 'delete_product_option') { // delete product option
                     <td class="main" colspan="3"><br><?php echo TEXT_OK_TO_DELETE; ?></td>
                   </tr>
                   <tr>
-                    <td class="main" align="right" colspan="3"><br><?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_option&option_id=' . intval($_GET['option_id'])) . '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], '&page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</td>
+                    <td class="main" align="right" colspan="3"><br><?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_properties'], 'action=delete_option&option_id=' . intval($_GET['option_id'])) . '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_properties'], '&page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</td>
                   </tr>
         <?php
     } ?>
@@ -617,7 +611,7 @@ if ($action == 'delete_product_option') { // delete product option
     } ?>
               <tr>
                 <td colspan="3" class="pageHeading">&nbsp;<?php echo HEADING_TITLE_OPT; ?>&nbsp;</td>
-                <td class="text-right"><br><form name="option_order_by" action="<?php echo $aContents['products_attributes']; ?>"><select name="selected" onChange="go_option()"><option value="products_options_id"<?php if ($option_order_by == 'products_options_id') {
+                <td class="text-right"><br><form name="option_order_by" action="<?php echo $aContents['products_properties']; ?>"><select name="selected" onChange="go_option()"><option value="products_options_id"<?php if ($option_order_by == 'products_options_id') {
                     echo ' checked="checked"';
                 } ?>><?php echo TEXT_OPTION_ID; ?></option><option value="products_options_name"<?php if ($option_order_by == 'products_options_name') {
                     echo ' checked="checked"';
@@ -653,12 +647,12 @@ if ($action == 'delete_product_option') { // delete product option
 
     // Previous
     if ($prev_option_page) {
-        echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'option_page=' . $prev_option_page) . '"> &lt;&lt; </a> | ';
+        echo '<a href="' . oos_href_link_admin($aContents['products_properties'], 'option_page=' . $prev_option_page) . '"> &lt;&lt; </a> | ';
     }
 
     for ($i = 1; $i <= $num_pages; $i++) {
         if ($i != $option_page) {
-            echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'option_page=' . $i) . '">' . $i . '</a> | ';
+            echo '<a href="' . oos_href_link_admin($aContents['products_properties'], 'option_page=' . $i) . '">' . $i . '</a> | ';
         } else {
             echo '<b><font color=red>' . $i . '</font></b> | ';
         }
@@ -666,7 +660,7 @@ if ($action == 'delete_product_option') { // delete product option
 
     // Next
     if ($option_page != $num_pages) {
-        echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'option_page=' . $next_option_page) . '"> &gt;&gt; </a>';
+        echo '<a href="' . oos_href_link_admin($aContents['products_properties'], 'option_page=' . $next_option_page) . '"> &gt;&gt; </a>';
     } ?>
                 </td>
               </tr>
@@ -684,10 +678,10 @@ if ($action == 'delete_product_option') { // delete product option
     $options = $dbconn->Execute($options);
     while ($options_values = $options->fields) {
         $rows++; ?>
-              <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+              <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
         <?php
         if (($action == 'update_option') && ($_GET['option_id'] == $options_values['products_options_id'])) {
-            echo '<form name="option" action="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_option_name') . '" method="post">';
+            echo '<form name="option" action="' . oos_href_link_admin($aContents['products_properties'], 'action=update_option_name') . '" method="post">';
             $inputs = '';
             for ($i = 0, $n = is_countable($aLanguages) ? count($aLanguages) : 0; $i < $n; $i ++) {
                 $option_name = $dbconn->Execute("SELECT products_options_name FROM " . $oostable['products_options'] . " WHERE products_options_id = '" . $options_values['products_options_id'] . "' AND  products_options_languages_id = '" . $aLanguages[$i]['id'] . "'");
@@ -700,7 +694,7 @@ if ($action == 'delete_product_option') { // delete product option
                 <td align="center" class="smallText">&nbsp;<?php echo $options_values['products_options_id']; ?><input type="hidden" name="option_id" value="<?php echo $options_values['products_options_id']; ?>">&nbsp;</td>
                 <td class="smallText"><?php echo $inputs; ?></td>
                 <td class="smallText"><?php echo oos_draw_option_type_pull_down_menu('option_type', $options_values['products_options_type']); ?>&nbsp;</td>
-                <td class="smallText"><?php echo oos_submit_button(BUTTON_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], '') . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
+                <td class="smallText"><?php echo oos_submit_button(BUTTON_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_properties'], '') . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
             <?php
             echo '</form>' . "\n";
         } else {
@@ -708,7 +702,7 @@ if ($action == 'delete_product_option') { // delete product option
                 <td align="center" class="smallText">&nbsp;<?php echo $options_values['products_options_id']; ?>&nbsp;</td>
                 <td class="smallText">&nbsp;<?php echo $options_values['products_options_name']; ?>&nbsp;</td>
                 <td align="center" class="smallText">&nbsp;<?php echo oos_options_type_name($options_values['products_options_type']); ?>&nbsp;</td>
-                <td class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_option&option_id=' . $options_values['products_options_id'] . '&option_order_by=' . $option_order_by . '&option_page=' . $option_page) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_product_option&option_id=' . $options_values['products_options_id']) , '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
+                <td class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['products_properties'], 'action=update_option&option_id=' . $options_values['products_options_id'] . '&option_order_by=' . $option_order_by . '&option_page=' . $option_page) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_properties'], 'action=delete_product_option&option_id=' . $options_values['products_options_id']) , '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
             <?php
         } ?>
               </tr>
@@ -720,16 +714,13 @@ if ($action == 'delete_product_option') { // delete product option
 
         // Move that ADOdb pointer!
         $options->MoveNext();
-    } ?>
-              <tr>
-                <td colspan="4"><?php echo oos_black_line(); ?></td>
-              </tr>
-    <?php
+    } 
+
     if ($action != 'update_option') {
         ?>
-              <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+              <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
         <?php
-        echo '<form name="options" action="' . oos_href_link_admin($aContents['products_attributes'], 'action=add_product_options&option_page=' . $option_page) . '" method="post"><input type="hidden" name="products_options_id" value="' . $next_id . '">';
+        echo '<form name="options" action="' . oos_href_link_admin($aContents['products_properties'], 'action=add_product_options&option_page=' . $option_page) . '" method="post"><input type="hidden" name="products_options_id" value="' . $next_id . '">';
         $inputs = '';
         for ($i = 0, $n = is_countable($aLanguages) ? count($aLanguages) : 0; $i < $n; $i ++) {
             if ($nLanguages > 1) {
@@ -744,16 +735,18 @@ if ($action == 'delete_product_option') { // delete product option
         <?php
         echo '</form>'; ?>
               </tr>
-              <tr>
-                <td colspan="4"><?php echo oos_black_line(); ?></td>
-              </tr>
         <?php
     }
 }
 ?>
-            </table></td>
+				</table>
+			</div>
+		</div>
 <!-- options eof //-->
-            <td valign="top" width="50%"><table width="100%" border="0" cellspacing="0" cellpadding="2">
+		<div class="col-md-6">
+
+			<div class="table-responsive">
+				<table class="table table-hover w-100">
 <!-- value //-->
 <?php
 if ($action == 'delete_option_value') { // delete product option value
@@ -787,7 +780,7 @@ if ($action == 'delete_option_value') { // delete product option value
         $rows = 0;
         while ($products_values = $products->fields) {
             $rows++; ?>
-                  <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+                  <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
                     <td align="center" class="smallText">&nbsp;<?php echo $products_values['products_id']; ?>&nbsp;</td>
                     <td class="smallText">&nbsp;<?php echo $products_values['products_name']; ?>&nbsp;</td>
                     <td class="smallText">&nbsp;<?php echo $products_values['products_options_name']; ?>&nbsp;</td>
@@ -796,14 +789,12 @@ if ($action == 'delete_option_value') { // delete product option value
             // Move that ADOdb pointer!
             $products->MoveNext();
         } ?>
-                  <tr>
-                    <td colspan="3"><?php echo oos_black_line(); ?></td>
-                  </tr>
+
                   <tr>
                     <td class="main" colspan="3"><br><?php echo TEXT_WARNING_OF_DELETE; ?></td>
                   </tr>
                   <tr>
-                    <td class="main" align="right" colspan="3"><br><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'value_page=' . $value_page . '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</td>
+                    <td class="main" align="right" colspan="3"><br><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_properties'], 'value_page=' . $value_page . '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</td>
                   </tr>
         <?php
     } else {
@@ -812,7 +803,7 @@ if ($action == 'delete_option_value') { // delete product option value
                     <td class="main" colspan="3"><br><?php echo TEXT_OK_TO_DELETE; ?></td>
                   </tr>
                   <tr>
-                    <td class="main" align="right" colspan="3"><br><?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_value&value_id=' . $_GET['value_id']) . '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
+                    <td class="main" align="right" colspan="3"><br><?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_properties'], 'action=delete_value&value_id=' . $_GET['value_id']) . '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_properties'], '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
                   </tr>
         <?php
     } ?>
@@ -857,12 +848,12 @@ if ($action == 'delete_option_value') { // delete product option value
 
     // Previous
     if ($prev_value_page) {
-        echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'option_order_by=' . $option_order_by . '&value_page=' . $prev_value_page) . '"> &lt;&lt; </a> | ';
+        echo '<a href="' . oos_href_link_admin($aContents['products_properties'], 'option_order_by=' . $option_order_by . '&value_page=' . $prev_value_page) . '"> &lt;&lt; </a> | ';
     }
 
     for ($i = 1; $i <= $num_pages; $i++) {
         if ($i != $value_page) {
-            echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'option_order_by=' . $option_order_by . '&value_page=' . $i) . '">' . $i . '</a> | ';
+            echo '<a href="' . oos_href_link_admin($aContents['products_properties'], 'option_order_by=' . $option_order_by . '&value_page=' . $i) . '">' . $i . '</a> | ';
         } else {
             echo '<b><font color=red>' . $i . '</font></b> | ';
         }
@@ -870,7 +861,7 @@ if ($action == 'delete_option_value') { // delete product option value
 
     // Next
     if ($value_page != $num_pages) {
-        echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'option_order_by=' . $option_order_by . '&value_page=' . $next_value_page) . '"> &gt;&gt;</a> ';
+        echo '<a href="' . oos_href_link_admin($aContents['products_properties'], 'option_order_by=' . $option_order_by . '&value_page=' . $next_value_page) . '"> &gt;&gt;</a> ';
     } ?>
                 </td>
               </tr>
@@ -892,10 +883,10 @@ if ($action == 'delete_option_value') { // delete product option value
         $option_id = $values_values['products_options_id'];
         $values_name = $values_values['products_options_values_name'];
         $rows++; ?>
-              <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+              <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
         <?php
         if (($action == 'update_option_value') && ($_GET['value_id'] == $values_values['products_options_values_id'])) {
-            echo '<form name="values" action="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_value') . '" method="post">';
+            echo '<form name="values" action="' . oos_href_link_admin($aContents['products_properties'], 'action=update_value') . '" method="post">';
             $inputs = '';
             for ($i = 0, $n = is_countable($aLanguages) ? count($aLanguages) : 0; $i < $n; $i ++) {
                 $products_options_valuestable = $oostable['products_options_values'];
@@ -923,7 +914,7 @@ if ($action == 'delete_option_value') { // delete product option value
             } ?>
                 </select>&nbsp;</td>
                 <td class="smallText"><?php echo $inputs; ?></td>
-                <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], '') . '" role="button"><strong>' .  BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</td>
+                <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_properties'], '') . '" role="button"><strong>' .  BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</td>
             <?php
             echo '</form>';
         } else {
@@ -931,7 +922,7 @@ if ($action == 'delete_option_value') { // delete product option value
                 <td align="center" class="smallText">&nbsp;<?php echo $values_values["products_options_values_id"]; ?>&nbsp;</td>
                 <td align="center" class="smallText">&nbsp;<?php echo $options_name; ?>&nbsp;</td>
                 <td class="smallText">&nbsp;<?php echo $values_name; ?>&nbsp;</td>
-                <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_option_value&value_id=' . $values_values['products_options_values_id'] . '&value_page=' . $value_page) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_option_value&value_id=' . $values_values['products_options_values_id'] . '&option_id=' . $option_id) , '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
+                <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['products_properties'], 'action=update_option_value&value_id=' . $values_values['products_options_values_id'] . '&value_page=' . $value_page) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_properties'], 'action=delete_option_value&value_id=' . $values_values['products_options_values_id'] . '&option_id=' . $option_id) , '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
 
             <?php
         }
@@ -944,15 +935,13 @@ if ($action == 'delete_option_value') { // delete product option value
         $values->MoveNext();
     } ?>
               </tr>
-              <tr>
-                <td colspan="4"><?php echo oos_black_line(); ?></td>
-              </tr>
+
     <?php
     if ($action != 'update_option_value') {
         ?>
-              <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+              <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
         <?php
-        echo '<form name="values" action="' . oos_href_link_admin($aContents['products_attributes'], 'action=add_product_option_values&value_page=' . $value_page) . '" method="post">'; ?>
+        echo '<form name="values" action="' . oos_href_link_admin($aContents['products_properties'], 'action=add_product_option_values&value_page=' . $value_page) . '" method="post">'; ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
                 <td align="center" class="smallText">&nbsp;<select name="option_id">
         <?php
@@ -978,20 +967,15 @@ if ($action == 'delete_option_value') { // delete product option value
         <?php
         echo '</form>'; ?>
               </tr>
-              <tr>
-                <td colspan="4"><?php echo oos_black_line(); ?></td>
-              </tr>
         <?php
     }
 }
 ?>
-            </table></td>
-          </tr>
-        </table></td>
+				</table>
+			</div>
+		</div>
 <!-- option value eof //-->
-      </tr>
-    </table>
-<!-- products_attributes_eof //-->
+
                 </div>
             </div>
         </div>
@@ -1006,4 +990,3 @@ if ($action == 'delete_option_value') { // delete product option value
 <?php
 require 'includes/bottom.php';
 require 'includes/nice_exit.php';
-

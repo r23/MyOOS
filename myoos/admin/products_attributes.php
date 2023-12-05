@@ -649,7 +649,7 @@ while ($attributes_values = $attributes->fields) {
     $options_name = oos_options_name($attributes_values['options_id']);
     $values_name = oos_values_name($attributes_values['options_values_id']);
     $rows++; ?>
-          <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+          <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
     <?php
     if (($action == 'update_attribute') && ($_GET['attribute_id'] == $attributes_values['products_attributes_id'])) {
         ?>
@@ -736,7 +736,7 @@ while ($attributes_values = $attributes->fields) {
             $options_values_quantity = $attributes_values['options_values_quantity'] ?? '';
             $options_values_base_quantity = $attributes_values['options_values_base_quantity'] ?? '';
             $options_values_units_id = $attributes_values['options_values_units_id'] ?? ''; ?>
-		<tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+		<tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
             <td>&nbsp;</td>
             <td>&nbsp;</td>			
             <td colspan="8">
@@ -777,12 +777,12 @@ while ($attributes_values = $attributes->fields) {
                 $products_attributes_maxdays  = $download['products_attributes_maxdays'];
                 $products_attributes_maxcount = $download['products_attributes_maxcount'];
             } ?>
-		<tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+		<tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td colspan="8">
               <table class="table w-100">
-                <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+                <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
                   <td><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_FILENAME; ?></td>
                   <td class="smallText"><?php echo oos_draw_input_field('products_attributes_filename', $products_attributes_filename, 'size="15"'); ?>&nbsp;</td>
@@ -849,12 +849,12 @@ while ($attributes_values = $attributes->fields) {
             $products_attributes_filename = $download['products_attributes_filename'];
             $products_attributes_maxdays  = $download['products_attributes_maxdays'];
             $products_attributes_maxcount = $download['products_attributes_maxcount']; ?>
-          <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+          <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td colspan="8">
               <table class="table w-100">
-                <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+                <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
                   <td>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_FILENAME; ?>&nbsp;</td>
                   <td class="smallText"><b><?php echo $products_attributes_filename; ?></b>&nbsp;</td>
@@ -884,10 +884,7 @@ if ($action != 'update_attribute') {
     $max_attributes_id_values = $max_attributes_id_result->fields;
     $next_id = $max_attributes_id_values['next_id']; ?>
 	<table class="table w-100">
-          <tr>
-            <td colspan="11"><?php echo oos_black_line(); ?></td>
-          </tr>
-          <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+          <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
             <td class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
             <td class="smallText"><?php echo '&nbsp;' . oos_draw_file_field('options_values_image'); ?></td>
             <td class="smallText">&nbsp;<select name="products_id">
@@ -945,7 +942,7 @@ if ($action != 'update_attribute') {
     if (BASE_PRICE == 'true') {
         $options_values_base_price = (!isset($attributes_values['options_values_base_price'])) ? 1 : $attributes_values['options_values_base_price'];
         $options_values_units_id = $attributes_values['options_values_units_id'] ?? ''; ?>
-        <tr class="<?php echo(!($rows % 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+         <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td colspan="8"><table border="0">
@@ -972,12 +969,12 @@ if ($action != 'update_attribute') {
     if (DOWNLOAD_ENABLED == 'true') {
         $products_attributes_maxdays  = DOWNLOAD_MAX_DAYS;
         $products_attributes_maxcount = DOWNLOAD_MAX_COUNT; ?>
-          <tr class="<?php echo(!($rows % 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+           <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td colspan="8">
           <table> 
-                <tr class="<?php echo(!($rows % 2) ? 'attributes-even' : 'attributes-odd'); ?>">
+                 <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
                   <td><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_FILENAME; ?></td>
                   <td class="smallText"><?php echo oos_draw_input_field('products_attributes_filename', '', 'size="15"'); ?>&nbsp;</td>
@@ -995,9 +992,6 @@ if ($action != 'update_attribute') {
     } // end of DOWNLOAD_ENABLED section
 }
 ?>
-          <tr>
-            <td colspan="11"><?php echo oos_black_line(); ?></td>
-          </tr>
         </table></form></td>
       </tr>
     </table>
