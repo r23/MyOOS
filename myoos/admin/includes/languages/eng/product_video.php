@@ -47,3 +47,12 @@ define('TEXT_UPLOAD_VIDEO', 'Upload file');
 define('ERROR_NO_VIDEO_FILE', 'The file you are trying to upload is not a .mpg file. Please try again.');
 define('TEXT_SUCCESSFULLY_UPLOADED_VIDEO', 'Your video file was uploaded.');
 define('ERROR_PROBLEM_WITH_VIDEO_FILE', 'There was a problem with the upload. Please try again.');
+
+define('ERROR_NO_VIDEO_FILE', 'The file you are trying to upload does not have a valid file format. Please try again.');
+define('TEXT_SUCCESSFULLY_UPLOADED_VIDEO', 'Your video has been uploaded.');
+define('TEXT_SUCCESSFULLY_UPLOADED_VIDEO_MP4', 'Your MP4 video file has been uploaded.');
+define('TEXT_SUCCESSFULLY_UPLOADED_VIDEO_WEBM', 'Your WEBM video file has been uploaded.');
+define('TEXT_SUCCESSFULLY_UPLOADED_VIDEO_OGV', 'Your OGV video file has been uploaded.');
+define('TEXT_SUCCESSFULLY_UPLOADED_POSTER', 'Your poster in WebP format has been uploaded.');
+
+define('ERROR_PROBLEM_WITH_VIDEO_FILE', 'There was a problem with the upload. Please try again.');

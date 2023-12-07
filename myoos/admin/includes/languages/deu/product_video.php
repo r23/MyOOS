@@ -49,8 +49,13 @@ define('TEXT_VIDEO_UPLAOD_HELP', 'Für die Videobearbeitung wird FFmpeg auf dem 
 define('TEXT_VIDEO_REMOVE', 'Video löschen');
 define('TEXT_UPLOAD_VIDEO', 'Upload Video');
 
-define('ERROR_NO_VIDEO_FILE', 'Die Datei, die Sie hochladen möchten, ist keine .mpg-Datei. Bitte versuchen Sie es erneut.');
+define('ERROR_NO_VIDEO_FILE', 'Die Datei, die Sie hochladen möchten, hat kein gültiges Dateiforamt. Bitte versuchen Sie es erneut.');
 define('TEXT_SUCCESSFULLY_UPLOADED_VIDEO', 'Ihr Video wurde hochgeladen.');
+define('TEXT_SUCCESSFULLY_UPLOADED_VIDEO_MP4', 'Ihre MP4 Video-Datei wurde hochgeladen.');
+define('TEXT_SUCCESSFULLY_UPLOADED_VIDEO_WEBM', 'Ihre WEBM Video-Datei wurde hochgeladen.');
+define('TEXT_SUCCESSFULLY_UPLOADED_VIDEO_OGV', 'Ihre OGV Video-Datei wurde hochgeladen.');
+define('TEXT_SUCCESSFULLY_UPLOADED_POSTER', 'Ihr Poster im WebP Format wurde hochgeladen.');
+
 define('ERROR_PROBLEM_WITH_VIDEO_FILE', 'Es gab ein Problem mit dem Upload. Bitte versuchen Sie es erneut.');
 
 define('TEXT_POSTER_HELP', 'Die Größe des Posters hängt von der Auflösung und dem Seitenverhältnis Ihres Videos ab. Wenn Sie ein 16:9-Video haben und die Option Vollbild verwenden, können Sie die folgenden Auflösungen für Ihr Poster verwenden: <br> 4320p (8k): 7680x4320 Pixel<br> 2160p (4K): 3840x2160 Pixel<br> 1080p (Full HD): 1920x1080 Pixel<br> 720p (HD): 1280x720 Pixel<br> 480p (SD): 854x480 Pixel<br>');

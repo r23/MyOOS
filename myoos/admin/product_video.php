@@ -115,6 +115,7 @@ switch ($action) {
                 }
 
                 // video
+				$sql_data_array = [];
                 if (isset($_FILES)) {
 					$video_mp4 = '';
 					$video_webm = '';
@@ -134,7 +135,8 @@ switch ($action) {
                             $uploadfile = $path . $video_mp4; // target avi file	
 
 							if (move_uploaded_file($source, $uploadfile)) {
-								$messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_VIDEO, 'success');
+								$messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_VIDEO_MP4, 'success');
+								$sql_data_array['video_mp4'] = oos_db_prepare_input($video_mp4); 
 							} else {
 								$messageStack->add_session(ERROR_PROBLEM_WITH_VIDEO_FILE, 'error');
 							}
@@ -153,7 +155,8 @@ switch ($action) {
                             $uploadfile = $path . $video_webm; // target avi file	
 
 							if (move_uploaded_file($source, $uploadfile)) {
-								$messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_VIDEO, 'success');
+								$messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_VIDEO_WEBM, 'success');
+								$sql_data_array['video_webm'] = oos_db_prepare_input($video_webm);
 							} else {
 								$messageStack->add_session(ERROR_PROBLEM_WITH_VIDEO_FILE, 'error');
 							}
@@ -173,7 +176,8 @@ switch ($action) {
                             $uploadfile = $path . $video_ogv; // target avi file	
 
 							if (move_uploaded_file($source, $uploadfile)) {
-								$messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_VIDEO, 'success');
+								$messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_VIDEO_OGV, 'success');
+								$sql_data_array['video_ogv'] = oos_db_prepare_input($video_ogv);
 							} else {
 								$messageStack->add_session(ERROR_PROBLEM_WITH_VIDEO_FILE, 'error');
 							}
@@ -191,19 +195,18 @@ switch ($action) {
                             $frame = $dir_video_images . $poster;
 							
                             if (move_uploaded_file($source, $frame)) {
-                                $messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_VIDEO, 'success');
+                                $messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_POSTER, 'success');
+								$sql_data_array['video_poster'] = oos_db_prepare_input($poster);
                             } else {
                                 $messageStack->add_session(ERROR_PROBLEM_WITH_VIDEO_FILE, 'error');
                             }
 						}
 					}
-
-					$sql_data_array = ['video_mp4' => oos_db_prepare_input($video_mp4),
-                                       'video_webm' => oos_db_prepare_input($video_webm),
-                                       'video_ogv' => oos_db_prepare_input($video_ogv),
-                                       'video_poster' => oos_db_prepare_input($poster)];
-
-                    oos_db_perform($oostable['products_video'], $sql_data_array, 'UPDATE', 'video_id = \'' . intval($video_id) . '\'');					
+			
+					
+					if (!empty($sql_data_array)) {
+						oos_db_perform($oostable['products_video'], $sql_data_array, 'UPDATE', 'video_id = \'' . intval($video_id) . '\'');
+					}
                 }
             }
             oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . '&pID=' . intval($products_id)));
