@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.4.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-11-07 09:06:21+0000\n"
+"PO-Revision-Date: 2023-12-06 19:56:58+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1148,7 +1148,7 @@ msgid "Sorry, replies to unapproved comments are not allowed."
 msgstr "Antworten auf nicht genehmigte Kommentare sind leider nicht erlaubt."
 
 #. translators: %s: A list of placeholders found to be a problem.
-#: wp-includes/class-wpdb.php:1647
+#: wp-includes/class-wpdb.php:1662
 msgid "Arguments cannot be prepared as both an Identifier and Value. Found the following conflicts: %s"
 msgstr "Argumente können nicht sowohl als Bezeichner als auch als Wert bereitgestellt werden. Es wurden folgende Konflikte gefunden: %s"
 
@@ -1367,11 +1367,11 @@ msgstr "Es scheint keine Datei %s zu geben. Sie wird benötigt, bevor die Instal
 msgid "The date and time the preferences were updated."
 msgstr "Das Datum und die Uhrzeit der Aktualisierung der Einstellungen."
 
-#: wp-includes/theme.php:4141
+#: wp-includes/theme.php:4104
 msgid "Whether the theme disables generated layout styles."
 msgstr "Gibt an, ob das Theme generierte Layout-Stile deaktiviert."
 
-#: wp-includes/theme.php:3951
+#: wp-includes/theme.php:3914
 msgid "Whether a theme uses block-based template parts."
 msgstr "Ob das Theme blockbasierte Template-Teile nutzt."
 
@@ -1569,7 +1569,7 @@ msgstr "Cron-Unschedule-Event-Fehler für Hook: %1$s, Fehlercode: %2$s, Fehlerme
 msgid "Cron reschedule event error for hook: %1$s, Error code: %2$s, Error message: %3$s, Data: %4$s"
 msgstr "Cron-Reschedule-Event-Fehler für Hook: %1$s, Fehlercode: %2$s, Fehlermeldung: %3$s, Daten: %4$s"
 
-#: wp-includes/theme.php:3944
+#: wp-includes/theme.php:3907
 msgid "Whether a theme uses block-based templates."
 msgstr "Ob ein Theme blockbasierte Templates benutzt."
 
@@ -1805,11 +1805,11 @@ msgid "Need more help? <a href=\"%1$s\">Read the support article on %2$s</a>."
 msgstr "Du brauchst weitere Hilfe? <a href=\"%1$s\">Lies den Support-Artikel auf %2$s (engl.)</a>."
 
 #. translators: %s: Database name.
-#: wp-includes/class-wpdb.php:1199
+#: wp-includes/class-wpdb.php:1214
 msgid "The database server could be connected to (which means your username and password is okay) but the %s database could not be selected."
 msgstr "Der Datenbank-Server konnte verbunden werden (was bedeutet, dass dein Benutzername und dein Passwort in Ordnung sind), aber die Datenbank %s konnte nicht ausgewählt werden."
 
-#: wp-includes/class-wpdb.php:1195
+#: wp-includes/class-wpdb.php:1210
 msgid "Cannot select database"
 msgstr "Die Datenbank konnte nicht ausgewählt werden"
 
@@ -2196,25 +2196,25 @@ msgstr "Keine Kommentare"
 msgid "Confirm"
 msgstr "Bestätigen"
 
-#: wp-includes/class-wpdb.php:3670
+#: wp-includes/class-wpdb.php:3685
 msgid "Could not strip invalid text."
 msgstr "Der ungültige Text konnte nicht entfernt werden."
 
-#: wp-includes/class-wpdb.php:3217
+#: wp-includes/class-wpdb.php:3232
 msgid "Could not retrieve table charset."
 msgstr "Der Tabellen-Zeichensatz konnte nicht abgerufen werden."
 
 #. translators: %s: Database fields where the error occurred.
-#: wp-includes/class-wpdb.php:2833
+#: wp-includes/class-wpdb.php:2848
 msgid "WordPress database error: Processing the values for the following fields failed: %s. The supplied values may be too long or contain invalid data."
 msgstr "WordPress-Datenbankfehler: Das Verarbeiten der Werte für die folgenden Felder ist fehlgeschlagen: %s. Die gelieferten Werte könnten zu lang sein oder ungültige Daten enthalten."
 
 #. translators: %s: Database field where the error occurred.
-#: wp-includes/class-wpdb.php:2827
+#: wp-includes/class-wpdb.php:2842
 msgid "WordPress database error: Processing the value for the following field failed: %s. The supplied value may be too long or contains invalid data."
 msgstr "WordPress-Datenbankfehler: Das Verarbeiten des Werts für das folgende Feld ist fehlgeschlagen: %s. Der gelieferte Wert könnte zu lang sein oder ungültige Daten enthalten."
 
-#: wp-includes/class-wpdb.php:2237
+#: wp-includes/class-wpdb.php:2252
 msgid "WordPress database error: Could not perform query because it contains invalid data."
 msgstr "WordPress-Datenbankfehler: Die Abfrage konnte nicht ausgeführt werden, weil sie ungültige Daten enthält."
 
@@ -3206,7 +3206,7 @@ msgstr "Dieser Block ist veraltet. Bitte verwende stattdessen den Spalten-Block.
 #: wp-includes/blocks/tag-cloud/block.json
 msgctxt "block description"
 msgid "A cloud of your most used tags."
-msgstr "Eine Wolke deiner meist genutzten Schlagwörter."
+msgstr "Eine Wolke deiner meistbenutzten Schlagwörter."
 
 #: wp-includes/blocks/table/block.json
 msgctxt "block style label"
@@ -5194,11 +5194,11 @@ msgstr "Block-API-Version."
 msgid "Invalid parameters."
 msgstr "Ungültige Parameter."
 
-#: wp-includes/rest-api/class-wp-rest-server.php:1668
+#: wp-includes/rest-api/class-wp-rest-server.php:1675
 msgid "The requested route does not support batch requests."
 msgstr "Die angeforderte Route unterstützt keine Batch-Anforderungen."
 
-#: wp-includes/rest-api/class-wp-rest-server.php:1618
+#: wp-includes/rest-api/class-wp-rest-server.php:1625
 msgid "Could not parse the path."
 msgstr "Der Pfad konnte nicht geparst werden."
 
@@ -5206,7 +5206,7 @@ msgstr "Der Pfad konnte nicht geparst werden."
 msgid "The handler for the route is invalid."
 msgstr "Der Handler für die Route ist ungültig."
 
-#: wp-includes/theme.php:2717
+#: wp-includes/theme.php:2680
 msgid "You need to pass an array of post formats."
 msgstr "Du musst ein Array von Beitrags-Formaten übergeben."
 
@@ -5335,7 +5335,7 @@ msgid "Please use %s to add new schema properties."
 msgstr "Bitte benutze %s, um neue Schema-Eigenschaften hinzuzufügen."
 
 #. translators: %s: prepare_callback
-#: wp-includes/theme.php:3352
+#: wp-includes/theme.php:3315
 msgid "The \"%s\" must be a callable function."
 msgstr "„%s“ muss eine aufrufbare Funktion sein."
 
@@ -6140,44 +6140,44 @@ msgstr "Wenn ein Standard-Metawert registriert wird, muss dieser vom angegebenen
 msgid "RSS Feed"
 msgstr "RSS-Feed"
 
-#: wp-includes/theme.php:4277
+#: wp-includes/theme.php:4240
 msgid "The post types that support thumbnails or true if all post types are supported."
 msgstr "Die Inhaltstypen, die Vorschaubilder unterstützen oder true, wenn alle Inhaltstypen unterstützt werden."
 
-#: wp-includes/theme.php:3339
+#: wp-includes/theme.php:3302
 msgid "When registering an \"object\" feature, the feature's schema must include the \"properties\" keyword."
 msgstr "Wenn eine Funktion als „object“ registriert wird, muss das Funktions-Schema das Stichwort „properties“ enthalten."
 
-#: wp-includes/theme.php:3332
+#: wp-includes/theme.php:3295
 msgid "When registering an \"array\" feature, the feature's schema must include the \"items\" keyword."
 msgstr "Wenn eine Funktion als „array“ registriert wird, muss das Funktions-Schema das Stichwort „items“ enthalten."
 
-#: wp-includes/theme.php:3325
+#: wp-includes/theme.php:3288
 msgid "When registering an \"array\" or \"object\" feature to show in the REST API, the feature's schema must also be defined."
 msgstr "Wenn eine Funktion als „array“ oder „object“ registriert wird, um es im REST-API anzuzeigen, muss das Funktions-Schema auch definiert sein."
 
-#: wp-includes/theme.php:3317
+#: wp-includes/theme.php:3280
 msgid "When registering a \"variadic\" theme feature, the \"type\" must be an \"array\"."
 msgstr "Wenn eine Theme-Funktion als „variadic“ registriert wird, muss der „type“ ein „array“ sein."
 
-#: wp-includes/theme.php:3310
+#: wp-includes/theme.php:3273
 msgid "The feature \"type\" is not valid JSON Schema type."
 msgstr "Die Funktion „type“ ist kein gültiger JSON-Schema-Typ."
 
 #. translators: %s: Theme name.
-#: wp-includes/theme.php:1013
+#: wp-includes/theme.php:976
 msgctxt "theme"
 msgid "<strong>Error:</strong> Current WordPress version does not meet minimum requirements for %s."
 msgstr "<strong>Fehler:</strong> Die aktuelle WordPress-Version erfüllt nicht die Mindestanforderungen für %s."
 
 #. translators: %s: Theme name.
-#: wp-includes/theme.php:1004
+#: wp-includes/theme.php:967
 msgctxt "theme"
 msgid "<strong>Error:</strong> Current PHP version does not meet minimum requirements for %s."
 msgstr "<strong>Fehler:</strong> Die aktuelle PHP-Version erfüllt nicht die Mindestanforderungen für %s."
 
 #. translators: %s: Theme name.
-#: wp-includes/theme.php:995
+#: wp-includes/theme.php:958
 msgctxt "theme"
 msgid "<strong>Error:</strong> Current WordPress and PHP versions do not meet minimum requirements for %s."
 msgstr "<strong>Fehler:</strong> Die aktuellen WordPress- und PHP-Versionen erfüllen nicht die Mindestanforderungen für %s."
@@ -6420,71 +6420,71 @@ msgstr "Abfrage-Ergebnis auf Basis der Beziehung zwischen mehreren Taxonomien ei
 msgid "The \"%1$s\" taxonomy \"%2$s\" property (%3$s) conflicts with an existing property on the REST API Posts Controller. Specify a custom \"rest_base\" when registering the taxonomy to avoid this error."
 msgstr "Die Eigenschaft „%2$s“ (%3$s) der Taxonomie „%1$s“ erzeugt einen Konflikt mit einer bestehenden Eigenschaft im REST-API-Posts-Controller. Bitte gib bei der Registrierung der Taxonomie einen individuellen Wert für „rest_base“ an, um diesen Fehler zu vermeiden."
 
-#: wp-includes/theme.php:4305
+#: wp-includes/theme.php:4268
 msgid "Whether theme opts in to default WordPress block styles for viewing."
 msgstr "Ob das Theme die Standard-Block-Stile von WordPress als Ansicht zulässt."
 
-#: wp-includes/theme.php:4298
+#: wp-includes/theme.php:4261
 msgid "Whether the theme can manage the document title tag."
 msgstr "Ob das Theme den Title-Tag des Dokuments verwalten kann."
 
-#: wp-includes/theme.php:4231
+#: wp-includes/theme.php:4194
 msgid "Allows use of HTML5 markup for search forms, comment forms, comment lists, gallery, and caption."
 msgstr "Erlaubt die Verwendung von HTML5-Markup für Such- und Kommentar-Formulare, Kommentar-Listen, Galerien und Bildunterschriften."
 
-#: wp-includes/theme.php:4223
+#: wp-includes/theme.php:4186
 msgid "Whether theme opts in to the editor styles CSS wrapper."
 msgstr "Ob das Theme den CSS-Wrapper des Editors zulässt."
 
-#: wp-includes/theme.php:4199
+#: wp-includes/theme.php:4162
 msgid "Custom gradient presets if defined by the theme."
 msgstr "Individuelle Verlaufs-Voreinstellungen, falls durch das Theme definiert."
 
-#: wp-includes/theme.php:4174
+#: wp-includes/theme.php:4137
 msgid "Custom font sizes if defined by the theme."
 msgstr "Individuelle Schriftgrößen, falls durch das Theme definiert."
 
-#: wp-includes/theme.php:4149
+#: wp-includes/theme.php:4112
 msgid "Custom color palette if defined by the theme."
 msgstr "Individuelle Farbpalette, falls durch das Theme definiert."
 
-#: wp-includes/theme.php:4134
+#: wp-includes/theme.php:4097
 msgid "Whether the theme disables custom gradients."
 msgstr "Ob das Theme individuelle Verläufe deaktiviert."
 
-#: wp-includes/theme.php:4127
+#: wp-includes/theme.php:4090
 msgid "Whether the theme disables custom font sizes."
 msgstr "Ob das Theme individuelle Schriftgrößen deaktiviert."
 
-#: wp-includes/theme.php:4120
+#: wp-includes/theme.php:4083
 msgid "Whether the theme disables custom colors."
 msgstr "Ob das Theme individuelle Farben deaktiviert."
 
-#: wp-includes/theme.php:4113
+#: wp-includes/theme.php:4076
 msgid "Whether theme opts in to the dark editor style UI."
 msgstr "Ob das Theme den dunklen Benutzeroberflächen-Stil des Editors zulässt."
 
-#: wp-includes/theme.php:4106
+#: wp-includes/theme.php:4069
 msgid "Whether the theme enables Selective Refresh for Widgets being managed with the Customizer."
 msgstr "Ob das Theme das selektive Aktualisieren der Widgets aktiviert, die mit dem Customizer verwaltet werden."
 
-#: wp-includes/theme.php:4073
+#: wp-includes/theme.php:4036
 msgid "Custom logo if defined by the theme."
 msgstr "Individuelles Logo, falls durch das Theme definiert."
 
-#: wp-includes/theme.php:3958
+#: wp-includes/theme.php:3921
 msgid "Custom background if defined by the theme."
 msgstr "Individueller Hintergrund, falls durch das Theme definiert."
 
-#: wp-includes/theme.php:4028
+#: wp-includes/theme.php:3991
 msgid "Custom header if defined by the theme."
 msgstr "Individueller Header, falls durch das Theme definiert."
 
-#: wp-includes/theme.php:3937
+#: wp-includes/theme.php:3900
 msgid "Whether posts and comments RSS feed links are added to head."
 msgstr "Ob Links zu den RSS-Feeds für Beiträge und Kommentare in den HTML-Head eingefügt werden."
 
-#: wp-includes/theme.php:3930
+#: wp-includes/theme.php:3893
 msgid "Whether theme opts in to wide alignment CSS class."
 msgstr "Ob das Theme die CSS-Klasse für weite Ausrichtung zulässt."
 
@@ -7000,8 +7000,8 @@ msgid "Restore from Trash"
 msgstr "Aus dem Papierkorb wiederherstellen"
 
 #. translators: Localized Support reference.
-#: wp-includes/admin-bar.php:213 wp-includes/class-wpdb.php:1224
-#: wp-includes/class-wpdb.php:2009 wp-includes/class-wpdb.php:2169
+#: wp-includes/admin-bar.php:213 wp-includes/class-wpdb.php:1239
+#: wp-includes/class-wpdb.php:2024 wp-includes/class-wpdb.php:2184
 #: wp-includes/customize/class-wp-customize-themes-section.php:90
 #: wp-includes/load.php:191
 #: wp-includes/rest-api/endpoints/class-wp-rest-pattern-directory-controller.php:150
@@ -7615,7 +7615,7 @@ msgstr "Attribute für den Block."
 msgid "Unique registered name for the block."
 msgstr "Eindeutiger registrierter Name für den Block."
 
-#: wp-includes/theme.php:4291
+#: wp-includes/theme.php:4254
 msgid "Whether the theme supports responsive embedded content."
 msgstr "Ob das Theme responsive eingebettete Inhalte unterstützt."
 
@@ -7628,7 +7628,7 @@ msgstr "%s ab jetzt"
 msgid "Limit result set to themes assigned one or more statuses."
 msgstr "Ergebnissatz auf Themes begrenzen, die einem oder mehreren Status zugewiesen sind."
 
-#: wp-includes/theme.php:4254
+#: wp-includes/theme.php:4217
 msgid "Post formats supported."
 msgstr "Beitragsformate unterstützt."
 
@@ -8211,7 +8211,7 @@ msgstr "%s arbeitet bereits an der Anpassung dieses Änderungs-Sets. Bitte warte
 msgid "Update anyway, even though it might break your site?"
 msgstr "Aktualisieren, auch wenn die korrekte Funktion deiner Website beeinträchtigt werden könnte?"
 
-#: wp-includes/class-wpdb.php:1667
+#: wp-includes/class-wpdb.php:1682
 msgid "The query only expected one placeholder, but an array of multiple placeholders was sent."
 msgstr "Die Abfrage erwartete nur einen Platzhalter, aber es wurde ein Array mit mehreren Platzhaltern gesendet."
 
@@ -8290,12 +8290,12 @@ msgid "Looks like something&#8217;s gone wrong. Wait a couple seconds, and then 
 msgstr "Etwas scheint schiefgelaufen zu sein. Warte einige Sekunden und versuche es dann erneut."
 
 #: wp-includes/class-wp-customize-manager.php:4326
-#: wp-includes/js/dist/editor.js:7566 wp-admin/includes/post.php:1891
+#: wp-includes/js/dist/editor.js:7566 wp-admin/includes/post.php:1878
 msgid "Take over"
 msgstr "Übernehmen"
 
 #: wp-includes/class-wp-customize-manager.php:4322 wp-admin/comment.php:79
-#: wp-admin/comment.php:291 wp-admin/includes/post.php:1808
+#: wp-admin/comment.php:291 wp-admin/includes/post.php:1795
 #: wp-admin/plugin-editor.php:362 wp-admin/theme-editor.php:416
 msgid "Go back"
 msgstr "Zurückgehen"
@@ -8394,12 +8394,12 @@ msgid "%1$s &lsaquo; %2$s &#8212; WordPress"
 msgstr "%1$s &lsaquo; %2$s &#8212; WordPress"
 
 #. translators: 1: Number of placeholders, 2: Number of arguments passed.
-#: wp-includes/class-wpdb.php:1683
+#: wp-includes/class-wpdb.php:1698
 msgid "The query does not contain the correct number of placeholders (%1$d) for the number of arguments passed (%2$d)."
 msgstr "Die Abfrage enthält nicht die korrekte Anzahl von Platzhaltern (%1$d) für die Anzahl der übergebenen Argumente (%2$d)."
 
 #. translators: %s: Value type.
-#: wp-includes/class-wpdb.php:1727
+#: wp-includes/class-wpdb.php:1742
 msgid "Unsupported value type (%s)."
 msgstr "Nicht unterstützter ValueType (%s)."
 
@@ -9976,60 +9976,60 @@ msgstr "Ungültiges Seiten-Template."
 msgid "Invalid date."
 msgstr "Ungültiges Datum."
 
-#: wp-includes/theme.php:1732
+#: wp-includes/theme.php:1695
 msgid "Video is playing."
 msgstr "Video wird abgespielt."
 
-#: wp-includes/theme.php:1731
+#: wp-includes/theme.php:1694
 msgid "Video is paused."
 msgstr "Video ist pausiert."
 
-#: wp-includes/theme.php:2334
+#: wp-includes/theme.php:2297
 msgctxt "Theme starter content"
 msgid "Archives"
 msgstr "Archive"
 
-#: wp-includes/theme.php:2486
+#: wp-includes/theme.php:2449
 msgctxt "Theme starter content"
 msgid "This is an example of a homepage section. Homepage sections can be any page other than the homepage itself, including the page that shows your latest blog posts."
 msgstr "Hier ist als Beispiel ein Abschnitt deiner Homepage. Ein Homepage-Abschnitt kann jede Seite sein; ausgenommen die Homepage selbst, aber einschließlich der Seite, die deine neuen Blog-Beiträge zeigt."
 
-#: wp-includes/theme.php:2478
+#: wp-includes/theme.php:2441
 msgctxt "Theme starter content"
 msgid "News"
 msgstr "Neuigkeiten"
 
-#: wp-includes/theme.php:2469
+#: wp-includes/theme.php:2432
 msgctxt "Theme starter content"
 msgid "This is a page with some basic contact information, such as an address and phone number. You might also try a plugin to add a contact form."
 msgstr "Das ist eine Seite mit einigen klassischen Kontakt-Informationen, wie Adresse und Telefonnummer. Du könntest hier aber auch ein Plugin nutzen, um ein Kontakt-Formular einzufügen."
 
-#: wp-includes/theme.php:2461
+#: wp-includes/theme.php:2424
 msgctxt "Theme starter content"
 msgid "You might be an artist who would like to introduce yourself and your work here or maybe you are a business with a mission to describe."
 msgstr "Vielleicht bist du künstlerisch tätig und möchtest dich und deine Arbeiten hier vorstellen. Oder du hast vielleicht ein Unternehmen, dessen Mission du hier beschreiben möchtest."
 
-#: wp-includes/theme.php:2453
+#: wp-includes/theme.php:2416
 msgctxt "Theme starter content"
 msgid "Welcome to your site! This is your homepage, which is what most visitors will see when they come to your site for the first time."
 msgstr "Willkommen auf deiner Website! Das ist die Homepage, die die meisten deiner Besucher sehen werden, wenn sie deine Website zum ersten Mal aufrufen."
 
-#: wp-includes/theme.php:2364
+#: wp-includes/theme.php:2327
 msgctxt "Theme starter content"
 msgid "Recent Posts"
 msgstr "Neueste Beiträge"
 
-#: wp-includes/theme.php:2358
+#: wp-includes/theme.php:2321
 msgctxt "Theme starter content"
 msgid "Recent Comments"
 msgstr "Neueste Kommentare"
 
-#: wp-includes/theme.php:2352
+#: wp-includes/theme.php:2315
 msgctxt "Theme starter content"
 msgid "Meta"
 msgstr "Meta"
 
-#: wp-includes/theme.php:2340
+#: wp-includes/theme.php:2303
 msgctxt "Theme starter content"
 msgid "Calendar"
 msgstr "Kalender"
@@ -10097,37 +10097,37 @@ msgstr "Du bist leider nicht berechtigt, diesen Kommentar zu lesen."
 msgid "Sorry, you are not allowed to read comments without a post."
 msgstr "Du bist leider nicht berechtigt, Kommentare ohne einen Beitrag zu lesen."
 
-#: wp-includes/theme.php:2443
+#: wp-includes/theme.php:2406
 msgctxt "Theme starter content"
 msgid "YouTube"
 msgstr "YouTube"
 
-#: wp-includes/theme.php:2431
+#: wp-includes/theme.php:2394
 msgctxt "Theme starter content"
 msgid "Pinterest"
 msgstr "Pinterest"
 
-#: wp-includes/theme.php:2427
+#: wp-includes/theme.php:2390
 msgctxt "Theme starter content"
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
-#: wp-includes/theme.php:2419
+#: wp-includes/theme.php:2382
 msgctxt "Theme starter content"
 msgid "GitHub"
 msgstr "GitHub"
 
-#: wp-includes/theme.php:2415
+#: wp-includes/theme.php:2378
 msgctxt "Theme starter content"
 msgid "Foursquare"
 msgstr "Foursquare"
 
-#: wp-includes/theme.php:2326
+#: wp-includes/theme.php:2289
 msgctxt "Theme starter content"
 msgid "This may be a good place to introduce yourself and your site or include some credits."
 msgstr "Hier wäre ein guter Platz, um dich und deine Website vorzustellen oder weitere Informationen anzugeben."
 
-#: wp-includes/theme.php:2325
+#: wp-includes/theme.php:2288
 msgctxt "Theme starter content"
 msgid "About This Site"
 msgstr "Über diese Website"
@@ -10177,97 +10177,97 @@ msgstr "Video wechseln"
 msgid "Select video"
 msgstr "Video auswählen"
 
-#: wp-includes/theme.php:2483
+#: wp-includes/theme.php:2446
 msgctxt "Theme starter content"
 msgid "A homepage section"
 msgstr "Ein Homepage-Abschnitt"
 
-#: wp-includes/theme.php:2474
+#: wp-includes/theme.php:2437
 msgctxt "Theme starter content"
 msgid "Blog"
 msgstr "Blog"
 
-#: wp-includes/theme.php:2466
+#: wp-includes/theme.php:2429
 msgctxt "Theme starter content"
 msgid "Contact"
 msgstr "Kontakt"
 
-#: wp-includes/theme.php:2458
+#: wp-includes/theme.php:2421
 msgctxt "Theme starter content"
 msgid "About"
 msgstr "Über uns"
 
-#: wp-includes/theme.php:2377 wp-includes/theme.php:2450
+#: wp-includes/theme.php:2340 wp-includes/theme.php:2413
 msgctxt "Theme starter content"
 msgid "Home"
 msgstr "Startseite"
 
-#: wp-includes/theme.php:2407
+#: wp-includes/theme.php:2370
 msgctxt "Theme starter content"
 msgid "Email"
 msgstr "E-Mail"
 
-#: wp-includes/theme.php:2423
+#: wp-includes/theme.php:2386
 msgctxt "Theme starter content"
 msgid "Instagram"
 msgstr "Instagram"
 
-#: wp-includes/theme.php:2435
+#: wp-includes/theme.php:2398
 msgctxt "Theme starter content"
 msgid "Twitter"
 msgstr "Twitter"
 
-#: wp-includes/theme.php:2411
+#: wp-includes/theme.php:2374
 msgctxt "Theme starter content"
 msgid "Facebook"
 msgstr "Facebook"
 
-#: wp-includes/theme.php:2439
+#: wp-includes/theme.php:2402
 msgctxt "Theme starter content"
 msgid "Yelp"
 msgstr "Yelp"
 
-#: wp-includes/theme.php:2346
+#: wp-includes/theme.php:2309
 msgctxt "Theme starter content"
 msgid "Categories"
 msgstr "Kategorien"
 
-#: wp-includes/theme.php:2370
+#: wp-includes/theme.php:2333
 msgctxt "Theme starter content"
 msgid "Search"
 msgstr "Suche"
 
-#: wp-includes/theme.php:2315
+#: wp-includes/theme.php:2278
 msgctxt "Theme starter content"
 msgid "Saturday &amp; Sunday: 11:00AM&ndash;3:00PM"
 msgstr "Samstag und Sonntag: 11&ndash;15 Uhr"
 
-#: wp-includes/theme.php:2314
+#: wp-includes/theme.php:2277
 msgctxt "Theme starter content"
 msgid "Monday&ndash;Friday: 9:00AM&ndash;5:00PM"
 msgstr "Montag bis Freitag: 10&ndash;18 Uhr"
 
-#: wp-includes/theme.php:2313
+#: wp-includes/theme.php:2276
 msgctxt "Theme starter content"
 msgid "Hours"
 msgstr "Öffnungszeiten"
 
-#: wp-includes/theme.php:2312
+#: wp-includes/theme.php:2275
 msgctxt "Theme starter content"
 msgid "New York, NY 10001"
 msgstr "20020 Jetztdabei"
 
-#: wp-includes/theme.php:2311
+#: wp-includes/theme.php:2274
 msgctxt "Theme starter content"
 msgid "123 Main Street"
 msgstr "Traum Allee 213"
 
-#: wp-includes/theme.php:2310
+#: wp-includes/theme.php:2273
 msgctxt "Theme starter content"
 msgid "Address"
 msgstr "Adresse"
 
-#: wp-includes/theme.php:2306
+#: wp-includes/theme.php:2269
 msgctxt "Theme starter content"
 msgid "Find Us"
 msgstr "Hier findest du uns"
@@ -11638,11 +11638,11 @@ msgstr "Video-Player"
 msgid "Time Slider"
 msgstr "Zeit-Schieberegler"
 
-#: wp-includes/script-loader.php:1080 wp-includes/theme.php:1729
+#: wp-includes/script-loader.php:1080 wp-includes/theme.php:1692
 msgid "Pause"
 msgstr "Pause"
 
-#: wp-includes/script-loader.php:1079 wp-includes/theme.php:1730
+#: wp-includes/script-loader.php:1079 wp-includes/theme.php:1693
 msgid "Play"
 msgstr "Abspielen"
 
@@ -11732,7 +11732,7 @@ msgctxt "site"
 msgid "&larr; Go to %s"
 msgstr "&larr; Zurück zu %s"
 
-#: wp-includes/class-wpdb.php:2276
+#: wp-includes/class-wpdb.php:2291
 msgid "Unable to retrieve the error message from MySQL"
 msgstr "Kann die Fehlermeldung von MySQL nicht abrufen"
 
@@ -12282,58 +12282,58 @@ msgstr "Veröffentlichter Titel:"
 msgid "Author:"
 msgstr "Autor:"
 
-#: wp-includes/class-wpdb.php:2163
+#: wp-includes/class-wpdb.php:2178
 msgid "Are you sure the database server is not under particularly heavy load?"
 msgstr "Bist du sicher, dass der Datenbank-Server nicht überlastet ist?"
 
 #. translators: %s: Database host.
-#: wp-includes/class-wpdb.php:2157
+#: wp-includes/class-wpdb.php:2172
 msgid "This means that the contact with the database server at %s was lost. This could mean your host&#8217;s database server is down."
 msgstr "Das bedeutet, dass wir die Verbindung zum Datenbank-Server unter %s verloren haben. Möglicherweise ist der Datenbank-Server deines Hostings derzeit nicht verfügbar."
 
-#: wp-includes/class-wpdb.php:2153
+#: wp-includes/class-wpdb.php:2168
 msgid "Error reconnecting to the database"
 msgstr "Fehler beim erneuten Verbinden mit der Datenbank"
 
 #. translators: %s: Support forums URL.
-#: wp-includes/class-wpdb.php:2008 wp-includes/class-wpdb.php:2168
+#: wp-includes/class-wpdb.php:2023 wp-includes/class-wpdb.php:2183
 #: wp-includes/load.php:190
 msgid "If you are unsure what these terms mean you should probably contact your host. If you still need help you can always visit the <a href=\"%s\">WordPress support forums</a>."
 msgstr "Wenn du unsicher bist, was diese Begriffe bedeuten, solltest du lieber den Support deines Webhostings kontaktieren. Wenn du dann weiterhin Hilfe benötigst, kannst du stets die <a href=\"%s\">WordPress-Support-Foren</a> besuchen."
 
-#: wp-includes/class-wpdb.php:2003 wp-includes/class-wpdb.php:2162
+#: wp-includes/class-wpdb.php:2018 wp-includes/class-wpdb.php:2177
 msgid "Are you sure the database server is running?"
 msgstr "Bist du sicher, dass der Datenbank-Server läuft?"
 
-#: wp-includes/class-wpdb.php:2002
+#: wp-includes/class-wpdb.php:2017
 msgid "Are you sure you have typed the correct hostname?"
 msgstr "Bist du sicher, dass du den richtigen Hostnamen eingegeben hast?"
 
-#: wp-includes/class-wpdb.php:2001
+#: wp-includes/class-wpdb.php:2016
 msgid "Are you sure you have the correct username and password?"
 msgstr "Bist du sicher, dass Benutzername und Passwort korrekt sind?"
 
 #. translators: 1: wp-config.php, 2: Database host.
-#: wp-includes/class-wpdb.php:1995
+#: wp-includes/class-wpdb.php:2010
 msgid "This either means that the username and password information in your %1$s file is incorrect or that contact with the database server at %2$s could not be established. This could mean your host&#8217;s database server is down."
 msgstr "Das bedeutet entweder, dass die Information über den Benutzernamen und das Passwort in deiner %1$s Datei nicht korrekt ist, oder wir können den Datenbank-Server auf %2$s nicht erreichen. Es könnte sein, dass der Datenbank-Server deines Hostings ausgefallen ist."
 
 #. translators: %s: Support forums URL.
-#: wp-includes/class-wpdb.php:1223
+#: wp-includes/class-wpdb.php:1238
 msgid "If you do not know how to set up a database you should <strong>contact your host</strong>. If all else fails you may find help at the <a href=\"%s\">WordPress support forums</a>."
 msgstr "Wenn du nicht weißt, wie du eine Datenbank einrichtest, solltest du <strong>den Support deines Webhostings kontaktieren</strong>. Und wenn alles andere nicht funktioniert, könntest du in den <a href=\"%s\">WordPress-Support-Foren</a> Hilfe erhalten."
 
 #. translators: %s: Database name.
-#: wp-includes/class-wpdb.php:1215
+#: wp-includes/class-wpdb.php:1230
 msgid "On some systems the name of your database is prefixed with your username, so it would be like <code>username_%1$s</code>. Could that be the problem?"
 msgstr "Unter einigen Systemen ist der Name deiner Datenbank mit deinem Benutzernamen als Präfix versehen, sodass er beispielsweise <code>benutzername_%1$s</code> lauten würde. Könnte dies das Problem sein?"
 
 #. translators: 1: Database user, 2: Database name.
-#: wp-includes/class-wpdb.php:1208
+#: wp-includes/class-wpdb.php:1223
 msgid "Does the user %1$s have permission to use the %2$s database?"
 msgstr "Hat der Benutzer %1$s die Berechtigung, die Datenbank %2$s zu verwenden?"
 
-#: wp-includes/class-wpdb.php:1204
+#: wp-includes/class-wpdb.php:1219
 msgid "Are you sure it exists?"
 msgstr "Bist du sicher, dass sie existiert?"
 
@@ -12395,7 +12395,7 @@ msgstr "%1$s (ab %2$s; keine Alternative verfügbar)"
 msgid "%1$s (since %2$s; use %3$s instead)"
 msgstr "%1$s (ab %2$s; verwende stattdessen %3$s)"
 
-#: wp-includes/rest-api/class-wp-rest-server.php:1418
+#: wp-includes/rest-api/class-wp-rest-server.php:1425
 msgid "The specified namespace could not be found."
 msgstr "Der gewählte Namensraum konnte nicht gefunden werden."
 
@@ -12403,7 +12403,7 @@ msgstr "Der gewählte Namensraum konnte nicht gefunden werden."
 msgid "No route was found matching the URL and request method."
 msgstr "Es wurde keine Route gefunden, die mit der URL und der Request-Methode identisch ist."
 
-#: wp-includes/rest-api/class-wp-rest-server.php:1741
+#: wp-includes/rest-api/class-wp-rest-server.php:1748
 msgid "The handler for the route is invalid"
 msgstr "Der Handler für die Route ist ungültig"
 
@@ -12834,7 +12834,7 @@ msgstr "Zum Menü hinzufügen: %1$s (%2$s)"
 msgid "When starting a new paragraph with one of these formatting shortcuts followed by a space, the formatting will be applied automatically. Press Backspace or Escape to undo."
 msgstr "Wenn ein neuer Absatz nach einem dieser Muster, gefolgt von einem Leerzeichen, anfängt, wird die Formatierung automatisch eingefügt. Drücke bitte die Löschen- oder die Escape-Taste, um das rückgängig zu machen."
 
-#: wp-includes/class-wpdb.php:1820 wp-includes/class-wpdb.php:1837
+#: wp-includes/class-wpdb.php:1835 wp-includes/class-wpdb.php:1852
 msgid "WordPress database error:"
 msgstr "WordPress-Datenbank-Fehler:"
 
@@ -13366,7 +13366,7 @@ msgid_plural "%1$s responses to %2$s"
 msgstr[0] "%1$s Antwort zu %2$s"
 msgstr[1] "%1$s Antworten zu %2$s"
 
-#: wp-includes/theme.php:3736
+#: wp-includes/theme.php:3699
 msgid "Customizer"
 msgstr "Customizer"
 
@@ -13577,7 +13577,7 @@ msgid "Distraction-free writing mode"
 msgstr "Modus für ablenkungsfreies Schreiben"
 
 #. translators: 1: title-tag, 2: wp_loaded
-#: wp-includes/theme.php:2922
+#: wp-includes/theme.php:2885
 msgid "Theme support for %1$s should be registered before the %2$s hook."
 msgstr "Theme-Unterstützung für %1$s sollte vor dem %2$s Hook registriert werden."
 
@@ -13620,11 +13620,11 @@ msgstr "Die folgenden Werte beschreiben kein gültiges Datum: Tag %2$s, Monat %1
 
 #. translators: %s: Database access abstraction class, usually wpdb or a class
 #. extending wpdb.
-#: wp-includes/class-wpdb.php:1274
+#: wp-includes/class-wpdb.php:1289
 msgid "%s must set a database connection for use with escaping."
 msgstr "%s muss eine Datenbank Verbindung setzen, die zum Maskieren benutzt werden soll."
 
-#: wp-includes/theme.php:2729
+#: wp-includes/theme.php:2692
 msgid "You need to pass an array of types."
 msgstr "Du musst ein Array von Typen übergeben."
 
@@ -14440,7 +14440,7 @@ msgid "Hint: The password should be at least twelve characters long. To make it 
 msgstr "Tipp: Das Passwort sollte mindestens zwölf Zeichen lang sein. Für ein stärkeres Passwort verwende Groß- und Kleinbuchstaben, Zahlen und Sonderzeichen wie ! \" ? $ % ^ &amp; )."
 
 #. translators: %s: wpdb::prepare()
-#: wp-includes/class-wpdb.php:1460
+#: wp-includes/class-wpdb.php:1475
 msgid "The query argument of %s must have a placeholder."
 msgstr "Der Abfrage-Parameter %s benötigt einen Platzhalter."
 
@@ -16077,8 +16077,8 @@ msgstr "Standard-Bildlink"
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:489
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:804
 #: wp-admin/includes/ajax-actions.php:2066 wp-admin/includes/media.php:3810
-#: wp-admin/includes/post.php:288 wp-admin/includes/post.php:2073
-#: wp-admin/includes/post.php:2077
+#: wp-admin/includes/post.php:288 wp-admin/includes/post.php:2060
+#: wp-admin/includes/post.php:2064
 msgid "Sorry, you are not allowed to edit this post."
 msgstr "Du bist leider nicht berechtigt, diesen Beitrag zu bearbeiten."
 
@@ -16088,7 +16088,7 @@ msgstr "Website bearbeiten"
 
 #: wp-includes/post.php:5289 wp-admin/includes/ajax-actions.php:124
 #: wp-admin/includes/meta-boxes.php:583 wp-admin/includes/post.php:576
-#: wp-admin/includes/post.php:2251 wp-admin/js/inline-edit-post.js:400
+#: wp-admin/includes/post.php:2238 wp-admin/js/inline-edit-post.js:358
 #: wp-admin/js/tags-box.js:9 wp-admin/js/tags-suggest.js:12
 msgctxt "tag delimiter"
 msgid ","
@@ -16301,7 +16301,7 @@ msgstr "Dokumentation"
 msgid "&hellip;"
 msgstr "&hellip;"
 
-#: wp-includes/class-wpdb.php:1991 wp-includes/functions.php:5412
+#: wp-includes/class-wpdb.php:2006 wp-includes/functions.php:5412
 #: wp-includes/ms-load.php:475
 msgid "Error establishing a database connection"
 msgstr "Fehler beim Aufbau einer Datenbankverbindung"
@@ -17616,7 +17616,7 @@ msgstr "Powered by WordPress"
 
 #. translators: 1: WordPress version number, 2: Minimum required MySQL version
 #. number.
-#: wp-includes/class-wpdb.php:3989
+#: wp-includes/class-wpdb.php:4004
 msgid "<strong>Error:</strong> WordPress %1$s requires MySQL %2$s or higher"
 msgstr "<strong>Fehler:</strong> WordPress %1$s benötigt mindestens MySQL %2$s oder höher"
 
@@ -18364,7 +18364,7 @@ msgid "Document properties"
 msgstr "Dokumenteigenschaften"
 
 #: wp-includes/class-wp-editor.php:1370 wp-includes/script-loader.php:1293
-#: wp-includes/theme.php:3735 wp-admin/js/nav-menu.js:1260
+#: wp-includes/theme.php:3698 wp-admin/js/nav-menu.js:1260
 #: wp-admin/js/post.js:512 wp-admin/js/theme-plugin-editor.js:71
 #: wp-admin/js/widgets.js:98
 msgid "The changes you made will be lost if you navigate away from this page."
@@ -19424,7 +19424,7 @@ msgstr "Hilfe"
 #: wp-includes/js/dist/edit-site.js:20449 wp-includes/js/dist/editor.js:10278
 #: wp-admin/includes/ajax-actions.php:2255 wp-admin/includes/media.php:3331
 #: wp-admin/includes/revision.php:61 wp-admin/includes/revision.php:64
-#: wp-admin/includes/template.php:2097 wp-admin/js/inline-edit-post.js:204
+#: wp-admin/includes/template.php:2097 wp-admin/js/inline-edit-post.js:201
 msgid "(no title)"
 msgstr "(kein Titel)"
 
@@ -19935,7 +19935,7 @@ msgstr "Neueste Kommentare"
 #: wp-admin/includes/class-custom-image-header.php:551
 #: wp-admin/includes/class-wp-posts-list-table.php:1542
 #: wp-admin/includes/class-wp-theme-install-list-table.php:346
-#: wp-admin/includes/meta-boxes.php:73 wp-admin/includes/post.php:1884
+#: wp-admin/includes/meta-boxes.php:73 wp-admin/includes/post.php:1871
 #: wp-admin/theme-install.php:426 wp-admin/theme-install.php:439
 #: wp-admin/theme-install.php:449 wp-admin/theme-install.php:456
 #: wp-admin/theme-install.php:609
@@ -20277,7 +20277,7 @@ msgstr "Ansehen"
 #: wp-admin/includes/class-wp-users-list-table.php:472
 #: wp-admin/includes/dashboard.php:758 wp-admin/includes/meta-boxes.php:135
 #: wp-admin/includes/meta-boxes.php:197 wp-admin/includes/meta-boxes.php:292
-#: wp-admin/includes/post.php:1595
+#: wp-admin/includes/post.php:1582
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:740
 #: wp-admin/includes/class-wp-ms-users-list-table.php:406
 #: wp-admin/includes/class-wp-ms-users-list-table.php:527
