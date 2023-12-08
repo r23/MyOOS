@@ -2544,17 +2544,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.47",
-            "version_normalized": "1.10.47.0",
+            "version": "1.10.48",
+            "version_normalized": "1.10.48.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "84dbb33b520ea28b6cf5676a3941f4bae1c1ff39"
+                "reference": "087ed4b5f4a7a6e8f3bbdfbfe98ce5c181380bc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/84dbb33b520ea28b6cf5676a3941f4bae1c1ff39",
-                "reference": "84dbb33b520ea28b6cf5676a3941f4bae1c1ff39",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/087ed4b5f4a7a6e8f3bbdfbfe98ce5c181380bc6",
+                "reference": "087ed4b5f4a7a6e8f3bbdfbfe98ce5c181380bc6",
                 "shasum": ""
             },
             "require": {
@@ -2563,7 +2563,7 @@
             "conflict": {
                 "phpstan/phpstan-shim": "*"
             },
-            "time": "2023-12-01T15:19:17+00:00",
+            "time": "2023-12-08T14:34:28+00:00",
             "bin": [
                 "phpstan",
                 "phpstan.phar"
@@ -3267,12 +3267,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "498a07ca22004364fc54bc909b77de792a10c127"
+                "reference": "0402708f793858379aca388dfcbb4cf1373e1243"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/498a07ca22004364fc54bc909b77de792a10c127",
-                "reference": "498a07ca22004364fc54bc909b77de792a10c127",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/0402708f793858379aca388dfcbb4cf1373e1243",
+                "reference": "0402708f793858379aca388dfcbb4cf1373e1243",
                 "shasum": ""
             },
             "conflict": {
@@ -3814,6 +3814,7 @@
                 "symfony/web-profiler-bundle": ">=2,<2.3.19|>=2.4,<2.4.9|>=2.5,<2.5.4",
                 "symfony/webhook": ">=6.3,<6.3.8",
                 "symfony/yaml": ">=2,<2.0.22|>=2.1,<2.1.7",
+                "symphonycms/symphony-2": "<2.6.4",
                 "t3/dce": "<0.11.5|>=2.2,<2.6.2",
                 "t3g/svg-sanitizer": "<1.0.3",
                 "tastyigniter/tastyigniter": "<3.3",
@@ -3853,7 +3854,7 @@
                 "typo3fluid/fluid": ">=2,<2.0.8|>=2.1,<2.1.7|>=2.2,<2.2.4|>=2.3,<2.3.7|>=2.4,<2.4.4|>=2.5,<2.5.11|>=2.6,<2.6.10",
                 "ua-parser/uap-php": "<3.8",
                 "uasoft-indonesia/badaso": "<=2.9.7",
-                "unisharp/laravel-filemanager": "<=2.5.1",
+                "unisharp/laravel-filemanager": "<2.6.4",
                 "userfrosting/userfrosting": ">=0.3.1,<4.6.3",
                 "usmanhalalit/pixie": "<1.0.3|>=2,<2.0.2",
                 "uvdesk/community-skeleton": "<=1.1.1",
@@ -3936,7 +3937,7 @@
                 "zfr/zfr-oauth2-server-module": "<0.1.2",
                 "zoujingli/thinkadmin": "<6.0.22"
             },
-            "time": "2023-12-06T18:04:43+00:00",
+            "time": "2023-12-07T20:04:29+00:00",
             "default-branch": true,
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
