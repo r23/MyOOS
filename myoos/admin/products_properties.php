@@ -718,7 +718,10 @@ if ($action == 'delete_product_option') { // delete product option
 
     if ($action != 'update_option') {
         ?>
-              <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
+			<tr>
+                <td colspan="4"></td>
+			</tr>
+            <tr class="table-warning">
         <?php
         echo '<form name="options" action="' . oos_href_link_admin($aContents['products_properties'], 'action=add_product_options&option_page=' . $option_page) . '" method="post"><input type="hidden" name="products_options_id" value="' . $next_id . '">';
         $inputs = '';
@@ -939,7 +942,11 @@ if ($action == 'delete_option_value') { // delete product option value
     <?php
     if ($action != 'update_option_value') {
         ?>
-              <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
+			<tr>
+                <td colspan="4"></td>
+			</tr>
+            <tr class="table-warning">
+
         <?php
         echo '<form name="values" action="' . oos_href_link_admin($aContents['products_properties'], 'action=add_product_option_values&value_page=' . $value_page) . '" method="post">'; ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
