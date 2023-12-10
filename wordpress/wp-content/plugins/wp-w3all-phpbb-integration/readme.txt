@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, template, user
-Stable tag: 2.7.6
+Stable tag: 2.7.7
 License: GPLv2 or later
 Requires at least: 6.0.0
 Tested up to: 6.5
@@ -72,6 +72,13 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.7.7 =
+*Release Date - 7 Dec, 2023*
+* Fix: page-forum.php and the Shortcode for the template iframe integration to have a (more) correct scroll flow
+* Note: to fix the correct scroll for the template iframe integration on shortcodes is not necessary any modification, except the plugin update to 2.7.7, while the page-forum.php require to be rebuilt to be updated (if needed)
+* Fix: creating an user as Editor or Admin in WordPress, it is not created as Global moderator or Admin in phpBB
+* Minor fixes
 
 = 2.7.6 =
 *Release Date - 1 Dec, 2023*

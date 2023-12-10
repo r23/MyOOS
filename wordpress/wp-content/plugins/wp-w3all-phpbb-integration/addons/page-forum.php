@@ -9,7 +9,7 @@
  */
 // @2023 axew3.com //
 
-// START MAY DO NOT MODIFY
+// START MAYBE DO NOT EDIT, but maybe yes!
 
   if(defined("W3PHPBBCONFIG")){
     // detect if it is the uid2 in phpBB and avoid iframe loop
@@ -80,6 +80,16 @@ if( strlen($w3all_url_to_cms) == strlen(get_option( 'w3all_url_to_cms' )) OR str
  $w3all_url_to_cms_sw = $w3all_url_to_cms;
  $w3all_url_to_cms_sw .= (substr($w3all_url_to_cms, -1) == '/' ? '' : '/');
 } else {  $w3all_url_to_cms_sw = $w3all_url_to_cms; }
+
+ // cleanup possible passed js undefined
+ if(substr($w3all_url_to_cms, -10) == '/undefined'){
+  $w3all_url_to_cms = str_replace('undefined', '', $w3all_url_to_cms);
+  $w3all_url_to_cms .= 'index.php';
+ }elseif(substr($w3all_url_to_cms, -11) == '/undefined/')
+ {
+  $w3all_url_to_cms = str_replace('undefined/', '', $w3all_url_to_cms);
+  $w3all_url_to_cms .= 'index.php';
+ }
 
 function w3all_enqueue_scripts() {
  wp_enqueue_script("jquery");
@@ -206,8 +216,6 @@ get_header();
 <iframe id="w3all_phpbb_iframe" style="width:1px;min-width:100%;*width:100%;border:0;" scrolling="no" src="<?php echo $w3all_url_to_cms; ?>"></iframe>
 <?php
     echo "<script>
-    //document.domain = '".$document_domain."'; // NOTE: for domains like 'mysite.co.uk' remove this line, if you setup the next to match the correct document.domain
-     //document.domain = '192.168.1.6'; // NOTE: reset/setup this with domain (like mysite.co.uk) if js error when WP is installed like on mysite.domain.com and phpBB on domain.com: js origin error can come out for example when WordPress is on subdomain install and phpBB on domain. The origin fix is needed: (do this also on phpBB overall_footer.html added code, it need to match)
     var wp_u_logged = ".$current_user->ID.";
     var phpBBuid2 = ".$phpBBuid2.";
     var w3allhomeurl = '".$w3allhomeurl."';
@@ -223,22 +231,6 @@ get_header();
     window.history.replaceState({}, \"\", w3all_url_pushER);
    }
   }
-
-
-   window.addEventListener('message', function (event)
-   {
-    if (event.origin != '".$w3all_url_to_cms0."')
-    {
-     // console.error('The event origin do not match');
-     // console.error(event);
-     // return;
-    }
-
-     if(/#w3all/ig.exec(event.data.message)){
-       w3all_ajaxup_from_phpbb(event.data.message);
-      //console.log(event.data);
-     }
-   });
 
 
  function w3all_ajaxup_from_phpbb(res){
@@ -291,7 +283,11 @@ get_header();
        window.location.replace(w3all_passed_url);
      }
    }
+     if(/#w3all/ig.exec(w3all_passed_url)){
 
+       w3all_ajaxup_from_phpbb(w3all_passed_url);
+
+     }
   // do not pass to be encoded an url with sid or if it point to phpBB admin ACP via iframe
    if( /[^-0-9A-Za-z\._#\:\?\/=&%]/ig.exec(w3all_passed_url) !== null || /adm\//ig.exec(w3all_passed_url) !== null || /sid=/ig.exec(w3all_passed_url) !== null ){
      w3all_passed_url = '';
@@ -308,6 +304,23 @@ onScroll: function(x,y){
 //return false;
 }
 });
+
+   window.addEventListener('message', function (event)
+   {
+    if (event.origin != '".$w3all_url_to_cms0."')
+    {
+     // console.error('The event origin do not match');
+     // console.error(event);
+     // return;
+
+    }
+
+     if(/#w3all/ig.exec(event.data.message)){
+
+       w3all_ajaxup_from_phpbb(event.data.message);
+       //console.log(event.data);
+     }
+   });
 </script>";
 ?>
 </div>

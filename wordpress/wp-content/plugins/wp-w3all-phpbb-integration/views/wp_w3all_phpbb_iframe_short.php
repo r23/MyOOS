@@ -70,6 +70,16 @@ if( strlen($w3all_url_to_cms_sw) == strlen(get_option( 'w3all_url_to_cms' )) OR 
  $w3all_url_to_cms_sw .= (substr($w3all_url_to_cms, -1) == '/' ? '' : '/');
 } else {  $w3all_url_to_cms_sw = $w3all_url_to_cms; }
 
+ // cleanup possible passed js undefined
+ if(substr($w3all_url_to_cms_sw, -10) == '/undefined'){
+ 	$w3all_url_to_cms_sw = str_replace('undefined', '', $w3all_url_to_cms_sw);
+ 	$w3all_url_to_cms_sw .= 'index.php';
+ }elseif(substr($w3all_url_to_cms_sw, -11) == '/undefined/')
+ {
+ 	$w3all_url_to_cms_sw = str_replace('undefined/', '', $w3all_url_to_cms_sw);
+ 	$w3all_url_to_cms_sw .= 'index.php';
+ }
+
 $w3all_url_to_cms_switch_phpbb_default_url = (empty($ltm['phpbb_default_url'])) ? $w3all_url_to_cms_sw : $ltm['phpbb_default_url'];
 
 echo'<!-- noscript warning and simple preloader -->
@@ -91,21 +101,6 @@ echo "<script type=\"text/javascript\">
     var w3allhomeurl = '".$w3allhomeurl."';
     var wp_w3all_forum_folder_wp = '".$wp_w3all_forum_folder_wp."';
     var w3all_iframe_custom_w3fancyurl = '".$w3all_iframe_custom_w3fancyurl."';
-
-   window.addEventListener('message', function (event)
-   {
-    if (event.origin != '".$w3all_url_to_cms0."')
-    {
-      //console.error('The event origin do not match');
-      //console.error(event);
-     //return;
-    }
-
-     if(/#w3all/ig.exec(event.data.message)){
-        w3all_ajaxup_from_phpbb(event.data.message);
-      //console.log(event.data);
-     }
-   });
 
  function w3all_ajaxup_from_phpbb(res){
 
@@ -179,6 +174,21 @@ onScroll: function(x,y){
 //return false;
 }
 });
+
+   window.addEventListener('message', function (event)
+   {
+    if (event.origin != '".$w3all_url_to_cms0."')
+    {
+      //console.error('The event origin do not match');
+      //console.error(event);
+     //return;
+    }
+
+     if(/#w3all/ig.exec(event.data.message)){
+        w3all_ajaxup_from_phpbb(event.data.message);
+      //console.log(event.data);
+     }
+   });
 
 /*function w3all_phpbb_pushUrlToParentOnBackForward(w3ER){
    if(w3ER != ''){

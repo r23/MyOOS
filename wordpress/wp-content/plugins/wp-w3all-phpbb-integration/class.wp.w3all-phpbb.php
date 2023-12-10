@@ -940,8 +940,8 @@ private static function phpBB_user_session_set($wp_user_data){
 
 
 public static function w3_phpbb_ban($phpbb_uid = '', $uname = '', $uemail = ''){
-	
-	    if( defined("W3BANCKEXEC") ) { return false; }
+
+      if( defined("W3BANCKEXEC") ) { return false; }
 
     global $w3all_config,$phpbb_config,$w3all_phpbb_connection;
 
@@ -1167,7 +1167,7 @@ private static function create_phpBB_user($wpu, $action = ''){
 
       // check that the user need to be added as activated or not into phpBB
 
-        if( current_user_can( 'manage_options' ) === true OR $action = 'add_u_phpbb_after_login' ){ // an admin adding user
+        if( current_user_can('create_users') === true OR $action = 'add_u_phpbb_after_login' ){ // an admin adding user
           $phpbb_user_type = 0;
         } else {
           $phpbb_user_type = $w3all_phpbb_user_deactivated_yn;
@@ -1203,6 +1203,24 @@ private static function create_phpBB_user($wpu, $action = ''){
         $w3all_add_into_spec_group_def = true;
         $user_new = 1;
       }
+
+ // We assume here to not add the created phpBB user
+ // into the phpBB newbie Group, if it is created by an admin
+ // If more switches required, maybe should be added here
+   if ( current_user_can('create_users') )
+   {
+     $user_new = 0;
+
+     if(isset($wpu->roles[0])){
+      if($wpu->roles[0] == 'subscriber'){
+        $w3all_add_into_spec_group = 2; // registered phpBB
+      }elseif($wpu->roles[0] == 'editor'){
+        $w3all_add_into_spec_group = 4; // global moderator
+       }elseif($wpu->roles[0] == 'administrator'){
+         $w3all_add_into_spec_group = 5; // admin
+        }
+     }
+   }
 
       // phpBB 3.2.0 >
       if($phpbb_version == '3.2'){
@@ -1255,7 +1273,7 @@ private static function create_phpBB_user($wpu, $action = ''){
  }
 
  if(intval($phpBBlid) > 2){
- 	define("W3ALL_INSERTED_PHPBBUID", intval($phpBBlid));
+  define("W3ALL_INSERTED_PHPBBUID", intval($phpBBlid));
   $w3all_oninsert_wp_user = 1; // or get email exist, because w3all_filter_pre_user_email() will fire after, wp update fire by the way
   return $phpBBlid;
  }
