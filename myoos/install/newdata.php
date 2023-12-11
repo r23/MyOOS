@@ -754,9 +754,40 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_types 
 
 $result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_types (products_options_types_id, products_options_types_languages_id, products_options_types_name) VALUES (6, 2, 'File')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_types</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_types (products_options_types_id, products_options_types_languages_id, products_options_types_name) VALUES (6, 1, 'File')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_types</b>");
-
-
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "products_options_types " . UPDATED .'</font>';
+
+// products_options
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options (products_options_id,products_options_languages_id,products_options_name,products_options_type,products_options_length,products_options_comment) VALUES ('1','1','Farbe','1','32','')") or die("<b>".NOTUPDATED . $prefix_table . "products_options</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options (products_options_id,products_options_languages_id,products_options_name,products_options_type,products_options_length,products_options_comment) VALUES ('1','2','Color','1','32','')") or die("<b>".NOTUPDATED . $prefix_table . "products_options</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options (products_options_id,products_options_languages_id,products_options_name,products_options_type,products_options_length,products_options_comment) VALUES ('2','1','Größe','1','32','')") or die("<b>".NOTUPDATED . $prefix_table . "products_options</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options (products_options_id,products_options_languages_id,products_options_name,products_options_type,products_options_length,products_options_comment) VALUES ('2','2','Size','1','32','')") or die("<b>".NOTUPDATED . $prefix_table . "products_options</b>");
+echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "products_options " . UPDATED .'</font>';
+
+// products_options_values
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_values (products_options_values_id,products_options_values_languages_id,products_options_values_name) VALUES ('1','1','dunkel')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_values</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_values (products_options_values_id,products_options_values_languages_id,products_options_values_name) VALUES ('1','2','dark')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_values</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_values (products_options_values_id,products_options_values_languages_id,products_options_values_name) VALUES ('2','1','rot')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_values</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_values (products_options_values_id,products_options_values_languages_id,products_options_values_name) VALUES ('2','2','red')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_values</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_values (products_options_values_id,products_options_values_languages_id,products_options_values_name) VALUES ('3','1','weiß')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_values</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_values (products_options_values_id,products_options_values_languages_id,products_options_values_name) VALUES ('3','2','white')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_values</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_values (products_options_values_id,products_options_values_languages_id,products_options_values_name) VALUES ('4','1','beige')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_values</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_values (products_options_values_id,products_options_values_languages_id,products_options_values_name) VALUES ('4','2','beige')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_values</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_values (products_options_values_id,products_options_values_languages_id,products_options_values_name) VALUES ('5','1','SM')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_values</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_values (products_options_values_id,products_options_values_languages_id,products_options_values_name) VALUES ('5','2','SM')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_values</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_values (products_options_values_id,products_options_values_languages_id,products_options_values_name) VALUES ('6','1','M')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_values</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_values (products_options_values_id,products_options_values_languages_id,products_options_values_name) VALUES ('6','2','M')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_values</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_values (products_options_values_id,products_options_values_languages_id,products_options_values_name) VALUES ('7','1','XS')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_values</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_values (products_options_values_id,products_options_values_languages_id,products_options_values_name) VALUES ('7','2','XS')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_values</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_values (products_options_values_id,products_options_values_languages_id,products_options_values_name) VALUES ('8','1','XS')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_values</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_values (products_options_values_id,products_options_values_languages_id,products_options_values_name) VALUES ('8','2','XS')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_values</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_values (products_options_values_id,products_options_values_languages_id,products_options_values_name) VALUES ('9','1','XL')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_values</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_values (products_options_values_id,products_options_values_languages_id,products_options_values_name) VALUES ('9','2','XL')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_values</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_values (products_options_values_id,products_options_values_languages_id,products_options_values_name) VALUES ('10','1','XXL')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_values</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_options_values (products_options_values_id,products_options_values_languages_id,products_options_values_name) VALUES ('10','2','XXL')") or die("<b>".NOTUPDATED . $prefix_table . "products_options_values</b>");
+echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "products_options_values " . UPDATED .'</font>';
+
+
+
 
 $result = $db->Execute("INSERT INTO " . $prefix_table . "products_units (products_units_id, languages_id, products_unit_name, unit_of_measure) VALUES (1, 1, 'kg', '1 Kilogramm ')") or die("<b>".NOTUPDATED . $prefix_table . "products_units</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "products_units (products_units_id, languages_id, products_unit_name, unit_of_measure) VALUES (1, 2, 'kg', '1 kilogram ')") or die("<b>".NOTUPDATED . $prefix_table . "products_units</b>");
