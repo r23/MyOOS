@@ -3267,12 +3267,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "81f1e10dc34a504f5a83b731648dc2bf1c3cce45"
+                "reference": "ccb29669f00f1c5637c79c8e10efd10199696c65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/81f1e10dc34a504f5a83b731648dc2bf1c3cce45",
-                "reference": "81f1e10dc34a504f5a83b731648dc2bf1c3cce45",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/ccb29669f00f1c5637c79c8e10efd10199696c65",
+                "reference": "ccb29669f00f1c5637c79c8e10efd10199696c65",
                 "shasum": ""
             },
             "conflict": {
@@ -3386,7 +3386,7 @@
                 "doctrine/mongodb-odm-bundle": "<3.0.1",
                 "doctrine/orm": ">=2,<2.4.8|>=2.5,<2.5.1|>=2.8.3,<2.8.4",
                 "dolibarr/dolibarr": "<18.0.2",
-                "dompdf/dompdf": "<2.0.2|==2.0.2",
+                "dompdf/dompdf": "<2.0.4",
                 "doublethreedigital/guest-entries": "<3.1.2",
                 "drupal/core": "<9.4.14|>=9.5,<9.5.8|>=10,<10.0.8",
                 "drupal/drupal": ">=6,<6.38|>=7,<7.80|>=8,<8.9.16|>=9,<9.1.12|>=9.2,<9.2.4",
@@ -3419,7 +3419,7 @@
                 "ezsystems/ezplatform-solr-search-engine": ">=1.7,<1.7.12|>=2,<2.0.2|>=3.3,<3.3.15",
                 "ezsystems/ezplatform-user": ">=1,<1.0.1",
                 "ezsystems/ezpublish-kernel": "<6.13.8.2-dev|>=7,<7.5.31",
-                "ezsystems/ezpublish-legacy": "<=2017.12.7.3|>=2018.6,<=2019.03.5.1",
+                "ezsystems/ezpublish-legacy": "<=2017.12.7.3|>=2018.06,<=2019.03.5.1",
                 "ezsystems/platform-ui-assets-bundle": ">=4.2,<4.2.3",
                 "ezsystems/repository-forms": ">=2.3,<2.3.2.1-dev|>=2.5,<2.5.15",
                 "ezyang/htmlpurifier": "<4.1.1",
@@ -3940,7 +3940,7 @@
                 "zfr/zfr-oauth2-server-module": "<0.1.2",
                 "zoujingli/thinkadmin": "<=6.1.53"
             },
-            "time": "2023-12-13T22:04:16+00:00",
+            "time": "2023-12-14T10:04:44+00:00",
             "default-branch": true,
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
