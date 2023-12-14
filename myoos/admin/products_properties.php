@@ -714,7 +714,7 @@ if ($action == 'delete_product_option') { // delete product option
 
         // Move that ADOdb pointer!
         $options->MoveNext();
-    } 
+    }
 
     if ($action != 'update_option') {
         ?>
