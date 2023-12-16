@@ -33,6 +33,9 @@ define('TEXT_OLD_ELECTRICAL_EQUIPMENT_OBLIGATIONS_NOTE', 'Hinweistext über Rüc
 define('TEXT_OFFER_B_WARE_INFO', 'Gebrauchtware (B-Ware)');
 define('TEXT_OFFER_B_WARE_INFO_NOTE', 'Hinweistext über Gebrauchtware (B-Ware)');
 
+define('TEXT_PRODUCTS_ATTRIBUTES', 'Artikelmerkmale');
+define('TEXT_HEADER_ATTRIBUTES', 'Artikelmerkmale');
+
 
 define('TEXT_HEADER_INFORMATION_OBLIGATIONS', 'Informationspflichten');
 define('TEXT_PRODUCTS_PRICE_INFO', 'Preis:');
@@ -103,10 +106,10 @@ define('TEXT_PRODUCTS_LIST_PRICE_WITH_TAX', 'empfohlener Verkaufspreis des Herst
 define('TEXT_PRODUCTS_WEIGHT', 'Artikelgewicht:');
 define('TEXT_IMAGE_REMOVE', '<b>Entfernen</b> des Bildes vom Artikel?');
 
-
 define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Fehler: Produkte können nicht in der gleichen Kategorie verlinkt werden.');
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis \'images\' im Katalogverzeichnis ist schreibgeschützt: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
 define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Verzeichnis \'images\' im Katalogverzeichnis ist nicht vorhanden: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
+
 define('ERROR_OUTOFSTOCK', 'Der Lagerbestand dieses Artikels ist nicht ausreichend Verfügbar.');
 define('ERROR_REPLACEMENT', 'Es wurde ein Ersatzprodukt angeben. Der Status wurde geändert auf: Nicht mehr verfügbar/Es gibt ein Ersatzproduk.');
 

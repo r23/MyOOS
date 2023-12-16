@@ -34,6 +34,9 @@ define('TEXT_OLD_ELECTRICAL_EQUIPMENT_OBLIGATIONS_NOTE', 'Note text about obliga
 define('TEXT_OFFER_B_WARE_INFO', 'Used goods (B-goods)');
 define('TEXT_OFFER_B_WARE_INFO_NOTE', 'Note text about used goods (B-goods)');
 
+define('TEXT_PRODUCTS_ATTRIBUTES', 'Product features');
+define('TEXT_HEADER_ATTRIBUTES', 'Product features');
+
 define('TEXT_PRODUCTS_PRICE_INFO', 'Price:');
 define('TEXT_PRODUCTS_TAX_CLASS', 'Tax Class:');
 define('TEXT_PRODUCTS_AVERAGE_RATING', 'Average Rating:');

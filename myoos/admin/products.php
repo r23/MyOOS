@@ -27,6 +27,7 @@ require 'includes/functions/function_categories.php';
 require 'includes/classes/class_upload.php';
 require 'includes/classes/class_currencies.php';
 
+
 $currencies = new currencies();
 
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
@@ -616,6 +617,9 @@ function calcBasePriceFactor() {
                         <a class="nav-link" href="#data" aria-controls="data" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS_DATA; ?></a>
                      </li>
                      <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="#attributes" aria-controls="data" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS_ATTRIBUTES; ?></a>
+                     </li>					 
+                     <li class="nav-item" role="presentation">
                         <a class="nav-link" href="#obligation" aria-controls="obligation" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS_INFORMATION_OBLIGATIONS; ?></a>
                      </li>					 
                      <li class="nav-item" role="presentation">
@@ -1047,10 +1051,478 @@ updateWithTax();
 
 
                      </div>
+					 
                      <div class="tab-pane" id="obligation" role="tabpanel">
 
 						<div class="col-12 mt-3">
 							<h2><?php echo TEXT_HEADER_INFORMATION_OBLIGATIONS; ?></h2>
+##						</div>
+<div class="table-responsive">
+    <table class="table w-100">
+
+<!-- products_attributes //-->
+
+      <tr>
+<?php
+if ($action == 'update_attribute') {
+    $form_action = 'update_product_attribute';
+} else {
+    $form_action = 'add_product_attributes';
+}
+?>
+<script nonce="<?php echo NONCE; ?>">
+
+function doRound(x, places) {
+  return Math.round(x * Math.pow(10, places)) / Math.pow(10, places);
+}
+
+function calcBasePriceFactor() {
+  let pqty = document.forms["attributes"].options_values_quantity.value;
+  let bqty = document.forms["attributes"].options_values_base_quantity.value;
+
+  if ((pqty != 0) || (bqty != 0)) {
+     document.forms["attributes"].options_values_base_price.value = doRound(bqty / pqty, 6);
+  } else {
+     document.forms["attributes"].options_values_base_price.value = 1.00000;
+  }
+
+}
+</script>
+
+        <td valign="top"><form name="attributes" action="<?php echo oos_href_link_admin($aContents['products_attributes'], 'action=' . $form_action . (isset($option_page) ? '&option_page=' . $option_page : '') . (isset($value_page) ? '&value_page=' . $value_page : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')); ?>" method="post" enctype="multipart/form-data">
+		
+		<table class="table table-hover w-100">
+          <tr>
+            <td colspan="11" class="smallText">
+<?php
+$per_page = MAX_ROW_LISTS_OPTIONS;
+$products_attributestable = $oostable['products_attributes'];
+$products_descriptiontable = $oostable['products_description'];
+$attributes = "SELECT pa.* FROM $products_attributestable pa left join $products_descriptiontable pd on pa.products_id = pd.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY pd.products_name";
+
+if (!isset($attribute_page)) {
+    $attribute_page = 1;
+}
+$prev_attribute_page = $attribute_page - 1;
+$next_attribute_page = $attribute_page + 1;
+
+$attribute_result = $dbconn->Execute($attributes);
+
+$attribute_page_start = ($per_page * $attribute_page) - $per_page;
+$num_rows = $attribute_result->RecordCount();
+
+if ($num_rows <= $per_page) {
+    $num_pages = 1;
+} elseif (($num_rows % $per_page) == 0) {
+    $num_pages = ($num_rows / $per_page);
+} else {
+    $num_pages = ($num_rows / $per_page) + 1;
+}
+$num_pages = (int) $num_pages;
+
+$attributes = $attributes . " LIMIT $attribute_page_start, $per_page";
+
+// Previous
+if ($prev_attribute_page) {
+    echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'attribute_page=' . $prev_attribute_page) . '"> &lt;&lt; </a> | ';
+}
+
+for ($i = 1; $i <= $num_pages; $i++) {
+    if ($i != $attribute_page) {
+        echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'attribute_page=' . $i) . '">' . $i . '</a> | ';
+    } else {
+        echo '<b><font color="red">' . $i . '</font></b> | ';
+    }
+}
+
+// Next
+if ($attribute_page != $num_pages) {
+    echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'attribute_page=' . $next_attribute_page) . '"> &gt;&gt; </a>';
+}
+?>
+            </td>
+          </tr>
+
+			<thead class="thead-dark">
+				<tr>			
+					<th>&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</th>
+					<th>&nbsp;<?php echo TABLE_HEADING_IMAGE; ?>&nbsp;</th>
+					<th>&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</th>
+					<th>&nbsp;<?php echo TABLE_HEADING_MODEL; ?>&nbsp;</th>
+					<th>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</th>
+					<th>&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</th>
+					<th>&nbsp;<?php echo TABLE_HEADING_SORT_ORDER_VALUE; ?>&nbsp;</th>
+					<th>&nbsp;<?php echo TABLE_HEADING_STATUS; ?>&nbsp;</th>
+					<th class="text-right">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE; ?>&nbsp;</th>
+					<th class="text-center">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE_PREFIX; ?>&nbsp;</th>
+					<th class="text-center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>					
+				</tr>
+			</thead>
+<?php
+$next_id = 1;
+$rows = 0;
+
+$attributes = $dbconn->Execute($attributes);
+while ($attributes_values = $attributes->fields) {
+    $products_name_only = oos_get_products_name($attributes_values['products_id']);
+    $options_name = oos_options_name($attributes_values['options_id']);
+    $values_name = oos_values_name($attributes_values['options_values_id']);
+    $rows++; ?>
+          <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
+    <?php
+    if (($action == 'update_attribute') && ($_GET['attribute_id'] == $attributes_values['products_attributes_id'])) {
+        ?>
+            <td class="smallText">&nbsp;<?php echo $attributes_values['products_attributes_id']; ?><input type="hidden" name="attribute_id" value="<?php echo $attributes_values['products_attributes_id']; ?>">&nbsp;</td>
+            <td class="smallText">&nbsp;<?php echo product_info_image($attributes_values['options_values_image'], $products_name_only, 'small'); ?><br>&nbsp;<?php echo $attributes_values['options_values_image']; ?>&nbsp;
+        <?php if ($attributes_values['options_values_image'] != '') {  ?>
+            <br>&nbsp;<?php echo oos_draw_checkbox_field('remove_image', 'yes') . TEXT_PRODUCTS_IMAGE_DELETE; ?><br>
+        <?php } ?>
+            <br><br>        
+        <?php echo '&nbsp;' . oos_draw_file_field('options_values_image') . oos_draw_hidden_field('products_previous_image', $attributes_values['options_values_image']); ?></td>
+            <td class="smallText">&nbsp;<select name="products_id">
+        <?php
+        $productstable = $oostable['products'];
+        $products_descriptiontable = $oostable['products_description'];
+        $products = $dbconn->Execute("SELECT p.products_id, pd.products_name FROM $productstable p, $products_descriptiontable pd WHERE pd.products_id = p.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY pd.products_name");
+        while ($products_values = $products->fields) {
+            if ($attributes_values['products_id'] == $products_values['products_id']) {
+                echo "\n" . '<option name="' . $products_values['products_name'] . '" value="' . $products_values['products_id'] . '" selected="selected">' . $products_values['products_name'] . '</option>';
+            } else {
+                echo "\n" . '<option name="' . $products_values['products_name'] . '" value="' . $products_values['products_id'] . '">' . $products_values['products_name'] . '</option>';
+            }
+
+            // Move that ADOdb pointer!
+            $products->MoveNext();
+        } ?>
+            </select>&nbsp;</td>
+            <td class="smallText"><?php echo oos_draw_input_field('options_values_model', $attributes_values['options_values_model']); ?></td>
+            <td class="smallText">&nbsp;<select name="options_id">
+        <?php
+        if ($options_values['products_options_id'] == 0) {
+            echo "\n" . '<option name="id" value="0" selected="selected">' . PULL_DOWN_DEFAULT . '</option>';
+        } else {
+            echo "\n" . '<option name="id" value="0">' . PULL_DOWN_DEFAULT . '</option>';
+        }
+
+        $products_optionstable = $oostable['products_options'];
+        $options = $dbconn->Execute("SELECT * FROM $products_optionstable WHERE products_options_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_options_name");
+        while ($options_values = $options->fields) {
+            if ($attributes_values['options_id'] == $options_values['products_options_id']) {
+                echo "\n" . '<option name="' . $options_values['products_options_name'] . '" value="' . $options_values['products_options_id'] . '" selected="selected">' . $options_values['products_options_name'] . '</option>';
+            } else {
+                echo "\n" . '<option name="' . $options_values['products_options_name'] . '" value="' . $options_values['products_options_id'] . '">' . $options_values['products_options_name'] . '</option>';
+            }
+
+            // Move that ADOdb pointer!
+            $options->MoveNext();
+        } ?>
+            </select>&nbsp;</td>
+            <td class="smallText">&nbsp;<select name="values_id">
+        <?php
+        if ($values_values['products_options_values_id'] == 0) {
+            echo "\n" . '<option name="id" value="0" selected="selected">' . PULL_DOWN_DEFAULT . '</option>';
+        } else {
+            echo "\n" . '<option name="id" value="0">' . PULL_DOWN_DEFAULT . '</option>';
+        }
+
+
+        $products_options_valuestable = $oostable['products_options_values'];
+        $values = $dbconn->Execute("SELECT * FROM $products_options_valuestable WHERE products_options_values_languages_id='" . intval($_SESSION['language_id']) . "' ORDER BY products_options_values_name");
+        while ($values_values = $values->fields) {
+            if ($attributes_values['options_values_id'] == $values_values['products_options_values_id']) {
+                echo "\n" . '<option name="' . $values_values['products_options_values_name'] . '" value="' . $values_values['products_options_values_id'] . '" selected="selected">' . $values_values['products_options_values_name'] . '</option>';
+            } else {
+                echo "\n" . '<option name="' . $values_values['products_options_values_name'] . '" value="' . $values_values['products_options_values_id'] . '">' . $values_values['products_options_values_name'] . '</option>';
+            }
+
+            // Move that ADOdb pointer!
+            $values->MoveNext();
+        } ?>
+            </select>&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<input type="text" name="sort_order" value="<?php echo $attributes_values['options_sort_order']; ?>" size="2">&nbsp;</td>
+            <td class="smallText">&nbsp;<?php echo $attributes_values['options_values_status']; ?></td>
+
+        <?php
+        $in_price = $attributes_values['options_values_price'];
+        $in_price = number_format($in_price, TAX_DECIMAL_PLACES, '.', ''); ?>
+            <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" value="<?php echo $in_price; ?>" size="6">&nbsp;</td>
+            <td align="center" class="smallText">&nbsp;<input type="text" name="price_prefix" value="<?php echo $attributes_values['price_prefix']; ?>" size="2">&nbsp;</td>
+            <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
+          </tr>
+        <?php
+        if (BASE_PRICE == 'true') {
+            $options_values_base_price = (!isset($attributes_values['options_values_base_price'])) ? 1 : $attributes_values['options_values_base_price'];
+            $options_values_quantity = $attributes_values['options_values_quantity'] ?? '';
+            $options_values_base_quantity = $attributes_values['options_values_base_quantity'] ?? '';
+            $options_values_units_id = $attributes_values['options_values_units_id'] ?? ''; ?>
+		<tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>			
+            <td colspan="8">
+              <table class="table w-100">
+                <tr>
+                  <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR . '<br>' . oos_draw_input_field('options_values_base_price', $options_values_base_price); ?></td>
+                  <td class="main"><br> <- </td>
+                  <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY . '<br>' . oos_draw_input_field('options_values_quantity', $options_values_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
+                  <td class="main"><?php echo TEXT_PRODUCTS_UNIT . '<br>' . oos_draw_pull_down_menu('options_values_units_id', '', $products_units_array, $options_values_units_id); ?></td>
+                </tr>
+                <tr>
+                    <td class="main"></td>
+                    <td class="main"></td>
+                    <td class="main"><?php echo TEXT_PRODUCTS_BASE_QUANTITY . '<br>' . oos_draw_input_field('options_values_base_quantity', $options_values_base_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
+                    <td class="main"><?php echo TEXT_PRODUCTS_BASE_UNIT . '<br>' . implode(", ", array_values($unit_of_measure)); ?> </td>
+                </tr>
+              </table>
+
+            </td>
+            <td>&nbsp;</td>
+          </tr>       
+            <?php
+        }
+
+        if (DOWNLOAD_ENABLED == 'true') {
+            $products_attributes_filename = '';
+            $products_attributes_maxdays  = DOWNLOAD_MAX_DAYS;
+            $products_attributes_maxcount = DOWNLOAD_MAX_COUNT;
+
+            $products_attributes_downloadtable = $oostable['products_attributes_download'];
+            $download_result_raw = "SELECT products_attributes_filename, products_attributes_maxdays, products_attributes_maxcount
+								FROM $products_attributes_downloadtable
+								WHERE products_attributes_id = '" . $attributes_values['products_attributes_id'] . "'";
+            $download_result = $dbconn->Execute($download_result_raw);
+            if ($download_result->RecordCount() > 0) {
+                $download = $download_result->fields;
+                $products_attributes_filename = $download['products_attributes_filename'];
+                $products_attributes_maxdays  = $download['products_attributes_maxdays'];
+                $products_attributes_maxcount = $download['products_attributes_maxcount'];
+            } ?>
+		<tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td colspan="8">
+              <table class="table w-100">
+                <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
+                  <td><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
+                  <td class="smallText"><?php echo TABLE_TEXT_FILENAME; ?></td>
+                  <td class="smallText"><?php echo oos_draw_input_field('products_attributes_filename', $products_attributes_filename, 'size="15"'); ?>&nbsp;</td>
+                  <td class="smallText"><?php echo TABLE_TEXT_MAX_DAYS; ?></td>
+                  <td class="smallText"><?php echo oos_draw_input_field('products_attributes_maxdays', $products_attributes_maxdays, 'size="5"'); ?>&nbsp;</td>
+                  <td class="smallText"><?php echo TABLE_TEXT_MAX_COUNT; ?></td>
+                  <td class="smallText"><?php echo oos_draw_input_field('products_attributes_maxcount', $products_attributes_maxcount, 'size="5"'); ?>&nbsp;</td>
+                </tr>
+              </table>
+            </td>
+            <td>&nbsp;</td>
+          </tr>    
+            <?php
+        }
+    } elseif (($action == 'delete_product_attribute') && ($_GET['attribute_id'] == $attributes_values['products_attributes_id'])) {
+        ?>
+            <td class="smallText">&nbsp;<b><?php echo $attributes_values['products_attributes_id']; ?></b>&nbsp;</td>
+            <td class="smallText">&nbsp;<?php echo product_info_image($attributes_values['options_values_image'], $products_name_only, 'small'); ?><br>&nbsp;<?php echo $attributes_values['options_values_image']; ?>&nbsp;</td>
+            <td class="smallText">&nbsp;<b><?php echo $products_name_only; ?></b>&nbsp;</td>
+            <td class="smallText">&nbsp;<?php echo $attributes_values['options_values_model']; ?>&nbsp;</td>
+            <td class="smallText">&nbsp;<b><?php echo $options_name; ?></b>&nbsp;</td>
+            <td class="smallText">&nbsp;<b><?php echo $values_name; ?></b>&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<b><?php echo $attributes_values['options_sort_order']; ?></b></td>
+            <td class="smallText">&nbsp;<?php echo $attributes_values['options_values_status']; ?></td>
+            <td align="right" class="smallText">&nbsp;<b><?php echo $attributes_values['options_values_price']; ?></b>&nbsp;</td>
+            <td align="center" class="smallText">&nbsp;<b><?php echo $attributes_values['price_prefix']; ?></b>&nbsp;</td>
+            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-success mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_attribute&attribute_id=' . $_GET['attribute_id']) . '" role="button"><strong>' . BUTTON_CONFIRM . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a  class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], (isset($option_page) ? (isset($option_page) ? '&option_page=' . $option_page : '') : '') . (isset($value_page) ? (isset($value_page) ? '&value_page=' . $value_page : '') : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</b></td>
+
+        <?php
+    } else {
+        ?>
+            <td class="smallText">&nbsp;<?php echo $attributes_values['products_attributes_id']; ?>&nbsp;</td>
+            <td class="smallText">&nbsp;<?php echo product_info_image($attributes_values['options_values_image'], $products_name_only, 'small'); ?><br>&nbsp;<?php echo $attributes_values['options_values_image']; ?>&nbsp;</td>
+            <td class="smallText">&nbsp;<?php echo $products_name_only; ?>&nbsp;</td>
+            <td class="smallText">&nbsp;<?php echo $attributes_values['options_values_model']; ?>&nbsp;</td>
+            <td class="smallText">&nbsp;<?php echo $options_name; ?>&nbsp;</td>
+            <td class="smallText">&nbsp;<?php echo $values_name; ?>&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<b><?php echo $attributes_values['options_sort_order']; ?></b></td>
+            <td class="smallText">&nbsp;
+        <?php
+        if ($attributes_values['options_values_status'] == '1') {
+            echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['products_attributes'], 'action=setflag&flag=0&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
+        } else {
+            echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'action=setflag&flag=1&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
+        } ?></td>
+        <?php
+        $in_price = $attributes_values['options_values_price'];
+        $in_price = number_format($in_price, TAX_DECIMAL_PLACES, '.', ''); ?>
+            <td align="right" class="smallText">&nbsp;<?php echo $in_price; ?>&nbsp;</td>
+            <td align="center" class="smallText">&nbsp;<?php echo $attributes_values['price_prefix']; ?>&nbsp;</td>
+            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_product_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) , '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
+        <?php
+    } ?>
+          </tr>
+    <?php
+    if (DOWNLOAD_ENABLED == 'true') {
+        $products_attributes_downloadtable = $oostable['products_attributes_download'];
+        $download_result_raw = "SELECT products_attributes_filename, products_attributes_maxdays, products_attributes_maxcount
+								FROM $products_attributes_downloadtable
+								WHERE products_attributes_id = '" . $attributes_values['products_attributes_id'] . "'";
+        $download_result = $dbconn->Execute($download_result_raw);
+        if ($download_result->RecordCount() > 0) {
+            $download = $download_result->fields;
+            $products_attributes_filename = $download['products_attributes_filename'];
+            $products_attributes_maxdays  = $download['products_attributes_maxdays'];
+            $products_attributes_maxcount = $download['products_attributes_maxcount']; ?>
+          <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td colspan="8">
+              <table class="table w-100">
+                <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
+                  <td>&nbsp;</td>
+                  <td class="smallText"><?php echo TABLE_TEXT_FILENAME; ?>&nbsp;</td>
+                  <td class="smallText"><b><?php echo $products_attributes_filename; ?></b>&nbsp;</td>
+                  <td class="smallText"><?php echo TABLE_TEXT_MAX_DAYS; ?></td>
+                  <td class="smallText"><?php echo $products_attributes_maxdays; ?>&nbsp;</td>
+                  <td class="smallText"><?php echo TABLE_TEXT_MAX_COUNT; ?></td>
+                  <td class="smallText"><?php echo $products_attributes_maxcount; ?>&nbsp;</td>
+                </tr>
+              </table>
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+            <?php
+        }
+    } // end of DOWNLOAD_ENABLED section
+
+      // Move that ADOdb pointer!
+      $attributes->MoveNext();
+}
+?>
+		</table>
+<?php
+
+if ($action != 'update_attribute') {
+    $products_attributestable = $oostable['products_attributes'];
+    $max_attributes_id_result = $dbconn->Execute("SELECT max(products_attributes_id) + 1 as next_id FROM $products_attributestable");
+    $max_attributes_id_values = $max_attributes_id_result->fields;
+    $next_id = $max_attributes_id_values['next_id']; ?>
+	<table class="table w-100">
+          <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
+            <td class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
+            <td class="smallText"><?php echo '&nbsp;' . oos_draw_file_field('options_values_image'); ?></td>
+            <td class="smallText">&nbsp;<select name="products_id">
+    <?php
+    $productstable = $oostable['products'];
+    $products_descriptiontable = $oostable['products_description'];
+    $products = $dbconn->Execute("SELECT p.products_id, pd.products_name FROM $productstable p, $products_descriptiontable pd WHERE pd.products_id = p.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY pd.products_name");
+    while ($products_values = $products->fields) {
+        echo '<option name="' . $products_values['products_name'] . '" value="' . $products_values['products_id'] . '">' . $products_values['products_name'] . '</option>';
+
+        // Move that ADOdb pointer!
+        $products->MoveNext();
+    } ?>
+            </select>&nbsp;</td>
+            <td class="smallText"><?php
+
+            if (!is_array($attributes_values)) {
+                $attributes_values = [];
+            }
+            $attributes_values['options_values_model'] ??= '';
+    echo oos_draw_input_field('options_values_model', $attributes_values['options_values_model']); ?></td>
+            <td class="smallText">&nbsp;<select name="options_id">
+    <?php
+    echo '<option name="id" value="0" selected="selected">' . PULL_DOWN_DEFAULT . '</option>';
+
+    $products_optionstable = $oostable['products_options'];
+    $options = $dbconn->Execute("SELECT * FROM $products_optionstable WHERE products_options_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_options_name");
+    while ($options_values = $options->fields) {
+        echo '<option name="' . $options_values['products_options_name'] . '" value="' . $options_values['products_options_id'] . '">' . $options_values['products_options_name'] . '</option>';
+
+        // Move that ADOdb pointer!
+        $options->MoveNext();
+    } ?>
+            </select>&nbsp;</td>
+            <td class="smallText">&nbsp;<select name="values_id">
+    <?php
+    echo '<option name="id" value="0" selected="selected">' . PULL_DOWN_DEFAULT . '</option>';
+
+    $products_options_valuestable = $oostable['products_options_values'];
+    $values = $dbconn->Execute("SELECT * FROM $products_options_valuestable WHERE products_options_values_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_options_values_name");
+    while ($values_values = $values->fields) {
+        echo '<option name="' . $values_values['products_options_values_name'] . '" value="' . $values_values['products_options_values_id'] . '">' . $values_values['products_options_values_name'] . '</option>';
+
+        // Move that ADOdb pointer!
+        $values->MoveNext();
+    } ?>
+            </select>&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<input type="text" name="sort_order" value="<?php echo $attributes_values['options_sort_order'] ?? ''; ?>" size="4">&nbsp;</td>
+            <td class="smallText">&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" size="6">&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<input type="text" name="price_prefix" size="2" value="+">&nbsp;</td>
+            <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_INSERT); ?>&nbsp;</td>
+          </tr>
+    <?php
+    if (BASE_PRICE == 'true') {
+        $options_values_base_price = (!isset($attributes_values['options_values_base_price'])) ? 1 : $attributes_values['options_values_base_price'];
+        $options_values_units_id = $attributes_values['options_values_units_id'] ?? ''; ?>
+         <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td colspan="8"><table border="0">
+                <tr>
+                  <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR . '<br>' . oos_draw_input_field('options_values_base_price', $options_values_base_price); ?></td>
+                  <td class="main"><br> <- </td>
+                  <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY . '<br>' . oos_draw_input_field('options_values_quantity', 1, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
+                  <td class="main"><?php echo TEXT_PRODUCTS_UNIT . '<br>' . oos_draw_pull_down_menu('options_values_units_id', '', $products_units_array, $options_values_units_id); ?></td>
+                </tr>
+                <tr>
+                    <td class="main"></td>
+                    <td class="main"></td>
+                    <td class="main"><?php echo TEXT_PRODUCTS_BASE_QUANTITY . '<br>' . oos_draw_input_field('options_values_base_quantity', 1, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
+                    <td class="main"><?php echo TEXT_PRODUCTS_BASE_UNIT . '<br>' . implode(", ", array_values($unit_of_measure)); ?> </td>
+                </tr>
+              </table>
+
+            </td>
+            <td>&nbsp;</td>
+          </tr>        
+        <?php
+    }
+
+    if (DOWNLOAD_ENABLED == 'true') {
+        $products_attributes_maxdays  = DOWNLOAD_MAX_DAYS;
+        $products_attributes_maxcount = DOWNLOAD_MAX_COUNT; ?>
+           <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td colspan="8">
+          <table> 
+                 <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
+                  <td><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
+                  <td class="smallText"><?php echo TABLE_TEXT_FILENAME; ?></td>
+                  <td class="smallText"><?php echo oos_draw_input_field('products_attributes_filename', '', 'size="15"'); ?>&nbsp;</td>
+                  <td class="smallText"><?php echo TABLE_TEXT_MAX_DAYS; ?></td>
+                  <td class="smallText"><?php echo oos_draw_input_field('products_attributes_maxdays', $products_attributes_maxdays, 'size="5"'); ?>&nbsp;</td>
+                  <td class="smallText"><?php echo TABLE_TEXT_MAX_COUNT; ?></td>
+                  <td class="smallText"><?php echo oos_draw_input_field('products_attributes_maxcount', $products_attributes_maxcount, 'size="5"'); ?>&nbsp;</td>
+
+            </tr> 
+             </table>  
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+        <?php
+    } // end of DOWNLOAD_ENABLED section
+}
+?>
+        </table></form></td>
+      </tr>
+    </table>
+<!-- products_attributes_eof //-->
+                </div>
+##
+                     </div>					 
+					 
+                     <div class="tab-pane" id="attributes" role="tabpanel">
+
+						<div class="col-12 mt-3">
+							<h2><?php echo TEXT_HEADER_ATTRIBUTES; ?></h2>
 						</div>
 
                         <fieldset>
