@@ -24,9 +24,9 @@ define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
 require 'includes/functions/function_categories.php';
+require 'includes/functions/function_products_attributes.php';
 require 'includes/classes/class_upload.php';
 require 'includes/classes/class_currencies.php';
-
 
 $currencies = new currencies();
 
@@ -1052,11 +1052,12 @@ updateWithTax();
 
                      </div>
 					 
-                     <div class="tab-pane" id="obligation" role="tabpanel">
+                     <div class="tab-pane" id="attributes" role="tabpanel">
 
 						<div class="col-12 mt-3">
-							<h2><?php echo TEXT_HEADER_INFORMATION_OBLIGATIONS; ?></h2>
-##						</div>
+							<h2><?php echo TEXT_HEADER_ATTRIBUTES; ?></h2>
+						</div>
+##
 <div class="table-responsive">
     <table class="table w-100">
 
@@ -1089,7 +1090,15 @@ function calcBasePriceFactor() {
 }
 </script>
 
-        <td valign="top"><form name="attributes" action="<?php echo oos_href_link_admin($aContents['products_attributes'], 'action=' . $form_action . (isset($option_page) ? '&option_page=' . $option_page : '') . (isset($value_page) ? '&value_page=' . $value_page : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')); ?>" method="post" enctype="multipart/form-data">
+        <td valign="top">
+		
+		
+<?php 
+ // <form name="attributes" action="
+ // echo oos_href_link_admin($aContents['products_attributes'], 'action=' . $form_action . (isset($option_page) ? '&option_page=' . $option_page : '') . (isset($value_page) ? '&value_page=' . $value_page : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')); 
+
+if (isset($pID) && is_numeric($pID)) {
+?>
 		
 		<table class="table table-hover w-100">
           <tr>
@@ -1098,7 +1107,7 @@ function calcBasePriceFactor() {
 $per_page = MAX_ROW_LISTS_OPTIONS;
 $products_attributestable = $oostable['products_attributes'];
 $products_descriptiontable = $oostable['products_description'];
-$attributes = "SELECT pa.* FROM $products_attributestable pa left join $products_descriptiontable pd on pa.products_id = pd.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY pd.products_name";
+$attributes = "SELECT pa.* FROM $products_attributestable pa WHERE pa.products_id = '" . intval($pID) . "'";
 
 if (!isset($attribute_page)) {
     $attribute_page = 1;
@@ -1147,7 +1156,6 @@ if ($attribute_page != $num_pages) {
 				<tr>			
 					<th>&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</th>
 					<th>&nbsp;<?php echo TABLE_HEADING_IMAGE; ?>&nbsp;</th>
-					<th>&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</th>
 					<th>&nbsp;<?php echo TABLE_HEADING_MODEL; ?>&nbsp;</th>
 					<th>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</th>
 					<th>&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</th>
@@ -1179,22 +1187,6 @@ while ($attributes_values = $attributes->fields) {
         <?php } ?>
             <br><br>        
         <?php echo '&nbsp;' . oos_draw_file_field('options_values_image') . oos_draw_hidden_field('products_previous_image', $attributes_values['options_values_image']); ?></td>
-            <td class="smallText">&nbsp;<select name="products_id">
-        <?php
-        $productstable = $oostable['products'];
-        $products_descriptiontable = $oostable['products_description'];
-        $products = $dbconn->Execute("SELECT p.products_id, pd.products_name FROM $productstable p, $products_descriptiontable pd WHERE pd.products_id = p.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY pd.products_name");
-        while ($products_values = $products->fields) {
-            if ($attributes_values['products_id'] == $products_values['products_id']) {
-                echo "\n" . '<option name="' . $products_values['products_name'] . '" value="' . $products_values['products_id'] . '" selected="selected">' . $products_values['products_name'] . '</option>';
-            } else {
-                echo "\n" . '<option name="' . $products_values['products_name'] . '" value="' . $products_values['products_id'] . '">' . $products_values['products_name'] . '</option>';
-            }
-
-            // Move that ADOdb pointer!
-            $products->MoveNext();
-        } ?>
-            </select>&nbsp;</td>
             <td class="smallText"><?php echo oos_draw_input_field('options_values_model', $attributes_values['options_values_model']); ?></td>
             <td class="smallText">&nbsp;<select name="options_id">
         <?php
@@ -1258,7 +1250,7 @@ while ($attributes_values = $attributes->fields) {
 		<tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
             <td>&nbsp;</td>
             <td>&nbsp;</td>			
-            <td colspan="8">
+            <td colspan="7">
               <table class="table w-100">
                 <tr>
                   <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR . '<br>' . oos_draw_input_field('options_values_base_price', $options_values_base_price); ?></td>
@@ -1299,7 +1291,7 @@ while ($attributes_values = $attributes->fields) {
 		<tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td colspan="8">
+            <td colspan="7">
               <table class="table w-100">
                 <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
                   <td><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
@@ -1320,7 +1312,6 @@ while ($attributes_values = $attributes->fields) {
         ?>
             <td class="smallText">&nbsp;<b><?php echo $attributes_values['products_attributes_id']; ?></b>&nbsp;</td>
             <td class="smallText">&nbsp;<?php echo product_info_image($attributes_values['options_values_image'], $products_name_only, 'small'); ?><br>&nbsp;<?php echo $attributes_values['options_values_image']; ?>&nbsp;</td>
-            <td class="smallText">&nbsp;<b><?php echo $products_name_only; ?></b>&nbsp;</td>
             <td class="smallText">&nbsp;<?php echo $attributes_values['options_values_model']; ?>&nbsp;</td>
             <td class="smallText">&nbsp;<b><?php echo $options_name; ?></b>&nbsp;</td>
             <td class="smallText">&nbsp;<b><?php echo $values_name; ?></b>&nbsp;</td>
@@ -1335,7 +1326,6 @@ while ($attributes_values = $attributes->fields) {
         ?>
             <td class="smallText">&nbsp;<?php echo $attributes_values['products_attributes_id']; ?>&nbsp;</td>
             <td class="smallText">&nbsp;<?php echo product_info_image($attributes_values['options_values_image'], $products_name_only, 'small'); ?><br>&nbsp;<?php echo $attributes_values['options_values_image']; ?>&nbsp;</td>
-            <td class="smallText">&nbsp;<?php echo $products_name_only; ?>&nbsp;</td>
             <td class="smallText">&nbsp;<?php echo $attributes_values['options_values_model']; ?>&nbsp;</td>
             <td class="smallText">&nbsp;<?php echo $options_name; ?>&nbsp;</td>
             <td class="smallText">&nbsp;<?php echo $values_name; ?>&nbsp;</td>
@@ -1371,7 +1361,7 @@ while ($attributes_values = $attributes->fields) {
           <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td colspan="8">
+            <td colspan="7">
               <table class="table w-100">
                 <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
                   <td>&nbsp;</td>
@@ -1397,27 +1387,16 @@ while ($attributes_values = $attributes->fields) {
 		</table>
 <?php
 
+}
 if ($action != 'update_attribute') {
     $products_attributestable = $oostable['products_attributes'];
     $max_attributes_id_result = $dbconn->Execute("SELECT max(products_attributes_id) + 1 as next_id FROM $products_attributestable");
     $max_attributes_id_values = $max_attributes_id_result->fields;
     $next_id = $max_attributes_id_values['next_id']; ?>
-	<table class="table w-100">
+	<table class="table w-100" border=1>
           <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
             <td class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
             <td class="smallText"><?php echo '&nbsp;' . oos_draw_file_field('options_values_image'); ?></td>
-            <td class="smallText">&nbsp;<select name="products_id">
-    <?php
-    $productstable = $oostable['products'];
-    $products_descriptiontable = $oostable['products_description'];
-    $products = $dbconn->Execute("SELECT p.products_id, pd.products_name FROM $productstable p, $products_descriptiontable pd WHERE pd.products_id = p.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY pd.products_name");
-    while ($products_values = $products->fields) {
-        echo '<option name="' . $products_values['products_name'] . '" value="' . $products_values['products_id'] . '">' . $products_values['products_name'] . '</option>';
-
-        // Move that ADOdb pointer!
-        $products->MoveNext();
-    } ?>
-            </select>&nbsp;</td>
             <td class="smallText"><?php
 
             if (!is_array($attributes_values)) {
@@ -1511,7 +1490,7 @@ if ($action != 'update_attribute') {
     } // end of DOWNLOAD_ENABLED section
 }
 ?>
-        </table></form></td>
+        </table></td>
       </tr>
     </table>
 <!-- products_attributes_eof //-->
@@ -1519,10 +1498,10 @@ if ($action != 'update_attribute') {
 ##
                      </div>					 
 					 
-                     <div class="tab-pane" id="attributes" role="tabpanel">
+                     <div class="tab-pane" id="obligation" role="tabpanel">
 
 						<div class="col-12 mt-3">
-							<h2><?php echo TEXT_HEADER_ATTRIBUTES; ?></h2>
+							<h2><?php echo TEXT_HEADER_INFORMATION_OBLIGATIONS; ?></h2>
 						</div>
 
                         <fieldset>

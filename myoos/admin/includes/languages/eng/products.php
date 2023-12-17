@@ -36,6 +36,26 @@ define('TEXT_OFFER_B_WARE_INFO_NOTE', 'Note text about used goods (B-goods)');
 
 define('TEXT_PRODUCTS_ATTRIBUTES', 'Product features');
 define('TEXT_HEADER_ATTRIBUTES', 'Product features');
+define('TABLE_HEADING_ID', 'ID');
+define('TABLE_HEADING_MODEL', 'Products Model');
+define('TABLE_HEADING_IMAGE', 'Image');
+define('TABLE_HEADING_PRODUCT', 'Product Name');
+define('TABLE_HEADING_OPT_NAME', 'Option Name');
+define('TABLE_HEADING_OPT_VALUE', 'Option Value');
+define('TABLE_HEADING_OPT_PRICE', 'Value Price');
+define('TABLE_HEADING_OPT_TYPE', 'Optionstype');
+define('TABLE_HEADING_SORT_ORDER_VALUE', 'Sort Order');
+define('TABLE_HEADING_STATUS', 'Status');
+define('TABLE_HEADING_OPT_PRICE_PREFIX', 'Prefix');
+define('TABLE_HEADING_ACTION', 'Action');
+define('TABLE_HEADING_DOWNLOAD', 'Downloadable products:');
+define('TABLE_TEXT_FILENAME', 'Filename:');
+define('TABLE_TEXT_MAX_DAYS', 'Expiry days:');
+define('TABLE_TEXT_MAX_COUNT', 'Maximum download count:');
+define('TEXT_TAX_INFO', ' ex VAT:');
+define('MAX_ROW_LISTS_OPTIONS', 10);
+
+
 
 define('TEXT_PRODUCTS_PRICE_INFO', 'Price:');
 define('TEXT_PRODUCTS_TAX_CLASS', 'Tax Class:');

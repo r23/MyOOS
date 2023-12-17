@@ -35,7 +35,23 @@ define('TEXT_OFFER_B_WARE_INFO_NOTE', 'Hinweistext über Gebrauchtware (B-Ware)'
 
 define('TEXT_PRODUCTS_ATTRIBUTES', 'Artikelmerkmale');
 define('TEXT_HEADER_ATTRIBUTES', 'Artikelmerkmale');
-
+define('TABLE_HEADING_ID', 'ID');
+define('TABLE_HEADING_MODEL', 'Artikel-Nr.');
+define('TABLE_HEADING_IMAGE', 'Bild');
+define('TABLE_HEADING_PRODUCT', 'Artikelname');
+define('TABLE_HEADING_OPT_NAME', 'Optionsname');
+define('TABLE_HEADING_OPT_VALUE', 'Optionswert');
+define('TABLE_HEADING_OPT_TYPE', 'Optionstype');
+define('TABLE_HEADING_SORT_ORDER_VALUE', 'Reihenfolge');
+define('TABLE_HEADING_STATUS', 'Status');
+define('TABLE_HEADING_OPT_PRICE', 'Preis');
+define('TABLE_HEADING_OPT_PRICE_PREFIX', 'Vorzeichen (+/-)');
+define('TABLE_HEADING_ACTION', 'Aktion');
+define('TABLE_HEADING_DOWNLOAD', 'Downloadbare Produkte:');
+define('TABLE_TEXT_FILENAME', 'Dateiname:');
+define('TABLE_TEXT_MAX_DAYS', 'Zeitspanne:');
+define('TABLE_TEXT_MAX_COUNT', 'Maximale Anzahl zum Herunterladen:');
+define('MAX_ROW_LISTS_OPTIONS', 10);
 
 define('TEXT_HEADER_INFORMATION_OBLIGATIONS', 'Informationspflichten');
 define('TEXT_PRODUCTS_PRICE_INFO', 'Preis:');
