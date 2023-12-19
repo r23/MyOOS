@@ -3,7 +3,7 @@ Contributors: google, xwp, rtcamp, automattic, westonruter, albertomedina, schle
 Tags: page experience, performance, amp, mobile, optimization, accelerated mobile pages
 Requires at least: 5.3
 Tested up to: 6.4
-Stable tag: 2.5.0
+Stable tag: 2.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 7.4
@@ -89,6 +89,8 @@ Please see the [FAQs on amp-wp.org](https://amp-wp.org/documentation/frequently-
 6. Reopen the onboarding wizard, change individual options, or manage advanced settings.
 
 == Changelog ==
+
+**Version 2.5.1 is a maintenance and security release which fixes a reflected XSS vulnerability when mobile redirection is enabled.** For prior affected versions, the fix is backported to new patch releases: v2.0.12, v2.1.5, v2.2.5, v2.3.1, and v2.4.3. These are available in the WordPress.org Plugin Directory but not on GitHub.
 
 For the plugin’s changelog, please see [the Releases page on GitHub](https://github.com/ampproject/amp-wp/releases).
 
