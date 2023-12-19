@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, template, user
-Stable tag: 2.7.7
+Stable tag: 2.7.8
 License: GPLv2 or later
 Requires at least: 6.0.0
 Tested up to: 6.5
@@ -72,6 +72,11 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.7.8 =
+*Release Date - 18 Dec, 2023*
+* Fix: ajax error coming up in various circumstances (ex memberpress subscription renew) and the update user's profile function fire/execute on the stack
+
 
 = 2.7.7 =
 *Release Date - 7 Dec, 2023*

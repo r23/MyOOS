@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.7.7
+Version: 2.7.8
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -33,7 +33,7 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.7.7' );
+define( 'WPW3ALL_VERSION', '2.7.8' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '6.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -586,10 +586,10 @@ function wp_w3all_phpbb_registration_save($user_id) {
 
      $phpBB_user_up_prof_on_wp_prof_up = WP_w3all_phpbb::phpbb_update_profile($user_id, $old_user_data);
 
-      if($phpBB_user_up_prof_on_wp_prof_up === true){
+      /*if($phpBB_user_up_prof_on_wp_prof_up === true){
         temp_wp_w3_error_on_update();
         exit;
-      }
+      }*/
    }
 
 

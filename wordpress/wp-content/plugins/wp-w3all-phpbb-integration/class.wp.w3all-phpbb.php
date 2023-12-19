@@ -1831,7 +1831,7 @@ public static function w3_check_phpbb_profile_wpnu($username){ // email/user_log
 
    if ( is_wp_error( $user_id ) ) {
     echo '<div style="padding:10px 30px;background-color:#fff;color:#000;font-size:1.3em"><p>' . $user_id->get_error_message() . '</p></div>';
-    echo __('<div><p style="padding:10px 30px;background-color:#fff;color:#000;font-size:1.0em"><strong>ERROR: try to reload page, but if the error persist may mean that the forum\'s logged in username contains illegal characters not allowed on this cms. Please contact an administrator.</strong></p></div>', 'wp-w3all-phpbb-integration');
+    echo __('<div><p style="padding:10px 30px;background-color:#fff;color:#000;font-size:1.0em"><strong>ERROR: try to reload page, but if the error persist may it mean that the forum\'s logged in username contains illegal characters OR your forum\'s account is not active. Please contact an administrator.</strong></p></div>', 'wp-w3all-phpbb-integration');
     exit;
    }
 
