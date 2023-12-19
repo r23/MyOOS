@@ -1385,27 +1385,43 @@ while ($attributes_values = $attributes->fields) {
 }
 ?>
 		</table>
+      </tr>
+    </table>		
 <?php
-
 }
 if ($action != 'update_attribute') {
     $products_attributestable = $oostable['products_attributes'];
     $max_attributes_id_result = $dbconn->Execute("SELECT max(products_attributes_id) + 1 as next_id FROM $products_attributestable");
     $max_attributes_id_values = $max_attributes_id_result->fields;
     $next_id = $max_attributes_id_values['next_id']; ?>
-	<table class="table w-100" border=1>
-          <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
-            <td class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
-            <td class="smallText"><?php echo '&nbsp;' . oos_draw_file_field('options_values_image'); ?></td>
-            <td class="smallText"><?php
 
-            if (!is_array($attributes_values)) {
-                $attributes_values = [];
-            }
-            $attributes_values['options_values_model'] ??= '';
-    echo oos_draw_input_field('options_values_model', $attributes_values['options_values_model']); ?></td>
-            <td class="smallText">&nbsp;<select name="options_id">
-    <?php
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_IMAGE; ?></label>
+                              <div class="col-lg-10"><?php echo oos_draw_file_field('options_values_image'); ?></div>
+                           </div>
+                        </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_MODEL; ?></label>
+                              <div class="col-lg-10">
+<?php
+
+	if (!is_array($attributes_values)) {
+		$attributes_values = [];
+	}
+	$attributes_values['options_values_model'] ??= '';
+	echo oos_draw_input_field('options_values_model', $attributes_values['options_values_model']); 
+?>
+                              </div>
+                           </div>
+                        </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_OPT_NAME; ?></label>
+                              <div class="col-lg-10">
+									<select name="options_id">
+<?php
     echo '<option name="id" value="0" selected="selected">' . PULL_DOWN_DEFAULT . '</option>';
 
     $products_optionstable = $oostable['products_options'];
@@ -1415,10 +1431,17 @@ if ($action != 'update_attribute') {
 
         // Move that ADOdb pointer!
         $options->MoveNext();
-    } ?>
-            </select>&nbsp;</td>
-            <td class="smallText">&nbsp;<select name="values_id">
-    <?php
+    } 
+?>
+								</select></div>
+                           </div>
+                        </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_OPT_VALUE; ?></label>
+                              <div class="col-lg-10">						  
+								<select name="values_id">
+<?php
     echo '<option name="id" value="0" selected="selected">' . PULL_DOWN_DEFAULT . '</option>';
 
     $products_options_valuestable = $oostable['products_options_values'];
@@ -1428,18 +1451,30 @@ if ($action != 'update_attribute') {
 
         // Move that ADOdb pointer!
         $values->MoveNext();
-    } ?>
-            </select>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<input type="text" name="sort_order" value="<?php echo $attributes_values['options_sort_order'] ?? ''; ?>" size="4">&nbsp;</td>
-            <td class="smallText">&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" size="6">&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<input type="text" name="price_prefix" size="2" value="+">&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_INSERT); ?>&nbsp;</td>
-          </tr>
+	} 
 
-        </table></td>
-      </tr>
-    </table>
+?>
+								</select></div>
+                           </div>
+                        </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_SORT_ORDER_VALUE; ?></label>
+                              <div class="col-lg-10"><input type="text" name="sort_order" value="<?php echo $attributes_values['options_sort_order'] ?? ''; ?>" size="4"></div>
+                           </div>
+                        </fieldset>					
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_OPT_PRICE; ?></label>
+                              <div class="col-lg-10"><input type="text" name="value_price" size="6"></div>
+                           </div>
+                        </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_OPT_PRICE_PREFIX; ?></label>
+                              <div class="col-lg-10"><input type="text" name="price_prefix" size="2" value="+"></div>
+                           </div>
+                        </fieldset>
 <?php
     if (BASE_PRICE == 'true') {
 		$options_values_base_price = (!isset($attributes_values['options_values_base_price'])) ? 1 : $attributes_values['options_values_base_price'];

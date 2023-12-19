@@ -52,7 +52,6 @@ define('TABLE_HEADING_DOWNLOAD', 'Downloadable products:');
 define('TABLE_TEXT_FILENAME', 'Filename:');
 define('TABLE_TEXT_MAX_DAYS', 'Expiry days:');
 define('TABLE_TEXT_MAX_COUNT', 'Maximum download count:');
-define('TEXT_TAX_INFO', ' ex VAT:');
 define('MAX_ROW_LISTS_OPTIONS', 10);
 
 
