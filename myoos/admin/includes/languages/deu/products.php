@@ -52,6 +52,8 @@ define('TABLE_TEXT_FILENAME', 'Dateiname:');
 define('TABLE_TEXT_MAX_DAYS', 'Zeitspanne:');
 define('TABLE_TEXT_MAX_COUNT', 'Maximale Anzahl zum Herunterladen:');
 define('MAX_ROW_LISTS_OPTIONS', 10);
+define('TEXT_PRODUCTS_IMAGE_DELETE', '<b>Entfernen</b> des Bildes vom Artikel?');
+
 
 define('TEXT_HEADER_INFORMATION_OBLIGATIONS', 'Informationspflichten');
 define('TEXT_PRODUCTS_PRICE_INFO', 'Preis:');

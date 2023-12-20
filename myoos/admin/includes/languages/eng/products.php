@@ -53,7 +53,8 @@ define('TABLE_TEXT_FILENAME', 'Filename:');
 define('TABLE_TEXT_MAX_DAYS', 'Expiry days:');
 define('TABLE_TEXT_MAX_COUNT', 'Maximum download count:');
 define('MAX_ROW_LISTS_OPTIONS', 10);
-
+define('TEXT_IMAGE_NONEXISTENT', 'IMAGE DOES NOT EXIST');
+define('TEXT_PRODUCTS_IMAGE_DELETE', '<b>Remove</b> the image from the article?');
 
 
 define('TEXT_PRODUCTS_PRICE_INFO', 'Price:');
