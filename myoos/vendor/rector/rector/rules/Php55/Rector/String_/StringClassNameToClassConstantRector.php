@@ -34,11 +34,19 @@ final class StringClassNameToClassConstantRector extends AbstractRector implemen
     /**
      * @var string
      */
+    public const SHOULD_KEEP_PRE_SLASH = 'should_keep_pre_slash';
+    /**
+     * @var string
+     */
     private const IS_UNDER_CLASS_CONST = 'is_under_class_const';
     /**
      * @var string[]
      */
     private $classesToSkip = [];
+    /**
+     * @var bool
+     */
+    private $shouldKeepPreslash = \false;
     public function __construct(ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
@@ -71,7 +79,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, ['ClassName', 'AnotherClassName'])]);
+, ['ClassName', 'AnotherClassName', \Rector\Php55\Rector\String_\StringClassNameToClassConstantRector::SHOULD_KEEP_PRE_SLASH => \false])]);
     }
     /**
      * @return array<class-string<Node>>
@@ -116,7 +124,7 @@ CODE_SAMPLE
             return null;
         }
         $fullyQualified = new FullyQualified($classLikeName);
-        if ($classLikeName !== $node->value) {
+        if ($this->shouldKeepPreslash && $classLikeName !== $node->value) {
             $preSlashCount = \strlen($node->value) - \strlen($classLikeName);
             $preSlash = \str_repeat('\\', $preSlashCount);
             $string = new String_($preSlash);
@@ -129,6 +137,10 @@ CODE_SAMPLE
      */
     public function configure(array $configuration) : void
     {
+        if (isset($configuration[self::SHOULD_KEEP_PRE_SLASH]) && \is_bool($configuration[self::SHOULD_KEEP_PRE_SLASH])) {
+            $this->shouldKeepPreslash = $configuration[self::SHOULD_KEEP_PRE_SLASH];
+            unset($configuration[self::SHOULD_KEEP_PRE_SLASH]);
+        }
         Assert::allString($configuration);
         $this->classesToSkip = $configuration;
     }

@@ -504,8 +504,8 @@
         },
         {
             "name": "illuminate\/container",
-            "version": "v10.34.2",
-            "version_normalized": "10.34.2.0",
+            "version": "v10.38.1",
+            "version_normalized": "10.38.1.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/illuminate\/container.git",
@@ -561,8 +561,8 @@
         },
         {
             "name": "illuminate\/contracts",
-            "version": "v10.34.2",
-            "version_normalized": "10.34.2.0",
+            "version": "v10.38.1",
+            "version_normalized": "10.38.1.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/illuminate\/contracts.git",
@@ -701,17 +701,17 @@
         },
         {
             "name": "nikic\/php-parser",
-            "version": "v4.17.1",
-            "version_normalized": "4.17.1.0",
+            "version": "v4.18.0",
+            "version_normalized": "4.18.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/nikic\/PHP-Parser.git",
-                "reference": "a6303e50c90c355c7eeee2c4a8b27fe8dc8fef1d"
+                "reference": "1bcbb2179f97633e98bbbc87044ee2611c7d7999"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/nikic\/PHP-Parser\/zipball\/a6303e50c90c355c7eeee2c4a8b27fe8dc8fef1d",
-                "reference": "a6303e50c90c355c7eeee2c4a8b27fe8dc8fef1d",
+                "url": "https:\/\/api.github.com\/repos\/nikic\/PHP-Parser\/zipball\/1bcbb2179f97633e98bbbc87044ee2611c7d7999",
+                "reference": "1bcbb2179f97633e98bbbc87044ee2611c7d7999",
                 "shasum": ""
             },
             "require": {
@@ -722,7 +722,7 @@
                 "ircmaxell\/php-yacc": "^0.0.7",
                 "phpunit\/phpunit": "^6.5 || ^7.0 || ^8.0 || ^9.0"
             },
-            "time": "2023-08-13T19:53:39+00:00",
+            "time": "2023-12-10T21:03:43+00:00",
             "bin": [
                 "bin\/php-parse"
             ],
@@ -771,7 +771,7 @@
             ],
             "support": {
                 "issues": "https:\/\/github.com\/nikic\/PHP-Parser\/issues",
-                "source": "https:\/\/github.com\/nikic\/PHP-Parser\/tree\/v4.17.1"
+                "source": "https:\/\/github.com\/nikic\/PHP-Parser\/tree\/v4.18.0"
             },
             "install-path": "..\/nikic\/php-parser"
         },
@@ -858,17 +858,17 @@
         },
         {
             "name": "phpstan\/phpdoc-parser",
-            "version": "1.24.4",
-            "version_normalized": "1.24.4.0",
+            "version": "1.24.5",
+            "version_normalized": "1.24.5.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/phpstan\/phpdoc-parser.git",
-                "reference": "6bd0c26f3786cd9b7c359675cb789e35a8e07496"
+                "reference": "fedf211ff14ec8381c9bf5714e33a7a552dd1acc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/phpstan\/phpdoc-parser\/zipball\/6bd0c26f3786cd9b7c359675cb789e35a8e07496",
-                "reference": "6bd0c26f3786cd9b7c359675cb789e35a8e07496",
+                "url": "https:\/\/api.github.com\/repos\/phpstan\/phpdoc-parser\/zipball\/fedf211ff14ec8381c9bf5714e33a7a552dd1acc",
+                "reference": "fedf211ff14ec8381c9bf5714e33a7a552dd1acc",
                 "shasum": ""
             },
             "require": {
@@ -885,7 +885,7 @@
                 "phpunit\/phpunit": "^9.5",
                 "symfony\/process": "^5.2"
             },
-            "time": "2023-11-26T18:29:22+00:00",
+            "time": "2023-12-16T09:33:33+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -902,7 +902,7 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https:\/\/github.com\/phpstan\/phpdoc-parser\/issues",
-                "source": "https:\/\/github.com\/phpstan\/phpdoc-parser\/tree\/1.24.4"
+                "source": "https:\/\/github.com\/phpstan\/phpdoc-parser\/tree\/1.24.5"
             },
             "install-path": "..\/phpstan\/phpdoc-parser"
         },
@@ -1457,17 +1457,17 @@
         },
         {
             "name": "react\/socket",
-            "version": "v1.14.0",
-            "version_normalized": "1.14.0.0",
+            "version": "v1.15.0",
+            "version_normalized": "1.15.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/reactphp\/socket.git",
-                "reference": "21591111d3ea62e31f2254280ca0656bc2b1bda6"
+                "reference": "216d3aec0b87f04a40ca04f481e6af01bdd1d038"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/reactphp\/socket\/zipball\/21591111d3ea62e31f2254280ca0656bc2b1bda6",
-                "reference": "21591111d3ea62e31f2254280ca0656bc2b1bda6",
+                "url": "https:\/\/api.github.com\/repos\/reactphp\/socket\/zipball\/216d3aec0b87f04a40ca04f481e6af01bdd1d038",
+                "reference": "216d3aec0b87f04a40ca04f481e6af01bdd1d038",
                 "shasum": ""
             },
             "require": {
@@ -1479,17 +1479,17 @@
                 "react\/stream": "^1.2"
             },
             "require-dev": {
-                "phpunit\/phpunit": "^9.5 || ^5.7 || ^4.8.35",
+                "phpunit\/phpunit": "^9.6 || ^5.7 || ^4.8.36",
                 "react\/async": "^4 || ^3 || ^2",
                 "react\/promise-stream": "^1.4",
                 "react\/promise-timer": "^1.10"
             },
-            "time": "2023-08-25T13:48:09+00:00",
+            "time": "2023-12-15T11:02:10+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix202312\\React\\Socket\\": "src"
+                    "RectorPrefix202312\\React\\Socket\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1528,7 +1528,7 @@
             ],
             "support": {
                 "issues": "https:\/\/github.com\/reactphp\/socket\/issues",
-                "source": "https:\/\/github.com\/reactphp\/socket\/tree\/v1.14.0"
+                "source": "https:\/\/github.com\/reactphp\/socket\/tree\/v1.15.0"
             },
             "funding": [
                 {
@@ -1743,12 +1743,12 @@
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/rectorphp\/rector-downgrade-php.git",
-                "reference": "a08ccadb84cad9df0cbf6a03007710975e8f7232"
+                "reference": "917085c6a2a99412440cd3143288d1a17abb5c44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/rectorphp\/rector-downgrade-php\/zipball\/a08ccadb84cad9df0cbf6a03007710975e8f7232",
-                "reference": "a08ccadb84cad9df0cbf6a03007710975e8f7232",
+                "url": "https:\/\/api.github.com\/repos\/rectorphp\/rector-downgrade-php\/zipball\/917085c6a2a99412440cd3143288d1a17abb5c44",
+                "reference": "917085c6a2a99412440cd3143288d1a17abb5c44",
                 "shasum": ""
             },
             "require": {
@@ -1775,7 +1775,7 @@
                 "tomasvotruba\/unused-public": "^0.2",
                 "tracy\/tracy": "^2.10"
             },
-            "time": "2023-11-26T07:49:39+00:00",
+            "time": "2023-12-11T13:03:13+00:00",
             "default-branch": true,
             "type": "rector-extension",
             "extra": {
@@ -1879,12 +1879,12 @@
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/rectorphp\/rector-symfony.git",
-                "reference": "38014d41e7ccddfdc4c9c839931c68a57d931f63"
+                "reference": "5f1e96d90c228075cbd9ab5f98f6e1c989ea8547"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/rectorphp\/rector-symfony\/zipball\/38014d41e7ccddfdc4c9c839931c68a57d931f63",
-                "reference": "38014d41e7ccddfdc4c9c839931c68a57d931f63",
+                "url": "https:\/\/api.github.com\/repos\/rectorphp\/rector-symfony\/zipball\/5f1e96d90c228075cbd9ab5f98f6e1c989ea8547",
+                "reference": "5f1e96d90c228075cbd9ab5f98f6e1c989ea8547",
                 "shasum": ""
             },
             "require": {
@@ -1917,7 +1917,7 @@
                 "tomasvotruba\/unused-public": "^0.2",
                 "tracy\/tracy": "^2.10"
             },
-            "time": "2023-10-29T11:07:39+00:00",
+            "time": "2023-12-15T10:10:08+00:00",
             "default-branch": true,
             "type": "rector-extension",
             "extra": {

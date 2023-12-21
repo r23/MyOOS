@@ -5,9 +5,9 @@ namespace Rector\Naming\ExpectedNameResolver;
 
 use PhpParser\Node\Param;
 use PHPStan\Type\ObjectType;
-use PHPStan\Type\Type;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\Naming\ValueObject\ExpectedName;
+use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 final class MatchParamTypeExpectedNameResolver
 {
@@ -21,10 +21,16 @@ final class MatchParamTypeExpectedNameResolver
      * @var \Rector\Naming\Naming\PropertyNaming
      */
     private $propertyNaming;
-    public function __construct(StaticTypeMapper $staticTypeMapper, PropertyNaming $propertyNaming)
+    /**
+     * @readonly
+     * @var \Rector\NodeTypeResolver\NodeTypeResolver
+     */
+    private $nodeTypeResolver;
+    public function __construct(StaticTypeMapper $staticTypeMapper, PropertyNaming $propertyNaming, NodeTypeResolver $nodeTypeResolver)
     {
         $this->staticTypeMapper = $staticTypeMapper;
         $this->propertyNaming = $propertyNaming;
+        $this->nodeTypeResolver = $nodeTypeResolver;
     }
     public function resolve(Param $param) : ?string
     {
@@ -32,23 +38,16 @@ final class MatchParamTypeExpectedNameResolver
         if ($param->type === null) {
             return null;
         }
-        $staticType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($param->type);
         // include nullable too
         // skip date time + date time interface, as should be kept
-        if ($this->isDateTimeType($staticType)) {
+        if ($this->nodeTypeResolver->isObjectType($param->type, new ObjectType('DateTimeInterface'))) {
             return null;
         }
+        $staticType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($param->type);
         $expectedName = $this->propertyNaming->getExpectedNameFromType($staticType);
         if (!$expectedName instanceof ExpectedName) {
             return null;
         }
         return $expectedName->getName();
-    }
-    private function isDateTimeType(Type $type) : bool
-    {
-        if ($type->isSuperTypeOf(new ObjectType('DateTimeInterface'))->yes()) {
-            return \true;
-        }
-        return $type->isSuperTypeOf(new ObjectType('DateTime'))->yes();
     }
 }

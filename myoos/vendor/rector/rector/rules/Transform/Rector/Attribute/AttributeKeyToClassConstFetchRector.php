@@ -4,8 +4,10 @@ declare (strict_types=1);
 namespace Rector\Transform\Rector\Attribute;
 
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\AttributeGroup;
 use PhpParser\Node\Expr\ArrowFunction;
+use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Param;
@@ -116,16 +118,25 @@ CODE_SAMPLE
                 if (!$this->isName($argName, $attributeKeyToClassConstFetch->getAttributeKey())) {
                     continue;
                 }
-                $value = $this->valueResolver->getValue($arg->value);
-                $constName = $attributeKeyToClassConstFetch->getValuesToConstantsMap()[$value] ?? null;
-                if ($constName === null) {
-                    continue;
+                if ($this->processArg($arg, $attributeKeyToClassConstFetch)) {
+                    $hasChanged = \true;
                 }
-                $arg->value = $this->nodeFactory->createClassConstFetch($attributeKeyToClassConstFetch->getConstantClass(), $constName);
-                $hasChanged = \true;
-                continue 2;
             }
         }
         return $hasChanged;
+    }
+    private function processArg(Arg $arg, AttributeKeyToClassConstFetch $attributeKeyToClassConstFetch) : bool
+    {
+        $value = $this->valueResolver->getValue($arg->value);
+        $constName = $attributeKeyToClassConstFetch->getValuesToConstantsMap()[$value] ?? null;
+        if ($constName === null) {
+            return \false;
+        }
+        $newValue = $this->nodeFactory->createClassConstFetch($attributeKeyToClassConstFetch->getConstantClass(), $constName);
+        if ($arg->value instanceof ClassConstFetch && $this->getName($arg->value) === $this->getName($newValue)) {
+            return \false;
+        }
+        $arg->value = $newValue;
+        return \true;
     }
 }

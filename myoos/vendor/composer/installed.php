@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'dc8a62b919a8a8a5812d82530085512c30685c54',
+        'reference' => 'f821acd58270fed6b81e7b3bbfb69906f55ed31c',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -211,7 +211,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'dc8a62b919a8a8a5812d82530085512c30685c54',
+            'reference' => 'f821acd58270fed6b81e7b3bbfb69906f55ed31c',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -491,9 +491,9 @@
             ),
         ),
         'rector/rector' => array(
-            'pretty_version' => '0.18.12',
-            'version' => '0.18.12.0',
-            'reference' => 'ed8d5352a3faa69e4a5e315896abffd4bc29c828',
+            'pretty_version' => '0.18.13',
+            'version' => '0.18.13.0',
+            'reference' => 'f8011a76d36aa4f839f60f3b4f97707d97176618',
             'type' => 'library',
             'install_path' => __DIR__ . '/../rector/rector',
             'aliases' => array(),
@@ -502,7 +502,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '6d3d49988325b4f65dc4a115ff808c1a9d70803b',
+            'reference' => 'bdde663d321b2d2130c2f88e2607c2edf4071f2c',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(

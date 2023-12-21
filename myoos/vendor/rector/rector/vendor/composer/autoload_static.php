@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita55c41c7fa52abd86138c6f32df1d185
+class ComposerStaticInit8339caf294dd12447c06647e5d0dc118
 {
     public static $files = array (
         'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
@@ -1550,6 +1550,7 @@ class ComposerStaticInita55c41c7fa52abd86138c6f32df1d185
         'Rector\\DeadCode\\Rector\\ClassConst\\RemoveUnusedPrivateClassConstantRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassConst/RemoveUnusedPrivateClassConstantRector.php',
         'Rector\\DeadCode\\Rector\\ClassLike\\RemoveAnnotationRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassLike/RemoveAnnotationRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveEmptyClassMethodRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveEmptyClassMethodRector.php',
+        'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveNullTagValueNodeRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveNullTagValueNodeRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedConstructorParamRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedConstructorParamRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedPrivateMethodParameterRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedPrivateMethodParameterRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedPrivateMethodRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedPrivateMethodRector.php',
@@ -1717,6 +1718,7 @@ class ComposerStaticInita55c41c7fa52abd86138c6f32df1d185
         'Rector\\DowngradePhp81\\Rector\\Property\\DowngradeReadonlyPropertyRector' => __DIR__ . '/..' . '/rector/rector-downgrade-php/rules/DowngradePhp81/Rector/Property/DowngradeReadonlyPropertyRector.php',
         'Rector\\DowngradePhp81\\Rector\\StmtsAwareInterface\\DowngradeSetAccessibleReflectionPropertyRector' => __DIR__ . '/..' . '/rector/rector-downgrade-php/rules/DowngradePhp81/Rector/StmtsAwareInterface/DowngradeSetAccessibleReflectionPropertyRector.php',
         'Rector\\DowngradePhp82\\Rector\\Class_\\DowngradeReadonlyClassRector' => __DIR__ . '/..' . '/rector/rector-downgrade-php/rules/DowngradePhp82/Rector/Class_/DowngradeReadonlyClassRector.php',
+        'Rector\\DowngradePhp82\\Rector\\FunctionLike\\DowngradeStandaloneNullTrueFalseReturnTypeRector' => __DIR__ . '/..' . '/rector/rector-downgrade-php/rules/DowngradePhp82/Rector/FunctionLike/DowngradeStandaloneNullTrueFalseReturnTypeRector.php',
         'Rector\\EarlyReturn\\NodeAnalyzer\\IfAndAnalyzer' => __DIR__ . '/../..' . '/rules/EarlyReturn/NodeAnalyzer/IfAndAnalyzer.php',
         'Rector\\EarlyReturn\\NodeAnalyzer\\SimpleScalarAnalyzer' => __DIR__ . '/../..' . '/rules/EarlyReturn/NodeAnalyzer/SimpleScalarAnalyzer.php',
         'Rector\\EarlyReturn\\NodeFactory\\InvertedIfFactory' => __DIR__ . '/../..' . '/rules/EarlyReturn/NodeFactory/InvertedIfFactory.php',
@@ -2349,10 +2351,13 @@ class ComposerStaticInita55c41c7fa52abd86138c6f32df1d185
         'Rector\\Symfony\\Set\\FOSRestSetList' => __DIR__ . '/..' . '/rector/rector-symfony/src/Set/FOSRestSetList.php',
         'Rector\\Symfony\\Set\\JMSSetList' => __DIR__ . '/..' . '/rector/rector-symfony/src/Set/JMSSetList.php',
         'Rector\\Symfony\\Set\\SensiolabsSetList' => __DIR__ . '/..' . '/rector/rector-symfony/src/Set/SensiolabsSetList.php',
+        'Rector\\Symfony\\Set\\SwiftMailerSetList' => __DIR__ . '/..' . '/rector/rector-symfony/src/Set/SwiftMailerSetList.php',
         'Rector\\Symfony\\Set\\SymfonyLevelSetList' => __DIR__ . '/..' . '/rector/rector-symfony/src/Set/SymfonyLevelSetList.php',
         'Rector\\Symfony\\Set\\SymfonySetList' => __DIR__ . '/..' . '/rector/rector-symfony/src/Set/SymfonySetList.php',
         'Rector\\Symfony\\Set\\TwigLevelSetList' => __DIR__ . '/..' . '/rector/rector-symfony/src/Set/TwigLevelSetList.php',
         'Rector\\Symfony\\Set\\TwigSetList' => __DIR__ . '/..' . '/rector/rector-symfony/src/Set/TwigSetList.php',
+        'Rector\\Symfony\\SwiftMailer\\Rector\\MethodCall\\SwiftCreateMessageToNewEmailRector' => __DIR__ . '/..' . '/rector/rector-symfony/rules/SwiftMailer/Rector/MethodCall/SwiftCreateMessageToNewEmailRector.php',
+        'Rector\\Symfony\\SwiftMailer\\Rector\\MethodCall\\SwiftSetBodyToHtmlPlainMethodCallRector' => __DIR__ . '/..' . '/rector/rector-symfony/rules/SwiftMailer/Rector/MethodCall/SwiftSetBodyToHtmlPlainMethodCallRector.php',
         'Rector\\Symfony\\Symfony25\\Rector\\MethodCall\\AddViolationToBuildViolationRector' => __DIR__ . '/..' . '/rector/rector-symfony/rules/Symfony25/Rector/MethodCall/AddViolationToBuildViolationRector.php',
         'Rector\\Symfony\\Symfony25\\Rector\\MethodCall\\MaxLengthSymfonyFormOptionToAttrRector' => __DIR__ . '/..' . '/rector/rector-symfony/rules/Symfony25/Rector/MethodCall/MaxLengthSymfonyFormOptionToAttrRector.php',
         'Rector\\Symfony\\Symfony26\\Rector\\MethodCall\\RedirectToRouteRector' => __DIR__ . '/..' . '/rector/rector-symfony/rules/Symfony26/Rector/MethodCall/RedirectToRouteRector.php',
@@ -2403,8 +2408,6 @@ class ComposerStaticInita55c41c7fa52abd86138c6f32df1d185
         'Rector\\Symfony\\Symfony52\\Rector\\New_\\PropertyPathMapperToDataMapperRector' => __DIR__ . '/..' . '/rector/rector-symfony/rules/Symfony52/Rector/New_/PropertyPathMapperToDataMapperRector.php',
         'Rector\\Symfony\\Symfony52\\Rector\\StaticCall\\BinaryFileResponseCreateToNewInstanceRector' => __DIR__ . '/..' . '/rector/rector-symfony/rules/Symfony52/Rector/StaticCall/BinaryFileResponseCreateToNewInstanceRector.php',
         'Rector\\Symfony\\Symfony53\\Rector\\Class_\\CommandDescriptionToPropertyRector' => __DIR__ . '/..' . '/rector/rector-symfony/rules/Symfony53/Rector/Class_/CommandDescriptionToPropertyRector.php',
-        'Rector\\Symfony\\Symfony53\\Rector\\MethodCall\\SwiftCreateMessageToNewEmailRector' => __DIR__ . '/..' . '/rector/rector-symfony/rules/Symfony53/Rector/MethodCall/SwiftCreateMessageToNewEmailRector.php',
-        'Rector\\Symfony\\Symfony53\\Rector\\MethodCall\\SwiftSetBodyToHtmlPlainMethodCallRector' => __DIR__ . '/..' . '/rector/rector-symfony/rules/Symfony53/Rector/MethodCall/SwiftSetBodyToHtmlPlainMethodCallRector.php',
         'Rector\\Symfony\\Symfony53\\Rector\\StaticPropertyFetch\\KernelTestCaseContainerPropertyDeprecationRector' => __DIR__ . '/..' . '/rector/rector-symfony/rules/Symfony53/Rector/StaticPropertyFetch/KernelTestCaseContainerPropertyDeprecationRector.php',
         'Rector\\Symfony\\Symfony60\\Rector\\FuncCall\\ReplaceServiceArgumentRector' => __DIR__ . '/..' . '/rector/rector-symfony/rules/Symfony60/Rector/FuncCall/ReplaceServiceArgumentRector.php',
         'Rector\\Symfony\\Symfony60\\Rector\\MethodCall\\GetHelperControllerToServiceRector' => __DIR__ . '/..' . '/rector/rector-symfony/rules/Symfony60/Rector/MethodCall/GetHelperControllerToServiceRector.php',
@@ -2549,6 +2552,7 @@ class ComposerStaticInita55c41c7fa52abd86138c6f32df1d185
         'Rector\\TypeDeclaration\\Rector\\ClassMethod\\ReturnUnionTypeRector' => __DIR__ . '/../..' . '/rules/TypeDeclaration/Rector/ClassMethod/ReturnUnionTypeRector.php',
         'Rector\\TypeDeclaration\\Rector\\ClassMethod\\StrictArrayParamDimFetchRector' => __DIR__ . '/../..' . '/rules/TypeDeclaration/Rector/ClassMethod/StrictArrayParamDimFetchRector.php',
         'Rector\\TypeDeclaration\\Rector\\ClassMethod\\StrictStringParamConcatRector' => __DIR__ . '/../..' . '/rules/TypeDeclaration/Rector/ClassMethod/StrictStringParamConcatRector.php',
+        'Rector\\TypeDeclaration\\Rector\\Class_\\MergeDateTimePropertyTypeDeclarationRector' => __DIR__ . '/../..' . '/rules/TypeDeclaration/Rector/Class_/MergeDateTimePropertyTypeDeclarationRector.php',
         'Rector\\TypeDeclaration\\Rector\\Class_\\PropertyTypeFromStrictSetterGetterRector' => __DIR__ . '/../..' . '/rules/TypeDeclaration/Rector/Class_/PropertyTypeFromStrictSetterGetterRector.php',
         'Rector\\TypeDeclaration\\Rector\\Class_\\ReturnTypeFromStrictTernaryRector' => __DIR__ . '/../..' . '/rules/TypeDeclaration/Rector/Class_/ReturnTypeFromStrictTernaryRector.php',
         'Rector\\TypeDeclaration\\Rector\\Empty_\\EmptyOnNullableObjectToInstanceOfRector' => __DIR__ . '/../..' . '/rules/TypeDeclaration/Rector/Empty_/EmptyOnNullableObjectToInstanceOfRector.php',
@@ -2615,9 +2619,9 @@ class ComposerStaticInita55c41c7fa52abd86138c6f32df1d185
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita55c41c7fa52abd86138c6f32df1d185::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita55c41c7fa52abd86138c6f32df1d185::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInita55c41c7fa52abd86138c6f32df1d185::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit8339caf294dd12447c06647e5d0dc118::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit8339caf294dd12447c06647e5d0dc118::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit8339caf294dd12447c06647e5d0dc118::$classMap;
 
         }, null, ClassLoader::class);
     }
