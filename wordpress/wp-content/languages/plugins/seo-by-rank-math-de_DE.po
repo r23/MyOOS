@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-12-13 21:52:08+0000\n"
+"PO-Revision-Date: 2023-12-20 15:53:28+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,27 @@ msgstr ""
 "X-Generator: GlotPress/4.0.0-alpha.11\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO - Stable (latest release)\n"
+
+#: includes/modules/content-ai/class-content-ai-page.php:383
+msgid "Bulk Editing Process Successfully Cancelled"
+msgstr "Massenbearbeitungsprozess erfolgreich abgebrochen"
+
+#: includes/modules/content-ai/class-content-ai-page.php:371
+msgid "Terminate"
+msgstr "Beenden"
+
+#. Translators: placeholders are the number of posts that were processed.
+#: includes/modules/content-ai/class-content-ai-page.php:367
+msgid "Terminate the ongoing Content AI Bulk Editing Process to halt any pending modifications and revert to the previous state. The bulk metadata has been generated for %1$d out of %1$d posts so far."
+msgstr "Beende den laufenden Inhalt-KI Massenbearbeitungsprozess, um alle anstehenden Änderungen zu stoppen und zum vorherigen Zustand zurückzukehren. Die Massenmetadaten wurden bisher für %1$d von %1$d Beiträgen generiert."
+
+#: includes/modules/content-ai/class-content-ai-page.php:364
+msgid "Cancel Content AI Bulk Editing Process"
+msgstr "Abbrechen der Massenbearbeitung von Inhalt-KI"
+
+#: includes/helpers/class-content-ai.php:453
+msgid "Your site is blocked. Please contact support."
+msgstr "Deine Website ist gesperrt. Bitte kontaktiere den Support."
 
 #: includes/helpers/class-content-ai.php:452
 msgid "User wallet not found."
@@ -56,23 +77,23 @@ msgstr "Setzen auf noindex"
 msgid "&#8595; Rank Math"
 msgstr "&#8595; Rank Math"
 
-#: includes/admin/class-admin-menu.php:241
+#: includes/admin/class-admin-menu.php:247
 msgid "Cyber Monday Sale"
 msgstr "Cyber ​​Monday Sale"
 
-#: includes/admin/class-admin-menu.php:236
+#: includes/admin/class-admin-menu.php:242
 msgid "Black Friday Sale"
 msgstr "Black Friday Sale"
 
-#: includes/admin/class-admin-menu.php:231
+#: includes/admin/class-admin-menu.php:237
 msgid "Anniversary Sale"
 msgstr "Jubiläums Sale"
 
-#: includes/admin/class-admin-menu.php:226
+#: includes/admin/class-admin-menu.php:232
 msgid "New Year Sale"
 msgstr "Neujahrs Sale"
 
-#: includes/admin/class-admin-menu.php:221
+#: includes/admin/class-admin-menu.php:227
 msgid "Christmas Sale"
 msgstr "Weihnachts Sale"
 
@@ -589,73 +610,73 @@ msgstr "Standard-Ton"
 msgid "Content AI tailors keyword research to the target country for highly relevant suggestions. You can override this in individual posts/pages/CPTs."
 msgstr "Inhalt-KI schneidet die Schlüsselwort-Recherche auf das Zielland zu und liefert hochrelevante Vorschläge. Du kannst dies in einzelnen Beiträgen/Seiten/CPTs außer Kraft setzen."
 
-#: includes/modules/content-ai/class-content-ai-page.php:273
+#: includes/modules/content-ai/class-content-ai-page.php:275
 msgid "Content AI History"
 msgstr "Inhalt-KI Historie"
 
-#: includes/modules/content-ai/class-content-ai-page.php:267
+#: includes/modules/content-ai/class-content-ai-page.php:269
 msgid "Content AI Chat"
 msgstr "Inhalt-KI Chat"
 
-#: includes/modules/content-ai/class-content-ai-page.php:265
+#: includes/modules/content-ai/class-content-ai-page.php:267
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 msgid "Chat"
 msgstr "Chat"
 
-#: includes/modules/content-ai/class-content-ai-page.php:261
+#: includes/modules/content-ai/class-content-ai-page.php:263
 msgid "Content AI Editor"
 msgstr "Inhalt-KI Editor"
 
-#: includes/modules/content-ai/class-content-ai-page.php:259
+#: includes/modules/content-ai/class-content-ai-page.php:261
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 msgid "Content Editor"
 msgstr "Inhalt Editor"
 
-#: includes/modules/content-ai/class-content-ai-page.php:255
+#: includes/modules/content-ai/class-content-ai-page.php:257
 msgid "Content AI Tools"
 msgstr "Inhalt-KI Werkzeuge"
 
-#: includes/modules/content-ai/class-content-ai-page.php:253
+#: includes/modules/content-ai/class-content-ai-page.php:255
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 msgid "AI Tools"
 msgstr "KI-Werkzeuge"
 
-#: includes/modules/content-ai/class-content-ai-page.php:193
+#: includes/modules/content-ai/class-content-ai-page.php:195
 msgid "Another bulk editing process is already running. Please try again later after the existing process is complete."
 msgstr "Ein weiterer Massenbearbeitungsprozess läuft bereits. Bitte versuche es später noch einmal, nachdem der bestehende Vorgang abgeschlossen ist."
 
-#: includes/modules/content-ai/class-content-ai-page.php:172
+#: includes/modules/content-ai/class-content-ai-page.php:174
 msgid "Write SEO Title & Description with AI"
 msgstr "Schreibe SEO-Titel & Beschreibung mit KI"
 
-#: includes/modules/content-ai/class-content-ai-page.php:171
+#: includes/modules/content-ai/class-content-ai-page.php:173
 msgid "Write SEO Description with AI"
 msgstr "Schreibe eine SEO-Beschreibung mit KI"
 
-#: includes/modules/content-ai/class-content-ai-page.php:170
+#: includes/modules/content-ai/class-content-ai-page.php:172
 msgid "Write SEO Title with AI"
 msgstr "Schreibe SEO-Titel mit KI"
 
-#: includes/modules/content-ai/class-content-ai-page.php:169
+#: includes/modules/content-ai/class-content-ai-page.php:171
 msgid "&#8595; Rank Math Content AI"
 msgstr "&#8595; Rank Math Inhalt-KI"
 
 #. Translators: placeholder is the new label.
-#: includes/modules/content-ai/class-content-ai-page.php:131
+#: includes/modules/content-ai/class-content-ai-page.php:133
 msgid "Content AI %s"
 msgstr "Inhalt-KI %s"
 
-#: includes/modules/content-ai/class-content-ai-page.php:79
+#: includes/modules/content-ai/class-content-ai-page.php:81
 msgid "Credits Remaining: "
 msgstr "Verbleibendes Guthaben: "
 
 #. Translators: placeholder is the number of modified posts.
-#: includes/modules/content-ai/class-bulk-edit-seo-meta.php:150
+#: includes/modules/content-ai/class-bulk-edit-seo-meta.php:159
 msgid "SEO meta successfully updated in %d posts. The process was stopped as you have used all the credits on your site."
 msgstr "SEO-Meta in %d Beiträgen erfolgreich aktualisiert. Der Vorgang wurde abgebrochen, da du alle Guthaben auf deiner Website aufgebraucht hast."
 
 #. Translators: placeholder is the number of modified posts.
-#: includes/modules/content-ai/class-bulk-edit-seo-meta.php:92
+#: includes/modules/content-ai/class-bulk-edit-seo-meta.php:110
 msgid "SEO meta successfully updated in %d post."
 msgid_plural "SEO meta successfully updated in %d posts."
 msgstr[0] "SEO-Meta in %d Beitrag erfolgreich aktualisiert."
@@ -1642,7 +1663,7 @@ msgstr "Bei der Übermittlung der URL ist ein Fehler aufgetreten."
 msgid "The last 100 IndexNow API requests."
 msgstr "Die letzten 100 Anfragen an die IndexNow-API."
 
-#: includes/modules/content-ai/class-content-ai-page.php:271
+#: includes/modules/content-ai/class-content-ai-page.php:273
 #: includes/modules/instant-indexing/class-instant-indexing.php:223
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 msgid "History"
@@ -1802,7 +1823,7 @@ msgstr "URL zum Abrufen von HTML-Tags."
 msgid "Click to refresh the available credits."
 msgstr "Klicke auf aktualisieren, um das verfügbare Guthaben zu aktualisieren."
 
-#: includes/modules/content-ai/class-content-ai-page.php:117
+#: includes/modules/content-ai/class-content-ai-page.php:119
 #: includes/modules/seo-analysis/class-admin.php:82
 #: includes/modules/content-ai/assets/js/content-ai.js:1
 msgid "New!"
@@ -1849,8 +1870,8 @@ msgid "Get sophisticated AI suggestions for related Keywords, Questions & Links 
 msgstr "Erhalte ausgefeilte KI-Vorschläge für verwandte Schlüsselwörter, Fragen und Links, die du in den SEO-Meta- und Inhaltsbereich aufnehmen kannst. Unterstützt 80+ Länder."
 
 #: includes/module/class-manager.php:175
-#: includes/modules/content-ai/class-content-ai-page.php:126
-#: includes/modules/content-ai/class-content-ai-page.php:245
+#: includes/modules/content-ai/class-content-ai-page.php:128
+#: includes/modules/content-ai/class-content-ai-page.php:247
 #: includes/modules/content-ai/class-content-ai.php:108
 #: includes/modules/content-ai/class-content-ai.php:132
 #: includes/modules/role-manager/class-capability-manager.php:70
@@ -2140,11 +2161,11 @@ msgstr "Ja, ich möchte mehr erfahren"
 msgid "Know more about the PRO version"
 msgstr "Erfahre mehr über die PRO Version"
 
-#: rank-math.php:468
+#: rank-math.php:470
 msgid "This action is IRREVERSIBLE."
 msgstr "Diese Aktion ist NICHT UMKEHRBAR."
 
-#: rank-math.php:467
+#: rank-math.php:469
 msgid "CAUTION:"
 msgstr "VORSICHT:"
 
@@ -4119,7 +4140,7 @@ msgid "Custom or Generated SEO Title of the current post/page"
 msgstr "Individueller oder generierter SEO-Titel des aktuellen Beitrags/der aktuellen Seite"
 
 #. translators: 1. Bold text 2. Bold text
-#: rank-math.php:466
+#: rank-math.php:468
 msgid "%1$s A filter to remove the Rank Math data from the database is present. Deactivating & Deleting this plugin will remove everything related to the Rank Math plugin. %2$s"
 msgstr "%1$s In deinem Theme ist ein Filter zum Entfernen der Rank Math Daten aus der Datenbank vorhanden. Das Deaktivieren dieses Plugins entfernt alles, was mit dem Rank Math-Plugin zusammenhängt. %2$s"
 
@@ -8033,11 +8054,11 @@ msgstr "Beitragstitel"
 msgid "Page %1$d of %2$d"
 msgstr "Seite %1$d von %2$d"
 
-#: rank-math.php:539
+#: rank-math.php:541
 msgid "Once Weekly"
 msgstr "Einmal wöchentlich"
 
-#: rank-math.php:487
+#: rank-math.php:489
 msgid "Documentation"
 msgstr "Dokumentation"
 
@@ -8056,7 +8077,7 @@ msgstr "Aktiv"
 #: includes/module/class-module.php:96
 #: includes/modules/404-monitor/class-admin.php:219
 #: includes/modules/instant-indexing/class-instant-indexing.php:216
-#: includes/modules/redirections/class-admin.php:357 rank-math.php:428
+#: includes/modules/redirections/class-admin.php:357 rank-math.php:430
 #: assets/admin/js/rank-math-app.js:1
 #: includes/modules/schema/blocks/toc/assets/js/index.js:1
 #: includes/modules/schema/blocks/toc/assets/src/inspectControls.js:20
@@ -8390,7 +8411,7 @@ msgstr "Automatisiere einige deiner SEO-Aufgaben, wie z.B. externe Links, Umleit
 msgid "SEO Tweaks"
 msgstr "SEO-Optimierungen"
 
-#: includes/admin/wizard/views/navigation.php:17 rank-math.php:486
+#: includes/admin/wizard/views/navigation.php:17 rank-math.php:488
 msgid "Getting Started"
 msgstr "Erste Schritte"
 
@@ -9495,8 +9516,8 @@ msgstr "Import &amp; Export"
 
 #: includes/admin/class-admin-dashboard-nav.php:111
 #: includes/admin/class-setup-wizard.php:261
-#: includes/admin/class-setup-wizard.php:262 rank-math.php:429
-#: rank-math.php:434
+#: includes/admin/class-setup-wizard.php:262 rank-math.php:431
+#: rank-math.php:436
 msgid "Setup Wizard"
 msgstr "Einrichtungsassistent"
 
