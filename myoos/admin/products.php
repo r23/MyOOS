@@ -357,7 +357,8 @@ require 'includes/header.php';
 				<div class="row">
 					<div class="col-lg-12">
 <?php
-if ($action == 'new_product' || $action == 'edit_product') {
+
+if ($action == 'new_product' || $action == 'edit_product' || $action == 'delete_product_attribute') {
     defined('DEFAULT_SETTING_ID') or define('DEFAULT_SETTING_ID', '2');
     defined('DEFAULT_PRODUTS_STATUS_ID') or define('DEFAULT_PRODUTS_STATUS_ID', '3');
     defined('DEFAULT_TAX_CLASS_ID') or define('DEFAULT_TAX_CLASS_ID', '1');
@@ -627,7 +628,7 @@ function calcBasePriceFactor() {
                         <a class="nav-link" href="#data" aria-controls="data" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS_DATA; ?></a>
                      </li>
                      <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="#attributes" aria-controls="data" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS_ATTRIBUTES; ?></a>
+                        <a class="nav-link"  href="#attributes" aria-controls="data" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS_ATTRIBUTES; ?></a>
                      </li>					 
                      <li class="nav-item" role="presentation">
                         <a class="nav-link" href="#obligation" aria-controls="obligation" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS_INFORMATION_OBLIGATIONS; ?></a>
@@ -1352,7 +1353,7 @@ while ($attributes_values = $attributes->fields) {
         $in_price = number_format($in_price, TAX_DECIMAL_PLACES, '.', ''); ?>
             <td align="right" class="smallText">&nbsp;<?php echo $in_price; ?>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo $attributes_values['price_prefix']; ?>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products'], 'action=delete_product_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&pID=' . intval($pID) . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) , '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
+            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products'], 'action=delete_product_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&pID=' . intval($pID) . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : ''), '#attributes/') . '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
         <?php
     } ?>
           </tr>
