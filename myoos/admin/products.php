@@ -19,17 +19,6 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-error_reporting(E_ALL & ~E_STRICT);
-
-if (function_exists('ini_set')) {
-    ini_set('session.use_trans_sid', 0);
-    ini_set('url_rewriter.tags', '');
-    ini_set('xdebug.show_exception_trace', 0);
-    ini_set('magic_quotes_runtime', 0);
-    ini_set('display_errors', true);
-}
-
-
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
@@ -44,6 +33,29 @@ $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default'
 $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
 $pID = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT) ?: 0;
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
+$attribute_id = filter_input(INPUT_GET, 'attribute_id', FILTER_VALIDATE_INT) ?: 0;
+$option_page = filter_input(INPUT_GET, 'option_page', FILTER_VALIDATE_INT) ?: 0;
+
+
+$page_info = '';
+if (isset($_GET['option_page'])) {
+    $page_info .= 'option_page=' . $option_page . '&';
+}
+
+if (isset($_GET['value_page'])) {
+    $value_page =  intval($_GET['value_page']);
+    $page_info .= 'value_page=' . $value_page . '&';
+}
+
+if (isset($_GET['attribute_page'])) {
+    $attribute_page = intval($_GET['attribute_page']);
+    $page_info .= 'attribute_page=' . $attribute_page . '&';
+}
+
+if (oos_is_not_null($page_info)) {
+    $page_info = substr($page_info, 0, -1);
+}
+
 
 switch ($action) {
     case 'insert_product':
@@ -320,6 +332,15 @@ switch ($action) {
 
         oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products_id));
         break;
+
+    case 'delete_attribute':
+        $products_attributestable = $oostable['products_attributes'];
+    #    $dbconn->Execute("DELETE FROM $products_attributestable WHERE products_attributes_id = '" . intval($attribute_id) . "'");
+        $products_attributes_downloadtable = $oostable['products_attributes_download'];
+    #    $dbconn->Execute("DELETE FROM $products_attributes_downloadtable WHERE products_attributes_id = '" . intval($attribute_id) . "'");
+        oos_redirect_admin(oos_href_link_admin($aContents['products'], $page_info). '#attributes/');
+        break;		
+		
 }
 
 // check if the catalog image directory exists
@@ -622,7 +643,7 @@ function calcBasePriceFactor() {
                <div role="tabpanel">
                   <ul class="nav nav-tabs nav-justified" id="myTab">
                      <li class="nav-item" role="presentation">
-                        <a class="nav-link active" href="#edit" aria-controls="edit" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS; ?></a>
+						<a class="nav-link active" href="#edit" aria-controls="edit" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS; ?></a>
                      </li>
                      <li class="nav-item" role="presentation">
                         <a class="nav-link" href="#data" aria-controls="data" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS_DATA; ?></a>
@@ -1106,7 +1127,7 @@ function calcBasePriceFactor() {
 		
 <?php 
  // <form name="attributes" action="
- // echo oos_href_link_admin($aContents['products_attributes'], 'action=' . $form_action . (isset($option_page) ? '&option_page=' . $option_page : '') . (isset($value_page) ? '&value_page=' . $value_page : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')); 
+ // echo oos_href_link_admin($aContents['products'], 'action=' . $form_action . (isset($option_page) ? '&option_page=' . $option_page : '') . (isset($value_page) ? '&value_page=' . $value_page : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')); 
 
 if (isset($pID) && is_numeric($pID)) {
 ?>
@@ -1144,12 +1165,12 @@ $attributes = $attributes . " LIMIT $attribute_page_start, $per_page";
 
 // Previous
 if ($prev_attribute_page) {
-    echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'attribute_page=' . $prev_attribute_page) . '"> &lt;&lt; </a> | ';
+    echo '<a href="' . oos_href_link_admin($aContents['products'], 'attribute_page=' . $prev_attribute_page) . '"> &lt;&lt; </a> | ';
 }
 
 for ($i = 1; $i <= $num_pages; $i++) {
     if ($i != $attribute_page) {
-        echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'attribute_page=' . $i) . '">' . $i . '</a> | ';
+        echo '<a href="' . oos_href_link_admin($aContents['products'], 'attribute_page=' . $i) . '">' . $i . '</a> | ';
     } else {
         echo '<b><font color="red">' . $i . '</font></b> | ';
     }
@@ -1157,7 +1178,7 @@ for ($i = 1; $i <= $num_pages; $i++) {
 
 // Next
 if ($attribute_page != $num_pages) {
-    echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'attribute_page=' . $next_attribute_page) . '"> &gt;&gt; </a>';
+    echo '<a href="' . oos_href_link_admin($aContents['products'], 'attribute_page=' . $next_attribute_page) . '"> &gt;&gt; </a>';
 }
 ?>
             </td>
@@ -1189,7 +1210,7 @@ while ($attributes_values = $attributes->fields) {
     $rows++; ?>
           <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
     <?php	
-    if (($action == 'update_attribute') && ($_GET['attribute_id'] == $attributes_values['products_attributes_id'])) {
+    if (($action == 'update_attribute') && ($attribute_id == $attributes_values['products_attributes_id'])) {
         ?>
             <td class="smallText">&nbsp;<?php echo $attributes_values['products_attributes_id']; ?><input type="hidden" name="attribute_id" value="<?php echo $attributes_values['products_attributes_id']; ?>">&nbsp;</td>
             <td class="smallText">&nbsp;<?php echo product_info_image($attributes_values['options_values_image'], $products_name_only, 'small'); ?><br>&nbsp;<?php echo $attributes_values['options_values_image']; ?>&nbsp;
@@ -1250,7 +1271,7 @@ while ($attributes_values = $attributes->fields) {
         $in_price = number_format($in_price, TAX_DECIMAL_PLACES, '.', ''); ?>
             <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" value="<?php echo $in_price; ?>" size="6">&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<input type="text" name="price_prefix" value="<?php echo $attributes_values['price_prefix']; ?>" size="2">&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
+            <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products'], (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
           </tr>
         <?php
         if (BASE_PRICE == 'true') {
@@ -1319,7 +1340,7 @@ while ($attributes_values = $attributes->fields) {
           </tr>    
             <?php
         }
-    } elseif (($action == 'delete_product_attribute') && ($_GET['attribute_id'] == $attributes_values['products_attributes_id'])) {
+    } elseif (($action == 'delete_product_attribute') && ($attribute_id == $attributes_values['products_attributes_id'])) {
         ?>
             <td class="smallText">&nbsp;<b><?php echo $attributes_values['products_attributes_id']; ?></b>&nbsp;</td>
             <td class="smallText">&nbsp;<?php echo product_info_image($attributes_values['options_values_image'], $products_name_only, 'small'); ?><br>&nbsp;<?php echo $attributes_values['options_values_image']; ?>&nbsp;</td>
@@ -1330,7 +1351,7 @@ while ($attributes_values = $attributes->fields) {
             <td class="smallText">&nbsp;<?php echo $attributes_values['options_values_status']; ?></td>
             <td align="right" class="smallText">&nbsp;<b><?php echo $attributes_values['options_values_price']; ?></b>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<b><?php echo $attributes_values['price_prefix']; ?></b>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-success mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_attribute&attribute_id=' . $_GET['attribute_id']) . '" role="button"><strong>' . BUTTON_CONFIRM . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a  class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], (isset($option_page) ? (isset($option_page) ? '&option_page=' . $option_page : '') : '') . (isset($value_page) ? (isset($value_page) ? '&value_page=' . $value_page : '') : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</b></td>
+            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-success mb-20" href="' . oos_href_link_admin($aContents['products'], 'action=delete_attribute&attribute_id=' . intval($attribute_id)) . '" role="button"><strong>' . BUTTON_CONFIRM . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a  class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products'], (isset($option_page) ? (isset($option_page) ? '&option_page=' . $option_page : '') : '') . (isset($value_page) ? (isset($value_page) ? '&value_page=' . $value_page : '') : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</b></td>
 
         <?php
     } else {
@@ -1344,16 +1365,16 @@ while ($attributes_values = $attributes->fields) {
             <td class="smallText">&nbsp;
         <?php
         if ($attributes_values['options_values_status'] == '1') {
-            echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['products_attributes'], 'action=setflag&flag=0&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
+            echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['products'], 'action=setflag&flag=0&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
         } else {
-            echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'action=setflag&flag=1&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
+            echo '<a href="' . oos_href_link_admin($aContents['products'], 'action=setflag&flag=1&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
         } ?></td>
         <?php
         $in_price = $attributes_values['options_values_price'];
         $in_price = number_format($in_price, TAX_DECIMAL_PLACES, '.', ''); ?>
             <td align="right" class="smallText">&nbsp;<?php echo $in_price; ?>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo $attributes_values['price_prefix']; ?>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products'], 'action=delete_product_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&pID=' . intval($pID) . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : ''), '#attributes/') . '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
+            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['products'], 'action=update_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products'], 'action=delete_product_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&pID=' . intval($pID) . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '#attributes/" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
         <?php
     } ?>
           </tr>
