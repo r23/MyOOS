@@ -47,6 +47,15 @@ if (isset($_GET['value_page'])) {
     $page_info .= 'value_page=' . $value_page . '&';
 }
 
+if (isset($_GET['cPath'])) {
+    $page_info .= 'cPath=' . $cPath . '&';
+}
+
+if (isset($_GET['pID'])) {
+    $page_info .= 'pID=' . $pID . '&';
+}
+
+
 if (isset($_GET['attribute_page'])) {
     $attribute_page = intval($_GET['attribute_page']);
     $page_info .= 'attribute_page=' . $attribute_page . '&';
@@ -335,10 +344,10 @@ switch ($action) {
 
     case 'delete_attribute':
         $products_attributestable = $oostable['products_attributes'];
-    #    $dbconn->Execute("DELETE FROM $products_attributestable WHERE products_attributes_id = '" . intval($attribute_id) . "'");
+        $dbconn->Execute("DELETE FROM $products_attributestable WHERE products_attributes_id = '" . intval($attribute_id) . "'");
         $products_attributes_downloadtable = $oostable['products_attributes_download'];
-    #    $dbconn->Execute("DELETE FROM $products_attributes_downloadtable WHERE products_attributes_id = '" . intval($attribute_id) . "'");
-        oos_redirect_admin(oos_href_link_admin($aContents['products'], $page_info). '#attributes/');
+        $dbconn->Execute("DELETE FROM $products_attributes_downloadtable WHERE products_attributes_id = '" . intval($attribute_id) . "'");
+        oos_redirect_admin(oos_href_link_admin($aContents['products'], 'action=new_product&' . $page_info). '#attributes/');
         break;		
 		
 }
@@ -1096,13 +1105,6 @@ updateWithTax();
 <!-- products_attributes //-->
 
       <tr>
-<?php
-if ($action == 'update_attribute') {
-    $form_action = 'update_product_attribute';
-} else {
-    $form_action = 'add_product_attributes';
-}
-?>
 <script nonce="<?php echo NONCE; ?>">
 
 function doRound(x, places) {
@@ -1351,7 +1353,8 @@ while ($attributes_values = $attributes->fields) {
             <td class="smallText">&nbsp;<?php echo $attributes_values['options_values_status']; ?></td>
             <td align="right" class="smallText">&nbsp;<b><?php echo $attributes_values['options_values_price']; ?></b>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<b><?php echo $attributes_values['price_prefix']; ?></b>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-success mb-20" href="' . oos_href_link_admin($aContents['products'], 'action=delete_attribute&attribute_id=' . intval($attribute_id)) . '" role="button"><strong>' . BUTTON_CONFIRM . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a  class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products'], (isset($option_page) ? (isset($option_page) ? '&option_page=' . $option_page : '') : '') . (isset($value_page) ? (isset($value_page) ? '&value_page=' . $value_page : '') : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</b></td>
+            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-success mb-20" href="' . oos_href_link_admin($aContents['products'], 'action=delete_attribute&attribute_id=' . intval($attribute_id) . '&pID=' . intval($pID)) . '" role="button"><strong>' . BUTTON_CONFIRM . '</strong></a>'; ?>&nbsp;&nbsp;
+			<?php echo '<a  class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products'], 'action=new_product&' . $page_info) . '#attributes/" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</b></td>
 
         <?php
     } else {
@@ -1421,7 +1424,8 @@ while ($attributes_values = $attributes->fields) {
     </table>		
 <?php
 }
-if ($action != 'update_attribute') {
+
+if ($action != 'update_attribute' && $action != 'delete_product_attribute' ) {
     $products_attributestable = $oostable['products_attributes'];
     $max_attributes_id_result = $dbconn->Execute("SELECT max(products_attributes_id) + 1 as next_id FROM $products_attributestable");
     $max_attributes_id_values = $max_attributes_id_result->fields;
@@ -1438,7 +1442,6 @@ if ($action != 'update_attribute') {
                               <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_MODEL; ?></label>
                               <div class="col-lg-10">
 <?php
-
 	if (!is_array($attributes_values)) {
 		$attributes_values = [];
 	}
