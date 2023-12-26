@@ -388,7 +388,7 @@ require 'includes/header.php';
 					<div class="col-lg-12">
 <?php
 
-if ($action == 'new_product' || $action == 'edit_product' || $action == 'delete_product_attribute') {
+if ($action == 'new_product' || $action == 'edit_product' || $action == 'delete_product_attribute' || $action == 'update_attribute') {
     defined('DEFAULT_SETTING_ID') or define('DEFAULT_SETTING_ID', '2');
     defined('DEFAULT_PRODUTS_STATUS_ID') or define('DEFAULT_PRODUTS_STATUS_ID', '3');
     defined('DEFAULT_TAX_CLASS_ID') or define('DEFAULT_TAX_CLASS_ID', '1');
@@ -1353,9 +1353,7 @@ while ($attributes_values = $attributes->fields) {
             <td class="smallText">&nbsp;<?php echo $attributes_values['options_values_status']; ?></td>
             <td align="right" class="smallText">&nbsp;<b><?php echo $attributes_values['options_values_price']; ?></b>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<b><?php echo $attributes_values['price_prefix']; ?></b>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-success mb-20" href="' . oos_href_link_admin($aContents['products'], 'action=delete_attribute&attribute_id=' . intval($attribute_id) . '&pID=' . intval($pID)) . '" role="button"><strong>' . BUTTON_CONFIRM . '</strong></a>'; ?>&nbsp;&nbsp;
-			<?php echo '<a  class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products'], 'action=new_product&' . $page_info) . '#attributes/" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</b></td>
-
+            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-success mb-20" href="' . oos_href_link_admin($aContents['products'], 'action=delete_attribute&attribute_id=' . intval($attribute_id) . '&pID=' . intval($pID)) . '" role="button"><strong>' . BUTTON_CONFIRM . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a  class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products'], 'action=new_product&' . $page_info) . '#attributes/" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</b></td>
         <?php
     } else {
         ?>
@@ -1377,7 +1375,7 @@ while ($attributes_values = $attributes->fields) {
         $in_price = number_format($in_price, TAX_DECIMAL_PLACES, '.', ''); ?>
             <td align="right" class="smallText">&nbsp;<?php echo $in_price; ?>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo $attributes_values['price_prefix']; ?>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['products'], 'action=update_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products'], 'action=delete_product_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&pID=' . intval($pID) . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '#attributes/" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
+            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['products'], 'action=update_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&' . $page_info) . '#attributes/" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products'], 'action=delete_product_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&pID=' . intval($pID) . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '#attributes/" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
         <?php
     } ?>
           </tr>
@@ -1487,7 +1485,6 @@ if ($action != 'update_attribute' && $action != 'delete_product_attribute' ) {
         // Move that ADOdb pointer!
         $values->MoveNext();
 	} 
-
 ?>
 								</select></div>
                            </div>
