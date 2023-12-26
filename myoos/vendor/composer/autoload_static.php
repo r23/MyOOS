@@ -99,6 +99,10 @@ class ComposerStaticInit7ce28a649252a43c31f7fa1ae7ef33d8
             'Laminas\\Escaper\\' => 16,
             'Laminas\\Code\\' => 13,
         ),
+        'J' => 
+        array (
+            'Jefs42\\' => 7,
+        ),
         'H' => 
         array (
             'Hisune\\EchartsPHP\\' => 18,
@@ -324,6 +328,10 @@ class ComposerStaticInit7ce28a649252a43c31f7fa1ae7ef33d8
         'Laminas\\Code\\' => 
         array (
             0 => __DIR__ . '/..' . '/laminas/laminas-code/src',
+        ),
+        'Jefs42\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jefs42/libretranslate/src',
         ),
         'Hisune\\EchartsPHP\\' => 
         array (

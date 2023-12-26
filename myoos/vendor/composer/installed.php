@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'cfb9d7a92db5ffdc7da6f742653854597b9d54ed',
+        'reference' => 'a6018e22982690911ce044d3a3451ee84f6bb766',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -145,6 +145,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'jefs42/libretranslate' => array(
+            'pretty_version' => 'v1.1.2',
+            'version' => '1.1.2.0',
+            'reference' => 'dce7d90cfbf675b4d24c8ea0c1f3840d03bccb8f',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../jefs42/libretranslate',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'laminas/laminas-code' => array(
             'pretty_version' => '4.13.0',
             'version' => '4.13.0.0',
@@ -211,7 +220,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'cfb9d7a92db5ffdc7da6f742653854597b9d54ed',
+            'reference' => 'a6018e22982690911ce044d3a3451ee84f6bb766',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

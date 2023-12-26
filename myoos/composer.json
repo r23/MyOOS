@@ -57,7 +57,8 @@
 		"phpseclib/phpseclib": "~3.0",
 		"php-amqplib/php-amqplib": "^3.5",
 		"phpmailer/phpmailer": "^6.8",
-		"api-platform/core": "^2.7"
+		"api-platform/core": "^2.7",
+		"jefs42/libretranslate": "^1.1"
     },
 	"require-dev": {
 		"roave/security-advisories": "dev-latest",

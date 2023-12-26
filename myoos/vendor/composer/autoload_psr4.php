@@ -52,6 +52,7 @@ return array(
     'Masterminds\\' => array($vendorDir . '/masterminds/html5/src'),
     'Laminas\\Escaper\\' => array($vendorDir . '/laminas/laminas-escaper/src'),
     'Laminas\\Code\\' => array($vendorDir . '/laminas/laminas-code/src'),
+    'Jefs42\\' => array($vendorDir . '/jefs42/libretranslate/src'),
     'Hisune\\EchartsPHP\\' => array($vendorDir . '/hisune/echarts-php/src'),
     'FontLib\\' => array($vendorDir . '/phenx/php-font-lib/src/FontLib'),
     'FFMpeg\\' => array($vendorDir . '/php-ffmpeg/php-ffmpeg/src/FFMpeg'),

@@ -1155,6 +1155,60 @@
             "install-path": "../hisune/echarts-php"
         },
         {
+            "name": "jefs42/libretranslate",
+            "version": "v1.1.2",
+            "version_normalized": "1.1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jefs42/libretranslate.git",
+                "reference": "dce7d90cfbf675b4d24c8ea0c1f3840d03bccb8f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jefs42/libretranslate/zipball/dce7d90cfbf675b4d24c8ea0c1f3840d03bccb8f",
+                "reference": "dce7d90cfbf675b4d24c8ea0c1f3840d03bccb8f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": "^7.0|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5"
+            },
+            "time": "2023-03-26T02:21:10+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Jefs42\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Jeffrey Shilt",
+                    "email": "dev@fortytwo-it.com",
+                    "homepage": "https://fortytwo-it.com"
+                }
+            ],
+            "description": "PHP interface for the open source LibreTranslate project",
+            "keywords": [
+                "libretranslate",
+                "php",
+                "translate"
+            ],
+            "support": {
+                "issues": "https://github.com/jefs42/libretranslate/issues",
+                "source": "https://github.com/jefs42/libretranslate/tree/v1.1.2"
+            },
+            "install-path": "../jefs42/libretranslate"
+        },
+        {
             "name": "laminas/laminas-code",
             "version": "4.13.0",
             "version_normalized": "4.13.0.0",
