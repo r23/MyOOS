@@ -1267,7 +1267,6 @@ while ($attributes_values = $attributes->fields) {
             </select>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<input type="text" name="sort_order" value="<?php echo $attributes_values['options_sort_order']; ?>" size="2">&nbsp;</td>
             <td class="smallText">&nbsp;<?php echo $attributes_values['options_values_status']; ?></td>
-
         <?php
         $in_price = $attributes_values['options_values_price'];
         $in_price = number_format($in_price, TAX_DECIMAL_PLACES, '.', ''); ?>
@@ -1339,7 +1338,7 @@ while ($attributes_values = $attributes->fields) {
               </table>
             </td>
             <td>&nbsp;</td>
-          </tr>    
+          </tr> 				
             <?php
         }
     } elseif (($action == 'delete_product_attribute') && ($attribute_id == $attributes_values['products_attributes_id'])) {
@@ -1408,7 +1407,7 @@ while ($attributes_values = $attributes->fields) {
               </table>
             </td>
             <td>&nbsp;</td>
-          </tr>
+          </tr>	  
             <?php
         }
     } // end of DOWNLOAD_ENABLED section

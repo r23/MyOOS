@@ -3321,12 +3321,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "e8a82d0db2f549e3929863dd13d32e7596722e36"
+                "reference": "cbce83127406d8e91ec92b053a44cf917800646b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/e8a82d0db2f549e3929863dd13d32e7596722e36",
-                "reference": "e8a82d0db2f549e3929863dd13d32e7596722e36",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/cbce83127406d8e91ec92b053a44cf917800646b",
+                "reference": "cbce83127406d8e91ec92b053a44cf917800646b",
                 "shasum": ""
             },
             "conflict": {
@@ -3358,7 +3358,7 @@
                 "athlon1600/php-proxy": "<=5.1",
                 "athlon1600/php-proxy-app": "<=3",
                 "austintoddj/canvas": "<=3.4.2",
-                "automad/automad": "<1.8",
+                "automad/automad": "<=1.10.9",
                 "awesome-support/awesome-support": "<=6.0.7",
                 "aws/aws-sdk-php": "<3.288.1",
                 "azuracast/azuracast": "<0.18.3",
@@ -3999,7 +3999,7 @@
                 "zfr/zfr-oauth2-server-module": "<0.1.2",
                 "zoujingli/thinkadmin": "<=6.1.53"
             },
-            "time": "2023-12-28T23:04:19+00:00",
+            "time": "2023-12-29T19:04:11+00:00",
             "default-branch": true,
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
@@ -5332,17 +5332,17 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.4.33",
-            "version_normalized": "5.4.33.0",
+            "version": "v5.4.34",
+            "version_normalized": "5.4.34.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "6548b56ecd59fbbd78571669d19705180c055b7a"
+                "reference": "e35eb6e13201c34afc467f7feee32e14c0817147"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/6548b56ecd59fbbd78571669d19705180c055b7a",
-                "reference": "6548b56ecd59fbbd78571669d19705180c055b7a",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/e35eb6e13201c34afc467f7feee32e14c0817147",
+                "reference": "e35eb6e13201c34afc467f7feee32e14c0817147",
                 "shasum": ""
             },
             "require": {
@@ -5493,7 +5493,7 @@
                 "twig/inky-extra": "^2.12|^3",
                 "twig/markdown-extra": "^2.12|^3"
             },
-            "time": "2023-12-01T16:51:25+00:00",
+            "time": "2023-12-30T13:02:14+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -5536,7 +5536,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/symfony/issues",
-                "source": "https://github.com/symfony/symfony/tree/v5.4.33"
+                "source": "https://github.com/symfony/symfony/tree/v5.4.34"
             },
             "funding": [
                 {
