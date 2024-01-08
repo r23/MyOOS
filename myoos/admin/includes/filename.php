@@ -6,7 +6,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2024 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -82,6 +82,7 @@ $aContents['products_expected'] = $prefix_filename . 'products_expected.php';
 $aContents['products_status'] = $prefix_filename . 'products_status.php';
 $aContents['products_units'] = $prefix_filename . 'products_units.php';
 $aContents['product_model_viewer'] = $prefix_filename . 'product_model_viewer.php';
+$aContents['product_options'] = $prefix_filename . 'product_options.php';
 $aContents['product_video'] = $prefix_filename . 'product_video.php';
 $aContents['product_webgl_gltf'] = $prefix_filename . 'product_webgl_gltf.php';
 $aContents['reviews'] = $prefix_filename . 'reviews.php';
