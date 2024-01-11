@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2024 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -587,9 +587,11 @@ if (!isset($attribute_page)) {
 $prev_attribute_page = $attribute_page - 1;
 $next_attribute_page = $attribute_page + 1;
 
+$attribute_page_start = ($per_page * $attribute_page) - $per_page;
+
+$attributes = $attributes . " LIMIT $attribute_page_start, $per_page";
 $attribute_result = $dbconn->Execute($attributes);
 
-$attribute_page_start = ($per_page * $attribute_page) - $per_page;
 $num_rows = $attribute_result->RecordCount();
 
 if ($num_rows <= $per_page) {
@@ -600,8 +602,6 @@ if ($num_rows <= $per_page) {
     $num_pages = ($num_rows / $per_page) + 1;
 }
 $num_pages = (int) $num_pages;
-
-$attributes = $attributes . " LIMIT $attribute_page_start, $per_page";
 
 // Previous
 if ($prev_attribute_page) {

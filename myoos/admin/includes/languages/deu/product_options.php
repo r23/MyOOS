@@ -28,6 +28,8 @@ define('HEADING_TITLE_OPT', 'Artikelmerkmale');
 define('HEADING_TITLE_VAL', 'Optionswert');
 define('HEADING_TITLE_ATRIB', 'Artikelmerkmale');
 
+define('TEXT_EDIT_PRODUCT', 'Artikel in &quot;%s&quot;');
+
 define('TABLE_HEADING_ID', 'ID');
 define('TABLE_HEADING_MODEL', 'Artikel-Nr.');
 define('TABLE_HEADING_IMAGE', 'Bild');

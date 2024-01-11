@@ -28,6 +28,8 @@ define('HEADING_TITLE_OPT', 'Product Options');
 define('HEADING_TITLE_VAL', 'Option Values');
 define('HEADING_TITLE_ATRIB', 'Products Attributes');
 
+define('TEXT_EDIT_PRODUCT', 'Product in &quot;%s&quot;');
+
 define('TABLE_HEADING_ID', 'ID');
 define('TABLE_HEADING_MODEL', 'Products Model');
 define('TABLE_HEADING_IMAGE', 'Image');

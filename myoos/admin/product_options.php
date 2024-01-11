@@ -27,10 +27,17 @@ require 'includes/functions/function_categories.php';
 require 'includes/functions/function_products_attributes.php';
 require 'includes/classes/class_upload.php';
 
+$pID = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT) ?: 0;
+
+$cPath = filter_string_polyfill(filter_input(INPUT_GET, 'cPath'));
+$categories_page = filter_input(INPUT_GET, 'categories_page', FILTER_VALIDATE_INT) ?: 1;
+
+$nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
+$action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
+
 
 $aLanguages = oos_get_languages();
 $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
-
 
 $page_info = '';
 if (isset($_GET['option_page'])) {
@@ -113,8 +120,7 @@ $options = ['image_versions' => [
 ]];
 
 
-$nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
-$action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
+
 
 switch ($action) {
     case 'add_product_options':
@@ -513,7 +519,9 @@ function go_option() {
 	<section>
 		<!-- Page content //-->
 		<div class="content-wrapper">
-							
+<?php
+    $sTitle = sprintf(TEXT_EDIT_PRODUCT, oos_output_generated_category_path($cPath));
+?>							
 			<!-- Breadcrumbs //-->
 			<div class="content-heading">
 				<div class="col-lg-12">
@@ -525,6 +533,9 @@ function go_option() {
 						<li class="breadcrumb-item">
 							<?php echo '<a href="' . oos_href_link_admin($aContents['categories'], 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
 						</li>
+						<li class="breadcrumb-item">
+							<?php echo '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&page=' . $categories_page) . '">' . $sTitle . '</a>'; ?>
+						</li>						
 						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE_ATRIB; ?></strong>
 						</li>
@@ -579,7 +590,12 @@ function calcBasePriceFactor() {
 $per_page = MAX_ROW_LISTS_OPTIONS;
 $products_attributestable = $oostable['products_attributes'];
 $products_descriptiontable = $oostable['products_description'];
-$attributes = "SELECT pa.* FROM $products_attributestable pa left join $products_descriptiontable pd on pa.products_id = pd.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY pd.products_name";
+$attributes = "SELECT pa.* 
+				FROM $products_attributestable pa,  
+					$products_descriptiontable pd 
+				WHERE pa.products_id = '" . intval($pID) . "'
+				AND pa.products_id = pd.products_id 
+				AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'";
 
 if (!isset($attribute_page)) {
     $attribute_page = 1;
@@ -587,9 +603,11 @@ if (!isset($attribute_page)) {
 $prev_attribute_page = $attribute_page - 1;
 $next_attribute_page = $attribute_page + 1;
 
+$attribute_page_start = ($per_page * $attribute_page) - $per_page;
+
+$attributes = $attributes . " LIMIT $attribute_page_start, $per_page";
 $attribute_result = $dbconn->Execute($attributes);
 
-$attribute_page_start = ($per_page * $attribute_page) - $per_page;
 $num_rows = $attribute_result->RecordCount();
 
 if ($num_rows <= $per_page) {
@@ -600,8 +618,6 @@ if ($num_rows <= $per_page) {
     $num_pages = ($num_rows / $per_page) + 1;
 }
 $num_pages = (int) $num_pages;
-
-$attributes = $attributes . " LIMIT $attribute_page_start, $per_page";
 
 // Previous
 if ($prev_attribute_page) {
