@@ -3,7 +3,7 @@
         'name' => 'ampproject/amp-wp',
         'pretty_version' => 'dev-develop',
         'version' => 'dev-develop',
-        'reference' => '273b51040241b446dd490fa39c2ef1c970aa5d28',
+        'reference' => '716c4188a9ee39e76222c2e20e16a748d93e4775',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'ampproject/amp-wp' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
-            'reference' => '273b51040241b446dd490fa39c2ef1c970aa5d28',
+            'reference' => '716c4188a9ee39e76222c2e20e16a748d93e4775',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
