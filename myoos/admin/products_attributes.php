@@ -576,7 +576,7 @@ function calcBasePriceFactor() {
           <tr>
             <td colspan="11" class="smallText">
 <?php
-$per_page = MAX_ROW_LISTS_OPTIONS;
+$per_page = 20;
 $products_attributestable = $oostable['products_attributes'];
 $products_descriptiontable = $oostable['products_description'];
 $attributes = "SELECT pa.* FROM $products_attributestable pa left join $products_descriptiontable pd on pa.products_id = pd.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY pd.products_name";

@@ -20,6 +20,9 @@
    ----------------------------------------------------------------------
  */
 
+# update_attribute&attribute_id=3&attribute_page=1
+
+
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
@@ -521,11 +524,12 @@ function go_option() {
 		<div class="content-wrapper">
 <?php
     $sTitle = sprintf(TEXT_EDIT_PRODUCT, oos_output_generated_category_path($cPath));
+	$products_name_only = oos_get_products_name($pID);
 ?>							
 			<!-- Breadcrumbs //-->
 			<div class="content-heading">
 				<div class="col-lg-12">
-					<h2><?php echo HEADING_TITLE_ATRIB; ?></h2>
+					<h2><?php echo HEADING_TITLE_ATRIB. ': ' . $products_name_only; ?></h2>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item">
 							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
@@ -537,7 +541,7 @@ function go_option() {
 							<?php echo '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&page=' . $categories_page) . '">' . $sTitle . '</a>'; ?>
 						</li>						
 						<li class="breadcrumb-item active">
-							<strong><?php echo HEADING_TITLE_ATRIB; ?></strong>
+							<strong><?php echo HEADING_TITLE_ATRIB . ': ' . $products_name_only; ?></strong>
 						</li>
 					</ol>
 				</div>
@@ -587,10 +591,10 @@ function calcBasePriceFactor() {
           <tr>
             <td colspan="11" class="smallText">
 <?php
-$per_page = MAX_ROW_LISTS_OPTIONS;
+$per_page = 20;
 $products_attributestable = $oostable['products_attributes'];
 $products_descriptiontable = $oostable['products_description'];
-$attributes = "SELECT pa.* 
+$attributes = "SELECT pa.*
 				FROM $products_attributestable pa,  
 					$products_descriptiontable pd 
 				WHERE pa.products_id = '" . intval($pID) . "'
@@ -659,13 +663,12 @@ if ($attribute_page != $num_pages) {
 $next_id = 1;
 $rows = 0;
 
-$attributes = $dbconn->Execute($attributes);
-while ($attributes_values = $attributes->fields) {
-    $products_name_only = oos_get_products_name($attributes_values['products_id']);
+$attribute_result = $dbconn->Execute($attributes);
+while ($attributes_values = $attribute_result->fields) {
     $options_name = oos_options_name($attributes_values['options_id']);
     $values_name = oos_values_name($attributes_values['options_values_id']);
     $rows++; ?>
-          <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
+          <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>"> 
     <?php
     if (($action == 'update_attribute') && ($_GET['attribute_id'] == $attributes_values['products_attributes_id'])) {
         ?>
@@ -676,22 +679,10 @@ while ($attributes_values = $attributes->fields) {
         <?php } ?>
             <br><br>        
         <?php echo '&nbsp;' . oos_draw_file_field('options_values_image') . oos_draw_hidden_field('products_previous_image', $attributes_values['options_values_image']); ?></td>
-            <td class="smallText">&nbsp;<select name="products_id">
+            <td class="smallText">&nbsp;
         <?php
-        $productstable = $oostable['products'];
-        $products_descriptiontable = $oostable['products_description'];
-        $products = $dbconn->Execute("SELECT p.products_id, pd.products_name FROM $productstable p, $products_descriptiontable pd WHERE pd.products_id = p.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY pd.products_name");
-        while ($products_values = $products->fields) {
-            if ($attributes_values['products_id'] == $products_values['products_id']) {
-                echo "\n" . '<option name="' . $products_values['products_name'] . '" value="' . $products_values['products_id'] . '" selected="selected">' . $products_values['products_name'] . '</option>';
-            } else {
-                echo "\n" . '<option name="' . $products_values['products_name'] . '" value="' . $products_values['products_id'] . '">' . $products_values['products_name'] . '</option>';
-            }
-
-            // Move that ADOdb pointer!
-            $products->MoveNext();
-        } ?>
-            </select>&nbsp;</td>
+		echo $products_name_only; ?>
+				</td>
             <td class="smallText"><?php echo oos_draw_input_field('options_values_model', $attributes_values['options_values_model']); ?></td>
             <td class="smallText">&nbsp;<select name="options_id">
         <?php
@@ -849,7 +840,7 @@ while ($attributes_values = $attributes->fields) {
         $in_price = number_format($in_price, TAX_DECIMAL_PLACES, '.', ''); ?>
             <td align="right" class="smallText">&nbsp;<?php echo $in_price; ?>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo $attributes_values['price_prefix']; ?>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'action=update_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'action=delete_product_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) , '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
+            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'action=update_attribute&pID=' . intval($pID) . '&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'action=delete_product_attribute&&pID=' . intval($pID) . '&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) , '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
         <?php
     } ?>
           </tr>
@@ -888,7 +879,7 @@ while ($attributes_values = $attributes->fields) {
     } // end of DOWNLOAD_ENABLED section
 
       // Move that ADOdb pointer!
-      $attributes->MoveNext();
+      $attribute_result->MoveNext();
 }
 ?>
 		</table>
