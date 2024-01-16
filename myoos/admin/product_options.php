@@ -30,7 +30,16 @@ require 'includes/functions/function_categories.php';
 require 'includes/functions/function_products_attributes.php';
 require 'includes/classes/class_upload.php';
 
-$pID = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT) ?: 0;
+/*
+echo '<pre>';
+print_r($_GET);
+print_r($_POST);
+echo '</pre>';
+
+if (isset($_GET['action'])) {
+	 exit;
+}
+*/
 
 $cPath = filter_string_polyfill(filter_input(INPUT_GET, 'cPath'));
 $categories_page = filter_input(INPUT_GET, 'categories_page', FILTER_VALIDATE_INT) ?: 1;
@@ -46,6 +55,11 @@ $page_info = '';
 if (isset($_GET['option_page'])) {
     $option_page = intval($_GET['option_page']);
     $page_info .= 'option_page=' . $option_page . '&';
+}
+
+if (isset($_GET['pID'])) {
+    $pID = intval($_GET['pID']);
+    $page_info .= 'pID=' . $pID . '&';
 }
 
 if (isset($_GET['value_page'])) {
@@ -585,8 +599,9 @@ function calcBasePriceFactor() {
 }
 </script>
 
-        <td valign="top"><form name="attributes" action="<?php echo oos_href_link_admin($aContents['product_options'], 'action=' . $form_action . (isset($option_page) ? '&option_page=' . $option_page : '') . (isset($value_page) ? '&value_page=' . $value_page : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')); ?>" method="post" enctype="multipart/form-data">
-		
+        <td valign="top"><form name="attributes" action="<?php echo oos_href_link_admin($aContents['product_options'], 'action=' . $form_action . '&pID=' . $pID . (isset($option_page) ? '&option_page=' . $option_page : '') . (isset($value_page) ? '&value_page=' . $value_page : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')); ?>" method="post" enctype="multipart/form-data">
+		<?php echo oos_draw_hidden_field('products_id', $pID);
+    echo oos_hide_session_id(); ?>	
 		<table class="table table-hover w-100">
           <tr>
             <td colspan="11" class="smallText">
