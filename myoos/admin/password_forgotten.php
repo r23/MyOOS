@@ -61,7 +61,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')
         } else {
             $login = 'success';
 
-            $make_password = oos_create_random_value(8);
+            $make_password = oos_create_random_value(8);		
             $crypted_password = oos_encrypt_password($make_password);
 
             $admintable = $oostable['admin'];

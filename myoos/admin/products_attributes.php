@@ -706,7 +706,6 @@ while ($attributes_values = $attributes->fields) {
             echo "\n" . '<option name="id" value="0">' . PULL_DOWN_DEFAULT . '</option>';
         }
 
-
         $products_options_valuestable = $oostable['products_options_values'];
         $values = $dbconn->Execute("SELECT * FROM $products_options_valuestable WHERE products_options_values_languages_id='" . intval($_SESSION['language_id']) . "' ORDER BY products_options_values_name");
         while ($values_values = $values->fields) {
@@ -724,8 +723,8 @@ while ($attributes_values = $attributes->fields) {
             <td class="smallText">&nbsp;<?php echo $attributes_values['options_values_status']; ?></td>
 
         <?php
-        $in_price = $attributes_values['options_values_price'];
-        $in_price = number_format($in_price, TAX_DECIMAL_PLACES, '.', ''); ?>
+			$in_price = $attributes_values['options_values_price'];
+			$in_price = number_format($in_price ?? 0, TAX_DECIMAL_PLACES, '.', ''); ?>
             <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" value="<?php echo $in_price; ?>" size="6">&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<input type="text" name="price_prefix" value="<?php echo $attributes_values['price_prefix']; ?>" size="2">&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
@@ -807,7 +806,10 @@ while ($attributes_values = $attributes->fields) {
             <td class="smallText">&nbsp;<b><?php echo $values_name; ?></b>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<b><?php echo $attributes_values['options_sort_order']; ?></b></td>
             <td class="smallText">&nbsp;<?php echo $attributes_values['options_values_status']; ?></td>
-            <td align="right" class="smallText">&nbsp;<b><?php echo $attributes_values['options_values_price']; ?></b>&nbsp;</td>
+        <?php
+			$in_price = $attributes_values['options_values_price'];
+			$in_price = number_format($in_price ?? 0, TAX_DECIMAL_PLACES, '.', ''); ?>			
+            <td align="right" class="smallText">&nbsp;<b><?php echo $in_price; ?></b>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<b><?php echo $attributes_values['price_prefix']; ?></b>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-success mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_attribute&attribute_id=' . $_GET['attribute_id']) . '" role="button"><strong>' . BUTTON_CONFIRM . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a  class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], (isset($option_page) ? (isset($option_page) ? '&option_page=' . $option_page : '') : '') . (isset($value_page) ? (isset($value_page) ? '&value_page=' . $value_page : '') : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</b></td>
 
@@ -829,8 +831,8 @@ while ($attributes_values = $attributes->fields) {
             echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'action=setflag&flag=1&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
         } ?></td>
         <?php
-        $in_price = $attributes_values['options_values_price'];
-        $in_price = number_format($in_price, TAX_DECIMAL_PLACES, '.', ''); ?>
+			$in_price = $attributes_values['options_values_price'];
+			$in_price = number_format($in_price, TAX_DECIMAL_PLACES, '.', ''); ?>
             <td align="right" class="smallText">&nbsp;<?php echo $in_price; ?>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo $attributes_values['price_prefix']; ?>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_product_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) , '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
