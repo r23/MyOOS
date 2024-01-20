@@ -8,7 +8,7 @@ if ( ! function_exists( 'add_action' ) ) {
 }
 
 // globals
-define( __NAMESPACE__.'\\VERSION','220725' );
+define( __NAMESPACE__.'\\VERSION','240119' );
 define( __NAMESPACE__.'\\DEVELOPMENT', false );
 define( __NAMESPACE__.'\\SLUG', "subscribe-to-comments-reloaded" );
 
@@ -61,8 +61,6 @@ if( ! class_exists('\\'.__NAMESPACE__.'\\wp_subscribe_reloaded') ) {
 
 			// run parent constructor.
 			parent::__construct();
-
-			$this->salt = defined( 'NONCE_KEY' ) ? NONCE_KEY : 'please create a unique key in your wp-config.php';
 
 			// show the checkbox - You can manually override this by adding the corresponding function in your template
 			if ( get_option( 'subscribe_reloaded_show_subscription_box' ) === 'yes' ) {
@@ -186,11 +184,13 @@ if( ! class_exists('\\'.__NAMESPACE__.'\\wp_subscribe_reloaded') ) {
 					$this->upgrade->migrate_post_type_support();
 					$supported_post_types = get_option( 'subscribe_reloaded_post_type_supports' );
 				}
+				
 				if ( in_array( 'stcr_none', $supported_post_types ) ) {
 					$supported_post_types = array_flip( $supported_post_types );
 					unset( $supported_post_types['stcr_none'] );
+					$supported_post_types = array_flip( $supported_post_types );
 				}
-				$supported_post_types = array_flip( $supported_post_types );
+				
 				foreach ( $supported_post_types as $post_type ) {
 					add_filter( 'manage_' . $post_type . '_posts_columns', array( $this, 'add_column_header' ) );
 					add_action( 'manage_' . $post_type . '_posts_custom_column', array( $this, 'add_post_column' ) );
@@ -789,7 +789,7 @@ if( ! class_exists('\\'.__NAMESPACE__.'\\wp_subscribe_reloaded') ) {
                 // stop if invalid SRE key
                 if ( ! $email_by_key && ! empty( $srek ) ) {
 
-                    $this->utils->stcr_logger("\n [ERROR][$date] - Couldn\'t find an email with the SRE key: ( $srek )\n");
+                    $this->utils->stcr_logger("[ERROR][$date] - Couldn\'t find an email with the SRE key: ( $srek )");
 					$email = '';
 
 				// valid key, proceed
@@ -816,7 +816,7 @@ if( ! class_exists('\\'.__NAMESPACE__.'\\wp_subscribe_reloaded') ) {
                         if ($key_expired == "1") {
                             $error_exits = true;
                         } else {
-                            $this->utils->stcr_logger("\n [ERROR][$date] - Couldn\'t find a valid SRK key with the email ( $email_by_key ) and the SRK key: ( $key )\n This is the current unique key: ( $stcr_unique_key )\n");
+                            $this->utils->stcr_logger("[ERROR][$date] - Couldn\'t find a valid SRK key with the email ( $email_by_key ) and the SRK key: ( $key )\n This is the current unique key: ( $stcr_unique_key )");
                             $error_exits = true;
                         }
 					}
@@ -828,7 +828,7 @@ if( ! class_exists('\\'.__NAMESPACE__.'\\wp_subscribe_reloaded') ) {
                         if ($key_expired == "1") {
                             $error_exits = true;
                         } else {
-                            $this->utils->stcr_logger("\n [ERROR][$date] - Couldn\'t find a valid SRK key with the email ( $email_by_key ) and the SRK key: ( $key )\n This is the current unique key: ( $stcr_unique_key )\n");
+                            $this->utils->stcr_logger("[ERROR][$date] - Couldn\'t find a valid SRK key with the email ( $email_by_key ) and the SRK key: ( $key )\n This is the current unique key: ( $stcr_unique_key )");
                             $error_exits = true;
                         }
 					}
@@ -985,8 +985,8 @@ if( ! class_exists('\\'.__NAMESPACE__.'\\wp_subscribe_reloaded') ) {
 			// log the error
             } catch(\Exception $ex) {
 
-                $this->utils->stcr_logger( "\n [ERROR][$date] - $ex->getMessage()\n" );
-				$this->utils->stcr_logger( "\n [ERROR][$date] - $ex->getTraceAsString()\n" );
+                $this->utils->stcr_logger( "[ERROR][$date] - $ex->getMessage()" );
+				$this->utils->stcr_logger( "[ERROR][$date] - $ex->getTraceAsString()" );
 
 			}
 
@@ -1560,8 +1560,8 @@ if( ! class_exists('\\'.__NAMESPACE__.'\\wp_subscribe_reloaded') ) {
 			if ( in_array( 'stcr_none', $supported_post_types ) ) {
 				$supported_post_types = array_flip( $supported_post_types );
 				unset( $supported_post_types['stcr_none'] );
+				$supported_post_types = array_flip( $supported_post_types );
 			}
-			$supported_post_types = array_flip( $supported_post_types );
 
 			// if not enabled for this post type, return default
 			if ( ! in_array( $post_type, $supported_post_types ) ) {
@@ -1680,7 +1680,7 @@ if( ! class_exists('\\'.__NAMESPACE__.'\\wp_subscribe_reloaded') ) {
 				} else {
 					$checkbox_field = "<select name='subscribe-reloaded' id='subscribe-reloaded'>
 								<option value='none' " . ( ( get_option( 'subscribe_reloaded_default_subscription_type' ) === '0' ) ? "selected='selected'" : '' ) . ">" . esc_html__( "Don't subscribe", 'subscribe-to-comments-reloaded' ) . "</option>
-								<option value='yes' " . ( ( get_option( 'subscribe_reloaded_default_subscription_type' ) === '1' ) ? "selected='selected'" : '' ) . ">" . esc_html__( "All", 'subscribe-to-comments-reloaded' ) . "</option>
+								<option value='yes' " . ( ( get_option( 'subscribe_reloaded_default_subscription_type' ) === '1' ) ? "selected='selected'" : '' ) . ">" . esc_html__( "All new comments", 'subscribe-to-comments-reloaded' ) . "</option>
 								<option value='replies' " . ( ( get_option( 'subscribe_reloaded_default_subscription_type' ) === '2' ) ? "selected='selected'" : '' ) . ">" . esc_html__( "Replies to my comments", 'subscribe-to-comments-reloaded' ) . "</option>
 							</select>";
 				}
