@@ -59,10 +59,16 @@ if (isset($_GET['option_page'])) {
     $page_info .= 'option_page=' . $option_page . '&';
 }
 
+if (isset($_GET['cPath'])) {
+    $cPath = filter_string_polyfill(filter_input(INPUT_GET, 'cPath'));
+    $page_info .= 'cPath=' . $cPath . '&';
+}
+
 if (isset($_GET['pID'])) {
     $pID = intval($_GET['pID']);
     $page_info .= 'pID=' . $pID . '&';
 }
+
 
 if (isset($_GET['value_page'])) {
     $value_page =  intval($_GET['value_page']);
@@ -569,12 +575,9 @@ function go_option() {
 					<div class="col-lg-12">	
 <!-- body_text //-->
 
-<div class="table-responsive">
-    <table class="table w-100">
 
 <!-- products_attributes //-->
 
-      <tr>
 <?php
 if ($action == 'update_attribute') {
     $form_action = 'update_product_attribute';
@@ -601,9 +604,16 @@ function calcBasePriceFactor() {
 }
 </script>
 
-        <td valign="top"><form name="attributes" action="<?php echo oos_href_link_admin($aContents['product_options'], 'action=' . $form_action . '&pID=' . $pID . (isset($option_page) ? '&option_page=' . $option_page : '') . (isset($value_page) ? '&value_page=' . $value_page : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')); ?>" method="post" enctype="multipart/form-data">
+<form name="attributes" action="<?php echo oos_href_link_admin($aContents['product_options'], 'action=' . $form_action . '&cPath=' . $cPath . '&pID=' . $pID . (isset($option_page) ? '&option_page=' . $option_page : '') . (isset($value_page) ? '&value_page=' . $value_page : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')); ?>" method="post" enctype="multipart/form-data">
 		<?php echo oos_draw_hidden_field('products_id', $pID);
     echo oos_hide_session_id(); ?>	
+	
+					<div class="text-right mt-3 mb-3">
+						<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&page=' . $categories_page) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?>
+						<?php echo oos_reset_button(BUTTON_RESET); ?>
+						<?php echo oos_submit_button(BUTTON_SAVE); ?>						
+					</div>		
+	
 		<table class="table table-hover w-100">
           <tr>
             <td colspan="11" class="smallText">
@@ -672,6 +682,7 @@ if ($attribute_page != $num_pages) {
 					<th>&nbsp;<?php echo TABLE_HEADING_SORT_ORDER_VALUE; ?>&nbsp;</th>
 					<th>&nbsp;<?php echo TABLE_HEADING_STATUS; ?>&nbsp;</th>
 					<th class="text-right">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE; ?>&nbsp;</th>
+					<th class="text-right">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE_WITH_TAX; ?>&nbsp;</th>									
 					<th class="text-center">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE_PREFIX; ?>&nbsp;</th>
 					<th class="text-center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>					
 				</tr>
@@ -747,9 +758,9 @@ while ($attributes_values = $attribute_result->fields) {
             <td align="right" class="smallText">&nbsp;<input type="text" name="sort_order" value="<?php echo $attributes_values['options_sort_order']; ?>" size="2">&nbsp;</td>
             <td class="smallText">&nbsp;<?php 
         if ($attributes_values['options_values_status'] == '1') {
-            echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['product_options'], 'action=setflag&flag=0&pID=' . $pID . '&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
+            echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['product_options'], 'action=setflag&flag=0&cPath=' . $cPath . '&pID=' . $pID . '&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
         } else {
-            echo '<a href="' . oos_href_link_admin($aContents['product_options'], 'action=setflag&flag=1&pID=' . $pID . '&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
+            echo '<a href="' . oos_href_link_admin($aContents['product_options'], 'action=setflag&flag=1&cPath=' . $cPath . '&pID=' . $pID . '&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
         } ?></td>
 
         <?php
@@ -757,8 +768,9 @@ while ($attributes_values = $attribute_result->fields) {
 			$in_price = number_format($in_price ?? 0, TAX_DECIMAL_PLACES, '.', '');
 		?>
             <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" value="<?php echo $in_price; ?>" size="6">&nbsp;</td>
+			<td align="right" class="smallText">&nbsp;<input type="text" name="value_price" value="<?php echo $in_price; ?>" size="6">&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<input type="text" name="price_prefix" value="<?php echo $attributes_values['price_prefix']; ?>" size="2">&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'pID=' . $pID . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
+            <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'cPath=' . $cPath . '&pID=' . $pID . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
           </tr>
         <?php
         if (BASE_PRICE == 'true') {
@@ -838,17 +850,18 @@ while ($attributes_values = $attribute_result->fields) {
             <td align="right" class="smallText">&nbsp;<b><?php echo $attributes_values['options_sort_order']; ?></b></td>
             <td class="smallText">&nbsp;<?php			
         if ($attributes_values['options_values_status'] == '1') {
-            echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['product_options'], 'action=setflag&flag=0&pID=' . $pID . '&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
+            echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['product_options'], 'action=setflag&flag=0&cPath=' . $cPath . '&pID=' . $pID . '&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
         } else {
-            echo '<a href="' . oos_href_link_admin($aContents['product_options'], 'action=setflag&flag=1&pID=' . $pID . '&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
+            echo '<a href="' . oos_href_link_admin($aContents['product_options'], 'action=setflag&flag=1&cPath=' . $cPath . '&pID=' . $pID . '&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
         } ?></td>
         <?php
 			$in_price = $attributes_values['options_values_price'];
 			$in_price = number_format($in_price ?? 0, TAX_DECIMAL_PLACES, '.', '');
 		?>	
             <td align="right" class="smallText">&nbsp;<b><?php echo $in_price; ?></b>&nbsp;</td>
+			<td align="right" class="smallText">&nbsp;<b><?php echo $in_price; ?></b>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<b><?php echo $attributes_values['price_prefix']; ?></b>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-success mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'action=delete_attribute&pID=' . $pID . '&attribute_id=' . $attribute_id) . '" role="button"><strong>' . BUTTON_CONFIRM . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a  class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['product_options'], (isset($option_page) ? (isset($option_page) ? '&option_page=' . $option_page : '') : '') . (isset($value_page) ? (isset($value_page) ? '&value_page=' . $value_page : '') : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</b></td>
+            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-success mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'action=delete_attribute&cPath=' . $cPath . '&pID=' . $pID . '&attribute_id=' . $attribute_id) . '" role="button"><strong>' . BUTTON_CONFIRM . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a  class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'cPath=' . $cPath . '&pID=' . $pID . (isset($option_page) ? (isset($option_page) ? '&option_page=' . $option_page : '') : '') . (isset($value_page) ? (isset($value_page) ? '&value_page=' . $value_page : '') : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</b></td>
 
         <?php
     } else {
@@ -860,20 +873,21 @@ while ($attributes_values = $attribute_result->fields) {
             <td class="smallText">&nbsp;<?php echo $options_name; ?>&nbsp;</td>
             <td class="smallText">&nbsp;<?php echo $values_name; ?>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<b><?php echo $attributes_values['options_sort_order']; ?></b></td>
-            <td class="smallText">&nbsp;ralf2
+            <td class="smallText">&nbsp;
         <?php
         if ($attributes_values['options_values_status'] == '1') {
-            echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['product_options'], 'action=setflag&flag=0&pID=' . $pID . '&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
+            echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['product_options'], 'action=setflag&flag=0&cPath=' . $cPath . '&pID=' . $pID . '&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
         } else {
-            echo '<a href="' . oos_href_link_admin($aContents['product_options'], 'action=setflag&flag=1&pID=' . $pID . '&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
+            echo '<a href="' . oos_href_link_admin($aContents['product_options'], 'action=setflag&flag=1&cPath=' . $cPath . '&pID=' . $pID . '&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
         } ?></td>
         <?php
 			$in_price = $attributes_values['options_values_price'];
 			$in_price = number_format($in_price ?? 0, TAX_DECIMAL_PLACES, '.', '');
 		?>
             <td align="right" class="smallText">&nbsp;<?php echo $in_price; ?>&nbsp;</td>
+			<td align="right" class="smallText">&nbsp;<?php echo $in_price; ?>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo $attributes_values['price_prefix']; ?>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'action=update_attribute&pID=' . intval($pID) . '&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'action=delete_product_attribute&&pID=' . intval($pID) . '&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) , '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
+            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'action=update_attribute&cPath=' . $cPath . '&pID=' . intval($pID) . '&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'action=delete_product_attribute&cPath=' . $cPath . '&pID=' . intval($pID) . '&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) , '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
         <?php
     } ?>
           </tr>
@@ -916,8 +930,7 @@ while ($attributes_values = $attribute_result->fields) {
 }
 ?>
 		</table>
-      </tr>
-    </table>			
+			
 <?php
 if ($action != 'update_attribute') {
     $products_attributestable = $oostable['products_attributes'];
@@ -1000,6 +1013,14 @@ if ($action != 'update_attribute') {
                               <div class="col-lg-10"><input type="text" name="value_price" size="6"></div>
                            </div>
                         </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_OPT_PRICE_WITH_TAX; ?></label>
+                              <div class="col-lg-10"><input type="text" name="value_price" size="6"></div>
+                           </div>
+                        </fieldset>						
+						
+						
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_OPT_PRICE_PREFIX; ?></label>
@@ -1091,10 +1112,16 @@ if ($action != 'update_attribute') {
                               </div>
                            </div>
                         </fieldset>		
- <?php
+<?php
     } // end of DOWNLOAD_ENABLED section
 }
 ?>	
+
+					<div class="text-right mt-3 mb-3">
+						<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&page=' . $categories_page) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?>
+						<?php echo oos_reset_button(BUTTON_RESET); ?>
+						<?php echo oos_submit_button(BUTTON_SAVE); ?>						
+					</div>	
 
 </form>
 <!-- products_attributes_eof //-->
