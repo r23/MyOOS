@@ -200,7 +200,10 @@ switch ($action) {
                 }
             }
         }
-
+echo '<pre>';
+print_r($_POST);
+echo '</pre>';
+exit;
         $oProductImage = new upload('options_values_image', $options);
 
         $dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/';
@@ -590,7 +593,88 @@ if ($action == 'update_attribute') {
 function doRound(x, places) {
   return Math.round(x * Math.pow(10, places)) / Math.pow(10, places);
 }
+###
 
+let tax_rates = new Array();
+<?php
+    $n = is_countable($tax_class_array) ? count($tax_class_array) : 0;
+    for ($i = 0, $n; $i < $n; $i++) {
+        if ($tax_class_array[$i]['id'] > 0) {
+            echo 'tax_rates["' . $tax_class_array[$i]['id'] . '"] = ' . oos_get_tax_rate_value($tax_class_array[$i]['id']) . ';' . "\n";
+        }
+    } ?>
+
+function doRound(x, places) {
+  num = Math.round(x * Math.pow(10, places)) / Math.pow(10, places);
+  return num.toFixed(places);    
+}
+
+function getTaxRate() {
+  let selected_value = document.forms["new_product"].products_tax_class_id.selectedIndex;
+  let parameterVal = document.forms["new_product"].products_tax_class_id[selected_value].value;
+
+  if ( (parameterVal > 0) && (tax_rates[parameterVal] > 0) ) {
+    return tax_rates[parameterVal];
+  } else {
+    return 0;
+  }
+}
+
+function updateWithTax() {
+  let taxRate = getTaxRate();
+  let grossValue = document.forms["new_product"].products_price.value;
+  let grossListValue = document.forms["new_product"].products_price_list.value;
+  let grossDiscount1Value = document.forms["new_product"].products_discount1.value;
+  let grossDiscount2Value = document.forms["new_product"].products_discount2.value;
+  let grossDiscount3Value = document.forms["new_product"].products_discount3.value;
+  let grossDiscount4Value = document.forms["new_product"].products_discount4.value;
+  
+  if (taxRate > 0) {
+    grossValue = grossValue * ((taxRate / 100) + 1);
+	grossListValue = grossListValue * ((taxRate / 100) + 1);
+	grossDiscount1Value = grossDiscount1Value * ((taxRate / 100) + 1)
+	grossDiscount2Value = grossDiscount2Value * ((taxRate / 100) + 1)
+	grossDiscount3Value = grossDiscount3Value * ((taxRate / 100) + 1)
+	grossDiscount4Value = grossDiscount4Value * ((taxRate / 100) + 1)	
+  }
+
+  document.forms["new_product"].products_price_gross.value = doRound(grossValue, 2);
+  document.forms["new_product"].products_price_list_gross.value = doRound(grossListValue, 2);
+  document.forms["new_product"].products_discount_gross1.value = doRound(grossDiscount1Value, 2); 
+  document.forms["new_product"].products_discount_gross2.value = doRound(grossDiscount2Value, 2);
+  document.forms["new_product"].products_discount_gross3.value = doRound(grossDiscount3Value, 2); 
+  document.forms["new_product"].products_discount_gross4.value = doRound(grossDiscount4Value, 2); 
+}
+
+function updateNet() {
+  let taxRate = getTaxRate();
+  let netValue = document.forms["new_product"].products_price_gross.value;
+  let netListValue = document.forms["new_product"].products_price_list_gross.value;
+  let netDiscount1Value = document.forms["new_product"].products_discount_gross1.value;
+  let netDiscount2Value = document.forms["new_product"].products_discount_gross2.value;
+  let netDiscount3Value = document.forms["new_product"].products_discount_gross3.value; 
+  let netDiscount4Value = document.forms["new_product"].products_discount_gross4.value; 
+  
+  if (taxRate > 0) {
+    netValue = netValue / ((taxRate / 100) + 1);
+	netListValue = netListValue / ((taxRate / 100) + 1);
+	netDiscount1Value = netDiscount1Value / ((taxRate / 100) + 1);
+	netDiscount2Value = netDiscount2Value / ((taxRate / 100) + 1);
+	netDiscount3Value = netDiscount3Value / ((taxRate / 100) + 1);
+	netDiscount4Value = netDiscount4Value / ((taxRate / 100) + 1);	
+  }
+
+  document.forms["new_product"].products_price.value = doRound(netValue, 2);
+  document.forms["new_product"].products_price_list.value = doRound(netListValue, 2);
+  document.forms["new_product"].products_discount1.value = doRound(netDiscount1Value, 2);
+  document.forms["new_product"].products_discount2.value = doRound(netDiscount2Value, 2);
+  document.forms["new_product"].products_discount3.value = doRound(netDiscount3Value, 2);
+  document.forms["new_product"].products_discount4.value = doRound(netDiscount4Value, 2);  
+}
+
+
+
+###
 function calcBasePriceFactor() {
   let pqty = document.forms["attributes"].options_values_quantity.value;
   let bqty = document.forms["attributes"].options_values_base_quantity.value;
