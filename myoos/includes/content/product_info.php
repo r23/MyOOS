@@ -158,7 +158,7 @@ if (!$product_info_result->RecordCount()) {
                          AND patrib.options_id = popt.products_options_id
                          AND popt.products_options_languages_id = '" . intval($nLanguageID) . "'";
     $products_attributes = $dbconn->Execute($attributes_sql);
-    if ($products_attributes->fields['total'] > 0) {
+    if ($products_attributes->fields['total'] > 0) {	
         include_once MYOOS_INCLUDE_PATH . '/includes/modules/products_options.php';
     }
 
