@@ -508,6 +508,30 @@ while ($products_units = $products_units_result->fields) {
     $products_units_result->MoveNext();
 }
 
+
+
+$productstable = $oostable['products'];
+$products_descriptiontable = $oostable['products_description'];
+$product_info_sql = "SELECT p.products_id, pd.products_name, pd.products_title, pd.products_description, pd.products_short_description, pd.products_url,
+                              pd.products_description_meta, pd.products_facebook_title, pd.products_facebook_description, pd.products_twitter_title,
+							  pd.products_twitter_description, pd.products_old_electrical_equipment_description, pd.products_used_goods_description,
+							  p.products_model, p.products_replacement_product_id, p.products_used_goods,
+                              p.products_quantity, p.products_image, p.products_price, p.products_base_price,
+							  p.products_product_quantity, p.products_base_unit, p.products_quantity_order_min, 
+							  p.products_quantity_order_max, p.products_quantity_order_units,
+                              p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4,
+                              p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty,
+                              p.products_discount4_qty, p.products_tax_class_id, p.products_units_id, p.products_date_added,
+                              p.products_date_available, p.products_last_modified, p.manufacturers_id, p.products_price_list, p.products_status
+                        FROM $productstable p,
+                             $products_descriptiontable pd
+                        WHERE p.products_id = '" . intval($pID) . "'
+                          AND pd.products_id = p.products_id
+                          AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'";
+$product_info_result = $dbconn->Execute($product_info_sql);
+$product_info = $product_info_result->fields;
+
+
 if (!isset($value_page)) {
     $value_page = 1;
 }
@@ -549,7 +573,7 @@ function go_option() {
 		<div class="content-wrapper">
 <?php
     $sTitle = sprintf(TEXT_EDIT_PRODUCT, oos_output_generated_category_path($cPath));
-	$products_name_only = oos_get_products_name($pID);
+	$products_name_only = $product_info['products_name'];
 ?>							
 			<!-- Breadcrumbs //-->
 			<div class="content-heading">
@@ -587,11 +611,26 @@ if ($action == 'update_attribute') {
 } else {
     $form_action = 'add_product_attributes';
 }
+
+$tax_class_array = [];
+$tax_classtable = $oostable['tax_class'];
+$tax_class_result = $dbconn->Execute("SELECT tax_class_id, tax_class_title FROM $tax_classtable ORDER BY tax_class_title");
+while ($tax_class = $tax_class_result->fields) {
+	$tax_class_array[] = ['id' => $tax_class['tax_class_id'],
+					     'text' => $tax_class['tax_class_title']];
+
+	// Move that ADOdb pointer!
+	$tax_class_result->MoveNext();
+}
+
+
+
 ?>
 <script nonce="<?php echo NONCE; ?>">
 
 function doRound(x, places) {
-  return Math.round(x * Math.pow(10, places)) / Math.pow(10, places);
+  num = Math.round(x * Math.pow(10, places)) / Math.pow(10, places);
+  return num.toFixed(places);    
 }
 ###
 
@@ -602,16 +641,13 @@ let tax_rates = new Array();
         if ($tax_class_array[$i]['id'] > 0) {
             echo 'tax_rates["' . $tax_class_array[$i]['id'] . '"] = ' . oos_get_tax_rate_value($tax_class_array[$i]['id']) . ';' . "\n";
         }
-    } ?>
+    } 
+?>
 
-function doRound(x, places) {
-  num = Math.round(x * Math.pow(10, places)) / Math.pow(10, places);
-  return num.toFixed(places);    
-}
+
 
 function getTaxRate() {
-  let selected_value = document.forms["new_product"].products_tax_class_id.selectedIndex;
-  let parameterVal = document.forms["new_product"].products_tax_class_id[selected_value].value;
+  let parameterVal = <?php echo $product_info['products_tax_class_id']; ?>
 
   if ( (parameterVal > 0) && (tax_rates[parameterVal] > 0) ) {
     return tax_rates[parameterVal];

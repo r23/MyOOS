@@ -554,7 +554,8 @@ if ($action == 'update_attribute') {
 <script nonce="<?php echo NONCE; ?>">
 
 function doRound(x, places) {
-  return Math.round(x * Math.pow(10, places)) / Math.pow(10, places);
+  num = Math.round(x * Math.pow(10, places)) / Math.pow(10, places);
+  return num.toFixed(places);    
 }
 
 function calcBasePriceFactor() {
@@ -562,7 +563,7 @@ function calcBasePriceFactor() {
   let bqty = document.forms["attributes"].options_values_base_quantity.value;
 
   if ((pqty != 0) || (bqty != 0)) {
-     document.forms["attributes"].options_values_base_price.value = doRound(bqty / pqty, 6);
+     document.forms["attributes"].options_values_base_price.value = doRound(bqty / pqty, 2);
   } else {
      document.forms["attributes"].options_values_base_price.value = 1.00000;
   }
