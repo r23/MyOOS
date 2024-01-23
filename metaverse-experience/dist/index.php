@@ -37,6 +37,8 @@ $nonce = bin2hex(random_bytes(16));
 	<!-- Virtual Experiences JS Dependencies -->
    	<script nonce="<?php echo $nonce; ?>" src="static/js/runtime-main.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/572.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/runtime-main.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/572.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/734.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/203.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/434.js"></script>
@@ -58,7 +60,6 @@ $nonce = bin2hex(random_bytes(16));
    	<script nonce="<?php echo $nonce; ?>" src="static/js/232.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/477.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/main.js"></script>
-
 
 
 	
