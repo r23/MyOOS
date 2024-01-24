@@ -200,10 +200,7 @@ switch ($action) {
                 }
             }
         }
-echo '<pre>';
-print_r($_POST);
-echo '</pre>';
-exit;
+
         $oProductImage = new upload('options_values_image', $options);
 
         $dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/';
@@ -215,7 +212,7 @@ exit;
             $options_values_image = '';
         }
 
-        $_POST['value_price'] = str_replace(',', '.', (string) $_POST['value_price']);
+        $value_price = str_replace(',', '.', (string) $_POST['value_price']);
 
         // 0 = Download id
         $values_id = (isset($_POST['values_id'])) ? intval($_POST['values_id']) : 0;
@@ -265,7 +262,7 @@ exit;
 								'" . oos_db_prepare_input($_POST['options_values_model']) . "', 
 								'" . oos_db_prepare_input($options_values_image) . "',
 								'" . oos_db_prepare_input($values_id) . "', 
-								'" . oos_db_prepare_input($_POST['value_price']) . "', 
+								'" . oos_db_prepare_input($value_price) . "', 
 								'" . oos_db_prepare_input($options_values_base_price) . "',
 								'" . oos_db_prepare_input($options_values_quantity) . "',
 								'" . oos_db_prepare_input($options_values_base_quantity) . "',
@@ -632,7 +629,6 @@ function doRound(x, places) {
   num = Math.round(x * Math.pow(10, places)) / Math.pow(10, places);
   return num.toFixed(places);    
 }
-###
 
 let tax_rates = new Array();
 <?php
@@ -643,8 +639,6 @@ let tax_rates = new Array();
         }
     } 
 ?>
-
-
 
 function getTaxRate() {
   let parameterVal = <?php echo $product_info['products_tax_class_id']; ?>
@@ -658,59 +652,27 @@ function getTaxRate() {
 
 function updateWithTax() {
   let taxRate = getTaxRate();
-  let grossValue = document.forms["new_product"].products_price.value;
-  let grossListValue = document.forms["new_product"].products_price_list.value;
-  let grossDiscount1Value = document.forms["new_product"].products_discount1.value;
-  let grossDiscount2Value = document.forms["new_product"].products_discount2.value;
-  let grossDiscount3Value = document.forms["new_product"].products_discount3.value;
-  let grossDiscount4Value = document.forms["new_product"].products_discount4.value;
+  let grossValue = document.forms["attributes"].value_price.value;
   
   if (taxRate > 0) {
     grossValue = grossValue * ((taxRate / 100) + 1);
-	grossListValue = grossListValue * ((taxRate / 100) + 1);
-	grossDiscount1Value = grossDiscount1Value * ((taxRate / 100) + 1)
-	grossDiscount2Value = grossDiscount2Value * ((taxRate / 100) + 1)
-	grossDiscount3Value = grossDiscount3Value * ((taxRate / 100) + 1)
-	grossDiscount4Value = grossDiscount4Value * ((taxRate / 100) + 1)	
   }
 
-  document.forms["new_product"].products_price_gross.value = doRound(grossValue, 2);
-  document.forms["new_product"].products_price_list_gross.value = doRound(grossListValue, 2);
-  document.forms["new_product"].products_discount_gross1.value = doRound(grossDiscount1Value, 2); 
-  document.forms["new_product"].products_discount_gross2.value = doRound(grossDiscount2Value, 2);
-  document.forms["new_product"].products_discount_gross3.value = doRound(grossDiscount3Value, 2); 
-  document.forms["new_product"].products_discount_gross4.value = doRound(grossDiscount4Value, 2); 
+  document.forms["attributes"].value_price_gross.value = doRound(grossValue, 2);
 }
 
 function updateNet() {
   let taxRate = getTaxRate();
-  let netValue = document.forms["new_product"].products_price_gross.value;
-  let netListValue = document.forms["new_product"].products_price_list_gross.value;
-  let netDiscount1Value = document.forms["new_product"].products_discount_gross1.value;
-  let netDiscount2Value = document.forms["new_product"].products_discount_gross2.value;
-  let netDiscount3Value = document.forms["new_product"].products_discount_gross3.value; 
-  let netDiscount4Value = document.forms["new_product"].products_discount_gross4.value; 
+  let netValue = document.forms["attributes"].value_price_gross.value;
   
   if (taxRate > 0) {
     netValue = netValue / ((taxRate / 100) + 1);
-	netListValue = netListValue / ((taxRate / 100) + 1);
-	netDiscount1Value = netDiscount1Value / ((taxRate / 100) + 1);
-	netDiscount2Value = netDiscount2Value / ((taxRate / 100) + 1);
-	netDiscount3Value = netDiscount3Value / ((taxRate / 100) + 1);
-	netDiscount4Value = netDiscount4Value / ((taxRate / 100) + 1);	
   }
 
-  document.forms["new_product"].products_price.value = doRound(netValue, 2);
-  document.forms["new_product"].products_price_list.value = doRound(netListValue, 2);
-  document.forms["new_product"].products_discount1.value = doRound(netDiscount1Value, 2);
-  document.forms["new_product"].products_discount2.value = doRound(netDiscount2Value, 2);
-  document.forms["new_product"].products_discount3.value = doRound(netDiscount3Value, 2);
-  document.forms["new_product"].products_discount4.value = doRound(netDiscount4Value, 2);  
+  document.forms["attributes"].value_price.value = doRound(netValue, 2);
+  
 }
 
-
-
-###
 function calcBasePriceFactor() {
   let pqty = document.forms["attributes"].options_values_quantity.value;
   let bqty = document.forms["attributes"].options_values_base_quantity.value;
@@ -1130,13 +1092,13 @@ if ($action != 'update_attribute') {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_OPT_PRICE; ?></label>
-                              <div class="col-lg-10"><input type="text" name="value_price" size="6"></div>
+                              <div class="col-lg-10"><?php echo oos_draw_input_field('value_price', '0.00', 'onkeyup="updateWithTax()"'); ?></div>
                            </div>
-                        </fieldset>
+                        </fieldset>			
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_OPT_PRICE_WITH_TAX; ?></label>
-                              <div class="col-lg-10"><input type="text" name="value_price" size="6"></div>
+                              <div class="col-lg-10"><?php echo oos_draw_input_field('value_price_gross', '0.00', 'onkeyup="updateNet()"'); ?></div>
                            </div>
                         </fieldset>						
 						
