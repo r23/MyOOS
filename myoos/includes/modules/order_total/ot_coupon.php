@@ -739,18 +739,16 @@ class ot_coupon
                 reset($_SESSION['cart']->contents[$product_id]['attributes']);
                 foreach ($_SESSION['cart']->contents[$product_id]['attributes'] as $option => $value) {
                     $products_attributestable = $oostable['products_attributes'];
-                    $attribute_price_query = $dbconn->Execute("SELECT options_values_price, price_prefix FROM $products_attributestable WHERE products_id = '" . (int)$prid . "' AND options_id = '" . oos_db_input($option) . "' AND options_values_id = '" . oos_db_input($value) . "'");
+                    $attribute_price_query = $dbconn->Execute("SELECT options_values_price FROM $products_attributestable WHERE products_id = '" . (int)$prid . "' AND options_id = '" . oos_db_input($option) . "' AND options_values_id = '" . oos_db_input($value) . "'");
                     $attribute_price = $attribute_price_query->fields;
-                    if ($attribute_price['price_prefix'] == '+') {
-                        // $total_price += $qty * ($attribute_price['options_values_price'] + oos_calculate_tax($attribute_price['options_values_price'], $products_tax));
-                        $total_price += $qty * ($attribute_price['options_values_price']);
-                    } else {
-
-                        // $total_price -= $qty * ($attribute_price['options_values_price'] + oos_calculate_tax($attribute_price['options_values_price'], $products_tax));
-                        $total_price -= $qty * ($attribute_price['options_values_price']);
-                    }
+					//  oos_calculate_tax($attribute_price['options_values_price'], $products_tax));
+					$products_price = $attribute_price['options_values_price'];
                 }
             }
+			
+            // $total_price += ($products_price + oos_calculate_tax($products_price, $products_tax)) * $qty;
+            $total_price += $products_price * $qty;			
+			
         }
         if ($this->include_shipping == 'true') {
             $total_price += $oOrder->info['shipping_cost'];

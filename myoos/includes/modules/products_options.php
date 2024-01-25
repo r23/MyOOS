@@ -56,7 +56,7 @@ while ($products_options_name = $products_options_name_result->fields) {
             $products_options_sql = "SELECT pov.products_options_values_id, pov.products_options_values_name,
 											pa.options_values_model, pa.options_values_image, pa.options_values_base_price,
 											pa.options_values_quantity, pa.options_values_base_quantity, pa.options_values_base_unit,	
-                                            pa.options_values_price, pa.options_values_status, pa.price_prefix, pa.options_sort_order
+                                            pa.options_values_price, pa.options_values_status, pa.options_sort_order
                                      FROM $products_attributestable pa,
                                           $products_options_valuestable pov
                                      WHERE pa.products_id = '" . intval($nProductsID) . "' 
@@ -173,7 +173,7 @@ while ($products_options_name = $products_options_name_result->fields) {
             $products_attributestable = $oostable['products_attributes'];
             $products_options_valuestable = $oostable['products_options_values'];
             $products_attribs_sql = "SELECT pov.products_options_values_id, pov.products_options_values_name,
-                                            pa.options_values_price, pa.price_prefix, pa.options_sort_order
+                                            pa.options_values_price, pa.options_sort_order
                                      FROM $products_attributestable pa,
                                           $products_options_valuestable pov
                                      WHERE pa.products_id = '" . intval($nProductsID) . "'
@@ -199,9 +199,9 @@ while ($products_options_name = $products_options_name_result->fields) {
                 if ($products_attribs_array['options_values_price'] > '0') {
                     if ($aUser['show_price'] == 1) {
                         if ($info_product_discount != 0) {
-                            $options .= ' (' . $products_attribs_array['price_prefix'] . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) . ' -' . number_format($info_product_discount, 2) . '% )&nbsp';
+                            $options .= ' (' . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) . ' -' . number_format($info_product_discount, 2) . '% )&nbsp';
                         } else {
-                            $options .= ' (' . $products_attribs_array['price_prefix'] . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) .')&nbsp;';
+                            $options .= ' (' . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) .')&nbsp;';
                         }
                     }
                 }
@@ -218,7 +218,7 @@ while ($products_options_name = $products_options_name_result->fields) {
             $number_of_uploads++;
 
             $products_attributestable = $oostable['products_attributes'];
-            $products_attribs_sql = "SELECT DISTINCT patrib.options_values_price, patrib.price_prefix
+            $products_attribs_sql = "SELECT DISTINCT patrib.options_values_price
 											FROM $products_attributestable patrib
 											WHERE patrib.products_id= '" . intval($nProductsID) . "'
 											AND patrib.options_id = '" . $products_options_name['products_options_id'] . "'";
@@ -232,9 +232,9 @@ while ($products_options_name = $products_options_name_result->fields) {
             if ($products_attribs_array['options_values_price'] > '0') {
                 if ($aUser['show_price'] == 1) {
                     if ($info_product_discount != 0) {
-                        $options .= ' (' . $products_attribs_array['price_prefix'] . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) . ' -' . number_format($info_product_discount, 2) . '% )&nbsp';
+                        $options .= ' (' . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) . ' -' . number_format($info_product_discount, 2) . '% )&nbsp';
                     } else {
-                        $options .= ' (' . $products_attribs_array['price_prefix'] . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) .')&nbsp';
+                        $options .= ' (' . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) .')&nbsp';
                     }
                 }
             }
@@ -250,9 +250,8 @@ while ($products_options_name = $products_options_name_result->fields) {
             $options .= '<div class="form-group">' . "\n";
             $options .= '  <div class="pb-2">'  . $products_options_name['products_options_name'] . '</div>' . "\n";
 
-
             $products_attributestable = $oostable['products_attributes'];
-            $products_attribs_sql = "SELECT DISTINCT patrib.options_values_price, patrib.price_prefix
+            $products_attribs_sql = "SELECT DISTINCT patrib.options_values_price
 											FROM $products_attributestable patrib
 											WHERE patrib.products_id = '" . intval($nProductsID) . "'
 											AND patrib.options_id = '" . $products_options_name['products_options_id'] . "'";
@@ -263,9 +262,9 @@ while ($products_options_name = $products_options_name_result->fields) {
             if ($products_attribs_array['options_values_price'] > '0') {
                 if ($aUser['show_price'] == 1) {
                     if ($info_product_discount != 0) {
-                        $options .= '(' . $products_attribs_array['price_prefix'] . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) . ' -' . number_format($info_product_discount, 2) . '% )';
+                        $options .= '(' . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) . ' -' . number_format($info_product_discount, 2) . '% )';
                     } else {
-                        $options .= '(' . $products_attribs_array['price_prefix'] . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) .')';
+                        $options .= '(' . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) .')';
                     }
                 }
             }
@@ -282,7 +281,7 @@ while ($products_options_name = $products_options_name_result->fields) {
             $products_attributestable = $oostable['products_attributes'];
             $products_options_valuestable = $oostable['products_options_values'];
             $products_options_sql = "SELECT pov.products_options_values_id, pov.products_options_values_name,
-                                            pa.options_values_price, pa.price_prefix, pa.options_sort_order
+                                            pa.options_values_price, pa.options_sort_order
                                      FROM $products_attributestable pa,
                                           $products_options_valuestable pov
                                      WHERE pa.products_id = '" . intval($nProductsID) . "'
@@ -297,9 +296,9 @@ while ($products_options_name = $products_options_name_result->fields) {
                 if ($products_options['options_values_price'] > '0') {
                     if ($aUser['show_price'] == 1) {
                         if ($info_product_discount != 0) {
-                            $products_options_array[count($products_options_array) - 1]['text'] .= ' (' . $products_options['price_prefix'] . $oCurrencies->display_price($products_options['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) . ' -' . number_format($info_product_discount, 2) . '% )&nbsp;';
+                            $products_options_array[count($products_options_array) - 1]['text'] .= ' (' . $oCurrencies->display_price($products_options['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) . ' -' . number_format($info_product_discount, 2) . '% )&nbsp;';
                         } else {
-                            $products_options_array[count($products_options_array) - 1]['text'] .= ' (' . $products_options['price_prefix'] . $oCurrencies->display_price($products_options['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) .')&nbsp;';
+                            $products_options_array[count($products_options_array) - 1]['text'] .= ' (' . $oCurrencies->display_price($products_options['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) .')&nbsp;';
                         }
                     }
                 }

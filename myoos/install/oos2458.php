@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2024 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -44,3 +44,7 @@ require_once 'oostables2458.php';
 // } else {
 // echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 // }
+
+
+// ALTER TABLE `myoos`.`dwq_products_attributes` DROP COLUMN `price_prefix`
+// ALTER TABLE `myoos`.`dwq_orders_products_attributes` DROP COLUMN `price_prefix`

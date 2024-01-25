@@ -122,14 +122,14 @@ class order
 
             $subindex = 0;
             $orders_products_attributestable = $oostable['orders_products_attributes'];
-            $sql = "SELECT products_options, products_options_values, options_values_price, price_prefix
+            $sql = "SELECT products_options, products_options_values, options_values_price
                 FROM $orders_products_attributestable
                 WHERE orders_id = '" . intval($order_id) . "'
                   AND orders_products_id = '" . $orders_products['orders_products_id'] . "'";
             $attributes_result = $dbconn->Execute($sql);
             if ($attributes_result->RecordCount()) {
                 while ($attributes = $attributes_result->fields) {
-                    $this->products[$index]['attributes'][$subindex] = ['option' => $attributes['products_options'], 'value' => $attributes['products_options_values'], 'prefix' => $attributes['price_prefix'], 'price' => $attributes['options_values_price']];
+                    $this->products[$index]['attributes'][$subindex] = ['option' => $attributes['products_options'], 'value' => $attributes['products_options_values'], 'price' => $attributes['options_values_price']];
 
                     $subindex++;
 
@@ -263,7 +263,7 @@ class order
 
                     if ($value == PRODUCTS_OPTIONS_VALUE_TEXT_ID) {
                         $sql = "SELECT popt.products_options_name, poval.products_options_values_name,
-								pa.options_values_price, pa.price_prefix
+								pa.options_values_price
 							FROM $products_optionstable popt,
 								$products_options_valuestable poval,
 								$products_attributestable pa
@@ -274,7 +274,7 @@ class order
 								popt.products_options_languages_id = '" .  intval($nLanguageID) . "'";
                     } else {
                         $sql = "SELECT popt.products_options_name, poval.products_options_values_name,
-									pa.options_values_price, pa.price_prefix
+									pa.options_values_price
 								FROM $products_optionstable popt,
 									$products_options_valuestable poval,
 									$products_attributestable pa
@@ -293,7 +293,7 @@ class order
                     } else {
                         $attr_value = $attributes['products_options_values_name'];
                     }
-                    $this->products[$index]['attributes'][$subindex] = ['option' => $attributes['products_options_name'], 'value' => $attr_value, 'option_id' => $option, 'value_id' => $value, 'prefix' => $attributes['price_prefix'], 'price' => $attributes['options_values_price']];
+                    $this->products[$index]['attributes'][$subindex] = ['option' => $attributes['products_options_name'], 'value' => $attr_value, 'option_id' => $option, 'value_id' => $value, 'price' => $attributes['options_values_price']];
                     $subindex++;
                 }
             }

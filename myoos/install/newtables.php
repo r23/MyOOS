@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2024 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -893,8 +893,7 @@ $flds = "
   orders_products_id I NOTNULL,
   products_options C(32) NOTNULL,
   products_options_values C(32) NOTNULL,
-  options_values_price N '10.4' NOTNULL DEFAULT '0.00000000',
-  price_prefix C(1) NOTNULL
+  options_values_price N '10.4' NOTNULL DEFAULT '0.00000000'
 ";
 dosql($table, $flds);
 

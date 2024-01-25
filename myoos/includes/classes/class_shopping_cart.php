@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2024 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -549,7 +549,7 @@ class shoppingCart
                     reset($this->contents[$products_id]['attributes']);
                     foreach ($this->contents[$products_id]['attributes'] as $option => $value) {
                         $products_attributestable = $oostable['products_attributes'];
-                        $sql = "SELECT options_values_price, price_prefix
+                        $sql = "SELECT options_values_price
 								FROM $products_attributestable
 								WHERE products_id = '" . intval($prid) . "'
 								AND options_id = '" . intval($option) . "'
@@ -557,12 +557,7 @@ class shoppingCart
                         $attribute_price = $dbconn->GetRow($sql);
 
                         $sAttributesPrice = $attribute_price['options_values_price'];
-
-                        if ($attribute_price['price_prefix'] == '+') {
-                            $products_price += $sAttributesPrice;
-                        } else {
-                            $products_price -= $sAttributesPrice;
-                        }
+						$products_price = $sAttributesPrice;
                     }
                 }
 
@@ -623,18 +618,14 @@ class shoppingCart
 
             foreach ($this->contents[$products_id]['attributes'] as $option => $value) {
                 $products_attributestable = $oostable['products_attributes'];
-                $attribute_price_sql = "SELECT options_values_price, price_prefix
+                $attribute_price_sql = "SELECT options_values_price
 									FROM $products_attributestable
 									WHERE products_id = '" . intval($products_id) . "'
 									AND options_id = '" . intval($option) . "'
 									AND options_values_id = '" . intval($value) . "'";
                 $attribute_price = $dbconn->GetRow($attribute_price_sql);
-
-                if ($attribute_price['price_prefix'] == '+') {
-                    $attributes_price += $attribute_price['options_values_price'];
-                } else {
-                    $attributes_price -= $attribute_price['options_values_price'];
-                }
+	
+                $attributes_price = $attribute_price['options_values_price'];
             }
         }
         return $attributes_price;
