@@ -229,7 +229,7 @@ for ($i = 0, $n; $i < $n; $i++) {
             $products_options_valuestable = $oostable['products_options_values'];
             $products_attributestable = $oostable['products_attributes'];
             if ($oOrder->products[$i]['attributes'][$j]['value_id'] == PRODUCTS_OPTIONS_VALUE_TEXT_ID) {
-                $sql = "SELECT popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix 
+                $sql = "SELECT popt.products_options_name, poval.products_options_values_name, pa.options_values_price
 						FROM $products_optionstable popt,
 							$products_options_valuestable poval,
 							$products_attributestable pa
@@ -238,7 +238,7 @@ for ($i = 0, $n; $i < $n; $i++) {
 							AND pa.options_id = popt.products_options_id
 							AND popt.products_options_languages_id = '" .  intval($nLanguageID) . "'";
             } else {
-                $sql = "SELECT popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix 
+                $sql = "SELECT popt.products_options_name, poval.products_options_values_name, pa.options_values_price
 						FROM $products_optionstable popt,
 							$products_options_valuestable poval,
 							$products_attributestable pa
@@ -253,7 +253,7 @@ for ($i = 0, $n; $i < $n; $i++) {
             $attributes = $dbconn->Execute($sql);
 
             $attributes_values = $attributes->fields;
-            $sql_data_array = ['orders_id' => $insert_id, 'orders_products_id' => $order_products_id, 'products_options' => $attributes_values['products_options_name'], 'products_options_values' => $oOrder->products[$i]['attributes'][$j]['value'], 'options_values_price' => $attributes_values['options_values_price'], 'price_prefix' => $attributes_values['price_prefix']];
+            $sql_data_array = ['orders_id' => $insert_id, 'orders_products_id' => $order_products_id, 'products_options' => $attributes_values['products_options_name'], 'products_options_values' => $oOrder->products[$i]['attributes'][$j]['value'], 'options_values_price' => $attributes_values['options_values_price']];
             // insert
             oos_db_perform($oostable['orders_products_attributes'], $sql_data_array);
 

@@ -152,7 +152,7 @@ while ($wishlist = $wishlist_result->fields) {
         $products_attributestable = $oostable['products_attributes'];
         $sql = "SELECT popt.products_options_name,
                      poval.products_options_values_name,
-                     pa.options_values_price, pa.price_prefix, pa.options_values_image
+                     pa.options_values_price, pa.options_values_image
               FROM $products_optionstable popt,
                    $products_options_valuestable poval,
                    $products_attributestable pa
@@ -173,13 +173,9 @@ while ($wishlist = $wishlist_result->fields) {
         $attributes_print .=  '<li> - ' . $option_values['products_options_name'] . ' ' . $option_values['products_options_values_name'] . ' ';
 
         if ($option_values['options_values_price'] != 0) {
-            //    $attributes_print .=  $option_values['price_prefix'] . $oCurrencies->display_price($option_values['options_values_price'], oos_get_tax_rate($wishlist_product['products_tax_class_id'])) . '</li>';
+            $attributes_print .=  $oCurrencies->display_price($option_values['options_values_price'], oos_get_tax_rate($wishlist_product['products_tax_class_id'])) . '</li>';
             $sAttributesPrice = $option_values['options_values_price'];
-            if ($option_values['price_prefix'] == '+') {
-                $base_product_price += $sAttributesPrice;
-            } else {
-                $base_product_price -= $sAttributesPrice;
-            }
+			$base_product_price = $sAttributesPrice;
         } else {
             $attributes_print .=  '</li>';
         }

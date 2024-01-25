@@ -45,7 +45,6 @@ define('TABLE_HEADING_OPT_TYPE', 'Optionstype');
 define('TABLE_HEADING_SORT_ORDER_VALUE', 'Reihenfolge');
 define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_OPT_PRICE', 'Preis');
-define('TABLE_HEADING_OPT_PRICE_PREFIX', 'Vorzeichen (+/-)');
 define('TABLE_HEADING_ACTION', 'Aktion');
 define('TABLE_HEADING_DOWNLOAD', 'Downloadbare Produkte:');
 define('TABLE_TEXT_FILENAME', 'Dateiname:');

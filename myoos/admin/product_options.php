@@ -20,8 +20,6 @@
    ----------------------------------------------------------------------
  */
 
-# update_attribute&attribute_id=3&attribute_page=1
-
 
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
@@ -254,7 +252,6 @@ switch ($action) {
 						options_values_base_quantity,
 						options_values_base_unit,
 						options_values_units_id,
-						price_prefix,
 						options_sort_order) 
 						VALUES ('', 
 								'" . oos_db_prepare_input($_POST['products_id']) . "', 
@@ -268,7 +265,6 @@ switch ($action) {
 								'" . oos_db_prepare_input($options_values_base_quantity) . "',
 								'" . oos_db_prepare_input($options_values_base_unit) . "',
 								'" . oos_db_prepare_input($options_values_units_id) . "', 								
-								'" . oos_db_prepare_input($_POST['price_prefix']) . "', 
 								'" . oos_db_prepare_input($_POST['sort_order']) . "')"
         );
         $products_attributes_id = $dbconn->Insert_ID();
@@ -414,7 +410,6 @@ switch ($action) {
 						options_values_base_quantity = '" . oos_db_prepare_input($options_values_base_quantity) . "',
 						options_values_base_unit = '" . oos_db_prepare_input($options_values_base_unit) . "',
 						options_values_units_id = '" . oos_db_prepare_input($options_values_units_id) . "',						
-						price_prefix = '" . oos_db_prepare_input($_POST['price_prefix']) . "',
 						 options_sort_order = '" . oos_db_prepare_input($_POST['sort_order']) . "' WHERE products_attributes_id = '" . intval($_POST['attribute_id']) . "'"
         );
 
@@ -765,7 +760,6 @@ if ($attribute_page != $num_pages) {
 					<th>&nbsp;<?php echo TABLE_HEADING_STATUS; ?>&nbsp;</th>
 					<th class="text-right">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE; ?>&nbsp;</th>
 					<th class="text-right">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE_WITH_TAX; ?>&nbsp;</th>									
-					<th class="text-center">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE_PREFIX; ?>&nbsp;</th>
 					<th class="text-center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>					
 				</tr>
 			</thead>
@@ -851,7 +845,6 @@ while ($attributes_values = $attribute_result->fields) {
 		?>
             <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" value="<?php echo $in_price; ?>" size="6">&nbsp;</td>
 			<td align="right" class="smallText">&nbsp;<input type="text" name="value_price" value="<?php echo $in_price; ?>" size="6">&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<input type="text" name="price_prefix" value="<?php echo $attributes_values['price_prefix']; ?>" size="2">&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'cPath=' . $cPath . '&pID=' . $pID . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
           </tr>
         <?php
@@ -942,7 +935,6 @@ while ($attributes_values = $attribute_result->fields) {
 		?>	
             <td align="right" class="smallText">&nbsp;<b><?php echo $in_price; ?></b>&nbsp;</td>
 			<td align="right" class="smallText">&nbsp;<b><?php echo $in_price; ?></b>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<b><?php echo $attributes_values['price_prefix']; ?></b>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-success mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'action=delete_attribute&cPath=' . $cPath . '&pID=' . $pID . '&attribute_id=' . $attribute_id) . '" role="button"><strong>' . BUTTON_CONFIRM . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a  class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'cPath=' . $cPath . '&pID=' . $pID . (isset($option_page) ? (isset($option_page) ? '&option_page=' . $option_page : '') : '') . (isset($value_page) ? (isset($value_page) ? '&value_page=' . $value_page : '') : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</b></td>
 
         <?php
@@ -968,7 +960,6 @@ while ($attributes_values = $attribute_result->fields) {
 		?>
             <td align="right" class="smallText">&nbsp;<?php echo $in_price; ?>&nbsp;</td>
 			<td align="right" class="smallText">&nbsp;<?php echo $in_price; ?>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo $attributes_values['price_prefix']; ?>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'action=update_attribute&cPath=' . $cPath . '&pID=' . intval($pID) . '&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'action=delete_product_attribute&cPath=' . $cPath . '&pID=' . intval($pID) . '&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) , '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
         <?php
     } ?>
@@ -1100,15 +1091,7 @@ if ($action != 'update_attribute') {
                               <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_OPT_PRICE_WITH_TAX; ?></label>
                               <div class="col-lg-10"><?php echo oos_draw_input_field('value_price_gross', '0.00', 'onkeyup="updateNet()"'); ?></div>
                            </div>
-                        </fieldset>						
-						
-						
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_OPT_PRICE_PREFIX; ?></label>
-                              <div class="col-lg-10"><input type="text" name="price_prefix" size="2" value="+"></div>
-                           </div>
-                        </fieldset>
+                        </fieldset>										
 <?php
     if (BASE_PRICE == 'true') {
 		$options_values_base_price = (!isset($attributes_values['options_values_base_price'])) ? 1 : $attributes_values['options_values_base_price'];

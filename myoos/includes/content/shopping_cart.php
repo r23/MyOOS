@@ -191,7 +191,7 @@ if (isset($_SESSION)) {
 
                         if ($value == PRODUCTS_OPTIONS_VALUE_TEXT_ID) {
                             $sql = "SELECT popt.products_options_name,
-										pa.options_values_price, pa.price_prefix
+										pa.options_values_price
 									FROM $products_optionstable popt,
 										$products_attributestable pa
 									WHERE pa.products_id = '" . intval($products_id) . "'
@@ -201,7 +201,7 @@ if (isset($_SESSION)) {
                         } else {
                             $sql = "SELECT popt.products_options_name,
 										poval.products_options_values_name,
-										pa.options_values_price, pa.price_prefix
+										pa.options_values_price
 									FROM $products_optionstable popt,
 										$products_options_valuestable poval,
 										$products_attributestable pa
@@ -229,7 +229,6 @@ if (isset($_SESSION)) {
                         $products[$i][$option]['options_values_id'] = $value;
                         $products[$i][$option]['products_options_values_name'] = $attr_value;
                         $products[$i][$option]['options_values_price'] = $attr_price;
-                        $products[$i][$option]['price_prefix'] = $attributes_values['price_prefix'];
                     }
                 }
             }
