@@ -676,15 +676,15 @@ while ($attributes_values = $attributes->fields) {
             <td class="smallText"><?php echo oos_draw_input_field('options_values_model', $attributes_values['options_values_model']); ?></td>
             <td class="smallText">&nbsp;<select name="options_id">
         <?php
-        if ($options_values['products_options_id'] == 0) {
-            echo "\n" . '<option name="id" value="0" selected="selected">' . PULL_DOWN_DEFAULT . '</option>';
-        } else {
-            echo "\n" . '<option name="id" value="0">' . PULL_DOWN_DEFAULT . '</option>';
-        }
-
         $products_optionstable = $oostable['products_options'];
         $options = $dbconn->Execute("SELECT * FROM $products_optionstable WHERE products_options_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_options_name");
         while ($options_values = $options->fields) {
+			if ($options_values['products_options_id'] == 0) {
+				echo "\n" . '<option name="id" value="0" selected="selected">' . PULL_DOWN_DEFAULT . '</option>';
+			} else {
+				echo "\n" . '<option name="id" value="0">' . PULL_DOWN_DEFAULT . '</option>';
+			}
+			
             if ($attributes_values['options_id'] == $options_values['products_options_id']) {
                 echo "\n" . '<option name="' . $options_values['products_options_name'] . '" value="' . $options_values['products_options_id'] . '" selected="selected">' . $options_values['products_options_name'] . '</option>';
             } else {
@@ -697,15 +697,14 @@ while ($attributes_values = $attributes->fields) {
             </select>&nbsp;</td>
             <td class="smallText">&nbsp;<select name="values_id">
         <?php
-        if ($values_values['products_options_values_id'] == 0) {
-            echo "\n" . '<option name="id" value="0" selected="selected">' . PULL_DOWN_DEFAULT . '</option>';
-        } else {
-            echo "\n" . '<option name="id" value="0">' . PULL_DOWN_DEFAULT . '</option>';
-        }
-
         $products_options_valuestable = $oostable['products_options_values'];
         $values = $dbconn->Execute("SELECT * FROM $products_options_valuestable WHERE products_options_values_languages_id='" . intval($_SESSION['language_id']) . "' ORDER BY products_options_values_name");
         while ($values_values = $values->fields) {
+			if ($values_values['products_options_values_id'] == 0) {
+				echo "\n" . '<option name="id" value="0" selected="selected">' . PULL_DOWN_DEFAULT . '</option>';
+			} else {
+				echo "\n" . '<option name="id" value="0">' . PULL_DOWN_DEFAULT . '</option>';
+			}			
             if ($attributes_values['options_values_id'] == $values_values['products_options_values_id']) {
                 echo "\n" . '<option name="' . $values_values['products_options_values_name'] . '" value="' . $values_values['products_options_values_id'] . '" selected="selected">' . $values_values['products_options_values_name'] . '</option>';
             } else {
