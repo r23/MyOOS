@@ -572,7 +572,6 @@ function calcBasePriceFactor() {
   } else {
      document.forms["new_product"].products_base_price.value = 1.000000;
   }
-
 }
 </script>
 	<!-- Breadcrumbs //-->

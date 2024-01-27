@@ -676,6 +676,8 @@ function calcBasePriceFactor() {
   }
 
 }
+
+updateWithTax();
 </script>
 
 <form name="attributes" action="<?php echo oos_href_link_admin($aContents['product_options'], 'action=' . $form_action . '&cPath=' . $cPath . '&pID=' . $pID . (isset($option_page) ? '&option_page=' . $option_page : '') . (isset($value_page) ? '&value_page=' . $value_page : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')); ?>" method="post" enctype="multipart/form-data">
@@ -782,17 +784,11 @@ while ($attributes_values = $attribute_result->fields) {
         <?php echo '&nbsp;' . oos_draw_file_field('options_values_image') . oos_draw_hidden_field('products_previous_image', $attributes_values['options_values_image']); ?></td>
             <td class="smallText">&nbsp;<?php echo $products_name_only; ?></td>
             <td class="smallText"><?php echo oos_draw_input_field('options_values_model', $attributes_values['options_values_model']); ?></td>
-            <td class="smallText">&nbsp;<select name="options_id">
+            <td class="smallText">&nbsp;<select name="options_id"><option name="id" value="0"><?php echo PULL_DOWN_DEFAULT; ?></option>
         <?php
         $products_optionstable = $oostable['products_options'];
         $options = $dbconn->Execute("SELECT * FROM $products_optionstable WHERE products_options_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_options_name");
-        while ($options_values = $options->fields) {
-			if ($options_values['products_options_id'] == 0) {
-				echo "\n" . '<option name="id" value="0" selected="selected">' . PULL_DOWN_DEFAULT . '</option>';
-			} else {
-				echo "\n" . '<option name="id" value="0">' . PULL_DOWN_DEFAULT . '</option>';
-			}			
-			
+        while ($options_values = $options->fields) {			
             if ($attributes_values['options_id'] == $options_values['products_options_id']) {
                 echo "\n" . '<option name="' . $options_values['products_options_name'] . '" value="' . $options_values['products_options_id'] . '" selected="selected">' . $options_values['products_options_name'] . '</option>';
             } else {
@@ -803,17 +799,12 @@ while ($attributes_values = $attribute_result->fields) {
             $options->MoveNext();
         } ?>
             </select>&nbsp;</td>
-            <td class="smallText">&nbsp;<select name="values_id">
-        <?php
-        $products_options_valuestable = $oostable['products_options_values'];
+            <td class="smallText">&nbsp;<select name="values_id"><option name="id" value="0"><?php echo PULL_DOWN_DEFAULT; ?></option>
+        <?php      
+		
+		$products_options_valuestable = $oostable['products_options_values'];
         $values = $dbconn->Execute("SELECT * FROM $products_options_valuestable WHERE products_options_values_languages_id='" . intval($_SESSION['language_id']) . "' ORDER BY products_options_values_name");
         while ($values_values = $values->fields) {
-			if ($values_values['products_options_values_id'] == 0) {
-				echo "\n" . '<option name="id" value="0" selected="selected">' . PULL_DOWN_DEFAULT . '</option>';
-			} else {
-				echo "\n" . '<option name="id" value="0">' . PULL_DOWN_DEFAULT . '</option>';
-			}			
-			
             if ($attributes_values['options_values_id'] == $values_values['products_options_values_id']) {
                 echo "\n" . '<option name="' . $values_values['products_options_values_name'] . '" value="' . $values_values['products_options_values_id'] . '" selected="selected">' . $values_values['products_options_values_name'] . '</option>';
             } else {
@@ -836,10 +827,15 @@ while ($attributes_values = $attribute_result->fields) {
 			$in_price = $attributes_values['options_values_price'];
 			$in_price = number_format($in_price ?? 0, TAX_DECIMAL_PLACES, '.', '');
 		?>
-            <td align="right" class="smallText">ralf&nbsp;<?php echo oos_draw_input_field('value_price', $in_price, 'onkeyup="updateWithTax()"'); ?>&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<?php echo oos_draw_input_field('value_price', $in_price, 'onkeyup="updateWithTax()"'); ?>&nbsp;</td>
 			<td align="right" class="smallText">&nbsp;<?php echo oos_draw_input_field('value_price_gross', $in_price, 'onkeyup="updateNet()"'); ?>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'cPath=' . $cPath . '&pID=' . $pID . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
-          </tr>
+            <td align="center">
+				<div class="btn-group btn-block">
+					<?php echo oos_submit_button(BUTTON_UPDATE); ?>&nbsp;&nbsp;
+					<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'cPath=' . $cPath . '&pID=' . $pID . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>
+				</div>	
+			</td>
+		</tr>
         <?php
         if (BASE_PRICE == 'true') {
             $options_values_base_price = (!isset($attributes_values['options_values_base_price'])) ? 1 : $attributes_values['options_values_base_price'];
@@ -928,8 +924,12 @@ while ($attributes_values = $attribute_result->fields) {
 		?>	
             <td align="right" class="smallText">&nbsp;<b><?php echo $in_price; ?></b>&nbsp;</td>
 			<td align="right" class="smallText">&nbsp;<b><?php echo $in_price; ?></b>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-success mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'action=delete_attribute&cPath=' . $cPath . '&pID=' . $pID . '&attribute_id=' . $attribute_id) . '" role="button"><strong>' . BUTTON_CONFIRM . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a  class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'cPath=' . $cPath . '&pID=' . $pID . (isset($option_page) ? (isset($option_page) ? '&option_page=' . $option_page : '') : '') . (isset($value_page) ? (isset($value_page) ? '&value_page=' . $value_page : '') : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</b></td>
-
+            <td align="center">
+				<div class="btn-group btn-block">
+					<?php echo '<a class="btn btn-sm btn-success mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'action=delete_attribute&cPath=' . $cPath . '&pID=' . $pID . '&attribute_id=' . $attribute_id) . '" role="button"><strong>' . BUTTON_CONFIRM . '</strong></a>'; ?>&nbsp;&nbsp;
+					<?php echo '<a  class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'cPath=' . $cPath . '&pID=' . $pID . (isset($option_page) ? (isset($option_page) ? '&option_page=' . $option_page : '') : '') . (isset($value_page) ? (isset($value_page) ? '&value_page=' . $value_page : '') : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>
+				</div>	
+			</td>
         <?php
     } else {
         ?>
@@ -943,7 +943,7 @@ while ($attributes_values = $attribute_result->fields) {
             <td class="smallText">&nbsp;
         <?php
         if ($attributes_values['options_values_status'] == '1') {
-            echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['product_options'], 'action=setflag&flag=0&cPath=' . $cPath . '&pID=' . $pID . '&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
+            echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['product_options'], 'action=setflag&flag=0&cPath=' . $cPath . '&pID=' . $pID . '&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>'; 
         } else {
             echo '<a href="' . oos_href_link_admin($aContents['product_options'], 'action=setflag&flag=1&cPath=' . $cPath . '&pID=' . $pID . '&aID=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
         } ?></td>
@@ -953,7 +953,12 @@ while ($attributes_values = $attribute_result->fields) {
 		?>
             <td align="right" class="smallText">&nbsp;<?php echo $in_price; ?>&nbsp;</td>
 			<td align="right" class="smallText">&nbsp;<?php echo $in_price; ?>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'action=update_attribute&cPath=' . $cPath . '&pID=' . intval($pID) . '&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'action=delete_product_attribute&cPath=' . $cPath . '&pID=' . intval($pID) . '&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) , '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
+            <td align="center">
+				<div class="btn-group btn-block">			
+					<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'action=update_attribute&cPath=' . $cPath . '&pID=' . intval($pID) . '&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;
+					<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'action=delete_product_attribute&cPath=' . $cPath . '&pID=' . intval($pID) . '&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) , '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>
+				</div>					
+			</td>
         <?php
     } ?>
           </tr>
@@ -1193,6 +1198,9 @@ if ($action != 'update_attribute') {
     </footer>
 </div>
 
+<script nonce="<?php echo NONCE; ?>">
+updateWithTax();
+</script>
 <?php
 
 require 'includes/bottom.php';
