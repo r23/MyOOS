@@ -26,9 +26,9 @@ require 'includes/main.php';
 
 require 'includes/functions/function_categories.php';
 require 'includes/functions/function_products_attributes.php';
+
 require 'includes/classes/class_upload.php';
 require 'includes/classes/class_currencies.php';
-
 
 $currencies = new currencies();
 
@@ -350,7 +350,7 @@ switch ($action) {
         }
 
 
-        $_POST['value_price'] = str_replace(',', '.', (string) $_POST['value_price']);
+        $value_price = str_replace(',', '.', (string) $_POST['value_price']);
 
 
         /*
@@ -396,7 +396,7 @@ switch ($action) {
 						options_values_model = '" . oos_db_prepare_input($_POST['options_values_model']) . "',
 						options_values_image  = '" . oos_db_prepare_input($options_values_image) . "',
 						options_values_id = '" . oos_db_prepare_input($values_id) . "',
-						options_values_price = '" . oos_db_prepare_input($_POST['value_price']) . "',
+						options_values_price = '" . oos_db_prepare_input($value_price) . "',
 						options_values_base_price = '" . oos_db_prepare_input($options_values_base_price) . "',
 						options_values_quantity = '" . oos_db_prepare_input($options_values_quantity) . "',
 						options_values_base_quantity = '" . oos_db_prepare_input($options_values_base_quantity) . "',
@@ -673,8 +673,6 @@ function calcBasePriceFactor() {
   }
 
 }
-
-updateWithTax();
 </script>
 
 <form name="attributes" action="<?php echo oos_href_link_admin($aContents['product_options'], 'action=' . $form_action . '&cPath=' . $cPath . '&pID=' . $pID . (isset($option_page) ? '&option_page=' . $option_page : '') . (isset($value_page) ? '&value_page=' . $value_page : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')); ?>" method="post" enctype="multipart/form-data">

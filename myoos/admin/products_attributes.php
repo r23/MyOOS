@@ -25,8 +25,11 @@ require 'includes/main.php';
 
 require 'includes/functions/function_categories.php';
 require 'includes/functions/function_products_attributes.php';
-require 'includes/classes/class_upload.php';
 
+require 'includes/classes/class_upload.php';
+require 'includes/classes/class_currencies.php';
+
+$currencies = new currencies();
 
 $aLanguages = oos_get_languages();
 $nLanguages = is_countable($aLanguages) ? count($aLanguages) : 0;
@@ -181,7 +184,7 @@ switch ($action) {
             $options_values_image = '';
         }
 
-        $_POST['value_price'] = str_replace(',', '.', (string) $_POST['value_price']);
+        $value_price = str_replace(',', '.', (string) $_POST['value_price']);
 
         // 0 = Download id
         $values_id = (isset($_POST['values_id'])) ? intval($_POST['values_id']) : 0;
@@ -204,7 +207,6 @@ switch ($action) {
             $options_values_base_price = 1;
             $options_values_quantity = 1;
             $options_values_base_quantity = 1;
-
             $options_values_units_id = 0;
         }
 
@@ -230,7 +232,7 @@ switch ($action) {
 								'" . oos_db_prepare_input($_POST['options_values_model']) . "', 
 								'" . oos_db_prepare_input($options_values_image) . "',
 								'" . oos_db_prepare_input($values_id) . "', 
-								'" . oos_db_prepare_input($_POST['value_price']) . "', 
+								'" . oos_db_prepare_input($value_price) . "', 
 								'" . oos_db_prepare_input($options_values_base_price) . "',
 								'" . oos_db_prepare_input($options_values_quantity) . "',
 								'" . oos_db_prepare_input($options_values_base_quantity) . "',
@@ -329,7 +331,7 @@ switch ($action) {
         }
 
 
-        $_POST['value_price'] = str_replace(',', '.', (string) $_POST['value_price']);
+         $value_price = str_replace(',', '.', (string) $_POST['value_price']);
 
 
         /*
@@ -375,7 +377,7 @@ switch ($action) {
 						options_values_model = '" . oos_db_prepare_input($_POST['options_values_model']) . "',
 						options_values_image  = '" . oos_db_prepare_input($options_values_image) . "',
 						options_values_id = '" . oos_db_prepare_input($values_id) . "',
-						options_values_price = '" . oos_db_prepare_input($_POST['value_price']) . "',
+						options_values_price = '" . oos_db_prepare_input($value_price) . "',
 						options_values_base_price = '" . oos_db_prepare_input($options_values_base_price) . "',
 						options_values_quantity = '" . oos_db_prepare_input($options_values_quantity) . "',
 						options_values_base_quantity = '" . oos_db_prepare_input($options_values_base_quantity) . "',
@@ -553,6 +555,49 @@ if ($action == 'update_attribute') {
 function doRound(x, places) {
   num = Math.round(x * Math.pow(10, places)) / Math.pow(10, places);
   return num.toFixed(places);    
+}
+
+let tax_rates = new Array();
+<?php
+    $n = is_countable($tax_class_array) ? count($tax_class_array) : 0;
+    for ($i = 0, $n; $i < $n; $i++) {
+        if ($tax_class_array[$i]['id'] > 0) {
+            echo 'tax_rates["' . $tax_class_array[$i]['id'] . '"] = ' . oos_get_tax_rate_value($tax_class_array[$i]['id']) . ';' . "\n";
+        }
+    } 
+?>
+
+function getTaxRate() {
+  let parameterVal = <?php echo $product_info['products_tax_class_id']; ?>
+
+  if ( (parameterVal > 0) && (tax_rates[parameterVal] > 0) ) {
+    return tax_rates[parameterVal];
+  } else {
+    return 0;
+  }
+}
+
+function updateWithTax() {
+  let taxRate = getTaxRate();
+  let grossValue = document.forms["attributes"].value_price.value;
+  
+  if (taxRate > 0) {
+    grossValue = grossValue * ((taxRate / 100) + 1);
+  }
+
+  document.forms["attributes"].value_price_gross.value = doRound(grossValue, 2);
+}
+
+function updateNet() {
+  let taxRate = getTaxRate();
+  let netValue = document.forms["attributes"].value_price_gross.value;
+  
+  if (taxRate > 0) {
+    netValue = netValue / ((taxRate / 100) + 1);
+  }
+
+  document.forms["attributes"].value_price.value = doRound(netValue, 2);
+  
 }
 
 function calcBasePriceFactor() {
@@ -992,6 +1037,6 @@ if ($action != 'update_attribute') {
 updateWithTax();
 </script>
 <?php
-    require 'includes/bottom.php';
+
+require 'includes/bottom.php';
 require 'includes/nice_exit.php';
-?>
