@@ -678,6 +678,7 @@ if ($attribute_page != $num_pages) {
 					<th>&nbsp;<?php echo TABLE_HEADING_SORT_ORDER_VALUE; ?>&nbsp;</th>
 					<th>&nbsp;<?php echo TABLE_HEADING_STATUS; ?>&nbsp;</th>
 					<th class="text-right">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE; ?>&nbsp;</th>
+					<th class="text-right">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE_WITH_TAX; ?>&nbsp;</th>		
 					<th class="text-center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>					
 				</tr>
 			</thead>
@@ -687,7 +688,29 @@ $rows = 0;
 
 $attributes = $dbconn->Execute($attributes);
 while ($attributes_values = $attributes->fields) {
-    $products_name_only = oos_get_products_name($attributes_values['products_id']);
+	
+	$productstable = $oostable['products'];
+	$products_descriptiontable = $oostable['products_description'];
+	$product_info_sql = "SELECT p.products_id, pd.products_name, pd.products_title, pd.products_description, pd.products_short_description, pd.products_url,
+                              pd.products_description_meta, pd.products_facebook_title, pd.products_facebook_description, pd.products_twitter_title,
+							  pd.products_twitter_description, pd.products_old_electrical_equipment_description, pd.products_used_goods_description,
+							  p.products_model, p.products_replacement_product_id, p.products_used_goods,
+                              p.products_quantity, p.products_image, p.products_price, p.products_base_price,
+							  p.products_product_quantity, p.products_base_unit, p.products_quantity_order_min, 
+							  p.products_quantity_order_max, p.products_quantity_order_units,
+                              p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4,
+                              p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty,
+                              p.products_discount4_qty, p.products_tax_class_id, p.products_units_id, p.products_date_added,
+                              p.products_date_available, p.products_last_modified, p.manufacturers_id, p.products_price_list, p.products_status
+                        FROM $productstable p,
+                             $products_descriptiontable pd
+                        WHERE p.products_id = '" . intval($attributes_values['products_id']) . "'
+                          AND pd.products_id = p.products_id
+                          AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'";
+	$product_info_result = $dbconn->Execute($product_info_sql);
+	$product_info = $product_info_result->fields;
+
+	$products_name_only = $product_info['products_name'];	
     $options_name = oos_options_name($attributes_values['options_id']);
     $values_name = oos_values_name($attributes_values['options_values_id']);
     $rows++; ?>
@@ -756,6 +779,7 @@ while ($attributes_values = $attributes->fields) {
 			$in_price = $attributes_values['options_values_price'];
 			$in_price = number_format($in_price ?? 0, TAX_DECIMAL_PLACES, '.', ''); ?>
             <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" value="<?php echo $in_price; ?>" size="6">&nbsp;</td>
+			<td align="right" class="smallText">&nbsp;<input type="text" name="value_price" value="<?php echo $in_price; ?>" size="6">&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
           </tr>
         <?php
@@ -839,6 +863,7 @@ while ($attributes_values = $attributes->fields) {
 			$in_price = $attributes_values['options_values_price'];
 			$in_price = number_format($in_price ?? 0, TAX_DECIMAL_PLACES, '.', ''); ?>			
             <td align="right" class="smallText">&nbsp;<b><?php echo $in_price; ?></b>&nbsp;</td>
+			<td align="right" class="smallText">&nbsp;<b><?php echo $in_price; ?></b>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-success mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_attribute&attribute_id=' . $_GET['attribute_id']) . '" role="button"><strong>' . BUTTON_CONFIRM . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a  class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], (isset($option_page) ? (isset($option_page) ? '&option_page=' . $option_page : '') : '') . (isset($value_page) ? (isset($value_page) ? '&value_page=' . $value_page : '') : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</b></td>
 
         <?php
@@ -862,6 +887,7 @@ while ($attributes_values = $attributes->fields) {
 			$in_price = $attributes_values['options_values_price'];
 			$in_price = number_format($in_price, TAX_DECIMAL_PLACES, '.', ''); ?>
             <td align="right" class="smallText">&nbsp;<?php echo $in_price; ?>&nbsp;</td>
+			<td align="right" class="smallText">&nbsp;<?php echo $in_price; ?>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_product_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) , '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
         <?php
     } ?>
