@@ -920,8 +920,8 @@ while ($attributes_values = $attribute_result->fields) {
 			$sPrice = ($in_price * ($tax['tax_rate'] + 100) / 100);
             $sPrice = oos_round($sPrice, TAX_DECIMAL_PLACES);			
 		?>
-            <td align="right" class="smallText">&nbsp;<b><?php echo $currencies->format($sPriceNetto); ?></b&nbsp;</td>
-			<td align="right" class="smallText">&nbsp;<b><?php echo $currencies->format($sPrice); ?></b&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<b><?php echo $currencies->format($sPriceNetto); ?></b>&nbsp;</td>
+			<td align="right" class="smallText">&nbsp;<b><?php echo $currencies->format($sPrice); ?></b>&nbsp;</td>
             <td align="center">
 				<div class="btn-group btn-block">
 					<?php echo '<a class="btn btn-sm btn-success mb-20" href="' . oos_href_link_admin($aContents['product_options'], 'action=delete_attribute&cPath=' . $cPath . '&pID=' . $pID . '&attribute_id=' . $attribute_id) . '" role="button"><strong>' . BUTTON_CONFIRM . '</strong></a>'; ?>&nbsp;&nbsp;

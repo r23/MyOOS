@@ -549,6 +549,18 @@ if ($action == 'update_attribute') {
 } else {
     $form_action = 'add_product_attributes';
 }
+
+$tax_class_array = [];
+$tax_classtable = $oostable['tax_class'];
+$tax_class_result = $dbconn->Execute("SELECT tax_class_id, tax_class_title FROM $tax_classtable ORDER BY tax_class_title");
+while ($tax_class = $tax_class_result->fields) {
+	$tax_class_array[] = ['id' => $tax_class['tax_class_id'],
+						'text' => $tax_class['tax_class_title']];
+	
+		// Move that ADOdb pointer!
+		$tax_class_result->MoveNext();
+}
+
 ?>
 <script nonce="<?php echo NONCE; ?>">
 
@@ -568,7 +580,7 @@ let tax_rates = new Array();
 ?>
 
 function getTaxRate() {
-  let parameterVal = <?php echo $product_info['products_tax_class_id']; ?>
+  let parameterVal = document.forms["attributes"].elements["products_tax_class_id"].value;
 
   if ( (parameterVal > 0) && (tax_rates[parameterVal] > 0) ) {
     return tax_rates[parameterVal];
@@ -713,12 +725,23 @@ while ($attributes_values = $attributes->fields) {
 	$products_name_only = $product_info['products_name'];	
     $options_name = oos_options_name($attributes_values['options_id']);
     $values_name = oos_values_name($attributes_values['options_values_id']);
+
+	$tax = [];
+	$tax_result = $dbconn->Execute("SELECT tax_rate FROM " . $oostable['tax_rates'] . " WHERE tax_class_id = '" . intval($product_info['products_tax_class_id']) . "'");
+	$tax = $tax_result->fields;
+	
     $rows++; ?>
           <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
     <?php
     if (($action == 'update_attribute') && ($_GET['attribute_id'] == $attributes_values['products_attributes_id'])) {
         ?>
-            <td class="smallText">&nbsp;<?php echo $attributes_values['products_attributes_id']; ?><input type="hidden" name="attribute_id" value="<?php echo $attributes_values['products_attributes_id']; ?>">&nbsp;</td>
+            <td class="smallText">&nbsp;
+			<?php 
+				echo $attributes_values['products_attributes_id'];  
+				echo oos_draw_hidden_field('attribute_id', $attributes_values['products_attributes_id']);
+				echo oos_draw_hidden_field('products_tax_class_id', $product_info['products_tax_class_id']);
+			?>		
+			&nbsp;</td>
             <td class="smallText">&nbsp;<?php echo product_info_image($attributes_values['options_values_image'], $products_name_only, 'small'); ?><br>&nbsp;<?php echo $attributes_values['options_values_image']; ?>&nbsp;
         <?php if ($attributes_values['options_values_image'] != '') {  ?>
             <br>&nbsp;<?php echo oos_draw_checkbox_field('remove_image', 'yes') . TEXT_PRODUCTS_IMAGE_DELETE; ?><br>
@@ -778,8 +801,8 @@ while ($attributes_values = $attributes->fields) {
         <?php
 			$in_price = $attributes_values['options_values_price'];
 			$in_price = number_format($in_price ?? 0, TAX_DECIMAL_PLACES, '.', ''); ?>
-            <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" value="<?php echo $in_price; ?>" size="6">&nbsp;</td>
-			<td align="right" class="smallText">&nbsp;<input type="text" name="value_price" value="<?php echo $in_price; ?>" size="6">&nbsp;</td>
+            <td align="right" class="smallText"><?php echo oos_draw_input_field('value_price', $in_price, 'onkeyup="updateWithTax()"'); ?></td>
+			<td align="right" class="smallText"><?php echo oos_draw_input_field('value_price_gross', $in_price, 'onkeyup="updateNet()"'); ?></td>		
             <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
           </tr>
         <?php
@@ -861,9 +884,12 @@ while ($attributes_values = $attributes->fields) {
             <td class="smallText">&nbsp;<?php echo $attributes_values['options_values_status']; ?></td>
         <?php
 			$in_price = $attributes_values['options_values_price'];
-			$in_price = number_format($in_price ?? 0, TAX_DECIMAL_PLACES, '.', ''); ?>			
-            <td align="right" class="smallText">&nbsp;<b><?php echo $in_price; ?></b>&nbsp;</td>
-			<td align="right" class="smallText">&nbsp;<b><?php echo $in_price; ?></b>&nbsp;</td>
+			$sPriceNetto = oos_round($in_price, TAX_DECIMAL_PLACES);
+			
+			$sPrice = ($in_price * ($tax['tax_rate'] + 100) / 100);
+            $sPrice = oos_round($sPrice, TAX_DECIMAL_PLACES); ?>
+            <td align="right" class="smallText">&nbsp;<b><?php echo $currencies->format($sPriceNetto); ?></b>&nbsp;</td>
+			<td align="right" class="smallText">&nbsp;<b><?php echo $currencies->format($sPrice); ?></b>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-success mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_attribute&attribute_id=' . $_GET['attribute_id']) . '" role="button"><strong>' . BUTTON_CONFIRM . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a  class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], (isset($option_page) ? (isset($option_page) ? '&option_page=' . $option_page : '') : '') . (isset($value_page) ? (isset($value_page) ? '&value_page=' . $value_page : '') : '') . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</b></td>
 
         <?php
@@ -885,9 +911,12 @@ while ($attributes_values = $attributes->fields) {
         } ?></td>
         <?php
 			$in_price = $attributes_values['options_values_price'];
-			$in_price = number_format($in_price, TAX_DECIMAL_PLACES, '.', ''); ?>
-            <td align="right" class="smallText">&nbsp;<?php echo $in_price; ?>&nbsp;</td>
-			<td align="right" class="smallText">&nbsp;<?php echo $in_price; ?>&nbsp;</td>
+			$sPriceNetto = oos_round($in_price, TAX_DECIMAL_PLACES);
+			
+			$sPrice = ($in_price * ($tax['tax_rate'] + 100) / 100);
+            $sPrice = oos_round($sPrice, TAX_DECIMAL_PLACES); ?>
+            <td align="right" class="smallText">&nbsp;<?php echo $currencies->format($sPriceNetto); ?>&nbsp;</td>
+			<td align="right" class="smallText">&nbsp;<?php echo $currencies->format($sPrice); ?>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_product_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . (isset($attribute_page) ? '&attribute_page=' . $attribute_page : '')) , '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
         <?php
     } ?>
