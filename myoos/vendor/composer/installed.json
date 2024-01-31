@@ -420,17 +420,17 @@
         },
         {
             "name": "doctrine/deprecations",
-            "version": "1.1.2",
-            "version_normalized": "1.1.2.0",
+            "version": "1.1.3",
+            "version_normalized": "1.1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/deprecations.git",
-                "reference": "4f2d4f2836e7ec4e7a8625e75c6aa916004db931"
+                "reference": "dfbaa3c2d2e9a9df1118213f3b8b0c597bb99fab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/deprecations/zipball/4f2d4f2836e7ec4e7a8625e75c6aa916004db931",
-                "reference": "4f2d4f2836e7ec4e7a8625e75c6aa916004db931",
+                "url": "https://api.github.com/repos/doctrine/deprecations/zipball/dfbaa3c2d2e9a9df1118213f3b8b0c597bb99fab",
+                "reference": "dfbaa3c2d2e9a9df1118213f3b8b0c597bb99fab",
                 "shasum": ""
             },
             "require": {
@@ -448,7 +448,7 @@
             "suggest": {
                 "psr/log": "Allows logging deprecations via PSR-3 logger implementation"
             },
-            "time": "2023-09-27T20:04:15+00:00",
+            "time": "2024-01-30T19:34:25+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -464,7 +464,7 @@
             "homepage": "https://www.doctrine-project.org/",
             "support": {
                 "issues": "https://github.com/doctrine/deprecations/issues",
-                "source": "https://github.com/doctrine/deprecations/tree/1.1.2"
+                "source": "https://github.com/doctrine/deprecations/tree/1.1.3"
             },
             "install-path": "../doctrine/deprecations"
         },
@@ -1673,17 +1673,17 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.72.2",
-            "version_normalized": "2.72.2.0",
+            "version": "2.72.3",
+            "version_normalized": "2.72.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "3e7edc41b58d65509baeb0d4a14c8fa41d627130"
+                "reference": "0c6fd108360c562f6e4fd1dedb8233b423e91c83"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/3e7edc41b58d65509baeb0d4a14c8fa41d627130",
-                "reference": "3e7edc41b58d65509baeb0d4a14c8fa41d627130",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/0c6fd108360c562f6e4fd1dedb8233b423e91c83",
+                "reference": "0c6fd108360c562f6e4fd1dedb8233b423e91c83",
                 "shasum": ""
             },
             "require": {
@@ -1711,7 +1711,7 @@
                 "phpunit/phpunit": "^7.5.20 || ^8.5.26 || ^9.5.20",
                 "squizlabs/php_codesniffer": "^3.4"
             },
-            "time": "2024-01-19T00:21:53+00:00",
+            "time": "2024-01-25T10:35:09+00:00",
             "bin": [
                 "bin/carbon"
             ],
@@ -3321,12 +3321,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "1c003064f6e7c27b0fc6f4d153b660fd33f1ba98"
+                "reference": "b1ef8f464be59fa15bf9b4956be3e17a75c4dd03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/1c003064f6e7c27b0fc6f4d153b660fd33f1ba98",
-                "reference": "1c003064f6e7c27b0fc6f4d153b660fd33f1ba98",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/b1ef8f464be59fa15bf9b4956be3e17a75c4dd03",
+                "reference": "b1ef8f464be59fa15bf9b4956be3e17a75c4dd03",
                 "shasum": ""
             },
             "conflict": {
@@ -3418,7 +3418,7 @@
                 "contao/managed-edition": "<=1.5",
                 "corveda/phpsandbox": "<1.3.5",
                 "cosenary/instagram": "<=2.3",
-                "craftcms/cms": "<=4.5.10",
+                "craftcms/cms": "<4.6.2",
                 "croogo/croogo": "<4",
                 "cuyz/valinor": "<0.12",
                 "czproject/git-php": "<4.0.3",
@@ -3476,7 +3476,7 @@
                 "ezsystems/ezplatform-solr-search-engine": ">=1.7,<1.7.12|>=2,<2.0.2|>=3.3,<3.3.15",
                 "ezsystems/ezplatform-user": ">=1,<1.0.1",
                 "ezsystems/ezpublish-kernel": "<6.13.8.2-dev|>=7,<7.5.31",
-                "ezsystems/ezpublish-legacy": "<=2017.12.7.3|>=2018.06,<=2019.03.5.1",
+                "ezsystems/ezpublish-legacy": "<=2017.12.7.3|>=2018.6,<=2019.03.5.1",
                 "ezsystems/platform-ui-assets-bundle": ">=4.2,<4.2.3",
                 "ezsystems/repository-forms": ">=2.3,<2.3.2.1-dev|>=2.5,<2.5.15",
                 "ezyang/htmlpurifier": "<4.1.1",
@@ -3836,6 +3836,7 @@
                 "sukohi/surpass": "<1",
                 "sulu/sulu": "<1.6.44|>=2,<2.2.18|>=2.3,<2.3.8|==2.4.0.0-RC1|>=2.5,<2.5.10",
                 "sumocoders/framework-user-bundle": "<1.4",
+                "superbig/craft-audit": "<3.0.2",
                 "swag/paypal": "<5.4.4",
                 "swiftmailer/swiftmailer": ">=4,<5.4.5",
                 "swiftyedit/swiftyedit": "<1.2",
@@ -4008,7 +4009,7 @@
                 "zfr/zfr-oauth2-server-module": "<0.1.2",
                 "zoujingli/thinkadmin": "<=6.1.53"
             },
-            "time": "2024-01-30T13:04:20+00:00",
+            "time": "2024-01-31T12:06:01+00:00",
             "default-branch": true,
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
@@ -5341,17 +5342,17 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.4.34",
-            "version_normalized": "5.4.34.0",
+            "version": "v5.4.35",
+            "version_normalized": "5.4.35.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "e35eb6e13201c34afc467f7feee32e14c0817147"
+                "reference": "01cf0bccc11c791778e2a2214063a4cf861cc014"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/e35eb6e13201c34afc467f7feee32e14c0817147",
-                "reference": "e35eb6e13201c34afc467f7feee32e14c0817147",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/01cf0bccc11c791778e2a2214063a4cf861cc014",
+                "reference": "01cf0bccc11c791778e2a2214063a4cf861cc014",
                 "shasum": ""
             },
             "require": {
@@ -5473,7 +5474,7 @@
                 "amphp/http-tunnel": "^1.0",
                 "async-aws/ses": "^1.0",
                 "async-aws/sns": "^1.0",
-                "async-aws/sqs": "^1.0",
+                "async-aws/sqs": "^1.0|^2.0",
                 "cache/integration-tests": "dev-master",
                 "doctrine/annotations": "^1.13.1|^2",
                 "doctrine/cache": "^1.11|^2.0",
@@ -5502,7 +5503,7 @@
                 "twig/inky-extra": "^2.12|^3",
                 "twig/markdown-extra": "^2.12|^3"
             },
-            "time": "2023-12-30T13:02:14+00:00",
+            "time": "2024-01-30T20:00:59+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -5545,7 +5546,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/symfony/issues",
-                "source": "https://github.com/symfony/symfony/tree/v5.4.34"
+                "source": "https://github.com/symfony/symfony/tree/v5.4.35"
             },
             "funding": [
                 {

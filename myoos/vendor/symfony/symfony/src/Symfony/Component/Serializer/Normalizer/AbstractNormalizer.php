@@ -137,7 +137,7 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
     /**
      * Sets the {@link ClassMetadataFactoryInterface} to use.
      */
-    public function __construct(ClassMetadataFactoryInterface $classMetadataFactory = null, NameConverterInterface $nameConverter = null, array $defaultContext = [])
+    public function __construct(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, array $defaultContext = [])
     {
         $this->classMetadataFactory = $classMetadataFactory;
         $this->nameConverter = $nameConverter;
@@ -197,7 +197,7 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
      *
      * @throws CircularReferenceException
      */
-    protected function handleCircularReference(object $object, string $format = null, array $context = [])
+    protected function handleCircularReference(object $object, ?string $format = null, array $context = [])
     {
         $circularReferenceHandler = $context[self::CIRCULAR_REFERENCE_HANDLER] ?? $this->defaultContext[self::CIRCULAR_REFERENCE_HANDLER];
         if ($circularReferenceHandler) {
@@ -269,7 +269,7 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
      *
      * @return bool
      */
-    protected function isAllowedAttribute($classOrObject, string $attribute, string $format = null, array $context = [])
+    protected function isAllowedAttribute($classOrObject, string $attribute, ?string $format = null, array $context = [])
     {
         $ignoredAttributes = $context[self::IGNORED_ATTRIBUTES] ?? $this->defaultContext[self::IGNORED_ATTRIBUTES];
         if (\in_array($attribute, $ignoredAttributes)) {
@@ -330,7 +330,7 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
      * @throws RuntimeException
      * @throws MissingConstructorArgumentsException
      */
-    protected function instantiateObject(array &$data, string $class, array &$context, \ReflectionClass $reflectionClass, $allowedAttributes, string $format = null)
+    protected function instantiateObject(array &$data, string $class, array &$context, \ReflectionClass $reflectionClass, $allowedAttributes, ?string $format = null)
     {
         if (null !== $object = $this->extractObjectToPopulate($class, $context, self::OBJECT_TO_POPULATE)) {
             unset($context[self::OBJECT_TO_POPULATE]);
@@ -372,7 +372,7 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
                             $variadicParameters[$parameterKey] = $this->denormalizeParameter($reflectionClass, $constructorParameter, $paramName, $parameterData, $context, $format);
                         }
 
-                        $params = array_merge($params, $variadicParameters);
+                        $params = array_merge(array_values($params), $variadicParameters);
                         $unsetKeys[] = $key;
                     }
                 } elseif ($allowed && !$ignored && (isset($data[$key]) || \array_key_exists($key, $data))) {
@@ -414,7 +414,7 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
                         sprintf('Failed to create object because the class misses the "%s" property.', $constructorParameter->name),
                         $data,
                         ['unknown'],
-                        $objectDeserializationPath,
+                        $context['deserialization_path'],
                         true
                     );
                     $context['not_normalizable_value_exceptions'][] = $exception;
@@ -473,7 +473,7 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
     /**
      * @internal
      */
-    protected function denormalizeParameter(\ReflectionClass $class, \ReflectionParameter $parameter, string $parameterName, $parameterData, array $context, string $format = null)
+    protected function denormalizeParameter(\ReflectionClass $class, \ReflectionParameter $parameter, string $parameterName, $parameterData, array $context, ?string $format = null)
     {
         try {
             if (($parameterType = $parameter->getType()) instanceof \ReflectionNamedType && !$parameterType->isBuiltin()) {
