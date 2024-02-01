@@ -19,8 +19,8 @@
         "ext-iconv": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "^4.8.36",
-        "codacy/coverage": "^1.4"
+        "phpunit/phpunit": "^5.7.27",
+        "codacy/coverage": "^1.4.3"
     },
     "suggest": {
         "ext-mbstring": "for parsing UTF-8 CSS"
@@ -33,6 +33,11 @@
     "autoload-dev": {
         "psr-4": {
             "Sabberworm\\CSS\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "9.0.x-dev"
         }
     },
     "scripts": {
