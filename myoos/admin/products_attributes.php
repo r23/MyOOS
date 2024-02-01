@@ -966,12 +966,23 @@ if ($action != 'update_attribute') {
     $products_attributestable = $oostable['products_attributes'];
     $max_attributes_id_result = $dbconn->Execute("SELECT max(products_attributes_id) + 1 as next_id FROM $products_attributestable");
     $max_attributes_id_values = $max_attributes_id_result->fields;
-    $next_id = $max_attributes_id_values['next_id']; ?>
-	<table class="table w-100">
-          <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
-            <td class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
-            <td class="smallText"><?php echo '&nbsp;' . oos_draw_file_field('options_values_image'); ?></td>
-            <td class="smallText">&nbsp;<select name="products_id">
+    $next_id = $max_attributes_id_values['next_id']; 
+
+	echo oos_draw_hidden_field('products_tax_class_id', $product_info['products_tax_class_id']);
+	?>
+
+	                    <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_IMAGE; ?></label>
+                              <div class="col-lg-10"><?php echo oos_draw_file_field('options_values_image'); ?></div>
+                           </div>
+                        </fieldset>
+
+	                    <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_PRODUCT; ?></label>
+                              <div class="col-lg-10">
+								<select name="products_id">
     <?php
     $productstable = $oostable['products'];
     $products_descriptiontable = $oostable['products_description'];
@@ -982,16 +993,31 @@ if ($action != 'update_attribute') {
         // Move that ADOdb pointer!
         $products->MoveNext();
     } ?>
-            </select>&nbsp;</td>
-            <td class="smallText"><?php
+            </select></div>	
+                           </div>
+                        </fieldset>
 
-            if (!is_array($attributes_values)) {
-                $attributes_values = [];
-            }
-            $attributes_values['options_values_model'] ??= '';
-    echo oos_draw_input_field('options_values_model', $attributes_values['options_values_model']); ?></td>
-            <td class="smallText">&nbsp;<select name="options_id">
-    <?php
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_MODEL; ?></label>
+                              <div class="col-lg-10">
+<?php
+	if (!is_array($attributes_values)) {
+		$attributes_values = [];
+	}
+	$attributes_values['options_values_model'] ??= '';
+	echo oos_draw_input_field('options_values_model', $attributes_values['options_values_model']); 
+?>
+                              </div>
+                           </div>
+                        </fieldset>
+
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_OPT_NAME; ?></label>
+                              <div class="col-lg-10">
+									<select name="options_id">
+<?php
     echo '<option name="id" value="0" selected="selected">' . PULL_DOWN_DEFAULT . '</option>';
 
     $products_optionstable = $oostable['products_options'];
@@ -1001,10 +1027,18 @@ if ($action != 'update_attribute') {
 
         // Move that ADOdb pointer!
         $options->MoveNext();
-    } ?>
-            </select>&nbsp;</td>
-            <td class="smallText">&nbsp;<select name="values_id">
-    <?php
+    } 
+?>
+								</select></div>
+                           </div>
+                        </fieldset>
+
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_OPT_VALUE; ?></label>
+                              <div class="col-lg-10">						  
+								<select name="values_id">
+<?php
     echo '<option name="id" value="0" selected="selected">' . PULL_DOWN_DEFAULT . '</option>';
 
     $products_options_valuestable = $oostable['products_options_values'];
@@ -1014,70 +1048,126 @@ if ($action != 'update_attribute') {
 
         // Move that ADOdb pointer!
         $values->MoveNext();
-    } ?>
-            </select>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<input type="text" name="sort_order" value="<?php echo $attributes_values['options_sort_order'] ?? ''; ?>" size="4">&nbsp;</td>
-            <td class="smallText">&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" size="6">&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_INSERT); ?>&nbsp;</td>
-          </tr>
-    <?php
+	} 
+?>
+								</select></div>
+                           </div>
+                        </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_SORT_ORDER_VALUE; ?></label>
+                              <div class="col-lg-10"><input type="text" name="sort_order" value="<?php echo $attributes_values['options_sort_order'] ?? ''; ?>" size="4"></div>
+                           </div>
+                        </fieldset>					
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_OPT_PRICE; ?></label>
+                              <div class="col-lg-10"><?php echo oos_draw_input_field('value_price', '0.00', 'onkeyup="updateWithTax()"'); ?></div>
+                           </div>
+                        </fieldset>			
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TABLE_HEADING_OPT_PRICE_WITH_TAX; ?></label>
+                              <div class="col-lg-10"><?php echo oos_draw_input_field('value_price_gross', '0.00', 'onkeyup="updateNet()"'); ?></div>
+                           </div>
+                        </fieldset>							
+
+<?php
     if (BASE_PRICE == 'true') {
-        $options_values_base_price = (!isset($attributes_values['options_values_base_price'])) ? 1 : $attributes_values['options_values_base_price'];
-        $options_values_units_id = $attributes_values['options_values_units_id'] ?? ''; ?>
-         <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td colspan="8"><table border="0">
-                <tr>
-                  <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR . '<br>' . oos_draw_input_field('options_values_base_price', $options_values_base_price); ?></td>
-                  <td class="main"><br> <- </td>
-                  <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY . '<br>' . oos_draw_input_field('options_values_quantity', 1, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
-                  <td class="main"><?php echo TEXT_PRODUCTS_UNIT . '<br>' . oos_draw_pull_down_menu('options_values_units_id', '', $products_units_array, $options_values_units_id); ?></td>
-                </tr>
-                <tr>
-                    <td class="main"></td>
-                    <td class="main"></td>
-                    <td class="main"><?php echo TEXT_PRODUCTS_BASE_QUANTITY . '<br>' . oos_draw_input_field('options_values_base_quantity', 1, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
-                    <td class="main"><?php echo TEXT_PRODUCTS_BASE_UNIT . '<br>' . implode(", ", array_values($unit_of_measure)); ?> </td>
-                </tr>
-              </table>
+		$options_values_base_price = (!isset($attributes_values['options_values_base_price'])) ? 1 : $attributes_values['options_values_base_price'];
+		$options_values_units_id = $attributes_values['options_values_units_id'] ?? ''; 
+?>
 
-            </td>
-            <td>&nbsp;</td>
-          </tr>        
-        <?php
-    }
-
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_QUANTITY; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_input_field('options_values_quantity', 1, 'OnKeyUp="calcBasePriceFactor()"'); ?>
+                                 <?php # echo oos_draw_input_field('products_product_quantity', $pInfo->products_product_quantity, 'onkeyup="calcBasePriceFactor()"'); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_UNIT; ?></label>
+                              <div class="col-lg-10">
+								<?php echo oos_draw_pull_down_menu('options_values_units_id', '', $products_units_array, $options_values_units_id); ?>
+								<?php # echo oos_draw_pull_down_menu('products_units_id', '', $products_units_array, $pInfo->products_units_id); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_QUANTITY; ?></label>
+                              <div class="col-lg-10">
+								<?php echo oos_draw_input_field('options_values_base_quantity', 1, 'OnKeyUp="calcBasePriceFactor()"'); ?>
+								<?php # echo oos_draw_input_field('products_base_quantity', $pInfo->products_base_quantity, 'onkeyup="calcBasePriceFactor()"'); ?>
+                              </div>
+                           </div>
+                        </fieldset>					
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_UNIT; ?></label>
+                              <div class="col-lg-10">			  
+                                 <?php echo implode(", ", array_values($unit_of_measure)); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR; ?></label>
+                              <div class="col-lg-10">
+								<?php echo oos_draw_input_field('options_values_base_price', $options_values_base_price); ?>
+								<?php # echo oos_draw_input_field('products_base_price', $pInfo->products_base_price); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+<?php
+	} 
     if (DOWNLOAD_ENABLED == 'true') {
         $products_attributes_maxdays  = DOWNLOAD_MAX_DAYS;
-        $products_attributes_maxcount = DOWNLOAD_MAX_COUNT; ?>
-           <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td colspan="8">
-          <table> 
-                 <tr class="<?php echo(floor($rows / 2) == ($rows / 2) ? 'table-secondary' : 'table-light'); ?>">
-                  <td><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
-                  <td class="smallText"><?php echo TABLE_TEXT_FILENAME; ?></td>
-                  <td class="smallText"><?php echo oos_draw_input_field('products_attributes_filename', '', 'size="15"'); ?>&nbsp;</td>
-                  <td class="smallText"><?php echo TABLE_TEXT_MAX_DAYS; ?></td>
-                  <td class="smallText"><?php echo oos_draw_input_field('products_attributes_maxdays', $products_attributes_maxdays, 'size="5"'); ?>&nbsp;</td>
-                  <td class="smallText"><?php echo TABLE_TEXT_MAX_COUNT; ?></td>
-                  <td class="smallText"><?php echo oos_draw_input_field('products_attributes_maxcount', $products_attributes_maxcount, 'size="5"'); ?>&nbsp;</td>
+        $products_attributes_maxcount = DOWNLOAD_MAX_COUNT; ?>	
 
-            </tr> 
-             </table>  
-            </td>
-            <td>&nbsp;</td>
-          </tr>
-        <?php
+						<div class="col-12 mt-3">
+							<h2><?php echo TABLE_HEADING_DOWNLOAD; ?></h2>
+						</div>
+ 
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TABLE_TEXT_FILENAME; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_input_field('products_attributes_filename', '', 'size="15"'); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TABLE_TEXT_MAX_DAYS; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_input_field('products_attributes_maxdays', $products_attributes_maxdays, 'size="5"'); ?>
+                              </div>
+                           </div>
+                        </fieldset>		
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TABLE_TEXT_MAX_COUNT; ?></label>
+                              <div class="col-lg-10">
+                                  <?php echo oos_draw_input_field('products_attributes_maxcount', $products_attributes_maxcount, 'size="5"'); ?>
+                              </div>
+                           </div>
+                        </fieldset>		
+<?php
     } // end of DOWNLOAD_ENABLED section
 }
-?>
-        </table></form></td>
-      </tr>
-    </table>
+?>	
+
+					<div class="text-right mt-3 mb-3">
+						<?php echo oos_reset_button(BUTTON_RESET); ?>
+						<?php echo oos_submit_button(BUTTON_SAVE); ?>						
+					</div>	
+
+</form>
 <!-- products_attributes_eof //-->
                 </div>
             </div>
