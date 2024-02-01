@@ -1,96 +1,116 @@
 <?php
 /**
- * The base configuration for WordPress
+ * Grundeinstellungen für WordPress
  *
- * The wp-config.php creation script uses this file during the installation.
- * You don't have to use the web site, you can copy this file to "wp-config.php"
- * and fill in the values.
+ * Diese Datei wird zur Erstellung der wp-config.php verwendet.
+ * Du musst aber dafür nicht das Installationsskript verwenden.
+ * Stattdessen kannst du auch diese Datei als „wp-config.php“ mit
+ * deinen Zugangsdaten für die Datenbank abspeichern.
  *
- * This file contains the following configurations:
+ * Diese Datei beinhaltet diese Einstellungen:
  *
- * * Database settings
- * * Secret keys
- * * Database table prefix
- * * ABSPATH
+ * * Datenbank-Zugangsdaten,
+ * * Tabellenpräfix,
+ * * Sicherheitsschlüssel
+ * * und ABSPATH.
  *
  * @link https://wordpress.org/documentation/article/editing-wp-config-php/
  *
  * @package WordPress
  */
 
-// ** Database settings - You can get this info from your web host ** //
-/** The name of the database for WordPress */
-define( 'DB_NAME', 'database_name_here' );
+// ** Datenbank-Einstellungen - Diese Zugangsdaten bekommst du von deinem Webhoster. ** //
+/**
+ * Ersetze datenbankname_hier_einfuegen
+ * mit dem Namen der Datenbank, die du verwenden möchtest.
+ */
+define( 'DB_NAME', 'datenbankname_hier_einfuegen' );
 
-/** Database username */
-define( 'DB_USER', 'username_here' );
+/**
+ * Ersetze benutzername_hier_einfuegen
+ * mit deinem Datenbank-Benutzernamen.
+ */
+define( 'DB_USER', 'benutzername_hier_einfuegen' );
 
-/** Database password */
-define( 'DB_PASSWORD', 'password_here' );
+/**
+ * Ersetze passwort_hier_einfuegen mit deinem Datenbank-Passwort.
+ */
+define( 'DB_PASSWORD', 'passwort_hier_einfuegen' );
 
-/** Database hostname */
+/**
+ * Ersetze localhost mit der Datenbank-Serveradresse.
+ */
 define( 'DB_HOST', 'localhost' );
 
-/** Database charset to use in creating database tables. */
+/**
+ * Der Datenbankzeichensatz, der beim Erstellen der
+ * Datenbanktabellen verwendet werden soll
+ */
 define( 'DB_CHARSET', 'utf8' );
 
-/** The database collate type. Don't change this if in doubt. */
+/**
+ * Der Collate-Type sollte nicht geändert werden.
+ */
 define( 'DB_COLLATE', '' );
 
 /**#@+
- * Authentication unique keys and salts.
+ * Sicherheitsschlüssel
  *
- * Change these to different unique phrases! You can generate these using
- * the {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service}.
+ * Ändere jeden untenstehenden Platzhaltertext in eine beliebige,
+ * möglichst einmalig genutzte Zeichenkette.
+ * Auf der Seite {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service}
+ * kannst du dir alle Schlüssel generieren lassen.
  *
- * You can change these at any point in time to invalidate all existing cookies.
- * This will force all users to have to log in again.
+ * Du kannst die Schlüssel jederzeit wieder ändern, alle angemeldeten
+ * Benutzer müssen sich danach erneut anmelden.
  *
  * @since 2.6.0
  */
-define( 'AUTH_KEY',         'put your unique phrase here' );
-define( 'SECURE_AUTH_KEY',  'put your unique phrase here' );
-define( 'LOGGED_IN_KEY',    'put your unique phrase here' );
-define( 'NONCE_KEY',        'put your unique phrase here' );
-define( 'AUTH_SALT',        'put your unique phrase here' );
-define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
-define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
-define( 'NONCE_SALT',       'put your unique phrase here' );
+define( 'AUTH_KEY',         'Füge hier deine Zeichenkette ein' );
+define( 'SECURE_AUTH_KEY',  'Füge hier deine Zeichenkette ein' );
+define( 'LOGGED_IN_KEY',    'Füge hier deine Zeichenkette ein' );
+define( 'NONCE_KEY',        'Füge hier deine Zeichenkette ein' );
+define( 'AUTH_SALT',        'Füge hier deine Zeichenkette ein' );
+define( 'SECURE_AUTH_SALT', 'Füge hier deine Zeichenkette ein' );
+define( 'LOGGED_IN_SALT',   'Füge hier deine Zeichenkette ein' );
+define( 'NONCE_SALT',       'Füge hier deine Zeichenkette ein' );
 
 /**#@-*/
 
 /**
- * WordPress database table prefix.
+ * WordPress Datenbanktabellen-Präfix
  *
- * You can have multiple installations in one database if you give each
- * a unique prefix. Only numbers, letters, and underscores please!
+ * Wenn du verschiedene Präfixe benutzt, kannst du innerhalb einer Datenbank
+ * verschiedene WordPress-Installationen betreiben.
+ * Bitte verwende nur Zahlen, Buchstaben und Unterstriche!
  */
 $table_prefix = 'wp_';
 
 /**
- * For developers: WordPress debugging mode.
+ * Für Entwickler: Der WordPress-Debug-Modus.
  *
- * Change this to true to enable the display of notices during development.
- * It is strongly recommended that plugin and theme developers use WP_DEBUG
- * in their development environments.
+ * Setze den Wert auf „true“, um bei der Entwicklung Warnungen und Fehler-Meldungen angezeigt zu bekommen.
+ * Plugin- und Theme-Entwicklern wird nachdrücklich empfohlen, WP_DEBUG
+ * in ihrer Entwicklungsumgebung zu verwenden.
  *
- * For information on other constants that can be used for debugging,
- * visit the documentation.
+ * Besuche den Codex, um mehr Informationen über andere Konstanten zu finden,
+ * die zum Debuggen genutzt werden können.
  *
  * @link https://wordpress.org/documentation/article/debugging-in-wordpress/
  */
 define( 'WP_DEBUG', false );
 
-/* Add any custom values between this line and the "stop editing" line. */
+/* Füge individuelle Werte zwischen dieser Zeile und der „Schluss mit dem Bearbeiten“ Zeile ein. */
 
 
 
+/* Das war’s, Schluss mit dem Bearbeiten! Viel Spaß. */
 /* That's all, stop editing! Happy publishing. */
 
-/** Absolute path to the WordPress directory. */
+/** Der absolute Pfad zum WordPress-Verzeichnis. */
 if ( ! defined( 'ABSPATH' ) ) {
 	define( 'ABSPATH', __DIR__ . '/' );
 }
 
-/** Sets up WordPress vars and included files. */
+/** Definiert WordPress-Variablen und fügt Dateien ein.  */
 require_once ABSPATH . 'wp-settings.php';
