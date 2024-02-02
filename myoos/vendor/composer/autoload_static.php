@@ -37,6 +37,10 @@ class ComposerStaticInit7ce28a649252a43c31f7fa1ae7ef33d8
         array (
             'ZipStream\\' => 10,
         ),
+        'W' => 
+        array (
+            'Webmozart\\Assert\\' => 17,
+        ),
         'T' => 
         array (
             'Twig\\' => 5,
@@ -96,6 +100,7 @@ class ComposerStaticInit7ce28a649252a43c31f7fa1ae7ef33d8
         ),
         'L' => 
         array (
+            'LanguageDetector\\' => 17,
             'Laminas\\Escaper\\' => 16,
             'Laminas\\Code\\' => 13,
         ),
@@ -151,6 +156,10 @@ class ComposerStaticInit7ce28a649252a43c31f7fa1ae7ef33d8
         'ZipStream\\' => 
         array (
             0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
+        ),
+        'Webmozart\\Assert\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/webmozart/assert/src',
         ),
         'Twig\\' => 
         array (
@@ -320,6 +329,10 @@ class ComposerStaticInit7ce28a649252a43c31f7fa1ae7ef33d8
         'Masterminds\\' => 
         array (
             0 => __DIR__ . '/..' . '/masterminds/html5/src',
+        ),
+        'LanguageDetector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/landrok/language-detector/src/LanguageDetector',
         ),
         'Laminas\\Escaper\\' => 
         array (

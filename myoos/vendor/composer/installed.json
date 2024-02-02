@@ -1340,6 +1340,54 @@
             "install-path": "../laminas/laminas-escaper"
         },
         {
+            "name": "landrok/language-detector",
+            "version": "1.4.0",
+            "version_normalized": "1.4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/landrok/language-detector.git",
+                "reference": "91511a4f93700bd1c4c576b0e3b42173334a3cab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/landrok/language-detector/zipball/91511a4f93700bd1c4c576b0e3b42173334a3cab",
+                "reference": "91511a4f93700bd1c4c576b0e3b42173334a3cab",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=7.4",
+                "webmozart/assert": "^1.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=6"
+            },
+            "time": "2023-12-18T21:52:42+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "LanguageDetector\\": "src/LanguageDetector/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A fast and reliable PHP library for detecting languages",
+            "homepage": "https://github.com/landrok/language-detector",
+            "keywords": [
+                "detector",
+                "language",
+                "n-grams"
+            ],
+            "support": {
+                "issues": "https://github.com/landrok/language-detector/issues",
+                "source": "https://github.com/landrok/language-detector/tree/1.4.0"
+            },
+            "install-path": "../landrok/language-detector"
+        },
+        {
             "name": "maennchen/zipstream-php",
             "version": "3.1.0",
             "version_normalized": "3.1.0.0",
@@ -5719,6 +5767,67 @@
                 }
             ],
             "install-path": "../twig/twig"
+        },
+        {
+            "name": "webmozart/assert",
+            "version": "1.11.0",
+            "version_normalized": "1.11.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webmozarts/assert.git",
+                "reference": "11cb2199493b2f8a3b53e7f19068fc6aac760991"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/11cb2199493b2f8a3b53e7f19068fc6aac760991",
+                "reference": "11cb2199493b2f8a3b53e7f19068fc6aac760991",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "php": "^7.2 || ^8.0"
+            },
+            "conflict": {
+                "phpstan/phpstan": "<0.12.20",
+                "vimeo/psalm": "<4.6.1 || 4.6.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5.13"
+            },
+            "time": "2022-06-03T18:03:27+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.10-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Webmozart\\Assert\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bernhard Schussek",
+                    "email": "bschussek@gmail.com"
+                }
+            ],
+            "description": "Assertions to validate method input/output with nice error messages.",
+            "keywords": [
+                "assert",
+                "check",
+                "validate"
+            ],
+            "support": {
+                "issues": "https://github.com/webmozarts/assert/issues",
+                "source": "https://github.com/webmozarts/assert/tree/1.11.0"
+            },
+            "install-path": "../webmozart/assert"
         },
         {
             "name": "willdurand/negotiation",

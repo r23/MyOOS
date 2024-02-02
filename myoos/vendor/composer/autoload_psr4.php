@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'phpseclib3\\' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'ZipStream\\' => array($vendorDir . '/maennchen/zipstream-php/src'),
+    'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'Twig\\' => array($vendorDir . '/twig/twig/src'),
     'Symfony\\Polyfill\\Uuid\\' => array($vendorDir . '/symfony/polyfill-uuid'),
     'Symfony\\Polyfill\\Php81\\' => array($vendorDir . '/symfony/polyfill-php81'),
@@ -50,6 +51,7 @@ return array(
     'Negotiation\\' => array($vendorDir . '/willdurand/negotiation/src/Negotiation'),
     'Matrix\\' => array($vendorDir . '/markbaker/matrix/classes/src'),
     'Masterminds\\' => array($vendorDir . '/masterminds/html5/src'),
+    'LanguageDetector\\' => array($vendorDir . '/landrok/language-detector/src/LanguageDetector'),
     'Laminas\\Escaper\\' => array($vendorDir . '/laminas/laminas-escaper/src'),
     'Laminas\\Code\\' => array($vendorDir . '/laminas/laminas-code/src'),
     'Jefs42\\' => array($vendorDir . '/jefs42/libretranslate/src'),

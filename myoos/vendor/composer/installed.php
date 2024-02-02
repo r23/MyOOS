@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'd99207a783c644c8f040f9f4885a67b12986e952',
+        'reference' => '82960a2b1ec3d2bf3cb9c5d3c726d4973c9dbfa7',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -172,6 +172,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'landrok/language-detector' => array(
+            'pretty_version' => '1.4.0',
+            'version' => '1.4.0.0',
+            'reference' => '91511a4f93700bd1c4c576b0e3b42173334a3cab',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../landrok/language-detector',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'maennchen/zipstream-php' => array(
             'pretty_version' => '3.1.0',
             'version' => '3.1.0.0',
@@ -220,7 +229,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'd99207a783c644c8f040f9f4885a67b12986e952',
+            'reference' => '82960a2b1ec3d2bf3cb9c5d3c726d4973c9dbfa7',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -1115,6 +1124,15 @@
             'replaced' => array(
                 0 => 'v3.6.0',
             ),
+        ),
+        'webmozart/assert' => array(
+            'pretty_version' => '1.11.0',
+            'version' => '1.11.0.0',
+            'reference' => '11cb2199493b2f8a3b53e7f19068fc6aac760991',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../webmozart/assert',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'willdurand/negotiation' => array(
             'pretty_version' => '3.1.0',

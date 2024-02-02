@@ -58,7 +58,8 @@
 		"php-amqplib/php-amqplib": "^3.5",
 		"phpmailer/phpmailer": "^6.8",
 		"api-platform/core": "^2.7",
-		"jefs42/libretranslate": "^1.1"
+		"jefs42/libretranslate": "^1.1",
+		"landrok/language-detector": "^1.4"
     },
 	"require-dev": {
 		"roave/security-advisories": "dev-latest",
