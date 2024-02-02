@@ -767,7 +767,12 @@ class shoppingCart
                     $image = $products['products_image'];
                 }
 
-                $final_price = $products_price + $this->attributes_price($products_id);
+
+				if ($this->attributes_price($products_id) > 0) {
+					$products_price =  $this->attributes_price($products_id);
+				} 
+
+				$final_price = $products_price;
 
 
                 $base_product_price = null;
