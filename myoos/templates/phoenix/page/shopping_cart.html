@@ -115,7 +115,7 @@
 				
 										{if ( isset($product.attributes) && is_array($product.attributes) )}						
 											{foreach key=key item=item from=$product.attributes}
-												<br><nobr><small>&nbsp;<i> - {$product.$key.products_options_name} : {$product.$key.products_options_values_name}</i></small></nobr>
+												<nobr><small>&nbsp;<i> - {$product.$key.products_options_name} : {$product.$key.products_options_values_name}</i></small></nobr><br>
 											{/foreach}
 										{/if}
 

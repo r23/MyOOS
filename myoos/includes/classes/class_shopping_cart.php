@@ -769,7 +769,7 @@ class shoppingCart
 
 
 				if ($this->attributes_price($products_id) > 0) {
-					$products_price =  $this->attributes_price($products_id);
+					$products_price = $this->attributes_price($products_id);
 				} 
 
 				$final_price = $products_price;

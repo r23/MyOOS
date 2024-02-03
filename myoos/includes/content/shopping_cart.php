@@ -259,10 +259,10 @@ $smarty->assign(
 );
 
 // Send the CSP header with the nonce RANDOM_VALUE
-header("Content-Security-Policy: script-src 'nonce-" . NONCE . "' 'unsafe-eval' 'strict-dynamic' 'unsafe-inline'; object-src 'none'; base-uri 'self'");
+# header("Content-Security-Policy: script-src 'nonce-" . NONCE . "' 'unsafe-eval' 'strict-dynamic' 'unsafe-inline'; object-src 'none'; base-uri 'self'");
 
 // register the outputfilter
-$smarty->loadFilter('output', 'trimwhitespace');
+# $smarty->loadFilter('output', 'trimwhitespace');
 
 // display the template
 $smarty->display($aTemplate['page']);
