@@ -562,8 +562,6 @@ if (($action == 'edit') && ($order_exists == true)) {
     $rows = 0;
     $aDocument = [];
     if (isset($_GET['cID'])) {
-
-
         $cID = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
 
         $orderstable = $oostable['orders'];
@@ -663,7 +661,7 @@ if (($action == 'edit') && ($order_exists == true)) {
             $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_ORDER . '</b>'];
 
             $contents = ['form' => oos_draw_form('id', 'orders', $aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $oInfo->orders_id . '&action=deleteconfirm', 'post', false)];
-            $contents[] = ['text' => TEXT_INFO_DELETE_INTRO . '<br><br><b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>'];
+            $contents[] = ['text' => TEXT_INFO_DELETE_INTRO . '<br>'];
             $contents[] = ['text' => '<br>' . oos_draw_checkbox_field('restock') . ' ' . TEXT_INFO_RESTOCK_PRODUCT_QUANTITY];
             $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(['oID', 'action']) . 'oID=' . $oInfo->orders_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
             break;
