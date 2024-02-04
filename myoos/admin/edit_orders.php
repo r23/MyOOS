@@ -388,8 +388,7 @@ switch ($action) {
             orders_products_id = $new_product_id,
             products_options = '" . $option_names[$option_id] . "',
             products_options_values = '" . $option_values_names[$option_value_id] . "',
-            options_values_price = '" . $option_value_details[$option_id][$option_value_id]["options_values_price"] . "',
-            price_prefix = '+';";
+            options_values_price = '" . $option_value_details[$option_id][$option_value_id]["options_values_price"] . "'";
                     $dbconn->Execute($Query);
                 }
             }
@@ -675,7 +674,7 @@ if (($action == 'edit') && ($order_exists == true)) {
 
         if ($attributes_result->RecordCount()) {
             while ($attributes = $attributes_result->fields) {
-                $order->products[$index]['attributes'][$subindex] = ['option' => $attributes['products_options'], 'value' => $attributes['products_options_values'], 'prefix' => $attributes['price_prefix'], 'price' => $attributes['options_values_price'], 'orders_products_attributes_id' => $attributes['orders_products_attributes_id']];
+                $order->products[$index]['attributes'][$subindex] = ['option' => $attributes['products_options'], 'value' => $attributes['products_options_values'], 'price' => $attributes['options_values_price'], 'orders_products_attributes_id' => $attributes['orders_products_attributes_id']];
                 $subindex++;
 
                 // Move that ADOdb pointer!
