@@ -36,7 +36,6 @@ if ($bNecessary === false) {
     oos_redirect(oos_href_link($aContents['home']));
 }
 
-
 // start the session
 if ($session->hasStarted() === false) {
     $session->start();
@@ -310,6 +309,16 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
 																	'0',
 																	now())"
         );
+
+		if ($_SESSION['guest_account'] == 1) {
+			$guest_accounttable = $oostable['guest_account'];
+			$dbconn->Execute(
+				"INSERT INTO $guest_accounttable
+							(customers_id,
+							date_added) VALUES ('" . intval($customer_id) . "',
+												now())"
+			);
+		}
 
 
         if (CUSTOMER_NOT_LOGIN != 'true') {

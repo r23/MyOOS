@@ -73,6 +73,7 @@ $oostable['customers_wishlist_attributes'] = $prefix_table . 'customers_wishlist
 $oostable['featured'] = $prefix_table . 'featured';
 $oostable['files_uploaded'] = $prefix_table . 'files_uploaded';
 $oostable['geo_zones'] = $prefix_table . 'geo_zones';
+$oostable['guest_account'] = $prefix_table . 'guest_account';
 $oostable['information'] = $prefix_table . 'information';
 $oostable['information_description'] = $prefix_table . 'information_description';
 $oostable['languages'] = $prefix_table . 'languages';

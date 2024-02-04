@@ -50,8 +50,14 @@ function idxsql($idxname, $table, $idxflds)
 }
 
 
+$table = $prefix_table . 'guest_account';
+$flds = "
+  guest_account_id I NOTNULL AUTO PRIMARY,
+  customers_id I NOTNULL,
+  date_added  T
+";
 
-
+/*
 $table = $prefix_table . 'products_price_alarm';
 $flds = "
   products_price_alarm_id I NOTNULL AUTO PRIMARY,
@@ -86,3 +92,4 @@ $flds = "
   status I1 DEFAULT '0'
 ";
 dosql($table, $flds);
+*/

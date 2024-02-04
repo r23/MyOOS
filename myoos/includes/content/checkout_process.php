@@ -368,6 +368,7 @@ if ($_SESSION['guest_account'] == 1) {
     $dbconn->Execute("DELETE FROM " . $oostable['customers_wishlist'] . " WHERE customers_id = '" . intval($customers_id) . "'");
     $dbconn->Execute("DELETE FROM " . $oostable['customers_wishlist_attributes'] . " WHERE customers_id = '" . intval($customers_id) . "'");
     $dbconn->Execute("DELETE FROM " . $oostable['customers_status_history'] . " WHERE customers_id = '" . intval($customers_id) . "'");
+	$dbconn->Execute("DELETE FROM " . $oostable['guest_account'] . " WHERE customers_id = '" . intval($customers_id) . "'");
 }
 
 

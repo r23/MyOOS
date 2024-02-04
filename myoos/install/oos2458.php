@@ -48,3 +48,11 @@ require_once 'oostables2458.php';
 
 // ALTER TABLE `myoos`.`dwq_products_attributes` DROP COLUMN `price_prefix`
 // ALTER TABLE `myoos`.`dwq_orders_products_attributes` DROP COLUMN `price_prefix`
+
+$table = $prefix_table . 'configuration';
+$result = $db->Execute("INSERT INTO " . $table . " (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('CRON_ACCOUNT', '" . date("Ymd") . "', 6, 0, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')");
+if ($result === false) {
+	echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} else {
+	echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+}
