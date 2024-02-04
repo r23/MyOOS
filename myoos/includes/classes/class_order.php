@@ -353,10 +353,10 @@ class order
         $dbconn = & oosDBGetConn();
         $oostable = & oosDBGetTables();
 
-        $settingtable = $oostable['setting'];
-        $query = "SELECT products_setting
-				FROM $settingtable 
-				WHERE products_id = '" . intval($nProductID) . "'";
+		$productstable = $oostable['products'];
+		$query = "SELECT products_setting
+						FROM $productstable
+                        WHERE products_id = '" . intval($nProductID) . "'";
         $products_setting = $dbconn->GetOne($query);
 
         return $products_setting;
