@@ -134,11 +134,7 @@ for ($i = 0, $n = is_countable($order->products) ? count($order->products) : 0; 
     if (isset($order->products[$i]['attributes']) && ((is_countable($order->products[$i]['attributes']) ? count($order->products[$i]['attributes']) : 0) > 0)) {
         $k = is_countable($order->products[$i]['attributes']) ? count($order->products[$i]['attributes']) : 0;
         for ($j = 0; $j < $k; $j++) {
-            echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
-            if ($order->products[$i]['attributes'][$j]['price'] != '0') {
-                echo ' (' . $order->products[$i]['attributes'][$j]['prefix'] . $currencies->format($order->products[$i]['attributes'][$j]['price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . ')';
-            }
-            echo '</i></small></nobr>';
+            echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'] . '</i></small></nobr>';
         }
     }
 
