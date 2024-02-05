@@ -557,7 +557,7 @@ if ($action == 'delete_panorama') {
                 echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
             } ?>
                             <div class="col-lg-9">
-                                <?php echo oos_draw_textarea_field('panorama_description_meta[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (isset($panorama_description_meta[$aLanguages[$i]['id']]) ? stripslashes((string) $panorama_description_meta[$aLanguages[$i]['id']]) : oos_get_panorama_description_meta($pInfo->panorama_id, $aLanguages[$i]['id']))); ?>
+                                <?php echo oos_draw_textarea_field('', 'panorama_description_meta[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (isset($panorama_description_meta[$aLanguages[$i]['id']]) ? stripslashes((string) $panorama_description_meta[$aLanguages[$i]['id']]) : oos_get_panorama_description_meta($pInfo->panorama_id, $aLanguages[$i]['id']))); ?>
                             </div>
                         </div>
                     </fieldset>

@@ -143,7 +143,7 @@ function oos_cfg_get_zone_name($zone_id)
  */
 function oos_cfg_textarea($text)
 {
-    return oos_draw_textarea_field('configuration_value', false, 35, 5, $text);
+    return oos_draw_textarea_field('', 'configuration_value', false, 35, 5, $text);
 }
 
 

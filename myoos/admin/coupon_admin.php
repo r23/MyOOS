@@ -631,7 +631,7 @@ switch ($action) {
               </tr>
               <tr>
                 <td valign="top" class="main"><?php echo TEXT_MESSAGE; ?>&nbsp;&nbsp;</td>
-                <td><?php echo oos_draw_textarea_field('message', 'soft', '60', '15'); ?></td>
+                <td><?php echo oos_draw_textarea_field('', 'message', 'soft', '60', '15'); ?></td>
               </tr>
               <tr>
                 <td colspan="2"></td>
@@ -904,7 +904,7 @@ switch ($action) {
         <td align="left" valign="top" class="main"><?php if ($i == 0) {
             echo COUPON_DESC;
         } ?></td>
-        <td align="left" valign="top"><?php echo oos_draw_textarea_field('coupon_desc[' . $languages[$i]['id'] . ']', 'physical', '24', '3', (empty($coupon_desc[$language_id]) ? '' : $coupon_desc[$language_id])) . '&nbsp;' . oos_flag_icon($languages[$i]); ?></td>
+        <td align="left" valign="top"><?php echo oos_draw_textarea_field('', 'coupon_desc[' . $languages[$i]['id'] . ']', 'physical', '24', '3', (empty($coupon_desc[$language_id]) ? '' : $coupon_desc[$language_id])) . '&nbsp;' . oos_flag_icon($languages[$i]); ?></td>
         <td align="left" valign="top" class="main"><?php if ($i == 0) {
             echo COUPON_DESC_HELP;
         } ?></td>

@@ -1041,7 +1041,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
                             <div class="col-lg-9">
-                                <?php echo oos_draw_textarea_field('categories_description_meta[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (empty($cInfo->categories_id) ? '' : oos_get_category_description_meta($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
+                                <?php echo oos_draw_textarea_field('', 'categories_description_meta[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (empty($cInfo->categories_id) ? '' : oos_get_category_description_meta($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
                             </div>
                         </div>
                     </fieldset>
@@ -1163,7 +1163,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
                             <div class="col-lg-9">
-                                <?php echo oos_draw_textarea_field('categories_facebook_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (empty($cInfo->categories_id) ? '' : oos_get_categories_facebook_description($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
+                                <?php echo oos_draw_textarea_field('', 'categories_facebook_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (empty($cInfo->categories_id) ? '' : oos_get_categories_facebook_description($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
                             </div>
                         </div>
                     </fieldset>

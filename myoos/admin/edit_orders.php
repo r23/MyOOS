@@ -833,9 +833,9 @@ if (($action == 'edit') && ($order_exists == true)) {
         <td class="main">
         <?php
         if ($CommentsWithStatus) {
-            echo oos_draw_textarea_field('comments', 'soft', '60', '5');
+            echo oos_draw_textarea_field('', 'comments', 'soft', '60', '5');
         } else {
-            echo oos_draw_textarea_field('comments', 'soft', '60', '5', $order->info['comments']);
+            echo oos_draw_textarea_field('', 'comments', 'soft', '60', '5', $order->info['comments']);
         } ?>
         </td>
       </tr>

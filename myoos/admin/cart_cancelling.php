@@ -432,7 +432,7 @@ if (($action == 'preview') && ($_POST['customers_email_address'] || $_POST['emai
               </tr>
               <tr>
                 <td valign="top" class="main"><?php echo TEXT_MESSAGE; ?></td>
-                <td><?php echo oos_draw_textarea_field('message', 'soft', '60', '15'); ?></td>
+                <td><?php echo oos_draw_textarea_field('', 'message', 'soft', '60', '15'); ?></td>
               </tr>
               <tr>
                 <td colspan="2"></td>
