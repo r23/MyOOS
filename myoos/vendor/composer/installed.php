@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '36b65d58be7144a01fafed91ec146ced6314212f',
+        'reference' => 'a820671e042b179f5e94a2a50f5f11ce7c2a2222',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -229,7 +229,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '36b65d58be7144a01fafed91ec146ced6314212f',
+            'reference' => 'a820671e042b179f5e94a2a50f5f11ce7c2a2222',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -269,9 +269,9 @@
             'dev_requirement' => false,
         ),
         'phenx/php-font-lib' => array(
-            'pretty_version' => '0.5.5',
-            'version' => '0.5.5.0',
-            'reference' => '671df0f3516252011aa94f9e8e3b3b66199339f8',
+            'pretty_version' => '0.5.6',
+            'version' => '0.5.6.0',
+            'reference' => 'a1681e9793040740a405ac5b189275059e2a9863',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phenx/php-font-lib',
             'aliases' => array(),
@@ -520,7 +520,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '2f3b470e6ca356a27bf10b2b439c3683d20bebc1',
+            'reference' => '794e58ed32820bf07fa2df520b6cf2cf24031192',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
