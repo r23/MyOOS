@@ -54,8 +54,9 @@ $table = $prefix_table . 'guest_account';
 $flds = "
   guest_account_id I NOTNULL AUTO PRIMARY,
   customers_id I NOTNULL,
-  date_added  T
+  date_added T
 ";
+dosql($table, $flds);
 
 /*
 $table = $prefix_table . 'products_price_alarm';

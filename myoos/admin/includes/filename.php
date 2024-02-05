@@ -36,6 +36,7 @@ if (!$prefix_filename == '') {
 $aContents['admin_account'] = $prefix_filename . 'admin_account.php';
 $aContents['admin_files'] = $prefix_filename . 'admin_files.php';
 $aContents['admin_members'] = $prefix_filename . 'admin_members.php';
+$aContents['cart_cancelling'] = $prefix_filename . 'cart_cancelling.php';
 $aContents['catalog_product_info'] = $prefix_filename . 'product_info.php';
 $aContents['categories'] = $prefix_filename . 'categories.php';
 $aContents['categories_panorama'] = $prefix_filename . 'categories_panorama.php';

@@ -239,6 +239,9 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_file
 //tools.php
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('mail', 0, 17, 1)") or die("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('newsletters', 0, 17, 1)") or die("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('cart_cancelling', 0, 17, 1)") or die("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
+
+
 
 //information.php
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('information', 0, 19, 1)") or die("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
