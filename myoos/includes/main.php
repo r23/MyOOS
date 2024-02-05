@@ -106,13 +106,11 @@ while ($configuration = $configuration_result->fields) {
 }
 
 //prevent script from running more than once a day
-if (CRON_ACCOUNT == date("Ymd")) {
-	die('Halt! Already executed - should not execute more than once a day.');
-} else {
+if (CRON_ACCOUNT != date("Ymd")) {
 	include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_account.php';
 	oos_expire_account();	
 	$dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . date("Ymd") . "' WHERE configuration_key = 'CRON_ACCOUNT'");
-}
+} 
 
 
 // technically necessary cookies
