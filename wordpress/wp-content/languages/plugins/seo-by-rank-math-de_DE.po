@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO with AI SEO Tools - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-01-17 15:53:12+0000\n"
+"PO-Revision-Date: 2024-02-04 15:13:31+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-alpha.11\n"
+"X-Generator: GlotPress/4.0.0-beta.2\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO with AI SEO Tools - Stable (latest release)\n"
 
@@ -31,20 +31,20 @@ msgstr "Erhalte Zugriff auf über 40 fortschrittliche KI-Werkzeuge."
 msgid "Rank Math SEO is the Best WordPress SEO plugin with the features of many SEO and AI SEO tools in a single package to help multiply your SEO traffic."
 msgstr "Rank Math SEO ist das beste WordPress-SEO-Plugin mit den Funktionen vieler SEO- und KI-SEO-Tools in einem einzigen Paket, um deinen SEO-Traffic zu vervielfachen."
 
-#: includes/modules/content-ai/class-content-ai-page.php:387
+#: includes/modules/content-ai/class-content-ai-page.php:300
 msgid "Bulk Editing Process Successfully Cancelled"
 msgstr "Massenbearbeitungsprozess erfolgreich abgebrochen"
 
-#: includes/modules/content-ai/class-content-ai-page.php:375
+#: includes/modules/content-ai/class-content-ai-page.php:288
 msgid "Terminate"
 msgstr "Beenden"
 
 #. Translators: placeholders are the number of posts that were processed.
-#: includes/modules/content-ai/class-content-ai-page.php:371
+#: includes/modules/content-ai/class-content-ai-page.php:284
 msgid "Terminate the ongoing Content AI Bulk Editing Process to halt any pending modifications and revert to the previous state. The bulk metadata has been generated for %1$d out of %1$d posts so far."
 msgstr "Beende den laufenden Inhalt-KI Massenbearbeitungsprozess, um alle anstehenden Änderungen zu stoppen und zum vorherigen Zustand zurückzukehren. Die Massenmetadaten wurden bisher für %1$d von %1$d Beiträgen generiert."
 
-#: includes/modules/content-ai/class-content-ai-page.php:368
+#: includes/modules/content-ai/class-content-ai-page.php:281
 msgid "Cancel Content AI Bulk Editing Process"
 msgstr "Abbrechen der Massenbearbeitung von Inhalt-KI"
 
@@ -57,39 +57,39 @@ msgid "Invalid API key. Please check your API key or reconnect the site and try 
 msgstr "Ungültiger API-Schlüssel. Bitte überprüfe deinen API-Schlüssel oder verbinde die Seite erneut und versuche es erneut."
 
 #. Translators: placeholder is the default Schema type setting.
-#: includes/admin/class-post-columns.php:124
+#: includes/admin/class-bulk-actions.php:101
 msgid "Set Schema: Default (%s)"
 msgstr "Schema festlegen: Standard (%s)"
 
-#: includes/admin/class-post-columns.php:118
+#: includes/admin/class-bulk-actions.php:95
 msgid "Set Schema: None"
 msgstr "Schema festlegen: Keines"
 
-#: includes/admin/class-post-columns.php:113
+#: includes/admin/class-bulk-actions.php:90
 msgid "Remove redirection"
 msgstr "Umleitung entfernen"
 
-#: includes/admin/class-post-columns.php:109
+#: includes/admin/class-bulk-actions.php:86
 msgid "Remove custom canonical URL"
 msgstr "Entferne die benutzerdefinierte kanonische URL"
 
-#: includes/admin/class-post-columns.php:108
+#: includes/admin/class-bulk-actions.php:85
 msgid "Set to follow"
 msgstr "Setzen auf follow"
 
-#: includes/admin/class-post-columns.php:107
+#: includes/admin/class-bulk-actions.php:84
 msgid "Set to nofollow"
 msgstr "Setzen auf nofollow"
 
-#: includes/admin/class-post-columns.php:106
+#: includes/admin/class-bulk-actions.php:83
 msgid "Set to index"
 msgstr "Setzen auf index"
 
-#: includes/admin/class-post-columns.php:105
+#: includes/admin/class-bulk-actions.php:82
 msgid "Set to noindex"
 msgstr "Setzen auf noindex"
 
-#: includes/admin/class-post-columns.php:102
+#: includes/admin/class-bulk-actions.php:79
 msgid "&#8595; Rank Math"
 msgstr "&#8595; Rank Math"
 
@@ -161,15 +161,15 @@ msgstr "Englisch (UK)"
 msgid "US English"
 msgstr "Englisch (US)"
 
-#: includes/modules/content-ai/class-content-ai.php:283
+#: includes/modules/content-ai/class-content-ai.php:284
 msgid "Content AI Refresh Date"
 msgstr "Inhalt-KI Aktualisierungsdatum"
 
-#: includes/modules/content-ai/class-content-ai.php:279
+#: includes/modules/content-ai/class-content-ai.php:280
 msgid "Content AI Credits"
 msgstr "Inhalt-KI Guthaben"
 
-#: includes/modules/content-ai/class-content-ai.php:275
+#: includes/modules/content-ai/class-content-ai.php:276
 msgid "Content AI Plan"
 msgstr "Inhalt-KI Plan"
 
@@ -626,77 +626,77 @@ msgstr "Standard-Ton"
 msgid "Content AI tailors keyword research to the target country for highly relevant suggestions. You can override this in individual posts/pages/CPTs."
 msgstr "Inhalt-KI schneidet die Schlüsselwort-Recherche auf das Zielland zu und liefert hochrelevante Vorschläge. Du kannst dies in einzelnen Beiträgen/Seiten/CPTs außer Kraft setzen."
 
-#: includes/modules/content-ai/class-content-ai-page.php:279
+#: includes/modules/content-ai/class-content-ai-page.php:192
 msgid "Content AI History"
 msgstr "Inhalt-KI Historie"
 
-#: includes/modules/content-ai/class-content-ai-page.php:273
+#: includes/modules/content-ai/class-content-ai-page.php:186
 msgid "Content AI Chat"
 msgstr "Inhalt-KI Chat"
 
-#: includes/modules/content-ai/class-content-ai-page.php:271
+#: includes/modules/content-ai/class-content-ai-page.php:184
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 msgid "Chat"
 msgstr "Chat"
 
-#: includes/modules/content-ai/class-content-ai-page.php:267
+#: includes/modules/content-ai/class-content-ai-page.php:180
 msgid "Content AI Editor"
 msgstr "Inhalt-KI Editor"
 
-#: includes/modules/content-ai/class-content-ai-page.php:265
+#: includes/modules/content-ai/class-content-ai-page.php:178
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 msgid "Content Editor"
 msgstr "Inhalt Editor"
 
-#: includes/modules/content-ai/class-content-ai-page.php:261
+#: includes/modules/content-ai/class-content-ai-page.php:174
 msgid "Content AI Tools"
 msgstr "Inhalt-KI Werkzeuge"
 
-#: includes/modules/content-ai/class-content-ai-page.php:259
+#: includes/modules/content-ai/class-content-ai-page.php:172
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 msgid "AI Tools"
 msgstr "KI-Werkzeuge"
 
-#: includes/modules/content-ai/class-content-ai-page.php:199
+#: includes/modules/content-ai/class-bulk-actions.php:84
 msgid "Another bulk editing process is already running. Please try again later after the existing process is complete."
 msgstr "Ein weiterer Massenbearbeitungsprozess läuft bereits. Bitte versuche es später noch einmal, nachdem der bestehende Vorgang abgeschlossen ist."
 
-#: includes/modules/content-ai/class-content-ai-page.php:178
+#: includes/modules/content-ai/class-bulk-actions.php:63
 msgid "Write SEO Title & Description with AI"
 msgstr "Schreibe SEO-Titel & Beschreibung mit KI"
 
-#: includes/modules/content-ai/class-content-ai-page.php:177
+#: includes/modules/content-ai/class-bulk-actions.php:62
 msgid "Write SEO Description with AI"
 msgstr "Schreibe eine SEO-Beschreibung mit KI"
 
-#: includes/modules/content-ai/class-content-ai-page.php:176
+#: includes/modules/content-ai/class-bulk-actions.php:61
 msgid "Write SEO Title with AI"
 msgstr "Schreibe SEO-Titel mit KI"
 
-#: includes/modules/content-ai/class-content-ai-page.php:175
+#: includes/modules/content-ai/class-bulk-actions.php:60
 msgid "&#8595; Rank Math Content AI"
 msgstr "&#8595; Rank Math Inhalt-KI"
 
 #. Translators: placeholder is the new label.
-#: includes/modules/content-ai/class-content-ai-page.php:133
+#: includes/modules/content-ai/class-content-ai-page.php:123
 msgid "Content AI %s"
 msgstr "Inhalt-KI %s"
 
-#: includes/modules/content-ai/class-content-ai-page.php:81
+#: includes/modules/content-ai/class-content-ai-page.php:71
 msgid "Credits Remaining: "
 msgstr "Verbleibendes Guthaben: "
 
 #. Translators: placeholder is the number of modified posts.
-#: includes/modules/content-ai/class-bulk-edit-seo-meta.php:159
+#: includes/modules/content-ai/class-bulk-edit-seo-meta.php:161
 msgid "SEO meta successfully updated in %d posts. The process was stopped as you have used all the credits on your site."
 msgstr "SEO-Meta in %d Beiträgen erfolgreich aktualisiert. Der Vorgang wurde abgebrochen, da du alle Guthaben auf deiner Website aufgebraucht hast."
 
-#. Translators: placeholder is the number of modified posts.
-#: includes/modules/content-ai/class-bulk-edit-seo-meta.php:110
-msgid "SEO meta successfully updated in %d post."
-msgid_plural "SEO meta successfully updated in %d posts."
-msgstr[0] "SEO-Meta in %d Beitrag erfolgreich aktualisiert."
-msgstr[1] "SEO-Meta in %d Beiträgen erfolgreich aktualisiert."
+#. Translators: placeholder is the number of modified items.
+#: includes/modules/content-ai/class-bulk-edit-seo-meta.php:112
+msgid "SEO meta successfully updated in %d item."
+msgid_plural "SEO meta successfully updated in %d items."
+msgstr[0] "SEO-Meta erfolgreich in %d Element aktualisiert"
+msgstr[1] "SEO-Meta erfolgreich in %d Elementen aktualisiert"
 
 #: includes/modules/content-ai/class-bulk-edit-seo-meta.php:54
 msgid "Bulk editing SEO meta started. It might take few minutes to complete the process."
@@ -1262,7 +1262,7 @@ msgid "<strong>Min Size: 112Χ112px</strong>.<br />A squared image is preferred 
 msgstr "<strong>Mindestgröße: 112Χ112px</strong>.<br />Ein quadratisches Bild wird von den Suchmaschinen bevorzugt."
 
 #. translators: Link to kb article
-#: includes/modules/content-ai/class-content-ai.php:110
+#: includes/modules/content-ai/class-content-ai.php:111
 msgid "Get sophisticated AI suggestions for related Keywords, Questions & Links to include in the SEO meta & Content Area. %s."
 msgstr "Erhalte ausgefeilte KI-Vorschläge für verwandte Schlüsselworts, Fragen und Links, die du in den SEO-Meta- und Content-Bereich aufnehmen kannst. %s."
 
@@ -1680,7 +1680,7 @@ msgstr "Bei der Übermittlung der URL ist ein Fehler aufgetreten."
 msgid "The last 100 IndexNow API requests."
 msgstr "Die letzten 100 Anfragen an die IndexNow-API."
 
-#: includes/modules/content-ai/class-content-ai-page.php:277
+#: includes/modules/content-ai/class-content-ai-page.php:190
 #: includes/modules/instant-indexing/class-instant-indexing.php:223
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 msgid "History"
@@ -1840,7 +1840,7 @@ msgstr "URL zum Abrufen von HTML-Tags."
 msgid "Click to refresh the available credits."
 msgstr "Klicke auf aktualisieren, um das verfügbare Guthaben zu aktualisieren."
 
-#: includes/modules/content-ai/class-content-ai-page.php:118
+#: includes/modules/content-ai/class-content-ai-page.php:109
 #: includes/modules/seo-analysis/class-admin.php:82
 #: includes/modules/content-ai/assets/js/content-ai.js:1
 msgid "New!"
@@ -1887,10 +1887,10 @@ msgid "Get sophisticated AI suggestions for related Keywords, Questions & Links 
 msgstr "Erhalte ausgefeilte KI-Vorschläge für verwandte Schlüsselwörter, Fragen und Links, die du in den SEO-Meta- und Inhaltsbereich aufnehmen kannst. Unterstützt 80+ Länder."
 
 #: includes/module/class-manager.php:176
-#: includes/modules/content-ai/class-content-ai-page.php:128
-#: includes/modules/content-ai/class-content-ai-page.php:251
-#: includes/modules/content-ai/class-content-ai.php:108
-#: includes/modules/content-ai/class-content-ai.php:132
+#: includes/modules/content-ai/class-content-ai-page.php:118
+#: includes/modules/content-ai/class-content-ai-page.php:164
+#: includes/modules/content-ai/class-content-ai.php:109
+#: includes/modules/content-ai/class-content-ai.php:133
 #: includes/modules/role-manager/class-capability-manager.php:70
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 #: includes/modules/content-ai/assets/js/content-ai.js:1
@@ -2658,7 +2658,6 @@ msgid "Google Refresh token"
 msgstr "Google Refresh-Token"
 
 #: includes/module/class-manager.php:411
-#: includes/modules/content-ai/class-content-ai-page.php:118
 #: includes/modules/status/class-system-status.php:141
 #: includes/modules/content-ai/assets/js/content-ai.js:1
 msgid "Free"
@@ -4992,7 +4991,7 @@ msgstr "Preis gültig bis"
 msgid "Page %s"
 msgstr "Seite %s"
 
-#: includes/admin/class-post-columns.php:312
+#: includes/admin/class-post-columns.php:235
 msgid "Is Pillar"
 msgstr "Ist Säule"
 
@@ -5002,7 +5001,7 @@ msgstr "Ist Säule"
 msgid "Performer"
 msgstr "Darsteller"
 
-#: includes/admin/class-post-columns.php:319
+#: includes/admin/class-post-columns.php:242
 msgid "Not Set"
 msgstr "Nicht festgelegt"
 
@@ -7291,7 +7290,7 @@ msgstr "Referer"
 msgid "URI"
 msgstr "URL"
 
-#: includes/admin/class-post-columns.php:112
+#: includes/admin/class-bulk-actions.php:89
 #: includes/modules/404-monitor/class-table.php:212
 #: includes/modules/404-monitor/class-table.php:275
 #: assets/admin/js/rank-math-app.js:1
@@ -7570,7 +7569,7 @@ msgstr "Nicht folgen"
 msgid "Prevents pages from being indexed and displayed in search engine result pages"
 msgstr "Verhindert, dass Seiten indiziert und in Suchmaschinen-Ergebnisseiten angezeigt werden"
 
-#: includes/admin/class-post-columns.php:295
+#: includes/admin/class-post-columns.php:218
 #: includes/helpers/class-choices.php:74 assets/admin/js/rank-math-app.js:1
 msgid "No Index"
 msgstr "Kein Index"
@@ -7847,7 +7846,7 @@ msgstr "Seite"
 msgid "Focus Keyword of the current post"
 msgstr "Fokus-Schlüsselwort des aktuellen Beitrags"
 
-#: includes/admin/class-post-columns.php:316
+#: includes/admin/class-post-columns.php:239
 #: includes/replace-variables/class-advanced-variables.php:44
 #: assets/admin/js/rank-math-app.js:1
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
@@ -8377,7 +8376,7 @@ msgstr "Werde Mitglied der KOSTENLOSEN Facebook-Gruppe"
 #: includes/admin/wizard/views/ready.php:45
 #: includes/modules/404-monitor/class-admin.php:199
 #: includes/modules/analytics/class-analytics.php:502
-#: includes/modules/content-ai/class-content-ai.php:110
+#: includes/modules/content-ai/class-content-ai.php:111
 #: includes/modules/image-seo/class-admin.php:47
 #: includes/modules/instant-indexing/class-instant-indexing.php:210
 #: includes/modules/instant-indexing/class-instant-indexing.php:218
@@ -9251,43 +9250,43 @@ msgstr "KOSTENLOSES Konto verbinden"
 msgid "Pillar Content"
 msgstr "Säulen-Inhalt"
 
-#: includes/admin/class-post-columns.php:223
+#: includes/admin/class-post-columns.php:146
 msgid "Alternative Text"
 msgstr "Alternativer Text"
 
-#: includes/admin/class-post-columns.php:222 assets/admin/js/rank-math-app.js:1
+#: includes/admin/class-post-columns.php:145 assets/admin/js/rank-math-app.js:1
 #: includes/modules/analytics/assets/js/stats.js:1
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Title"
 msgstr "Titel"
 
-#: includes/admin/class-post-columns.php:318
+#: includes/admin/class-post-columns.php:241
 msgid "Keyword"
 msgstr "Schlüsselwort"
 
-#: includes/admin/class-post-columns.php:255
-#: includes/admin/class-post-columns.php:276
-#: includes/admin/class-post-columns.php:327
-#: includes/admin/class-post-columns.php:347
-#: includes/admin/class-post-columns.php:360
+#: includes/admin/class-post-columns.php:178
+#: includes/admin/class-post-columns.php:199
+#: includes/admin/class-post-columns.php:250
+#: includes/admin/class-post-columns.php:270
+#: includes/admin/class-post-columns.php:283
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Save"
 msgstr "Speichern"
 
-#: includes/admin/class-post-columns.php:195
+#: includes/admin/class-post-columns.php:118
 msgid "SEO Desc"
 msgstr "SEO-Beschreibung"
 
-#: includes/admin/class-post-columns.php:194
+#: includes/admin/class-post-columns.php:117
 #: includes/replace-variables/class-post-variables.php:81
 #: includes/modules/content-ai/assets/js/content-ai-page.js:1
 #: includes/modules/content-ai/assets/js/content-ai.js:1
 msgid "SEO Title"
 msgstr "SEO-Titel"
 
-#: includes/admin/class-post-columns.php:191
+#: includes/admin/class-post-columns.php:114
 msgid "SEO Details"
 msgstr "SEO-Details"
 
@@ -9307,23 +9306,15 @@ msgstr "SEO Score: Schlecht"
 msgid "SEO Score: Good"
 msgstr "SEO Score: Gut"
 
-#: includes/admin/class-post-columns.php:169
-#: includes/admin/class-post-columns.php:256
-#: includes/admin/class-post-columns.php:277
-#: includes/admin/class-post-columns.php:328
-#: includes/admin/class-post-columns.php:348
-#: includes/admin/class-post-columns.php:361
+#: includes/admin/class-post-columns.php:179
+#: includes/admin/class-post-columns.php:200
+#: includes/admin/class-post-columns.php:251
+#: includes/admin/class-post-columns.php:271
+#: includes/admin/class-post-columns.php:284
 #: includes/modules/redirections/class-form.php:51
+#: assets/admin/js/post-list.js:1
 msgid "Cancel"
 msgstr "Abbrechen"
-
-#: includes/admin/class-post-columns.php:168
-msgid "Save All Edits"
-msgstr "Alle Änderungen speichern"
-
-#: includes/admin/class-post-columns.php:167
-msgid "Bulk Edit This Field"
-msgstr "Massenbearbeitung dieses Feldes"
 
 #: includes/admin/class-page.php:126
 msgid "$title variable required"
