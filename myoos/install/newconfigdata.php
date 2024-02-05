@@ -185,7 +185,7 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configur
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('UPLOAD_PREFIX', 'upload_', 6, 0, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") or die("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('TEXT_PREFIX', 'txt_', 6, 0, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") or die("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('CRON_ACCOUNT', ''" . date("Ymd") . "', 6, 0, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") or die("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('CRON_ACCOUNT', '" . date("Ymd") . "', 6, 0, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") or die("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 
 
 
