@@ -21,7 +21,7 @@
    ----------------------------------------------------------------------
  */
 
-define('HEADING_TITLE', 'Send Gift Voucher To Customers');
+define('HEADING_TITLE', 'Reaktivierung von Warenkorbabbrüchen');
 
 define('TEXT_CUSTOMER', 'Customer:');
 define('TEXT_SUBJECT', 'Subject:');

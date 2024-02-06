@@ -155,7 +155,9 @@ define('BOX_REPORTS_PRODUCTS_VIEWED', 'Products Viewed');
 define('BOX_REPORTS_PRODUCTS_PURCHASED', 'Products Purchased');
 define('BOX_REPORTS_ORDERS_TOTAL', 'Customer Orders-Total');
 define('BOX_REPORTS_STOCK_LEVEL', 'Low Stock Report');
-define('BOX_REPORTS_SALES_REPORT2', 'SalesReport2');
+define('BOX_REPORTS_SALES_REPORT2', 'SalesReport ');
+define('BOX_CART_CANCELLING', 'Cart cancellations');
+
 
 // tools text in includes/boxes/tools.php
 define('BOX_HEADING_TOOLS', 'Tools');

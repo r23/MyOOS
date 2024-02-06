@@ -156,7 +156,7 @@ define('BOX_REPORTS_PRODUCTS_PURCHASED', 'gekaufte Artikel');
 define('BOX_REPORTS_ORDERS_TOTAL', 'Kunden-Bestellstatistik');
 define('BOX_REPORTS_STOCK_LEVEL', 'Lagerbestand');
 define('BOX_REPORTS_SALES_REPORT2', 'Umsatzbericht');
-
+define('BOX_CART_CANCELLING', 'Warenkorbabbrüche');
 
 // tools text in includes/boxes/tools.php
 define('BOX_HEADING_TOOLS', 'Hilfsprogramme');
