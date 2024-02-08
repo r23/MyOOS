@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO with AI SEO Tools - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-02-04 15:13:31+0000\n"
+"PO-Revision-Date: 2024-02-07 10:54:47+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -657,23 +657,23 @@ msgstr "Inhalt-KI Werkzeuge"
 msgid "AI Tools"
 msgstr "KI-Werkzeuge"
 
-#: includes/modules/content-ai/class-bulk-actions.php:84
+#: includes/modules/content-ai/class-bulk-actions.php:91
 msgid "Another bulk editing process is already running. Please try again later after the existing process is complete."
 msgstr "Ein weiterer Massenbearbeitungsprozess läuft bereits. Bitte versuche es später noch einmal, nachdem der bestehende Vorgang abgeschlossen ist."
 
-#: includes/modules/content-ai/class-bulk-actions.php:63
+#: includes/modules/content-ai/class-bulk-actions.php:70
 msgid "Write SEO Title & Description with AI"
 msgstr "Schreibe SEO-Titel & Beschreibung mit KI"
 
-#: includes/modules/content-ai/class-bulk-actions.php:62
+#: includes/modules/content-ai/class-bulk-actions.php:69
 msgid "Write SEO Description with AI"
 msgstr "Schreibe eine SEO-Beschreibung mit KI"
 
-#: includes/modules/content-ai/class-bulk-actions.php:61
+#: includes/modules/content-ai/class-bulk-actions.php:68
 msgid "Write SEO Title with AI"
 msgstr "Schreibe SEO-Titel mit KI"
 
-#: includes/modules/content-ai/class-bulk-actions.php:60
+#: includes/modules/content-ai/class-bulk-actions.php:67
 msgid "&#8595; Rank Math Content AI"
 msgstr "&#8595; Rank Math Inhalt-KI"
 
@@ -695,8 +695,8 @@ msgstr "SEO-Meta in %d Beiträgen erfolgreich aktualisiert. Der Vorgang wurde ab
 #: includes/modules/content-ai/class-bulk-edit-seo-meta.php:112
 msgid "SEO meta successfully updated in %d item."
 msgid_plural "SEO meta successfully updated in %d items."
-msgstr[0] "SEO-Meta erfolgreich in %d Element aktualisiert"
-msgstr[1] "SEO-Meta erfolgreich in %d Elementen aktualisiert"
+msgstr[0] "SEO-Meta erfolgreich in %d Element aktualisiert."
+msgstr[1] "SEO-Meta erfolgreich in %d Elementen aktualisiert."
 
 #: includes/modules/content-ai/class-bulk-edit-seo-meta.php:54
 msgid "Bulk editing SEO meta started. It might take few minutes to complete the process."
@@ -741,7 +741,7 @@ msgstr "Bitte verbinde dein Konto, um die Inhalt-KI zu nutzen."
 #. translators: %s: Allowed tags
 #: includes/settings/general/webmaster.php:94
 msgid "Enter your custom webmaster tags. Only %s tags are allowed."
-msgstr "Gebe deine benutzerdefinierten Webmaster-Tags ein. Es sind nur %s-Tags zulässig."
+msgstr "Gib deine benutzerdefinierten Webmaster-Tags ein. Es sind nur %s-Tags zulässig."
 
 #: includes/settings/general/webmaster.php:91
 msgid "Custom Webmaster Tags"
@@ -859,7 +859,7 @@ msgstr "SEO-Analysator starten"
 
 #: includes/modules/seo-analysis/views/competitor-analysis.php:215
 msgid "Make more informed decisions & strategy"
-msgstr "Treffe fundiertere Entscheidungen & Strategien"
+msgstr "Triff fundiertere Entscheidungen & Strategien"
 
 #: includes/modules/seo-analysis/views/competitor-analysis.php:214
 msgid "Explore new keywords and opportunities"
@@ -1005,7 +1005,7 @@ msgstr "Inhaltsverzeichnis Titel"
 
 #: includes/modules/schema/blocks/class-admin.php:47
 msgid "Take control over the default settings available for Rank Math Blocks."
-msgstr "Übernehme die Kontrolle über die Standardeinstellungen, die für Rank Math Blöcke verfügbar sind."
+msgstr "Übernimm die Kontrolle über die Standardeinstellungen, die für Rank Math Blöcke verfügbar sind."
 
 #: includes/modules/schema/blocks/class-admin.php:46
 msgid "Blocks"
@@ -1013,7 +1013,7 @@ msgstr "Blöcke"
 
 #: includes/modules/database-tools/class-database-tools.php:401
 msgid "Are you sure you want to convert AIOSEO blocks into Rank Math blocks? This action is irreversible."
-msgstr "Sind du sicher, dass du AIOSEO-Blöcke in Rank Math-Blöcke konvertieren möchtest? Diese Aktion ist nicht umkehrbar."
+msgstr "Bist du sicher, dass du AIOSEO-Blöcke in Rank Math-Blöcke konvertieren möchtest? Diese Aktion ist nicht umkehrbar."
 
 #: includes/modules/database-tools/class-database-tools.php:399
 msgid "AIOSEO Block Converter"
@@ -1153,7 +1153,7 @@ msgstr "Alternativer Name der Webseite"
 #: includes/modules/local-seo/views/titles-options.php:36
 #: includes/settings/titles/local.php:30
 msgid "Enter the name of your site to appear in search results."
-msgstr "Gebe den Namen deiner Webseite ein, die in den Suchergebnissen angezeigt werden soll."
+msgstr "Gib den Namen deiner Webseite ein, die in den Suchergebnissen angezeigt werden soll."
 
 #: includes/admin/wizard/class-your-site.php:75
 #: includes/modules/local-seo/views/titles-options.php:35
