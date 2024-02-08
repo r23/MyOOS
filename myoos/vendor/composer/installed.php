@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '9ade29156fdbf9406c4a23825a43a565578597fc',
+        'reference' => '307b4e69e6e93d912b055350ff42e34808193ac1',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -229,7 +229,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '9ade29156fdbf9406c4a23825a43a565578597fc',
+            'reference' => '307b4e69e6e93d912b055350ff42e34808193ac1',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -278,9 +278,9 @@
             'dev_requirement' => false,
         ),
         'phenx/php-svg-lib' => array(
-            'pretty_version' => '0.5.1',
-            'version' => '0.5.1.0',
-            'reference' => '8a8a1ebcf6aea861ef30197999f096f7bd4b4456',
+            'pretty_version' => '0.5.2',
+            'version' => '0.5.2.0',
+            'reference' => '732faa9fb4309221e2bd9b2fda5de44f947133aa',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phenx/php-svg-lib',
             'aliases' => array(),
@@ -520,7 +520,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '1efb7458465dd72deac764100cee2507a3a801d6',
+            'reference' => 'b5487e145d10e6d9a19b59c8dac2a058f5dfe63d',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
