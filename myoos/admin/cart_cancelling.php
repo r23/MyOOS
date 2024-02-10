@@ -23,7 +23,6 @@
 define('OOS_VALID_MOD', 'yes');
 
 require 'includes/main.php';
-require 'includes/functions/function_coupon.php';
 require 'includes/classes/class_currencies.php';
 
 $currencies = new currencies();
@@ -253,27 +252,30 @@ echo '<br>';
             }
         }
 */	
-#	
+/*
     if ((!isset($_GET['tID']) || (isset($_GET['tID']) && ($_GET['tID'] == $rates['tax_rates_id']))) && !isset($trInfo) && (!str_starts_with((string) $action, 'new'))) {
         $trInfo = new objectInfo($rates);
     }
 
     if (isset($trInfo) && is_object($trInfo) && ($rates['tax_rates_id'] == $trInfo->tax_rates_id)) {
         $aDocument[] = ['id' => $rows,
-                        'link' => oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id . '&action=edit') ];
+                        'link' => oos_href_link_admin($aContents['cart_cancelling'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id . '&action=edit') ];
         echo '              <tr id="row-' . $rows .'">' . "\n";
     } else {
         $aDocument[] = ['id' => $rows,
-                        'link' => oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $rates['tax_rates_id'])];
+                        'link' => oos_href_link_admin($aContents['cart_cancelling'], 'page=' . $nPage . '&tID=' . $rates['tax_rates_id'])];
         echo '              <tr id="row-' . $rows .'">' . "\n";
-    } ?>
+    } 
+*/	
+	
+	?>
 				<td><?php echo $rates['geo_zone_name']; ?></td>
                 <td><?php echo $rates['tax_class_title']; ?></td>
                 <td><?php echo oos_display_tax_value($rates['tax_rate']); ?> %</td>
                 <td class="text-right"><?php if (isset($trInfo) && is_object($trInfo) && ($rates['tax_rates_id'] == $trInfo->tax_rates_id)) {
                     echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
                 } else {
-                    echo '<a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $rates['tax_rates_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+                    echo '<a href="' . oos_href_link_admin($aContents['cart_cancelling'], 'page=' . $nPage . '&tID=' . $rates['tax_rates_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
                 } ?>&nbsp;</td>
               </tr>
 <?php
@@ -284,18 +286,9 @@ echo '<br>';
               <tr>
                 <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="smallText" valign="top"><?php echo $rates_split->display_count($rates_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_TAX_RATES); ?></td>
-                    <td class="smallText" align="right"><?php echo $rates_split->display_links($rates_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
+                    <td class="smallText" valign="top"><?php echo $products_split->display_count($rates_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_TAX_RATES); ?></td>
+                    <td class="smallText" align="right"><?php echo $products_split->display_links($rates_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
                   </tr>
-<?php
-   if ($action == 'default') {
-       ?>
-                  <tr>
-                    <td colspan="4" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&action=new') . '">' . oos_button(IMAGE_NEW_TAX_RATE) . '</a>'; ?></td>
-                  </tr>
-<?php
-   }
-?>
                 </table></td>
               </tr>
             </table></td>
@@ -305,19 +298,11 @@ $heading = [];
 $contents = [];
 
 switch ($action) {
-    case 'delete':
-        $heading[] = ['text' => '<b>' . TEXT_INFO_HEADING_DELETE_TAX_RATE . '</b>'];
-
-        $contents = ['form' => oos_draw_form('id', 'rates', $aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id  . '&action=deleteconfirm', 'post', false)];
-        $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
-        $contents[] = ['text' => '<br><b>' . $trInfo->tax_class_title . ' ' . number_format($trInfo->tax_rate, TAX_DECIMAL_PLACES) . '%</b>'];
-        $contents[] = ['align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'];
-        break;
 
     default:
         if (isset($trInfo) && is_object($trInfo)) {
             $heading[] = ['text' => '<b>' . $trInfo->tax_class_title . '</b>'];
-            $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
+            $contents[] = ['align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['cart_cancelling'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['cart_cancelling'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>'];
             $contents[] = ['text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($trInfo->date_added)];
             $contents[] = ['text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($trInfo->last_modified)];
             $contents[] = ['text' => '<br>' . TEXT_INFO_RATE_DESCRIPTION . '<br>' . $trInfo->tax_description];
