@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '45aef25118fa0a77e8e7ed101d9cbe4afa5371c4',
+        'reference' => '90c003735862ec6f7756bfd42efe0511638e42c7',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -38,9 +38,9 @@
             'dev_requirement' => false,
         ),
         'carbonphp/carbon-doctrine-types' => array(
-            'pretty_version' => '3.1.0',
-            'version' => '3.1.0.0',
-            'reference' => 'a31d3358a2a5d6ae947df1691d1f321418a5f3d5',
+            'pretty_version' => '3.2.0',
+            'version' => '3.2.0.0',
+            'reference' => '18ba5ddfec8976260ead6e866180bd5d2f71aa1d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../carbonphp/carbon-doctrine-types',
             'aliases' => array(),
@@ -229,7 +229,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '45aef25118fa0a77e8e7ed101d9cbe4afa5371c4',
+            'reference' => '90c003735862ec6f7756bfd42efe0511638e42c7',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -520,7 +520,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '93f700b3ce0a4f87ca3219e591f2f9c85e1d53c9',
+            'reference' => 'feb85d42c6880b348e404115e011ae2201f49bba',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
