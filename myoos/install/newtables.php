@@ -551,10 +551,11 @@ $flds = "
   customers_basket_id I NOTNULL,
   customers_id I NOTNULL,
   products_id C(32) NOTNULL,
-  customers_basket_mail_date_added C(8)
+  customers_basket_mail_date_added T,
+  orders_id I NOTNULL PRIMARY,
+  orders_date T  
 ";
 dosql($table, $flds);
-
 
 
 $table = $prefix_table . 'customers_info';
