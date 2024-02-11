@@ -194,7 +194,29 @@ for ($i = 0, $n; $i < $n; $i++) {
     //ICW ADDED FOR CREDIT CLASS SYSTEM
     $order_total_modules->update_credit_account($i);
 
+/*
+todo customers_basket_mail
+$table = $prefix_table . 'customers_basket_mail';
+$flds = "
+  customers_basket_mail I NOTNULL AUTO PRIMARY,
+  customers_basket_id I NOTNULL,
+  customers_id I NOTNULL,
+  products_id C(32) NOTNULL,
+  customers_basket_mail_date_added T,
+  orders_id I NOTNULL PRIMARY,
+  orders_date T  
+";
+dosql($table, $flds);
 
+                $customers_basket_mailtable = $oostable['customers_basket_mail'];
+                $dbconn->Execute(
+                    "UPDATE $customers_basket_mailtable
+                        SET orders_id = '" . intval($insert_id) . "',  orders_date = now()
+                        WHERE products_id = '" . oos_db_input($oOrder->products[$i]['id']) . "'
+						AND customers_id =  '" . $_SESSION['customer_id'] . "'"
+                );
+
+*/
     //------insert customer choosen option to order--------
     $attributes_exist = '0';
     $products_ordered_attributes = '';
