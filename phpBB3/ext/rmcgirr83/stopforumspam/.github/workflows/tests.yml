@@ -1,0 +1,88 @@
+name: Tests
+
+env:
+    EXTNAME: rmcgirr83/stopforumspam # Your extension vendor/package name
+    SNIFF: 1            # Run code sniffer on your code? 1 or 0
+    IMAGE_ICC: 1        # Run icc profile sniffer on your images? 1 or 0
+    EPV: 1              # Run EPV (Extension Pre Validator) on your code? 1 or 0
+    EXECUTABLE_FILES: 1 # Run check for executable files? 1 or 0
+    PHPBB_BRANCH: 3.3.x # The phpBB branch to run tests on
+
+on:
+    push:
+        branches:        # Run tests when commits are pushed to these branches in your repo
+            - master
+            - develop
+    pull_request:        # Run tests when pull requests are made on these branches in your repo
+        branches:
+            - master
+            - develop
+
+jobs:
+    # START Basic Checks Job (EPV, code sniffer, images check, etc.)
+    basic-checks:
+        runs-on: ubuntu-22.04
+        strategy:
+            matrix:
+                include:
+                    - php: '7.4'
+                      db: "none"
+                      NOTESTS: 1
+
+        name: PHP ${{ matrix.php }} - ${{ matrix.db }}
+
+        steps:
+            - name: Checkout phpBB
+              uses: actions/checkout@v3
+              with:
+                  repository: phpbb/phpbb
+                  ref: ${{ env.PHPBB_BRANCH }}
+                  path: phpBB3
+
+            - name: Checkout extension
+              uses: actions/checkout@v3
+              with:
+                  path: phpBB3/phpBB/ext/${{ env.EXTNAME }}
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+                  extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, mysqli, sqlite, pdo_sqlite, intl, gd, exif, iconv, sqlsrv, pdo_sqlsrv, ldap
+                  coverage: none
+
+            - name: Setup environment for phpBB
+              env:
+                  DB: ${{ matrix.db }}
+                  PHP_VERSION: ${{ matrix.php }}
+                  NOTESTS: '1'
+              run: .github/setup-phpbb.sh $DB $PHP_VERSION $NOTESTS
+              working-directory: ./phpBB3
+
+            - name: Setup EPV
+              if: ${{ env.EPV != 0 }}
+              run: composer require phpbb/epv:dev-master --dev --no-interaction --ignore-platform-reqs
+              working-directory: ./phpBB3/phpBB
+
+            - name: Run code sniffer
+              if: ${{ env.SNIFF != 0 }}
+              env:
+                  NOTESTS: '1'
+              run: .github/ext-sniff.sh $EXTNAME $NOTESTS
+              working-directory: ./phpBB3
+
+            - name: Check image ICC profiles
+              if: ${{ env.IMAGE_ICC != 0 }}
+              run: .github/check-image-icc-profiles.sh
+              working-directory: ./phpBB3
+
+            - name: Check executable files
+              if: ${{ env.EXECUTABLE_FILES != 0 }}
+              run: .github/ext-check-executable-files.sh ./ $EXTNAME
+              working-directory: ./phpBB3
+
+            - name: Run EPV
+              if: ${{ env.EPV != 0 }}
+              run: phpBB/vendor/bin/EPV.php run --dir="phpBB/ext/$EXTNAME/"
+              working-directory: ./phpBB3
+    # END Basic Checks Job

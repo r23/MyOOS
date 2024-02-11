@@ -1,0 +1,8 @@
+{% if postrow.S_SFS %}
+	<li id="sfs{{ postrow.POST_ID }}">
+		<a href="{{ postrow.U_SFS }}" title="{{ lang('REPORT_TO_SFS') }}" data-ajax="reporttosfs" class="bg-gradient btn-secondary btn btn-sm button button-icon-only rounded-3 shadow-sm">
+			<i class="icon fa fa-exchange fa-fw" aria-hidden="true"></i>
+			<span class="visually-hidden">{{ lang('BUTTON_SFS') }}</span>
+		</a>
+	</li>
+{% endif %}

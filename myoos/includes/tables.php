@@ -65,6 +65,7 @@ $oostable['currencies'] = $prefix_table . 'currencies';
 $oostable['customers'] = $prefix_table . 'customers';
 $oostable['customers_basket'] = $prefix_table . 'customers_basket';
 $oostable['customers_basket_attributes'] = $prefix_table . 'customers_basket_attributes';
+$oostable['customers_basket_mail'] = $prefix_table . 'customers_basket_mail';
 $oostable['customers_info'] = $prefix_table . 'customers_info';
 $oostable['customers_status'] = $prefix_table . 'customers_status';
 $oostable['customers_status_history'] = $prefix_table . 'customers_status_history';

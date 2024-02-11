@@ -58,6 +58,18 @@ $flds = "
 ";
 dosql($table, $flds);
 
+
+$table = $prefix_table . 'customers_basket_mail';
+$flds = "
+  customers_basket_mail I NOTNULL AUTO PRIMARY,
+  customers_basket_id I NOTNULL,
+  customers_id I NOTNULL,
+  products_id C(32) NOTNULL,
+  customers_basket_mail_date_added C(8)
+";
+dosql($table, $flds);
+
+
 /*
 $table = $prefix_table . 'products_price_alarm';
 $flds = "

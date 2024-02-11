@@ -32,6 +32,19 @@ $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default'
 
 switch ($action) {
     case 'export':
+		
+		/*
+		$table = $prefix_table . 'customers_basket_mail';
+$flds = "
+  customers_basket_mail I NOTNULL AUTO PRIMARY,
+  customers_basket_id I NOTNULL,
+  customers_id I NOTNULL,
+  products_id C(32) NOTNULL,
+  customers_basket_mail_date_added C(8)
+";
+dosql($table, $flds);
+*/
+	
         # oos_redirect_admin(oos_href_link_admin($aContents['cart_cancelling'], 'page=' . $nPage));
         break;
 
