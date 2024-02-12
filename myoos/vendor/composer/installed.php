@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '53fc188bc45a1bff2d55ba302a446e43255ab2a8',
+        'reference' => '8bc354f5ab84e6a376c75a2d57829c3eeb400b19',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -229,7 +229,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '53fc188bc45a1bff2d55ba302a446e43255ab2a8',
+            'reference' => '8bc354f5ab84e6a376c75a2d57829c3eeb400b19',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -287,9 +287,9 @@
             'dev_requirement' => false,
         ),
         'php-amqplib/php-amqplib' => array(
-            'pretty_version' => 'v3.6.0',
-            'version' => '3.6.0.0',
-            'reference' => 'fb84e99589de0904a25861451b0552f806284ee5',
+            'pretty_version' => 'v3.6.1',
+            'version' => '3.6.1.0',
+            'reference' => '76eee289e98b0b309a761787e65cbe1acbaf8c72',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php-amqplib/php-amqplib',
             'aliases' => array(),
@@ -520,7 +520,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => 'feb85d42c6880b348e404115e011ae2201f49bba',
+            'reference' => '400ecb425bb98377baedca9c0ec4ccc8eba606c7',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
@@ -1122,7 +1122,7 @@
         'videlalvaro/php-amqplib' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v3.6.0',
+                0 => 'v3.6.1',
             ),
         ),
         'webmozart/assert' => array(

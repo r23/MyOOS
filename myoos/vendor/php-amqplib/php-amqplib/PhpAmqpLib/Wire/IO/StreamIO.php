@@ -23,7 +23,7 @@ class StreamIO extends AbstractIO
      * @param int $port
      * @param float $connection_timeout
      * @param float $read_write_timeout
-     * @param resource|array|null $context
+     * @param resource|null $context
      * @param bool $keepalive
      * @param int $heartbeat
      * @param string|null $ssl_protocol @deprecated
@@ -53,10 +53,6 @@ class StreamIO extends AbstractIO
         }
          */
 
-        if (!is_resource($context) || get_resource_type($context) !== 'stream-context') {
-            $context = stream_context_create();
-        }
-
         $this->host = $host;
         $this->port = $port;
         $this->connection_timeout = $connection_timeout;
@@ -67,15 +63,6 @@ class StreamIO extends AbstractIO
         $this->heartbeat = $heartbeat;
         $this->initial_heartbeat = $heartbeat;
         $this->canDispatchPcntlSignal = $this->isPcntlSignalEnabled();
-
-        stream_context_set_option($this->context, 'socket', 'tcp_nodelay', true);
-
-        $options = stream_context_get_options($this->context);
-        if (!empty($options['ssl']) && !isset($options['ssl']['crypto_method'])) {
-            if (!stream_context_set_option($this->context, 'ssl', 'crypto_method', STREAM_CRYPTO_METHOD_ANY_CLIENT)) {
-                throw new AMQPIOException("Can not set ssl.crypto_method stream context option");
-            }
-        }
     }
 
     /**
@@ -91,6 +78,7 @@ class StreamIO extends AbstractIO
             $this->port
         );
 
+        $context = $this->setupContext();
         $this->setErrorHandler();
 
         try {
@@ -100,7 +88,7 @@ class StreamIO extends AbstractIO
                 $errstr,
                 $this->connection_timeout,
                 STREAM_CLIENT_CONNECT,
-                $this->context
+                $context
             );
             $this->throwOnError();
         } catch (\ErrorException $e) {
@@ -136,7 +124,7 @@ class StreamIO extends AbstractIO
 
         // php cannot capture signals while streams are blocking
         if ($this->canDispatchPcntlSignal) {
-            stream_set_blocking($this->sock, 0);
+            stream_set_blocking($this->sock, false);
             stream_set_write_buffer($this->sock, 0);
             if (function_exists('stream_set_read_buffer')) {
                 stream_set_read_buffer($this->sock, 0);
@@ -149,12 +137,35 @@ class StreamIO extends AbstractIO
             $this->enable_keepalive();
         }
 
-        $options = stream_context_get_options($this->context);
+        $options = stream_context_get_options($context);
         if (isset($options['ssl']['crypto_method'])) {
-            $this->enable_crypto();
+            $this->enableCrypto();
         }
 
         $this->heartbeat = $this->initial_heartbeat;
+    }
+
+    /**
+     * @return resource
+     * @throws AMQPIOException
+     */
+    private function setupContext()
+    {
+        $context = $this->context;
+        if (!is_resource($context) || get_resource_type($context) !== 'stream-context') {
+            $context = stream_context_create();
+        }
+
+        stream_context_set_option($context, 'socket', 'tcp_nodelay', true);
+
+        $options = stream_context_get_options($context);
+        if (!empty($options['ssl']) && !isset($options['ssl']['crypto_method'])) {
+            if (!stream_context_set_option($context, 'ssl', 'crypto_method', STREAM_CRYPTO_METHOD_ANY_CLIENT)) {
+                throw new AMQPIOException("Can not set ssl.crypto_method stream context option");
+            }
+        }
+
+        return $context;
     }
 
     /**
@@ -305,7 +316,7 @@ class StreamIO extends AbstractIO
     /**
      * @inheritdoc
      */
-    public function error_handler($errno, $errstr, $errfile, $errline, $errcontext = null)
+    public function error_handler($errno, $errstr, $errfile, $errline): void
     {
         $code = $this->extract_error_code($errstr);
         $constants = SocketConstants::getInstance();
@@ -318,7 +329,7 @@ class StreamIO extends AbstractIO
                 return;
         }
 
-        parent::error_handler($code > 0 ? $code : $errno, $errstr, $errfile, $errline, $errcontext);
+        parent::error_handler($code > 0 ? $code : $errno, $errstr, $errfile, $errline);
     }
 
     public function close()
@@ -333,7 +344,8 @@ class StreamIO extends AbstractIO
     }
 
     /**
-     * @inheritdoc
+     * @deprecated
+     * @return null|resource|\Socket
      */
     public function getSocket()
     {
@@ -386,7 +398,7 @@ class StreamIO extends AbstractIO
     /**
      * @throws \PhpAmqpLib\Exception\AMQPIOException
      */
-    protected function enable_keepalive()
+    protected function enable_keepalive(): void
     {
         if (!function_exists('socket_import_stream')) {
             throw new AMQPIOException('Can not enable keepalive: function socket_import_stream does not exist');
@@ -420,16 +432,31 @@ class StreamIO extends AbstractIO
         return 0;
     }
 
-    private function enable_crypto(): void
+    /**
+     * @throws AMQPIOException
+     */
+    private function enableCrypto(): void
     {
         $timeout_at = time() + ($this->read_timeout + $this->write_timeout) * 2; // 2 round-trips during handshake
 
-        do {
-            $enabled = stream_socket_enable_crypto($this->sock, true);
-        } while ($enabled !== true && time() < $timeout_at);
+        try {
+            $this->setErrorHandler();
+            do {
+                $enabled = stream_socket_enable_crypto($this->sock, true);
+                if ($enabled === true) {
+                    return;
+                }
+                $this->throwOnError();
+                usleep(1e3);
+            } while ($enabled === 0 && time() < $timeout_at);
+        } catch (\ErrorException $exception) {
+            throw new AMQPIOException($exception->getMessage(), $exception->getCode(), $exception);
+        } finally {
+            $this->restoreErrorHandler();
+        }
 
         if ($enabled !== true) {
-            throw new AMQPIOException('Can not enable crypto');
+            throw new AMQPIOException('Could not enable socket crypto');
         }
     }
 }
