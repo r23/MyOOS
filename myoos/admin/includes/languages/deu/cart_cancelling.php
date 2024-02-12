@@ -23,30 +23,31 @@
 
 define('HEADING_TITLE', 'Reaktivierung von Warenkorbabbrüchen');
 
-define('TEXT_CUSTOMER', 'Kunde:');
-define('TEXT_SUBJECT', 'Betreff:');
-define('TEXT_FROM', 'Absender:');
-define('TEXT_TO', 'eMail an:');
-define('TEXT_AMOUNT', 'Betrag:');
-define('TEXT_MESSAGE', 'Nachricht:');
-define('TEXT_SELECT_CUSTOMER', 'Kunden auswählen');
-define('TEXT_ALL_CUSTOMERS', 'Alle Kunden');
-define('TEXT_NEWSLETTER_CUSTOMERS', 'An alle Newsletter-Abonnenten');
-define('TEXT_FROM_NAME', 'Absender Name:');
-define('TEXT_FROM_MAIL', 'Absender eMail:');
+define('TABLE_HEADING_TITLE', 'Titel');
+define('TABLE_HEADING_FILE_DATE', 'Datum');
+define('TABLE_HEADING_FILE_SIZE', 'Größe');
+define('TABLE_HEADING_ACTION', 'Aktion');
 
-define('NOTICE_EMAIL_SENT_TO', 'Hinweis: eMail wurde versendet an: %s');
-define('ERROR_NO_CUSTOMER_SELECTED', 'Fehler: Es wurde kein Kunde ausgewählt.');
-define('ERROR_NO_AMOUNT_SELECTED', 'Fehler: Sie haben keinen Betrag für den Gutschein eingegeben.');
+define('TEXT_INFO_HEADING_NEW_EXPORT', 'Neuer Produktdaten Export');
+define('TEXT_INFO_HEADING_RESTORE_LOCAL', 'Lokal wiederherstellen');
+define('TEXT_INFO_NEW_EXPORT', 'Bitte den Exportprozess AUF KEINEN FALL unterbrechen. Dieser kann einige Minuten in Anspruch nehmen.');
+define('TEXT_INFO_UNPACK', '<br><br>(nach dem die Dateien aus dem Archiv extrahiert wurden)');
+define('TEXT_INFO_DATE', 'Datum:');
+define('TEXT_INFO_SIZE', 'Größe:');
+define('TEXT_INFO_COMPRESSION', 'Komprimieren:');
+define('TEXT_INFO_USE_GZIP', 'Mit GZIP');
+define('TEXT_INFO_USE_ZIP', 'Mit ZIP');
+define('TEXT_INFO_USE_NO_COMPRESSION', 'Keine Komprimierung');
+define('TEXT_INFO_DOWNLOAD_ONLY', 'Nur herunterladen (nicht auf dem Server speichern)');
+define('TEXT_INFO_BEST_THROUGH_HTTPS', 'Sichere HTTPS Verbindung verwenden!');
+define('TEXT_NO_EXTENSION', 'Keine');
+define('TEXT_EXPORT_DIRECTORY', 'Exportverzeichnis:');
+define('TEXT_FORGET', '(<u> vergessen</u>)');
+define('TEXT_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Exportdatei löschen möchten?');
 
-define('TEXT_GV_WORTH', 'Gutscheinwert ');
-define('TEXT_TO_REDEEM', 'Um den Gutschein einzulösen, klicken Sie auf den unten stehenden Link. Bitte notieren Sie sich den Gutschein-Code.');
-define('TEXT_WHICH_IS', 'welcher ist');
-define('TEXT_IN_CASE', ' falls Sie Probleme haben.');
-define('TEXT_OR_VISIT', 'oder besuchen Sie ');
-define('TEXT_ENTER_CODE', ' und geben den Gutschein-Code ein ');
+define('ERROR_EXPORT_DIRECTORY_DOES_NOT_EXIST', '<strong>Fehler!</strong> Das Exportverzeichnis ist nicht vorhanden.');
+define('ERROR_EXPORT_DIRECTORY_NOT_WRITEABLE', '<strong>Fehler!</strong> Das Exportverzeichnis ist schreibgeschützt.');
+define('ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE', '<strong>Fehler!</strong> Download Link nicht akzeptabel.');
 
-define('TEXT_REDEEM_COUPON_MESSAGE_HEADER', 'Sie haben erfolgreich einen Gutschein von unserem Shop erworben. Aus Sicherheitsgrnden wir der Gutscheinwert nicht sofort Ihrem Konto gutgeschrieben. Der Shop-Besitzer wurde ber den Erwerb informiert.');
-define('TEXT_REDEEM_COUPON_MESSAGE_AMOUNT', "\n\n" . 'Der Wert des Gutscheins beträgt: %s');
-define('TEXT_REDEEM_COUPON_MESSAGE_BODY', "\n\n" . 'Sie können nun unsere Seite besuchen, sich einloggen und den Gutschein an jeden beliebigen Empfänger versenden.');
-define('TEXT_REDEEM_COUPON_MESSAGE_FOOTER', "\n\n");
+define('SUCCESS_DATABASE_SAVED', '<strong>Erfolg!</strong> Die Produktdaten wurden exportiert.');
+define('SUCCESS_EXPORT_DELETED', '<strong>Erfolg!</strong> Die Exportdatei wurde gelöscht.');

@@ -21,34 +21,35 @@
    ----------------------------------------------------------------------
  */
 
-define('HEADING_TITLE', 'Reaktivierung von Warenkorbabbrüchen');
+define('HEADING_TITLE', 'Reactivation of shopping cart abandonment');
 
-define('TEXT_CUSTOMER', 'Customer:');
-define('TEXT_SUBJECT', 'Subject:');
-define('TEXT_FROM', 'From:');
-define('TEXT_TO', 'Email To:');
-define('TEXT_AMOUNT', 'Amount');
-define('TEXT_MESSAGE', 'Message:');
-define('TEXT_SINGLE_EMAIL', '<span class="smallText">Use this for sending single emails, otherwise use dropdown above</span>');
-define('TEXT_SELECT_CUSTOMER', 'Select Customer');
-define('TEXT_ALL_CUSTOMERS', 'All Customers');
-define('TEXT_NEWSLETTER_CUSTOMERS', 'To All Newsletter Subscribers');
+define('TABLE_HEADING_TITLE', 'Title');
+define('TABLE_HEADING_FILE_DATE', 'Date');
+define('TABLE_HEADING_FILE_SIZE', 'Size');
+define('TABLE_HEADING_ACTION', 'Action');
 
-define('NOTICE_EMAIL_SENT_TO', 'Notice: Email sent to: %s');
-define('ERROR_NO_CUSTOMER_SELECTED', 'Error: No customer has been selected.');
-define('ERROR_NO_AMOUNT_SELECTED', 'Error: No amount has been selected.');
+define('TEXT_INFO_HEADING_NEW_EXPORT', 'New product data export');
+define('TEXT_INFO_HEADING_RESTORE_LOCAL', 'Restore Local');
+define('TEXT_INFO_NEW_EXPORT', 'Please do NOT interrupt the export process. This may take a few minutes.');
+define('TEXT_INFO_UNPACK', '<br><br>(after unpacking the file from the archive)');
+define('TEXT_INFO_DATE', 'Date:');
+define('TEXT_INFO_SIZE', 'Size:');
+define('TEXT_INFO_COMPRESSION', 'Compression:');
+define('TEXT_INFO_USE_GZIP', 'Use GZIP');
+define('TEXT_INFO_USE_ZIP', 'Use ZIP');
+define('TEXT_INFO_USE_NO_COMPRESSION', 'No Compression (Pure SQL)');
+define('TEXT_INFO_DOWNLOAD_ONLY', 'Download only (do not store server side)');
+define('TEXT_INFO_BEST_THROUGH_HTTPS', 'Best through a HTTPS connection');
+define('TEXT_DELETE_INTRO', 'Are you sure you want to delete this backup?');
+define('TEXT_NO_EXTENSION', 'None');
+define('TEXT_EXPORT_DIRECTORY', 'Export directory:');
+define('TEXT_FORGET', '(<u>forget</u>)');
 
-define('TEXT_GV_WORTH', 'The Gift Voucher is worth ');
-define('TEXT_TO_REDEEM', 'To redeem this Gift Voucher, please click on the link below. Please also write down the redemption code');
-define('TEXT_WHICH_IS', 'which is');
-define('TEXT_IN_CASE', ' in case you have any problems.');
-define('TEXT_OR_VISIT', 'or visit ');
-define('TEXT_ENTER_CODE', ' and enter the code during the checkout process');
+define('ERROR_EXPORT_DIRECTORY_DOES_NOT_EXIST', 'Error!</strong> Export directory does not exist. Please set this in configure.php.');
+define('ERROR_EXPORT_DIRECTORY_NOT_WRITEABLE', 'Error!</strong> Export directory is not writeable.');
+define('ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE', 'Error!</strong> Download link not acceptable.');
 
-define('TEXT_REDEEM_COUPON_MESSAGE_HEADER', 'You recently purchasd a Gift Voucher from our site, for security reasons, the amount of the Gift Voucher was not immediatley credited to you. The shop owner has now released this amount.');
-define('TEXT_REDEEM_COUPON_MESSAGE_AMOUNT', "\n\n" . 'The value of the Gift Voucher was %s');
-define('TEXT_REDEEM_COUPON_MESSAGE_BODY', "\n\n" . 'You can now visit our site, login and send the Gift Voucher amount to anyone you want.');
-define('TEXT_REDEEM_COUPON_MESSAGE_FOOTER', "\n\n");
+define('SUCCESS_DATABASE_SAVED', 'Success!</strong> The Product data has been saved.');
+define('SUCCESS_DATABASE_RESTORED', 'Success!</strong> The Product data has been restored.');
+define('SUCCESS_EXPORT_DELETED', 'Success!</strong> The backup has been removed.');
 
-define('TEXT_FROM_NAME', 'Absender Name:');
-define('TEXT_FROM_MAIL', 'Absender eMail:');
