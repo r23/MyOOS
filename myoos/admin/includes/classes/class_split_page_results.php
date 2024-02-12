@@ -40,9 +40,9 @@ class splitPageResults
         }
         $current_page_number = (int)$current_page_number;
 
-        $pos_to = strlen($sql_query);
-        $pos_from = strpos(strtoupper($sql_query), ' FROM', 0);
-
+        $pos_to = strlen($sql_query ?? '');
+        $pos_from = strpos(strtoupper($sql_query), 'FROM', 0);
+		
         $pos_group_by = strpos(strtoupper($sql_query), ' GROUP BY', $pos_from);
         if (($pos_group_by < $pos_to) && ($pos_group_by !== false)) {
             $pos_to = $pos_group_by;
