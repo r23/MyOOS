@@ -197,16 +197,12 @@ require 'includes/header.php';
 					</thead>
 <?php
 if ($dir_ok) {
-    $dir = dir(OOS_EXPORT_PATH);
-    $contents = [];
-    while ($file = $dir->read()) {
-        if (($file != '.') && ($file != '..') && ($file != '.htaccess')) {
-            if (!is_dir(OOS_EXPORT_PATH . $file)) {
-                $contents[] = $file;
-            }
-        }
-    }
-    rsort($contents);
+	$dir = OOS_EXPORT_PATH;
+	$files = scandir($dir);
+	$contents = array_filter($files, function($file) {
+		return strpos($file, "db_export-") === 0;
+	});
+	rsort($contents);
 
     $rows = 0;
     $aDocument = [];
@@ -251,7 +247,6 @@ if ($dir_ok) {
               </tr>
 <?php
     }
-    $dir->close();
 }
 ?>
               <tr>
