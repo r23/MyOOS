@@ -102,6 +102,8 @@ $aContents = [
 //ajax
 'clear_cart_ajax'                 => $prefix_filename . 'clear_cart',
 'shopping_cart_ajax'              => $prefix_filename . 'shopping_cart',
-'pricealert_ajax'                 => $prefix_filename . 'pricealert'
+'pricealert_ajax'                 => $prefix_filename . 'pricealert',
+// Google Merchant Center
+'rss'                             => $prefix_filename . 'rss'
 
 ];
