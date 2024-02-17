@@ -18,10 +18,11 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 
 
 
-function umlaute_export($text) {
+function export($text) {
 
-	$utf8_text = utf8_encode($text);
-		 // return the string
+	// $utf8_text = utf8_encode($text);
+	// $utf8_text = iconv(mb_detect_encoding($text, mb_detect_order(), true), "UTF-8", $text); // Der String in UTF-8
+
 	$utf8_text = str_replace ("<sup>®</sup>", "", $utf8_text);
 	$utf8_text = str_replace ("®", "", $utf8_text);
 	$utf8_text = str_replace ("<sup>&reg;</sup>", "", $utf8_text);
@@ -50,6 +51,7 @@ $products_sql = "SELECT p.products_id, p.products_max, pd.products_name, pd.prod
                               p.products_quantity, p.products_image, p.products_subimage1, p.products_subimage2,
                               p.products_subimage3, p.products_subimage4, p.products_subimage5, p.products_subimage6,
                               p.products_movie, p.products_zoomify, p.products_discount_allowed, p.products_price, p.products_status,
+                              p.products_product_quantity, p.products_base_quantity,
                               p.products_base_price, p.products_base_unit, p.products_quantity_order_min, p.products_quantity_order_units,
                               p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4,
                               p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty,
@@ -71,9 +73,9 @@ $site_name = (!empty(SITE_NAME) ? SITE_NAME : STORE_NAME);
 $out = '<?xml version="1.0"?>' . "\n";
 $out .= '<rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">' . "\n";
 $out .= "\t<channel>\n";
-$out .= $indent . "<title>" . umlaute_export($site_name) . "</title>\n";
+$out .= $indent . "<title>" . export($site_name) . "</title>\n";
 $out .= $indent . "<link" . OOS_HTTPS_SERVER . OOS_SHOP . "</link>\n";
-$out .= $indent . "<description>" . umlaute_export(OOS_META_DESCRIPTION) . "</description>\n";
+$out .= $indent . "<description>" . export(OOS_META_DESCRIPTION) . "</description>\n";
 
 $rows = 0;
 while ($products = $products_result->fields) {
@@ -105,10 +107,10 @@ while ($products = $products_result->fields) {
 
 	$brand = '';
 
-	$products_name = umlaute_export($products['products_name']);
+	$products_name = export($products['products_name']);
 	$products_name = substr($products_name, 0, 150); // returns the first 150 characters
 
-	$products_description = umlaute_export($products['products_description']);
+	$products_description = export($products['products_description']);
 	$products_description = substr($products_description, 0, 4980); // returns the first 4980 characters
 	$products_description = $purifier->purify($products_description);
 
@@ -130,7 +132,7 @@ while ($products = $products_result->fields) {
 
 
 	$sUrl = OOS_HTTP_SERVER . OOS_SHOP . 'index.php?content=' . $aContents['product_info'] . '&products_id=' . $products['products_id'];
-	$sImage = OOS_SHOP_IMAGES . . 'product/large/' . $products['products_image'];
+	$sImage = OOS_SHOP_IMAGES . 'product/large/' . $products['products_image'];
 
 	$info_product_price = $oCurrencies->display_price($products['products_price'], oos_get_tax_rate($products['products_tax_class_id']));
 	
@@ -142,7 +144,7 @@ while ($products = $products_result->fields) {
 	$manufacturers_result = $dbconn->Execute($manufacturers_sql);
 	$manufacturers = $manufacturers_result->fields;
 
-	$brand = umlaute_export($manufacturers['manufacturers_name']);
+	$brand = export($manufacturers['manufacturers_name']);
 	$brand  = str_replace ("- ", "", $brand);	
 	$brand = substr($brand, 0,  70 ); // returns the first 70 characters
 
@@ -158,32 +160,32 @@ while ($products = $products_result->fields) {
 		
 	
 		if ($products['products_subimage1'] != '') {
-			$sImage1 =  OOS_SHOP_IMAGES . . 'product/large/' . $products['products_subimage1'];
+			$sImage1 =  OOS_SHOP_IMAGES . 'product/large/' . $products['products_subimage1'];
 
 			$out .= '<g:additional_image_link>' . $sImage1 . '</g:additional_image_link>' . "\n";
 		}	
 		if ($products['products_subimage2'] != '') {
-			$sImage2 =  OOS_SHOP_IMAGES . . 'product/large/' . $products['products_subimage2'];
+			$sImage2 =  OOS_SHOP_IMAGES . 'product/large/' . $products['products_subimage2'];
 
 			$out .= '<g:additional_image_link>' . $sImage2 . '</g:additional_image_link>' . "\n";
 		}	
 		if ($products['products_subimage3'] != '') {
-			$sImage3 =  OOS_SHOP_IMAGES . . 'product/large/' . $products['products_subimage3'];
+			$sImage3 =  OOS_SHOP_IMAGES . 'product/large/' . $products['products_subimage3'];
 
 			$out .= '<g:additional_image_link>' . $sImage3 . '</g:additional_image_link>' . "\n";
 		}	
 		if ($products['products_subimage4'] != '') {
-			$sImage4 =  OOS_SHOP_IMAGES . . 'product/large/' . $products['products_subimage4'];
+			$sImage4 =  OOS_SHOP_IMAGES . 'product/large/' . $products['products_subimage4'];
 
 			$out .= '<g:additional_image_link>' . $sImage4 . '</g:additional_image_link>' . "\n";
 		}	
 		if ($products['products_subimage5'] != '') {
-			$sImage5 =  OOS_SHOP_IMAGES . . 'product/large/' . $products['products_subimage5'];
+			$sImage5 =  OOS_SHOP_IMAGES . 'product/large/' . $products['products_subimage5'];
 
 			$out .= '<g:additional_image_link>' . $sImage5 . '</g:additional_image_link>' . "\n";
 		}	
 		if ($products['products_subimage6'] != '') {
-			$sImage6 =  OOS_SHOP_IMAGES . . 'product/large/' . $products['products_subimage6'];
+			$sImage6 =  OOS_SHOP_IMAGES . 'product/large/' . $products['products_subimage6'];
 
 			$out .= '<g:additional_image_link>' . $sImage6 . '</g:additional_image_link>' . "\n";
 		}	
@@ -328,32 +330,32 @@ while ($products = $products_result->fields) {
 		
 	
 		if ($products['products_subimage1'] != '') {
-			$sImage1 =  OOS_SHOP_IMAGES . . 'product/large/' . $products['products_subimage1'];
+			$sImage1 =  OOS_SHOP_IMAGES . 'product/large/' . $products['products_subimage1'];
 
 			$out .= '<g:additional_image_link>' . $sImage1 . '</g:additional_image_link>' . "\n";
 		}	
 		if ($products['products_subimage2'] != '') {
-			$sImage2 =  OOS_SHOP_IMAGES . . 'product/large/' . $products['products_subimage2'];
+			$sImage2 =  OOS_SHOP_IMAGES . 'product/large/' . $products['products_subimage2'];
 
 			$out .= '<g:additional_image_link>' . $sImage2 . '</g:additional_image_link>' . "\n";
 		}	
 		if ($products['products_subimage3'] != '') {
-			$sImage3 =  OOS_SHOP_IMAGES . . 'product/large/' . $products['products_subimage3'];
+			$sImage3 =  OOS_SHOP_IMAGES . 'product/large/' . $products['products_subimage3'];
 
 			$out .= '<g:additional_image_link>' . $sImage3 . '</g:additional_image_link>' . "\n";
 		}	
 		if ($products['products_subimage4'] != '') {
-			$sImage4 =  OOS_SHOP_IMAGES . . 'product/large/' . $products['products_subimage4'];
+			$sImage4 =  OOS_SHOP_IMAGES . 'product/large/' . $products['products_subimage4'];
 
 			$out .= '<g:additional_image_link>' . $sImage4 . '</g:additional_image_link>' . "\n";
 		}	
 		if ($products['products_subimage5'] != '') {
-			$sImage5 =  OOS_SHOP_IMAGES . . 'product/large/' . $products['products_subimage5'];
+			$sImage5 =  OOS_SHOP_IMAGES . 'product/large/' . $products['products_subimage5'];
 
 			$out .= '<g:additional_image_link>' . $sImage5 . '</g:additional_image_link>' . "\n";
 		}	
 		if ($products['products_subimage6'] != '') {
-			$sImage6 =  OOS_SHOP_IMAGES . . 'product/large/' . $products['products_subimage6'];
+			$sImage6 =  OOS_SHOP_IMAGES . 'product/large/' . $products['products_subimage6'];
 
 			$out .= '<g:additional_image_link>' . $sImage6 . '</g:additional_image_link>' . "\n";
 		}	
@@ -373,24 +375,6 @@ while ($products = $products_result->fields) {
 				
 
 
-
-/*
-1 Tuch
-100 ml
-100 g
-1 Kilogramm
-Liter
-1 Kg
-1 Meter
-100 Gramm
-KG
-kg
-1 Kilo
-1 Stck.
-1 Stck.
-1 Schwamm
-Stück
-*/
 		$products_base_unit = $products['products_base_unit'];
 
 		switch ($products_base_unit) {
