@@ -28,7 +28,7 @@ define('TABLE_HEADING_FILE_DATE', 'Datum');
 define('TABLE_HEADING_FILE_SIZE', 'Größe');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
-define('TEXT_INFO_HEADING_NEW_EXPORT', 'Neuer Produktdaten Export');
+define('TEXT_INFO_HEADING_NEW_EXPORT', 'Neuer Export. Warenkorbabbrüche');
 define('TEXT_INFO_HEADING_RESTORE_LOCAL', 'Lokal wiederherstellen');
 define('TEXT_INFO_NEW_EXPORT', 'Bitte den Exportprozess AUF KEINEN FALL unterbrechen. Dieser kann einige Minuten in Anspruch nehmen.');
 define('TEXT_INFO_UNPACK', '<br><br>(nach dem die Dateien aus dem Archiv extrahiert wurden)');
@@ -49,5 +49,5 @@ define('ERROR_EXPORT_DIRECTORY_DOES_NOT_EXIST', '<strong>Fehler!</strong> Das Ex
 define('ERROR_EXPORT_DIRECTORY_NOT_WRITEABLE', '<strong>Fehler!</strong> Das Exportverzeichnis ist schreibgeschützt.');
 define('ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE', '<strong>Fehler!</strong> Download Link nicht akzeptabel.');
 
-define('SUCCESS_DATABASE_SAVED', '<strong>Erfolg!</strong> Die Produktdaten wurden exportiert.');
+define('SUCCESS_DATABASE_SAVED', '<strong>Erfolg!</strong> Die  Warenkorbabbrüche wurden exportiert.');
 define('SUCCESS_EXPORT_DELETED', '<strong>Erfolg!</strong> Die Exportdatei wurde gelöscht.');

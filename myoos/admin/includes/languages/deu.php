@@ -251,6 +251,7 @@ define('IMAGE_ANI_SEND_EMAIL', 'eMail versenden');
 define('BUTTON_AR', 'Augmented Reality');
 define('BUTTON_BACK', 'Zurück');
 define('BUTTON_EXPORT', 'Produktdaten export');
+define('BUTTON_CART_CANCELLING_EXPORT', 'Daten export');
 define('BUTTON_CANCEL', 'Abbrechen');
 define('BUTTON_UPLOAD_IMAGES', 'Bilder hochladen');
 define('BUTTON_CANCEL_UPLOAD', 'Hochladen abbrechen');
