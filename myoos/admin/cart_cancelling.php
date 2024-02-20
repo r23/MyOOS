@@ -31,27 +31,9 @@ $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
 switch ($action) {
-    case 'export':
-
-/*	
-todo customers_basket_mail
-$table = $prefix_table . 'customers_basket_mail';
-$flds = "
-  customers_basket_mail I NOTNULL AUTO PRIMARY,
-  customers_basket_id I NOTNULL,
-  customers_id I NOTNULL,
-  products_id C(32) NOTNULL,
-  customers_basket_mail_date_added T,
-  orders_id I NOTNULL PRIMARY,
-  orders_date T  
-";
-*/
-
-
-
     case 'make_file_now':
-        $excel_file = 'basket_mail-' . date('YmdHis') . '.cvs';
-        $fp = fopen(OOS_EXPORT_PATH . $excel_file, 'w');
+        $mail_file = 'basket_mail-' . date('YmdHis') . '.cvs';
+        $fp = fopen(OOS_EXPORT_PATH . $mail_file, 'w');
 
         $schema = '';
         $schema .= 'Firma | Name | Straße | PLZ | Ort | Warenborbdatum | Produktname | Menge |  Produktname_2 |  Menge_2 ' .  "\n";
@@ -80,7 +62,19 @@ $flds = "
             $price = number_format(oos_round($price * $tax, 2), 2, '.', '');
 
             $schema .= $products['products_id']. '|'  . $products['products_model'] . '|' . $name . '|' . $products['products_tax_class_id'] . '|' . $products['products_status'] . '|' . $products['products_price'] . '|' . $price . "\n";
-
+/*	
+todo customers_basket_mail
+$table = $prefix_table . 'customers_basket_mail';
+$flds = "
+  customers_basket_mail I NOTNULL AUTO PRIMARY,
+  customers_basket_id I NOTNULL,
+  customers_id I NOTNULL,
+  products_id C(32) NOTNULL,
+  customers_basket_mail_date_added T,
+  orders_id I NOTNULL PRIMARY,
+  orders_date T  
+";
+*/
             // Move that ADOdb pointer!
             $products_result->MoveNext();
         }
@@ -90,40 +84,14 @@ $flds = "
         fclose($fp);
 
         if (isset($_POST['download']) && ($_POST['download'] == 'yes')) {
-            # todo
-            /*
-                switch ($_POST['compress']) {
-                case 'gzip':
-                  exec(LOCAL_EXE_GZIP . ' ' . OOS_EXPORT_PATH . $excel_file);
-                  $excel_file .= '.gz';
-                  break;
-
-                case 'zip':
-                  exec(LOCAL_EXE_ZIP . ' -j ' . OOS_EXPORT_PATH . $excel_file . '.zip ' . OOS_EXPORT_PATH . $excel_file);
-                  @unlink(OOS_EXPORT_PATH . $excel_file);
-                  $excel_file .= '.zip';
-              }
-            */
             header('Content-type: application/x-octet-stream');
-            header('Content-disposition: attachment; filename=' . $excel_file);
+            header('Content-disposition: attachment; filename=' . $mail_file);
 
-            readfile(OOS_EXPORT_PATH . $excel_file);
-            @unlink(OOS_EXPORT_PATH . $excel_file);
+            readfile(OOS_EXPORT_PATH . $mail_file);
+            @unlink(OOS_EXPORT_PATH . $mail_file);
 
             exit;
         } else {
-            # todo
-            /*
-            switch ($_POST['compress']) {
-            case 'gzip':
-              exec(LOCAL_EXE_GZIP . ' ' . $excel_file);
-              break;
-
-            case 'zip':
-              exec(LOCAL_EXE_ZIP . ' -j ' . $excel_file . '.zip ' . $excel_file);
-              unlink(OOS_EXPORT_PATH . $excel_file);
-      }
-                  */
             $messageStack->add_session(SUCCESS_DATABASE_SAVED, 'success');
         }
         oos_redirect_admin(oos_href_link_admin($aContents['cart_cancelling']));
@@ -155,13 +123,6 @@ $flds = "
             $messageStack->add_session(SUCCESS_EXPORT_DELETED, 'success');
             oos_redirect_admin(oos_href_link_admin($aContents['cart_cancelling']));
         }
-        break;
-
-	
-        # oos_redirect_admin(oos_href_link_admin($aContents['cart_cancelling'], 'page=' . $nPage));
-        break;
-
-    case 'deleteconfirm':
         break;
 }
 
