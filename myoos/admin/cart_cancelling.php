@@ -32,14 +32,211 @@ $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default'
 
 switch ($action) {
     case 'make_file_now':
+	
+		//prevent script from running more than once a day
+		$configurationtable = $oostable['configuration'];
+		$sql = "SELECT configuration_value FROM $configurationtable WHERE configuration_key = 'LASTBASKET_MAIL'";
+		$prevent_result = $dbconn->Execute($sql);
+
+		if ($prevent_result->RecordCount() > 0) {
+			$prevent = $prevent_result->fields;
+			if ($prevent['configuration_value'] == date("Ymd")) {
+				die('Halt! Already executed - should not execute more than once a day.');
+				// $messageStack->add_session(SUCCESS_DATABASE_SAVED, 'error');
+				// oos_redirect_admin(oos_href_link_admin($aContents['cart_cancelling']));				
+			}
+		}
+
+		if ($prevent_result->RecordCount() > 0) {
+			$configurationtable = $oostable['configuration'];
+			$dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . date("Ymd") . "' WHERE configuration_key = 'LASTBASKET_MAIL'");
+		} else {
+			$configurationtable = $oostable['configuration'];
+#        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id) VALUES ('LASTBASKET_MAIL', '" . date("Ymd") . "', '6')");
+			$sql = "INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id) VALUES ('LASTBASKET_MAIL', '" . date("Ymd") . "', '6')";
+			echo $sql;
+		}
+	
+exit;
         $mail_file = 'basket_mail-' . date('YmdHis') . '.cvs';
         $fp = fopen(OOS_EXPORT_PATH . $mail_file, 'w');
 
         $schema = '';
         $schema .= 'Firma | Name | Straße | PLZ | Ort | Warenborbdatum | Produktname | Menge |  Produktname_2 |  Menge_2 ' .  "\n";
 
-        $nLanguageID = intval($_SESSION['language_id']);
+        $nLanguageID = intval($_SESSION['language_id'] ?? DEFAULT_LANGUAGE_ID);
 
+        $aProducts = [];
+
+
+/*
+todo customers_basket_mail
+$table = $prefix_table . 'customers_basket_mail';
+$flds = "
+  customers_basket_mail I NOTNULL AUTO PRIMARY,
+  customers_basket_id I NOTNULL,
+  customers_id I NOTNULL,
+  products_id C(32) NOTNULL,
+  customers_basket_mail_date_added T,
+  orders_id I NOTNULL PRIMARY,
+  orders_date T  
+";
+*/		
+	
+/*
+$table = $prefix_table . 'customers_basket';
+$flds = "
+  customers_basket_id I NOTNULL AUTO PRIMARY,
+  customers_id I NOTNULL,
+  to_wishlist_id C(32) NOTNULL,
+  products_id C(32) NOTNULL,
+  customers_basket_quantity I2 NOTNULL DEFAULT '1',
+  free_redemption C(1) DEFAULT '',
+  final_price N '10.4' NOTNULL DEFAULT '0.0000',
+  customers_basket_date_added C(8)
+";
+dosql($table, $flds);
+*/
+/*
+
+        $customers_baskettable = $oostable['customers_basket'];
+        $sql = "SELECT customers_id, products_id, customers_basket_quantity
+              FROM $customers_baskettable
+              WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'";
+        $products_result = $dbconn->Execute($sql);
+        while ($products = $products_result->fields) {
+            $this->contents[$products['products_id']] = ['qty' => $products['customers_basket_quantity'],
+                                                          'towlid' => $products['to_wishlist_id']];
+            // attributes
+            $customers_basket_attributestable = $oostable['customers_basket_attributes'];
+            $sql = "SELECT products_options_id, products_options_value_id, products_options_value_text
+                FROM $customers_basket_attributestable
+                WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'
+                AND products_id = '" . $products['products_id'] . "'";
+            $attributes_result = $dbconn->Execute($sql);
+            while ($attributes = $attributes_result->fields) {
+                $this->contents[$products['products_id']]['attributes'][$attributes['products_options_id']] = $attributes['products_options_value_id'];
+                if ($attributes['products_options_value_id'] == PRODUCTS_OPTIONS_VALUE_TEXT_ID) {
+                    $this->contents[$products['products_id']]['attributes_values'][$attributes['products_options_id']] = $attributes['products_options_value_text'];
+                }
+
+                // Move that ADOdb pointer!
+                $attributes_result->MoveNext();
+            }
+
+            // Move that ADOdb pointer!
+            $products_result->MoveNext();
+        }
+
+
+
+
+
+        foreach (array_keys($this->contents) as $products_id) {
+            $nQuantity = $this->contents[$products_id]['qty'];
+            $productstable = $oostable['products'];
+            $products_descriptiontable = $oostable['products_description'];
+            $sql = "SELECT p.products_id, pd.products_name, pd.products_essential_characteristics, p.products_image, p.products_model, 
+						p.products_ean, p.products_price, p.products_base_price,  p.products_product_quantity, p.products_units_id, 
+						p.products_base_unit, p.products_weight, p.products_tax_class_id, p.products_quantity, p.products_quantity_order_min, 
+						p.products_quantity_order_max, p.products_quantity_order_units, p.products_old_electrical_equipment
+					FROM $productstable p,
+						$products_descriptiontable pd
+					WHERE p.products_setting >= '1' AND 
+					  p.products_id = '" . oos_get_product_id($products_id) . "' AND
+                      pd.products_id = p.products_id AND
+                      pd.products_languages_id = '" .  intval($nLanguageID) . "'";
+            $products_result = $dbconn->Execute($sql);
+            if ($products = $products_result->fields) {
+                $prid = $products['products_id'];
+                if ($aUser['qty_discounts'] == 1) {
+                    $products_price = $this->products_price_actual($prid, $products['products_price'], $nQuantity);
+                } else {
+                    $products_price = $products['products_price'];
+                }
+
+                $bSpezialPrice = false;
+                $specialstable = $oostable['specials'];
+                $sql = "SELECT specials_new_products_price
+						FROM $specialstable
+						WHERE products_id = '" . intval($prid) . "' AND
+                        status = '1'";
+                $specials_result = $dbconn->Execute($sql);
+                if ($specials_result->RecordCount()) {
+                    $bSpezialPrice = true;
+                    $specials = $specials_result->fields;
+                    $products_price = $specials['specials_new_products_price'];
+                }
+
+                $attributes_model = '';
+                if (isset($this->contents[$products_id]['attributes'])) {
+                    $attributes_model = $this->attributes_model($products_id);
+                }
+
+                if ($attributes_model != '') {
+                    $model = $attributes_model;
+                } else {
+                    $model = $products['products_model'];
+                }
+
+                $attributes_image = '';
+                if (isset($this->contents[$products_id]['attributes'])) {
+                    $attributes_image = $this->attributes_image($products_id);
+                }
+
+
+                if ($attributes_image != '') {
+                    $image = $attributes_image;
+                } else {
+                    $image = $products['products_image'];
+                }
+
+
+				if ($this->attributes_price($products_id) > 0) {
+					$products_price = $this->attributes_price($products_id);
+				} 
+
+				$final_price = $products_price;
+
+
+                $base_product_price = null;
+                $products_product_quantity = null;
+                $cart_base_product_price = null;
+
+
+                if ($products['products_base_price'] != 1) {
+                    $base_product_price = $products_price;
+                    $products_product_quantity = $products['products_product_quantity'];
+                    $cart_base_product_price = $oCurrencies->display_price($base_product_price * $products['products_base_price'], oos_get_tax_rate($products['products_tax_class_id']));
+                }
+
+
+                $aProducts[] = ['id' => $products_id,
+                                'name' => $products['products_name'],
+                                'essential_characteristics' => $products['products_essential_characteristics'],
+                                'model' => $model,
+                                'image' => $image,
+                                'ean' => $products['products_ean'],
+                                'products_quantity_order_min' => $products['products_quantity_order_min'],
+                                'products_quantity_order_max' => $products['products_quantity_order_max'],
+                                'products_quantity_order_units' => $products['products_quantity_order_units'],
+                                'price' => $products_price,
+                                'spezial' => $bSpezialPrice,
+                                'quantity' => $this->contents[$products_id]['qty'],
+                                'stock' => $products['products_quantity'],
+                                'weight' => $products['products_weight'],
+                                'final_price' => $final_price,
+                                'tax_class_id' => $products['products_tax_class_id'],
+                                'products_base_price' => $products['products_base_price'],
+                                'base_product_price' => $cart_base_product_price,
+                                'products_product_quantity' => $products_product_quantity,
+                                'products_units_id' => $products['products_units_id'],
+                                'attributes' => ($this->contents[$products_id]['attributes'] ?? ''),
+                                'attributes_values' => ($this->contents[$products_id]['attributes_values'] ?? ''),
+                                'old_electrical_equipment' => $products['products_old_electrical_equipment'],
+                                'return_free_of_charge' => ($this->contents[$products_id]['return_free_of_charge'] ?? ''),
+                                'towlid' => $this->contents[$products_id]['towlid']];
+            }
         $productstable = $oostable['products'];
         $products_descriptiontable = $oostable['products_description'];
         $sql = "SELECT p.products_id, p.products_model, p.products_price, p.products_tax_class_id, p.products_status, pd.products_name
@@ -62,6 +259,9 @@ switch ($action) {
             $price = number_format(oos_round($price * $tax, 2), 2, '.', '');
 
             $schema .= $products['products_id']. '|'  . $products['products_model'] . '|' . $name . '|' . $products['products_tax_class_id'] . '|' . $products['products_status'] . '|' . $products['products_price'] . '|' . $price . "\n";
+
+*/
+
 /*	
 todo customers_basket_mail
 $table = $prefix_table . 'customers_basket_mail';
@@ -75,10 +275,11 @@ $flds = "
   orders_date T  
 ";
 */
+/*
             // Move that ADOdb pointer!
             $products_result->MoveNext();
         }
-
+*/
 
         fputs($fp, $schema);
         fclose($fp);
