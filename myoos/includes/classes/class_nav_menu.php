@@ -61,7 +61,7 @@ class nav_menu
         $dbconn = & oosDBGetConn();
         $oostable = & oosDBGetTables();
 
-        $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
+        $nLanguageID = intval($_SESSION['language_id'] ?? DEFAULT_LANGUAGE_ID);
 
         $categoriestable = $oostable['categories'];
         $categories_descriptionstable = $oostable['categories_description'];

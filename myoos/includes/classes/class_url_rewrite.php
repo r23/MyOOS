@@ -48,7 +48,7 @@ class url_rewrite
             $dbconn = & oosDBGetConn();
             $oostable = & oosDBGetTables();
 
-            $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
+            $nLanguageID = intval($_SESSION['language_id'] ?? DEFAULT_LANGUAGE_ID);
 
             $path = '';
             $extention = '.html';

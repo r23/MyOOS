@@ -62,7 +62,7 @@ class oos_event_breadcrumb
 
         // add category names or the manufacturer name to the breadcrumb trail
         if (isset($aCategoryPath) && (count($aCategoryPath) > 0)) {
-            $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
+            $nLanguageID = intval($_SESSION['language_id'] ?? DEFAULT_LANGUAGE_ID);
 
             $n = count($aCategoryPath);
             for ($i = 0, $n; $i < $n; $i++) {

@@ -46,7 +46,7 @@ class order
     public function query($order_id)
     {
         $order_id = intval($order_id);
-        $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
+        $nLanguageID = intval($_SESSION['language_id'] ?? DEFAULT_LANGUAGE_ID);
 
         // Get database information
         $dbconn = & oosDBGetConn();
@@ -153,7 +153,7 @@ class order
         global $oCurrencies, $aUser;
 
         $this->content_type = $_SESSION['cart']->get_content_type();
-        $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
+        $nLanguageID = intval($_SESSION['language_id'] ?? DEFAULT_LANGUAGE_ID);
 
         // Get database information
         $dbconn = & oosDBGetConn();

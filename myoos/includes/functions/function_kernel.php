@@ -157,7 +157,7 @@ function oos_get_products_name($nProductID)
     $dbconn = & oosDBGetConn();
     $oostable = & oosDBGetTables();
 
-    $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
+    $nLanguageID = intval($_SESSION['language_id'] ?? DEFAULT_LANGUAGE_ID);
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_name
@@ -822,7 +822,7 @@ function oos_get_categories($aCategories = '', $parent_id = 0, $indent = '')
     $dbconn = & oosDBGetConn();
     $oostable = & oosDBGetTables();
 
-    $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
+    $nLanguageID = intval($_SESSION['language_id'] ?? DEFAULT_LANGUAGE_ID);
 
     $categoriestable = $oostable['categories'];
     $categories_descriptiontable = $oostable['categories_description'];
@@ -949,7 +949,7 @@ function oos_get_category_path($nProductsId)
     $dbconn = & oosDBGetConn();
     $oostable = & oosDBGetTables();
 
-    $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
+    $nLanguageID = intval($_SESSION['language_id'] ?? DEFAULT_LANGUAGE_ID);
 
     $products_to_categoriestable = $oostable['products_to_categories'];
     $query = "SELECT categories_id

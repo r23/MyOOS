@@ -117,7 +117,7 @@ if (isset($_POST[$sSid]) && !empty($_POST[$sSid])) {
 
 // set the language
 $sLanguage = isset($_SESSION['language']) ? oos_var_prep_for_os($_SESSION['language']) : DEFAULT_LANGUAGE;
-$nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
+$nLanguageID = intval($_SESSION['language_id'] ?? DEFAULT_LANGUAGE_ID);
 $sLanguageCode = isset($_SESSION['iso_639_1']) ? oos_var_prep_for_os($_SESSION['iso_639_1']) : DEFAULT_LANGUAGE_CODE;
 $sLanguageName = isset($_SESSION['languages_name']) ? oos_var_prep_for_os($_SESSION['languages_name']) : DEFAULT_LANGUAGE_NAME;
 
