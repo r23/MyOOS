@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WP Super Cache - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-02-16 01:25:21+0000\n"
+"PO-Revision-Date: 2024-02-21 13:01:17+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,6 +16,11 @@ msgstr ""
 msgid "Visit the <a href=\"%1$s\">support forum</a>."
 msgstr "Besuche das <a href=\"%1$s\">Support-Forum</a>."
 
+#. translators: %s is the URL for the documentation.
+#: wp-cache.php:1286
+msgid "Check out the <a href=\"%s\">plugin documentation</a>."
+msgstr "Siehe dir die <a href=\"%s\">Plugin-Dokumentation</a> an."
+
 #: wp-cache.php:375 js/admin.js:76
 msgid "Install Jetpack Boost"
 msgstr "Jetpack Boost installieren"
@@ -24,9 +29,21 @@ msgstr "Jetpack Boost installieren"
 msgid "Activate Jetpack Boost"
 msgstr "Jetpack Boost aktivieren"
 
+#: partials/advanced.php:410
+msgid "Always Cache Filenames"
+msgstr "Dateinamen immer cachen"
+
+#: partials/advanced.php:380
+msgid "Rejected URL Strings"
+msgstr "Abgelehnte URL-Zeichenketten"
+
 #: partials/advanced.php:395
 msgid "Rejected Cookies"
 msgstr "Abgelehnte Cookies"
+
+#: partials/tracking_parameters.php:3
+msgid "Tracking Parameters"
+msgstr "Tracking-Parameter"
 
 #: wp-cache.php:2296
 msgid "%s/advanced-cache.php</em> cannot be updated."
@@ -1496,6 +1513,16 @@ msgstr "Caching"
 #: partials/preload.php:71
 msgid "Less emails, 1 at the start and 1 at the end of preloading all posts."
 msgstr "Weniger E-Mails, 1 am Anfang und 1 am Ende des Preloads aller Beiträge."
+
+#. translators: %d is the number of posts
+#: partials/preload.php:70
+msgid "Medium, 1 email per %d posts."
+msgstr "Mittel, 1 E-Mail pro %d Beiträge."
+
+#. translators: %d is the number of posts
+#: partials/preload.php:68
+msgid "Many emails, 2 emails per %d posts."
+msgstr "Viele E-Mails, 2 E-Mails pro %d Beiträge."
 
 #: partials/preload.php:62
 msgid "Send me status emails when files are refreshed."
