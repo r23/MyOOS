@@ -61,8 +61,10 @@ exit;
         $mail_file = 'basket_mail-' . date('YmdHis') . '.cvs';
         $fp = fopen(OOS_EXPORT_PATH . $mail_file, 'w');
 
+		$indent = "\t";
+
         $schema = '';
-        $schema .= 'Firma | Name | Straße | PLZ | Ort | Warenborbdatum | Produktname | Menge |  Produktname_2 |  Menge_2 ' .  "\n";
+        $schema .= 'Firma ' . $indent . ' Name ' . $indent . ' Straße ' . $indent . ' PLZ ' . $indent . ' Ort ' . $indent . ' Warenborbdatum ' . $indent . ' Produktname ' . $indent . ' Menge ' . $indent . '  Produktname_2 ' . $indent . '  Menge_2 ' .  "\n";
 
         $nLanguageID = intval($_SESSION['language_id'] ?? DEFAULT_LANGUAGE_ID);
 
