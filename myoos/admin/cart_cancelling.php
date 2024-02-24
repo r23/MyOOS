@@ -25,6 +25,26 @@ define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 require 'includes/classes/class_currencies.php';
 
+
+function check_letter_sent ($customer_id, $customers_basket_id)
+{
+
+    // Get database information
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
+	
+	$customers_basket_mailtable = $oostable['customers_basket_mail'];
+	$basket_query = "SELECT * FROM $customers_basket_mailtable WHERE customers_basket_id = '" . intval($customers_basket_id) . "' AND customers_id =  '" . intval($customer_id) . "'";
+	$basket_result = $dbconn->Execute($basket_query);
+
+	if ($basket_result->RecordCount() > 0) {	
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
 $currencies = new currencies();
 
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
@@ -57,7 +77,6 @@ switch ($action) {
 			echo $sql;
 		}
 	
-exit;
         $mail_file = 'basket_mail-' . date('YmdHis') . '.cvs';
         $fp = fopen(OOS_EXPORT_PATH . $mail_file, 'w');
 
@@ -99,8 +118,22 @@ $flds = "
 ";
 dosql($table, $flds);
 */
-/*
 
+		$days = 2;
+        $sd = mktime(0, 0, 0, date("m"), date("d") - $days, date("Y"));
+
+        $customers_baskettable = $oostable['customers_basket'];
+        $basket_result = $dbconn->Execute("SELECT customers_basket_id, customers_id, customers_basket_date_added  FROM $customers_baskettable WHERE customers_basket_date_added <= '" . oos_db_input(date("Ymd", $sd)) . "'");
+ 
+		if ($basket_result->RecordCount() > 0) {
+			while ($basket = $basket_result->fields) {
+                echo $basket['customers_id'];
+				$customers_basket_id = $basket['customers_basket_id'];
+				$customer_id = $basket['customers_id'];	
+				
+				if (!check_letter_sent($customer_id, $customers_basket_id )) {
+					echo ' nicht gefunden';
+/*
         $customers_baskettable = $oostable['customers_basket'];
         $sql = "SELECT customers_id, products_id, customers_basket_quantity
               FROM $customers_baskettable
@@ -129,8 +162,6 @@ dosql($table, $flds);
             // Move that ADOdb pointer!
             $products_result->MoveNext();
         }
-
-
 
 
 
@@ -263,6 +294,20 @@ dosql($table, $flds);
             $schema .= $products['products_id']. '|'  . $products['products_model'] . '|' . $name . '|' . $products['products_tax_class_id'] . '|' . $products['products_status'] . '|' . $products['products_price'] . '|' . $price . "\n";
 
 */
+
+
+					$schema .= 'Firma ' . $indent . ' Name ' . $indent . ' Straße ' . $indent . ' PLZ ' . $indent . ' Ort ' . $indent . ' Warenborbdatum ' . $indent . ' Produktname ' . $indent . ' Menge ' . $indent . '  Produktname_2 ' . $indent . '  Menge_2 ' .  "\n";
+
+					# $schema .= $products['products_id'] . $indent . $products_name . $indent . $products_description . $indent . $sUrl . $indent . $sImage . $indent;
+				}				
+
+                // Move that ADOdb pointer!
+                $basket_result->MoveNext();
+            }
+        }
+
+exit;
+
 
 /*	
 todo customers_basket_mail

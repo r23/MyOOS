@@ -208,13 +208,20 @@ $flds = "
 ";
 dosql($table, $flds);
 
-                $customers_basket_mailtable = $oostable['customers_basket_mail'];
-                $dbconn->Execute(
-                    "UPDATE $customers_basket_mailtable
-                        SET orders_id = '" . intval($insert_id) . "',  orders_date = now()
-                        WHERE products_id = '" . oos_db_input($oOrder->products[$i]['id']) . "'
-						AND customers_id =  '" . $_SESSION['customer_id'] . "'"
-                );
+
+	$customers_basket_mailtable = $oostable['customers_basket_mail'];
+	$basket_query = "SELECT * FROM $customers_basket_mailtable WHERE products_id = '" . oos_db_input($oOrder->products[$i]['id']) . "' AND customers_id =  '" . intval($_SESSION['customer_id']) . "'";
+	$basket_result = $dbconn->Execute($basket_query);
+
+	if ($basket_result->RecordCount() > 0) {	
+
+		$dbconn->Execute(
+			"UPDATE $customers_basket_mailtable
+				SET orders_id = '" . intval($insert_id) . "',  orders_date = now()
+				WHERE products_id = '" . oos_db_input($oOrder->products[$i]['id']) . "'
+				AND customers_id =  '" . intval($_SESSION['customer_id']) . "'"
+		);
+	};
 
 */
     //------insert customer choosen option to order--------
