@@ -1765,8 +1765,10 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
     $phpmailer->CharSet   = 'UTF-8';
     $phpmailer->Encoding  = 'base64';
 
-    $phpmailer->From = $from_email_address ?: STORE_OWNER_EMAIL_ADDRESS;
-    $phpmailer->FromName = $from_email_name ?: STORE_OWNER;
+
+    $phpmailer->addReplyTo($from_email_address, $from_email_name);
+    $phpmailer->setFrom(STORE_OWNER_EMAIL_ADDRESS, STORE_OWNER);
+
 
     // Add smtp values if needed
     if (EMAIL_TRANSPORT == 'smtp') {
