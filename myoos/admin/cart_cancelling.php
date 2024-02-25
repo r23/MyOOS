@@ -133,38 +133,44 @@ dosql($table, $flds);
 				
 				if (!check_letter_sent($customer_id, $customers_basket_id )) {
 					echo ' nicht gefunden';
+
+					$customers_baskettable = $oostable['customers_basket'];
+					$sql = "SELECT customers_basket_id, customers_id, products_id, customers_basket_quantity
+							FROM $customers_baskettable
+							WHERE customers_id = '" . intval($customer_id) . "'
+							AND customers_basket_date_added <= '" . oos_db_input(date("Ymd", $sd)) . "'";
+					$products_result = $dbconn->Execute($sql);
+					while ($products = $products_result->fields) {
+						$aProducts[$products['customers_id']] = ['customers_basket_id' => $products['customers_basket_id'],
+																'customers_id' => $products['customers_id'],
+																'products_id' => $products['products_id'],
+																'qty' => $products['customers_basket_quantity']];
+
+						// attributes
+						$customers_basket_attributestable = $oostable['customers_basket_attributes'];
+						$sql = "SELECT products_options_id, products_options_value_id, products_options_value_text
+								FROM $customers_basket_attributestable
+								WHERE customers_id = '" . intval($customer_id) . "'
+								AND products_id = '" . $products['products_id'] . "'";
+						$attributes_result = $dbconn->Execute($sql);
+						while ($attributes = $attributes_result->fields) {
+							$aProducts[$products['customers_id']]['attributes'][$attributes['products_options_id']] = $attributes['products_options_value_id'];
+							if ($attributes['products_options_value_id'] == PRODUCTS_OPTIONS_VALUE_TEXT_ID) {
+								$aProducts[$products['products_id']]['attributes_values'][$attributes['products_options_id']] = $attributes['products_options_value_text'];
+							}
+
+							// Move that ADOdb pointer!
+							$attributes_result->MoveNext();
+						}
+
+						// Move that ADOdb pointer!
+						$products_result->MoveNext();
+					}
+
+echo '<pre>';
+print_r($aProducts);
+echo '</pre>';
 /*
-        $customers_baskettable = $oostable['customers_basket'];
-        $sql = "SELECT customers_id, products_id, customers_basket_quantity
-              FROM $customers_baskettable
-              WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'";
-        $products_result = $dbconn->Execute($sql);
-        while ($products = $products_result->fields) {
-            $this->contents[$products['products_id']] = ['qty' => $products['customers_basket_quantity'],
-                                                          'towlid' => $products['to_wishlist_id']];
-            // attributes
-            $customers_basket_attributestable = $oostable['customers_basket_attributes'];
-            $sql = "SELECT products_options_id, products_options_value_id, products_options_value_text
-                FROM $customers_basket_attributestable
-                WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'
-                AND products_id = '" . $products['products_id'] . "'";
-            $attributes_result = $dbconn->Execute($sql);
-            while ($attributes = $attributes_result->fields) {
-                $this->contents[$products['products_id']]['attributes'][$attributes['products_options_id']] = $attributes['products_options_value_id'];
-                if ($attributes['products_options_value_id'] == PRODUCTS_OPTIONS_VALUE_TEXT_ID) {
-                    $this->contents[$products['products_id']]['attributes_values'][$attributes['products_options_id']] = $attributes['products_options_value_text'];
-                }
-
-                // Move that ADOdb pointer!
-                $attributes_result->MoveNext();
-            }
-
-            // Move that ADOdb pointer!
-            $products_result->MoveNext();
-        }
-
-
-
         foreach (array_keys($this->contents) as $products_id) {
             $nQuantity = $this->contents[$products_id]['qty'];
             $productstable = $oostable['products'];
