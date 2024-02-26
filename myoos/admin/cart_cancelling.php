@@ -83,7 +83,7 @@ switch ($action) {
 		$indent = "\t";
 
         $schema = '';
-        $schema .= 'Firma ' . $indent . ' Name ' . $indent . ' Straße ' . $indent . ' PLZ ' . $indent . ' Ort ' . $indent . ' Warenborbdatum ' . $indent . ' Produktname ' . $indent . ' Menge ' . $indent . '  Produktname_2 ' . $indent . '  Menge_2 ' .  "\n";
+        $schema .= 'Firma ' . $indent . ' Name ' . $indent . ' Straße ' . $indent . ' PLZ ' . $indent . ' Ort ' . $indent . ' Land ' . $indent . ' Warenborbdatum ' . $indent . ' Produktname ' . $indent . ' Menge ' . $indent . '  Produktname_2 ' . $indent . '  Menge_2 ' .  "\n";
 
         $nLanguageID = intval($_SESSION['language_id'] ?? DEFAULT_LANGUAGE_ID);
 
@@ -132,7 +132,32 @@ dosql($table, $flds);
 				$customer_id = $basket['customers_id'];	
 				
 				if (!check_letter_sent($customer_id, $customers_basket_id )) {
-					echo ' nicht gefunden';
+
+					$customerstable = $oostable['customers'];
+					$address_booktable = $oostable['address_book'];
+					$customers_result = $dbconn->Execute("SELECT c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, 
+																c.customers_email_address, c.customers_wishlist_link_id, c.customers_2fa_active,
+																a.entry_company, a.entry_owner, a.entry_vat_id, a.entry_vat_id_status, 
+																a.entry_street_address, a.entry_postcode, a.entry_city, a.entry_state, a.entry_zone_id,
+																a.entry_country_id, c.customers_telephone,
+																c.customers_default_address_id, c.customers_status, c.customers_max_order
+														FROM  $customerstable c LEFT JOIN
+																$address_booktable a
+																ON c.customers_default_address_id = a.address_book_id
+														WHERE a.customers_id = c.customers_id AND
+																c.customers_id = '" .  intval($customer_id) . "'");
+					$customers = $customers_result->fields;
+
+					$schema .= $customers['entry_company'] . $indent . $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . $indent;
+					$schema .= $customers['entry_street_address'] . $indent . $customers['entry_postcode'] . $indent . $customers['entry_city'] . $indent;
+
+					$countriestable = $oostable['countries'];
+					$country_result = $dbconn->Execute("SELECT countries_name
+														FROM $countriestable
+														WHERE countries_id = '" . intval($customers['entry_country_id']) . "'");
+					$country = $country_result->fields;
+
+					$schema .= $country['countries_name'] . $indent;
 
 					$customers_baskettable = $oostable['customers_basket'];
 					$sql = "SELECT customers_basket_id, customers_id, products_id, customers_basket_quantity
@@ -297,14 +322,12 @@ echo '</pre>';
             $tax = (100 + oos_get_tax_rate($products['products_tax_class_id'])) / 100;
             $price = number_format(oos_round($price * $tax, 2), 2, '.', '');
 
-            $schema .= $products['products_id']. '|'  . $products['products_model'] . '|' . $name . '|' . $products['products_tax_class_id'] . '|' . $products['products_status'] . '|' . $products['products_price'] . '|' . $price . "\n";
+            $schema .= $products['products_id']' . $indent . ' $products['products_model'] . '|' . $name . '|' . $products['products_tax_class_id'] . '|' . $products['products_status'] . '|' . $products['products_price'] . '|' . $price . "\n";
 
 */
 
-
-					$schema .= 'Firma ' . $indent . ' Name ' . $indent . ' Straße ' . $indent . ' PLZ ' . $indent . ' Ort ' . $indent . ' Warenborbdatum ' . $indent . ' Produktname ' . $indent . ' Menge ' . $indent . '  Produktname_2 ' . $indent . '  Menge_2 ' .  "\n";
-
 					# $schema .= $products['products_id'] . $indent . $products_name . $indent . $products_description . $indent . $sUrl . $indent . $sImage . $indent;
+					 $schema .= "\n";
 				}				
 
                 // Move that ADOdb pointer!
@@ -312,6 +335,7 @@ echo '</pre>';
             }
         }
 
+echo $schema;
 exit;
 
 

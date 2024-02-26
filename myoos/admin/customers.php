@@ -267,6 +267,7 @@ switch ($action) {
         $dbconn->Execute("DELETE FROM " . $oostable['customers_wishlist'] . " WHERE customers_id = '" . intval($customers_id) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['customers_wishlist_attributes'] . " WHERE customers_id = '" . intval($customers_id) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['customers_status_history'] . " WHERE customers_id = '" . intval($customers_id) . "'");
+		$dbconn->Execute("DELETE FROM " . $oostable['customers_basket_mail'] . " WHERE customers_id = '" . intval($customers_id) . "'");
 
         oos_redirect_admin(oos_href_link_admin($aContents['customers'], oos_get_all_get_params(['cID', 'action'])));
         break;
