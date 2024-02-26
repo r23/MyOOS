@@ -2437,16 +2437,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "3.0.35",
+            "version": "3.0.36",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "4b1827beabce71953ca479485c0ae9c51287f2fe"
+                "reference": "c2fb5136162d4be18fdd4da9980696f3aee96d7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/4b1827beabce71953ca479485c0ae9c51287f2fe",
-                "reference": "4b1827beabce71953ca479485c0ae9c51287f2fe",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/c2fb5136162d4be18fdd4da9980696f3aee96d7b",
+                "reference": "c2fb5136162d4be18fdd4da9980696f3aee96d7b",
                 "shasum": ""
             },
             "require": {
@@ -2527,7 +2527,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpseclib/phpseclib/issues",
-                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.35"
+                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.36"
             },
             "funding": [
                 {
@@ -2543,7 +2543,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-12-29T01:59:53+00:00"
+            "time": "2024-02-26T05:13:14+00:00"
         },
         {
             "name": "pragmarx/google2fa",
@@ -3173,16 +3173,16 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v4.3.5",
+            "version": "v4.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "e0cbbdf6ea21768d0194e59d2f8c2e20d5f0868c"
+                "reference": "f4152e9b814ae2369b6e4935c05e1e0c3654318d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/e0cbbdf6ea21768d0194e59d2f8c2e20d5f0868c",
-                "reference": "e0cbbdf6ea21768d0194e59d2f8c2e20d5f0868c",
+                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/f4152e9b814ae2369b6e4935c05e1e0c3654318d",
+                "reference": "f4152e9b814ae2369b6e4935c05e1e0c3654318d",
                 "shasum": ""
             },
             "require": {
@@ -3233,9 +3233,9 @@
             "support": {
                 "forum": "https://github.com/smarty-php/smarty/discussions",
                 "issues": "https://github.com/smarty-php/smarty/issues",
-                "source": "https://github.com/smarty-php/smarty/tree/v4.3.5"
+                "source": "https://github.com/smarty-php/smarty/tree/v4.4.1"
             },
-            "time": "2024-01-23T10:47:54+00:00"
+            "time": "2024-02-26T13:58:37+00:00"
         },
         {
             "name": "spatie/temporary-directory",
