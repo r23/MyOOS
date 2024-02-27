@@ -13,6 +13,7 @@ namespace Symfony\Bridge\Doctrine\Form;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Doctrine\ORM\Mapping\JoinColumnMapping;
 use Doctrine\ORM\Mapping\MappingException as LegacyMappingException;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\Mapping\MappingException;
@@ -119,13 +120,13 @@ class DoctrineOrmTypeGuesser implements FormTypeGuesserInterface
         if ($classMetadata->isAssociationWithSingleJoinColumn($property)) {
             $mapping = $classMetadata->getAssociationMapping($property);
 
-            if (!isset($mapping['joinColumns'][0]['nullable'])) {
+            if (null === self::getMappingValue($mapping['joinColumns'][0], 'nullable')) {
                 // The "nullable" option defaults to true, in that case the
                 // field should not be required.
                 return new ValueGuess(false, Guess::HIGH_CONFIDENCE);
             }
 
-            return new ValueGuess(!$mapping['joinColumns'][0]['nullable'], Guess::HIGH_CONFIDENCE);
+            return new ValueGuess(!self::getMappingValue($mapping['joinColumns'][0], 'nullable'), Guess::HIGH_CONFIDENCE);
         }
 
         return null;
@@ -197,5 +198,19 @@ class DoctrineOrmTypeGuesser implements FormTypeGuesserInterface
         }
 
         return substr($class, $pos + Proxy::MARKER_LENGTH + 2);
+    }
+
+    /**
+     * @param array|JoinColumnMapping $mapping
+     *
+     * @return mixed
+     */
+    private static function getMappingValue($mapping, string $key)
+    {
+        if ($mapping instanceof JoinColumnMapping) {
+            return $mapping->$key;
+        }
+
+        return $mapping[$key] ?? null;
     }
 }
