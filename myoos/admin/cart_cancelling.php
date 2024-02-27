@@ -159,6 +159,7 @@ dosql($table, $flds);
 
 					$schema .= $country['countries_name'] . $indent;
 
+					$aProducts = [];
 					$customers_baskettable = $oostable['customers_basket'];
 					$sql = "SELECT customers_basket_id, customers_id, products_id, customers_basket_quantity
 							FROM $customers_baskettable
@@ -166,11 +167,8 @@ dosql($table, $flds);
 							AND customers_basket_date_added <= '" . oos_db_input(date("Ymd", $sd)) . "'";
 					$products_result = $dbconn->Execute($sql);
 					while ($products = $products_result->fields) {
-						$aProducts[$products['customers_id']] = ['customers_basket_id' => $products['customers_basket_id'],
-																'customers_id' => $products['customers_id'],
-																'products_id' => $products['products_id'],
+						$aProducts[$products['products_id']] = ['customers_basket_id' => $products['customers_basket_id'],
 																'qty' => $products['customers_basket_quantity']];
-
 						// attributes
 						$customers_basket_attributestable = $oostable['customers_basket_attributes'];
 						$sql = "SELECT products_options_id, products_options_value_id, products_options_value_text
@@ -179,7 +177,7 @@ dosql($table, $flds);
 								AND products_id = '" . $products['products_id'] . "'";
 						$attributes_result = $dbconn->Execute($sql);
 						while ($attributes = $attributes_result->fields) {
-							$aProducts[$products['customers_id']]['attributes'][$attributes['products_options_id']] = $attributes['products_options_value_id'];
+							$aProducts[$products['products_id']]['attributes'][$attributes['products_options_id']] = $attributes['products_options_value_id'];
 							if ($attributes['products_options_value_id'] == PRODUCTS_OPTIONS_VALUE_TEXT_ID) {
 								$aProducts[$products['products_id']]['attributes_values'][$attributes['products_options_id']] = $attributes['products_options_value_text'];
 							}
@@ -195,22 +193,28 @@ dosql($table, $flds);
 echo '<pre>';
 print_r($aProducts);
 echo '</pre>';
-/*
-        foreach (array_keys($this->contents) as $products_id) {
-            $nQuantity = $this->contents[$products_id]['qty'];
-            $productstable = $oostable['products'];
-            $products_descriptiontable = $oostable['products_description'];
-            $sql = "SELECT p.products_id, pd.products_name, pd.products_essential_characteristics, p.products_image, p.products_model, 
-						p.products_ean, p.products_price, p.products_base_price,  p.products_product_quantity, p.products_units_id, 
-						p.products_base_unit, p.products_weight, p.products_tax_class_id, p.products_quantity, p.products_quantity_order_min, 
-						p.products_quantity_order_max, p.products_quantity_order_units, p.products_old_electrical_equipment
-					FROM $productstable p,
-						$products_descriptiontable pd
-					WHERE p.products_setting >= '1' AND 
-					  p.products_id = '" . oos_get_product_id($products_id) . "' AND
-                      pd.products_id = p.products_id AND
-                      pd.products_languages_id = '" .  intval($nLanguageID) . "'";
-            $products_result = $dbconn->Execute($sql);
+##
+					reset($aProducts);
+					foreach (array_keys($aProducts) as $products_id) {
+						$nQuantity = $aProducts[$products_id]['qty'];
+
+						$productstable = $oostable['products'];
+						$products_descriptiontable = $oostable['products_description'];
+						$sql = "SELECT p.products_id, pd.products_name, pd.products_essential_characteristics, p.products_image, p.products_model, 
+								p.products_ean, p.products_price, p.products_base_price, p.products_product_quantity, p.products_units_id, 
+								p.products_base_unit, p.products_weight, p.products_tax_class_id, p.products_quantity, p.products_quantity_order_min, 
+								p.products_quantity_order_max, p.products_quantity_order_units, p.products_old_electrical_equipment
+						FROM $productstable p,
+							$products_descriptiontable pd
+						WHERE p.products_setting >= '1' AND 
+							p.products_id = '" . oos_get_product_id($products_id) . "' AND
+							pd.products_id = p.products_id AND
+							pd.products_languages_id = '" .  intval($nLanguageID) . "'";
+						$products_result = $dbconn->Execute($sql);
+echo $sql;
+echo '<br>';			
+##
+/*			
             if ($products = $products_result->fields) {
                 $prid = $products['products_id'];
                 if ($aUser['qty_discounts'] == 1) {
@@ -233,7 +237,7 @@ echo '</pre>';
                 }
 
                 $attributes_model = '';
-                if (isset($this->contents[$products_id]['attributes'])) {
+                if (isset($aProducts[$products_id]['attributes'])) {
                     $attributes_model = $this->attributes_model($products_id);
                 }
 
@@ -244,7 +248,7 @@ echo '</pre>';
                 }
 
                 $attributes_image = '';
-                if (isset($this->contents[$products_id]['attributes'])) {
+                if (isset($aProducts[$products_id]['attributes'])) {
                     $attributes_image = $this->attributes_image($products_id);
                 }
 
@@ -286,7 +290,7 @@ echo '</pre>';
                                 'products_quantity_order_units' => $products['products_quantity_order_units'],
                                 'price' => $products_price,
                                 'spezial' => $bSpezialPrice,
-                                'quantity' => $this->contents[$products_id]['qty'],
+                                'quantity' => $aProducts[$products_id]['qty'],
                                 'stock' => $products['products_quantity'],
                                 'weight' => $products['products_weight'],
                                 'final_price' => $final_price,
@@ -295,11 +299,11 @@ echo '</pre>';
                                 'base_product_price' => $cart_base_product_price,
                                 'products_product_quantity' => $products_product_quantity,
                                 'products_units_id' => $products['products_units_id'],
-                                'attributes' => ($this->contents[$products_id]['attributes'] ?? ''),
-                                'attributes_values' => ($this->contents[$products_id]['attributes_values'] ?? ''),
+                                'attributes' => ($aProducts[$products_id]['attributes'] ?? ''),
+                                'attributes_values' => ($aProducts[$products_id]['attributes_values'] ?? ''),
                                 'old_electrical_equipment' => $products['products_old_electrical_equipment'],
-                                'return_free_of_charge' => ($this->contents[$products_id]['return_free_of_charge'] ?? ''),
-                                'towlid' => $this->contents[$products_id]['towlid']];
+                                'return_free_of_charge' => ($aProducts[$products_id]['return_free_of_charge'] ?? ''),
+                                'towlid' => $aProducts[$products_id]['towlid']];
             }
         $productstable = $oostable['products'];
         $products_descriptiontable = $oostable['products_description'];
@@ -325,7 +329,7 @@ echo '</pre>';
             $schema .= $products['products_id']' . $indent . ' $products['products_model'] . '|' . $name . '|' . $products['products_tax_class_id'] . '|' . $products['products_status'] . '|' . $products['products_price'] . '|' . $price . "\n";
 
 */
-
+					}
 					# $schema .= $products['products_id'] . $indent . $products_name . $indent . $products_description . $indent . $sUrl . $indent . $sImage . $indent;
 					 $schema .= "\n";
 				}				
