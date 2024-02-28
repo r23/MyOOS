@@ -70,7 +70,7 @@ class oosUser
         $dbconn = & oosDBGetConn();
         $oostable = & oosDBGetTables();
 
-        $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : 1;
+        $nLanguageID = intval($_SESSION['language_id'] ?? DEFAULT_LANGUAGE_ID);
 
         $customerstable = $oostable['customers'];
         $customers_statustable = $oostable['customers_status'];

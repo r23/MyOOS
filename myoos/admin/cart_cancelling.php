@@ -44,6 +44,78 @@ function check_letter_sent ($customer_id, $customers_basket_id)
 	}
 }
 
+/**
+ * Find quantity discount
+ *
+ * @param  $product_id
+ * @param  $qty
+ * @param  $current_price
+ * @return string
+ */
+function oos_get_product_qty_dis_price($product_id, $qty, $current_price = false)
+{
+
+    // Get database information
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
+
+    $productstable = $oostable['products'];
+    $query = "SELECT products_price, products_discount1, products_discount2, products_discount3,
+                     products_discount4, products_discount1_qty, products_discount2_qty, products_discount3_qty,
+                     products_discount4_qty
+              FROM $productstable
+              WHERE products_id = '" . intval($product_id) . "'";
+    $product_discounts = $dbconn->GetRow($query);
+
+    switch (true) {
+        case ($qty == 1 or ($product_discounts['products_discount4_qty'] == 0 and $product_discounts['products_discount3_qty'] == 0 and $product_discounts['products_discount2_qty'] == 0 and $product_discounts['products_discount1_qty'] == 0)):
+            if ($current_price) {
+                $the_discount_price = $current_price;
+            } else {
+                $the_discount_price = $product_discounts['products_price'];
+            }
+            break;
+
+        case ($qty >= $product_discounts['products_discount4_qty'] and $product_discounts['products_discount4_qty'] != 0):
+            $the_discount_price = $product_discounts['products_discount4'];
+            break;
+
+        case ($qty >= $product_discounts['products_discount3_qty'] and $product_discounts['products_discount3_qty'] != 0):
+            $the_discount_price = $product_discounts['products_discount3'];
+            break;
+
+        case ($qty >= $product_discounts['products_discount2_qty'] and $product_discounts['products_discount2_qty'] != 0):
+            $the_discount_price = $product_discounts['products_discount2'];
+            break;
+
+        case ($qty >= $product_discounts['products_discount1_qty'] and $product_discounts['products_discount1_qty'] != 0):
+            $the_discount_price = $product_discounts['products_discount1'];
+            break;
+
+        default:
+            if ($current_price) {
+                $the_discount_price = $current_price;
+            } else {
+                $the_discount_price = $product_discounts['products_price'];
+            }
+            break;
+    }
+    return $the_discount_price;
+}
+
+
+
+function products_price_actual($product_id, $actual_price, $products_qty)
+{
+	$new_price = $actual_price;
+
+	if ($new_discounts_price = oos_get_product_qty_dis_price($product_id, $products_qty, $new_price)) {
+		$new_price = $new_discounts_price;
+	}
+	return $new_price;
+}
+
+
 
 $currencies = new currencies();
 
@@ -190,10 +262,31 @@ dosql($table, $flds);
 						$products_result->MoveNext();
 					}
 
-echo '<pre>';
-print_r($aProducts);
-echo '</pre>';
-##
+					$aGroup = [];
+					$customerstable = $oostable['customers'];
+					$customers_statustable = $oostable['customers_status'];
+					$sql = "SELECT c.customers_status, cs.customers_status_id, cs.customers_status_name, cs.customers_status_public, 
+							cs.customers_status_show_price, cs.customers_status_show_price_tax, 
+							cs.customers_status_ot_discount_flag, cs.customers_status_ot_minimum, 
+							cs.customers_status_ot_discount, cs.customers_status_qty_discounts, cs.customers_status_payment
+						FROM $customerstable AS c LEFT JOIN
+							$customers_statustable AS cs
+						ON customers_status = customers_status_id
+						WHERE c.customers_id='" . intval($customer_id) . "' AND
+							cs.customers_status_languages_id = '" .  intval($nLanguageID) . "'";
+					$customer_status = $dbconn->GetRow($sql);
+
+					$aGroup = ['id' => $customer_status['customers_status_id'], 
+								'text' => $customer_status['customers_status_name'], 
+								'public' => $customer_status['customers_status_public'],
+								'show_price' => $customer_status['customers_status_show_price'], 
+								'price_with_tax' => $customer_status['customers_status_show_price_tax'],
+								'ot_discount_flag' => $customer_status['customers_status_ot_discount_flag'], 
+								'ot_discount' => $customer_status['customers_status_ot_discount'],
+								'ot_minimum' => $customer_status['customers_status_ot_minimum'], 
+								'qty_discounts' => $customer_status['customers_status_qty_discounts'], 
+								'payment' => $customer_status['customers_status_payment']];
+ 
 					reset($aProducts);
 					foreach (array_keys($aProducts) as $products_id) {
 						$nQuantity = $aProducts[$products_id]['qty'];
@@ -211,31 +304,31 @@ echo '</pre>';
 							pd.products_id = p.products_id AND
 							pd.products_languages_id = '" .  intval($nLanguageID) . "'";
 						$products_result = $dbconn->Execute($sql);
-echo $sql;
-echo '<br>';			
-##
-/*			
-            if ($products = $products_result->fields) {
-                $prid = $products['products_id'];
-                if ($aUser['qty_discounts'] == 1) {
-                    $products_price = $this->products_price_actual($prid, $products['products_price'], $nQuantity);
-                } else {
-                    $products_price = $products['products_price'];
-                }
+				
+						if ($products = $products_result->fields) {
+							$prid = $products['products_id'];
+							if ($aGroup['qty_discounts'] == 1) {
+								$products_price = products_price_actual($prid, $products['products_price'], $nQuantity);
+							} else {
+								$products_price = $products['products_price'];
+							}
 
-                $bSpezialPrice = false;
-                $specialstable = $oostable['specials'];
-                $sql = "SELECT specials_new_products_price
-						FROM $specialstable
-						WHERE products_id = '" . intval($prid) . "' AND
-                        status = '1'";
-                $specials_result = $dbconn->Execute($sql);
-                if ($specials_result->RecordCount()) {
-                    $bSpezialPrice = true;
-                    $specials = $specials_result->fields;
-                    $products_price = $specials['specials_new_products_price'];
-                }
 
+							$bSpezialPrice = false;
+							$specialstable = $oostable['specials'];
+							$sql = "SELECT specials_new_products_price
+									FROM $specialstable
+									WHERE products_id = '" . intval($prid) . "' AND
+									status = '1'";
+							$specials_result = $dbconn->Execute($sql);
+							if ($specials_result->RecordCount()) {
+								$bSpezialPrice = true;
+								$specials = $specials_result->fields;
+								$products_price = $specials['specials_new_products_price'];
+							}
+							
+# $prid,	$products_price						
+/*
                 $attributes_model = '';
                 if (isset($aProducts[$products_id]['attributes'])) {
                     $attributes_model = $this->attributes_model($products_id);
@@ -305,32 +398,18 @@ echo '<br>';
                                 'return_free_of_charge' => ($aProducts[$products_id]['return_free_of_charge'] ?? ''),
                                 'towlid' => $aProducts[$products_id]['towlid']];
             }
-        $productstable = $oostable['products'];
-        $products_descriptiontable = $oostable['products_description'];
-        $sql = "SELECT p.products_id, p.products_model, p.products_price, p.products_tax_class_id, p.products_status, pd.products_name
-			FROM $productstable p,
-				 $products_descriptiontable pd
-			WHERE p.products_id = pd.products_id
-			  AND pd.products_languages_id = '" . intval($nLanguageID) . "'";
-        $products_result = $dbconn->Execute($sql);
+ */
+ 
+ # $schema .= $products['products_id'] . $indent . $products_name . $indent . $products_description . $indent . $sUrl . $indent . $sImage . $indent;
 
-        $rows = 0;
-        while ($products = $products_result->fields) {
-            $rows++;
 
-            $name = $products['products_name'];
-            $name = str_replace('|', ' ', (string) $name);
-            $name = strip_tags($name);
-
-            $price = $products['products_price'];
-            $tax = (100 + oos_get_tax_rate($products['products_tax_class_id'])) / 100;
-            $price = number_format(oos_round($price * $tax, 2), 2, '.', '');
-
-            $schema .= $products['products_id']' . $indent . ' $products['products_model'] . '|' . $name . '|' . $products['products_tax_class_id'] . '|' . $products['products_status'] . '|' . $products['products_price'] . '|' . $price . "\n";
-
-*/
+							// Move that ADOdb pointer!
+							$products_result->MoveNext();
+ 
+ 
+						}	
 					}
-					# $schema .= $products['products_id'] . $indent . $products_name . $indent . $products_description . $indent . $sUrl . $indent . $sImage . $indent;
+					
 					 $schema .= "\n";
 				}				
 
@@ -357,9 +436,7 @@ $flds = "
 ";
 */
 /*
-            // Move that ADOdb pointer!
-            $products_result->MoveNext();
-        }
+
 */
 
         fputs($fp, $schema);
