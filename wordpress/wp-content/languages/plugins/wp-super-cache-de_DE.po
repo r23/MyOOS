@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Plugins - WP Super Cache - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-02-21 13:01:17+0000\n"
+"PO-Revision-Date: 2024-02-28 13:32:47+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-beta.2\n"
+"X-Generator: GlotPress/4.0.0-beta.3\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - WP Super Cache - Stable (latest release)\n"
 
@@ -1803,7 +1803,7 @@ msgstr "Unterstützung von Jetpack Mobile Theme ist jetzt %s"
 
 #: plugins/jetpack.php:44
 msgid "Provides support for the <a href=\"https://wordpress.org/plugins/jetpack/\">Jetpack</a> mobile theme and plugin. PHP caching mode and mobile support will be enabled too."
-msgstr "Stellt den Support für das Mobil-Theme und -Plugin von <a href=\"https://wordpress.org/plugins/jetpack/\">Jetpack</a> zur Verfügung. PHP-Caching-Modus und Mobilsupport wird ebenfalls aktiviert."
+msgstr "Stellt den Support für das Mobil-Theme und -Plugin von <a href=\"https://de.wordpress.org/plugins/jetpack/\">Jetpack</a> zur Verfügung. PHP-Caching-Modus und Mobilsupport wird ebenfalls aktiviert."
 
 #: plugins/jetpack.php:37
 msgid "Jetpack not found in %s. Install it and enable the mobile theme and this helper plugin to cache visits by mobile visitors."
