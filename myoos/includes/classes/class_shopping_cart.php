@@ -746,7 +746,7 @@ class shoppingCart
 
                 $attributes_model = '';
                 if (isset($this->contents[$products_id]['attributes'])) {
-                    $attributes_model = $this->attributes_model($products_id);
+                    $attributes_model = $this->attributes_model($prid);
                 }
 
                 if ($attributes_model != '') {
@@ -757,7 +757,7 @@ class shoppingCart
 
                 $attributes_image = '';
                 if (isset($this->contents[$products_id]['attributes'])) {
-                    $attributes_image = $this->attributes_image($products_id);
+                    $attributes_image = $this->attributes_image($prid);
                 }
 
 
