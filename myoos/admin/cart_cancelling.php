@@ -326,25 +326,16 @@ dosql($table, $flds);
 								$specials = $specials_result->fields;
 								$products_price = $specials['specials_new_products_price'];
 							}
-							
-# $prid,	$products_price						
+	
+print_r($aProducts[$products_id]):
+echo
 /*
-                $attributes_model = '';
-                if (isset($aProducts[$products_id]['attributes'])) {
-                    $attributes_model = $this->attributes_model($products_id);
-                }
+	
+							if (isset($aProducts[$products_id]['attributes'])) {
+								$attributes_image = $this->attributes_image($prid);
+*/							}
 
-                if ($attributes_model != '') {
-                    $model = $attributes_model;
-                } else {
-                    $model = $products['products_model'];
-                }
-
-                $attributes_image = '';
-                if (isset($aProducts[$products_id]['attributes'])) {
-                    $attributes_image = $this->attributes_image($products_id);
-                }
-
+/*
 
                 if ($attributes_image != '') {
                     $image = $attributes_image;
@@ -358,7 +349,6 @@ dosql($table, $flds);
 				} 
 
 				$final_price = $products_price;
-
 
                 $base_product_price = null;
                 $products_product_quantity = null;
