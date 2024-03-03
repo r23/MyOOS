@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the WordPress - 6.4.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-01-31 19:08:22+0000\n"
+"PO-Revision-Date: 2024-03-02 15:15:47+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-beta.2\n"
+"X-Generator: GlotPress/4.0.0-beta.3\n"
 "Language: de\n"
 "Project-Id-Version: WordPress - 6.4.x - Development\n"
 
@@ -2058,11 +2058,6 @@ msgstr "Hurra! Dein Theme unterstützt die Website-Bearbeitung mit Blöcken. <a 
 msgid "Site icon."
 msgstr "Website-Icon."
 
-#: wp-includes/theme.json
-msgctxt "Font size name"
-msgid "Extra Large"
-msgstr "Extra groß"
-
 #: wp-includes/blocks/term-description/block.json
 msgctxt "block description"
 msgid "Display the description of categories, tags and custom taxonomies when viewing an archive."
@@ -2908,181 +2903,6 @@ msgstr "Allgemeine Templates übernehmen oft eine spezifische Aufgabe wie das Da
 #: wp-includes/admin-bar.php:468 wp-admin/site-editor.php:162
 msgid "Edit site"
 msgstr "Website bearbeiten"
-
-#: wp-includes/theme.json
-msgctxt "Duotone name"
-msgid "Blue and orange"
-msgstr "Blau und Orange"
-
-#: wp-includes/theme.json
-msgctxt "Duotone name"
-msgid "Purple and green"
-msgstr "Lila und Grün"
-
-#: wp-includes/theme.json
-msgctxt "Duotone name"
-msgid "Magenta and yellow"
-msgstr "Magenta und Gelb"
-
-#: wp-includes/theme.json
-msgctxt "Duotone name"
-msgid "Midnight"
-msgstr "Mitternacht"
-
-#: wp-includes/theme.json
-msgctxt "Duotone name"
-msgid "Blue and red"
-msgstr "Blau und Rot"
-
-#: wp-includes/theme.json
-msgctxt "Duotone name"
-msgid "Purple and yellow"
-msgstr "Lila und Gelb"
-
-#: wp-includes/theme.json
-msgctxt "Duotone name"
-msgid "Grayscale"
-msgstr "Graustufen"
-
-#: wp-includes/theme.json
-msgctxt "Duotone name"
-msgid "Dark grayscale"
-msgstr "Dunkle Graustufen"
-
-#: wp-includes/theme.json
-msgctxt "Gradient name"
-msgid "Midnight"
-msgstr "Mitternacht"
-
-#: wp-includes/theme.json
-msgctxt "Gradient name"
-msgid "Electric grass"
-msgstr "Elektrisches Gras"
-
-#: wp-includes/theme.json
-msgctxt "Gradient name"
-msgid "Pale ocean"
-msgstr "Helles Türkis"
-
-#: wp-includes/theme.json
-msgctxt "Gradient name"
-msgid "Luminous dusk"
-msgstr "Leuchtende Dämmerung"
-
-#: wp-includes/theme.json
-msgctxt "Gradient name"
-msgid "Blush bordeaux"
-msgstr "Bordeauxrot"
-
-#: wp-includes/theme.json
-msgctxt "Gradient name"
-msgid "Blush light purple"
-msgstr "Rötliches Hellviolett"
-
-#: wp-includes/theme.json
-msgctxt "Gradient name"
-msgid "Cool to warm spectrum"
-msgstr "Kühles bis warmes Spektrum"
-
-#: wp-includes/theme.json
-msgctxt "Gradient name"
-msgid "Very light gray to cyan bluish gray"
-msgstr "Sehr helles Grau bis bläuliches Cyangrau"
-
-#: wp-includes/theme.json
-msgctxt "Gradient name"
-msgid "Luminous vivid orange to vivid red"
-msgstr "Leuchtendes, kräftiges Orange bis kräftiges Rot"
-
-#: wp-includes/theme.json
-msgctxt "Gradient name"
-msgid "Luminous vivid amber to luminous vivid orange"
-msgstr "Leuchtend lebendiger Bernstein bis leuchtend lebendiges Orange"
-
-#: wp-includes/theme.json
-msgctxt "Gradient name"
-msgid "Light green cyan to vivid green cyan"
-msgstr "Hellgrünes Cyan bis leuchtend grünes Cyan"
-
-#: wp-includes/theme.json
-msgctxt "Gradient name"
-msgid "Vivid cyan blue to vivid purple"
-msgstr "Kräftiges Cyanblau bis kräftiges Lila"
-
-#: wp-includes/theme.json
-msgctxt "Color name"
-msgid "Vivid purple"
-msgstr "Kräftiges Violett"
-
-#: wp-includes/theme.json
-msgctxt "Color name"
-msgid "Vivid cyan blue"
-msgstr "Kräftiges Cyanblau"
-
-#: wp-includes/theme.json
-msgctxt "Color name"
-msgid "Pale cyan blue"
-msgstr "Helles Cyanblau"
-
-#: wp-includes/theme.json
-msgctxt "Color name"
-msgid "Vivid green cyan"
-msgstr "Kräftiges Cyangrün"
-
-#: wp-includes/theme.json
-msgctxt "Color name"
-msgid "Light green cyan"
-msgstr "Helles Cyangrün"
-
-#: wp-includes/theme.json
-msgctxt "Color name"
-msgid "Luminous vivid amber"
-msgstr "Leuchtendes, kräftiges Gelb"
-
-#: wp-includes/theme.json
-msgctxt "Color name"
-msgid "Luminous vivid orange"
-msgstr "Leuchtendes Orange"
-
-#: wp-includes/theme.json
-msgctxt "Color name"
-msgid "Vivid red"
-msgstr "Kräftiges Rot"
-
-#: wp-includes/theme.json
-msgctxt "Color name"
-msgid "Pale pink"
-msgstr "Helles Rosa"
-
-#: wp-includes/theme.json
-msgctxt "Color name"
-msgid "White"
-msgstr "Weiß"
-
-#: wp-includes/theme.json
-msgctxt "Color name"
-msgid "Cyan bluish gray"
-msgstr "Bläuliches Cyangrau"
-
-#: wp-includes/theme.json
-msgctxt "Color name"
-msgid "Black"
-msgstr "Schwarz"
-
-#: wp-includes/theme.json
-msgctxt "Font size name"
-msgid "Large"
-msgstr "Groß"
-
-#: wp-includes/theme.json
-msgctxt "Font size name"
-msgid "Medium"
-msgstr "Mittel"
-
-#: wp-includes/theme.json
-msgctxt "Font size name"
-msgid "Small"
-msgstr "Klein"
 
 #: wp-includes/blocks/query-pagination-previous.php:24
 #: wp-includes/js/dist/block-library.js:45262
@@ -6294,6 +6114,11 @@ msgstr "Links"
 #: wp-includes/media.php:4861 wp-includes/js/dist/block-library.js:57249
 msgid "Select poster image"
 msgstr "Vorschaubild auswählen"
+
+#. Author of the plugin
+#: wp-includes/js/dist/block-library.js:42187 hello.php
+msgid "Matt Mullenweg"
+msgstr "Matt Mullenweg"
 
 #: wp-includes/js/dist/edit-post.js:5866 wp-includes/js/dist/editor.js:11681
 #: wp-admin/edit-form-advanced.php:145

@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-beta.2\n"
+"X-Generator: GlotPress/4.0.0-beta.3\n"
 "Language: de\n"
 "Project-Id-Version: WordPress - 6.4.x - Development - Administration\n"
 
@@ -9881,6 +9881,7 @@ msgid "Plugins extend and expand the functionality of WordPress. You may install
 msgstr "Plugins erweitern die Funktionalität von WordPress. Du kannst Plugins automatisch vom <a href=\"%s\">WordPress-Plugin-Verzeichnis</a> installieren oder ein Plugin im .zip-Format durch Klicken des Buttons oben auf dieser Seite hochladen."
 
 #. Plugin URI of the plugin
+#: hello.php
 msgid "http://wordpress.org/plugins/hello-dolly/"
 msgstr "https://de.wordpress.org/plugins/hello-dolly/"
 
@@ -10744,14 +10745,17 @@ msgid "Add New Comment"
 msgstr "Neuen Kommentar hinzufügen"
 
 #. Author URI of the plugin
+#: hello.php
 msgid "http://ma.tt/"
 msgstr "https://ma.tt/"
 
 #. Description of the plugin
+#: hello.php
 msgid "This is not just a plugin, it symbolizes the hope and enthusiasm of an entire generation summed up in two words sung most famously by Louis Armstrong: Hello, Dolly. When activated you will randomly see a lyric from <cite>Hello, Dolly</cite> in the upper right of your admin screen on every page."
 msgstr "Dies ist nicht nur ein Plugin, es symbolisiert in zwei Worten, gesungen von Louis Amstrong, die Hoffnung und den Enthusiasmus einer ganzen Generation: <cite>Hello, Dolly</cite>. Nach Aktivierung werden im Zufallsprinzip aus dem Liedtext von „Hello, Dolly“ Zeilen oben rechts im Administrationsbereich angezeigt."
 
 #. Plugin Name of the plugin
+#: hello.php
 msgid "Hello Dolly"
 msgstr "Hello Dolly"
 
