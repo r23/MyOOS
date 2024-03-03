@@ -1,8 +1,8 @@
 === WP w3all phpBB ===
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
-Tags: wordpress, phpbb, integration, template, user
-Stable tag: 2.7.8
+Tags: phpbb, integration, template, user, login
+Stable tag: 2.7.9
 License: GPLv2 or later
 Requires at least: 6.0.0
 Tested up to: 6.5
@@ -72,6 +72,16 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.7.9 =
+*Release Date - 03 Mar, 2024*
+* Fix: 'error Notice: logged in username contains illegal characters forbidden on this CMS.
+* Fix: page-forum.php for the template iframe integration (not working on safary). Require to rebuild it or manually apply changes
+* Fix: WP user addition into phpBB, when the registration is a signup to a membership into front end pages 
+* Fix: some WP-MS issues and add option that allow (multisite installations) to add phpBB users into WordPress, using all allowed default WP characters and not only alphanumeric
+* Fix: more fixes all around
+* All logs (and report bugs): https://www.axew3.com/w3/forums/viewtopic.php?t=1825
+
 
 = 2.7.8 =
 *Release Date - 18 Dec, 2023*

@@ -44,8 +44,8 @@
 
    $w3db_conn = WP_w3all_phpbb::w3all_db_connect_res();
 
-   if( $w3db_conn !== null ){
-    ob_start(); // suppress error if table_prefix is wrong
+   if( $w3db_conn  ){
+    ob_start(); // suppress error if something wrong
      $phpBBgroups = $w3db_conn->get_results("SELECT * FROM ". $w3all_phpbb_dbconn['w3all_phpbb_dbtableprefix'] ."groups");
     ob_get_contents();
     ob_end_clean();

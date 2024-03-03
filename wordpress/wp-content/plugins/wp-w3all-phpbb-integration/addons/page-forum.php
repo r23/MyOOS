@@ -23,7 +23,7 @@ $w3allhomeurl = get_home_url();
 $current_user = wp_get_current_user();
 $w3all_url_to_cms_clean = $w3all_url_to_cms;
 $w3all_url_to_cms_clean0 = strpos($w3all_url_to_cms_clean, 'https://') !== false ? str_replace('https://', 'http://', $w3all_url_to_cms_clean) : str_replace('http://', 'https://', $w3all_url_to_cms_clean);
-// guess to get the domain.com to display into preloader // array order here is !important
+// guess to get the domain.com to display into preloader // the array order here is !important
 if(!empty($w3all_url_to_cms)){
 $w3guessdomaindisplay = str_replace(array("http://www.","https://www.","http://","https://"), array("","","",""), $w3all_url_to_cms);
 $spos = strpos($w3guessdomaindisplay,'/');
@@ -79,6 +79,7 @@ if( strlen($w3all_url_to_cms) == strlen(get_option( 'w3all_url_to_cms' )) OR str
   // do not re-write value of the global $w3all_url_to_cms or index.php will be may appended into widgets avatars urls, so that will make it fail image loads
  $w3all_url_to_cms_sw = $w3all_url_to_cms;
  $w3all_url_to_cms_sw .= (substr($w3all_url_to_cms, -1) == '/' ? '' : '/');
+ //$w3all_url_to_cms_sw .= (substr($w3all_url_to_cms, -1) == '/' ? '' : '/index.php');
 } else {  $w3all_url_to_cms_sw = $w3all_url_to_cms; }
 
  // cleanup possible passed js undefined
@@ -90,6 +91,11 @@ if( strlen($w3all_url_to_cms) == strlen(get_option( 'w3all_url_to_cms' )) OR str
   $w3all_url_to_cms = str_replace('undefined/', '', $w3all_url_to_cms);
   $w3all_url_to_cms .= 'index.php';
  }
+ 
+ if( strlen($w3all_url_to_cms) == strlen(get_option( 'w3all_url_to_cms' )) OR strlen($w3all_url_to_cms) == strlen(get_option( 'w3all_url_to_cms' )) + 1 )
+{
+ $w3all_url_to_cms .= (substr($w3all_url_to_cms, -1) == '/' ? '' : '/');
+}
 
 function w3all_enqueue_scripts() {
  wp_enqueue_script("jquery");
@@ -234,10 +240,11 @@ get_header();
 
 
  function w3all_ajaxup_from_phpbb(res){
+ 
       var w3all_phpbb_u_logged  = /#w3all_phpbb_u_logged=1/ig.exec(res);
    if(phpBBuid2 != 2){ // if not phpBB uid 2 or get loop for this user
-       if( w3all_phpbb_u_logged == null && wp_u_logged > 1 || wp_u_logged == 0 && w3all_phpbb_u_logged != null ){
-        document.location.replace('".$w3allhomeurl."/".$wp_w3all_forum_folder_wp."/');
+       if( w3all_phpbb_u_logged == null && wp_u_logged > 1 || wp_u_logged == 0 && w3all_phpbb_u_logged > 2 ){
+        document.location.replace('".$w3allhomeurl."/index.php/".$wp_w3all_forum_folder_wp."/');
        }
     }
       jQuery('#w3idwloader').css(\"display\",\"none\");
@@ -312,14 +319,19 @@ onScroll: function(x,y){
      // console.error('The event origin do not match');
      // console.error(event);
      // return;
-
+     // the event origin will not match if the ssl certificate is not valid
+     // on chrome (and not only) it make it fail the iframe load
+     // to test locally with a self signed cert or expired cert:
+     // chrome://flags/#allow-insecure-localhost
     }
-
+    //  jQuery( window ).on( \"load\", function() {
+      
      if(/#w3all/ig.exec(event.data.message)){
 
-       w3all_ajaxup_from_phpbb(event.data.message);
-       //console.log(event.data);
+        w3all_ajaxup_from_phpbb(event.data.message);
+
      }
+     //});
    });
 </script>";
 ?>

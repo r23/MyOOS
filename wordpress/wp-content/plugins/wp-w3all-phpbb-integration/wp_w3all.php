@@ -6,14 +6,14 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.7.8
+Version: 2.7.9
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
 Text Domain: wp-w3all-phpbb-integration
 
 =====================================================================================
-Copyright (C) 2023 - axew3.com
+Copyright (C) 2024 - axew3.com
 =====================================================================================
 */
 
@@ -33,7 +33,7 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.7.8' );
+define( 'WPW3ALL_VERSION', '2.7.9' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '6.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -187,7 +187,7 @@ if ( defined( 'WP_ADMIN' ) )
      }
 
     define('W3PHPBBDBCONN', $w3all_config_db);
-    unset($w3all_config_db,$w3all_phpbb_dbconn);
+    //unset($w3all_config_db,$w3all_phpbb_dbconn);
   }
 
    // go with $w3all_phpbb_dbconn values, no config.php inclusion
@@ -196,7 +196,7 @@ if ( defined( 'WP_ADMIN' ) )
       $w3all_config_db = array( 'dbhost' => $w3all_phpbb_dbconn['w3all_phpbb_dbhost'], 'dbport' => $w3all_phpbb_dbconn['w3all_phpbb_dbport'], 'dbname' => $w3all_phpbb_dbconn['w3all_phpbb_dbname'], 'dbuser'   => $w3all_phpbb_dbconn['w3all_phpbb_dbuser'], 'dbpasswd' => $w3all_phpbb_dbconn['w3all_phpbb_dbpasswd'], 'table_prefix' => $w3all_phpbb_dbconn['w3all_phpbb_dbtableprefix'] );
       define('W3PHPBBDBCONN', $w3all_config_db);
       $w3all_config = array( 'table_prefix' => $w3all_phpbb_dbconn['w3all_phpbb_dbtableprefix'] );
-      unset($w3all_config_db,$w3all_phpbb_dbconn);
+      //unset($w3all_config_db,$w3all_phpbb_dbconn);
    }
 // if $_POST['w3all_phpbb_dbconn'] isset and
 // nothing above until here fired: let add_action( 'init', 'w3all_VAR_IF_U_CAN', 1 ); setup vars and redirect to plugin admin
@@ -375,7 +375,7 @@ function w3all_login_widget(){
 // default wp allow allow only [-0-9A-Za-z _.@] //  if( preg_match('/[^-0-9A-Za-z _.@]/',$phpbb_user[0]->username) ){
    $contains_cyrillic = (bool) preg_match('/[\p{Cyrillic}]/u', $user[0]->username);
   // if do not contain non latin chars, let wp create any wp user_login with this passed username
-  if ( is_multisite() && preg_match('/[^0-9A-Za-z\p{Cyrillic}]/u',$user[0]->username) OR $contains_cyrillic && preg_match('/[^-0-9A-Za-z _.@\p{Cyrillic}]/u',$user[0]->username) OR strlen($user[0]->username) > 50 ){
+  if ( is_multisite() && !defined('WPW3ALL_USE_DEFAULT_WP_UCHARS') && preg_match('/[^0-9A-Za-z\p{Cyrillic}]/u',$user[0]->username) OR $contains_cyrillic && preg_match('/[^-0-9A-Za-z _.@\p{Cyrillic}]/u',$user[0]->username) OR strlen($user[0]->username) > 50 ){
   //if ( is_multisite() && preg_match('/[^-0-9A-Za-z _.@\p{Cyrillic}]/u',$user[0]->username) OR $contains_cyrillic && preg_match('/[^-0-9A-Za-z _.@\p{Cyrillic}]/u',$user[0]->username) OR strlen($user[0]->username) > 50 ){
 
     if (!defined('WPW3ALL_NOT_ULINKED')){
@@ -1231,13 +1231,13 @@ function w3all_add_phpbb_user() {
    if( $phpbb_user[0]->user_type == 1 ){ // user deactivated in phpBB
     // OR more below**:
     // $role = $phpbb_user[0]->user_type == 1 ? '' : $role;
-     echo __('<p style="padding:30px;background-color:#fff;color:#000;font-size:1.3em"><strong>Notice: it is required that you activate your account into our forum.</strong></p>', 'wp-w3all-phpbb-integration');
+     echo __('<p style="padding:30px;background-color:#fff;color:#000;font-size:1.3em"><strong>Notice: your account is not active into our forum.</strong></p>', 'wp-w3all-phpbb-integration');
       exit;
    }
 
    $contains_cyrillic = (bool) preg_match('/[\p{Cyrillic}]/u', $phpbb_user[0]->username);
 
-  if ( is_multisite() && preg_match('/[^0-9A-Za-z\p{Cyrillic}]/u',$phpbb_user[0]->username) OR $contains_cyrillic && preg_match('/[^-0-9A-Za-z _.@\p{Cyrillic}]/u',$phpbb_user[0]->username) OR strlen($phpbb_user[0]->username) > 50 )
+  if ( is_multisite() && !defined('WPW3ALL_USE_DEFAULT_WP_UCHARS') && preg_match('/[^0-9A-Za-z\p{Cyrillic}]/u',$phpbb_user[0]->username) OR $contains_cyrillic && preg_match('/[^-0-9A-Za-z _.@\p{Cyrillic}]/u',$phpbb_user[0]->username) OR strlen($phpbb_user[0]->username) > 50 )
   {
 
     if (!defined('WPW3ALL_NOT_ULINKED')){
@@ -1255,7 +1255,7 @@ function w3all_add_phpbb_user() {
 
    // mums allow only '[0-9a-z]'
    // if do not contain non latin chars, let wp create any wp user_login with this passed username
-  if ( is_multisite() && preg_match('/[^0-9A-Za-z\p{Cyrillic}]/u',$phpbb_user[0]->username) OR $contains_cyrillic && preg_match('/[^-0-9A-Za-z _.@\p{Cyrillic}]/u',$phpbb_user[0]->username) OR strlen($phpbb_user[0]->username) > 50 ){
+  if ( is_multisite() && !defined('WPW3ALL_USE_DEFAULT_WP_UCHARS') && preg_match('/[^0-9A-Za-z\p{Cyrillic}]/u',$phpbb_user[0]->username) OR $contains_cyrillic && preg_match('/[^-0-9A-Za-z _.@\p{Cyrillic}]/u',$phpbb_user[0]->username) OR strlen($phpbb_user[0]->username) > 50 ){
 
     if (!defined('WPW3ALL_NOT_ULINKED')){
      define('WPW3ALL_NOT_ULINKED', true);
@@ -1315,7 +1315,7 @@ function w3all_add_phpbb_user() {
        $wpdb->query("UPDATE $wpu_db_utab SET user_login = '".$phpbb_username."', user_pass = '".$phpbb_user[0]->user_password."', user_nicename = '".$user_username_clean."', user_email = '".$phpbb_user[0]->user_email."', display_name = '".$phpbb_username."' WHERE ID = ".$user_id."");
        $wpdb->query("UPDATE $wpu_db_umtab SET meta_value = '".$phpbb_username."' WHERE user_id = '$user_id' AND meta_key = 'nickname'");
      } else { // leave as is (may cleaned and different) the just created user_login
-        $wpdb->query("UPDATE $wpu_db_utab SET user_pass = '".$phpbb_user[0]->user_password."', display_name = '".$phpbb_username."', user_email = '".$phpbb_user[0]->user_email."' WHERE ID = '$user_id'");
+        $wpdb->query("UPDATE $wpu_db_utab SET user_pass = '".$phpbb_user[0]->user_password."', user_email = '".$phpbb_user[0]->user_email."', display_name = '".$phpbb_username."' WHERE ID = '$user_id'");
         $wpdb->query("UPDATE $wpu_db_umtab SET meta_value = '".$phpbb_username."' WHERE user_id = '$user_id' AND meta_key = 'nickname'");
        }
 
