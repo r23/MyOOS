@@ -13,6 +13,7 @@ class GetContent
     public function getMatches($content, $targetKeywords)
     {
         $data = [];
+
         if(empty($targetKeywords)){
             return null;
         }
@@ -101,6 +102,7 @@ class GetContent
     protected function analyzeKeywordsPermalink($analyzes, $data, $post)
     {
         $permalink = !empty($data['permalink']) && is_array($data['permalink']) ? $data['permalink']['value'] : "";
+        $permalink = str_replace('-', ' ', $permalink);
         $matches = $this->getMatches($permalink, isset($data['keywords']) ? $data['keywords'] : []);
 
         if (! empty($matches)) {

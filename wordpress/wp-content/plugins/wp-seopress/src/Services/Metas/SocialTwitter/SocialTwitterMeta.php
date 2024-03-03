@@ -80,10 +80,10 @@ class SocialTwitterMeta
                 ]);
 
                 if($keySocial === 'image'){
-                    $data[$keySocial] = $item['url'];
-                    $data['attachment_id'] = $item['attachment_id'];
-                    $data['image_width'] = $item['image_width'];
-                    $data['image_height'] = $item['image_height'];
+                    $data[$keySocial] = isset($item['url']) ? $item['url'] : '';
+                    $data['attachment_id'] = isset($item['attachment_id']) ? $item['attachment_id'] : '';
+                    $data['image_width'] = isset($item['image_width']) ? $item['image_width'] : '';
+                    $data['image_height'] = isset($item['image_height']) ? $item['image_height'] : '';
                 }
                 else{
                     $data[$keySocial] = $item;

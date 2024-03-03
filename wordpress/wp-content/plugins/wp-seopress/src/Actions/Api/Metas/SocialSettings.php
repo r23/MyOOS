@@ -88,9 +88,8 @@ class SocialSettings implements ExecuteHooks {
      * @since 5.0.0
      */
     public function processPut(\WP_REST_Request $request) {
-        $metas = SocialSettingsHelper::getMetaKeys($id);
-
         $id     = $request->get_param('id');
+        $metas = SocialSettingsHelper::getMetaKeys($id);
         $params = $request->get_params();
 
         try {
