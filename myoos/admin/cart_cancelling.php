@@ -155,7 +155,9 @@ switch ($action) {
 		$indent = "\t";
 
         $schema = '';
-        $schema .= 'Firma ' . $indent . ' Name ' . $indent . ' Straße ' . $indent . ' PLZ ' . $indent . ' Ort ' . $indent . ' Land ' . $indent . ' Warenborbdatum ' . $indent . ' Produktname ' . $indent . ' Menge ' . $indent . '  Produktname_2 ' . $indent . '  Menge_2 ' .  "\n";
+        $schema .= 'Firma ' . $indent . ' Name ' . $indent . ' Straße ' . $indent . ' PLZ ' . $indent . ' Ort ' . $indent . ' Land ' . $indent . ' Warenborbdatum ' . $indent;
+		$schema .= ' Produktname ' . $indent . ' Menge ' . $indent . ' Einzelpreis ' . $indent . ' Gültig bis ' . $indent . ' Grundpreis ' . $indent;
+		$schema .= ' Produktname2 ' . $indent . ' Menge2 ' . $indent . ' Einzelpreis2 ' . $indent . ' Gültig bis2 ' . $indent . ' Grundpreis2 ' . $indent;
 
         $nLanguageID = intval($_SESSION['language_id'] ?? DEFAULT_LANGUAGE_ID);
 
@@ -231,6 +233,7 @@ dosql($table, $flds);
 
 					$schema .= $country['countries_name'] . $indent;
 
+					$rows = 0;
 					$aProducts = [];
 					$customers_baskettable = $oostable['customers_basket'];
 					$sql = "SELECT customers_basket_id, customers_id, products_id, customers_basket_quantity
@@ -239,6 +242,11 @@ dosql($table, $flds);
 							AND customers_basket_date_added <= '" . oos_db_input(date("Ymd", $sd)) . "'";
 					$products_result = $dbconn->Execute($sql);
 					while ($products = $products_result->fields) {
+						$rows++;
+
+						if ($rows >= 2) {
+							break; // ends the loop
+						}						
 						$aProducts[$products['products_id']] = ['customers_basket_id' => $products['customers_basket_id'],
 																'qty' => $products['customers_basket_quantity']];
 						// attributes
@@ -314,39 +322,68 @@ dosql($table, $flds);
 							}
 
 
-							$bSpezialPrice = false;
+							$until = '';
 							$specialstable = $oostable['specials'];
-							$sql = "SELECT specials_new_products_price
+							$sql = "SELECT specials_new_products_price, specials_cross_out_price, expires_date
 									FROM $specialstable
 									WHERE products_id = '" . intval($prid) . "' AND
 									status = '1'";
 							$specials_result = $dbconn->Execute($sql);
 							if ($specials_result->RecordCount()) {
-								$bSpezialPrice = true;
 								$specials = $specials_result->fields;
 								$products_price = $specials['specials_new_products_price'];
+								$until = oos_date_short($specials_result['expires_date']));
 							}
-	
-print_r($aProducts[$products_id]):
-echo
-/*
-	
+
 							if (isset($aProducts[$products_id]['attributes'])) {
-								$attributes_image = $this->attributes_image($prid);
-*/							}
+								reset($aProducts[$products_id]['attributes']);
 
-/*
 
-                if ($attributes_image != '') {
-                    $image = $attributes_image;
-                } else {
-                    $image = $products['products_image'];
+								foreach ($aProducts[$products_id]['attributes'] as $option => $value) {
+									$products_attributestable = $oostable['products_attributes'];
+									$attribute_price_sql = "SELECT options_values_price
+															FROM $products_attributestable
+															WHERE products_id = '" . intval($products_id) . "'
+															AND options_id = '" . intval($option) . "'
+															AND options_values_id = '" . intval($value) . "'";
+									$attribute_price = $dbconn->GetRow($attribute_price_sql);
+									$products_pricee = $attribute_price['options_values_price'];
+								}
+							}
+
+							$final_price = $products_price;
+        $product_price = null;
+        $price_list = null;
+        $product_special_price = null;
+        $base_product_price = null;
+        $cross_out_price  = null;
+
+
+        if ($aUser['show_price'] == 1) {
+            $base_product_price = $featured['products_price'];
+            $product_price = $oCurrencies->display_price($featured['products_price'], oos_get_tax_rate($featured['products_tax_class_id']));
+
+            if ($featured['products_price_list'] > 0) {
+                $price_list = $oCurrencies->display_price($featured['products_price_list'], oos_get_tax_rate($featured['products_tax_class_id']));
+            }
+
+            $special = oos_get_products_special($featured['products_id']);
+            if ($special['specials_new_products_price'] > 0) {
+                $base_product_price = $special['specials_new_products_price'];
+                $product_special_price = $oCurrencies->display_price($special['specials_new_products_price'], oos_get_tax_rate($featured['products_tax_class_id']));
+
+                if ($special['specials_cross_out_price'] > 0) {
+                    $cross_out_price = $oCurrencies->display_price($special['specials_cross_out_price'], oos_get_tax_rate($featured['products_tax_class_id']));
                 }
 
+                $until = sprintf($aLang['only_until'], oos_date_short($special['expires_date']));
+            }
 
-				if ($this->attributes_price($products_id) > 0) {
-					$products_price = $this->attributes_price($products_id);
-				} 
+            if ($featured['products_base_price'] != 1) {
+                $base_product_price = $oCurrencies->display_price($base_product_price * $featured['products_base_price'], oos_get_tax_rate($featured['products_tax_class_id']));
+            }
+        }
+/*
 
 				$final_price = $products_price;
 
@@ -389,8 +426,11 @@ echo
                                 'towlid' => $aProducts[$products_id]['towlid']];
             }
  */
- 
- # $schema .= $products['products_id'] . $indent . $products_name . $indent . $products_description . $indent . $sUrl . $indent . $sImage . $indent;
+
+$schema .= ' Produktname ' . $indent . ' Menge ' . $indent . ' Einzelpreis ' . $indent . ' Gültig bis ' . $indent . ' Grundpreis ' . $indent;
+
+$schema .= $products['products_name'] . $indent . $nQuantity . $indent . ' Einzelpreis ' . $indent . $until . $indent . ' Grundpreis ' . $indent;
+
 
 
 							// Move that ADOdb pointer!
