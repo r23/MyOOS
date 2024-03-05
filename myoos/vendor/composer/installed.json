@@ -3369,12 +3369,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "8f1e484da92817191c75c9b00108f13fb62fd741"
+                "reference": "f55d0680d4af9e99a48d9a545863b670f6a0e53e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/8f1e484da92817191c75c9b00108f13fb62fd741",
-                "reference": "8f1e484da92817191c75c9b00108f13fb62fd741",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/f55d0680d4af9e99a48d9a545863b670f6a0e53e",
+                "reference": "f55d0680d4af9e99a48d9a545863b670f6a0e53e",
                 "shasum": ""
             },
             "conflict": {
@@ -3768,7 +3768,7 @@
                 "phpmyfaq/phpmyfaq": "<3.2.5",
                 "phpoffice/phpexcel": "<1.8",
                 "phpoffice/phpspreadsheet": "<1.16",
-                "phpseclib/phpseclib": "<2.0.31|>=3,<3.0.34",
+                "phpseclib/phpseclib": "<2.0.47|>=3,<3.0.36",
                 "phpservermon/phpservermon": "<3.6",
                 "phpsysinfo/phpsysinfo": "<3.4.3",
                 "phpunit/phpunit": ">=4.8.19,<4.8.28|>=5.0.10,<5.6.3",
@@ -3886,7 +3886,7 @@
                 "studio-42/elfinder": "<2.1.62",
                 "subhh/libconnect": "<7.0.8|>=8,<8.1",
                 "sukohi/surpass": "<1",
-                "sulu/sulu": "<1.6.44|>=2,<2.4.16|>=2.5,<2.5.12",
+                "sulu/sulu": "<1.6.44|>=2,<2.4.17|>=2.5,<2.5.13",
                 "sumocoders/framework-user-bundle": "<1.4",
                 "superbig/craft-audit": "<3.0.2",
                 "swag/paypal": "<5.4.4",
@@ -4065,7 +4065,7 @@
                 "zfr/zfr-oauth2-server-module": "<0.1.2",
                 "zoujingli/thinkadmin": "<=6.1.53"
             },
-            "time": "2024-03-01T21:04:56+00:00",
+            "time": "2024-03-05T16:04:58+00:00",
             "default-branch": true,
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
@@ -5377,17 +5377,17 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.4.36",
-            "version_normalized": "5.4.36.0",
+            "version": "v5.4.37",
+            "version_normalized": "5.4.37.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "67b35ad39d4fe830360de13026574c9568c0435e"
+                "reference": "3f8d2f10a7addec760ca0e49938b739f5e781a3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/67b35ad39d4fe830360de13026574c9568c0435e",
-                "reference": "67b35ad39d4fe830360de13026574c9568c0435e",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/3f8d2f10a7addec760ca0e49938b739f5e781a3b",
+                "reference": "3f8d2f10a7addec760ca0e49938b739f5e781a3b",
                 "shasum": ""
             },
             "require": {
@@ -5538,7 +5538,7 @@
                 "twig/inky-extra": "^2.12|^3",
                 "twig/markdown-extra": "^2.12|^3"
             },
-            "time": "2024-02-27T06:23:13+00:00",
+            "time": "2024-03-04T20:55:58+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -5581,7 +5581,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/symfony/issues",
-                "source": "https://github.com/symfony/symfony/tree/v5.4.36"
+                "source": "https://github.com/symfony/symfony/tree/v5.4.37"
             },
             "funding": [
                 {
