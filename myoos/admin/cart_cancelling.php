@@ -24,7 +24,7 @@ define('OOS_VALID_MOD', 'yes');
 
 require 'includes/main.php';
 require 'includes/classes/class_currencies.php';
-
+$currencies = new currencies();
 
 function check_letter_sent ($customer_id, $customers_basket_id)
 {
@@ -116,9 +116,6 @@ function products_price_actual($product_id, $actual_price, $products_qty)
 }
 
 
-
-$currencies = new currencies();
-
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
 
@@ -156,13 +153,27 @@ switch ($action) {
 
         $schema = '';
         $schema .= 'Firma ' . $indent . ' Name ' . $indent . ' Straße ' . $indent . ' PLZ ' . $indent . ' Ort ' . $indent . ' Land ' . $indent . ' Warenborbdatum ' . $indent;
-		$schema .= ' Produktname ' . $indent . ' Menge ' . $indent . ' Einzelpreis ' . $indent . ' Gültig bis ' . $indent . ' Grundpreis ' . $indent;
-		$schema .= ' Produktname2 ' . $indent . ' Menge2 ' . $indent . ' Einzelpreis2 ' . $indent . ' Gültig bis2 ' . $indent . ' Grundpreis2 ' . $indent;
+		$schema .= ' Produktname ' . $indent . ' Menge ' . $indent . ' Einzelpreis ' . $indent . ' Gültig bis ' . $indent . ' Grundpreis ' . $indent . ' Basismenge ' . $indent . ' Produkteinheit ' . $indent;
+		$schema .= ' Produktname2 ' . $indent . ' Menge2 ' . $indent . ' Einzelpreis2 ' . $indent . ' Gültig bis2 ' . $indent . ' Grundpreis2 ' . $indent . ' Basismenge2 ' . $indent . ' Produkteinheit2 ' . $indent;
 
         $nLanguageID = intval($_SESSION['language_id'] ?? DEFAULT_LANGUAGE_ID);
 
         $aProducts = [];
 
+		$products_unitstable = $oostable['products_units'];
+		$query = "SELECT products_units_id, products_unit_name, unit_of_measure
+					FROM $products_unitstable
+					WHERE languages_id = '" . intval($nLanguageID) . "'";
+		$products_unit_result = $dbconn->Execute($query);
+		$products_units = []; // initialize a new array
+		while ($products_unit = $products_unit_result->fields) {
+			// get the products_units_id as the index for the new array
+			$index = $products_unit['products_units_id'];
+			// insert the products_unit_name and unit_of_measure as a numeric array under the index
+			$products_units[$index] = [$products_unit['products_unit_name'], $products_unit['unit_of_measure']];
+			// Move that ADOdb pointer!
+			$products_unit_result->MoveNext();
+		}
 
 /*
 todo customers_basket_mail
@@ -297,6 +308,8 @@ dosql($table, $flds);
  
 					reset($aProducts);
 					foreach (array_keys($aProducts) as $products_id) {
+						$product_price = '';
+						$base_product_price = '';				
 						$nQuantity = $aProducts[$products_id]['qty'];
 
 						$productstable = $oostable['products'];
@@ -332,7 +345,7 @@ dosql($table, $flds);
 							if ($specials_result->RecordCount()) {
 								$specials = $specials_result->fields;
 								$products_price = $specials['specials_new_products_price'];
-								$until = oos_date_short($specials_result['expires_date']));
+								$until = oos_date_short($specials_result['expires_date']);
 							}
 
 							if (isset($aProducts[$products_id]['attributes'])) {
@@ -347,42 +360,19 @@ dosql($table, $flds);
 															AND options_id = '" . intval($option) . "'
 															AND options_values_id = '" . intval($value) . "'";
 									$attribute_price = $dbconn->GetRow($attribute_price_sql);
-									$products_pricee = $attribute_price['options_values_price'];
+									$products_price = $attribute_price['options_values_price'];
 								}
 							}
 
-							$final_price = $products_price;
-        $product_price = null;
-        $price_list = null;
-        $product_special_price = null;
-        $base_product_price = null;
-        $cross_out_price  = null;
+							$final_price = $currencies->display_price($products_price, oos_get_tax_rate($products['products_tax_class_id']));
 
+							if ($products['products_base_price'] != 1) {
+								$base_product_price = $currencies->display_price($products_price * $products['products_base_price'], oos_get_tax_rate($products['products_tax_class_id']));
+							}
 
-        if ($aUser['show_price'] == 1) {
-            $base_product_price = $featured['products_price'];
-            $product_price = $oCurrencies->display_price($featured['products_price'], oos_get_tax_rate($featured['products_tax_class_id']));
-
-            if ($featured['products_price_list'] > 0) {
-                $price_list = $oCurrencies->display_price($featured['products_price_list'], oos_get_tax_rate($featured['products_tax_class_id']));
-            }
-
-            $special = oos_get_products_special($featured['products_id']);
-            if ($special['specials_new_products_price'] > 0) {
-                $base_product_price = $special['specials_new_products_price'];
-                $product_special_price = $oCurrencies->display_price($special['specials_new_products_price'], oos_get_tax_rate($featured['products_tax_class_id']));
-
-                if ($special['specials_cross_out_price'] > 0) {
-                    $cross_out_price = $oCurrencies->display_price($special['specials_cross_out_price'], oos_get_tax_rate($featured['products_tax_class_id']));
-                }
-
-                $until = sprintf($aLang['only_until'], oos_date_short($special['expires_date']));
-            }
-
-            if ($featured['products_base_price'] != 1) {
-                $base_product_price = $oCurrencies->display_price($base_product_price * $featured['products_base_price'], oos_get_tax_rate($featured['products_tax_class_id']));
-            }
-        }
+echo '<pre>';
+print_r($products_units);
+echo '</pre>';
 /*
 
 				$final_price = $products_price;
@@ -395,7 +385,7 @@ dosql($table, $flds);
                 if ($products['products_base_price'] != 1) {
                     $base_product_price = $products_price;
                     $products_product_quantity = $products['products_product_quantity'];
-                    $cart_base_product_price = $oCurrencies->display_price($base_product_price * $products['products_base_price'], oos_get_tax_rate($products['products_tax_class_id']));
+                    $cart_base_product_price = $currencies->display_price($base_product_price * $products['products_base_price'], oos_get_tax_rate($products['products_tax_class_id']));
                 }
 
 
@@ -427,9 +417,9 @@ dosql($table, $flds);
             }
  */
 
-$schema .= ' Produktname ' . $indent . ' Menge ' . $indent . ' Einzelpreis ' . $indent . ' Gültig bis ' . $indent . ' Grundpreis ' . $indent;
+# $schema .= ' Produktname ' . $indent . ' Menge ' . $indent . ' Einzelpreis ' . $indent . ' Gültig bis ' . $indent . ' Grundpreis ' . $indent . ' Basismenge ' . $indent . ' Produkteinheit ' . $indent;
 
-$schema .= $products['products_name'] . $indent . $nQuantity . $indent . ' Einzelpreis ' . $indent . $until . $indent . ' Grundpreis ' . $indent;
+$schema .= $products['products_name'] . $indent . $nQuantity . $indent . $final_price . $indent . $until . $indent . $base_product_price . $indent;
 
 
 
