@@ -3369,12 +3369,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "f55d0680d4af9e99a48d9a545863b670f6a0e53e"
+                "reference": "5e00628ceaa787ae9459f0b6a9320b2b7953d7f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/f55d0680d4af9e99a48d9a545863b670f6a0e53e",
-                "reference": "f55d0680d4af9e99a48d9a545863b670f6a0e53e",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/5e00628ceaa787ae9459f0b6a9320b2b7953d7f0",
+                "reference": "5e00628ceaa787ae9459f0b6a9320b2b7953d7f0",
                 "shasum": ""
             },
             "conflict": {
@@ -4065,7 +4065,7 @@
                 "zfr/zfr-oauth2-server-module": "<0.1.2",
                 "zoujingli/thinkadmin": "<=6.1.53"
             },
-            "time": "2024-03-05T16:04:58+00:00",
+            "time": "2024-03-05T22:04:04+00:00",
             "default-branch": true,
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
