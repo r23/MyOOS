@@ -162,7 +162,7 @@ file_put_contents($w3all_page_td, $w3all_default_template);
 
 <?php
     if( !defined('W3PHPBBDBCONN') ){
-     echo __('<h3><span style="color:#ff0000">Before to activate the integration by setting required phpBB db connection values, it is mandatory to<br /><br /> read the</span> <i>phpBB side</i> <span style="color:#ff0000"">setup section into the <a target="_blank" href="https://www.axew3.com/w3/wordpress-phpbb-integration-install/">Install Help Page</a></span> and to transfer all existent WordPress users into phpBB</h3>', 'wp-w3all-phpbb-integration');
+     echo __('<h3><span style="color:#ff0000">Before to activate the integration by setting required phpBB db connection values, it is mandatory to<br /><br /> read the</span> <i>phpBB side</i> <span style="color:#ff0000"">setup section into the <a target="_blank" href="https://www.axew3.com/w3/wordpress-phpbb-integration-install/">Install Help Page</a></span> and (maybe) to transfer all existent WordPress users into phpBB</h3>', 'wp-w3all-phpbb-integration');
      echo __('<h4 style="color:#ff0000">Wp w3all miss phpBB db connection values.</h4>', 'wp-w3all-phpbb-integration');
     }
 ?>

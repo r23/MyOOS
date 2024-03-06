@@ -93,7 +93,7 @@ private static function w3all_db_connect(){
 
  if(defined('W3ALLCONNWRONGPARAMS')){ return; }
 
-  if(empty($w3all_config_db))
+  if( empty($w3all_config_db) && defined('PHPBB_CONFIG_FILE') )
   {
        ob_start();
          include( ABSPATH . 'wp-content/plugins/wp-w3all-config/phpBB_config.php' );
@@ -206,7 +206,7 @@ private static function verify_phpbb_credentials(){
          self::w3all_wp_logout();
   }
 
-   $wpu_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'users' : $wpdb->prefix . 'users';
+   $wpu_db_utab  = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'users' : $wpdb->prefix . 'users';
    $wpu_db_umtab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'usermeta' : $wpdb->prefix . 'usermeta';
 
     if(empty($phpbb_config)){ // this seem stupid, but as the code flow is, you'll experience that may it is not...
@@ -243,9 +243,9 @@ private static function verify_phpbb_credentials(){
 
  // Bruteforce phpBB session keys Prevention check
  // see -> w3all Brute Force Prevention (more below) //
-//$w3all_bruteblock_phpbbulist[80]= 80;
-//$w3all_bruteblock_phpbbulist[150]= 150;
-//update_option( 'w3all_bruteblock_phpbbulist', $w3all_bruteblock_phpbbulist );
+ //$w3all_bruteblock_phpbbulist[80]= 80;
+ //$w3all_bruteblock_phpbbulist[150]= 150;
+ //update_option( 'w3all_bruteblock_phpbbulist', $w3all_bruteblock_phpbbulist );
  // The presented cookie uid is in the black list and the wp user is not logged in?
  if( $w3all_anti_brute_force_yn == 1 && ! is_user_logged_in() && isset($w3all_bruteblock_phpbbulist[$phpbb_u]) ){
       setcookie ("w3all_set_cmsg", "phpbb_sess_brutef_error", 0, "/", $w3cookie_domain, false); // expire session, removed on phpBB_user_session_set()
@@ -277,17 +277,6 @@ private static function verify_phpbb_credentials(){
   } else {
      $phpbb_user_session = array();
     }
-
- if(isset($phpbb_user_session[0]))
- { # *collect the current user's phpBB profile data
-  foreach($phpbb_user_session[0] as $k => $v)
-  {
-   if(substr($k,0,3)=='pf_'){
-     $w3all_phpbb_profile_fields[$k] = $v;
-     # *note that the array will NOT respect the DB tables columns order, so it is not suitable to build a query, but only to know the current user's phpBB Profiles Fields keys/values
-    }
-  }
- }
 
   // Based on the above executed query '$phpbb_user_session[0]->user_id' could result empty
   // so assure after that this var is set with the correct uid
@@ -536,7 +525,8 @@ private static function verify_phpbb_credentials(){
        $phpbb_upass = $phpbb_user_session[0]->user_password;
        $phpbb_uemail = $phpbb_user_session[0]->user_email;
        $phpbb_uurl = $phpbb_user_session[0]->pf_phpbb_website;
-       $wpdb->query("UPDATE $wpu_db_utab SET user_pass = '$phpbb_upass', user_email = '$phpbb_uemail', user_url = '$phpbb_uurl' WHERE ID = '$current_user->ID'");
+       $current_userID = $current_user->ID;
+       $wpdb->query("UPDATE $wpu_db_utab SET user_pass = '$phpbb_upass', user_email = '$phpbb_uemail', user_url = '$phpbb_uurl' WHERE ID = '$current_userID'");
 
   if( $w3all_phpbb_lang_switch_yn == 1 )
    { // this impact the global performance
@@ -1016,7 +1006,7 @@ if( $phpbb_uid > 2 )
        $ban_user_email = array_filter( $ban_user_email, 'strlen' );
        $ban_user_email = array_filter( $ban_user_email, 'strtolower' );
 
-      // check for expired bans, remove from array, collect for remove on phpBB db
+      // check for expired bans, remove from array, collect for removal on phpBB db
      $ban_ids_remove = '';
      foreach($phpbb_banl as $k => $banl){
 
@@ -1110,7 +1100,7 @@ private static function create_phpBB_user($wpu, $action = ''){
 
    if( empty($wpu) ){ return; }
 
-   global $w3all_phpbb_connection,$phpbb_config,$w3all_config,$w3all_oninsert_wp_user,$wpdb, $w3all_phpbb_user_deactivated_yn, $w3all_phpbb_lang_switch_yn, $w3all_add_into_spec_group, $w3all_add_into_phpBB_after_confirm,$w3all_user_email_hash;
+   global $w3all_phpbb_connection,$phpbb_config,$w3all_config,$w3all_oninsert_wp_user,$wpdb, $w3all_phpbb_user_deactivated_yn, $w3all_phpbb_lang_switch_yn, $w3all_add_into_spec_group, $w3all_add_into_phpBB_after_confirm;
 
     if(empty($phpbb_config)){
      self::w3all_get_phpbb_config();
@@ -1216,7 +1206,7 @@ private static function create_phpBB_user($wpu, $action = ''){
       $wpul = $wpu->user_login;
       $wpue = $wpu->user_email;
       $time = $wpur = time();
-      self::w3all_phpbb_email_hash($wpu->user_email);
+      $w3all_user_email_hash = self::w3all_phpbb_email_hash($wpu->user_email);
       $wpunn = esc_sql(mb_strtolower($wpul,'UTF-8'));
       $wpul  = esc_sql($wpul);
 
@@ -1257,7 +1247,7 @@ private static function create_phpBB_user($wpu, $action = ''){
        // all users db fields insert
        // $w3phpbb_conn->query("INSERT INTO ".$w3all_config["table_prefix"]."users (user_id, user_type, group_id, user_permissions, user_perm_from, user_ip, user_regdate, username, username_clean, user_password, user_passchg, user_email, user_birthday, user_lastvisit, user_lastmark, user_lastpost_time, user_lastpage, user_last_confirm_key, user_last_search, user_warnings, user_last_warning, user_login_attempts, user_inactive_reason, user_inactive_time, user_posts, user_lang, user_timezone, user_dateformat, user_style, user_rank, user_colour, user_new_privmsg, user_unread_privmsg, user_last_privmsg, user_message_rules, user_full_folder, user_emailtime, user_topic_show_days, user_topic_sortby_type, user_topic_sortby_dir, user_post_show_days, user_post_sortby_type, user_post_sortby_dir, user_notify, user_notify_pm, user_notify_type, user_allow_pm, user_allow_viewonline, user_allow_viewemail, user_allow_massemail, user_options, user_avatar, user_avatar_type, user_avatar_width, user_avatar_height, user_sig, user_sig_bbcode_uid, user_sig_bbcode_bitfield, user_jabber, user_actkey, reset_token, reset_token_expiration, user_newpasswd, user_form_salt, user_new, user_reminded, user_reminded_time)
        //  VALUES ('','$phpbb_user_type','$w3all_add_into_spec_group','','0','','$wpur','$wpul','$wpunn','$wpup','0','$wpue','','0','0','0','index.php','','0','0','0','0','0','0','0','$wp_lang_x_phpbb','','d M Y H:i','1','0','$group_color','0','0','0','0','-3','0','0','t','d','0','t','a','0','1','0','1','1','1','1','230271','$uavatar','$avatype','50','50','','','','','','','0','','','$user_new','0','0')");
-       // only users db required fields insert (plus $board_timezone as user_timezone)
+       // only users db required fields insert
           $w3all_phpbb_connection->query("INSERT INTO ".$w3all_config["table_prefix"]."users (user_id, user_type, group_id, user_regdate, username, username_clean, user_password, user_email, user_lang, user_colour, user_avatar, user_avatar_type, user_new)
            VALUES ('','$phpbb_user_type','$w3all_add_into_spec_group','$wpur','$wpul','$wpunn','$wpup','$wpue','$wp_lang_x_phpbb','$group_color','$uavatar','$avatype','$user_new')");
       }
@@ -1553,7 +1543,6 @@ public static function phpbb_pass_update($user, $new_pass) {
      if(empty($wpu)){ return; }
 
      $phpbb_user_type = ( empty($wpu->roles) ) ? '1' : '0';
-     //self::w3all_phpbb_email_hash($wpu->user_email);
      $umeta = get_user_meta($user_id);
 
     if ( is_multisite() ) {
@@ -1576,7 +1565,7 @@ public static function phpbb_pass_update($user, $new_pass) {
 
      $username = esc_sql(mb_strtolower($old_user_data->user_login,'UTF-8'));
      $wpu->user_login = esc_sql(mb_strtolower($wpu->user_login,'UTF-8'));
-     $old_user_data->user_email = strtolower($old_user_data->user_email);
+     $old_user_data->user_email = $old_user_data_user_email = strtolower($old_user_data->user_email);
      $wpu->user_email = strtolower($wpu->user_email);
      $user_email = isset($new_email) ? $old_user_data->user_email : $wpu->user_email;
      // if all the above failed on detect that there is the email update and:
@@ -1587,8 +1576,7 @@ public static function phpbb_pass_update($user, $new_pass) {
 
    $w3all_user_email_hash = sprintf('%u', crc32(strtolower($wpu->user_email))) . strlen($wpu->user_email);
 
-   #$uid = $w3all_phpbb_connection->get_var("SELECT user_id FROM ".$w3all_config["table_prefix"]."users WHERE LOWER(user_email) = '$old_user_data->user_email'");
-   $phpbbug = $w3all_phpbb_connection->get_results("SELECT user_id, group_id FROM ".$w3all_config["table_prefix"]."users WHERE LOWER(user_email) = '$old_user_data->user_email'");
+   $phpbbug = $w3all_phpbb_connection->get_results("SELECT user_id, group_id FROM ".$w3all_config["table_prefix"]."users WHERE LOWER(user_email) = '$old_user_data_user_email'");
 
      if(empty($phpbbug[0])){ return; } // if the user (still?) do not exist
 
@@ -1669,38 +1657,44 @@ public static function phpbb_pass_update($user, $new_pass) {
               }
      }
 
-// prevent error on update profiles fields, if field's number mismatch by these default arrays ( phpBB 3.2 and 3.3 )
+  $phpbb_pf_cols = $w3all_phpbb_connection->get_results("SHOW COLUMNS FROM ". $w3all_config["table_prefix"] ."profile_fields_data");
+  $pfields = $pvals = '';
 
- if( $phpbb_version == '3.2' ){
-  $default_phpbb_pfn = array("phpbb_interests","phpbb_occupation","phpbb_location","phpbb_youtube","phpbb_icq","phpbb_skype","phpbb_twitter","phpbb_googleplus","phpbb_website","phpbb_yahoo","phpbb_aol","phpbb_facebook");
- } else {
-  $default_phpbb_pfn = array("phpbb_interests","phpbb_occupation","phpbb_facebook","phpbb_icq","phpbb_location","phpbb_skype","phpbb_twitter","phpbb_website","phpbb_yahoo","phpbb_youtube");
- }
-
-  $phpbb_pf_cols = $w3all_phpbb_connection->get_results("SELECT field_name FROM ". $w3all_config["table_prefix"] ."profile_fields");
-   if( count($phpbb_pf_cols) != count($default_phpbb_pfn) ){
-    $phpbb_mismatch_pf = true;
-   }
-   foreach($phpbb_pf_cols as $ppf_cols){
-    if( !in_array($ppf_cols->field_name, $default_phpbb_pfn) ){
-      // profile fields mismatch by this default phpBB profile fields array
-      $phpbb_mismatch_pf = true;
+  if(!empty($phpbb_pf_cols))
+  {
+   foreach($phpbb_pf_cols as $ppfc)
+   {
+    foreach($ppfc as $ppf_cols => $val)
+     {
+      // COLUMNS fields
+      if($ppf_cols == 'Field')
+      {
+       $pfields .= $val . ','; # build fields
+      // VALUES
+       if ($val == 'user_id')
+       { $pvals .= "'".$uid."',"; }
+       # here can be added any field update, in several convenient ways (strpos)
+        elseif ( $val == 'pf_phpbb_website' )
+       #elseif ( strpos($val, 'afield') !== false )
+        {
+          $fieldExist = true;
+          $pvals .= "'".$u_url."',";
+        }
+        else { $pvals   .= "'',"; }
+      }
+     }
     }
-  }
+      # update only if the field effectively exist so to avoid any possible error
+    if(isset($fieldExist))
+    {
+      $qtf = '('.substr($pfields, 0, -1).')';
+      $qtv = '('.substr($pvals, 0, -1).')';
 
-   if (! isset($phpbb_mismatch_pf) ){
-      if (!empty($u_url)){
-          if( $phpbb_version == '3.2' ){
-            $w3all_phpbb_connection->query("INSERT INTO ".$w3all_config["table_prefix"]."profile_fields_data (user_id, pf_phpbb_interests, pf_phpbb_occupation, pf_phpbb_location, pf_phpbb_youtube, pf_phpbb_icq, pf_phpbb_skype, pf_phpbb_twitter, pf_phpbb_googleplus, pf_phpbb_website, pf_phpbb_yahoo, pf_phpbb_aol, pf_phpbb_facebook)
-            VALUES ('$uid','','','','','','','','','$u_url','','','') ON DUPLICATE KEY UPDATE pf_phpbb_website = '$u_url'");
-           } else { // 3.3
-            $w3all_phpbb_connection->query("INSERT INTO ".$w3all_config["table_prefix"]."profile_fields_data (user_id, pf_phpbb_interests, pf_phpbb_occupation, pf_phpbb_facebook, pf_phpbb_icq, pf_phpbb_location, pf_phpbb_skype, pf_phpbb_twitter, pf_phpbb_website, pf_phpbb_yahoo, pf_phpbb_youtube)
-                   VALUES ('$uid','','','','','','','','$u_url','','') ON DUPLICATE KEY UPDATE pf_phpbb_website = '$u_url'");
-                  }
+      $w3all_phpbb_connection->query("INSERT INTO ".$w3all_config["table_prefix"]."profile_fields_data ".$qtf."
+      VALUES ".$qtv." ON DUPLICATE KEY UPDATE pf_phpbb_website = '$u_url'");
+     }
 
-
-       }
-   } // END phpBB < 3.3.0
+   } # END if(!empty($phpbb_pf_cols))
 
   define('WPW3ALL_UPROFILE_UPDATED',true);
 }

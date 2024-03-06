@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: phpbb, integration, template, user, login
-Stable tag: 2.7.9
+Stable tag: 2.8.0
 License: GPLv2 or later
 Requires at least: 6.0.0
 Tested up to: 6.5
@@ -19,7 +19,7 @@ Integration cookie based between WordPress and phpBB installed on same and subdo
 After the setup and initialization of the plugin, WP users will automatically be added into phpBB when they register in WordPress, while without using the phpBB extension installed into phpBB, if users are allowed to register in phpBB, they will be added into WordPress when they will visit the WordPress side as logged in or at their first login in WordPress (or install the phpBB extension to add users at same time into WordPress when they register in phpBB). But you could use the plugin just only to transfer users between phpBB and Wordpress by activating the plugin as not linked (read the help install page), or to show phpBB posts into a WordPress hosted into another domain
 
 = Widgets =
-* Login/logout widget (users can login/logout/register on either Wordpress or phpBB)
+* Login/logout widget (anyway users can login/logout/register on any Wordpress or phpBB login form)
 * Last Topic Posts widget(Links, Links and Text, With or Without Avatars), Read/Unread Topics/Posts
 
 = Auto Embed phpBB into WordPress Template =
@@ -72,6 +72,13 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.8.0 =
+*Release Date - 05 Mar, 2024*
+* Fix: All about profile fields in phpBB has been coded to be shorter and to fit any phpBB possible configuration
+* Fix: All queries about user's updates have been reviewed and fixed.
+* Fix: Remove unwanted pieces of code and fix some little discrepancy.
+* Logs: https://www.axew3.com/w3/forums/viewtopic.php?t=1854
 
 = 2.7.9 =
 *Release Date - 03 Mar, 2024*
