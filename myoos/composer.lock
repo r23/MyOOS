@@ -4934,12 +4934,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "83b3589bb774f27084c7f358c13f465d94afa036"
+                "reference": "bb15a6dc9a8493ace041a6de2929eb63ba0809ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/83b3589bb774f27084c7f358c13f465d94afa036",
-                "reference": "83b3589bb774f27084c7f358c13f465d94afa036",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/bb15a6dc9a8493ace041a6de2929eb63ba0809ef",
+                "reference": "bb15a6dc9a8493ace041a6de2929eb63ba0809ef",
                 "shasum": ""
             },
             "conflict": {
@@ -5383,7 +5383,7 @@
                 "react/http": ">=0.7,<1.9",
                 "really-simple-plugins/complianz-gdpr": "<6.4.2",
                 "redaxo/source": "<=5.15.1",
-                "remdex/livehelperchat": "<3.99",
+                "remdex/livehelperchat": "<4.29",
                 "reportico-web/reportico": "<=7.1.21",
                 "rhukster/dom-sanitizer": "<1.0.7",
                 "rmccue/requests": ">=1.6,<1.8",
@@ -5666,7 +5666,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-03-08T12:05:25+00:00"
+            "time": "2024-03-10T05:04:21+00:00"
         }
     ],
     "aliases": [],
