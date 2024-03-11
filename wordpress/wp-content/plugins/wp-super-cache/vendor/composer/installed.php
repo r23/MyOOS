@@ -3,7 +3,7 @@
         'name' => 'automattic/wp-super-cache',
         'pretty_version' => 'dev-trunk',
         'version' => 'dev-trunk',
-        'reference' => NULL,
+        'reference' => null,
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'automattic/jetpack-device-detection' => array(
-            'pretty_version' => 'v1.4.27',
-            'version' => '1.4.27.0',
-            'reference' => '5fa2add941f3a7933b34bc3f57b4649e887c3976',
+            'pretty_version' => 'v2.1.0',
+            'version' => '2.1.0.0',
+            'reference' => '2f9d771b5b3585d8692f8323f70108cee00723f8',
             'type' => 'jetpack-library',
             'install_path' => __DIR__ . '/../automattic/jetpack-device-detection',
             'aliases' => array(),
@@ -22,7 +22,7 @@
         'automattic/wp-super-cache' => array(
             'pretty_version' => 'dev-trunk',
             'version' => 'dev-trunk',
-            'reference' => NULL,
+            'reference' => null,
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -4,11 +4,11 @@
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-or-later",
 	"require": {
-		"automattic/jetpack-device-detection": "^1.4.27"
+		"automattic/jetpack-device-detection": "^2.1.0"
 	},
 	"require-dev": {
 		"yoast/phpunit-polyfills": "1.1.0",
-		"automattic/jetpack-changelogger": "^3.3.11"
+		"automattic/jetpack-changelogger": "^4.1.0"
 	},
 	"autoload": {
 		"classmap": [
@@ -43,6 +43,6 @@
 		"wp-svn-autopublish": true
 	},
 	"config": {
-		"autoloader-suffix": "6fe342bc02f0b440f7b3c8d8ade42286_super_cacheⓥ1_11_0"
+		"autoloader-suffix": "6fe342bc02f0b440f7b3c8d8ade42286_super_cacheⓥ1_12_0"
 	}
 }

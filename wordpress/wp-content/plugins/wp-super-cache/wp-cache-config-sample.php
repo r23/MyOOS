@@ -8,7 +8,6 @@ See wp-cache.php for author details.
 if ( ! defined('WPCACHEHOME') )
 	define( 'WPCACHEHOME', WP_PLUGIN_DIR . '/wp-super-cache/' );
 
-$cache_page_secret = 'dd25071dcddfeteetea2be043c3882';
 $cache_compression = 0; // Super cache compression
 $cache_enabled = false;
 $super_cache_enabled = true;
@@ -103,4 +102,4 @@ $wpsc_save_headers = 0;
 $cache_schedule_interval = 'daily';
 $wp_super_cache_comments = 1;
 $wpsc_version = 169;
-
+?>

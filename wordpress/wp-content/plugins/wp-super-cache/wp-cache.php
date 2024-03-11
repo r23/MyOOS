@@ -3,7 +3,7 @@
  * Plugin Name: WP Super Cache
  * Plugin URI: https://wordpress.org/plugins/wp-super-cache/
  * Description: Very fast caching plugin for WordPress.
- * Version: 1.11.0
+ * Version: 1.12.0
  * Author: Automattic
  * Author URI: https://automattic.com/
  * License: GPL2+
@@ -43,6 +43,27 @@ if ( ! defined( 'PHP_VERSION_ID' ) ) {
 	$wpsc_php_version = explode( '.', PHP_VERSION );
 	define( 'PHP_VERSION_ID', intval( $wpsc_php_version[0] * 10000 + $wpsc_php_version[1] * 100 + $wpsc_php_version[2] ) );
 	unset( $wpsc_php_version );
+}
+
+/**
+ * Defines how many posts to preload per loop.
+ */
+if ( ! defined( 'WPSC_PRELOAD_POST_COUNT' ) ) {
+	define( 'WPSC_PRELOAD_POST_COUNT', 10 );
+}
+
+/**
+ * Defines the interval in seconds between preloading pages.
+ */
+if ( ! defined( 'WPSC_PRELOAD_POST_INTERVAL' ) ) {
+	define( 'WPSC_PRELOAD_POST_INTERVAL', 1 );
+}
+
+/**
+ * Defines the interval in seconds between preloading loops.
+ */
+if ( ! defined( 'WPSC_PRELOAD_LOOP_INTERVAL' ) ) {
+	define( 'WPSC_PRELOAD_LOOP_INTERVAL', 0 );
 }
 
 function wpsc_init() {
@@ -317,7 +338,7 @@ function wpsc_is_boost_installed() {
 	$plugins = array_keys( get_plugins() );
 
 	foreach ( $plugins as $plugin ) {
-		if ( false !== strpos( $plugin, 'jetpack-boost.php' ) ) {
+		if ( str_contains( $plugin, 'jetpack-boost.php' ) ) {
 			return true;
 		}
 	}
@@ -593,20 +614,38 @@ function wp_cache_manager_error_checks() {
 	}
 
 	if ( ! $is_nginx && function_exists( "is_main_site" ) && true == is_main_site() ) {
-	if ( ! isset( $htaccess_path ) ) {
-		$home_path = trailingslashit( get_home_path() );
-	} else {
-		$home_path = $htaccess_path;
-	}
-	$scrules = implode( "\n", extract_from_markers( $home_path.'.htaccess', 'WPSuperCache' ) );
-	if ( $cache_enabled && $wp_cache_mod_rewrite && !$wp_cache_mobile_enabled && strpos( $scrules, addcslashes( str_replace( ', ', '|', $wp_cache_mobile_browsers ), ' ' ) ) ) {
-		echo '<div class="notice notice-warning"><h4>' . __( 'Mobile rewrite rules detected', 'wp-super-cache' ) . "</h4>";
-		echo "<p>" . __( 'For best performance you should enable "Mobile device support" or delete the mobile rewrite rules in your .htaccess. Look for the 2 lines with the text "2.0\ MMP|240x320" and delete those.', 'wp-super-cache' ) . "</p><p>" . __( 'This will have no affect on ordinary users but mobile users will see uncached pages.', 'wp-super-cache' ) . "</p></div>";
-	} elseif ( $wp_cache_mod_rewrite && $cache_enabled && $wp_cache_mobile_enabled && $scrules != '' && (
-		( '' != $wp_cache_mobile_prefixes && false === strpos( $scrules, addcslashes( str_replace( ', ', '|', $wp_cache_mobile_prefixes ), ' ' ) ) ) ||
-		( '' != $wp_cache_mobile_browsers && false === strpos( $scrules, addcslashes( str_replace( ', ', '|', $wp_cache_mobile_browsers ), ' ' ) ) ) )
+		if ( ! isset( $htaccess_path ) ) {
+			$home_path = trailingslashit( get_home_path() );
+		} else {
+			$home_path = $htaccess_path;
+		}
+
+		$scrules = implode( "\n", extract_from_markers( $home_path . '.htaccess', 'WPSuperCache' ) );
+		if (
+			$cache_enabled
+			&& $wp_cache_mod_rewrite
+			&& ! $wp_cache_mobile_enabled
+			&& strpos( $scrules, addcslashes( str_replace( ', ', '|', $wp_cache_mobile_browsers ), ' ' ) )
 		) {
-		?>
+			echo '<div class="notice notice-warning"><h4>' . esc_html__( 'Mobile rewrite rules detected', 'wp-super-cache' ) . '</h4>';
+			echo '<p>' . esc_html__( 'For best performance you should enable "Mobile device support" or delete the mobile rewrite rules in your .htaccess. Look for the 2 lines with the text "2.0\ MMP|240x320" and delete those.', 'wp-super-cache' ) . '</p><p>' . esc_html__( 'This will have no affect on ordinary users but mobile users will see uncached pages.', 'wp-super-cache' ) . '</p></div>';
+		} elseif (
+			$wp_cache_mod_rewrite
+			&& $cache_enabled
+			&& $wp_cache_mobile_enabled
+			&& $scrules != '' // phpcs:ignore Universal.Operators.StrictComparisons.LooseNotEqual
+			&& (
+				(
+					'' != $wp_cache_mobile_prefixes // phpcs:ignore Universal.Operators.StrictComparisons.LooseNotEqual
+					&& ! str_contains( $scrules, addcslashes( str_replace( ', ', '|', $wp_cache_mobile_prefixes ), ' ' ) )
+				)
+				|| (
+					'' != $wp_cache_mobile_browsers // phpcs:ignore Universal.Operators.StrictComparisons.LooseNotEqual
+					&& ! str_contains( $scrules, addcslashes( str_replace( ', ', '|', $wp_cache_mobile_browsers ), ' ' ) )
+				)
+			)
+		) {
+			?>
 			<div class="notice notice-warning"><h4><?php _e( 'Rewrite rules must be updated', 'wp-super-cache' ); ?></h4>
 			<p><?php _e( 'The rewrite rules required by this plugin have changed or are missing. ', 'wp-super-cache' ); ?>
 			<?php _e( 'Mobile support requires extra rules in your .htaccess file, or you can set the plugin to simple mode. Here are your options (in order of difficulty):', 'wp-super-cache' ); ?>
@@ -615,13 +654,20 @@ function wp_cache_manager_error_checks() {
 			<li> <?php printf( __( 'Delete the plugin mod_rewrite rules in %s.htaccess enclosed by <code># BEGIN WPSuperCache</code> and <code># END WPSuperCache</code> and let the plugin regenerate them by reloading this page.', 'wp-super-cache' ), $home_path ); ?></li>
 			<li> <?php printf( __( 'Add the rules yourself. Edit %s.htaccess and find the block of code enclosed by the lines <code># BEGIN WPSuperCache</code> and <code># END WPSuperCache</code>. There are two sections that look very similar. Just below the line <code>%%{HTTP:Cookie} !^.*(comment_author_|%s|wp-postpass_).*$</code> add these lines: (do it twice, once for each section)', 'wp-super-cache' ), $home_path, wpsc_get_logged_in_cookie() ); ?></p>
 			<div style='padding: 2px; margin: 2px; border: 1px solid #333; width:400px; overflow: scroll'><pre><?php echo "RewriteCond %{HTTP_user_agent} !^.*(" . addcslashes( str_replace( ', ', '|', $wp_cache_mobile_browsers ), ' ' ) . ").*\nRewriteCond %{HTTP_user_agent} !^(" . addcslashes( str_replace( ', ', '|', $wp_cache_mobile_prefixes ), ' ' ) . ").*"; ?></pre></div></li></ol></div><?php
-	}
+		}
 
-	if ( $cache_enabled && $super_cache_enabled && $wp_cache_mod_rewrite && $scrules == '' ) {
-		?><div class='notice notice-warning'><h4><?php _e( 'Rewrite rules must be updated', 'wp-super-cache' ); ?></h4>
-		<p><?php _e( 'The rewrite rules required by this plugin have changed or are missing. ', 'wp-super-cache' ); ?>
-		<?php _e( 'Scroll down the Advanced Settings page and click the <strong>Update Mod_Rewrite Rules</strong> button.', 'wp-super-cache' ); ?></p></div><?php
-	}
+		if (
+			$cache_enabled
+			&& $super_cache_enabled
+			&& $wp_cache_mod_rewrite
+			&& $scrules == '' // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual
+		) {
+			?>
+			<div class='notice notice-warning'><h4><?php esc_html_e( 'Rewrite rules must be updated', 'wp-super-cache' ); ?></h4>
+			<p><?php esc_html_e( 'The rewrite rules required by this plugin have changed or are missing. ', 'wp-super-cache' ); ?>
+			<?php esc_html_e( 'Scroll down the Advanced Settings page and click the <strong>Update Mod_Rewrite Rules</strong> button.', 'wp-super-cache' ); ?></p></div>
+			<?php
+		}
 	}
 
 	if ( ! $is_nginx && $wp_cache_mod_rewrite && $super_cache_enabled && function_exists( 'apache_get_modules' ) ) {
@@ -1267,14 +1313,15 @@ table.wpsc-settings-table {
 	</td><td valign='top' style='width: 300px'>
 	<!-- TODO: Hide #wpsc-callout from all pages except the Easy tab -->
 	<div class="wpsc-card" id="wpsc-callout">
-	<h4><?php _e( 'Other Site Tools', 'wp-super-cache' ); ?></h4>
+	<?php if ( ! empty( $wpsc_promo_links ) && is_array( $wpsc_promo_links ) ) : ?>
+	<h4><?php esc_html_e( 'Other Site Tools', 'wp-super-cache' ); ?></h4>
 	<ul style="list-style: square; margin-left: 2em;">
-
-	<li><a href="<?php echo esc_url( $wpsc_promo_links['boost'] ); ?>"><?php esc_html_e( 'Boost your page speed scores', 'wp-super-cache' ); ?></a></li>
-	<li><a href="<?php echo esc_url( $wpsc_promo_links['photon'] ); ?>"><?php esc_html_e( 'Speed up images and photos (free)', 'wp-super-cache' ); ?></a></li>
-	<li><a href="<?php echo esc_url( $wpsc_promo_links['videopress'] ); ?>"><?php esc_html_e( 'Fast video hosting (paid)', 'wp-super-cache' ); ?></a></li>
-	<li><a href="<?php echo esc_url( $wpsc_promo_links['crowdsignal'] ); ?>"><?php esc_html_e( 'Add Surveys and Polls to your site', 'wp-super-cache' ); ?></a></li>
+		<li><a href="<?php echo esc_url( $wpsc_promo_links['boost'] ); ?>"><?php esc_html_e( 'Boost your page speed scores', 'wp-super-cache' ); ?></a></li>
+		<li><a href="<?php echo esc_url( $wpsc_promo_links['photon'] ); ?>"><?php esc_html_e( 'Speed up images and photos (free)', 'wp-super-cache' ); ?></a></li>
+		<li><a href="<?php echo esc_url( $wpsc_promo_links['videopress'] ); ?>"><?php esc_html_e( 'Fast video hosting (paid)', 'wp-super-cache' ); ?></a></li>
+		<li><a href="<?php echo esc_url( $wpsc_promo_links['crowdsignal'] ); ?>"><?php esc_html_e( 'Add Surveys and Polls to your site', 'wp-super-cache' ); ?></a></li>
 	</ul>
+	<?php endif; ?>
 	<h4><?php _e( 'Need Help?', 'wp-super-cache' ); ?></h4>
 	<ol>
 	<li><?php printf( __( 'Use the <a href="%1$s">Debug tab</a> for diagnostics.', 'wp-super-cache' ), admin_url( 'options-general.php?page=wpsupercache&tab=debug' ) ); ?></li>
@@ -2158,7 +2205,7 @@ function wp_cache_verify_config_file() {
 
 	if ( file_exists($wp_cache_config_file) ) {
 		$lines = implode( ' ', file( $wp_cache_config_file ) );
-		if( strpos( $lines, 'WPCACHEHOME' ) === false ) {
+		if ( ! str_contains( $lines, 'WPCACHEHOME' ) ) {
 			if( is_writeable_ACLSafe( $wp_cache_config_file ) ) {
 				@unlink( $wp_cache_config_file );
 			} else {
@@ -2263,22 +2310,33 @@ function wp_cache_create_advanced_cache() {
 function wpsc_check_advanced_cache() {
 	global $wpsc_advanced_cache_filename;
 
-	$ret = true;
+	$ret                  = false;
 	$other_advanced_cache = false;
 	if ( file_exists( $wpsc_advanced_cache_filename ) ) {
 		$file = file_get_contents( $wpsc_advanced_cache_filename );
 		if ( strpos( $file, "WP SUPER CACHE 0.8.9.1" ) || strpos( $file, "WP SUPER CACHE 1.2" ) ) {
 			return true;
+		} elseif ( strpos( $file, 'Boost Cache Plugin' ) !== false ) {
+			$other_advanced_cache = 'BOOST';
 		} else {
 			$other_advanced_cache = true;
-			$ret = wp_cache_create_advanced_cache();
 		}
 	} else {
 		$ret = wp_cache_create_advanced_cache();
 	}
 
 	if ( false == $ret ) {
-		if ( $other_advanced_cache ) {
+		if ( $other_advanced_cache === 'BOOST' ) {
+			echo '<div style="width: 50%" class="notice notice-error"><h2>' . esc_html__( 'Warning! Jetpack Boost Cache Detected', 'wp-super-cache' ) . '</h2>';
+			// translators: %s is the filename of the advanced-cache.php file
+			echo '<p>' . sprintf( esc_html__( 'The file %s was created by the Jetpack Boost plugin.', 'wp-super-cache' ), esc_html( $wpsc_advanced_cache_filename ) ) . '</p>';
+			echo '<p>' . esc_html__( 'You can use Jetpack Boost and WP Super Cache at the same time but only if the Cache Site Pages module in Boost is disabled. To use WP Super Cache for caching:', 'wp-super-cache' ) . '</p>';
+			// translators: %s is a html link to the plugins page
+			echo '<ol><li>' . sprintf( esc_html__( 'Deactivate Jetpack Boost on the %s page.', 'wp-super-cache' ), '<a href="' . esc_url( admin_url( 'plugins.php' ) ) . '">' . esc_html__( 'Plugins', 'wp-super-cache' ) . '</a>' ) . '</li>';
+			echo '<li>' . esc_html__( 'Reload this page to configure WP Super Cache.', 'wp-super-cache' ) . '</li>';
+			echo '<li>' . esc_html__( 'Activate the Jetpack Boost plugin again.', 'wp-super-cache' ) . '</li>';
+			echo '</ol>';
+		} elseif ( $other_advanced_cache ) {
 			echo '<div style="width: 50%" class="notice notice-error"><h2>' . __( 'Warning! You may not be allowed to use this plugin on your site.', 'wp-super-cache' ) . "</h2>";
 			echo '<p>' .
 				sprintf(
@@ -2460,7 +2518,10 @@ function wp_cache_files() {
 			}
 		}
 		while( false !== ( $file = readdir( $handle ) ) ) {
-			if ( strpos( $file, $file_prefix ) !== false && substr( $file, -4 ) == '.php' ) {
+			if ( // phpcs:ignore Generic.WhiteSpace.ScopeIndent.IncorrectExact
+				str_contains( $file, $file_prefix )
+				&& substr( $file, -4 ) == '.php' // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual
+			) { // phpcs:ignore Generic.WhiteSpace.ScopeIndent.Incorrect
 				if ( false == file_exists( $blog_cache_dir . 'meta/' . $file ) ) {
 					@unlink( $blog_cache_dir . $file );
 					continue; // meta does not exist
@@ -2743,7 +2804,7 @@ function wp_cache_clean_legacy_files( $dir, $file_prefix ) {
 				continue;
 			}
 
-			if ( strpos( $file, $file_prefix ) !== false ) {
+			if ( str_contains( $file, $file_prefix ) ) {
 				if ( strpos( $file, '.html' ) ) {
 					// delete old WPCache files immediately
 					@unlink( $dir . $file);
@@ -2786,7 +2847,7 @@ function wp_cache_clean_expired($file_prefix) {
 	$now = time();
 	if ( $handle = @opendir( $blog_cache_dir ) ) {
 		while ( false !== ( $file = readdir( $handle ) ) ) {
-			if ( strpos( $file, $file_prefix ) !== false ) {
+			if ( str_contains( $file, $file_prefix ) ) {
 				if ( strpos( $file, '.html' ) ) {
 					@unlink( $blog_cache_dir . $file);
 					@unlink( $blog_cache_dir . 'meta/' . str_replace( '.html', '.meta', $file ) );
@@ -2915,7 +2976,10 @@ function wp_cache_check_site() {
 		}
 
 		// Check for broken front page
-		if ( isset( $wp_super_cache_front_page_text ) && $wp_super_cache_front_page_text != '' && false === strpos( $front_page[ 'body' ], $wp_super_cache_front_page_text ) ) {
+		if (
+			! empty( $wp_super_cache_front_page_text )
+			&& ! str_contains( $front_page['body'], $wp_super_cache_front_page_text )
+		) {
 			if ( !isset( $wp_super_cache_front_page_clear ) || ( isset( $wp_super_cache_front_page_clear ) && $wp_super_cache_front_page_clear == 0 ) ) {
 				wp_mail( get_option( 'admin_email' ), sprintf( __( '[%s] Front page is not correct! Please clear cache!', 'wp-super-cache' ), home_url() ), sprintf( __( 'Please visit %1$s to clear the cache as the front page of your site is not correct and missing the text, "%2$s"!', 'wp-super-cache' ), admin_url( 'options-general.php?page=wpsupercache' ), $wp_super_cache_front_page_text ) );
 			} else {
@@ -3427,7 +3491,7 @@ function wp_cron_preload_cache() {
 						)
 					);
 					wp_cache_debug( "wp_cron_preload_cache: fetched $url" );
-					sleep( 1 );
+					sleep( WPSC_PRELOAD_POST_INTERVAL );
 
 					if ( ! wpsc_is_preload_active() ) {
 						wp_cache_debug( 'wp_cron_preload_cache: cancelling preload process.' );
@@ -3462,6 +3526,7 @@ function wp_cron_preload_cache() {
 
 		if ( $preload_more_taxonomies === true ) {
 			wpsc_schedule_next_preload();
+			sleep( WPSC_PRELOAD_LOOP_INTERVAL );
 			return true;
 		}
 	} elseif ( $c === 0 && $wp_cache_preload_email_me ) {
@@ -3551,7 +3616,7 @@ function wp_cron_preload_cache() {
 			wp_remote_get( $url, array('timeout' => 60, 'blocking' => true ) );
 			wp_cache_debug( "wp_cron_preload_cache: fetched $url", 5 );
 			++$count;
-			sleep( 1 );
+			sleep( WPSC_PRELOAD_POST_INTERVAL );
 		}
 
 		if ( $wp_cache_preload_email_me && ( $wp_cache_preload_email_volume === 'medium' || $wp_cache_preload_email_volume === 'many' ) ) {
@@ -3560,8 +3625,8 @@ function wp_cron_preload_cache() {
 		}
 
 		wpsc_schedule_next_preload();
-
 		wpsc_delete_files( get_supercache_dir() );
+		sleep( WPSC_PRELOAD_LOOP_INTERVAL );
 	} else {
 		$msg = '';
 		wpsc_reset_preload_counter();
@@ -3633,27 +3698,11 @@ add_filter( 'option_preload_cache_counter', 'option_preload_cache_counter' );
 
 function check_up_on_preloading() {
 	$value = get_option( 'preload_cache_counter' );
-	if ( is_array( $value ) && $value[ 'c' ] > 0 && ( time() - $value[ 't' ] ) > 3600 && false == wp_next_scheduled( 'wp_cache_preload_hook' ) ) {
-		if ( is_admin() ) {
-			if ( get_option( 'wpsc_preload_restart_email' ) < ( time() - 86400 ) ) {
-				wp_mail( get_option( 'admin_email' ), sprintf( __( '[%s] Preload may have stalled.', 'wp-super-cache' ), get_bloginfo( 'url' ) ), sprintf( __( "Preload has been restarted.\n%s", 'wp-super-cache' ), admin_url( "options-general.php?page=wpsupercache" ) ) );
-				update_option( 'wpsc_preload_restart_email', time() );
-			}
-			add_action( 'admin_notices', 'wpsc_preload_restart_notice' );
-		}
-		wp_schedule_single_event( time() + 30, 'wp_cache_preload_hook' );
+	if ( is_array( $value ) && $value['c'] > 0 && ( time() - $value['t'] ) > 3600 && false === wp_next_scheduled( 'wp_cache_preload_hook' ) ) {
+		wp_schedule_single_event( time() + 5, 'wp_cache_preload_hook' );
 	}
 }
 add_action( 'init', 'check_up_on_preloading' ); // sometimes preloading stops working. Kickstart it.
-
-function wpsc_preload_restart_notice() {
-
-	if ( false == wpsupercache_site_admin() )
-		return false;
-	if ( ! isset( $_GET[ 'page' ] ) || $_GET[ 'page' ] != 'wpsupercache' )
-		return false;
-	echo '<div class="notice notice-error"><p>' . __( 'Warning! WP Super Cache preload was interrupted but has been restarted.', 'wp-super-cache' ) . '</p></div>';
-}
 
 function wp_cache_disable_plugin( $delete_config_file = true ) {
 	global $wp_rewrite;
@@ -4312,7 +4361,7 @@ add_action( 'admin_init', 'wpsc_update_check' );
  * @param array  $page_vars - Variables made available for the template.
  */
 function wpsc_render_partial( $partial, array $page_vars = array() ) {
-	if ( substr( $partial, -4 ) !== '.php' ) {
+	if ( ! str_ends_with( $partial, '.php' ) ) {
 		$partial .= '.php';
 	}
 
@@ -4355,7 +4404,7 @@ function wpsc_render_footer() {
 			<span class="wpsc-name"><?php echo esc_html( 'WP Super Cache' ); ?></span>
 		</div>
 		<div class="automattic-airline">
-			<img class="wpsc-icon" src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . '/assets/automattic-airline.png' ); ?>" />
+			<img class="wpsc-icon" src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . '/assets/automattic-airline.svg' ); ?>" />
 		</div>
 	</div>
 	<?php
