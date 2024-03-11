@@ -354,31 +354,19 @@ dosql($table, $flds);
 
 								foreach ($aProducts[$products_id]['attributes'] as $option => $value) {
 									$products_attributestable = $oostable['products_attributes'];
-									$attribute_price_sql = "SELECT options_values_price
+									$attribute_price_sql = "SELECT options_values_model, options_values_image, options_values_base_price,
+																	products_product_quantity, options_values_base_quantity, options_values_base_unit,	
+																	options_values_price, price_prefix, options_sort_order
 															FROM $products_attributestable
 															WHERE products_id = '" . intval($products_id) . "'
 															AND options_id = '" . intval($option) . "'
-															AND options_values_id = '" . intval($value) . "'";
-									$attribute_price = $dbconn->GetRow($attribute_price_sql);
-									$products_price = $attribute_price['options_values_price'];
+															AND options_values_id = '" . intval($value) . "'
+															AND pa.options_values_status = 1";
+									$attribute = $dbconn->GetRow($attribute_price_sql);
+									$products_price = $attribute['options_values_price'];
 								}
 							}
-##
-					$products_options_sql = "SELECT pov.products_options_values_id, pov.products_options_values_name,
-											pa.options_values_model, pa.options_values_image, pa.options_values_base_price,
-											pa.products_product_quantity, pa.options_values_base_quantity, pa.options_values_base_unit,	
-                                            pa.options_values_price, pa.price_prefix, pa.options_sort_order
-                                     FROM $products_attributestable pa,
-                                          $products_options_valuestable pov
-                                     WHERE pa.products_id = '" . intval($nProductsId) . "' 
-                                       AND pa.options_id = '" . $products_options_name['products_options_id'] . "' 
-									   AND pa.options_values_status = 1
-                                       AND pa.options_values_id = pov.products_options_values_id 
-                                       AND pov.products_options_values_languages_id = '" . intval($nLanguageID) . "'  
-                                    " . $options_sort_by;
-					$products_options_result = $dbconn->Execute($products_options_sql);
 
-##
 							$final_price = $currencies->display_price($products_price, oos_get_tax_rate($products['products_tax_class_id']));
 
 							if ($products['products_base_price'] != 1) {
@@ -389,10 +377,11 @@ echo '<pre>';
 print_r($products_units);
 echo '</pre>';
 
+/*
 							<span class="units-desc">{$featur.product_quantity|cut_number}&nbsp;{$products_units[$featur.products_units].0}</span>
 							<span class="base_price">({$products_units[$featur.products_units].1} = {$featur.featured_base_product_price})</span>
 
-/*
+
 
 				$final_price = $products_price;
 
