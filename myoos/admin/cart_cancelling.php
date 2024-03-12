@@ -308,8 +308,11 @@ dosql($table, $flds);
  
 					reset($aProducts);
 					foreach (array_keys($aProducts) as $products_id) {
+						
 						$product_price = '';
-						$base_product_price = '';				
+						$products_base_price = '';
+						$base_product_price = '';
+						$unit_id = '';					
 						$nQuantity = $aProducts[$products_id]['qty'];
 
 						$productstable = $oostable['products'];
@@ -327,6 +330,10 @@ dosql($table, $flds);
 						$products_result = $dbconn->Execute($sql);
 				
 						if ($products = $products_result->fields) {
+							
+echo '<pre>';
+print_r($products);
+echo '</pre>';					
 							$prid = $products['products_id'];
 							if ($aGroup['qty_discounts'] == 1) {
 								$products_price = products_price_actual($prid, $products['products_price'], $nQuantity);
@@ -334,7 +341,9 @@ dosql($table, $flds);
 								$products_price = $products['products_price'];
 							}
 
-
+							$products_base_price = $products['products_base_price'];
+							$unit_id = $products['products_units_id'];
+							
 							$until = '';
 							$specialstable = $oostable['specials'];
 							$sql = "SELECT specials_new_products_price, specials_cross_out_price, expires_date
@@ -355,8 +364,8 @@ dosql($table, $flds);
 								foreach ($aProducts[$products_id]['attributes'] as $option => $value) {
 									$products_attributestable = $oostable['products_attributes'];
 									$attribute_price_sql = "SELECT options_values_model, options_values_image, options_values_base_price,
-																	products_product_quantity, options_values_base_quantity, options_values_base_unit,	
-																	options_values_price, price_prefix, options_sort_order
+																  options_values_base_quantity,  options_values_units_id,	
+																  options_values_price, price_prefix, options_sort_order
 															FROM $products_attributestable
 															WHERE products_id = '" . intval($products_id) . "'
 															AND options_id = '" . intval($option) . "'
@@ -364,17 +373,27 @@ dosql($table, $flds);
 															AND pa.options_values_status = 1";
 									$attribute = $dbconn->GetRow($attribute_price_sql);
 									$products_price = $attribute['options_values_price'];
+									$products_base_price = $attribute['options_values_base_price'];
+									$unit_id = $attribute['options_values_units_id'];
 								}
 							}
 
 							$final_price = $currencies->display_price($products_price, oos_get_tax_rate($products['products_tax_class_id']));
 
-							if ($products['products_base_price'] != 1) {
-								$base_product_price = $currencies->display_price($products_price * $products['products_base_price'], oos_get_tax_rate($products['products_tax_class_id']));
+							if ($products_base_price != 1) {
+								$base_product_price = $currencies->display_price($products_price * $products_base_price, oos_get_tax_rate($products['products_tax_class_id']));
 							}
 
+
+echo '$products_base_price ';
+echo $products_base_price;
+echo '<br>';
+echo 'unit_id ';
+echo $unit_id;
+echo '<br>';
+
 echo '<pre>';
-print_r($products_units);
+print_r($products_units[$unit_id]);
 echo '</pre>';
 
 /*
