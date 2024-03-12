@@ -1,11 +1,11 @@
 === Contact Form 7 ===
 Contributors: takayukister
 Donate link: https://contactform7.com/donate/
-Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
+Tags: contact form, schema-woven validation
 Requires at least: 6.3
 Requires PHP: 7.4
-Tested up to: 6.4
-Stable tag: 5.9
+Tested up to: 6.5
+Stable tag: 5.9.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,10 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 == Changelog ==
 
 For more information, see [Releases](https://contactform7.com/category/releases/).
+
+= 5.9.2 =
+
+[https://contactform7.com/contact-form-7-592/](https://contactform7.com/contact-form-7-592/)
 
 = 5.9 =
 
