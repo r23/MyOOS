@@ -115,6 +115,31 @@ function products_price_actual($product_id, $actual_price, $products_qty)
 	return $new_price;
 }
 
+/**
+ * This function converts 0.7500 to 0.75 by first formatting the number and then removing 
+ * unnecessary zeros and the last decimal point if there are no decimal places.
+ *
+ * @param  $current_category_id
+ * @return string
+ */
+function formatted_quantity($quantity)
+{
+
+	// First convert the number to the desired format with a decimal point as the decimal character
+	$formatted_quantity = number_format($quantity, 4, ',', '');
+
+	// Then remove the unused zeros at the end
+	$trimmed_quantity = rtrim($formatted_quantity, '0');
+
+	// Remove the dot at the end if it is present
+	$trimmed_quantity = rtrim($trimmed_quantity, ',');
+
+	return $trimmed_quantity; 
+}
+
+
+
+
 
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_string_polyfill(filter_input(INPUT_GET, 'action')) ?: 'default';
@@ -152,9 +177,10 @@ switch ($action) {
 		$indent = "\t";
 
         $schema = '';
-        $schema .= 'Firma ' . $indent . ' Name ' . $indent . ' Straße ' . $indent . ' PLZ ' . $indent . ' Ort ' . $indent . ' Land ' . $indent . ' Warenborbdatum ' . $indent;
-		$schema .= ' Produktname ' . $indent . ' Menge ' . $indent . ' Einzelpreis ' . $indent . ' Gültig bis ' . $indent . ' Grundpreis ' . $indent . ' Basismenge ' . $indent . ' Produkteinheit ' . $indent;
-		$schema .= ' Produktname2 ' . $indent . ' Menge2 ' . $indent . ' Einzelpreis2 ' . $indent . ' Gültig bis2 ' . $indent . ' Grundpreis2 ' . $indent . ' Basismenge2 ' . $indent . ' Produkteinheit2 ' . $indent;
+        $schema .= 'Firma ' . $indent . ' Name ' . $indent . ' Straße ' . $indent . ' PLZ ' . $indent . ' Ort ' . $indent . ' Land ' . $indent . ' Warenborbdatum ' . $indent;	
+		$schema .= ' Produktname ' . $indent . ' Menge ' . $indent . ' Einzelpreis ' . $indent . ' Gültig bis ' . $indent . ' Inhalt ' . $indent . ' Grundpreis ' . $indent;
+		$schema .= ' Produktname2 ' . $indent . ' Menge2 ' . $indent . ' Einzelpreis2 ' . $indent . ' Gültig bis2 ' . $indent . ' Inhalt2 ' . $indent . ' Grundpreis2 ' . $indent;		
+		
 
         $nLanguageID = intval($_SESSION['language_id'] ?? DEFAULT_LANGUAGE_ID);
 
@@ -312,8 +338,11 @@ dosql($table, $flds);
 						$product_price = '';
 						$products_base_price = '';
 						$base_product_price = '';
-						$unit_id = '';					
-						$nQuantity = $aProducts[$products_id]['qty'];
+						$product_quantity = '';
+						$unit_id = '';
+						$content = '';
+						$base_price = '';
+ 						$nQuantity = $aProducts[$products_id]['qty'];
 
 						$productstable = $oostable['products'];
 						$products_descriptiontable = $oostable['products_description'];
@@ -343,6 +372,7 @@ echo '</pre>';
 
 							$products_base_price = $products['products_base_price'];
 							$unit_id = $products['products_units_id'];
+							$product_quantity = $products['products_product_quantity'];
 							
 							$until = '';
 							$specialstable = $oostable['specials'];
@@ -365,16 +395,17 @@ echo '</pre>';
 									$products_attributestable = $oostable['products_attributes'];
 									$attribute_price_sql = "SELECT options_values_model, options_values_image, options_values_base_price,
 																  options_values_base_quantity,  options_values_units_id,	
-																  options_values_price, price_prefix, options_sort_order
+																  options_values_price, options_sort_order
 															FROM $products_attributestable
 															WHERE products_id = '" . intval($products_id) . "'
 															AND options_id = '" . intval($option) . "'
 															AND options_values_id = '" . intval($value) . "'
-															AND pa.options_values_status = 1";
+															AND options_values_status = 1";
 									$attribute = $dbconn->GetRow($attribute_price_sql);
 									$products_price = $attribute['options_values_price'];
 									$products_base_price = $attribute['options_values_base_price'];
 									$unit_id = $attribute['options_values_units_id'];
+									$product_quantity = $attribute['options_values_base_quantity'];
 								}
 							}
 
@@ -382,78 +413,17 @@ echo '</pre>';
 
 							if ($products_base_price != 1) {
 								$base_product_price = $currencies->display_price($products_price * $products_base_price, oos_get_tax_rate($products['products_tax_class_id']));
+								$content = formatted_quantity($product_quantity) . ' ' . $products_units[$unit_id][0];
+								$base_price = $products_units[$unit_id][1] . ' = ' . $base_product_price;
 							}
 
 
-echo '$products_base_price ';
-echo $products_base_price;
-echo '<br>';
-echo 'unit_id ';
-echo $unit_id;
-echo '<br>';
-
-echo '<pre>';
-print_r($products_units[$unit_id]);
-echo '</pre>';
-
-/*
-							<span class="units-desc">{$featur.product_quantity|cut_number}&nbsp;{$products_units[$featur.products_units].0}</span>
-							<span class="base_price">({$products_units[$featur.products_units].1} = {$featur.featured_base_product_price})</span>
-
-
-
-				$final_price = $products_price;
-
-                $base_product_price = null;
-                $products_product_quantity = null;
-                $cart_base_product_price = null;
-
-
-                if ($products['products_base_price'] != 1) {
-                    $base_product_price = $products_price;
-                    $products_product_quantity = $products['products_product_quantity'];
-                    $cart_base_product_price = $currencies->display_price($base_product_price * $products['products_base_price'], oos_get_tax_rate($products['products_tax_class_id']));
-                }
-
-
-                $aProducts[] = ['id' => $products_id,
-                                'name' => $products['products_name'],
-                                'essential_characteristics' => $products['products_essential_characteristics'],
-                                'model' => $model,
-                                'image' => $image,
-                                'ean' => $products['products_ean'],
-                                'products_quantity_order_min' => $products['products_quantity_order_min'],
-                                'products_quantity_order_max' => $products['products_quantity_order_max'],
-                                'products_quantity_order_units' => $products['products_quantity_order_units'],
-                                'price' => $products_price,
-                                'spezial' => $bSpezialPrice,
-                                'quantity' => $aProducts[$products_id]['qty'],
-                                'stock' => $products['products_quantity'],
-                                'weight' => $products['products_weight'],
-                                'final_price' => $final_price,
-                                'tax_class_id' => $products['products_tax_class_id'],
-                                'products_base_price' => $products['products_base_price'],
-                                'base_product_price' => $cart_base_product_price,
-                                'products_product_quantity' => $products_product_quantity,
-                                'products_units_id' => $products['products_units_id'],
-                                'attributes' => ($aProducts[$products_id]['attributes'] ?? ''),
-                                'attributes_values' => ($aProducts[$products_id]['attributes_values'] ?? ''),
-                                'old_electrical_equipment' => $products['products_old_electrical_equipment'],
-                                'return_free_of_charge' => ($aProducts[$products_id]['return_free_of_charge'] ?? ''),
-                                'towlid' => $aProducts[$products_id]['towlid']];
-            }
- */
-
-# $schema .= ' Produktname ' . $indent . ' Menge ' . $indent . ' Einzelpreis ' . $indent . ' Gültig bis ' . $indent . ' Grundpreis ' . $indent . ' Basismenge ' . $indent . ' Produkteinheit ' . $indent;
-
-$schema .= $products['products_name'] . $indent . $nQuantity . $indent . $final_price . $indent . $until . $indent . $base_product_price . $indent;
-
+							# $schema .= ' Produktname ' . $indent . ' Menge ' . $indent . ' Einzelpreis ' . $indent . ' Gültig bis ' . $indent . ' Inhalt ' . $indent . ' Grundpreis ' . $indent;
+							$schema .= $products['products_name'] . $indent . $nQuantity . $indent . $final_price . $indent . $until . $indent . $content . $indent . $base_price . $indent;
 
 
 							// Move that ADOdb pointer!
-							$products_result->MoveNext();
- 
- 
+							$products_result->MoveNext(); 
 						}	
 					}
 					
