@@ -180,7 +180,7 @@ switch ($action) {
         $schema .= 'Firma ' . $indent . ' Name ' . $indent . ' Straße ' . $indent . ' PLZ ' . $indent . ' Ort ' . $indent . ' Land ' . $indent . ' Warenborbdatum ' . $indent;	
 		$schema .= ' Produktname ' . $indent . ' Menge ' . $indent . ' Einzelpreis ' . $indent . ' Gültig bis ' . $indent . ' Inhalt ' . $indent . ' Grundpreis ' . $indent;
 		$schema .= ' Produktname2 ' . $indent . ' Menge2 ' . $indent . ' Einzelpreis2 ' . $indent . ' Gültig bis2 ' . $indent . ' Inhalt2 ' . $indent . ' Grundpreis2 ' . $indent;		
-		
+		$schema .= "\n";		
 
         $nLanguageID = intval($_SESSION['language_id'] ?? DEFAULT_LANGUAGE_ID);
 
@@ -281,7 +281,7 @@ dosql($table, $flds);
 					while ($products = $products_result->fields) {
 						$rows++;
 
-						if ($rows >= 2) {
+						if ($rows >= 3) {
 							break; // ends the loop
 						}						
 						$aProducts[$products['products_id']] = ['customers_basket_id' => $products['customers_basket_id'],
@@ -358,11 +358,7 @@ dosql($table, $flds);
 							pd.products_languages_id = '" .  intval($nLanguageID) . "'";
 						$products_result = $dbconn->Execute($sql);
 				
-						if ($products = $products_result->fields) {
-							
-echo '<pre>';
-print_r($products);
-echo '</pre>';					
+						if ($products = $products_result->fields) {			
 							$prid = $products['products_id'];
 							if ($aGroup['qty_discounts'] == 1) {
 								$products_price = products_price_actual($prid, $products['products_price'], $nQuantity);
