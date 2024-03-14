@@ -1923,16 +1923,16 @@
         },
         {
             "name": "phenx/php-svg-lib",
-            "version": "0.5.2",
+            "version": "0.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dompdf/php-svg-lib.git",
-                "reference": "732faa9fb4309221e2bd9b2fda5de44f947133aa"
+                "reference": "0e46722c154726a5f9ac218197ccc28adba16fcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/php-svg-lib/zipball/732faa9fb4309221e2bd9b2fda5de44f947133aa",
-                "reference": "732faa9fb4309221e2bd9b2fda5de44f947133aa",
+                "url": "https://api.github.com/repos/dompdf/php-svg-lib/zipball/0e46722c154726a5f9ac218197ccc28adba16fcf",
+                "reference": "0e46722c154726a5f9ac218197ccc28adba16fcf",
                 "shasum": ""
             },
             "require": {
@@ -1951,7 +1951,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "LGPL-3.0"
+                "LGPL-3.0-or-later"
             ],
             "authors": [
                 {
@@ -1963,9 +1963,9 @@
             "homepage": "https://github.com/PhenX/php-svg-lib",
             "support": {
                 "issues": "https://github.com/dompdf/php-svg-lib/issues",
-                "source": "https://github.com/dompdf/php-svg-lib/tree/0.5.2"
+                "source": "https://github.com/dompdf/php-svg-lib/tree/0.5.3"
             },
-            "time": "2024-02-07T12:49:40+00:00"
+            "time": "2024-02-23T20:39:24+00:00"
         },
         {
             "name": "php-amqplib/php-amqplib",
@@ -4934,12 +4934,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "0483c0973a9b7cba2119e98f2df6adc5ea87f3e2"
+                "reference": "eedc674d89085b0199bd96bfad410404fb2f5dbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/0483c0973a9b7cba2119e98f2df6adc5ea87f3e2",
-                "reference": "0483c0973a9b7cba2119e98f2df6adc5ea87f3e2",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/eedc674d89085b0199bd96bfad410404fb2f5dbf",
+                "reference": "eedc674d89085b0199bd96bfad410404fb2f5dbf",
                 "shasum": ""
             },
             "conflict": {
@@ -5666,7 +5666,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-03-13T10:04:34+00:00"
+            "time": "2024-03-13T21:04:41+00:00"
         }
     ],
     "aliases": [],
