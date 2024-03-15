@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: phpbb, integration, template, user, login
-Stable tag: 2.8.0
+Stable tag: 2.8.1
 License: GPLv2 or later
 Requires at least: 6.0.0
 Tested up to: 6.5
@@ -72,6 +72,11 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.8.1 =
+*Release Date - 14 Mar, 2024*
+* Fix: reported warning errors when plugin db settings have still not setup
+* Logs: https://www.axew3.com/w3/forums/viewtopic.php?p=6223#p6223
 
 = 2.8.0 =
 *Release Date - 05 Mar, 2024*

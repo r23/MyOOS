@@ -114,7 +114,9 @@ private static function w3all_db_connect(){
           $w3all_config_db["dbhost"] = empty($w3all_config_db["dbport"]) ? $w3all_config_db["dbhost"] : $w3all_config_db["dbhost"] . ':' . $w3all_config_db["dbport"];
           $w3all_phpbb_connection = new wpdb($w3all_config_db["dbuser"], $w3all_config_db["dbpasswd"], $w3all_config_db["dbname"], $w3all_config_db["dbhost"]);
        }
-   } else
+   } elseif(empty($w3all_config_db) OR defined('W3ALLCONNWRONGPARAMS'))
+   { return; 
+   	} else
      {
        $w3all_config_db["dbhost"] = empty($w3all_config_db["dbport"]) ? $w3all_config_db["dbhost"] : $w3all_config_db["dbhost"] . ':' . $w3all_config_db["dbport"];
        $w3all_phpbb_connection = new wpdb($w3all_config_db["dbuser"], $w3all_config_db["dbpasswd"], $w3all_config_db["dbname"], $w3all_config_db["dbhost"]);
