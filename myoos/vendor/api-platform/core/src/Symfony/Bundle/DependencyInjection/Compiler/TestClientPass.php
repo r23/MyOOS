@@ -26,9 +26,9 @@ final class TestClientPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         if (
-            !class_exists(AbstractBrowser::class) ||
-            !trait_exists(HttpClientTrait::class) ||
-            !$container->hasParameter('test.client.parameters')
+            !class_exists(AbstractBrowser::class)
+            || !trait_exists(HttpClientTrait::class)
+            || !$container->hasParameter('test.client.parameters')
         ) {
             return;
         }
@@ -42,4 +42,6 @@ final class TestClientPass implements CompilerPassInterface
     }
 }
 
-class_alias(TestClientPass::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\TestClientPass::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\TestClientPass::class)) {
+    class_alias(TestClientPass::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\TestClientPass::class);
+}

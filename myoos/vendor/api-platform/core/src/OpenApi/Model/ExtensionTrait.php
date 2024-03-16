@@ -19,7 +19,7 @@ trait ExtensionTrait
 
     public function withExtensionProperty(string $key, $value)
     {
-        if (0 !== strpos($key, 'x-')) {
+        if (!str_starts_with($key, 'x-')) {
             $key = 'x-'.$key;
         }
 
@@ -35,4 +35,6 @@ trait ExtensionTrait
     }
 }
 
-class_alias(ExtensionTrait::class, \ApiPlatform\Core\OpenApi\Model\ExtensionTrait::class);
+if (!trait_exists(\ApiPlatform\Core\OpenApi\Model\ExtensionTrait::class)) {
+    class_alias(ExtensionTrait::class, \ApiPlatform\Core\OpenApi\Model\ExtensionTrait::class);
+}

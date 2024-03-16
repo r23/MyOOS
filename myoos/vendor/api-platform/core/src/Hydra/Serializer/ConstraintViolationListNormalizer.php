@@ -36,7 +36,7 @@ final class ConstraintViolationListNormalizer extends AbstractConstraintViolatio
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed|null $format
      *
      * @return array|string|int|float|bool|\ArrayObject|null
      */
@@ -54,4 +54,6 @@ final class ConstraintViolationListNormalizer extends AbstractConstraintViolatio
     }
 }
 
-class_alias(ConstraintViolationListNormalizer::class, \ApiPlatform\Core\Hydra\Serializer\ConstraintViolationListNormalizer::class);
+if (!class_exists(\ApiPlatform\Core\Hydra\Serializer\ConstraintViolationListNormalizer::class)) {
+    class_alias(ConstraintViolationListNormalizer::class, \ApiPlatform\Core\Hydra\Serializer\ConstraintViolationListNormalizer::class);
+}

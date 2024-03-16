@@ -49,8 +49,6 @@ final class Schema extends \ArrayObject
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @param bool $includeDefinitions if set to false, definitions will not be included in the resulting array
      */
     public function getArrayCopy(bool $includeDefinitions = true): array
@@ -132,4 +130,6 @@ final class Schema extends \ArrayObject
     }
 }
 
-class_alias(Schema::class, \ApiPlatform\Core\JsonSchema\Schema::class);
+if (!class_exists(\ApiPlatform\Core\JsonSchema\Schema::class)) {
+    class_alias(Schema::class, \ApiPlatform\Core\JsonSchema\Schema::class);
+}

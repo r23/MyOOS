@@ -52,39 +52,27 @@ final class JsonEncoder implements EncoderInterface, DecoderInterface
         $this->jsonEncoder = new BaseJsonEncoder($jsonEncode, $jsonDecode);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsEncoding($format, array $context = []): bool
     {
         return $this->format === $format;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function encode($data, $format, array $context = []): string
     {
         return $this->jsonEncoder->encode($data, $format, $context);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsDecoding($format, array $context = []): bool
     {
         return $this->format === $format;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @return mixed
-     */
     public function decode($data, $format, array $context = [])
     {
         return $this->jsonEncoder->decode($data, $format, $context);
     }
 }
 
-class_alias(JsonEncoder::class, \ApiPlatform\Core\Serializer\JsonEncoder::class);
+if (!class_exists(\ApiPlatform\Core\Serializer\JsonEncoder::class)) {
+    class_alias(JsonEncoder::class, \ApiPlatform\Core\Serializer\JsonEncoder::class);
+}

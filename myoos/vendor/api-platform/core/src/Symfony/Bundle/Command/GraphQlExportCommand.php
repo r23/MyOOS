@@ -39,9 +39,6 @@ class GraphQlExportCommand extends Command
         parent::__construct();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         $this
@@ -51,8 +48,6 @@ class GraphQlExportCommand extends Command
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -84,4 +79,6 @@ class GraphQlExportCommand extends Command
     }
 }
 
-class_alias(GraphQlExportCommand::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\Command\GraphQlExportCommand::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Symfony\Bundle\Command\GraphQlExportCommand::class)) {
+    class_alias(GraphQlExportCommand::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\Command\GraphQlExportCommand::class);
+}

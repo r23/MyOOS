@@ -26,9 +26,6 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 final class GraphQlQueryResolverPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container)
     {
         if (!$container->getParameter('api_platform.graphql.enabled')) {
@@ -46,4 +43,6 @@ final class GraphQlQueryResolverPass implements CompilerPassInterface
     }
 }
 
-class_alias(GraphQlQueryResolverPass::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\GraphQlQueryResolverPass::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\GraphQlQueryResolverPass::class)) {
+    class_alias(GraphQlQueryResolverPass::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\GraphQlQueryResolverPass::class);
+}

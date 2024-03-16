@@ -29,7 +29,7 @@ final class DocumentMetadata
     private $index;
     private $type;
 
-    public function __construct(?string $index = null, string $type = self::DEFAULT_TYPE)
+    public function __construct(string $index = null, string $type = self::DEFAULT_TYPE)
     {
         $this->index = $index;
         $this->type = $type;
@@ -74,4 +74,6 @@ final class DocumentMetadata
     }
 }
 
-class_alias(DocumentMetadata::class, \ApiPlatform\Core\Bridge\Elasticsearch\Metadata\Document\DocumentMetadata::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Elasticsearch\Metadata\Document\DocumentMetadata::class)) {
+    class_alias(DocumentMetadata::class, \ApiPlatform\Core\Bridge\Elasticsearch\Metadata\Document\DocumentMetadata::class);
+}

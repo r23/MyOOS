@@ -39,9 +39,6 @@ final class CachedDocumentMetadataFactory implements DocumentMetadataFactoryInte
         $this->decorated = $decorated;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create(string $resourceClass): DocumentMetadata
     {
         if (isset($this->localCache[$resourceClass])) {
@@ -79,4 +76,6 @@ final class CachedDocumentMetadataFactory implements DocumentMetadataFactoryInte
     }
 }
 
-class_alias(CachedDocumentMetadataFactory::class, \ApiPlatform\Core\Bridge\Elasticsearch\Metadata\Document\Factory\CachedDocumentMetadataFactory::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Elasticsearch\Metadata\Document\Factory\CachedDocumentMetadataFactory::class)) {
+    class_alias(CachedDocumentMetadataFactory::class, \ApiPlatform\Core\Bridge\Elasticsearch\Metadata\Document\Factory\CachedDocumentMetadataFactory::class);
+}

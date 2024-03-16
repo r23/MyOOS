@@ -64,9 +64,6 @@ final class VarnishPurger implements PurgerInterface
         return (int) floor(($this->maxHeaderLength + $gluesize) / ($tagsize + $gluesize)) ?: 1;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function purge(array $iris)
     {
         if (!$iris) {
@@ -81,9 +78,6 @@ final class VarnishPurger implements PurgerInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResponseHeaders(array $iris): array
     {
         return ['Cache-Tags' => implode(',', $iris)];
@@ -138,4 +132,6 @@ final class VarnishPurger implements PurgerInterface
     }
 }
 
-class_alias(VarnishPurger::class, \ApiPlatform\Core\HttpCache\VarnishPurger::class);
+if (!class_exists(\ApiPlatform\Core\HttpCache\VarnishPurger::class)) {
+    class_alias(VarnishPurger::class, \ApiPlatform\Core\HttpCache\VarnishPurger::class);
+}

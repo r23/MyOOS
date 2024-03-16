@@ -15,9 +15,6 @@ namespace ApiPlatform\Api\QueryParameterValidator\Validator;
 
 final class Enum implements ValidatorInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function validate(string $name, array $filterDescription, array $queryParameters): array
     {
         $value = $queryParameters[$name] ?? null;
@@ -37,4 +34,6 @@ final class Enum implements ValidatorInterface
     }
 }
 
-class_alias(Enum::class, \ApiPlatform\Core\Filter\Validator\Enum::class);
+if (!class_exists()) {
+    class_alias(Enum::class, \ApiPlatform\Core\Filter\Validator\Enum::class);
+}

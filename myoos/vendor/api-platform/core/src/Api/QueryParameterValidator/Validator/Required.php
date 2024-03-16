@@ -17,9 +17,6 @@ use ApiPlatform\Util\RequestParser;
 
 final class Required implements ValidatorInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function validate(string $name, array $filterDescription, array $queryParameters): array
     {
         // filter is not required, the `checkRequired` method can not break
@@ -101,4 +98,6 @@ final class Required implements ValidatorInterface
     }
 }
 
-class_alias(Required::class, \ApiPlatform\Core\Filter\Validator\Required::class);
+if (!class_exists()) {
+    class_alias(Required::class, \ApiPlatform\Core\Filter\Validator\Required::class);
+}

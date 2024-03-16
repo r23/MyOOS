@@ -87,8 +87,8 @@ final class SerializeListener
             return;
         }
 
-        if ($this->resourceMetadataFactory instanceof ResourceMetadataCollectionFactoryInterface &&
-            ($operation && !($operation->canSerialize() ?? true))
+        if ($this->resourceMetadataFactory instanceof ResourceMetadataCollectionFactoryInterface
+            && ($operation && !($operation->canSerialize() ?? true))
         ) {
             return;
         }
@@ -135,8 +135,6 @@ final class SerializeListener
     /**
      * Tries to serialize data that are not API resources (e.g. the entrypoint or data returned by a custom controller).
      *
-     * @param mixed $controllerResult
-     *
      * @throws RuntimeException
      */
     private function serializeRawData(ViewEvent $event, Request $request, $controllerResult): void
@@ -155,4 +153,6 @@ final class SerializeListener
     }
 }
 
-class_alias(SerializeListener::class, \ApiPlatform\Core\EventListener\SerializeListener::class);
+if (!class_exists(\ApiPlatform\Core\EventListener\SerializeListener::class)) {
+    class_alias(SerializeListener::class, \ApiPlatform\Core\EventListener\SerializeListener::class);
+}

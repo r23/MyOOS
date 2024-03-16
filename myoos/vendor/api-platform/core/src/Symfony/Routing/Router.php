@@ -44,33 +44,21 @@ final class Router implements RouterInterface, UrlGeneratorInterface
         $this->urlGenerationStrategy = $urlGenerationStrategy;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setContext(RequestContext $context)
     {
         $this->router->setContext($context);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getContext(): RequestContext
     {
         return $this->router->getContext();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRouteCollection(): RouteCollection
     {
         return $this->router->getRouteCollection();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function match($pathInfo): array
     {
         $baseContext = $this->router->getContext();
@@ -99,13 +87,12 @@ final class Router implements RouterInterface, UrlGeneratorInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function generate($name, $parameters = [], $referenceType = null): string
     {
         return $this->router->generate($name, $parameters, self::CONST_MAP[$referenceType ?? $this->urlGenerationStrategy]);
     }
 }
 
-class_alias(Router::class, \ApiPlatform\Core\Bridge\Symfony\Routing\Router::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Symfony\Routing\Router::class)) {
+    class_alias(Router::class, \ApiPlatform\Core\Bridge\Symfony\Routing\Router::class);
+}

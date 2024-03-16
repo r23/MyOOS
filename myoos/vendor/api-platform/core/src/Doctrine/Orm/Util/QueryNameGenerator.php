@@ -25,21 +25,17 @@ final class QueryNameGenerator implements QueryNameGeneratorInterface
     private $incrementedAssociation = 1;
     private $incrementedName = 1;
 
-    /**
-     * {@inheritdoc}
-     */
     public function generateJoinAlias(string $association): string
     {
         return sprintf('%s_a%d', $association, $this->incrementedAssociation++);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function generateParameterName(string $name): string
     {
         return sprintf('%s_p%d', str_replace('.', '_', $name), $this->incrementedName++);
     }
 }
 
-class_alias(QueryNameGenerator::class, \ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGenerator::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGenerator::class)) {
+    class_alias(QueryNameGenerator::class, \ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGenerator::class);
+}

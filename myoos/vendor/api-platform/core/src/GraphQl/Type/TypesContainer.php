@@ -24,17 +24,11 @@ final class TypesContainer implements TypesContainerInterface
 {
     private $graphqlTypes = [];
 
-    /**
-     * {@inheritdoc}
-     */
     public function set(string $id, GraphQLType $type): void
     {
         $this->graphqlTypes[$id] = $type;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function get($id): GraphQLType
     {
         if ($this->has($id)) {
@@ -44,21 +38,17 @@ final class TypesContainer implements TypesContainerInterface
         throw new TypeNotFoundException(sprintf('Type with id "%s" is not present in the types container', $id), $id);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function all(): array
     {
         return $this->graphqlTypes;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function has($id): bool
     {
         return \array_key_exists($id, $this->graphqlTypes);
     }
 }
 
-class_alias(TypesContainer::class, \ApiPlatform\Core\GraphQl\Type\TypesContainer::class);
+if (!class_exists(\ApiPlatform\Core\GraphQl\Type\TypesContainer::class)) {
+    class_alias(TypesContainer::class, \ApiPlatform\Core\GraphQl\Type\TypesContainer::class);
+}

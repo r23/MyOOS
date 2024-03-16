@@ -20,9 +20,9 @@ use ApiPlatform\Core\Api\IriConverterInterface as LegacyIriConverterInterface;
 use ApiPlatform\Core\Api\OperationType;
 use ApiPlatform\JsonLd\ContextBuilderInterface;
 use ApiPlatform\JsonLd\Serializer\JsonLdContextTrait;
-use ApiPlatform\Metadata\CollectionOperationInterface;
 use ApiPlatform\Metadata\Resource\Factory\ResourceMetadataCollectionFactoryInterface;
 use ApiPlatform\Serializer\ContextTrait;
+use ApiPlatform\Serializer\OperationContextTrait;
 use ApiPlatform\State\Pagination\PaginatorInterface;
 use ApiPlatform\State\Pagination\PartialPaginatorInterface;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
@@ -41,6 +41,7 @@ final class CollectionNormalizer implements NormalizerInterface, NormalizerAware
     use ContextTrait;
     use JsonLdContextTrait;
     use NormalizerAwareTrait;
+    use OperationContextTrait;
 
     public const FORMAT = 'jsonld';
     public const IRI_ONLY = 'iri_only';
@@ -53,7 +54,7 @@ final class CollectionNormalizer implements NormalizerInterface, NormalizerAware
         self::IRI_ONLY => false,
     ];
 
-    public function __construct(ContextBuilderInterface $contextBuilder, ResourceClassResolverInterface $resourceClassResolver, $iriConverter, ?ResourceMetadataCollectionFactoryInterface $resourceMetadataCollectionFactory = null, array $defaultContext = [])
+    public function __construct(ContextBuilderInterface $contextBuilder, ResourceClassResolverInterface $resourceClassResolver, $iriConverter, ResourceMetadataCollectionFactoryInterface $resourceMetadataCollectionFactory = null, array $defaultContext = [])
     {
         $this->contextBuilder = $contextBuilder;
         $this->resourceClassResolver = $resourceClassResolver;
@@ -66,18 +67,14 @@ final class CollectionNormalizer implements NormalizerInterface, NormalizerAware
         $this->defaultContext = array_merge($this->defaultContext, $defaultContext);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return self::FORMAT === $format && is_iterable($data);
     }
 
     /**
-     * {@inheritdoc}
-     *
-     * @param iterable $object
+     * @param iterable   $object
+     * @param mixed|null $format
      */
     public function normalize($object, $format = null, array $context = []): array
     {
@@ -101,28 +98,12 @@ final class CollectionNormalizer implements NormalizerInterface, NormalizerAware
         $data['hydra:member'] = [];
         $iriOnly = $context[self::IRI_ONLY] ?? $this->defaultContext[self::IRI_ONLY];
 
-        // We need to keep this operation for serialization groups for later
-        if (isset($context['operation'])) {
-            $context['root_operation'] = $context['operation'];
-        }
-
-        if (isset($context['operation_name'])) {
-            $context['root_operation_name'] = $context['operation_name'];
-        }
-
-        if ($this->resourceMetadataCollectionFactory && ($operation = $context['operation'] ?? null) instanceof CollectionOperationInterface && ($itemUriTemplate = $operation->getItemUriTemplate())) {
-            $context['operation'] = $this->resourceMetadataCollectionFactory->create($resourceClass)->getOperation($operation->getItemUriTemplate());
-        } else {
-            unset($context['operation']);
-        }
-
-        unset($context['operation_name'], $context['uri_variables']);
-
+        $childContext = $this->createOperationContext($context, $resourceClass);
         foreach ($object as $obj) {
             if ($iriOnly) {
                 $data['hydra:member'][] = $this->iriConverter instanceof LegacyIriConverterInterface ? $this->iriConverter->getIriFromItem($obj) : $this->iriConverter->getIriFromResource($obj);
             } else {
-                $data['hydra:member'][] = $this->normalizer->normalize($obj, $format, $context);
+                $data['hydra:member'][] = $this->normalizer->normalize($obj, $format, $childContext);
             }
         }
 
@@ -136,9 +117,6 @@ final class CollectionNormalizer implements NormalizerInterface, NormalizerAware
         return $data;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasCacheableSupportsMethod(): bool
     {
         return true;
@@ -158,4 +136,6 @@ final class CollectionNormalizer implements NormalizerInterface, NormalizerAware
     }
 }
 
-class_alias(CollectionNormalizer::class, \ApiPlatform\Core\Hydra\Serializer\CollectionNormalizer::class);
+if (!class_exists(\ApiPlatform\Core\Hydra\Serializer\CollectionNormalizer::class)) {
+    class_alias(CollectionNormalizer::class, \ApiPlatform\Core\Hydra\Serializer\CollectionNormalizer::class);
+}

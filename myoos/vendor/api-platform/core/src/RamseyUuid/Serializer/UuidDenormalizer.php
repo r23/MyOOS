@@ -22,11 +22,8 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 final class UuidDenormalizer implements DenormalizerInterface
 {
     /**
-     * @param mixed  $data
      * @param string $type
      * @param null   $format
-     *
-     * @return mixed
      */
     public function denormalize($data, $type, $format = null, array $context = [])
     {
@@ -43,4 +40,6 @@ final class UuidDenormalizer implements DenormalizerInterface
     }
 }
 
-class_alias(UuidDenormalizer::class, \ApiPlatform\Core\Bridge\RamseyUuid\Serializer\UuidDenormalizer::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\RamseyUuid\Serializer\UuidDenormalizer::class)) {
+    class_alias(UuidDenormalizer::class, \ApiPlatform\Core\Bridge\RamseyUuid\Serializer\UuidDenormalizer::class);
+}

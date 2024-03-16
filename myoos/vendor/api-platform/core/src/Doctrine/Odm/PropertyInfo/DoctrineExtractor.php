@@ -40,8 +40,6 @@ final class DoctrineExtractor implements PropertyListExtractorInterface, Propert
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return string[]|null
      */
     public function getProperties($class, array $context = []): ?array
@@ -54,8 +52,6 @@ final class DoctrineExtractor implements PropertyListExtractorInterface, Propert
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return Type[]|null
      */
     public function getTypes($class, $property, array $context = []): ?array
@@ -115,17 +111,11 @@ final class DoctrineExtractor implements PropertyListExtractorInterface, Propert
         return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isReadable($class, $property, array $context = []): ?bool
     {
         return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isWritable($class, $property, array $context = []): ?bool
     {
         if (
@@ -182,4 +172,6 @@ final class DoctrineExtractor implements PropertyListExtractorInterface, Propert
     }
 }
 
-class_alias(DoctrineExtractor::class, \ApiPlatform\Core\Bridge\Doctrine\MongoDbOdm\PropertyInfo\DoctrineExtractor::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Doctrine\MongoDbOdm\PropertyInfo\DoctrineExtractor::class)) {
+    class_alias(DoctrineExtractor::class, \ApiPlatform\Core\Bridge\Doctrine\MongoDbOdm\PropertyInfo\DoctrineExtractor::class);
+}

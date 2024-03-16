@@ -25,9 +25,6 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 final class ElasticsearchClientPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container)
     {
         if (!$container->getParameter('api_platform.elasticsearch.enabled')) {
@@ -56,4 +53,6 @@ final class ElasticsearchClientPass implements CompilerPassInterface
     }
 }
 
-class_alias(ElasticsearchClientPass::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\ElasticsearchClientPass::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\ElasticsearchClientPass::class)) {
+    class_alias(ElasticsearchClientPass::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\ElasticsearchClientPass::class);
+}

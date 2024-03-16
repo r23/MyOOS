@@ -104,9 +104,9 @@ final class RespondListener
             }
 
             if (
-                $this->iriConverter &&
-                ($operation->getExtraProperties()['is_alternate_resource_metadata'] ?? false) &&
-                !($operation->getExtraProperties()['is_legacy_subresource'] ?? false)
+                $this->iriConverter
+                && ($operation->getExtraProperties()['is_alternate_resource_metadata'] ?? false)
+                && !($operation->getExtraProperties()['is_legacy_subresource'] ?? false)
                 && 301 === $operation->getStatus()
             ) {
                 $status = 301;
@@ -157,4 +157,6 @@ final class RespondListener
     }
 }
 
-class_alias(RespondListener::class, \ApiPlatform\Core\EventListener\RespondListener::class);
+if (!class_exists(\ApiPlatform\Core\EventListener\RespondListener::class)) {
+    class_alias(RespondListener::class, \ApiPlatform\Core\EventListener\RespondListener::class);
+}

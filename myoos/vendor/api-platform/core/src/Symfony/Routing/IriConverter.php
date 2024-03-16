@@ -37,8 +37,6 @@ use Symfony\Component\Routing\Exception\ExceptionInterface as RoutingExceptionIn
 use Symfony\Component\Routing\RouterInterface;
 
 /**
- * {@inheritdoc}
- *
  * @author Antoine Bluchet <soyuka@gmail.com>
  */
 final class IriConverter implements IriConverterInterface
@@ -65,10 +63,7 @@ final class IriConverter implements IriConverterInterface
         $this->decorated = $decorated;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getResourceFromIri(string $iri, array $context = [], ?Operation $operation = null)
+    public function getResourceFromIri(string $iri, array $context = [], Operation $operation = null)
     {
         try {
             $parameters = $this->router->match($iri);
@@ -109,15 +104,16 @@ final class IriConverter implements IriConverterInterface
         throw new ItemNotFoundException(sprintf('Item not found for "%s".', $iri));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getIriFromResource($item, int $referenceType = UrlGeneratorInterface::ABS_PATH, Operation $operation = null, array $context = []): ?string
     {
         try {
             $resourceClass = \is_string($item) ? $item : $this->getResourceClass($item, true);
         } catch (InvalidArgumentException $e) {
             return null;
+        }
+
+        if ($this->resourceMetadataCollectionFactory && isset($context['item_uri_template'])) {
+            $operation = $this->resourceMetadataCollectionFactory->create($resourceClass)->getOperation($context['item_uri_template']);
         }
 
         if (!$operation) {
@@ -133,11 +129,6 @@ final class IriConverter implements IriConverterInterface
         $isLegacySubresource = ($operation->getExtraProperties()['is_legacy_subresource'] ?? false) && !$operation instanceof CollectionOperationInterface;
         // Custom resources should have the same IRI as requested, it was not the case pre 2.7
         $isLegacyCustomResource = ($operation->getExtraProperties()['is_legacy_resource_metadata'] ?? false) && ($operation->getExtraProperties()['user_defined_uri_template'] ?? false);
-
-        // FIXME: to avoid the method_exists we could create an interface for the Post operation, we can't guarantee that the user extended our ApiPlatform\Metadata\Post
-        if ($operation instanceof HttpOperation && HttpOperation::METHOD_POST === $operation->getMethod() && method_exists($operation, 'getItemUriTemplate') && ($itemUriTemplate = $operation->getItemUriTemplate())) {
-            $operation = $this->resourceMetadataCollectionFactory->create($resourceClass)->getOperation($itemUriTemplate);
-        }
 
         // In symfony the operation name is the route name, try to find one if none provided
         if (

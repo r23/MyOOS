@@ -28,8 +28,6 @@ use Symfony\Component\DependencyInjection\Reference;
 final class MetadataAwareNameConverterPass implements CompilerPassInterface
 {
     /**
-     * {@inheritdoc}
-     *
      * @throws RuntimeException
      */
     public function process(ContainerBuilder $container)
@@ -54,4 +52,6 @@ final class MetadataAwareNameConverterPass implements CompilerPassInterface
     }
 }
 
-class_alias(MetadataAwareNameConverterPass::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\MetadataAwareNameConverterPass::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\MetadataAwareNameConverterPass::class)) {
+    class_alias(MetadataAwareNameConverterPass::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\MetadataAwareNameConverterPass::class);
+}

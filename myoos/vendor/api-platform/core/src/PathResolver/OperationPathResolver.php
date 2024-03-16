@@ -32,9 +32,6 @@ final class OperationPathResolver implements OperationPathResolverInterface
         $this->pathSegmentNameGenerator = $pathSegmentNameGenerator;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function resolveOperationPath(string $resourceShortName, array $operation, $operationType/* , string $operationName = null */): string
     {
         if (\func_num_args() < 4) {
@@ -65,4 +62,6 @@ final class OperationPathResolver implements OperationPathResolverInterface
     }
 }
 
-class_alias(OperationPathResolver::class, \ApiPlatform\Core\PathResolver\OperationPathResolver::class);
+if (!class_exists(\ApiPlatform\Core\PathResolver\OperationPathResolver::class)) {
+    class_alias(OperationPathResolver::class, \ApiPlatform\Core\PathResolver\OperationPathResolver::class);
+}

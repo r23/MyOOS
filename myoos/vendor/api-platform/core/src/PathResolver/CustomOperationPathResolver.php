@@ -29,9 +29,6 @@ final class CustomOperationPathResolver implements OperationPathResolverInterfac
         $this->deferred = $deferred;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function resolveOperationPath(string $resourceShortName, array $operation, $operationType/* , string $operationName = null */): string
     {
         if (\func_num_args() >= 4) {
@@ -46,4 +43,6 @@ final class CustomOperationPathResolver implements OperationPathResolverInterfac
     }
 }
 
-class_alias(CustomOperationPathResolver::class, \ApiPlatform\Core\PathResolver\CustomOperationPathResolver::class);
+if (!class_exists(\ApiPlatform\Core\PathResolver\CustomOperationPathResolver::class)) {
+    class_alias(CustomOperationPathResolver::class, \ApiPlatform\Core\PathResolver\CustomOperationPathResolver::class);
+}

@@ -28,15 +28,12 @@ final class ConfiguredDocumentMetadataFactory implements DocumentMetadataFactory
     private $mapping;
     private $decorated;
 
-    public function __construct(array $mapping, ?DocumentMetadataFactoryInterface $decorated = null)
+    public function __construct(array $mapping, DocumentMetadataFactoryInterface $decorated = null)
     {
         $this->mapping = $mapping;
         $this->decorated = $decorated;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create(string $resourceClass): DocumentMetadata
     {
         $documentMetadata = null;
@@ -70,4 +67,6 @@ final class ConfiguredDocumentMetadataFactory implements DocumentMetadataFactory
     }
 }
 
-class_alias(ConfiguredDocumentMetadataFactory::class, \ApiPlatform\Core\Bridge\Elasticsearch\Metadata\Document\Factory\ConfiguredDocumentMetadataFactory::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Elasticsearch\Metadata\Document\Factory\ConfiguredDocumentMetadataFactory::class)) {
+    class_alias(ConfiguredDocumentMetadataFactory::class, \ApiPlatform\Core\Bridge\Elasticsearch\Metadata\Document\Factory\ConfiguredDocumentMetadataFactory::class);
+}

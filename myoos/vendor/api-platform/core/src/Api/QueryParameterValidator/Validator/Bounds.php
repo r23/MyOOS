@@ -15,9 +15,6 @@ namespace ApiPlatform\Api\QueryParameterValidator\Validator;
 
 final class Bounds implements ValidatorInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function validate(string $name, array $filterDescription, array $queryParameters): array
     {
         $value = $queryParameters[$name] ?? null;
@@ -50,4 +47,6 @@ final class Bounds implements ValidatorInterface
     }
 }
 
-class_alias(Bounds::class, \ApiPlatform\Core\Filter\Validator\Bounds::class);
+if (!class_exists(\ApiPlatform\Core\Filter\Validator\Bounds::class)) {
+    class_alias(Bounds::class, \ApiPlatform\Core\Filter\Validator\Bounds::class);
+}

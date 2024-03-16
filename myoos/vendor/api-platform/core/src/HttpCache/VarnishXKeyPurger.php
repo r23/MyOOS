@@ -38,9 +38,6 @@ final class VarnishXKeyPurger implements PurgerInterface
         $this->xkeyGlue = $xkeyGlue;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function purge(array $iris)
     {
         if (!$iris) {
@@ -54,9 +51,6 @@ final class VarnishXKeyPurger implements PurgerInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResponseHeaders(array $iris): array
     {
         return ['xkey' => implode($this->xkeyGlue, $iris)];
@@ -111,4 +105,6 @@ final class VarnishXKeyPurger implements PurgerInterface
     }
 }
 
-class_alias(VarnishXKeyPurger::class, \ApiPlatform\Core\HttpCache\VarnishXKeyPurger::class);
+if (!class_exists(\ApiPlatform\Core\HttpCache\VarnishXKeyPurger::class)) {
+    class_alias(VarnishXKeyPurger::class, \ApiPlatform\Core\HttpCache\VarnishXKeyPurger::class);
+}

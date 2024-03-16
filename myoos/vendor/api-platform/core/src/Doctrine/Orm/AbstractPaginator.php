@@ -41,9 +41,6 @@ abstract class AbstractPaginator implements \IteratorAggregate, PartialPaginator
         $this->maxResults = $maxResults;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCurrentPage(): float
     {
         if (0 >= $this->maxResults) {
@@ -53,29 +50,22 @@ abstract class AbstractPaginator implements \IteratorAggregate, PartialPaginator
         return floor($this->firstResult / $this->maxResults) + 1.;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getItemsPerPage(): float
     {
         return (float) $this->maxResults;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getIterator(): \Traversable
     {
         return $this->iterator ?? $this->iterator = $this->paginator->getIterator();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function count(): int
     {
         return iterator_count($this->getIterator());
     }
 }
 
-class_alias(AbstractPaginator::class, \ApiPlatform\Core\Bridge\Doctrine\Orm\AbstractPaginator::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Doctrine\Orm\AbstractPaginator::class)) {
+    class_alias(AbstractPaginator::class, \ApiPlatform\Core\Bridge\Doctrine\Orm\AbstractPaginator::class);
+}

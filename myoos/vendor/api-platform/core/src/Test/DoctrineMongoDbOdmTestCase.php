@@ -28,8 +28,6 @@ use Symfony\Component\Cache\Adapter\ArrayAdapter;
 class DoctrineMongoDbOdmTestCase extends TestCase
 {
     /**
-     * @param mixed $paths
-     *
      * @return DocumentManager
      */
     public static function createTestDocumentManager($paths = [])
@@ -51,4 +49,6 @@ class DoctrineMongoDbOdmTestCase extends TestCase
     }
 }
 
-class_alias(DoctrineMongoDbOdmTestCase::class, \ApiPlatform\Core\Test\DoctrineMongoDbOdmTestCase::class);
+if (!class_exists(\ApiPlatform\Core\Test\DoctrineMongoDbOdmTestCase::class)) {
+    class_alias(DoctrineMongoDbOdmTestCase::class, \ApiPlatform\Core\Test\DoctrineMongoDbOdmTestCase::class);
+}

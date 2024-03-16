@@ -55,9 +55,6 @@ final class EntrypointNormalizer implements NormalizerInterface, CacheableSuppor
         $this->urlGenerator = $urlGenerator;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function normalize($object, $format = null, array $context = []): array
     {
         $entrypoint = [
@@ -107,21 +104,17 @@ final class EntrypointNormalizer implements NormalizerInterface, CacheableSuppor
         return $entrypoint;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return self::FORMAT === $format && $data instanceof Entrypoint;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasCacheableSupportsMethod(): bool
     {
         return true;
     }
 }
 
-class_alias(EntrypointNormalizer::class, \ApiPlatform\Core\Hydra\Serializer\EntrypointNormalizer::class);
+if (!class_exists(\ApiPlatform\Core\Hydra\Serializer\EntrypointNormalizer::class)) {
+    class_alias(EntrypointNormalizer::class, \ApiPlatform\Core\Hydra\Serializer\EntrypointNormalizer::class);
+}

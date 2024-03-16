@@ -30,9 +30,9 @@ final class TransformFilteringParametersListener
         $filterParameter = $request->query->all()['filter'] ?? null;
 
         if (
-            !$filterParameter ||
-            !\is_array($filterParameter) ||
-            'jsonapi' !== $request->getRequestFormat()
+            !$filterParameter
+            || !\is_array($filterParameter)
+            || 'jsonapi' !== $request->getRequestFormat()
         ) {
             return;
         }
@@ -42,4 +42,6 @@ final class TransformFilteringParametersListener
     }
 }
 
-class_alias(TransformFilteringParametersListener::class, \ApiPlatform\Core\JsonApi\EventListener\TransformFilteringParametersListener::class);
+if (!class_exists(\ApiPlatform\Core\JsonApi\EventListener\TransformFilteringParametersListener::class)) {
+    class_alias(TransformFilteringParametersListener::class, \ApiPlatform\Core\JsonApi\EventListener\TransformFilteringParametersListener::class);
+}

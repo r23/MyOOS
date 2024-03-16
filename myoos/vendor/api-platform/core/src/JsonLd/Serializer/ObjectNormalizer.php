@@ -45,24 +45,18 @@ final class ObjectNormalizer implements NormalizerInterface, CacheableSupportsMe
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return self::FORMAT === $format && $this->decorated->supportsNormalization($data, $format, $context);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasCacheableSupportsMethod(): bool
     {
         return $this->decorated instanceof CacheableSupportsMethodInterface && $this->decorated->hasCacheableSupportsMethod();
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed|null $format
      *
      * @return array|string|int|float|bool|\ArrayObject|null
      */
@@ -105,4 +99,6 @@ final class ObjectNormalizer implements NormalizerInterface, CacheableSupportsMe
     }
 }
 
-class_alias(ObjectNormalizer::class, \ApiPlatform\Core\JsonLd\Serializer\ObjectNormalizer::class);
+if (!class_exists(\ApiPlatform\Core\JsonLd\Serializer\ObjectNormalizer::class)) {
+    class_alias(ObjectNormalizer::class, \ApiPlatform\Core\JsonLd\Serializer\ObjectNormalizer::class);
+}

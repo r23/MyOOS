@@ -32,9 +32,6 @@ final class PropertyInfoPropertyNameCollectionFactory implements PropertyNameCol
         $this->propertyInfo = $propertyInfo;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create(string $resourceClass, array $options = []): PropertyNameCollection
     {
         $properties = $this->propertyInfo->getProperties($resourceClass, $options + ['serializer_groups' => null]);
@@ -43,4 +40,6 @@ final class PropertyInfoPropertyNameCollectionFactory implements PropertyNameCol
     }
 }
 
-class_alias(PropertyInfoPropertyNameCollectionFactory::class, \ApiPlatform\Core\Bridge\Symfony\PropertyInfo\Metadata\Property\PropertyInfoPropertyNameCollectionFactory::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Symfony\PropertyInfo\Metadata\Property\PropertyInfoPropertyNameCollectionFactory::class)) {
+    class_alias(PropertyInfoPropertyNameCollectionFactory::class, \ApiPlatform\Core\Bridge\Symfony\PropertyInfo\Metadata\Property\PropertyInfoPropertyNameCollectionFactory::class);
+}

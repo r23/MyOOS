@@ -32,7 +32,7 @@ final class PathItem
     private $servers;
     private $parameters;
 
-    public function __construct(string $ref = null, string $summary = null, string $description = null, Operation $get = null, Operation $put = null, Operation $post = null, Operation $delete = null, Operation $options = null, Operation $head = null, Operation $patch = null, Operation $trace = null, ?array $servers = null, array $parameters = [])
+    public function __construct(string $ref = null, string $summary = null, string $description = null, Operation $get = null, Operation $put = null, Operation $post = null, Operation $delete = null, Operation $options = null, Operation $head = null, Operation $patch = null, Operation $trace = null, array $servers = null, array $parameters = [])
     {
         $this->ref = $ref;
         $this->summary = $summary;
@@ -202,7 +202,7 @@ final class PathItem
         return $clone;
     }
 
-    public function withServers(?array $servers = null): self
+    public function withServers(array $servers = null): self
     {
         $clone = clone $this;
         $clone->servers = $servers;
@@ -219,4 +219,6 @@ final class PathItem
     }
 }
 
-class_alias(PathItem::class, \ApiPlatform\Core\OpenApi\Model\PathItem::class);
+if (!class_exists(\ApiPlatform\Core\OpenApi\Model\PathItem::class)) {
+    class_alias(PathItem::class, \ApiPlatform\Core\OpenApi\Model\PathItem::class);
+}

@@ -20,13 +20,12 @@ namespace ApiPlatform\GraphQl\Error;
  */
 final class ErrorHandler implements ErrorHandlerInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(array $errors, callable $formatter): array
     {
         return array_map($formatter, $errors);
     }
 }
 
-class_alias(ErrorHandler::class, \ApiPlatform\Core\GraphQl\Error\ErrorHandler::class);
+if (!class_exists(\ApiPlatform\Core\GraphQl\Error\ErrorHandler::class)) {
+    class_alias(ErrorHandler::class, \ApiPlatform\Core\GraphQl\Error\ErrorHandler::class);
+}

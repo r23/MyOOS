@@ -88,9 +88,6 @@ final class Response implements ResponseInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getContent(bool $throw = true): string
     {
         if ($throw) {
@@ -100,17 +97,11 @@ final class Response implements ResponseInterface
         return $this->content;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getStatusCode(): int
     {
         return $this->info['http_code'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getHeaders(bool $throw = true): array
     {
         if ($throw) {
@@ -120,9 +111,6 @@ final class Response implements ResponseInterface
         return $this->headers;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toArray(bool $throw = true): array
     {
         if ('' === $content = $this->getContent($throw)) {
@@ -181,4 +169,6 @@ final class Response implements ResponseInterface
     }
 }
 
-class_alias(Response::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Response::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Response::class)) {
+    class_alias(Response::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Response::class);
+}

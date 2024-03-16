@@ -15,9 +15,6 @@ namespace ApiPlatform\Api\QueryParameterValidator\Validator;
 
 final class Pattern implements ValidatorInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function validate(string $name, array $filterDescription, array $queryParameters): array
     {
         $value = $queryParameters[$name] ?? null;
@@ -37,4 +34,6 @@ final class Pattern implements ValidatorInterface
     }
 }
 
-class_alias(Pattern::class, \ApiPlatform\Core\Filter\Validator\Pattern::class);
+if (!class_exists()) {
+    class_alias(Pattern::class, \ApiPlatform\Core\Filter\Validator\Pattern::class);
+}

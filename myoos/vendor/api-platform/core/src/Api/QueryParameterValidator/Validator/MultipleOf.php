@@ -15,9 +15,6 @@ namespace ApiPlatform\Api\QueryParameterValidator\Validator;
 
 final class MultipleOf implements ValidatorInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function validate(string $name, array $filterDescription, array $queryParameters): array
     {
         $value = $queryParameters[$name] ?? null;
@@ -37,4 +34,6 @@ final class MultipleOf implements ValidatorInterface
     }
 }
 
-class_alias(MultipleOf::class, \ApiPlatform\Core\Filter\Validator\MultipleOf::class);
+if (!class_exists()) {
+    class_alias(MultipleOf::class, \ApiPlatform\Core\Filter\Validator\MultipleOf::class);
+}

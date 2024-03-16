@@ -28,21 +28,17 @@ final class ClassMetadataFactory implements ClassMetadataFactoryInterface
         $this->decorated = $decorated;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getMetadataFor($value): ClassMetadataInterface
     {
         return $this->decorated->getMetadataFor(\is_object($value) ? $this->getObjectClass($value) : $this->getRealClassName($value));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasMetadataFor($value): bool
     {
         return $this->decorated->hasMetadataFor(\is_object($value) ? $this->getObjectClass($value) : $this->getRealClassName($value));
     }
 }
 
-class_alias(ClassMetadataFactory::class, \ApiPlatform\Core\Serializer\Mapping\Factory\ClassMetadataFactory::class);
+if (!class_exists(\ApiPlatform\Core\Serializer\Mapping\Factory\ClassMetadataFactory::class)) {
+    class_alias(ClassMetadataFactory::class, \ApiPlatform\Core\Serializer\Mapping\Factory\ClassMetadataFactory::class);
+}

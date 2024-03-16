@@ -22,9 +22,6 @@ use ApiPlatform\Util\Inflector;
  */
 final class UnderscorePathSegmentNameGenerator implements PathSegmentNameGeneratorInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getSegmentName(string $name, bool $collection = true): string
     {
         $name = Inflector::tableize($name);
@@ -33,4 +30,6 @@ final class UnderscorePathSegmentNameGenerator implements PathSegmentNameGenerat
     }
 }
 
-class_alias(UnderscorePathSegmentNameGenerator::class, \ApiPlatform\Core\Operation\UnderscorePathSegmentNameGenerator::class);
+if (!class_exists(\ApiPlatform\Core\Operation\UnderscorePathSegmentNameGenerator::class)) {
+    class_alias(UnderscorePathSegmentNameGenerator::class, \ApiPlatform\Core\Operation\UnderscorePathSegmentNameGenerator::class);
+}

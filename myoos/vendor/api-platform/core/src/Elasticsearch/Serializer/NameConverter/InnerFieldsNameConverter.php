@@ -28,22 +28,16 @@ final class InnerFieldsNameConverter implements AdvancedNameConverterInterface
 {
     private $decorated;
 
-    public function __construct(?NameConverterInterface $decorated = null)
+    public function __construct(NameConverterInterface $decorated = null)
     {
         $this->decorated = $decorated ?? new CamelCaseToSnakeCaseNameConverter();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function normalize($propertyName, string $class = null, string $format = null, array $context = []): string
     {
         return $this->convertInnerFields($propertyName, true, $class, $format, $context);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function denormalize($propertyName, string $class = null, string $format = null, array $context = []): string
     {
         return $this->convertInnerFields($propertyName, false, $class, $format, $context);
@@ -61,4 +55,6 @@ final class InnerFieldsNameConverter implements AdvancedNameConverterInterface
     }
 }
 
-class_alias(InnerFieldsNameConverter::class, \ApiPlatform\Core\Bridge\Elasticsearch\Serializer\NameConverter\InnerFieldsNameConverter::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Elasticsearch\Serializer\NameConverter\InnerFieldsNameConverter::class)) {
+    class_alias(InnerFieldsNameConverter::class, \ApiPlatform\Core\Bridge\Elasticsearch\Serializer\NameConverter\InnerFieldsNameConverter::class);
+}

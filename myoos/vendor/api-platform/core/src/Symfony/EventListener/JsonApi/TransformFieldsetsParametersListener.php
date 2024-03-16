@@ -50,11 +50,11 @@ final class TransformFieldsetsParametersListener
         $fieldsParameter = $queryParameters['fields'] ?? null;
 
         if (
-            (!$fieldsParameter && !$includeParameter) ||
-            ($fieldsParameter && !\is_array($fieldsParameter)) ||
-            (!\is_string($includeParameter)) ||
-            'jsonapi' !== $request->getRequestFormat() ||
-            !($resourceClass = $request->attributes->get('_api_resource_class'))
+            (!$fieldsParameter && !$includeParameter)
+            || ($fieldsParameter && !\is_array($fieldsParameter))
+            || (!\is_string($includeParameter))
+            || 'jsonapi' !== $request->getRequestFormat()
+            || !($resourceClass = $request->attributes->get('_api_resource_class'))
         ) {
             return;
         }
@@ -89,4 +89,6 @@ final class TransformFieldsetsParametersListener
     }
 }
 
-class_alias(TransformFieldsetsParametersListener::class, \ApiPlatform\Core\JsonApi\EventListener\TransformFieldsetsParametersListener::class);
+if (!class_exists(\ApiPlatform\Core\JsonApi\EventListener\TransformFieldsetsParametersListener::class)) {
+    class_alias(TransformFieldsetsParametersListener::class, \ApiPlatform\Core\JsonApi\EventListener\TransformFieldsetsParametersListener::class);
+}

@@ -70,8 +70,8 @@ final class ValidateListener
             return;
         }
 
-        if ($this->resourceMetadataFactory instanceof ResourceMetadataCollectionFactoryInterface &&
-            (!$operation || !($operation->canValidate() ?? true))
+        if ($this->resourceMetadataFactory instanceof ResourceMetadataCollectionFactoryInterface
+            && (!$operation || !($operation->canValidate() ?? true))
         ) {
             return;
         }
@@ -98,4 +98,6 @@ final class ValidateListener
     }
 }
 
-class_alias(ValidateListener::class, \ApiPlatform\Core\Validator\EventListener\ValidateListener::class);
+if (!class_exists(\ApiPlatform\Core\Validator\EventListener\ValidateListener::class)) {
+    class_alias(ValidateListener::class, \ApiPlatform\Core\Validator\EventListener\ValidateListener::class);
+}

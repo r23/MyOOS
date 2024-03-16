@@ -95,8 +95,8 @@ final class DeserializeListener
             return;
         }
 
-        if ($this->resourceMetadataFactory instanceof ResourceMetadataCollectionFactoryInterface &&
-            (!$operation || !($operation->canDeserialize() ?? true) || !$attributes['receive'])
+        if ($this->resourceMetadataFactory instanceof ResourceMetadataCollectionFactoryInterface
+            && (!$operation || !($operation->canDeserialize() ?? true) || !$attributes['receive'])
         ) {
             return;
         }
@@ -170,4 +170,6 @@ final class DeserializeListener
     }
 }
 
-class_alias(DeserializeListener::class, \ApiPlatform\Core\EventListener\DeserializeListener::class);
+if (!class_exists(\ApiPlatform\Core\EventListener\DeserializeListener::class)) {
+    class_alias(DeserializeListener::class, \ApiPlatform\Core\EventListener\DeserializeListener::class);
+}

@@ -45,8 +45,8 @@ final class ExceptionListener
         $request = $event->getRequest();
         // Normalize exceptions only for routes managed by API Platform
         if (
-            'html' === $request->getRequestFormat('') ||
-            !((RequestAttributesExtractor::extractAttributes($request)['respond'] ?? $request->attributes->getBoolean('_api_respond', false)) || $request->attributes->getBoolean('_graphql', false))
+            'html' === $request->getRequestFormat('')
+            || !((RequestAttributesExtractor::extractAttributes($request)['respond'] ?? $request->attributes->getBoolean('_api_respond', false)) || $request->attributes->getBoolean('_graphql', false))
         ) {
             return;
         }
@@ -55,4 +55,6 @@ final class ExceptionListener
     }
 }
 
-class_alias(ExceptionListener::class, \ApiPlatform\Core\EventListener\ExceptionListener::class);
+if (!class_exists(\ApiPlatform\Core\EventListener\ExceptionListener::class)) {
+    class_alias(ExceptionListener::class, \ApiPlatform\Core\EventListener\ExceptionListener::class);
+}

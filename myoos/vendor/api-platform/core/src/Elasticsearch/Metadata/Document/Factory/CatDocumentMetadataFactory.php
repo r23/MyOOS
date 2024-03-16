@@ -44,16 +44,13 @@ final class CatDocumentMetadataFactory implements DocumentMetadataFactoryInterfa
     /**
      * @param ResourceMetadataFactoryInterface|ResourceMetadataCollectionFactoryInterface $resourceMetadataFactory
      */
-    public function __construct(Client $client, $resourceMetadataFactory, ?DocumentMetadataFactoryInterface $decorated = null)
+    public function __construct(Client $client, $resourceMetadataFactory, DocumentMetadataFactoryInterface $decorated = null)
     {
         $this->client = $client;
         $this->resourceMetadataFactory = $resourceMetadataFactory;
         $this->decorated = $decorated;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create(string $resourceClass): DocumentMetadata
     {
         $documentMetadata = null;
@@ -105,4 +102,6 @@ final class CatDocumentMetadataFactory implements DocumentMetadataFactoryInterfa
     }
 }
 
-class_alias(CatDocumentMetadataFactory::class, \ApiPlatform\Core\Bridge\Elasticsearch\Metadata\Document\Factory\CatDocumentMetadataFactory::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Elasticsearch\Metadata\Document\Factory\CatDocumentMetadataFactory::class)) {
+    class_alias(CatDocumentMetadataFactory::class, \ApiPlatform\Core\Bridge\Elasticsearch\Metadata\Document\Factory\CatDocumentMetadataFactory::class);
+}

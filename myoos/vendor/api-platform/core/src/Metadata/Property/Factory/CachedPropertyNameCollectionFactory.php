@@ -36,9 +36,6 @@ final class CachedPropertyNameCollectionFactory implements PropertyNameCollectio
         $this->decorated = $decorated;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create(string $resourceClass, array $options = []): PropertyNameCollection
     {
         $cacheKey = self::CACHE_KEY_PREFIX.md5(serialize([$resourceClass, $options]));
@@ -49,4 +46,6 @@ final class CachedPropertyNameCollectionFactory implements PropertyNameCollectio
     }
 }
 
-class_alias(CachedPropertyNameCollectionFactory::class, \ApiPlatform\Core\Metadata\Property\Factory\CachedPropertyNameCollectionFactory::class);
+if (!class_exists(\ApiPlatform\Core\Metadata\Property\Factory\CachedPropertyNameCollectionFactory::class)) {
+    class_alias(CachedPropertyNameCollectionFactory::class, \ApiPlatform\Core\Metadata\Property\Factory\CachedPropertyNameCollectionFactory::class);
+}

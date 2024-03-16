@@ -35,8 +35,6 @@ final class CachePoolClearerCacheWarmer implements CacheWarmerInterface
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return string[]
      */
     public function warmUp($cacheDirectory): array
@@ -50,9 +48,6 @@ final class CachePoolClearerCacheWarmer implements CacheWarmerInterface
         return [];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isOptional(): bool
     {
         // optional cache warmers are not run when handling the request
@@ -60,4 +55,6 @@ final class CachePoolClearerCacheWarmer implements CacheWarmerInterface
     }
 }
 
-class_alias(CachePoolClearerCacheWarmer::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\CacheWarmer\CachePoolClearerCacheWarmer::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Symfony\Bundle\CacheWarmer\CachePoolClearerCacheWarmer::class)) {
+    class_alias(CachePoolClearerCacheWarmer::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\CacheWarmer\CachePoolClearerCacheWarmer::class);
+}

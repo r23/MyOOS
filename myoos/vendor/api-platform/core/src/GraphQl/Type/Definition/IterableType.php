@@ -30,13 +30,9 @@ if (\PHP_VERSION_ID >= 70200) {
     trait IterableTypeParseLiteralTrait
     {
         /**
-         * {@inheritdoc}
-         *
          * @param ObjectValueNode|ListValueNode|IntValueNode|FloatValueNode|StringValueNode|BooleanValueNode|NullValueNode $valueNode
-         *
-         * @return mixed
          */
-        public function parseLiteral(/* Node */ $valueNode, ?array $variables = null)
+        public function parseLiteral(/* Node */ $valueNode, array $variables = null)
         {
             if ($valueNode instanceof ObjectValueNode || $valueNode instanceof ListValueNode) {
                 return $this->parseIterableLiteral($valueNode);
@@ -50,11 +46,9 @@ if (\PHP_VERSION_ID >= 70200) {
     trait IterableTypeParseLiteralTrait
     {
         /**
-         * {@inheritdoc}
-         *
          * @param ObjectValueNode|ListValueNode|IntValueNode|FloatValueNode|StringValueNode|BooleanValueNode|NullValueNode $valueNode
          */
-        public function parseLiteral(Node $valueNode, ?array $variables = null)
+        public function parseLiteral(Node $valueNode, array $variables = null)
         {
             if ($valueNode instanceof ObjectValueNode || $valueNode instanceof ListValueNode) {
                 return $this->parseIterableLiteral($valueNode);
@@ -88,11 +82,6 @@ final class IterableType extends ScalarType implements TypeInterface
         return $this->name;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @return mixed
-     */
     public function serialize($value)
     {
         if (!is_iterable($value)) {
@@ -102,11 +91,6 @@ final class IterableType extends ScalarType implements TypeInterface
         return $value;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @return mixed
-     */
     public function parseValue($value)
     {
         if (!is_iterable($value)) {
@@ -149,4 +133,6 @@ final class IterableType extends ScalarType implements TypeInterface
     }
 }
 
-class_alias(IterableType::class, \ApiPlatform\Core\GraphQl\Type\Definition\IterableType::class);
+if (!class_exists(\ApiPlatform\Core\GraphQl\Type\Definition\IterableType::class)) {
+    class_alias(IterableType::class, \ApiPlatform\Core\GraphQl\Type\Definition\IterableType::class);
+}

@@ -25,9 +25,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 final class AuthenticatorManagerPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has('security.authenticator.manager')) {
@@ -36,4 +33,6 @@ final class AuthenticatorManagerPass implements CompilerPassInterface
     }
 }
 
-class_alias(AuthenticatorManagerPass::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\AuthenticatorManagerPass::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\AuthenticatorManagerPass::class)) {
+    class_alias(AuthenticatorManagerPass::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\AuthenticatorManagerPass::class);
+}

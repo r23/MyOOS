@@ -37,9 +37,9 @@ final class TransformSortingParametersListener
         $orderParameter = $request->query->all()['sort'] ?? null;
 
         if (
-            null === $orderParameter ||
-            \is_array($orderParameter) ||
-            'jsonapi' !== $request->getRequestFormat()
+            null === $orderParameter
+            || \is_array($orderParameter)
+            || 'jsonapi' !== $request->getRequestFormat()
         ) {
             return;
         }
@@ -64,4 +64,6 @@ final class TransformSortingParametersListener
     }
 }
 
-class_alias(TransformSortingParametersListener::class, \ApiPlatform\Core\JsonApi\EventListener\TransformSortingParametersListener::class);
+if (!class_exists(\ApiPlatform\Core\JsonApi\EventListener\TransformSortingParametersListener::class)) {
+    class_alias(TransformSortingParametersListener::class, \ApiPlatform\Core\JsonApi\EventListener\TransformSortingParametersListener::class);
+}

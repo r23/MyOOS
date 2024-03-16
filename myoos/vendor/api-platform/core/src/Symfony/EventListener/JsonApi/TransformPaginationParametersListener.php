@@ -30,8 +30,8 @@ final class TransformPaginationParametersListener
         $pageParameter = $request->query->all()['page'] ?? null;
 
         if (
-            !\is_array($pageParameter) ||
-            'jsonapi' !== $request->getRequestFormat()
+            !\is_array($pageParameter)
+            || 'jsonapi' !== $request->getRequestFormat()
         ) {
             return;
         }
@@ -44,4 +44,6 @@ final class TransformPaginationParametersListener
     }
 }
 
-class_alias(TransformPaginationParametersListener::class, \ApiPlatform\Core\JsonApi\EventListener\TransformPaginationParametersListener::class);
+if (!class_exists(\ApiPlatform\Core\JsonApi\EventListener\TransformPaginationParametersListener::class)) {
+    class_alias(TransformPaginationParametersListener::class, \ApiPlatform\Core\JsonApi\EventListener\TransformPaginationParametersListener::class);
+}

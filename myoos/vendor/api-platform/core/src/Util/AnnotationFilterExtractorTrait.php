@@ -33,7 +33,7 @@ trait AnnotationFilterExtractorTrait
      *
      * @return \Iterator only ApiFilter annotations
      */
-    private function getFilterAnnotations(\Reflector $reflector, ?Reader $reader = null): \Iterator
+    private function getFilterAnnotations(\Reflector $reflector, Reader $reader = null): \Iterator
     {
         if (\PHP_VERSION_ID >= 80000) {
             $attributes = $reflector->getAttributes(ApiFilter::class) ?: $reflector->getAttributes(ApiFilterMetadata::class);
@@ -156,4 +156,6 @@ trait AnnotationFilterExtractorTrait
     }
 }
 
-class_alias(AnnotationFilterExtractorTrait::class, \ApiPlatform\Core\Util\AnnotationFilterExtractorTrait::class);
+if (!trait_exists(\ApiPlatform\Core\Util\AnnotationFilterExtractorTrait::class)) {
+    class_alias(AnnotationFilterExtractorTrait::class, \ApiPlatform\Core\Util\AnnotationFilterExtractorTrait::class);
+}

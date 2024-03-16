@@ -41,9 +41,6 @@ final class ConstraintViolationListNormalizer extends AbstractConstraintViolatio
         $this->defaultContext = array_merge($this->defaultContext, $defaultContext);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function normalize($object, $format = null, array $context = []): array
     {
         [$messages, $violations] = $this->getMessagesAndViolations($object);
@@ -57,4 +54,6 @@ final class ConstraintViolationListNormalizer extends AbstractConstraintViolatio
     }
 }
 
-class_alias(ConstraintViolationListNormalizer::class, \ApiPlatform\Core\Problem\Serializer\ConstraintViolationListNormalizer::class);
+if (!class_exists(\ApiPlatform\Core\Problem\Serializer\ConstraintViolationListNormalizer::class)) {
+    class_alias(ConstraintViolationListNormalizer::class, \ApiPlatform\Core\Problem\Serializer\ConstraintViolationListNormalizer::class);
+}

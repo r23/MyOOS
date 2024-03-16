@@ -71,8 +71,6 @@ final class WriteListener
 
     /**
      * Gets the manager if applicable.
-     *
-     * @param mixed $data
      */
     private function getManager(string $resourceClass, $data): ?ObjectManager
     {
@@ -85,4 +83,6 @@ final class WriteListener
     }
 }
 
-class_alias(WriteListener::class, \ApiPlatform\Core\Bridge\Doctrine\EventListener\WriteListener::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Doctrine\EventListener\WriteListener::class)) {
+    class_alias(WriteListener::class, \ApiPlatform\Core\Bridge\Doctrine\EventListener\WriteListener::class);
+}

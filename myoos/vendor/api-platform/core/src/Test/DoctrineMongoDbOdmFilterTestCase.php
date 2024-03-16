@@ -96,7 +96,7 @@ abstract class DoctrineMongoDbOdmFilterTestCase extends KernelTestCase
         $this->assertEquals($expectedPipeline, $pipeline);
     }
 
-    protected function buildFilter(?array $properties = null)
+    protected function buildFilter(array $properties = null)
     {
         return new $this->filterClass($this->managerRegistry, null, $properties);
     }
@@ -104,4 +104,6 @@ abstract class DoctrineMongoDbOdmFilterTestCase extends KernelTestCase
     abstract public function provideApplyTestData(): array;
 }
 
-class_alias(DoctrineMongoDbOdmFilterTestCase::class, \ApiPlatform\Core\Test\DoctrineMongoDbOdmFilterTestCase::class);
+if (!class_exists(\ApiPlatform\Core\Test\DoctrineMongoDbOdmFilterTestCase::class)) {
+    class_alias(DoctrineMongoDbOdmFilterTestCase::class, \ApiPlatform\Core\Test\DoctrineMongoDbOdmFilterTestCase::class);
+}

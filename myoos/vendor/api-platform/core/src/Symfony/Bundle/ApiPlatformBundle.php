@@ -36,9 +36,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 final class ApiPlatformBundle extends Bundle
 {
-    /**
-     * {@inheritdoc}
-     */
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
@@ -59,4 +56,6 @@ final class ApiPlatformBundle extends Bundle
     }
 }
 
-class_alias(ApiPlatformBundle::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\ApiPlatformBundle::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Symfony\Bundle\ApiPlatformBundle::class)) {
+    class_alias(ApiPlatformBundle::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\ApiPlatformBundle::class);
+}

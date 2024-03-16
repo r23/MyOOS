@@ -25,8 +25,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 /**
- * {@inheritdoc}
- *
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
 final class SerializerContextBuilder implements SerializerContextBuilderInterface
@@ -42,9 +40,6 @@ final class SerializerContextBuilder implements SerializerContextBuilderInterfac
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createFromRequest(Request $request, bool $normalization, array $attributes = null): array
     {
         if (null === $attributes && !$attributes = RequestAttributesExtractor::extractAttributes($request)) {
@@ -75,6 +70,12 @@ final class SerializerContextBuilder implements SerializerContextBuilderInterfac
             $context['uri'] = $request->getUri();
             $context['input'] = $operation->getInput();
             $context['output'] = $operation->getOutput();
+
+            // Special case as this is usually handled by our OperationContextTrait, here we want to force the IRI in the response
+            if (!$operation instanceof CollectionOperationInterface && method_exists($operation, 'getItemUriTemplate') && $operation->getItemUriTemplate()) {
+                $context['item_uri_template'] = $operation->getItemUriTemplate();
+            }
+
             $context['types'] = $operation->getTypes();
             $context['uri_variables'] = [];
 
@@ -199,4 +200,6 @@ final class SerializerContextBuilder implements SerializerContextBuilderInterfac
     }
 }
 
-class_alias(SerializerContextBuilder::class, \ApiPlatform\Core\Serializer\SerializerContextBuilder::class);
+if (!class_exists(\ApiPlatform\Core\Serializer\SerializerContextBuilder::class)) {
+    class_alias(SerializerContextBuilder::class, \ApiPlatform\Core\Serializer\SerializerContextBuilder::class);
+}

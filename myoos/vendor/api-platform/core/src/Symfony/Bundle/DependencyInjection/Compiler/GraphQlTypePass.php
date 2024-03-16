@@ -26,9 +26,6 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 final class GraphQlTypePass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container)
     {
         if (!$container->getParameter('api_platform.graphql.enabled')) {
@@ -47,4 +44,6 @@ final class GraphQlTypePass implements CompilerPassInterface
     }
 }
 
-class_alias(GraphQlTypePass::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\GraphQlTypePass::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\GraphQlTypePass::class)) {
+    class_alias(GraphQlTypePass::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\GraphQlTypePass::class);
+}

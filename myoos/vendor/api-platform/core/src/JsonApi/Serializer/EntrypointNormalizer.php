@@ -57,7 +57,7 @@ final class EntrypointNormalizer implements NormalizerInterface, CacheableSuppor
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed|null $format
      *
      * @return array|string|int|float|bool|\ArrayObject|null
      */
@@ -105,21 +105,17 @@ final class EntrypointNormalizer implements NormalizerInterface, CacheableSuppor
         return $entrypoint;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return self::FORMAT === $format && $data instanceof Entrypoint;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasCacheableSupportsMethod(): bool
     {
         return true;
     }
 }
 
-class_alias(EntrypointNormalizer::class, \ApiPlatform\Core\JsonApi\Serializer\EntrypointNormalizer::class);
+if (!class_exists(\ApiPlatform\Core\JsonApi\Serializer\EntrypointNormalizer::class)) {
+    class_alias(EntrypointNormalizer::class, \ApiPlatform\Core\JsonApi\Serializer\EntrypointNormalizer::class);
+}

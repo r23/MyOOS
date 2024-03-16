@@ -43,9 +43,6 @@ final class OpenApiCommand extends Command
         $this->normalizer = $normalizer;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure()
     {
         $this
@@ -56,9 +53,6 @@ final class OpenApiCommand extends Command
             ->addOption('api-gateway', null, InputOption::VALUE_NONE, 'Enable the Amazon API Gateway compatibility mode');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // Backwards compatibility
@@ -100,4 +94,6 @@ final class OpenApiCommand extends Command
     }
 }
 
-class_alias(OpenApiCommand::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\Command\OpenApiCommand::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Symfony\Bundle\Command\OpenApiCommand::class)) {
+    class_alias(OpenApiCommand::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\Command\OpenApiCommand::class);
+}

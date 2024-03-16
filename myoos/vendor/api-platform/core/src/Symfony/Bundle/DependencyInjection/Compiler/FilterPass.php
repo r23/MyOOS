@@ -28,8 +28,6 @@ use Symfony\Component\DependencyInjection\Reference;
 final class FilterPass implements CompilerPassInterface
 {
     /**
-     * {@inheritdoc}
-     *
      * @throws RuntimeException
      */
     public function process(ContainerBuilder $container)
@@ -50,4 +48,6 @@ final class FilterPass implements CompilerPassInterface
     }
 }
 
-class_alias(FilterPass::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\FilterPass::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\FilterPass::class)) {
+    class_alias(FilterPass::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\FilterPass::class);
+}

@@ -15,10 +15,7 @@ namespace ApiPlatform\Serializer;
 
 use ApiPlatform\Api\ResourceClassResolverInterface;
 use ApiPlatform\Core\Metadata\Resource\Factory\ResourceMetadataFactoryInterface;
-use ApiPlatform\Core\Metadata\Resource\ResourceMetadata;
-use ApiPlatform\Metadata\CollectionOperationInterface;
 use ApiPlatform\Metadata\Resource\Factory\ResourceMetadataCollectionFactoryInterface;
-use ApiPlatform\Metadata\Resource\ResourceMetadataCollection;
 use ApiPlatform\State\Pagination\PaginatorInterface;
 use ApiPlatform\State\Pagination\PartialPaginatorInterface;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
@@ -37,6 +34,7 @@ abstract class AbstractCollectionNormalizer implements NormalizerInterface, Norm
         initContext as protected;
     }
     use NormalizerAwareTrait;
+    use OperationContextTrait;
 
     /**
      * This constant must be overridden in the child class.
@@ -58,26 +56,19 @@ abstract class AbstractCollectionNormalizer implements NormalizerInterface, Norm
         $this->resourceMetadataFactory = $resourceMetadataFactory;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return static::FORMAT === $format && is_iterable($data);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasCacheableSupportsMethod(): bool
     {
         return true;
     }
 
     /**
-     * {@inheritdoc}
-     *
-     * @param iterable $object
+     * @param iterable   $object
+     * @param mixed|null $format
      *
      * @return array|string|int|float|bool|\ArrayObject|null
      */
@@ -88,29 +79,12 @@ abstract class AbstractCollectionNormalizer implements NormalizerInterface, Norm
         }
 
         $resourceClass = $this->resourceClassResolver->getResourceClass($object, $context['resource_class']);
-        $context = $this->initContext($resourceClass, $context);
+        $collectionContext = $this->initContext($resourceClass, $context);
         $data = [];
-        $paginationData = $this->getPaginationData($object, $context);
+        $paginationData = $this->getPaginationData($object, $collectionContext);
 
-        // We need to keep this operation for serialization groups for later
-        if (isset($context['operation'])) {
-            $context['root_operation'] = $context['operation'];
-        }
-
-        if (isset($context['operation_name'])) {
-            $context['root_operation_name'] = $context['operation_name'];
-        }
-
-        /** @var ResourceMetadata|ResourceMetadataCollection */
-        $metadata = $this->resourceMetadataFactory->create($context['resource_class'] ?? '');
-        if ($metadata instanceof ResourceMetadataCollection && ($operation = $context['operation'] ?? null) instanceof CollectionOperationInterface && ($itemUriTemplate = $operation->getItemUriTemplate())) {
-            $context['operation'] = $metadata->getOperation($itemUriTemplate);
-        } else {
-            unset($context['operation']);
-        }
-
-        unset($context['operation_type'], $context['operation_name']);
-        $itemsData = $this->getItemsData($object, $format, $context);
+        $childContext = $this->createOperationContext($collectionContext, $resourceClass);
+        $itemsData = $this->getItemsData($object, $format, $childContext);
 
         return array_merge_recursive($data, $paginationData, $itemsData);
     }
@@ -119,7 +93,6 @@ abstract class AbstractCollectionNormalizer implements NormalizerInterface, Norm
      * Normalizes a raw collection (not API resources).
      *
      * @param string|null $format
-     * @param mixed       $object
      */
     protected function normalizeRawCollection($object, $format = null, array $context = []): array
     {
@@ -174,4 +147,6 @@ abstract class AbstractCollectionNormalizer implements NormalizerInterface, Norm
     abstract protected function getItemsData($object, string $format = null, array $context = []): array;
 }
 
-class_alias(AbstractCollectionNormalizer::class, \ApiPlatform\Core\Serializer\AbstractCollectionNormalizer::class);
+if (!class_exists(\ApiPlatform\Core\Serializer\AbstractCollectionNormalizer::class)) {
+    class_alias(AbstractCollectionNormalizer::class, \ApiPlatform\Core\Serializer\AbstractCollectionNormalizer::class);
+}

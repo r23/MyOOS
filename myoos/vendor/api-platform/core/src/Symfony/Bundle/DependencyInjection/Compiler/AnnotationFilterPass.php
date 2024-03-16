@@ -41,9 +41,6 @@ final class AnnotationFilterPass implements CompilerPassInterface
      */
     private $reader;
 
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container): void
     {
         $resourceClassDirectories = $container->getParameter('api_platform.resource_class_directories');
@@ -101,4 +98,6 @@ final class AnnotationFilterPass implements CompilerPassInterface
     }
 }
 
-class_alias(AnnotationFilterPass::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\AnnotationFilterPass::class);
+if (!class_exists(\ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\AnnotationFilterPass::class)) {
+    class_alias(AnnotationFilterPass::class, \ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\AnnotationFilterPass::class);
+}

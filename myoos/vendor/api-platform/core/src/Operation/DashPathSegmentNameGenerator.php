@@ -22,9 +22,6 @@ use ApiPlatform\Util\Inflector;
  */
 final class DashPathSegmentNameGenerator implements PathSegmentNameGeneratorInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getSegmentName(string $name, bool $collection = true): string
     {
         return $collection ? $this->dashize(Inflector::pluralize($name)) : $this->dashize($name);
@@ -36,4 +33,6 @@ final class DashPathSegmentNameGenerator implements PathSegmentNameGeneratorInte
     }
 }
 
-class_alias(DashPathSegmentNameGenerator::class, \ApiPlatform\Core\Operation\DashPathSegmentNameGenerator::class);
+if (!class_exists(\ApiPlatform\Core\Operation\DashPathSegmentNameGenerator::class)) {
+    class_alias(DashPathSegmentNameGenerator::class, \ApiPlatform\Core\Operation\DashPathSegmentNameGenerator::class);
+}

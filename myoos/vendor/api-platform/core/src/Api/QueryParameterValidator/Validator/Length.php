@@ -15,9 +15,6 @@ namespace ApiPlatform\Api\QueryParameterValidator\Validator;
 
 final class Length implements ValidatorInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function validate(string $name, array $filterDescription, array $queryParameters): array
     {
         $value = $queryParameters[$name] ?? null;
@@ -42,4 +39,6 @@ final class Length implements ValidatorInterface
     }
 }
 
-class_alias(Length::class, \ApiPlatform\Core\Filter\Validator\Length::class);
+if (!class_exists()) {
+    class_alias(Length::class, \ApiPlatform\Core\Filter\Validator\Length::class);
+}
