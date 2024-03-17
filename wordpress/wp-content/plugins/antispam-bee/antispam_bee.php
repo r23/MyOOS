@@ -9,7 +9,7 @@
  * Domain Path: /lang
  * License:     GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- * Version:     2.11.5
+ * Version:     2.11.6
  *
  * @package Antispam Bee
  **/
@@ -330,7 +330,7 @@ class Antispam_Bee {
 					'precheck_incoming_request',
 				)
 			);
-			add_action(
+			add_filter(
 				'preprocess_comment',
 				array(
 					__CLASS__,
@@ -402,6 +402,7 @@ class Antispam_Bee {
 		global $wpdb;
 
 		delete_option( 'antispam_bee' );
+		delete_option( 'antispambee_db_version' );
 		$wpdb->query( 'OPTIMIZE TABLE `' . $wpdb->options . '`' );
 
 		//phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
@@ -764,7 +765,12 @@ class Antispam_Bee {
 		$items[] = '<span class="ab-count">' . esc_html(
 			sprintf(
 				// translators: The number of spam comments Antispam Bee blocked so far.
-				__( '%s Blocked', 'antispam-bee' ),
+				_n(
+					'%s Blocked',
+					'%s Blocked',
+					self::_get_spam_count(),
+					'antispam-bee'
+				),
 				self::_get_spam_count()
 			)
 		) . '</span>';
@@ -869,7 +875,7 @@ class Antispam_Bee {
 		$items = (array) self::get_option( 'daily_stats' );
 
 		if ( empty( $items ) ) {
-			echo sprintf(
+			printf(
 				'<div id="ab_chart"><p>%s</p></div>',
 				esc_html__( 'No data available.', 'antispam-bee' )
 			);
@@ -2240,27 +2246,6 @@ class Antispam_Bee {
 
 
 	/**
-	 * Rotates the IP address
-	 *
-	 * @since   2.4.5
-	 *
-	 * @param   string $ip  IP address.
-	 * @return  string      Turned IP address.
-	 */
-	private static function _reverse_ip( $ip ) {
-		return implode(
-			'.',
-			array_reverse(
-				explode(
-					'.',
-					$ip
-				)
-			)
-		);
-	}
-
-
-	/**
 	 * Check for an IPv4 address
 	 *
 	 * @since  2.4
@@ -2274,24 +2259,6 @@ class Antispam_Bee {
 			return filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) !== false;
 		} else {
 			return preg_match( '/^\d{1,3}(\.\d{1,3}){3}$/', $ip );
-		}
-	}
-
-
-	/**
-	 * Check for an IPv6 address
-	 *
-	 * @since  2.6.2
-	 * @since  2.6.4
-	 *
-	 * @param   string $ip  IP to validate.
-	 * @return  boolean       TRUE if IPv6.
-	 */
-	private static function _is_ipv6( $ip ) {
-		if ( function_exists( 'filter_var' ) ) {
-			return filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 ) !== false;
-		} else {
-			return ! self::_is_ipv4( $ip );
 		}
 	}
 
@@ -2769,7 +2736,7 @@ class Antispam_Bee {
 
 		// Count up.
 		if ( array_key_exists( $today, $stats ) ) {
-			$stats[ $today ] ++;
+			$stats[ $today ]++;
 		} else {
 			$stats[ $today ] = 1;
 		}
@@ -2811,7 +2778,6 @@ class Antispam_Bee {
 			(int) $post_id,
 			(bool) self::get_option( 'always_allowed' )
 		);
-
 	}
 
 	/**
@@ -2948,10 +2914,9 @@ class Antispam_Bee {
 	 * @return bool
 	 */
 	private static function db_version_is_current() {
-
 		$current_version = floatval( get_option( 'antispambee_db_version', 0 ) );
-		return $current_version === self::$db_version;
 
+		return $current_version === self::$db_version;
 	}
 
 	/**
