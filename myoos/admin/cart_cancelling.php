@@ -232,6 +232,8 @@ dosql($table, $flds);
 
 		$days = 2;
         $sd = mktime(0, 0, 0, date("m"), date("d") - $days, date("Y"));
+		$in_three_days = date('Y-m-d', strtotime("+3 days"));	
+
 
         $customers_baskettable = $oostable['customers_basket'];
         $basket_result = $dbconn->Execute("SELECT customers_basket_id, customers_id, customers_basket_date_added  FROM $customers_baskettable WHERE customers_basket_date_added <= '" . oos_db_input(date("Ymd", $sd)) . "'");
@@ -379,8 +381,11 @@ dosql($table, $flds);
 							$specials_result = $dbconn->Execute($sql);
 							if ($specials_result->RecordCount()) {
 								$specials = $specials_result->fields;
-								$products_price = $specials['specials_new_products_price'];
-								$until = oos_date_short($specials_result['expires_date']);
+														
+								if ($in_three_days < $specials['expires_date']) {
+									$products_price = $specials['specials_new_products_price'];
+									$until = oos_date_short($specials['expires_date']);
+								}
 							}
 
 							if (isset($aProducts[$products_id]['attributes'])) {
