@@ -33,7 +33,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
  * @param $specials_id
  * @param $status
  */
-function oos_set_account_status($customers_id, $status)
+function oos_set_account_status($customers_id)
 {
 
     // Get database information

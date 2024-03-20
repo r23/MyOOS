@@ -44,7 +44,11 @@ if (function_exists('ini_set')) {
 }
 
 
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\IOFactory;
+
 use Symfony\Component\HttpFoundation\Request;
+
 
 $autoloader = include_once __DIR__ . '/vendor/autoload.php';
 $request = Request::createFromGlobals();
@@ -80,12 +84,42 @@ if ($prevent_result->RecordCount() > 0) {
 $mail_file = 'basket_mail-' . date('YmdHis') . '.docx';
 
 
+// Neue Instanz von PhpWord erstellen
+$phpWord = new PhpWord();
 
-// Erstellen Sie ein neues PHPWord-Objekt
-$phpWord = new \PhpOffice\PhpWord\PhpWord();
+// Neuen Abschnitt hinzufügen
+$section = $phpWord->addSection();
 
-// Laden Sie die Vorlage mit den Platzhaltern
-$template = $phpWord->loadTemplate('template.docx');
+// Platzhalter für Serienbriefe definieren
+$section->addText('Name: ${name}');
+$section->addText('Adresse: ${address}');
+
+// TemplateProcessor instanzieren
+$templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('path/to/template.docx');
+
+// Daten für die Serienbriefe
+$recipients = [
+    ['name' => 'Max Mustermann', 'address' => 'Musterstraße 1'],
+    ['name' => 'Erika Mustermann', 'address' => 'Musterweg 2'],
+];
+
+// Platzhalter durch tatsächliche Daten ersetzen
+foreach ($recipients as $recipient) {
+    $templateProcessor->setValue('name', $recipient['name']);
+    $templateProcessor->setValue('address', $recipient['address']);
+
+    // Dokument speichern
+    $fileName = 'Serienbrief_' . $recipient['name'] . '.docx';
+    $templateProcessor->saveAs($fileName);
+}
+
+echo 'Serienbriefe wurden erstellt.';
+
+
+
+
+
+
 
 // Verbinden Sie sich mit der Datenbank oder laden Sie die Daten aus einer anderen Quelle
 // Hier verwenden wir ein Array als Beispiel
