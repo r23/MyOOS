@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'a7f0e82b12f4d4db9ebd5375089af711b4615550',
+        'reference' => '05dcbd6f4d99375bc42f53ef32750710fb12e295',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -229,7 +229,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'a7f0e82b12f4d4db9ebd5375089af711b4615550',
+            'reference' => '05dcbd6f4d99375bc42f53ef32750710fb12e295',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -353,9 +353,9 @@
             'dev_requirement' => false,
         ),
         'phpstan/phpstan' => array(
-            'pretty_version' => '1.10.63',
-            'version' => '1.10.63.0',
-            'reference' => 'ad12836d9ca227301f5fb9960979574ed8628339',
+            'pretty_version' => '1.10.64',
+            'version' => '1.10.64.0',
+            'reference' => 'fb9f270daffedcb5ff46275dcafe92538b1bc4bb',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpstan/phpstan',
             'aliases' => array(),
@@ -520,7 +520,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => 'a93bfa3d635bfaf71fa8c459a6df6278c5cdb9e8',
+            'reference' => '1054e91fea643e960a73f15090d987d99a1b1190',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
@@ -1102,9 +1102,9 @@
             ),
         ),
         'tecnickcom/tcpdf' => array(
-            'pretty_version' => '6.7.2',
-            'version' => '6.7.2.0',
-            'reference' => '1ae5c4721cecb6be1fa1c0bebb506ed454a3e02d',
+            'pretty_version' => '6.7.4',
+            'version' => '6.7.4.0',
+            'reference' => 'f9fd21807cbb5d43ed62c685e2d6467515d31746',
             'type' => 'library',
             'install_path' => __DIR__ . '/../tecnickcom/tcpdf',
             'aliases' => array(),
