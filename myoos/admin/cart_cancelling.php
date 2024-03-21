@@ -249,7 +249,7 @@ dosql($table, $flds);
 					$customerstable = $oostable['customers'];
 					$address_booktable = $oostable['address_book'];
 					$customers_result = $dbconn->Execute("SELECT c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, 
-																c.customers_email_address, c.customers_wishlist_link_id, c.customers_2fa_active,
+																c.customers_email_address, c.customers_wishlist_link_id, c.customers_language,
 																a.entry_company, a.entry_owner, a.entry_vat_id, a.entry_vat_id_status, 
 																a.entry_street_address, a.entry_postcode, a.entry_city, a.entry_state, a.entry_zone_id,
 																a.entry_country_id, c.customers_telephone,

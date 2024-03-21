@@ -80,6 +80,8 @@ if ($prevent_result->RecordCount() > 0) {
 	# $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id) VALUES ('LASTBASKET_MAIL', '" . date("Ymd") . "', '6')");
 }
 
+#echo OOS_EXPORT_PATH;
+#exit;
 
 $mail_file = 'basket_mail-' . date('YmdHis') . '.docx';
 
@@ -94,8 +96,12 @@ $section = $phpWord->addSection();
 $section->addText('Name: ${name}');
 $section->addText('Adresse: ${address}');
 
+
+
+$docx_template = MYOOS_INCLUDE_PATH . '/includes/languages/deu/cart_cancelling.docx';
+
 // TemplateProcessor instanzieren
-$templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('path/to/template.docx');
+$templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($docx_template);
 
 // Daten für die Serienbriefe
 $recipients = [
@@ -105,43 +111,20 @@ $recipients = [
 
 // Platzhalter durch tatsächliche Daten ersetzen
 foreach ($recipients as $recipient) {
+	// TemplateProcessor instanzieren
+	$templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($docx_template);
+
     $templateProcessor->setValue('name', $recipient['name']);
     $templateProcessor->setValue('address', $recipient['address']);
 
     // Dokument speichern
-    $fileName = 'Serienbrief_' . $recipient['name'] . '.docx';
-    $templateProcessor->saveAs($fileName);
+    $fileName = 'Serienbrief_' . $recipient['name'] . date('YmdHis') . '.docx';
+    $templateProcessor->saveAs(OOS_EXPORT_PATH. $fileName);
+	
+	unset($templateProcessor);
 }
 
 echo 'Serienbriefe wurden erstellt.';
-
-
-
-
-
-
-
-// Verbinden Sie sich mit der Datenbank oder laden Sie die Daten aus einer anderen Quelle
-// Hier verwenden wir ein Array als Beispiel
-$data = array(
-    array('name' => 'Hans Müller', 'address' => 'Musterstraße 1, 12345 Musterstadt'),
-    array('name' => 'Anna Schmidt', 'address' => 'Beispielweg 2, 67890 Beispielort'),
-    array('name' => 'Peter Meier', 'address' => 'Testallee 3, 13579 Teststadt')
-);
-
-// Ersetzen Sie die Platzhalter mit den Daten
-foreach ($data as $row) {
-    // Klone die Vorlage für jeden Datensatz
-    $template->cloneRow('name', 1);
-
-    // Ersetzen Sie die Platzhalter mit den Werten aus dem Array
-    $template->setValue('name#1', $row['name']);
-    $template->setValue('address#1', $row['address']);
-}
-
-// Speichern Sie das Ergebnis als eine neue Datei
-$template->save(OOS_EXPORT_PATH.$mail_file);
-
 
 
 
