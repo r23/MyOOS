@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "ampproject/amp-toolbox",
-            "version": "0.11.4",
-            "version_normalized": "0.11.4.0",
+            "version": "0.11.5",
+            "version_normalized": "0.11.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ampproject/amp-toolbox-php.git",
-                "reference": "c79a0fe558a3c042aee4789bbf33376cca7a733d"
+                "reference": "78531851c59fa5f306315372719f0064b5542cf4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ampproject/amp-toolbox-php/zipball/c79a0fe558a3c042aee4789bbf33376cca7a733d",
-                "reference": "c79a0fe558a3c042aee4789bbf33376cca7a733d",
+                "url": "https://api.github.com/repos/ampproject/amp-toolbox-php/zipball/78531851c59fa5f306315372719f0064b5542cf4",
+                "reference": "78531851c59fa5f306315372719f0064b5542cf4",
                 "shasum": ""
             },
             "require": {
@@ -43,7 +43,7 @@
                 "mck89/peast": "Needed to minify the AMP script.",
                 "nette/php-generator": "Needed to generate the validator spec PHP classes and interfaces."
             },
-            "time": "2023-10-24T22:47:58+00:00",
+            "time": "2024-02-05T19:10:57+00:00",
             "bin": [
                 "bin/amp"
             ],
@@ -73,7 +73,7 @@
             "description": "A collection of AMP tools making it easier to publish and host AMP pages with PHP.",
             "support": {
                 "issues": "https://github.com/ampproject/amp-toolbox-php/issues",
-                "source": "https://github.com/ampproject/amp-toolbox-php/tree/0.11.4"
+                "source": "https://github.com/ampproject/amp-toolbox-php/tree/0.11.5"
             },
             "install-path": "../ampproject/amp-toolbox"
         },
@@ -141,17 +141,17 @@
         },
         {
             "name": "sabberworm/php-css-parser",
-            "version": "dev-master",
-            "version_normalized": "dev-master",
+            "version": "v8.5.1",
+            "version_normalized": "8.5.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sabberworm/PHP-CSS-Parser.git",
-                "reference": "cc791ad"
+                "url": "https://github.com/MyIntervals/PHP-CSS-Parser.git",
+                "reference": "4a3d572b0f8b28bb6fd016ae8bbfc445facef152"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sabberworm/PHP-CSS-Parser/zipball/cc791ad",
-                "reference": "cc791ad",
+                "url": "https://api.github.com/repos/MyIntervals/PHP-CSS-Parser/zipball/4a3d572b0f8b28bb6fd016ae8bbfc445facef152",
+                "reference": "4a3d572b0f8b28bb6fd016ae8bbfc445facef152",
                 "shasum": ""
             },
             "require": {
@@ -159,16 +159,17 @@
                 "php": ">=5.6.20"
             },
             "require-dev": {
-                "codacy/coverage": "^1.4.3",
                 "phpunit/phpunit": "^5.7.27"
             },
             "suggest": {
                 "ext-mbstring": "for parsing UTF-8 CSS"
             },
-            "time": "2023-01-25T01:20:01+00:00",
-            "default-branch": true,
+            "time": "2024-02-15T16:41:13+00:00",
             "type": "library",
             "extra": {
+                "branch-alias": {
+                    "dev-main": "9.0.x-dev"
+                },
                 "patches_applied": {
                     "1. Validate name-start code points for identifier <https://github.com/westonruter/PHP-CSS-Parser/pull/2>": "https://github.com/sabberworm/PHP-CSS-Parser/compare/cc791ad...westonruter:PHP-CSS-Parser:fix/malformed-identifier-without-tests.diff",
                     "2. Fix parsing CSS selectors which contain commas <https://github.com/westonruter/PHP-CSS-Parser/pull/1>": "https://github.com/sabberworm/PHP-CSS-Parser/compare/cc791ad...westonruter:PHP-CSS-Parser:fix/selector-comma-parsing-without-tests.diff",
@@ -188,6 +189,14 @@
             "authors": [
                 {
                     "name": "Raphael Schweikert"
+                },
+                {
+                    "name": "Oliver Klee",
+                    "email": "github@oliverklee.de"
+                },
+                {
+                    "name": "Jake Hotson",
+                    "email": "jake.github@qzdesign.co.uk"
                 }
             ],
             "description": "Parser for CSS Files written in PHP",
@@ -198,8 +207,8 @@
                 "stylesheet"
             ],
             "support": {
-                "issues": "https://github.com/sabberworm/PHP-CSS-Parser/issues",
-                "source": "https://github.com/sabberworm/PHP-CSS-Parser/tree/master"
+                "issues": "https://github.com/MyIntervals/PHP-CSS-Parser/issues",
+                "source": "https://github.com/MyIntervals/PHP-CSS-Parser/tree/v8.5.1"
             },
             "install-path": "../sabberworm/php-css-parser"
         },

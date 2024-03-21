@@ -3,7 +3,7 @@
         'name' => 'ampproject/amp-wp',
         'pretty_version' => 'dev-develop',
         'version' => 'dev-develop',
-        'reference' => '716c4188a9ee39e76222c2e20e16a748d93e4775',
+        'reference' => 'd4200c4b26446541282aef3c3cc2acd3b93674d7',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'ampproject/amp-toolbox' => array(
-            'pretty_version' => '0.11.4',
-            'version' => '0.11.4.0',
-            'reference' => 'c79a0fe558a3c042aee4789bbf33376cca7a733d',
+            'pretty_version' => '0.11.5',
+            'version' => '0.11.5.0',
+            'reference' => '78531851c59fa5f306315372719f0064b5542cf4',
             'type' => 'library',
             'install_path' => __DIR__ . '/../ampproject/amp-toolbox',
             'aliases' => array(),
@@ -22,7 +22,7 @@
         'ampproject/amp-wp' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
-            'reference' => '716c4188a9ee39e76222c2e20e16a748d93e4775',
+            'reference' => 'd4200c4b26446541282aef3c3cc2acd3b93674d7',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -38,14 +38,12 @@
             'dev_requirement' => false,
         ),
         'sabberworm/php-css-parser' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => 'cc791ad',
+            'pretty_version' => 'v8.5.1',
+            'version' => '8.5.1.0',
+            'reference' => '4a3d572b0f8b28bb6fd016ae8bbfc445facef152',
             'type' => 'library',
             'install_path' => __DIR__ . '/../sabberworm/php-css-parser',
-            'aliases' => array(
-                0 => '9999999-dev',
-            ),
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
         'willwashburn/stream' => array(
