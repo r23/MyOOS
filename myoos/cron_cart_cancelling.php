@@ -80,51 +80,102 @@ if ($prevent_result->RecordCount() > 0) {
 	# $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id) VALUES ('LASTBASKET_MAIL', '" . date("Ymd") . "', '6')");
 }
 
-#echo OOS_EXPORT_PATH;
-#exit;
+$recipients = [];
 
-$mail_file = 'basket_mail-' . date('YmdHis') . '.docx';
+$days = 2;
+$sd = mktime(0, 0, 0, date("m"), date("d") - $days, date("Y"));
+
+$customers_baskettable = $oostable['customers_basket'];
+$basket_result = $dbconn->Execute("SELECT customers_basket_id, customers_id, customers_basket_date_added  FROM $customers_baskettable WHERE customers_basket_date_added <= '" . oos_db_input(date("Ymd", $sd)) . "'");
+ 
+if ($basket_result->RecordCount() > 0) {
+	while ($basket = $basket_result->fields) {
+		$customers_basket_id = $basket['customers_basket_id'];
+		$customer_id = $basket['customers_id'];	
+				
+		if (!check_letter_sent($customer_id, $customers_basket_id )) {
+
+			$customerstable = $oostable['customers'];
+			$address_booktable = $oostable['address_book'];
+			$customers_result = $dbconn->Execute("SELECT c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, 
+																c.customers_email_address, c.customers_wishlist_link_id, c.customers_language,
+																a.entry_company, a.entry_owner, a.entry_vat_id, a.entry_vat_id_status, 
+																a.entry_street_address, a.entry_postcode, a.entry_city, a.entry_state, a.entry_zone_id,
+																a.entry_country_id, c.customers_telephone,
+																c.customers_default_address_id, c.customers_status, c.customers_max_order
+														FROM  $customerstable c LEFT JOIN
+																$address_booktable a
+																ON c.customers_default_address_id = a.address_book_id
+														WHERE a.customers_id = c.customers_id AND
+																c.customers_id = '" .  intval($customer_id) . "'");
+			$customers = $customers_result->fields;
+
+					$schema .= $customers['entry_company'] . $indent . $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . $indent;
+					$schema .= $customers['entry_street_address'] . $indent . $customers['entry_postcode'] . $indent . $customers['entry_city'] . $indent;
+
+					$countriestable = $oostable['countries'];
+					$country_result = $dbconn->Execute("SELECT countries_name
+														FROM $countriestable
+														WHERE countries_id = '" . intval($customers['entry_country_id']) . "'");
+					$country = $country_result->fields;
+
+					$schema .= $country['countries_name'] . $indent;
+					
+
+		}				
+
+		// Move that ADOdb pointer!
+		$basket_result->MoveNext();
+	}
+}
 
 
-// Neue Instanz von PhpWord erstellen
+
+echo $schema;
+exit;
+
+
+
+
+
+
+
+// Create a new instance of PhpWord
 $phpWord = new PhpWord();
 
-// Neuen Abschnitt hinzufügen
+// Add new section
 $section = $phpWord->addSection();
 
-// Platzhalter für Serienbriefe definieren
+// Define placeholders for form letters
+$section->addText('Date: ${date}');
+$section->addText('Company: ${company}');
 $section->addText('Name: ${name}');
+
 $section->addText('Adresse: ${address}');
 
-
-
-$docx_template = MYOOS_INCLUDE_PATH . '/includes/languages/deu/cart_cancelling.docx';
-
-// TemplateProcessor instanzieren
-$templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($docx_template);
-
-// Daten für die Serienbriefe
+// Data for the form letters
 $recipients = [
     ['name' => 'Max Mustermann', 'address' => 'Musterstraße 1'],
     ['name' => 'Erika Mustermann', 'address' => 'Musterweg 2'],
 ];
 
-// Platzhalter durch tatsächliche Daten ersetzen
+// Replace placeholders with actual data
 foreach ($recipients as $recipient) {
-	// TemplateProcessor instanzieren
+	// Instantiate TemplateProcessor
+	$docx_template = MYOOS_INCLUDE_PATH . '/includes/languages/deu/cart_cancelling.docx';
 	$templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($docx_template);
 
     $templateProcessor->setValue('name', $recipient['name']);
     $templateProcessor->setValue('address', $recipient['address']);
 
-    // Dokument speichern
+    // Save document
     $fileName = 'Serienbrief_' . $recipient['name'] . date('YmdHis') . '.docx';
     $templateProcessor->saveAs(OOS_EXPORT_PATH. $fileName);
 	
 	unset($templateProcessor);
 }
 
-echo 'Serienbriefe wurden erstellt.';
+echo 'Serial letters were created';
 
 
 

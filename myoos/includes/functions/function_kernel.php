@@ -1434,6 +1434,25 @@ function oos_parse_category_path($sCategory)
 }
 
 
+function check_letter_sent($customer_id, $customers_basket_id)
+{
+
+    // Get database information
+    $dbconn = & oosDBGetConn();
+    $oostable = & oosDBGetTables();
+	
+	$customers_basket_mailtable = $oostable['customers_basket_mail'];
+	$basket_query = "SELECT * FROM $customers_basket_mailtable WHERE customers_basket_id = '" . intval($customers_basket_id) . "' AND customers_id =  '" . intval($customer_id) . "'";
+	$basket_result = $dbconn->Execute($basket_query);
+
+	if ($basket_result->RecordCount() > 0) {	
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
 /**
  * Output the locale, doing some conversions to make sure the proper Facebook locale is outputted.
  *

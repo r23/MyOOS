@@ -240,7 +240,6 @@ dosql($table, $flds);
  
 		if ($basket_result->RecordCount() > 0) {
 			while ($basket = $basket_result->fields) {
-                echo $basket['customers_id'];
 				$customers_basket_id = $basket['customers_basket_id'];
 				$customer_id = $basket['customers_id'];	
 				
