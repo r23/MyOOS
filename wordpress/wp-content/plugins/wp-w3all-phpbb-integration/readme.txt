@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: phpbb, integration, template, user, login
-Stable tag: 2.8.1
+Stable tag: 2.8.2
 License: GPLv2 or later
 Requires at least: 6.0.0
 Tested up to: 6.5
@@ -72,6 +72,11 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.8.2 =
+*Release Date - 22 Mar, 2024*
+* Fix: 'Not enough data to create user' error, when an user should be created on WP login, because existent (and active) in phpBB
+* Fix: same issue for all 'create user' instances throwing same error
 
 = 2.8.1 =
 *Release Date - 14 Mar, 2024*

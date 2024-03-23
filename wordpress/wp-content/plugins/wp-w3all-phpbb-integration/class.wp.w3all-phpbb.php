@@ -1,5 +1,5 @@
 <?php
-//Copyright (C) 2023 - axew3.com
+//Copyright (C) 2024 - axew3.com
 class WP_w3all_phpbb {
 
 // lost on the way
@@ -74,7 +74,11 @@ private static function w3all_wp_logout($redirect = ''){
       setcookie ("$sid", "", 1, "/", "$w3cookie_domain");
       setcookie ("$u", "", 1, "/", "$w3cookie_domain");
 
-    wp_logout();
+       //wp_logout(); // return error in some configuration and external plugins
+       clean_user_cache(get_current_user_id());
+       wp_destroy_current_session();
+       wp_clear_auth_cookie();
+       wp_set_current_user(0);
 
     if($redirect == 'wp_login_url' OR $redirect == 'not_logged_delete_only_cookie'){
       wp_redirect( wp_login_url() ); exit;
@@ -115,8 +119,8 @@ private static function w3all_db_connect(){
           $w3all_phpbb_connection = new wpdb($w3all_config_db["dbuser"], $w3all_config_db["dbpasswd"], $w3all_config_db["dbname"], $w3all_config_db["dbhost"]);
        }
    } elseif(empty($w3all_config_db) OR defined('W3ALLCONNWRONGPARAMS'))
-   { return; 
-   	} else
+   { return;
+    } else
      {
        $w3all_config_db["dbhost"] = empty($w3all_config_db["dbport"]) ? $w3all_config_db["dbhost"] : $w3all_config_db["dbhost"] . ':' . $w3all_config_db["dbport"];
        $w3all_phpbb_connection = new wpdb($w3all_config_db["dbuser"], $w3all_config_db["dbpasswd"], $w3all_config_db["dbname"], $w3all_config_db["dbhost"]);
@@ -629,7 +633,7 @@ private static function verify_phpbb_credentials(){
               $userdata = array(
                'user_login'       =>  $phpbb_user_session[0]->username,
                'user_pass'        =>  $phpbb_user_session[0]->user_password,
-               'user_email'       =>  $phpbb_user_session[0]->user_email,
+               //'user_email'       =>  $phpbb_user_session[0]->user_email,
                'user_registered'  =>  date_i18n( 'Y-m-d H:i:s', $phpbb_user_session[0]->user_regdate ),
                'role'             =>  $role,
                );
@@ -667,15 +671,17 @@ private static function verify_phpbb_credentials(){
 
        $phpbb_username = preg_replace( '/\s+/', ' ', $phpbb_user_session[0]->username );
        $phpbb_username = esc_sql($phpbb_username);
+       $phpbb_uemail = $phpbb_user_session[0]->user_email;
+       $phpbb_upass = $phpbb_user_session[0]->user_password;
        $user_username_clean = sanitize_user( $phpbb_user_session[0]->username, $strict = false );
        $user_username_clean = esc_sql(mb_strtolower($user_username_clean,'UTF-8'));
 
         if ( ! is_wp_error( $user_id ) && $contains_cyrillic ) {
          // update user_login and user_nicename and force to be what needed
-         $wpdb->query("UPDATE $wpu_db_utab SET user_login = '".$phpbb_username."', user_pass = '".$phpbb_user_session[0]->user_password."', user_nicename = '".$user_username_clean."', display_name = '".$phpbb_username."' WHERE ID = ".$user_id."");
+         $wpdb->query("UPDATE $wpu_db_utab SET user_login = '".$phpbb_username."', user_pass = '".$phpbb_upass."', user_nicename = '".$user_username_clean."', user_email = '".$phpbb_uemail."', display_name = '".$phpbb_username."' WHERE ID = ".$user_id."");
          $wpdb->query("UPDATE $wpu_db_umtab SET meta_value = '".$phpbb_username."' WHERE user_id = '$user_id' AND meta_key = 'nickname'");
         } elseif ( ! is_wp_error( $user_id ) ) { // leave as is (may cleaned and different) the just created user_login
-            $wpdb->query("UPDATE $wpu_db_utab SET user_pass = '".$phpbb_user_session[0]->user_password."', display_name = '".$phpbb_username."' WHERE ID = '$user_id'");
+            $wpdb->query("UPDATE $wpu_db_utab SET user_pass = '".$phpbb_upass."', user_email = '".$phpbb_uemail."', display_name = '".$phpbb_username."' WHERE ID = '$user_id'");
             $wpdb->query("UPDATE $wpu_db_umtab SET meta_value = '".$phpbb_username."' WHERE user_id = '$user_id' AND meta_key = 'nickname'");
           }
  }
@@ -1841,7 +1847,7 @@ public static function w3_check_phpbb_profile_wpnu($username){ // email/user_log
    $userdata = array(
      'user_login' => $phpbb_user[0]->username,
      'user_pass' => $phpbb_user[0]->user_password,
-     'user_email' => $phpbb_user[0]->user_email,
+     //'user_email' => $phpbb_user[0]->user_email,
      'user_registered' => date_i18n( 'Y-m-d H:i:s', $phpbb_user[0]->user_regdate ),
      'role' => $role
     );
@@ -1858,15 +1864,17 @@ public static function w3_check_phpbb_profile_wpnu($username){ // email/user_log
    if ( ! is_wp_error( $user_id ) ) {
      $phpbb_username = preg_replace( '/\s+/', ' ', $phpbb_user[0]->username );
      $phpbb_username = esc_sql($phpbb_username);
+     $uemail = $phpbb_user[0]->user_email;
+     $upass = $phpbb_user[0]->user_email;
      $user_username_clean = sanitize_user( $phpbb_user[0]->username, $strict = false );
      $user_username_clean = esc_sql(mb_strtolower($user_username_clean,'UTF-8'));
 
    // workaround for cyrillic chars: or an username like 'Denis I.' in cyrillic alphabet, will be inserted as a single dot for the user_login value
      if ( $contains_cyrillic ) {
-      $wpdb->query("UPDATE $wpu_db_utab SET user_login = '".$phpbb_username."', user_pass = '".$phpbb_user[0]->user_password."', user_nicename = '".$user_username_clean."', display_name = '".$phpbb_username."' WHERE ID = ".$user_id."");
+      $wpdb->query("UPDATE $wpu_db_utab SET user_login = '".$phpbb_username."', user_pass = '".$upass."', user_nicename = '".$user_username_clean."', user_email = '".$uemail."', display_name = '".$phpbb_username."' WHERE ID = ".$user_id."");
       $wpdb->query("UPDATE $wpu_db_umtab SET meta_value = '".$phpbb_username."' WHERE user_id = '$user_id' AND meta_key = 'nickname'");
      } else { // leave as is (may cleaned and different) the just created user_login
-            $wpdb->query("UPDATE $wpu_db_utab SET user_pass = '".$phpbb_user[0]->user_password."', display_name = '".$phpbb_username."' WHERE ID = '$user_id'");
+            $wpdb->query("UPDATE $wpu_db_utab SET user_pass = '".$upass."', user_email = '".$uemail."', display_name = '".$phpbb_username."' WHERE ID = '$user_id'");
             $wpdb->query("UPDATE $wpu_db_umtab SET meta_value = '".$phpbb_username."' WHERE user_id = '$user_id' AND meta_key = 'nickname'");
           }
    }

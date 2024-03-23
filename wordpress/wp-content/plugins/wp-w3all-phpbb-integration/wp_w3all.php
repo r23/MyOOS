@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.8.1
+Version: 2.8.2
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -33,7 +33,7 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.8.1' );
+define( 'WPW3ALL_VERSION', '2.8.2' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '6.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -407,7 +407,7 @@ function w3all_login_widget(){
               $userdata = array(
                'user_login'       =>  $user[0]->username,
                'user_pass'        =>  $user[0]->user_password,
-               'user_email'       =>  $user[0]->user_email,
+               //'user_email'       =>  $user[0]->user_email,
                'user_registered'  =>  date_i18n( 'Y-m-d H:i:s', $user[0]->user_regdate ),
                'role'             =>  $role,
                'nickname'         =>  $user[0]->username
@@ -424,6 +424,8 @@ function w3all_login_widget(){
 
       $phpbb_username = preg_replace( '/\s+/', ' ', $user[0]->username );
       $phpbb_username = esc_sql($phpbb_username);
+      $phpbb_user_email = $user[0]->user_email;
+      $phpbb_user_pass = $user[0]->user_password;
       $user_username_clean = sanitize_user( $user[0]->username, $strict = false );
       $user_username_clean = esc_sql(mb_strtolower($user_username_clean,'UTF-8'));
 
@@ -431,10 +433,10 @@ function w3all_login_widget(){
        if ($contains_cyrillic) {
           // update user_login and user_nicename and force to be what needed
           // also update the pass, since re-hashed by wp_insert_user()
-          $wpdb->query("UPDATE $wpu_db_utab SET user_login = '".$phpbb_username."', user_pass = '".$user[0]->user_password."', user_nicename = '".$user_username_clean."', display_name = '".$phpbb_username."' WHERE ID = ".$user_id."");
+          $wpdb->query("UPDATE $wpu_db_utab SET user_login = '".$phpbb_username."', user_pass = '".$phpbb_user_pass."', user_nicename = '".$user_username_clean."', user_email = '".$phpbb_user_email."', display_name = '".$phpbb_username."' WHERE ID = ".$user_id."");
           $wpdb->query("UPDATE $wpu_db_umtab SET meta_value = '".$phpbb_username."' WHERE user_id = '$user_id' AND meta_key = 'nickname'");
          } else { // leave as is (may cleaned and different) the just created user_login
-            $wpdb->query("UPDATE $wpu_db_utab SET user_pass = '".$user[0]->user_password."', display_name = '".$phpbb_username."' WHERE ID = '$user_id'");
+            $wpdb->query("UPDATE $wpu_db_utab SET user_pass = '".$phpbb_user_pass."', user_email = '".$phpbb_user_email."', display_name = '".$phpbb_username."' WHERE ID = '$user_id'");
             $wpdb->query("UPDATE $wpu_db_umtab SET meta_value = '".$phpbb_username."' WHERE user_id = '$user_id' AND meta_key = 'nickname'");
           }
 
@@ -958,7 +960,7 @@ function wp_check_password($password, $hash, $user_id = '') {
      }
 
  // Argon2i and Argon2id password hash
- if( substr($hash, 0, 8) == '$argon2i' ){
+ if( $hash && substr($hash, 0, 8) == '$argon2i' ){
   $password = stripslashes(htmlspecialchars($password, ENT_COMPAT)); // " do not need to be converted
   $check = password_verify($password, $hash);
   $HArgon2i = true;
@@ -972,7 +974,7 @@ function wp_check_password($password, $hash, $user_id = '') {
     $check = $wp_hasher->CheckPassword($password, $hash_x_wp);
   }
 
- if ($check !== true && strlen($hash) > 32 && !isset($HArgon2i)){ // Wp check failed, check phpBB pass that's may not Argon2i
+ if ( $hash && $check !== true && strlen($hash) > 32 && !isset($HArgon2i)){ // Wp check failed, check phpBB pass that's may not Argon2i
     $password = stripslashes($password);
     $password = htmlspecialchars($password, ENT_COMPAT);
     $check = password_verify($password, $hash);
@@ -1283,7 +1285,7 @@ function w3all_add_phpbb_user() {
 
              $userdata = array(
                'user_login'       =>  $phpbb_user[0]->username,
-               'user_pass'        =>  md5($phpbb_user[0]->user_password),
+               'user_pass'        =>  $phpbb_user[0]->user_password,
                //'user_email'       =>  $phpbb_user[0]->user_email, // on WP 6.2 the wp_insert_user function, on cULR tests, fail with error "Not enough data provided" when email value provided
                'user_registered'  =>  date_i18n( 'Y-m-d H:i:s', $phpbb_user[0]->user_regdate ),
                'role'             =>  $role
@@ -1303,6 +1305,8 @@ function w3all_add_phpbb_user() {
 
      $phpbb_username = preg_replace( '/\s+/', ' ', $phpbb_user[0]->username );
      $phpbb_username = esc_sql($phpbb_username);
+     $phpbb_user_email = $phpbb_user[0]->user_email;
+     $phpbb_user_pass = $phpbb_user[0]->user_password;
      $user_username_clean = sanitize_user( $phpbb_user[0]->username, $strict = false );
      $user_username_clean = esc_sql(mb_strtolower($user_username_clean,'UTF-8'));
      $wpu_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'users' : $wpdb->prefix . 'users';
@@ -1312,10 +1316,10 @@ function w3all_add_phpbb_user() {
        // update user_login and user_nicename and force to be what needed
        // update the pass, since re-hashed by wp_insert_user()
        //$wpdb->query("UPDATE $wpu_db_utab SET user_login = '".$phpbb_username."', user_pass = '".$phpbb_user[0]->user_password."', user_nicename = '".$user_username_clean."', display_name = '".$phpbb_username."' WHERE ID = ".$user_id."");
-       $wpdb->query("UPDATE $wpu_db_utab SET user_login = '".$phpbb_username."', user_pass = '".$phpbb_user[0]->user_password."', user_nicename = '".$user_username_clean."', user_email = '".$phpbb_user[0]->user_email."', display_name = '".$phpbb_username."' WHERE ID = ".$user_id."");
+       $wpdb->query("UPDATE $wpu_db_utab SET user_login = '".$phpbb_username."', user_pass = '".$phpbb_user_pass."', user_nicename = '".$user_username_clean."', user_email = '".$phpbb_user_email."', display_name = '".$phpbb_username."' WHERE ID = ".$user_id."");
        $wpdb->query("UPDATE $wpu_db_umtab SET meta_value = '".$phpbb_username."' WHERE user_id = '$user_id' AND meta_key = 'nickname'");
      } else { // leave as is (may cleaned and different) the just created user_login
-        $wpdb->query("UPDATE $wpu_db_utab SET user_pass = '".$phpbb_user[0]->user_password."', user_email = '".$phpbb_user[0]->user_email."', display_name = '".$phpbb_username."' WHERE ID = '$user_id'");
+        $wpdb->query("UPDATE $wpu_db_utab SET user_pass = '".$phpbb_user_pass."', user_email = '".$phpbb_user_email."', display_name = '".$phpbb_username."' WHERE ID = '$user_id'");
         $wpdb->query("UPDATE $wpu_db_umtab SET meta_value = '".$phpbb_username."' WHERE user_id = '$user_id' AND meta_key = 'nickname'");
        }
 
