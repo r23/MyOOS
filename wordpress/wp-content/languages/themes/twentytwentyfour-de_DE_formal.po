@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Themes - Twenty Twenty-Four package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-03-02 15:54:10+0000\n"
+"PO-Revision-Date: 2024-03-31 22:34:13+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-beta.3\n"
+"X-Generator: GlotPress/4.0.0\n"
 "Language: de\n"
 "Project-Id-Version: Themes - Twenty Twenty-Four\n"
 
@@ -683,7 +683,7 @@ msgstr "Eine Leidenschaft für die Gestaltung von Räumen"
 #: patterns/text-feature-grid-3-col.php
 msgctxt "Pattern title"
 msgid "Feature grid, 3 columns"
-msgstr "Feature-Raster, 3 Spalten"
+msgstr "Funktionsraster, 3 Spalten"
 
 #: patterns/text-faq.php:52
 msgctxt "Question on the details block"
