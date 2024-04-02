@@ -4810,12 +4810,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "6900b812a02fbea68608e13e112d1e0a9b02a370"
+                "reference": "50e5d68481639edd6ec8ffc6d7a2ebd3465c6399"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/6900b812a02fbea68608e13e112d1e0a9b02a370",
-                "reference": "6900b812a02fbea68608e13e112d1e0a9b02a370",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/50e5d68481639edd6ec8ffc6d7a2ebd3465c6399",
+                "reference": "50e5d68481639edd6ec8ffc6d7a2ebd3465c6399",
                 "shasum": ""
             },
             "conflict": {
@@ -4885,8 +4885,9 @@
                 "cart2quote/module-quotation": ">=4.1.6,<=4.4.5|>=5,<5.4.4",
                 "cartalyst/sentry": "<=2.1.6",
                 "catfan/medoo": "<1.7.5",
+                "causal/oidc": "<2.1",
                 "cecil/cecil": "<7.47.1",
-                "centreon/centreon": "<22.10.0.0-beta1",
+                "centreon/centreon": "<22.10.15",
                 "cesnet/simplesamlphp-module-proxystatistics": "<3.1",
                 "chriskacerguis/codeigniter-restserver": "<=2.7.1",
                 "civicrm/civicrm-core": ">=4.2,<4.2.9|>=4.3,<4.3.3",
@@ -5426,6 +5427,7 @@
                 "userfrosting/userfrosting": ">=0.3.1,<4.6.3",
                 "usmanhalalit/pixie": "<1.0.3|>=2,<2.0.2",
                 "uvdesk/community-skeleton": "<=1.1.1",
+                "uvdesk/core-framework": "<=1.1.1",
                 "vanilla/safecurl": "<0.9.2",
                 "verot/class.upload.php": "<=2.1.6",
                 "vova07/yii2-fileapi-widget": "<0.1.9",
@@ -5545,7 +5547,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-03-29T21:04:02+00:00"
+            "time": "2024-04-02T16:05:01+00:00"
         }
     ],
     "aliases": [],
