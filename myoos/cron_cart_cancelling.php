@@ -107,20 +107,18 @@ if ($basket_result->RecordCount() > 0) {
 																$address_booktable a
 																ON c.customers_default_address_id = a.address_book_id
 														WHERE a.customers_id = c.customers_id AND
+															  a.entry_country_id = 81 AND
 																c.customers_id = '" .  intval($customer_id) . "'");
 			$customers = $customers_result->fields;
 
-					$schema .= $customers['entry_company'] . $indent . $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . $indent;
-					$schema .= $customers['entry_street_address'] . $indent . $customers['entry_postcode'] . $indent . $customers['entry_city'] . $indent;
+			$sName = $customers['customers_firstname'] . ' ' . $customers['customers_lastname']
+			$schema .= $customers['entry_street_address'] . $indent . $customers['entry_postcode'] . $indent . $customers['entry_city'] . $indent;
+			$recipients = [
+						['name' => $sName, 'address' => 'Musterstraße 1'],
+				];
 
-					$countriestable = $oostable['countries'];
-					$country_result = $dbconn->Execute("SELECT countries_name
-														FROM $countriestable
-														WHERE countries_id = '" . intval($customers['entry_country_id']) . "'");
-					$country = $country_result->fields;
 
-					$schema .= $country['countries_name'] . $indent;
-					
+			
 
 		}				
 
