@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.5.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-04-02 00:25:51+0000\n"
+"PO-Revision-Date: 2024-04-09 23:58:56+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -235,7 +235,7 @@ msgstr "Verbesserte Link-Steuerung"
 
 #: wp-admin/about.php:153
 msgid "Feel the difference when you move things around, with helpful visual cues like displaced items in List View or frictionless dragging to anywhere in your workspace—from beginning to end."
-msgstr "Spüren Sie den Unterschied, wenn Sie Dinge verschieben, mit hilfreichen visuellen Hinweisen wie verschobenen Elementen in der Listenansicht oder dem reibungslosem Ziehen an eine beliebige Stelle in Ihrem Arbeitsbereich – vom Anfang bis zum Ende."
+msgstr "Spüren Sie den Unterschied, wenn Sie Dinge verschieben, mit hilfreichen visuellen Hinweisen wie verschobenen Elementen in der Listenansicht oder dem reibungslosen Ziehen an eine beliebige Stelle in Ihrem Arbeitsbereich – vom Anfang bis zum Ende."
 
 #: wp-admin/about.php:152
 msgid "Smoother drag-and-drop"
@@ -14345,7 +14345,7 @@ msgstr "Kommentare %s"
 
 #: wp-admin/menu.php:67
 msgid "Library"
-msgstr "Medienübersicht"
+msgstr "Mediathek"
 
 #: wp-admin/media-new.php:43
 msgid "Upload New Media"
