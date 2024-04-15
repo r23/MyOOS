@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Plugins - SEOPress &#8211; On-site SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-02-18 07:24:39+0000\n"
+"PO-Revision-Date: 2024-04-14 23:19:30+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0\n"
+"X-Generator: GlotPress/4.0.1\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - SEOPress &#8211; On-site SEO - Stable (latest release)\n"
 
@@ -2099,7 +2099,7 @@ msgstr "Beschreibung der Website"
 
 #: src/Tags/Schema/SocialAccount/Facebook.php:15
 msgid "Facebook URL"
-msgstr "Facebook URL"
+msgstr "Facebook-URL"
 
 #: src/Tags/Schema/SiteUrl.php:15
 msgid "Site URL"
