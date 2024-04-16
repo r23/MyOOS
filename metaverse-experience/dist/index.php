@@ -32,7 +32,7 @@ $nonce = bin2hex(random_bytes(16));
 	<link rel="stylesheet" href="themes/metaverse/css/vr-commerce.min.css">
 
 	<!-- Bootstrap JS Dependencies -->
-	<script nonce="<?php echo $nonce; ?>" src="themes/metaverse/js/vendor.min.js"></script>"></script>
+	<script nonce="<?php echo $nonce; ?>" src="themes/metaverse/js/vendor.min.js"></script>
 
 	<!-- Virtual Experiences JS Dependencies -->
    	<script nonce="<?php echo $nonce; ?>" src="static/js/runtime-main.js"></script>
@@ -59,7 +59,6 @@ $nonce = bin2hex(random_bytes(16));
    	<script nonce="<?php echo $nonce; ?>" src="static/js/186.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/437.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/main.js"></script>
-
 	
 <style>
 body, html {
