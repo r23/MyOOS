@@ -32,35 +32,33 @@ $nonce = bin2hex(random_bytes(16));
 	<link rel="stylesheet" href="themes/metaverse/css/vr-commerce.min.css">
 
 	<!-- Bootstrap JS Dependencies -->
-	<script nonce="<?php echo $nonce; ?>" src="themes/metaverse/js/vendor.min.js"></script>
+	<script nonce="<?php echo $nonce; ?>" src="themes/metaverse/js/vendor.min.js"></script>"></script>
 
 	<!-- Virtual Experiences JS Dependencies -->
    	<script nonce="<?php echo $nonce; ?>" src="static/js/runtime-main.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/572.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/runtime-main.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/572.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/734.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/203.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/434.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/454.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/378.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/9.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/569.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/783.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/543.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/824.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/736.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/555.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/687.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/694.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/928.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/403.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/406.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/264.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/232.js"></script>
-   	<script nonce="<?php echo $nonce; ?>" src="static/js/477.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/634.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/631.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/546.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/377.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/553.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/318.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/91.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/861.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/622.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/19.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/59.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/744.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/72.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/988.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/759.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/990.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/464.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/935.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/578.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/440.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/186.js"></script>
+   	<script nonce="<?php echo $nonce; ?>" src="static/js/437.js"></script>
    	<script nonce="<?php echo $nonce; ?>" src="static/js/main.js"></script>
-
 
 	
 <style>
