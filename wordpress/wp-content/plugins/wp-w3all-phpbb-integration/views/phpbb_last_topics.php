@@ -19,7 +19,7 @@ if(defined("W3ALLPHPBBUAVA")){
 $w3phpbbuava = unserialize(W3ALLPHPBBUAVA);
 } else { $w3phpbbuava = array(); }
 
-echo "<ul class=\"".$w3all_lastopics_style_ul_class."\" style=\"".$w3all_lastopics_style_ul."\">\n";
+echo "<div id=\"w3all_widget_last_topics_wrapper\"><ul id=\"w3all_widget_ul_last_topics_id\" class=\"".$w3all_lastopics_style_ul_class."\" style=\"".$w3all_lastopics_style_ul."\">\n";
 
 $countn = 0;
 
@@ -92,6 +92,6 @@ if ( $countn < $topics_number ){
   $countn++;
 }
 
-     echo "</ul>";
+     echo "</ul></div>";
 
 }

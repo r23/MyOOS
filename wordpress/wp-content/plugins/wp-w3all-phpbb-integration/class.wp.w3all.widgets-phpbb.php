@@ -153,6 +153,7 @@ public function wp_w3all_phpbb_last_topics($post_text, $topics_number, $text_wor
    }
 
    if (defined("W3PHPBBLASTOPICS")){
+   	
     $last_topics = unserialize(W3PHPBBLASTOPICS); // see wp_w3all.php
   } else {
    $last_topics = WP_w3all_phpbb::last_forums_topics_res($topics_number);

@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.8.2
+Version: 2.8.3
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -33,7 +33,7 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.8.2' );
+define( 'WPW3ALL_VERSION', '2.8.3' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '6.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -114,6 +114,8 @@ if(isset($w3reset_cookie_domain)){
    $wp_w3all_phpbb_iframe_short_token_yn = (isset($w3all_conf_pref['wp_w3all_phpbb_iframe_short_token_yn']) && ! empty($w3all_conf_pref['wp_w3all_phpbb_iframe_short_token_yn'])) ? trim($w3all_conf_pref['wp_w3all_phpbb_iframe_short_token_yn']) : '';
    $w3all_phpbb_unotifications_yn = (isset($w3all_conf_pref['w3all_phpbb_unotifications_yn']) && ! empty($w3all_conf_pref['w3all_phpbb_unotifications_yn'])) ? $w3all_conf_pref['w3all_phpbb_unotifications_yn'] : 0;
    $w3all_link_roles_groups = (isset($w3all_conf_pref['w3all_link_roles_groups']) && ! empty($w3all_conf_pref['w3all_link_roles_groups'])) ? $w3all_conf_pref['w3all_link_roles_groups'] : 0;
+   $wp_w3all_heartbeat_phpbb_lastopics_pages = isset($w3all_conf_pref['w3all_heartbeat_phpbb_lastopics_pages']) && ! empty($w3all_conf_pref['w3all_heartbeat_phpbb_lastopics_pages']) ? $w3all_conf_pref['w3all_heartbeat_phpbb_lastopics_pages'] : '';
+   $w3all_heartbeat_phpbb_lastopics_num = isset($w3all_conf_pref['w3all_heartbeat_phpbb_lastopics_num']) && ! empty($w3all_conf_pref['w3all_heartbeat_phpbb_lastopics_pages']) ? $w3all_conf_pref['w3all_heartbeat_phpbb_lastopics_num'] : '';
 
    // to set W3PHPBBLASTOPICS
    // then used to avoid more calls in case of multiple widgets (not x shortcode by forums ids)
@@ -1419,11 +1421,8 @@ endif;
 
 }
 
-/////////////////////////
-//////////////////////////////////////////////////
-// W3ALL WPMS MU START
-//////////////////////////////////////////////////
-/////////////////////////
+#######
+# W3ALL WPMS MU START
 
 if( is_multisite() && ! defined("WPW3ALL_NOT_ULINKED") ){
 
@@ -1578,8 +1577,156 @@ add_action( 'remove_user_from_blog', 'w3all_remove_user_from_blog', 10, 2 );
 
 } // END if( is_multisite() && ! defined("WPW3ALL_NOT_ULINKED") )
 
-//////////////////////////////////////////////////
-/////////////////////////
-// W3ALL WPMS MU END
-/////////////////////////
-//////////////////////////////////////////////////
+
+# W3ALL WPMS MU END
+#######
+
+#######
+# Start About HearthBeat last topics short
+
+ if( !empty($wp_w3all_heartbeat_phpbb_lastopics_pages) && class_exists( 'WP_w3all_phpbb' ) ){
+  add_action( 'wp_footer', 'w3all_heartbeat_last_posts', 80);
+  add_action( 'init', 'w3all_get_heartbeat', 10 );
+  add_filter( 'heartbeat_received', 'w3all_get_WPheartbeat', 10, 2 );
+ }
+
+
+function w3all_get_WPheartbeat( array $response, array $data ) {
+
+ if(!class_exists( 'WP_w3all_phpbb' ) OR is_customize_preview()) return;
+
+     global $w3cookie_domain, $w3all_phpbb_url;
+    # If plugin vars are not set
+    if(empty($w3all_phpbb_url)) return;
+
+    # Note: strpos($_SERVER['REQUEST_URI'], "admin-ajax.php")
+    # /wp-admin/admin-ajax.php exec/fire (also) on the frontend heartbeat
+    if( isset($_SERVER['SCRIPT_NAME']) && true === strpos($_SERVER['SCRIPT_NAME'], "/wp-admin")
+     OR
+     isset($_SERVER['PHP_SELF']) && true === strpos($_SERVER['PHP_SELF'], "/wp-admin")
+     OR
+     isset($_SERVER['SCRIPT_FILENAME']) && true === strpos($_SERVER['SCRIPT_FILENAME'], "/wp-admin")
+    ) { return $response; }
+
+# When the heartbeat occur, all the plugin code execute by the way, so that would be useful to not update contents when there are no new posts?
+# Using javascript instead, but this will remain here for future use cases
+# **by cookies and wp Option using the phpBB ext
+/*
+    $w3all_last_phpbb_topics_uptime = get_option('w3all_last_phpbb_topics_uptime');
+    $w3all_last_phpbb_topics_uptime = empty($w3all_last_phpbb_topics_uptime) ? 1713262784 : $w3all_last_phpbb_topics_uptime;
+
+    $w3cookie_domain = ($w3cookie_domain == 'localhost' OR $w3cookie_domain == '') ? $w3cookie_domain : '.' . $w3cookie_domain;
+
+    if( !isset($_COOKIE['w3all_last_phpbb_topics_uptime']) OR $w3all_last_phpbb_topics_uptime > intval($_COOKIE['w3all_last_phpbb_topics_uptime']) )
+    {
+        $cookie_optAry = array (
+           'expires' => time() + 129600,
+           'path' => '/',
+           'domain' => $w3cookie_domain,
+           'secure' => true,
+           'httponly' => false,
+           'samesite' => 'None'
+        );
+
+      setcookie('w3all_last_phpbb_topics_uptime', $w3all_last_phpbb_topics_uptime, $cookie_optAry);
+    }
+
+    if( isset($_COOKIE['w3all_last_phpbb_topics_uptime']) && $w3all_last_phpbb_topics_uptime > intval($_COOKIE['w3all_last_phpbb_topics_uptime']) )
+    {
+      $up = WP_w3all_phpbb::wp_w3all_get_phpbb_lastopics_short( $atts = '', $from_hb = true );
+    }
+*/
+
+   $up = WP_w3all_phpbb::wp_w3all_get_phpbb_lastopics_short( $atts = '', $from_hb = true );
+
+   if(!empty($up)){
+    $response['w3all_short_up_last_topicsData'] = json_encode($up);
+   }
+
+    return $response;
+}
+
+function w3all_heartbeat_last_posts() {
+
+echo '<script>
+// going to update the content, only when required
+var w3allTestShortPCont = w3execShortPCont = "";
+jQuery( document ).on( "heartbeat-send", function ( event, data ) {
+  data.w3all_short_up_last_topicsData = "";
+});
+jQuery( document ).on( "heartbeat-tick", function ( event, data ) {
+
+  if ( ! data.w3all_short_up_last_topicsData || data.w3all_short_up_last_topicsData == "" ) {
+   return;
+  }
+
+  var posts = JSON.parse(data.w3all_short_up_last_topicsData);
+
+  if(w3allTestShortPCont != posts){
+   w3execShortPCont = 1;
+   w3allTestShortPCont = posts;
+  }
+
+  if( w3execShortPCont == 1 && document.getElementById("w3all_div_last_topics_short_wrapper") !== null && posts != "" )
+  {
+    document.getElementById("w3all_ul_last_topics_short").remove();
+    document.getElementById("w3all_div_last_topics_short_wrapper").insertAdjacentHTML("afterbegin", posts);
+    w3execShortPCont = 0;
+  }
+});
+
+</script>';
+}
+
+function w3all_get_heartbeat() {
+
+  if(!class_exists( 'WP_w3all_phpbb' ) OR is_customize_preview()) return;
+
+   # Note:
+   # /wp-admin/admin-ajax.php always fire when a frontend heartbeat occur
+
+   # Try to not load when in wp admin
+    if( !WP_w3all_phpbb::w3all_ck_if_onpage()
+     && !empty($_SERVER['REQUEST_URI']) && false === strpos($_SERVER['REQUEST_URI'], "wp-cron.php")
+     && false === strpos($_SERVER['REQUEST_URI'], "admin-ajax.php")
+     OR
+     !empty($_SERVER['SCRIPT_NAME']) && true === strpos($_SERVER['SCRIPT_NAME'], "/wp-admin")
+     OR
+     !empty($_SERVER['PHP_SELF']) && true === strpos($_SERVER['PHP_SELF'], "/wp-admin")
+     OR
+     !empty($_SERVER['SCRIPT_FILENAME']) && true === strpos($_SERVER['SCRIPT_FILENAME'], "/wp-admin")
+    ) { return; }
+
+  global $w3cookie_domain, $w3all_phpbb_url;
+
+  # Detect if the plugin is working
+  # and check if it is a page containing the short
+  if( empty($w3all_phpbb_url) OR !WP_w3all_phpbb::w3all_ck_if_onpage() )
+  return;
+
+  wp_enqueue_script('heartbeat');
+
+# Using javascript instead, but this will remain here for future use cases
+# To update contents only when there are new posts
+# **by cookies and wp Option using the phpBB ext
+
+  /*$w3cookie_domain = ($w3cookie_domain == 'localhost' OR $w3cookie_domain == '') ? $w3cookie_domain : '.' . $w3cookie_domain;
+
+   if( !isset($_COOKIE['w3all_last_phpbb_topics_uptime']) )
+   {
+          $cookie_optAry = array (
+           'expires' => time() + 129600,
+           'path' => '/',
+           'domain' => $w3cookie_domain,
+           'secure' => true,
+           'httponly' => false,
+           'samesite' => 'None'
+        );
+
+     setcookie('w3all_last_phpbb_topics_uptime', time(), $cookie_optAry);
+   }*/
+
+}
+
+# End About HearthBeat last topics short
+#######

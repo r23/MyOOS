@@ -1,5 +1,5 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' );
-// &copy; 2023 -> @axew3.com //
+// C 2024 -> @axew3.com //
 
 // START (MAY) DO NOT MODIFY
 
@@ -60,8 +60,15 @@ if( isset($_GET["w3"]) ){ // default
 
 // old way - to be removed
 // assure that passed url is correctly all decoded // may something else need to added in certain conditions
-$w3all_url_to_cms_sw = str_replace(array("%2F", "%23", "%2E"), array("/", "#", "."), $w3all_url_to_cms_sw);
+// $w3all_url_to_cms_sw = str_replace(array("%2F", "%23", "%2E"), array("/", "#", "."), $w3all_url_to_cms_sw);
+ // Maybe it is url encoded
+ if( strpos($w3all_url_to_cms, "%2E") OR strpos($w3all_url_to_cms, "%2F") OR strpos($w3all_url_to_cms, "%23") ){
+  $w3all_url_to_cms = urldecode($w3all_url_to_cms);
+ }
 
+ if(!filter_var($w3all_url_to_cms, FILTER_VALIDATE_URL))
+  { $w3all_url_to_cms = $w3all_url_to_cms_clean; }
+  
 // bug -> https://wordpress.org/support/topic/problem-using-iframe-feature-with-https/
 if( strlen($w3all_url_to_cms_sw) == strlen(get_option( 'w3all_url_to_cms' )) OR strlen($w3all_url_to_cms_sw) == strlen(get_option( 'w3all_url_to_cms' )) + 1 )
 {
@@ -81,6 +88,9 @@ if( strlen($w3all_url_to_cms_sw) == strlen(get_option( 'w3all_url_to_cms' )) OR 
  }
 
 $w3all_url_to_cms_switch_phpbb_default_url = (empty($ltm['phpbb_default_url'])) ? $w3all_url_to_cms_sw : $ltm['phpbb_default_url'];
+ if( $w3all_url_to_cms_switch_phpbb_default_url == $w3all_url_to_cms_clean OR $w3all_url_to_cms_clean == substr($w3all_url_to_cms_switch_phpbb_default_url, 0, -1) ){
+  $w3all_url_to_cms_switch_phpbb_default_url = $w3all_url_to_cms_clean . '/index.php';
+ }
 
 echo'<!-- noscript warning and simple preloader -->
 <div id="w3idwloader" class="w3_wrap_loader">

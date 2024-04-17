@@ -29,7 +29,7 @@
 
    $countn = 0;
 
-  echo "<ul class=\"".$w3all_lastopics_style_ul_class."\" style=\"".$w3all_lastopics_style_ul."\">\n";
+ echo "<div id=\"w3all_div_last_topics_short_wrapper\"><ul id=\"w3all_ul_last_topics_short\" class=\"".$w3all_lastopics_style_ul_class."\" style=\"".$w3all_lastopics_style_ul."\">\n";
 
  foreach ($last_topics as $key => $value) {
 
@@ -98,6 +98,6 @@
 
 }
 
-     echo "</ul>";
+     echo "</ul></div>";
 
 }

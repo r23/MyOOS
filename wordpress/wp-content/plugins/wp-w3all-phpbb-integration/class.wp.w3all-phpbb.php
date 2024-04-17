@@ -88,6 +88,18 @@ private static function w3all_wp_logout($redirect = ''){
 
  }
 
+# get the phpBB connections values using a direct wpdb call
+private static function get_w3all_config_db_if_empty(){
+   global $wpdb;
+   $wpdb_opt = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'options' : $wpdb->prefix . 'options';
+   $w3all_config_db = $wpdb->get_row("SELECT * FROM $wpdb_opt WHERE option_name = 'w3all_phpbb_dbconn'",ARRAY_A);
+  if(!empty($w3all_config_db['option_value'])){
+     $r = unserialize($w3all_config_db['option_value']);
+   return $r;
+  }
+  return false;
+}
+
 private static function w3all_db_connect(){
  global $w3all_phpbb_connection,$w3all_config_db,$w3all_config;
 
@@ -97,30 +109,24 @@ private static function w3all_db_connect(){
 
  if(defined('W3ALLCONNWRONGPARAMS')){ return; }
 
-  if( empty($w3all_config_db) && defined('PHPBB_CONFIG_FILE') )
-  {
-       ob_start();
-         include( ABSPATH . 'wp-content/plugins/wp-w3all-config/phpBB_config.php' );
-       ob_end_clean();
+# On some configuration and cases (ex mums) the call to get_option('w3all_phpbb_dbconn') return empty value (ex when deleting an user):
+# So get the phpBB connections values using a direct wpdb call
+ if(empty($w3all_config_db)){
+  $dbc = self::get_w3all_config_db_if_empty();
+  $w3all_config_db = array();
+  if(!empty($dbc["w3all_phpbb_dbuser"])){
+   $w3all_config_db["dbhost"] = $dbc["w3all_phpbb_dbhost"];
+   $w3all_config_db["dbport"] = $dbc["w3all_phpbb_dbport"];
+   $w3all_config_db["dbname"] = $dbc["w3all_phpbb_dbname"];
+   $w3all_config_db["dbuser"] = $dbc["w3all_phpbb_dbuser"];
+   $w3all_config_db["dbpasswd"] = $dbc["w3all_phpbb_dbpasswd"];
+   $w3all_config_db["table_prefix"] = $dbc["w3all_phpbb_dbtableprefix"];
+  }
+ }
 
-       if (defined('MANUAL_PHPBB_CONFIG'))
-       {
-          global $w3all_url_to_cms,$w3all_phpbb_url;
-
-          $w3all_config_db["dbport"] = $phpbb_dbport;
-          $w3all_config_db["dbuser"] = $phpbb_dbuser;
-          $w3all_config_db["dbpasswd"] = $phpbb_dbpasswd;
-          $w3all_config_db["dbhost"] = $phpbb_dbhost;
-          $w3all_config_db["dbname"] = $phpbb_dbname;
-          $w3all_config["table_prefix"] = $phpbb_table_prefix;
-          $w3all_phpbb_url = $w3all_url_to_cms = $phpbb_url;
-
-          $w3all_config_db["dbhost"] = empty($w3all_config_db["dbport"]) ? $w3all_config_db["dbhost"] : $w3all_config_db["dbhost"] . ':' . $w3all_config_db["dbport"];
-          $w3all_phpbb_connection = new wpdb($w3all_config_db["dbuser"], $w3all_config_db["dbpasswd"], $w3all_config_db["dbname"], $w3all_config_db["dbhost"]);
-       }
-   } elseif(empty($w3all_config_db) OR defined('W3ALLCONNWRONGPARAMS'))
-   { return;
-    } else
+if(empty($w3all_config_db) OR defined('W3ALLCONNWRONGPARAMS'))
+ { return;
+  } else
      {
        $w3all_config_db["dbhost"] = empty($w3all_config_db["dbport"]) ? $w3all_config_db["dbhost"] : $w3all_config_db["dbhost"] . ':' . $w3all_config_db["dbport"];
        $w3all_phpbb_connection = new wpdb($w3all_config_db["dbuser"], $w3all_config_db["dbpasswd"], $w3all_config_db["dbname"], $w3all_config_db["dbhost"]);
@@ -756,13 +762,14 @@ private static function verify_phpbb_credentials(){
 
 private static function last_forums_topics($ntopics = 10){
 
- global $w3all_phpbb_connection,$w3all_phpbb_usession,$w3all_config,$w3all_exclude_phpbb_forums,$w3all_wlastopicspost_max,$w3all_lasttopic_avatar_num,$w3all_get_topics_x_ugroup;
+ global $w3all_phpbb_connection,$w3all_phpbb_usession,$w3all_config,$w3all_exclude_phpbb_forums,$w3all_wlastopicspost_max,$w3all_lasttopic_avatar_num,$w3all_get_topics_x_ugroup,$w3all_heartbeat_phpbb_lastopics_num;
 
  if( empty($w3all_phpbb_connection) ){ return; }
 
  $topics = array();
  $ntopics0 = $w3all_wlastopicspost_max > $w3all_lasttopic_avatar_num ? $w3all_wlastopicspost_max : $w3all_lasttopic_avatar_num;
- $ntopics =  $ntopics0 > $ntopics ? $ntopics0 : 10;
+ $ntopics  = $ntopics0 > $ntopics ? $ntopics0 : 10;
+ $ntopics  = $w3all_heartbeat_phpbb_lastopics_num > $ntopics ? $w3all_heartbeat_phpbb_lastopics_num : $ntopics;
  $topics_x_ugroup = $no_forums_list = '';
 
 if($w3all_get_topics_x_ugroup == 1){ // list of allowed forums to retrieve topics if option active
@@ -835,6 +842,61 @@ $gaf = $w3all_phpbb_connection->get_results("SELECT DISTINCT ".$w3all_config["ta
     if(!defined("W3PHPBBLASTOPICS")){
       define( "W3PHPBBLASTOPICS", $t ); // see also wp_w3all.php and wp_w3all_assoc_phpbb_wp_users in this class
      }
+
+    return $topics;
+}
+
+# heartbeat last_forums_topics
+public static function heartbeat_last_forums_topics($ntopics = 12){
+
+ #$ntopics = 12; // Set as max 12 topics/posts, the shortcode param can define only less than 12
+
+ global $w3all_phpbb_connection,$w3all_phpbb_usession,$w3all_config,$w3all_exclude_phpbb_forums,$w3all_wlastopicspost_max,$w3all_lasttopic_avatar_num,$w3all_get_topics_x_ugroup;
+
+ if( empty($w3all_phpbb_connection) ){ return; }
+
+ $topics = array();
+ #$ntopics0 = $w3all_wlastopicspost_max > $w3all_lasttopic_avatar_num ? $w3all_wlastopicspost_max : $w3all_lasttopic_avatar_num;
+ #$ntopics  = $ntopics0 > $ntopics ? $ntopics0 : 10;
+ $topics_x_ugroup = $no_forums_list = '';
+
+  if (empty( $w3all_exclude_phpbb_forums )){
+
+   $topics = $w3all_phpbb_connection->get_results("SELECT T.*, P.*, U.*
+    FROM ".$w3all_config["table_prefix"]."topics AS T
+    JOIN ".$w3all_config["table_prefix"]."posts AS P on (T.topic_last_post_id = P.post_id and T.forum_id = P.forum_id)
+    JOIN ".$w3all_config["table_prefix"]."users AS U on U.user_id = T.topic_last_poster_id
+    WHERE T.topic_visibility = 1
+    ".$topics_x_ugroup."
+    AND P.post_visibility = 1
+    ORDER BY T.topic_last_post_time DESC
+    LIMIT 0,$ntopics");
+
+  } else {
+    if ( preg_match('/^[0-9,]+$/', $w3all_exclude_phpbb_forums )) {
+          $exp = explode(",", $w3all_exclude_phpbb_forums);
+          $no_forums_list = '';
+           foreach($exp as $k => $v){
+            $no_forums_list .= "'".$v."',";
+           }
+            $nfl = substr($no_forums_list, 0, -1);
+            $no_forums_list = "AND T.forum_id NOT IN(".$nfl.")";
+    } else {
+            $no_forums_list = '';
+           }
+
+   $topics = $w3all_phpbb_connection->get_results("SELECT T.*, P.*, U.*
+    FROM ".$w3all_config["table_prefix"]."topics AS T
+    JOIN ".$w3all_config["table_prefix"]."posts AS P on (T.topic_last_post_id = P.post_id and T.forum_id = P.forum_id)
+    JOIN ".$w3all_config["table_prefix"]."users AS U on U.user_id = T.topic_last_poster_id
+    WHERE T.topic_visibility = 1
+    ".$no_forums_list."
+    ".$topics_x_ugroup."
+    AND P.post_visibility = 1
+    ORDER BY T.topic_last_post_time DESC
+    LIMIT 0,$ntopics");
+
+  }
 
     return $topics;
 }
@@ -960,6 +1022,13 @@ private static function phpBB_user_session_set($wp_user_data){
        }
 
    define("W3ALL_SESSION_ARELEASED", true);
+
+   # Fix the fact, that when the login is done on frontend pages, the user seem to be not logged even if the session has been released
+   # Anyway, here has been fixed only for specific Ultimate Member plugin that result to be affected by this problem
+   # If any other to be added, add it here and maybe please report at axew3.com
+   if ( !defined( 'WP_ADMIN' ) && class_exists( 'UM' ) ){
+    header("Refresh:0"); exit;
+   }
 }
 
 
@@ -2407,9 +2476,9 @@ if(!empty($last_topics)){
 }
 
 // wp_w3all_get_phpbb_lastopics_short vers 1.0
-public static function wp_w3all_get_phpbb_lastopics_short( $atts, $is_shortcode = true ) {
-  global $w3all_lasttopic_avatar_num,$wp_userphpbbavatar,$w3all_url_to_cms,$w3all_last_t_avatar_yn,$w3all_last_t_avatar_dim,$w3all_get_phpbb_avatar_yn,$w3all_phpbb_widget_mark_ru_yn,$w3all_custom_output_files,$w3all_phpbb_widget_FA_mark_yn;
-
+public static function wp_w3all_get_phpbb_lastopics_short( $atts, $from_hb = false ) {
+  global $w3all_lasttopic_avatar_num,$wp_userphpbbavatar,$w3all_url_to_cms,$w3all_last_t_avatar_yn,$w3all_last_t_avatar_dim,$w3all_get_phpbb_avatar_yn,$w3all_phpbb_widget_mark_ru_yn,$w3all_custom_output_files,$w3all_phpbb_widget_FA_mark_yn,$w3all_heartbeat_phpbb_lastopics_num;
+  
   if(is_array($atts)){
    $atts = array_map ('trim', $atts);
   } else {
@@ -2430,7 +2499,8 @@ public static function wp_w3all_get_phpbb_lastopics_short( $atts, $is_shortcode 
 
     //$mode = intval($ltm['mode']) > 0 ? 0 : 0; // not used
     $no_avatars = intval($ltm['no_avatars']) > 0 ? 1 : 0;
-    $topics_number = intval($ltm['topics_number']) > 0 ? intval($ltm['topics_number']) : 0;
+    $topics_number = intval($ltm['topics_number']) > 0 ? intval($ltm['topics_number']) : 5;
+
     $wp_w3all_post_text = intval($ltm['post_text']) > 0 ? intval($ltm['post_text']) : 0;
     $wp_w3all_text_words = intval($ltm['text_words']) > 0 ? intval($ltm['text_words']) : 0;
 
@@ -2451,6 +2521,10 @@ public static function wp_w3all_get_phpbb_lastopics_short( $atts, $is_shortcode 
    $last_topics = WP_w3all_phpbb::last_forums_topics_res($topics_number, true);
   }
 
+  if( $from_hb ){ # it is from an heartbeat
+   $last_topics = array_slice($last_topics, 0, intval($w3all_heartbeat_phpbb_lastopics_num), true);
+  }
+
    if( $w3all_custom_output_files == 1 ) {
    $file = ABSPATH . 'wp-content/plugins/wp-w3all-custom/phpbb_last_topics_output_shortcode.php';
    if (!file_exists($file)){
@@ -2466,6 +2540,147 @@ public static function wp_w3all_get_phpbb_lastopics_short( $atts, $is_shortcode 
      return ob_get_clean();
     }
 }
+
+// heartbeat wp_w3all_heartbeat_phpbb_lastopics_short vers 1.0
+public static function wp_w3all_heartbeat_phpbb_lastopics_short( $atts = '' ) {
+
+  global $w3all_lasttopic_avatar_num,$wp_userphpbbavatar,$w3all_url_to_cms,$w3all_last_t_avatar_yn,$w3all_last_t_avatar_dim,$w3all_get_phpbb_avatar_yn,$w3all_phpbb_widget_mark_ru_yn,$w3all_custom_output_files,$w3all_phpbb_widget_FA_mark_yn,$w3all_heartbeat_phpbb_lastopics_num;
+
+  $w3all_heartbeat_phpbb_lastopics_num = $w3all_heartbeat_phpbb_lastopics_num >= 12 ? 12 : $w3all_heartbeat_phpbb_lastopics_num;
+  
+  if(is_array($atts)){
+   $atts = array_map ('trim', $atts);
+  } else {
+     $atts = array();
+    }
+
+    $ltm = shortcode_atts( array(
+        'mode' => '0',
+        'topics_number' => '12',
+        'post_text' => '0',
+        'text_words' => '0',
+        'ul_class' => '',
+        'li_class' => '',
+        'inline_style' => '',
+        'href_blank' => '',
+        'no_avatars' => ''
+    ), $atts );
+
+    $no_avatars = intval($ltm['no_avatars']) > 0 ? 1 : 0;
+
+    $topics_number = intval($ltm['topics_number']) < 1 ? 1 : intval($ltm['topics_number']);
+
+    $wp_w3all_post_text = intval($ltm['post_text']) > 0 ? intval($ltm['post_text']) : 0;
+    $wp_w3all_text_words = intval($ltm['text_words']) > 0 ? intval($ltm['text_words']) : 0;
+
+    $w3_ul_class_lt = empty($ltm['ul_class']) ? '' : $ltm['ul_class'];
+    $w3_li_class_lt = empty($ltm['li_class']) ? '' : $ltm['li_class'];
+    $w3_inline_style_lt = empty($ltm['inline_style']) ? '' : $ltm['inline_style'];
+    $w3_href_blank_lt = $ltm['href_blank'] > 0 ? ' target="_blank"' : '';
+
+  // NOTE: Topics number here, is MAX 12 for this shortcode, as redefined into the heartbeat_last_forums_topics()
+  // Use $topics_number into 'heartbeat_phpbb_last_topics_output_shortcode.php' to redefine how much posts to display into each instance, but MAX 12
+  $last_topics = self::heartbeat_last_forums_topics($w3all_heartbeat_phpbb_lastopics_num);
+
+   if( $w3all_custom_output_files == 1 ) {
+   $file = ABSPATH . 'wp-content/plugins/wp-w3all-custom/heartbeat_phpbb_last_topics_output_shortcode.php';
+   if (!file_exists($file)){
+   $file = ABSPATH . 'wp-content/plugins/wp-w3all-config/heartbeat_phpbb_last_topics_output_shortcode.php';// old way
+   }
+     ob_start();
+      include($file);
+     return ob_get_clean();
+    } else {
+     $file = WPW3ALL_PLUGIN_DIR . 'views/heartbeat_phpbb_last_topics_output_shortcode.php';
+     ob_start();
+      include( $file );
+     return ob_get_clean();
+    }
+}
+
+
+// Detect if a shorcode (or some else) should be parsed on page based on
+// $wp_w3all_heartbeat_phpbb_lastopics_pages value or passed $pages
+// against actual $_SERVER['REQUEST_URI'] viewed page
+public static function w3all_ck_if_onpage($pages='',$shortIndex='')
+ {
+   global $wp_w3all_heartbeat_phpbb_lastopics_pages;
+   
+   $wp_w3all_heartbeat_phpbb_lastopics_pages = empty($pages) ? $wp_w3all_heartbeat_phpbb_lastopics_pages : $pages;
+
+  if(empty($wp_w3all_heartbeat_phpbb_lastopics_pages)) return false;
+
+   if ( is_admin() OR is_customize_preview() OR empty($wp_w3all_heartbeat_phpbb_lastopics_pages) )
+   { return false; }
+
+   if( preg_match('/[^-0-9A-Za-z\._#\:\?\/=&%]/ui',$_SERVER['REQUEST_URI']) )
+   { return false; }
+
+  /*$homeurl = substr(get_home_url(), -1) == '/' ? substr(get_home_url(), 0, -1) : get_home_url();
+    if(!filter_var($homeurl.$_SERVER['REQUEST_URI'], FILTER_VALIDATE_URL)){
+     return false;
+    }*/
+
+ // Maybe Url encoded
+  if( strpos($_SERVER['REQUEST_URI'], "%2E") OR strpos($_SERVER['REQUEST_URI'], "%2F") OR strpos($_SERVER['REQUEST_URI'], "%23") ){
+   $_SERVER['REQUEST_URI'] = urldecode($_SERVER['REQUEST_URI']);
+  }
+
+   if(!empty($wp_w3all_heartbeat_phpbb_lastopics_pages)){
+    $hb_phpbb_shortpages = explode(',',trim($wp_w3all_heartbeat_phpbb_lastopics_pages));
+   }
+
+  if(!empty($hb_phpbb_shortpages) && is_array($hb_phpbb_shortpages))
+  {
+    $hb_phpbb_shortpages = array_map('trim', $hb_phpbb_shortpages);
+    $shortonpage = $shortonpage_home = false;
+
+    foreach($hb_phpbb_shortpages as $p)
+    { // detect which/if page match in the request and check if inhomepage-hb-phpbb-last-posts in home has been set: check it after
+      if($p=='inhomepage-hb-phpbb-last-posts'){ $shortonpage_home = true; }
+      if(strpos($_SERVER['REQUEST_URI'],'/'.$p))
+      {
+       $shortonpage = true;
+      }
+    }
+
+  if(!$shortonpage && $shortonpage_home)
+  {
+    if(!empty($_SERVER['REQUEST_URI']))
+    {
+     if(substr($_SERVER['REQUEST_URI'], -1, 1) == '/'){
+      $REQUEST_URI = substr($_SERVER['REQUEST_URI'], 0, -1);
+     } else { $REQUEST_URI = $_SERVER['REQUEST_URI']; }
+
+      $siteUrl = get_option('siteurl');
+
+     if(substr($siteUrl, -1, 1) == '/'){
+      $siteUrl = substr($siteUrl, 0, -1);
+     }
+
+     if(!empty($REQUEST_URI) && strpos($siteUrl, $REQUEST_URI))
+     {
+      if(strpos($siteUrl, $REQUEST_URI) !== false)
+      { $shortonpage = true; }
+     } elseif ( $_SERVER['REQUEST_URI'] == '/' )
+       { $shortonpage = true; }
+       elseif ( !strpos($siteUrl, $REQUEST_URI) )
+       {
+         $ck = explode('/?',$REQUEST_URI);
+         if(isset($ck[0]) && strpos($siteUrl, $ck[0]))
+          { $shortonpage = true; }
+
+         $ck = explode('/index.php',$REQUEST_URI);
+         if(isset($ck[0]) && strpos($siteUrl, $ck[0]))
+          { $shortonpage = true; }
+       }
+    }
+   }
+   return $shortonpage;
+  } else { return false; }
+
+}
+
 
 // wp_w3all_get_phpbb_lastopics_short_wi vers 1.0 (with images)
 // retrieve for each post/topic, the first topic's post img attach to display into a grid
@@ -2966,7 +3181,8 @@ public static function w3all_get_phpbb_avatars_url( $w3unames ) {
      return;
     }
 
-  $uavatars = $w3all_phpbb_connection->get_results( "SELECT user_id, username, user_email, user_avatar, user_avatar_type FROM ".$w3all_config["table_prefix"]."users WHERE user_email IN(".$w3unames.") ORDER BY user_id DESC" );
+   $w3unames = strtolower($w3unames);
+   $uavatars = $w3all_phpbb_connection->get_results( "SELECT user_id, username, user_email, user_avatar, user_avatar_type FROM ".$w3all_config["table_prefix"]."users WHERE LOWER(user_email) IN(".$w3unames.") ORDER BY user_id DESC" );
 
   if(!empty($uavatars)){
 
@@ -3057,12 +3273,13 @@ public static function init_w3all_avatars(){
     }
 
   self::wp_w3all_assoc_phpbb_wp_users();
-  // try to avoid avatars examples shown all the same, as it is the viewing admin avatar, in /wp-admin/options-discussion.php
+  // - Try to avoid avatars examples shown all the same, as it is the viewing admin avatar, in /wp-admin/options-discussion.php
   // in change this user when view the page /wp-admin/options-discussion.php, will not see his phpBB avatar on top admin bar ... that can be acceptable
+  // - If the avatar result to be overwritten by some other plugin, then the exec value should be increased
   if ( ! empty($_SERVER['REQUEST_URI']) && ! strpos($_SERVER['REQUEST_URI'], 'options-discussion.php') ){
-   add_filter( 'get_avatar', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_custom_avatar' ), 10 , 5  );
+   add_filter( 'get_avatar', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_custom_avatar' ), 110000 , 5  );
   } elseif ( empty($_SERVER['REQUEST_URI']) ) {
-    add_filter( 'get_avatar', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_custom_avatar' ), 10 , 5  );
+    add_filter( 'get_avatar', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_custom_avatar' ), 110000 , 5  );
    }
 }
 

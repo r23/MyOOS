@@ -1,5 +1,5 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' );
-// (C) 2022 - axew3.com
+// (C) 2024 - axew3.com
 // wp_w3all_phpbb_iframe_short vers 1.0
 
  add_action('wp_enqueue_scripts', 'wp_w3all_short_enqueue_scripts');
@@ -64,7 +64,7 @@ $s = "
 //jQuery( document ).ready(function() {
  //jQuery('#w3idwloader').attr( \"class\", \"w3_wrap_loader\" );
 //});
-jQuery(window).load(function() {
+jQuery(window).on(\"load\", function() {
  jQuery('#w3idwloader').css(\"display\",\"none\");
 });
 

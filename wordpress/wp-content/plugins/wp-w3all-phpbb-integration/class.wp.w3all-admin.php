@@ -110,10 +110,6 @@ public static function get_form_set_update() {
     if( !in_array($_POST['w3all_conf_pref']['w3all_add_into_wp_u_capability'],$w3wproles) ){
       $_POST['w3all_conf_pref']['w3all_add_into_wp_u_capability'] = 'subscriber';
     }
-    if( preg_match('/[^0-9A-Za-z]/',$_POST['w3all_conf_pref']['wp_w3all_phpbb_iframe_short_token_yn']) ){
-      $_POST['w3all_conf_pref']['wp_w3all_phpbb_iframe_short_token_yn'] = '';
-    }
-
       $w3all_conf_pref = $_POST['w3all_conf_pref'];
       $w3all_conf_pref = serialize($w3all_conf_pref);
         $data_update = array('w3all_conf_pref' => $w3all_conf_pref);
