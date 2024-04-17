@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.5.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-04-09 23:58:19+0000\n"
+"PO-Revision-Date: 2024-04-16 03:28:38+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -4169,7 +4169,7 @@ msgstr "Bericht in die Zwischenablage kopieren"
 
 #: wp-admin/site-health-info.php:51
 msgid "If you want to export a handy list of all the information on this page, you can use the button below to copy it to the clipboard. You can then paste it in a text file and save it to your device, or paste it in an email exchange with a support engineer or theme/plugin developer for example."
-msgstr "Wenn du eine praktische Liste aller Informationen von dieser Seite exportieren möchtest, kannst du sie über den Button unten in die Zwischenablage kopieren. Du kannst diese Liste dann in eine Textdatei einfügen und auf deinem Device speichern, oder sie in einen E-Mail-Austausch mit einem Support-Techniker oder Theme-/Plugin-Entwickler einfügen."
+msgstr "Wenn du eine praktische Liste aller Informationen von dieser Seite exportieren möchtest, kannst du sie über den Button unten in die Zwischenablage kopieren. Du kannst diese Liste dann in eine Textdatei einfügen und auf deinem Gerät speichern, oder sie in einen E-Mail-Austausch mit einem Support-Techniker oder Theme-/Plugin-Entwickler einfügen."
 
 #: wp-admin/site-health-info.php:23 wp-admin/site-health.php:226
 msgid "The Site Health check requires JavaScript."
@@ -12579,7 +12579,7 @@ msgstr "Hast du bereits ein Theme in einer ZIP-Datei (stelle sicher, dass es von
 
 #: wp-admin/edit-form-advanced.php:401
 msgid "<strong>Send Trackbacks</strong> &mdash; Trackbacks are a way to notify legacy blog systems that you&#8217;ve linked to them. Enter the URL(s) you want to send trackbacks. If you link to other WordPress sites they&#8217;ll be notified automatically using pingbacks, and this field is unnecessary."
-msgstr "<strong>Trackbacks senden</strong> &ndash; Mittels Trackbacks teilst du älteren Blogsystemen mit, dass du diese verlinkt hast. Trage einfach die URLs ein, an die du Trackbacks senden willst. Wenn du im Beitrag einen WordPress-Blog verlinkt hast, so wird automatisch ein Pingback gesendet und du musst das Trackbackfeld nicht mehr ausfüllen."
+msgstr "<strong>Trackbacks senden</strong> &ndash; Mittels Trackbacks teilst du älteren Blogsystemen mit, dass du diese verlinkt hast. Trage einfach die URLs ein, an die du Trackbacks senden willst. Wenn du auf andere WordPress-Websites verlinkst, werden diese automatisch über Pingbacks benachrichtigt und dieses Feld ist unnötig."
 
 #: wp-admin/user-new.php:291
 msgid "Contributors can write and manage their posts but not publish posts or upload media files."
@@ -12669,7 +12669,7 @@ msgstr "Du musst jeweils den Button „Änderungen speichern“ unten auf dem Bi
 
 #: wp-admin/edit-link-form.php:69
 msgid "The boxes for link name, web address, and description have fixed positions, while the others may be repositioned using drag and drop. You can also hide boxes you do not use in the Screen Options tab, or minimize boxes by clicking on the title bar of the box."
-msgstr "Die Module für Name, Web-Adresse und Beschreibung sind auf dieser Seite fest positioniert. Alle anderen kannst du per Drag-and-drop (Ziehen und Ablegen) in ihrer Position verändern. Über den Tab „Ansicht anpassen“ kannst du Module auch ganz ausblenden."
+msgstr "Die Boxen für Link-Name, Web-Adresse und Beschreibung sind auf dieser Seite fest positioniert. Alle anderen kannst du per Drag-and-drop (Ziehen und Ablegen) in ihrer Position verändern. Über den Tab „Ansicht anpassen“ kannst du Boxen auch ganz ausblenden oder minimieren, indem du auf die Werkzeugleiste der Box klickst."
 
 #: wp-admin/update-core.php:643
 msgid "Your themes are all up to date."

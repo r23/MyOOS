@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.5.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-04-09 23:58:56+0000\n"
+"PO-Revision-Date: 2024-04-16 03:36:16+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -483,7 +483,7 @@ msgstr "Das Zielverzeichnis konnte nicht erstellt werden."
 #: wp-admin/includes/class-wp-users-list-table.php:397
 #: wp-admin/includes/class-wp-ms-users-list-table.php:217
 msgid "Table ordered by E-mail."
-msgstr "Die Tabelle nach E-Mail-Adresse sortiert."
+msgstr "Die Tabelle ist nach E-Mail-Adresse sortiert."
 
 #: wp-admin/includes/class-wp-users-list-table.php:396
 #: wp-admin/includes/class-wp-ms-users-list-table.php:215
@@ -7022,7 +7022,7 @@ msgstr "https://de.wordpress.org/plugins/"
 
 #: wp-admin/customize.php:248
 msgid "The Customizer allows you to preview changes to your site before publishing them. You can navigate to different pages on your site within the preview. Edit shortcuts are shown for some editable elements. The Customizer is intended for use with non-block themes."
-msgstr "Der Customizer ermöglicht Ihnen in einer Vorschau die Änderungen an Ihrer Website vor dem Veröffentlichen zu sehen. Sie können innerhalb der Vorschau unterschiedliche Seiten Ihrer Website navigieren. Für einige bearbeitbare Elemente werden Shortcuts zum Bearbeiten angezeigt. Der Customizer ist für die Verwendung mit Nicht-Block-Themes vorgesehen."
+msgstr "Der Customizer ermöglicht Ihnen in einer Vorschau die Änderungen an Ihrer Website vor dem Veröffentlichen zu sehen. Sie können innerhalb der Vorschau zu verschiedenen Seiten Ihrer Website navigieren. Für einige bearbeitbare Elemente werden Shortcuts zum Bearbeiten angezeigt. Der Customizer ist für die Verwendung mit Nicht-Block-Themes vorgesehen."
 
 #: wp-admin/customize.php:72 wp-admin/customize.php:81
 msgid "Customize New Changes"
@@ -10051,7 +10051,7 @@ msgstr "Das Paket enthält keine Dateien."
 
 #: wp-admin/revision.php:144
 msgid "To navigate between revisions, <strong>drag the slider handle left or right</strong> or <strong>use the Previous or Next buttons</strong>."
-msgstr "Um zwischen den Revisionen zu navigieren, <strong>verschieben Sie den Slider von links nach rechts</strong> oder <strong>verwenden Sie den Weiter- bzw. Zurück-Button</strong>."
+msgstr "Um zwischen den Revisionen zu navigieren, <strong>verschieben Sie den Slider nach links oder rechts</strong> oder <strong>verwenden Sie den Weiter- bzw. Zurück-Button</strong>."
 
 #: wp-admin/customize.php:151 wp-admin/includes/class-wp-debug-data.php:446
 #: wp-admin/includes/dashboard.php:1172
@@ -10371,7 +10371,7 @@ msgstr "Wenn Sie Themes wechseln, gibt es häufig Unterschiede in der Anzahl und
 
 #: wp-admin/edit-tags.php:286
 msgid "<strong>Parent</strong> &mdash; Categories, unlike tags, can have a hierarchy. You might have a Jazz category, and under that have child categories for Bebop and Big Band. Totally optional. To create a subcategory, just choose another category from the Parent dropdown."
-msgstr "<strong>Eltern</strong> &ndash; Das sind übergeordnete Kategorien, die im Gegensatz zu Schlagwörtern hierarchisch angeordnet werden können. Sie können zum Beispiel eine Kategorie Jazz anlegen sowie die Kategorien Bebop und Big Band. Wie Sie wollen. Da die beiden letzteren Verfeinerungen der Kategorie Jazz darstellen, wählen Sie für beide die Kategorie Jazz, als übergeordnete Kategorie aus dem Drop-down-Menü."
+msgstr "<strong>Eltern</strong> &ndash; Das sind übergeordnete Kategorien, die im Gegensatz zu Schlagwörtern hierarchisch angeordnet werden können. Sie können zum Beispiel eine Kategorie Jazz anlegen sowie die Kategorien Bebop und Big Band. Wie Sie wollen. Da die beiden letzteren Verfeinerungen der Kategorie Jazz darstellen, wählen Sie für beide die Kategorie Jazz als übergeordnete Kategorie aus dem Drop-down-Menü."
 
 #: wp-admin/edit-form-advanced.php:374
 msgid "Several boxes on this screen contain settings for how your content will be published, including:"
@@ -12344,7 +12344,7 @@ msgstr "Installierte Themes durchsuchen"
 #. translators: %s: Link to documentation on child themes.
 #: wp-admin/update-core.php:665
 msgid "<strong>Please Note:</strong> Any customizations you have made to theme files will be lost. Please consider using <a href=\"%s\">child themes</a> for modifications."
-msgstr "<strong>Beachten Sie bitte:</strong> Alle Anpassungen die Sie an Theme-Dateien vorgenommen haben, werden verloren gehen. Ziehen Sie in Erwägung, <a href=\"%s\">Child-Themes (engl.)</a> zu nutzen, um Modifikationen vorzunehmen."
+msgstr "<strong>Beachten Sie bitte:</strong> Alle Anpassungen, die Sie an Theme-Dateien vorgenommen haben, werden verloren gehen. Ziehen Sie in Erwägung, <a href=\"%s\">Child-Themes (engl.)</a> zu nutzen, um Modifikationen vorzunehmen."
 
 #. translators: %s: Number of posts.
 #: wp-admin/includes/class-wp-posts-list-table.php:404
@@ -12579,7 +12579,7 @@ msgstr "Haben Sie bereits ein Theme in einer ZIP-Datei (stellen Sie sicher, dass
 
 #: wp-admin/edit-form-advanced.php:401
 msgid "<strong>Send Trackbacks</strong> &mdash; Trackbacks are a way to notify legacy blog systems that you&#8217;ve linked to them. Enter the URL(s) you want to send trackbacks. If you link to other WordPress sites they&#8217;ll be notified automatically using pingbacks, and this field is unnecessary."
-msgstr "<strong>Trackbacks senden</strong> &ndash; Mittels Trackbacks teilen Sie älteren Blogsystemen mit, dass Sie diese verlinkt haben. Tragen Sie einfach die URLs ein, an die Sie Trackbacks senden wollen. Wenn Sie im Beitrag eine WordPress-Website verlinkt haben, so wird automatisch ein Pingback gesendet und Sie müssen das Trackbackfeld nicht mehr ausfüllen."
+msgstr "<strong>Trackbacks senden</strong> &ndash; Mittels Trackbacks teilen Sie älteren Blogsystemen mit, dass Sie diese verlinkt haben. Tragen Sie einfach die URLs ein, an die Sie Trackbacks senden wollen. Wenn Sie auf andere WordPress-Websites verlinken, werden diese automatisch über Pingbacks benachrichtigt und dieses Feld ist unnötig."
 
 #: wp-admin/user-new.php:291
 msgid "Contributors can write and manage their posts but not publish posts or upload media files."
@@ -16199,7 +16199,7 @@ msgstr "Bildbearbeitungs-Fehler"
 #. translators: %s: Home URL.
 #: wp-admin/includes/class-custom-image-header.php:533
 msgid "Header updated. <a href=\"%s\">Visit your site</a> to see how it looks."
-msgstr "Header aktualisiert. <a href=\"%s\">Sehn Sie sich das Ergebnis an</a>."
+msgstr "Header aktualisiert. <a href=\"%s\">Sehen Sie sich das Ergebnis an</a>."
 
 #: wp-admin/includes/class-custom-image-header.php:512
 #: wp-admin/includes/theme.php:336
