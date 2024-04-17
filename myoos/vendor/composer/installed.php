@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'f1a5a50e84a88a544e2fc48cdccf084061e69501',
+        'reference' => 'b4bcf967b4d316964ea9c39cf445c8e0d9058727',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -229,7 +229,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'f1a5a50e84a88a544e2fc48cdccf084061e69501',
+            'reference' => 'b4bcf967b4d316964ea9c39cf445c8e0d9058727',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -287,9 +287,9 @@
             'dev_requirement' => false,
         ),
         'php-amqplib/php-amqplib' => array(
-            'pretty_version' => 'v3.6.1',
-            'version' => '3.6.1.0',
-            'reference' => '76eee289e98b0b309a761787e65cbe1acbaf8c72',
+            'pretty_version' => 'v3.6.2',
+            'version' => '3.6.2.0',
+            'reference' => 'cb514530ce45a6d2f636be5196010c47c3bcf6e0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php-amqplib/php-amqplib',
             'aliases' => array(),
@@ -502,7 +502,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '1b43da6199cab7867f06b52454a256efa743f170',
+            'reference' => '581b11097cf4ba8ed29a685645966a7eb8ea632e',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
@@ -1093,9 +1093,9 @@
             'dev_requirement' => false,
         ),
         'twig/twig' => array(
-            'pretty_version' => 'v3.8.0',
-            'version' => '3.8.0.0',
-            'reference' => '9d15f0ac07f44dc4217883ec6ae02fd555c6f71d',
+            'pretty_version' => 'v3.9.1',
+            'version' => '3.9.1.0',
+            'reference' => '664647f46bf68a98cf5af27b42de8017a3e2d878',
             'type' => 'library',
             'install_path' => __DIR__ . '/../twig/twig',
             'aliases' => array(),
@@ -1104,7 +1104,7 @@
         'videlalvaro/php-amqplib' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v3.6.1',
+                0 => 'v3.6.2',
             ),
         ),
         'webmozart/assert' => array(
