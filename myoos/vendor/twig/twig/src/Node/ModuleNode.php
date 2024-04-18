@@ -198,7 +198,7 @@ final class ModuleNode extends Node
                     ->raw(', ')
                     ->repr($node->getTemplateLine())
                     ->raw(");\n")
-                    ->write(sprintf("if (!\$_trait_%s->isTraitable()) {\n", $i))
+                    ->write(sprintf("if (!\$_trait_%s->unwrap()->isTraitable()) {\n", $i))
                     ->indent()
                     ->write("throw new RuntimeError('Template \"'.")
                     ->subcompile($trait->getNode('template'))
@@ -207,7 +207,7 @@ final class ModuleNode extends Node
                     ->raw(", \$this->source);\n")
                     ->outdent()
                     ->write("}\n")
-                    ->write(sprintf("\$_trait_%s_blocks = \$_trait_%s->getBlocks();\n\n", $i, $i))
+                    ->write(sprintf("\$_trait_%s_blocks = \$_trait_%s->unwrap()->getBlocks();\n\n", $i, $i))
                 ;
 
                 foreach ($trait->getNode('targets') as $key => $value) {
@@ -336,12 +336,15 @@ final class ModuleNode extends Node
                 $compiler->raw('$this->getParent($context)');
             }
             $compiler->raw("->unwrap()->yield(\$context, array_merge(\$this->blocks, \$blocks));\n");
-        } else {
+        }
+
+        $compiler->subcompile($this->getNode('display_end'));
+
+        if (!$this->hasNode('parent')) {
             $compiler->write("return; yield '';\n"); // ensure at least one yield call even for templates with no output
         }
 
         $compiler
-            ->subcompile($this->getNode('display_end'))
             ->outdent()
             ->write("}\n\n")
         ;
