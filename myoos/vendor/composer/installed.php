@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'fa35f6d82e5570c168482cfa50cd16ea8c08abea',
+        'reference' => '1558bb95e5b0905e20c2b1365b514a6e96608f15',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -229,7 +229,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'fa35f6d82e5570c168482cfa50cd16ea8c08abea',
+            'reference' => '1558bb95e5b0905e20c2b1365b514a6e96608f15',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -502,7 +502,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '16afe68c1b79917b4e8d8222a39ca4db31b63377',
+            'reference' => 'a6fb2a760c95f45ccb6a412599770061c330c624',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
@@ -1082,15 +1082,6 @@
             'replaced' => array(
                 0 => 'v5.4.38',
             ),
-        ),
-        'tecnickcom/tcpdf' => array(
-            'pretty_version' => '6.7.4',
-            'version' => '6.7.4.0',
-            'reference' => 'd4adef47ca21c90e6483d59dcb9e5b1023696937',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../tecnickcom/tcpdf',
-            'aliases' => array(),
-            'dev_requirement' => false,
         ),
         'twig/twig' => array(
             'pretty_version' => 'v3.9.3',
