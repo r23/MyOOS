@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '88340ff2e5b5aa4c097a2bcc94852e3ab71efdd5',
+        'reference' => 'd694473a6530ea8050a50cca8f3bcf10ed80ab98',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -229,7 +229,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '88340ff2e5b5aa4c097a2bcc94852e3ab71efdd5',
+            'reference' => 'd694473a6530ea8050a50cca8f3bcf10ed80ab98',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -1082,6 +1082,15 @@
             'replaced' => array(
                 0 => 'v5.4.38',
             ),
+        ),
+        'tecnickcom/tcpdf' => array(
+            'pretty_version' => '6.7.5',
+            'version' => '6.7.5.0',
+            'reference' => '951eabf0338ec2522bd0d5d9c79b08a3a3d36b36',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../tecnickcom/tcpdf',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'twig/twig' => array(
             'pretty_version' => 'v3.9.3',

@@ -58,7 +58,8 @@
 		"phpmailer/phpmailer": "^6.8",
 		"api-platform/core": "^2.7",
 		"jefs42/libretranslate": "^1.1",
-		"landrok/language-detector": "^1.4"
+		"landrok/language-detector": "^1.4",
+		"tecnickcom/tcpdf": "^6.7.5"
     },
 	"require-dev": {
 		"roave/security-advisories": "dev-latest"
