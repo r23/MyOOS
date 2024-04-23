@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.8.3
+Version: 2.8.4
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -33,7 +33,7 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.8.3' );
+define( 'WPW3ALL_VERSION', '2.8.4' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '6.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -665,6 +665,17 @@ if(! defined("WPW3ALL_NOT_ULINKED")){
 
  if ( defined('W3PHPBBDBCONN') && !isset($w3deactivate_wp_w3all_plugin) )
  {
+  ######
+  # Gutenberg blocks start
+
+  function w3all_last_phpbb_topics___register_blocks() {
+   register_block_type( WPW3ALL_PLUGIN_DIR . 'common/apps/phpbb_last_topics' );
+  }
+  add_action( 'init', 'w3all_last_phpbb_topics___register_blocks' );
+
+  # Gutenberg blocks end
+  ######
+
    if (function_exists('wp_w3all_phpbb_login')){
     add_action( 'wp_login', 'wp_w3all_phpbb_login', 10, 2);
    }
@@ -932,7 +943,6 @@ function wp_check_password($password, $hash, $user_id = '') {
 // phpBB allow \ char on password
 
    global $wpdb,$wp_hasher,$w3all_add_into_phpBB_after_confirm;
-   #$password = trim($password);
    $password = trim(str_replace(chr(0), '', $password));
    $check = false;
    $hash_x_wp = $hash;
@@ -1022,8 +1032,8 @@ endif;
 
 function wp_w3all_remove_bbcode_tags($post_str, $words){
 
+ $post_str = trim(str_replace(chr(0), '', $post_str));
  $post_string = preg_replace('/[[\/\!]*?[^\[\]]*?]/', '', $post_str);
-
  $post_string = strip_tags($post_string);
 
  $post_s = $post_string;
@@ -1042,8 +1052,6 @@ function wp_w3all_remove_bbcode_tags($post_str, $words){
     }
    $i++;
   }
-
- //$post_std = $post_std . ' ...'; // if should be a link to the post, do it on phpbb_last_topics
 
 return $post_std;
 

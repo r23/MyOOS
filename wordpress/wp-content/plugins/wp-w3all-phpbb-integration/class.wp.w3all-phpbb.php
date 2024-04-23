@@ -762,89 +762,95 @@ private static function verify_phpbb_credentials(){
 
 private static function last_forums_topics($ntopics = 10){
 
+# Note that userID 2 in phpBB goes into default phpBB guest user group
+# because $w3all_phpbb_usession is empty for this uid (excluded)
  global $w3all_phpbb_connection,$w3all_phpbb_usession,$w3all_config,$w3all_exclude_phpbb_forums,$w3all_wlastopicspost_max,$w3all_lasttopic_avatar_num,$w3all_get_topics_x_ugroup,$w3all_heartbeat_phpbb_lastopics_num;
 
  if( empty($w3all_phpbb_connection) ){ return; }
 
- $topics = array();
+ /*$topics = array();
  $ntopics0 = $w3all_wlastopicspost_max > $w3all_lasttopic_avatar_num ? $w3all_wlastopicspost_max : $w3all_lasttopic_avatar_num;
  $ntopics  = $ntopics0 > $ntopics ? $ntopics0 : 10;
  $ntopics  = $w3all_heartbeat_phpbb_lastopics_num > $ntopics ? $w3all_heartbeat_phpbb_lastopics_num : $ntopics;
+ $topics_x_ugroup = $no_forums_list = '';*/
+ $topics = array();
+ $ntopics0 = $w3all_wlastopicspost_max > $w3all_lasttopic_avatar_num ? $w3all_wlastopicspost_max : $w3all_lasttopic_avatar_num;
+ $ntopics  = $ntopics0 > $ntopics ? $ntopics0 : $ntopics;
+ $ntopics  = $w3all_heartbeat_phpbb_lastopics_num > $ntopics ? $w3all_heartbeat_phpbb_lastopics_num : $ntopics;
+ $ntopics = $ntopics > $ntopics0 ? $ntopics : 10;
  $topics_x_ugroup = $no_forums_list = '';
 
-if($w3all_get_topics_x_ugroup == 1){ // list of allowed forums to retrieve topics if option active
+ if($w3all_get_topics_x_ugroup == 1){
 
- if (!empty($w3all_phpbb_usession)) {
-   $ug = $w3all_phpbb_usession->group_id;
-   $ui = $w3all_phpbb_usession->user_id;
-  } else {
-    $ug = 1; // the default phpBB guest user group
-    $ui = 1;
-   }
-// this need to be adjusted if 'phpBB default schema' isn't the used one
-$gaf = $w3all_phpbb_connection->get_results("SELECT DISTINCT ".$w3all_config["table_prefix"]."acl_groups.forum_id FROM ".$w3all_config["table_prefix"]."acl_groups
- WHERE ".$w3all_config["table_prefix"]."acl_groups.auth_role_id != 16
-  AND ".$w3all_config["table_prefix"]."acl_groups.group_id = ".$ug."");
+  if (!empty($w3all_phpbb_usession)) {
+    $ug = $w3all_phpbb_usession->group_id;
+    $ui = $w3all_phpbb_usession->user_id;
+   } else {
+     $ug = $ui = 1; // the default phpBB guest user group
+    }
 
- if(empty($gaf)){
-   return array(); // no forum found that can show topics for this group
- } else {
+  # 16 ROLE_FORUM_NOACCESS into acl_roles table
+  # get all forums ids which the user have no permissions to read
+  $gaf = $w3all_phpbb_connection->get_results("SELECT AG.forum_id
+    FROM ".$w3all_config["table_prefix"]."acl_groups AS AG
+    JOIN ".$w3all_config["table_prefix"]."user_group AS UG ON( UG.user_id = ".$ui."
+     AND UG.group_id = AG.group_id
+     AND AG.auth_role_id = 16 )");
+
+   if(!empty($gaf)){
       $gf = '';
        foreach( $gaf as $v ){
         $gf .= $v->forum_id.',';
        }
-   $gf = substr($gf, 0, -1);
-   $topics_x_ugroup = "AND T.forum_id IN(".$gf.")";
+    $gf = substr($gf, 0, -1);
+    $topics_x_ugroup = "AND T.forum_id NOT IN(".$gf.")";
+   }
+ }
 
- }} else {
-  $topics_x_ugroup = '';
-}
+  if ( preg_match('/^[0-9,]+$/', $w3all_exclude_phpbb_forums ))
+  {
+    $exp = explode(",", $w3all_exclude_phpbb_forums);
+    $exc_forums_list = '';
+     foreach($exp as $k => $v){
+      $exc_forums_list .= "'".$v."',";
+     }
+    $nfl = substr($exc_forums_list, 0, -1);
+    $exc_forums_list = "AND T.forum_id NOT IN(".$nfl.")";
+  } else { $exc_forums_list = ''; }
 
-  if (empty( $w3all_exclude_phpbb_forums )){
+      $topics = $w3all_phpbb_connection->get_results("SELECT
+       T.topic_id,T.forum_id,T.topic_title,T.topic_last_post_id,T.topic_last_poster_id,T.topic_last_poster_name,T.topic_last_post_time,
+       P.post_id,P.topic_id,P.forum_id,P.poster_id,P.post_time,P.post_username,P.post_subject,P.post_text,P.post_visibility,
+       U.user_id,U.username,U.user_email
+       FROM ".$w3all_config["table_prefix"]."topics AS T
+       JOIN ".$w3all_config["table_prefix"]."posts AS P on (T.topic_last_post_id = P.post_id and T.forum_id = P.forum_id)
+       JOIN ".$w3all_config["table_prefix"]."users AS U on U.user_id = T.topic_last_poster_id
+       WHERE T.topic_visibility = 1
+       ".$exc_forums_list."
+       ".$topics_x_ugroup."
+       AND P.post_visibility = 1
+       ORDER BY T.topic_last_post_time DESC
+       LIMIT 0,$ntopics");
 
-   $topics = $w3all_phpbb_connection->get_results("SELECT T.*, P.*, U.*
-    FROM ".$w3all_config["table_prefix"]."topics AS T
-    JOIN ".$w3all_config["table_prefix"]."posts AS P on (T.topic_last_post_id = P.post_id and T.forum_id = P.forum_id)
-    JOIN ".$w3all_config["table_prefix"]."users AS U on U.user_id = T.topic_last_poster_id
-    WHERE T.topic_visibility = 1
-    ".$topics_x_ugroup."
-    AND P.post_visibility = 1
-    ORDER BY T.topic_last_post_time DESC
-    LIMIT 0,$ntopics");
-
-  } else {
-    if ( preg_match('/^[0-9,]+$/', $w3all_exclude_phpbb_forums )) {
-          $exp = explode(",", $w3all_exclude_phpbb_forums);
-          $no_forums_list = '';
-           foreach($exp as $k => $v){
-            $no_forums_list .= "'".$v."',";
-           }
-            $nfl = substr($no_forums_list, 0, -1);
-            $no_forums_list = "AND T.forum_id NOT IN(".$nfl.")";
-    } else {
-            $no_forums_list = '';
-           }
-
-   $topics = $w3all_phpbb_connection->get_results("SELECT T.*, P.*, U.*
-    FROM ".$w3all_config["table_prefix"]."topics AS T
-    JOIN ".$w3all_config["table_prefix"]."posts AS P on (T.topic_last_post_id = P.post_id and T.forum_id = P.forum_id)
-    JOIN ".$w3all_config["table_prefix"]."users AS U on U.user_id = T.topic_last_poster_id
-    WHERE T.topic_visibility = 1
-    ".$no_forums_list."
-    ".$topics_x_ugroup."
-    AND P.post_visibility = 1
-    ORDER BY T.topic_last_post_time DESC
-    LIMIT 0,$ntopics");
-
-  }
+      /*$topics = $w3all_phpbb_connection->get_results("SELECT T.*, P.*, U.*
+       FROM ".$w3all_config["table_prefix"]."topics AS T
+       JOIN ".$w3all_config["table_prefix"]."posts AS P on (T.topic_last_post_id = P.post_id and T.forum_id = P.forum_id)
+       JOIN ".$w3all_config["table_prefix"]."users AS U on U.user_id = T.topic_last_poster_id
+       WHERE T.topic_visibility = 1
+       ".$no_forums_list."
+       ".$topics_x_ugroup."
+       AND P.post_visibility = 1
+       ORDER BY T.topic_last_post_time DESC
+       LIMIT 0,$ntopics");*/
 
      $t = is_array($topics) ? serialize($topics) : serialize(array());
-    if(!defined("W3PHPBBLASTOPICS")){
+     if(!defined("W3PHPBBLASTOPICS")){
       define( "W3PHPBBLASTOPICS", $t ); // see also wp_w3all.php and wp_w3all_assoc_phpbb_wp_users in this class
      }
 
     return $topics;
 }
+
 
 # heartbeat last_forums_topics
 public static function heartbeat_last_forums_topics($ntopics = 12){
@@ -2476,9 +2482,11 @@ if(!empty($last_topics)){
 }
 
 // wp_w3all_get_phpbb_lastopics_short vers 1.0
+# if it is from an heartbeat, then the number of the topics when an heartbeat occur
+# can be only a specified number -> $w3all_heartbeat_phpbb_lastopics_num
 public static function wp_w3all_get_phpbb_lastopics_short( $atts, $from_hb = false ) {
   global $w3all_lasttopic_avatar_num,$wp_userphpbbavatar,$w3all_url_to_cms,$w3all_last_t_avatar_yn,$w3all_last_t_avatar_dim,$w3all_get_phpbb_avatar_yn,$w3all_phpbb_widget_mark_ru_yn,$w3all_custom_output_files,$w3all_phpbb_widget_FA_mark_yn,$w3all_heartbeat_phpbb_lastopics_num;
-  
+
   if(is_array($atts)){
    $atts = array_map ('trim', $atts);
   } else {
@@ -2518,86 +2526,26 @@ public static function wp_w3all_get_phpbb_lastopics_short( $atts, $from_hb = fal
   if (defined("W3PHPBBLASTOPICS")){
     $last_topics = unserialize(W3PHPBBLASTOPICS); // see wp_w3all.php
   } else {
-   $last_topics = WP_w3all_phpbb::last_forums_topics_res($topics_number, true);
+   $last_topics = WP_w3all_phpbb::last_forums_topics_res($topics_number);
   }
 
-  if( $from_hb ){ # it is from an heartbeat
+  if( $from_hb ){ # it is from an heartbeat, cut the array based on option
+   $w3all_heartbeat_phpbb_lastopics_num = $w3all_heartbeat_phpbb_lastopics_num > 0 ? $w3all_heartbeat_phpbb_lastopics_num : 5;
    $last_topics = array_slice($last_topics, 0, intval($w3all_heartbeat_phpbb_lastopics_num), true);
   }
 
    if( $w3all_custom_output_files == 1 ) {
-   $file = ABSPATH . 'wp-content/plugins/wp-w3all-custom/phpbb_last_topics_output_shortcode.php';
-   if (!file_exists($file)){
-   $file = ABSPATH . 'wp-content/plugins/wp-w3all-config/phpbb_last_topics_output_shortcode.php';// old way
-   }
-     ob_start();
-      include($file);
-     return ob_get_clean();
-    } else {
-     $file = WPW3ALL_PLUGIN_DIR . 'views/phpbb_last_topics_output_shortcode.php';
-     ob_start();
-      include( $file );
-     return ob_get_clean();
+    $file = ABSPATH . 'wp-content/plugins/wp-w3all-custom/phpbb_last_topics_output_shortcode.php';
+    if (!file_exists($file)){
+     $file = ABSPATH . 'wp-content/plugins/wp-w3all-config/phpbb_last_topics_output_shortcode.php';// old way
     }
+   } else {
+      $file = WPW3ALL_PLUGIN_DIR . 'views/phpbb_last_topics_output_shortcode.php';
+     }
+  ob_start();
+   include($file);
+  return ob_get_clean();
 }
-
-// heartbeat wp_w3all_heartbeat_phpbb_lastopics_short vers 1.0
-public static function wp_w3all_heartbeat_phpbb_lastopics_short( $atts = '' ) {
-
-  global $w3all_lasttopic_avatar_num,$wp_userphpbbavatar,$w3all_url_to_cms,$w3all_last_t_avatar_yn,$w3all_last_t_avatar_dim,$w3all_get_phpbb_avatar_yn,$w3all_phpbb_widget_mark_ru_yn,$w3all_custom_output_files,$w3all_phpbb_widget_FA_mark_yn,$w3all_heartbeat_phpbb_lastopics_num;
-
-  $w3all_heartbeat_phpbb_lastopics_num = $w3all_heartbeat_phpbb_lastopics_num >= 12 ? 12 : $w3all_heartbeat_phpbb_lastopics_num;
-  
-  if(is_array($atts)){
-   $atts = array_map ('trim', $atts);
-  } else {
-     $atts = array();
-    }
-
-    $ltm = shortcode_atts( array(
-        'mode' => '0',
-        'topics_number' => '12',
-        'post_text' => '0',
-        'text_words' => '0',
-        'ul_class' => '',
-        'li_class' => '',
-        'inline_style' => '',
-        'href_blank' => '',
-        'no_avatars' => ''
-    ), $atts );
-
-    $no_avatars = intval($ltm['no_avatars']) > 0 ? 1 : 0;
-
-    $topics_number = intval($ltm['topics_number']) < 1 ? 1 : intval($ltm['topics_number']);
-
-    $wp_w3all_post_text = intval($ltm['post_text']) > 0 ? intval($ltm['post_text']) : 0;
-    $wp_w3all_text_words = intval($ltm['text_words']) > 0 ? intval($ltm['text_words']) : 0;
-
-    $w3_ul_class_lt = empty($ltm['ul_class']) ? '' : $ltm['ul_class'];
-    $w3_li_class_lt = empty($ltm['li_class']) ? '' : $ltm['li_class'];
-    $w3_inline_style_lt = empty($ltm['inline_style']) ? '' : $ltm['inline_style'];
-    $w3_href_blank_lt = $ltm['href_blank'] > 0 ? ' target="_blank"' : '';
-
-  // NOTE: Topics number here, is MAX 12 for this shortcode, as redefined into the heartbeat_last_forums_topics()
-  // Use $topics_number into 'heartbeat_phpbb_last_topics_output_shortcode.php' to redefine how much posts to display into each instance, but MAX 12
-  $last_topics = self::heartbeat_last_forums_topics($w3all_heartbeat_phpbb_lastopics_num);
-
-   if( $w3all_custom_output_files == 1 ) {
-   $file = ABSPATH . 'wp-content/plugins/wp-w3all-custom/heartbeat_phpbb_last_topics_output_shortcode.php';
-   if (!file_exists($file)){
-   $file = ABSPATH . 'wp-content/plugins/wp-w3all-config/heartbeat_phpbb_last_topics_output_shortcode.php';// old way
-   }
-     ob_start();
-      include($file);
-     return ob_get_clean();
-    } else {
-     $file = WPW3ALL_PLUGIN_DIR . 'views/heartbeat_phpbb_last_topics_output_shortcode.php';
-     ob_start();
-      include( $file );
-     return ob_get_clean();
-    }
-}
-
 
 // Detect if a shorcode (or some else) should be parsed on page based on
 // $wp_w3all_heartbeat_phpbb_lastopics_pages value or passed $pages
@@ -2605,7 +2553,7 @@ public static function wp_w3all_heartbeat_phpbb_lastopics_short( $atts = '' ) {
 public static function w3all_ck_if_onpage($pages='',$shortIndex='')
  {
    global $wp_w3all_heartbeat_phpbb_lastopics_pages;
-   
+
    $wp_w3all_heartbeat_phpbb_lastopics_pages = empty($pages) ? $wp_w3all_heartbeat_phpbb_lastopics_pages : $pages;
 
   if(empty($wp_w3all_heartbeat_phpbb_lastopics_pages)) return false;
@@ -2667,11 +2615,11 @@ public static function w3all_ck_if_onpage($pages='',$shortIndex='')
        elseif ( !strpos($siteUrl, $REQUEST_URI) )
        {
          $ck = explode('/?',$REQUEST_URI);
-         if(isset($ck[0]) && strpos($siteUrl, $ck[0]))
+         if(isset($ck[0]) && true === strpos($siteUrl, $ck[0]))
           { $shortonpage = true; }
 
          $ck = explode('/index.php',$REQUEST_URI);
-         if(isset($ck[0]) && strpos($siteUrl, $ck[0]))
+         if(isset($ck[0]) && true === strpos($siteUrl, $ck[0]))
           { $shortonpage = true; }
        }
     }
@@ -2806,18 +2754,6 @@ public static function wp_w3all_get_phpbb_post_short( $atts ) {
       }
        return preg_replace('/[[\/\!]*?[^\[\]]*?]/', '', $phpbb_post[0]['post_text']); // REVIEW // remove all bbcode tags (not html nor fake tags) //
      }
-  /*$phpbb_post = $w3all_phpbb_connection->get_results("SELECT *
-    FROM ". $w3all_config["table_prefix"] ."topics
-    JOIN ". $w3all_config["table_prefix"] ."posts ON ". $w3all_config["table_prefix"] ."posts.post_id =  ". $p['id'] ."
-     AND ". $w3all_config["table_prefix"] ."topics.topic_visibility = 1
-     AND ". $w3all_config["table_prefix"] ."topics.topic_id = ". $w3all_config["table_prefix"] ."posts.topic_id
-     AND ". $w3all_config["table_prefix"] ."posts.post_visibility = 1
-    LEFT JOIN ". $w3all_config["table_prefix"] ."attachments ON ". $w3all_config["table_prefix"] ."attachments.post_msg_id = '".$p['id']."'",ARRAY_A);
-  /*if(!empty($phpbb_post[0]['attach_id'])){
-       $attach_ids = array_column($phpbb_post, 'attach_id');
-       $extensions = array_column($phpbb_post, 'extension');
-       $real_filenames = array_column($phpbb_post, 'real_filename');
-   }*/
 
   if( empty($phpbb_post[0]) ){
    $res = '<b>Error:<br />the provided post ID do not match an existent phpBB post</b>';
@@ -2947,6 +2883,9 @@ return $res;
 
 
 public static function w3all_bbcodeconvert($text) {
+
+  $text = trim(str_replace(chr(0), '', $text));
+
   // a default (+-- complete) phpBB bbcode array
   $find = array(
     '~\[b\](.*?)\[/b\]~usi',
@@ -3010,14 +2949,14 @@ $text = preg_replace_callback(
             "WP_w3all_phpbb::w3_bbcode_media",
             $text);
 
-     $text = preg_replace('/\[.*\].*\[.*\]/', '', $text); // remove any bbcode-like if still there is
+  $text = preg_replace('/\[.*\].*\[.*\]/', '', $text); // remove any bbcode-like if still there is
 
   return $text;
 }
 
 public static function w3_bbcode_media($vmatches)
 {
-  // seem to work in few lines ... can be improved or done even better
+  // seem to work in few lines // to be fixed
  $vmatches[0] = str_replace('[wpw3allmediaconvert]', '', $vmatches[0]);
  $pos = strpos($vmatches[0], '">');
  $vmatches[0] = substr($vmatches[0], $pos+2);

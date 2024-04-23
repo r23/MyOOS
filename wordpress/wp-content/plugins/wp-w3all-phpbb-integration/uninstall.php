@@ -31,6 +31,5 @@ defined( 'WP_UNINSTALL_PLUGIN' ) or die( 'forbidden' );
    global $wpdb;
 
   // if 'DELETE users in phpBB when deleted in WP' option was active
-  // clean up
      $wpumetatab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'usermeta' : $wpdb->prefix . 'usermeta';
      $wpdb->query("DELETE FROM $wpumetatab WHERE meta_key = 'w3all_wpdelete_phpbbulist_delby'");

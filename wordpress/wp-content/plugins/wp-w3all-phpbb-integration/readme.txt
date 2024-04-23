@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: phpbb, integration, template, user, login
-Stable tag: 2.8.3
+Stable tag: 2.8.4
 License: GPLv2 or later
 Requires at least: 6.0.0
 Tested up to: 6.6
@@ -73,6 +73,15 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 
 == Changelog ==
 
+= 2.8.4 =
+*Release Date - 22 Apr, 2024*
+* Fix: option 'Retrieve posts on Last Topics Widget based on phpBB user's group' to return the correct result, and the option has been improved to become: Display topics/posts on Shortcodes and Widgets based on the phpBB user's groups permissions
+* Fix: improve the 'private static function last_forums_topics($ntopics = 10)' so to get only required values and make it faster. Fix and remove the code on same function.
+* Add: Gutenberg w3all 'phpBB last topics block' widget
+* Fix: (secondary) security bug into the function 'public static function w3all_bbcodeconvert($text)'
+* Fix: minor fixes
+* Logs: https://www.axew3.com/w3/forums/viewtopic.php?t=1870
+
 = 2.8.3 =
 *Release Date - 13 Apr, 2024*
 * Add: the 'wp_w3all_heartbeat_phpbb_lastopics shortcode' option that allow to get last posts/topics from phpBB and update the content without having to reload the WP page: https://www.axew3.com/w3/2024/04/w3all-heartbeat-phpbb-lastopics/
@@ -101,7 +110,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 *Release Date - 03 Mar, 2024*
 * Fix: 'error Notice: logged in username contains illegal characters forbidden on this CMS.
 * Fix: page-forum.php for the template iframe integration (not working on safary). Require to rebuild it or manually apply changes
-* Fix: WP user addition into phpBB, when the registration is a signup to a membership into front end pages 
+* Fix: WP user addition into phpBB, when the registration is a signup to a membership into front end pages
 * Fix: some WP-MS issues and add option that allow (multisite installations) to add phpBB users into WordPress, using all allowed default WP characters and not only alphanumeric
 * Fix: more fixes all around
 * All logs (and report bugs): https://www.axew3.com/w3/forums/viewtopic.php?t=1825

@@ -141,7 +141,7 @@ public function update( $new_instance, $old_instance ) {
 public function wp_w3all_phpbb_last_topics($post_text, $topics_number, $text_words) {
 
   global $w3all_url_to_cms, $wp_w3all_forum_folder_wp, $w3all_get_phpbb_avatar_yn, $w3all_last_t_avatar_yn, $w3all_last_t_avatar_dim, $w3all_phpbb_widget_mark_ru_yn, $w3all_custom_output_files, $w3all_phpbb_widget_FA_mark_yn;
-
+  $topics_number;
   $wp_w3all_post_text = $post_text;
   $wp_w3all_text_words = $text_words;
 
@@ -153,11 +153,13 @@ public function wp_w3all_phpbb_last_topics($post_text, $topics_number, $text_wor
    }
 
    if (defined("W3PHPBBLASTOPICS")){
-   	
     $last_topics = unserialize(W3PHPBBLASTOPICS); // see wp_w3all.php
-  } else {
-   $last_topics = WP_w3all_phpbb::last_forums_topics_res($topics_number);
-  }
+    # re-define and re-call, if topics are more due some sub-sequent instance call, on same page/post
+    if(is_array($last_topics) && count($last_topics) < $topics_number)
+    { $last_topics = WP_w3all_phpbb::last_forums_topics_res($topics_number); }
+   } else {
+      $last_topics = WP_w3all_phpbb::last_forums_topics_res($topics_number);
+     }
 
  if(empty($last_topics)){ return; }
 

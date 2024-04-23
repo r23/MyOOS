@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "create-block/w3all-phpbb-last-topics",
+  "version": "0.1.0",
+  "title": "w3all phpBB last topics",
+  "category": "widgets",
+  "icon": "list-view",
+  "description": "Display the phpBB last topics widget.",
+  "example": {},
+  "attributes": {
+    "showPostText": {
+      "type": "boolean"
+    },
+    "topicsNum": {
+      "type": "string"
+    },
+    "wordsNum": {
+      "type": "string"
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "textdomain": "wp-w3all-phpbb-integration",
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}
