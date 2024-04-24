@@ -5785,17 +5785,6 @@ msgstr "Kommentar"
 msgid "Crop"
 msgstr "Zuschneiden"
 
-#. translators: Theme and Directory Patterns tab title in the block inserter.
-#: wp-includes/js/dist/block-editor.js:42603
-#: wp-includes/js/dist/block-editor.js:43800
-#: wp-includes/js/dist/block-editor.js:49059
-#: wp-includes/js/dist/block-library.js:58090
-#: wp-includes/js/dist/core-commands.js:155
-#: wp-includes/js/dist/edit-site.js:13738
-#: wp-includes/js/dist/edit-site.js:17877 wp-admin/menu.php:209
-msgid "Patterns"
-msgstr "Vorlagen"
-
 #: wp-includes/script-loader.php:1010 wp-includes/js/media-views.js:3531
 #: wp-admin/js/media.js:237 wp-admin/js/post.js:1317
 msgid "The file URL has been copied to your clipboard"
