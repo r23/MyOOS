@@ -438,6 +438,10 @@
                 <source>This value is not a valid MAC address.</source>
                 <target>See väärtus ei ole kehtiv MAC-aadress.</target>
             </trans-unit>
+            <trans-unit id="113">
+                <source>This URL is missing a top-level domain.</source>
+                <target state="needs-review-translation">Sellel URL-il puudub ülataseme domeen.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

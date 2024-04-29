@@ -404,7 +404,7 @@
             </trans-unit>
             <trans-unit id="104">
                 <source>The filename is too long. It should have {{ filename_max_length }} character or less.|The filename is too long. It should have {{ filename_max_length }} characters or less.</source>
-                <target>El nombre del archivo es demasido largo. Debe tener {{ filename_max_length }} carácter o menos.|El nombre del archivo es demasido largo. Debe tener {{ filename_max_length }} caracteres o menos.</target>
+                <target>El nombre del archivo es demasiado largo. Debe tener {{ filename_max_length }} carácter o menos.|El nombre del archivo es demasiado largo. Debe tener {{ filename_max_length }} caracteres o menos.</target>
             </trans-unit>
             <trans-unit id="105">
                 <source>The password strength is too low. Please use a stronger password.</source>
@@ -437,6 +437,10 @@
             <trans-unit id="112">
                 <source>This value is not a valid MAC address.</source>
                 <target>Este valor no es una dirección MAC válida.</target>
+            </trans-unit>
+            <trans-unit id="113">
+                <source>This URL is missing a top-level domain.</source>
+                <target>Esta URL no contiene una extensión de dominio (TLD).</target>
             </trans-unit>
         </body>
     </file>

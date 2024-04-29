@@ -754,17 +754,17 @@
         },
         {
             "name": "dompdf/dompdf",
-            "version": "v2.0.7",
-            "version_normalized": "2.0.7.0",
+            "version": "v2.0.8",
+            "version_normalized": "2.0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dompdf/dompdf.git",
-                "reference": "ab0123052b42ad0867348f25df8c228f1ece8f14"
+                "reference": "c20247574601700e1f7c8dab39310fca1964dc52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/ab0123052b42ad0867348f25df8c228f1ece8f14",
-                "reference": "ab0123052b42ad0867348f25df8c228f1ece8f14",
+                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/c20247574601700e1f7c8dab39310fca1964dc52",
+                "reference": "c20247574601700e1f7c8dab39310fca1964dc52",
                 "shasum": ""
             },
             "require": {
@@ -788,7 +788,7 @@
                 "ext-imagick": "Improves image processing performance",
                 "ext-zlib": "Needed for pdf stream compression"
             },
-            "time": "2024-04-15T12:40:33+00:00",
+            "time": "2024-04-29T13:06:17+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -813,7 +813,7 @@
             "homepage": "https://github.com/dompdf/dompdf",
             "support": {
                 "issues": "https://github.com/dompdf/dompdf/issues",
-                "source": "https://github.com/dompdf/dompdf/tree/v2.0.7"
+                "source": "https://github.com/dompdf/dompdf/tree/v2.0.8"
             },
             "install-path": "../dompdf/dompdf"
         },
@@ -5298,17 +5298,17 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.4.38",
-            "version_normalized": "5.4.38.0",
+            "version": "v5.4.39",
+            "version_normalized": "5.4.39.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "e6abcea1208e3f506b129e14d6d60b4875140892"
+                "reference": "b435447f3ee974ab87c266cd9b329366d6552da8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/e6abcea1208e3f506b129e14d6d60b4875140892",
-                "reference": "e6abcea1208e3f506b129e14d6d60b4875140892",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/b435447f3ee974ab87c266cd9b329366d6552da8",
+                "reference": "b435447f3ee974ab87c266cd9b329366d6552da8",
                 "shasum": ""
             },
             "require": {
@@ -5459,7 +5459,7 @@
                 "twig/inky-extra": "^2.12|^3",
                 "twig/markdown-extra": "^2.12|^3"
             },
-            "time": "2024-04-02T19:56:51+00:00",
+            "time": "2024-04-29T11:17:58+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -5502,7 +5502,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/symfony/issues",
-                "source": "https://github.com/symfony/symfony/tree/v5.4.38"
+                "source": "https://github.com/symfony/symfony/tree/v5.4.39"
             },
             "funding": [
                 {

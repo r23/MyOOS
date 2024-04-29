@@ -447,6 +447,10 @@
                 <source>This value is not a valid MAC address.</source>
                 <target>Kjo nuk është një adresë e vlefshme e Kontrollit të Qasjes në Media (MAC).</target>
             </trans-unit>
+            <trans-unit id="113">
+                <source>This URL is missing a top-level domain.</source>
+                <target state="needs-review-translation">Kësaj URL i mungon një domain i nivelit të lartë.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
