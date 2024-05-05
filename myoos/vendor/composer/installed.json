@@ -3239,12 +3239,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "f9d568f4dfd55d0a2a306d67330dde426277e0dc"
+                "reference": "b88a8ff62ebab83b7c8fccae8984fba26d42ed4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/f9d568f4dfd55d0a2a306d67330dde426277e0dc",
-                "reference": "f9d568f4dfd55d0a2a306d67330dde426277e0dc",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/b88a8ff62ebab83b7c8fccae8984fba26d42ed4e",
+                "reference": "b88a8ff62ebab83b7c8fccae8984fba26d42ed4e",
                 "shasum": ""
             },
             "conflict": {
@@ -3458,7 +3458,7 @@
                 "getkirby/panel": "<2.5.14",
                 "getkirby/starterkit": "<=3.7.0.2",
                 "gilacms/gila": "<=1.15.4",
-                "gleez/cms": "<=1.2|==2",
+                "gleez/cms": "<=1.3|==2",
                 "globalpayments/php-sdk": "<2",
                 "gogentooss/samlbase": "<1.2.7",
                 "google/protobuf": "<3.15",
@@ -3712,7 +3712,7 @@
                 "processwire/processwire": "<=3.0.210",
                 "propel/propel": ">=2.0.0.0-alpha1,<=2.0.0.0-alpha7",
                 "propel/propel1": ">=1,<=1.7.1",
-                "pterodactyl/panel": "<1.7",
+                "pterodactyl/panel": "<1.11.6",
                 "ptheofan/yii2-statemachine": ">=2.0.0.0-RC1-dev,<=2",
                 "ptrofimov/beanstalk_console": "<1.7.14",
                 "pubnub/pubnub": "<6.1",
@@ -3987,7 +3987,7 @@
                 "zfr/zfr-oauth2-server-module": "<0.1.2",
                 "zoujingli/thinkadmin": "<=6.1.53"
             },
-            "time": "2024-05-03T05:04:43+00:00",
+            "time": "2024-05-05T05:04:28+00:00",
             "default-branch": true,
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
