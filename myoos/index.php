@@ -27,6 +27,9 @@ error_reporting(E_ALL & ~E_STRICT);
 
 //setting basic configuration parameters
 if (function_exists('ini_set')) {
+    ini_set('session.cookie_httponly', true);
+    ini_set('session.cookie_secure', true);
+    ini_set('session.use_only_cookies', true);	
     ini_set('session.use_trans_sid', 0);
     ini_set('url_rewriter.tags', '');
     ini_set('xdebug.show_exception_trace', 0);
