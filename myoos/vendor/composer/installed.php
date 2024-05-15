@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'e965ec8b60be2bd46e0d66d466dbf66627a11e6d',
+        'reference' => '933318a399c74a63c4e5fce9146f5b193164d2ba',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -229,7 +229,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'e965ec8b60be2bd46e0d66d466dbf66627a11e6d',
+            'reference' => '933318a399c74a63c4e5fce9146f5b193164d2ba',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -502,7 +502,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '6bdc6b064ecc2d47fd9aad5f3dce20f2a7dfcd64',
+            'reference' => '8eea9afb8060c8ef05c89f02b123329f43e9ba4e',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
@@ -1093,9 +1093,9 @@
             'dev_requirement' => false,
         ),
         'twig/twig' => array(
-            'pretty_version' => 'v3.10.1',
-            'version' => '3.10.1.0',
-            'reference' => '3af5ab2e52279e5e23dc192b1a26db3b8cffa4e7',
+            'pretty_version' => 'v3.10.2',
+            'version' => '3.10.2.0',
+            'reference' => '7aaed0b8311a557cc8c4047a71fd03153a00e755',
             'type' => 'library',
             'install_path' => __DIR__ . '/../twig/twig',
             'aliases' => array(),
