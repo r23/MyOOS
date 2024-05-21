@@ -4817,12 +4817,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "5a190e68aef110a461c04c09b148660a377da4db"
+                "reference": "7a1a6552ac2f0fd7131d2552be221f2dd6eb19fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/5a190e68aef110a461c04c09b148660a377da4db",
-                "reference": "5a190e68aef110a461c04c09b148660a377da4db",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/7a1a6552ac2f0fd7131d2552be221f2dd6eb19fa",
+                "reference": "7a1a6552ac2f0fd7131d2552be221f2dd6eb19fa",
                 "shasum": ""
             },
             "conflict": {
@@ -5479,6 +5479,7 @@
                 "uvdesk/core-framework": "<=1.1.1",
                 "vanilla/safecurl": "<0.9.2",
                 "verbb/comments": "<1.5.5",
+                "verbb/formie": "<2.1.6",
                 "verbb/image-resizer": "<2.0.9",
                 "verbb/knock-knock": "<1.2.8",
                 "verot/class.upload.php": "<=2.1.6",
@@ -5510,7 +5511,7 @@
                 "wpanel/wpanel4-cms": "<=4.3.1",
                 "wpcloud/wp-stateless": "<3.2",
                 "wpglobus/wpglobus": "<=1.9.6",
-                "wwbn/avideo": "<=12.4",
+                "wwbn/avideo": "<14.3",
                 "xataface/xataface": "<3",
                 "xpressengine/xpressengine": "<3.0.15",
                 "yab/quarx": "<2.4.5",
@@ -5605,7 +5606,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-05-20T05:04:57+00:00"
+            "time": "2024-05-20T21:04:23+00:00"
         }
     ],
     "aliases": [],
