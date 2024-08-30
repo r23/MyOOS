@@ -38,7 +38,7 @@ abstract class AbstractGenerator implements GeneratorInterface
 
     /**
      * @param  bool $isSourceDirty
-     * @return AbstractGenerator
+     * @return static
      */
     public function setSourceDirty($isSourceDirty = true)
     {
@@ -56,7 +56,7 @@ abstract class AbstractGenerator implements GeneratorInterface
 
     /**
      * @param  string $indentation
-     * @return AbstractGenerator
+     * @return static
      */
     public function setIndentation($indentation)
     {
@@ -74,7 +74,7 @@ abstract class AbstractGenerator implements GeneratorInterface
 
     /**
      * @param  ?string $sourceContent
-     * @return AbstractGenerator
+     * @return static
      */
     public function setSourceContent($sourceContent)
     {
@@ -93,7 +93,7 @@ abstract class AbstractGenerator implements GeneratorInterface
     /**
      * @param  array|Traversable $options
      * @throws Exception\InvalidArgumentException
-     * @return AbstractGenerator
+     * @return static
      */
     public function setOptions($options)
     {

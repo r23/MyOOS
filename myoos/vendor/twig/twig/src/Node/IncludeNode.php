@@ -24,14 +24,14 @@ use Twig\Node\Expression\AbstractExpression;
 #[YieldReady]
 class IncludeNode extends Node implements NodeOutputInterface
 {
-    public function __construct(AbstractExpression $expr, ?AbstractExpression $variables, bool $only, bool $ignoreMissing, int $lineno, ?string $tag = null)
+    public function __construct(AbstractExpression $expr, ?AbstractExpression $variables, bool $only, bool $ignoreMissing, int $lineno)
     {
         $nodes = ['expr' => $expr];
         if (null !== $variables) {
             $nodes['variables'] = $variables;
         }
 
-        parent::__construct($nodes, ['only' => $only, 'ignore_missing' => $ignoreMissing], $lineno, $tag);
+        parent::__construct($nodes, ['only' => $only, 'ignore_missing' => $ignoreMissing], $lineno);
     }
 
     public function compile(Compiler $compiler): void
@@ -42,10 +42,10 @@ class IncludeNode extends Node implements NodeOutputInterface
             $template = $compiler->getVarName();
 
             $compiler
-                ->write(sprintf("$%s = null;\n", $template))
+                ->write(\sprintf("$%s = null;\n", $template))
                 ->write("try {\n")
                 ->indent()
-                ->write(sprintf('$%s = ', $template))
+                ->write(\sprintf('$%s = ', $template))
             ;
 
             $this->addGetTemplate($compiler);
@@ -58,9 +58,9 @@ class IncludeNode extends Node implements NodeOutputInterface
                 ->write("// ignore missing template\n")
                 ->outdent()
                 ->write("}\n")
-                ->write(sprintf("if ($%s) {\n", $template))
+                ->write(\sprintf("if ($%s) {\n", $template))
                 ->indent()
-                ->write(sprintf('yield from $%s->unwrap()->yield(', $template))
+                ->write(\sprintf('yield from $%s->unwrap()->yield(', $template))
             ;
 
             $this->addTemplateArguments($compiler);

@@ -43,11 +43,11 @@ use Twig\TokenParser\TokenParserInterface;
  */
 class Environment
 {
-    public const VERSION = '3.10.3';
-    public const VERSION_ID = 301003;
+    public const VERSION = '3.12.0';
+    public const VERSION_ID = 301200;
     public const MAJOR_VERSION = 3;
-    public const MINOR_VERSION = 10;
-    public const RELEASE_VERSION = 3;
+    public const MINOR_VERSION = 12;
+    public const RELEASE_VERSION = 0;
     public const EXTRA_VERSION = '';
 
     private $charset;
@@ -63,7 +63,6 @@ class Environment
     private $resolvedGlobals;
     private $loadedTemplates;
     private $strictVariables;
-    private $templateClassPrefix = '__TwigTemplate_';
     private $originalCache;
     private $extensionSet;
     private $runtimeLoaders = [];
@@ -104,9 +103,9 @@ class Environment
      *                   (default to -1 which means that all optimizations are enabled;
      *                   set it to 0 to disable).
      *
-     *  * use_yield: Enable templates to exclusively use "yield" instead of "echo"
-     *               (default to "false", but switch it to "true" when possible
-     *               as this will be the only supported mode in Twig 4.0)
+     *  * use_yield: true: forces templates to exclusively use "yield" instead of "echo" (all extensions must be yield ready)
+     *               false (default): allows templates to use a mix of "yield" and "echo" calls to allow for a progressive migration
+     *               Switch to "true" when possible as this will be the only supported mode in Twig 4.0
      */
     public function __construct(LoaderInterface $loader, $options = [])
     {
@@ -290,7 +289,7 @@ class Environment
     {
         $key = $this->getLoader()->getCacheKey($name).$this->optionsHash;
 
-        return $this->templateClassPrefix.hash(\PHP_VERSION_ID < 80100 ? 'sha256' : 'xxh128', $key).(null === $index ? '' : '___'.$index);
+        return '__TwigTemplate_'.hash(\PHP_VERSION_ID < 80100 ? 'sha256' : 'xxh128', $key).(null === $index ? '' : '___'.$index);
     }
 
     /**
@@ -393,7 +392,7 @@ class Environment
                 }
 
                 if (!class_exists($cls, false)) {
-                    throw new RuntimeError(sprintf('Failed to load Twig template "%s", index "%s": cache might be corrupted.', $name, $index), -1, $source);
+                    throw new RuntimeError(\sprintf('Failed to load Twig template "%s", index "%s": cache might be corrupted.', $name, $index), -1, $source);
                 }
             }
         }
@@ -418,9 +417,9 @@ class Environment
     {
         $hash = hash(\PHP_VERSION_ID < 80100 ? 'sha256' : 'xxh128', $template, false);
         if (null !== $name) {
-            $name = sprintf('%s (string template %s)', $name, $hash);
+            $name = \sprintf('%s (string template %s)', $name, $hash);
         } else {
-            $name = sprintf('__string_template__%s', $hash);
+            $name = \sprintf('__string_template__%s', $hash);
         }
 
         $loader = new ChainLoader([
@@ -485,7 +484,7 @@ class Environment
             return $this->load($name);
         }
 
-        throw new LoaderError(sprintf('Unable to find one of the following templates: "%s".', implode('", "', $names)));
+        throw new LoaderError(\sprintf('Unable to find one of the following templates: "%s".', implode('", "', $names)));
     }
 
     public function setLexer(Lexer $lexer)
@@ -554,7 +553,7 @@ class Environment
             $e->setSourceContext($source);
             throw $e;
         } catch (\Exception $e) {
-            throw new SyntaxError(sprintf('An exception has been thrown during the compilation of a template ("%s").', $e->getMessage()), -1, $source, $e);
+            throw new SyntaxError(\sprintf('An exception has been thrown during the compilation of a template ("%s").', $e->getMessage()), -1, $source, $e);
         }
     }
 
@@ -632,7 +631,7 @@ class Environment
             return $this->runtimes[$class] = $runtime;
         }
 
-        throw new RuntimeError(sprintf('Unable to load the "%s" runtime.', $class));
+        throw new RuntimeError(\sprintf('Unable to load the "%s" runtime.', $class));
     }
 
     public function addExtension(ExtensionInterface $extension)
@@ -803,7 +802,7 @@ class Environment
     public function addGlobal(string $name, $value)
     {
         if ($this->extensionSet->isInitialized() && !\array_key_exists($name, $this->getGlobals())) {
-            throw new \LogicException(sprintf('Unable to add global "%s" as the runtime or the extensions have already been initialized.', $name));
+            throw new \LogicException(\sprintf('Unable to add global "%s" as the runtime or the extensions have already been initialized.', $name));
         }
 
         if (null !== $this->resolvedGlobals) {

@@ -58,8 +58,8 @@ final class SandboxNodeVisitor implements NodeVisitorInterface
             }
 
             // look for filters
-            if ($node instanceof FilterExpression && !isset($this->filters[$node->getNode('filter')->getAttribute('value')])) {
-                $this->filters[$node->getNode('filter')->getAttribute('value')] = $node->getTemplateLine();
+            if ($node instanceof FilterExpression && !isset($this->filters[$node->getAttribute('name')])) {
+                $this->filters[$node->getAttribute('name')] = $node->getTemplateLine();
             }
 
             // look for functions
@@ -119,7 +119,7 @@ final class SandboxNodeVisitor implements NodeVisitorInterface
     private function wrapNode(Node $node, string $name): void
     {
         $expr = $node->getNode($name);
-        if ($expr instanceof NameExpression || $expr instanceof GetAttrExpression) {
+        if (($expr instanceof NameExpression || $expr instanceof GetAttrExpression) && !$expr->isGenerator()) {
             $node->setNode($name, new CheckToStringNode($expr));
         }
     }

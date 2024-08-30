@@ -49,3 +49,4 @@ if (isset($_SESSION)) {
         unset($_SESSION['guest_login']);
     }
 }
+
